@@ -102,17 +102,17 @@ public:
 	const CXRect& GetRect() const { return m_rect; }
 
 public:
-	CXStr                    m_text;
-	int                      m_font;
-	CXRect                   m_rect;
-	COLORREF                 m_color;
-	CTextObjectBase*         m_pNext;
-	CTextObjectBase*         m_pPrev;
-	IDirect3DVertexBuffer9*  m_pVertexBuffer;
-	bool                     m_dirty;
-	bool                     m_render;
-	int                      m_maxLength;
-};
+/*0x04*/ CXStr                    m_text;
+/*0x08*/ int                      m_font;
+/*0x0c*/ CXRect                   m_rect;
+/*0x1c*/ COLORREF                 m_color;
+/*0x20*/ CTextObjectBase*         m_pNext;
+/*0x24*/ CTextObjectBase*         m_pPrev;
+/*0x28*/ IDirect3DVertexBuffer9*  m_pVertexBuffer;
+/*0x2c*/ bool                     m_dirty;
+/*0x2d*/ bool                     m_render;
+/*0x30*/ int                      m_maxLength;
+/*0x34*/ };
 
 class [[offsetcomments]] CTextObject : public CTextObjectBase
 {
@@ -121,10 +121,10 @@ public:
 	uint16_t GetFlags() const { return m_flags; }
 
 private:
-	CXRect                   m_clipRect;
-	uint16_t                 m_flags;
-	int                      m_offset;
-};
+/*0x34*/ CXRect                   m_clipRect;
+/*0x44*/ uint16_t                 m_flags;
+/*0x48*/ int                      m_offset;
+/*0x4c*/ };
 
 } // namespace eqlib
 

@@ -565,7 +565,7 @@ struct ResizePolicyNoShrink
 struct ResizePolicyNoResize {};
 
 template <typename T, typename Key>
-class HashTableEntry
+struct HashTableEntry
 {
 	T obj;
 	Key key;
@@ -675,7 +675,7 @@ T* HashTable<T, Key, ResizePolicy>::WalkFirst() const
 	{
 		HashEntry *entry = Table[i];
 		if (entry != nullptr)
-			return(&entry->obj);
+			return &entry->obj;
 	}
 	return nullptr;
 }
@@ -686,17 +686,18 @@ T* HashTable<T, Key, ResizePolicy>::WalkNext(const T* prevRes) const
 	HashEntry *entry = (HashEntry *)(((char *)prevRes) - offsetof(HashEntry, Obj));
 	int i = (HashValue<Key>(entry->key)) % TableSize;
 	entry = entry->NextEntry;
-	if (entry != NULL)
+	if (entry != nullptr)
 		return(&entry->obj);
 
 	i++;
 	for (; i < TableSize; i++)
 	{
 		HashEntry *entry = Table[i];
-		if (entry != NULL)
+		if (entry != nullptr)
 			return(&entry->obj);
 	}
-	return NULL;
+
+	return nullptrNULL;
 }
 
 template <typename T, typename Key, typename ResizePolicy>
@@ -708,17 +709,19 @@ int HashTable<T, Key, ResizePolicy>::GetTotalEntries() const
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::FindFirst(const Key& key) const
 {
-	if (Table == NULL)
-		return NULL;
+	if (Table == nullptr)
+		return nullptr;
 
 	HashEntry* entry = Table[(HashValue<Key>(key)) % TableSize];
-	while (entry != NULL)
+	while (entry != nullptr)
 	{
 		if (entry->key == key)
-			return(&entry->obj);
-		entry = entry->NextEntry;
+			return &entry->obj;
+
+		entry = entry->next;
 	}
-	return NULL;
+
+	return nullptr;
 }
 
 template <typename T, typename Key, typename ResizePolicy>

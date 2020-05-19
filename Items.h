@@ -37,6 +37,8 @@ using CONTENTS = ItemClient;
 using CONTENTS* = ItemClient *;
 #endif
 
+class CUnSerializeBuffer;
+
 enum ItemContainerInstance
 {
 	eItemContainerInvalid                        = -1,
@@ -502,6 +504,8 @@ public:
 	}
 
 	char guid[GUID];
+
+	EQLIB_OBJECT void UnSerialize(CUnSerializeBuffer& buffer);
 };
 
 struct ITEMBASEARRAY;

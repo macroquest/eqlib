@@ -15,6 +15,8 @@
 #include "pch.h"
 #include "Items.h"
 
+#include "EQClasses.h"
+
 namespace eqlib {
 
 //============================================================================
@@ -61,5 +63,17 @@ ItemGlobalIndex CONTENTS::GetGlobalIndex() const
 {
 	return this->GlobalIndex;
 }
+
+//----------------------------------------------------------------------------
+// EqItemGuid
+
+void EqItemGuid::UnSerialize(CUnSerializeBuffer& buffer)
+{
+	char temp[GUID - 1];
+
+	buffer.ReadString(temp, lengthof(temp));
+	strcpy_s(this->guid, temp);
+}
+
 
 } // namespace eqlib

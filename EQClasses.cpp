@@ -2636,6 +2636,25 @@ FUNCTION_AT_ADDRESS(Wave3dInstance::Wave3dInstance(SoundManager*), Wave3dInstanc
 FUNCTION_AT_ADDRESS(void _EverQuestinfo::SetAutoAttack(bool), _EverQuestinfo__SetAutoAttack);
 #endif
 
+//============================================================================
+//============================================================================
+
+void CUnSerializeBuffer::Read(CXStr& str)
+{
+	int length = 0;
+	Read(length);
+
+	if (length > 0)
+	{
+		str.assign(m_pBuffer + m_uReadOffset, length);
+		m_uReadOffset += length;
+	}
+	else
+	{
+		str.clear();
+	}
+}
+
 #pragma warning(pop)
 
 } // namespace eqlib

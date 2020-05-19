@@ -258,7 +258,7 @@ public:
 /*0x0154*/ DWORD       TimeStamp;
 /*0x0158*/ BYTE        Unknown0x158[0x2c12];
 /*0x2d6a*/ BYTE        NpcNames;                 // show npc names
-/*0x2d6b*/
+/*0x2d6c*/
 
 	EQLIB_OBJECT ~CDisplay();
 	EQLIB_OBJECT CDisplay(HWND);
@@ -643,23 +643,74 @@ public:
 	EQLIB_OBJECT void CshOnPlayerLeaving(char*, int, char*);
 };
 
+namespace detail
+{
+	template <typename, typename T>
+	struct has_unserialize {
+		static_assert(
+			std::integral_constant<T, false>::value,
+			"Second template parameter needs to be of function type.");
+	};
+
+	// specialization that does the checking
+	template <typename C, typename Ret, typename... Args>
+	struct has_unserialize<C, Ret(Args...)> {
+	private:
+		template <typename T>
+		static constexpr auto check(T*)
+			-> typename std::is_same<
+			decltype(std::declval<T>().UnSerialize(std::declval<Args>()...)),
+			Ret>::type;
+
+		template <typename>
+		static constexpr std::false_type check(...);
+
+		using type = decltype(check<C>(0));
+
+	public:
+		static constexpr bool value = type::value;
+	};
+}
+
 class CUnSerializeBuffer
 {
 public:
-	const char*        m_pBuffer;
-	uint32_t           m_uLength;
-	uint32_t           m_uReadOffset;
+	const char* m_pBuffer = nullptr;
+	size_t      m_uLength = 0;
+	size_t      m_uReadOffset = 0;
 
-	void Reset() { m_uReadOffset = 0; }
+	EQLIB_OBJECT CUnSerializeBuffer() = default;
 
-	template<typename T>
-	void Read(T& r)
+	EQLIB_OBJECT CUnSerializeBuffer(const CUnSerializeBuffer& other)
+		: m_pBuffer(other.m_pBuffer)
+		, m_uLength(other.m_uLength)
+		, m_uReadOffset(other.m_uReadOffset)
+	{}
+
+	EQLIB_OBJECT CUnSerializeBuffer(const char* buffer, size_t length)
+		: m_pBuffer(buffer)
+		, m_uLength(length)
+	{}
+
+	EQLIB_OBJECT void Reset() { m_uReadOffset = 0; }
+
+	EQLIB_OBJECT void Read(CXStr& str);
+
+
+	template <typename T>
+	std::enable_if_t<detail::has_unserialize<T, void(CUnSerializeBuffer&)>::value, void> Read(T& obj)
+	{
+		obj.UnSerialize(*this);
+	}
+
+	template <typename T>
+	std::enable_if_t<!detail::has_unserialize<T, void(CUnSerializeBuffer&)>::value, void> Read(T& r)
 	{
 		r = *(T*)(m_pBuffer + m_uReadOffset);
 		m_uReadOffset += sizeof(T);
 	}
 
-	void ReadString(std::string& out)
+	EQLIB_OBJECT void ReadString(std::string& out)
 	{
 		int len = 0;
 		while (m_pBuffer[m_uReadOffset] != '\0')
@@ -683,20 +734,27 @@ public:
 		}
 	}
 
-	template <unsigned int _Size>
-	void ReadpChar(char(&_Buffer)[_Size])
+	bool ReadString(char* buffer, size_t bufferSize)
 	{
-		_Buffer[0] = '\0';
-		int len = 0;
+		size_t size = strlen(m_pBuffer + m_uReadOffset) + 1;
+		size_t readAmount = std::min(bufferSize - 1, size);
 
-		while(m_pBuffer[m_uReadOffset] != '\0' && len < _Size)
+		if (!ValidateRead(readAmount))
 		{
-			_Buffer[len++] = (char)(m_pBuffer[m_uReadOffset]);
-			m_uReadOffset++;
+			*buffer = 0;
+			return false;
 		}
 
-		// take null term into account...
-		m_uReadOffset++;
+		memcpy(buffer, m_pBuffer + m_uReadOffset, readAmount);
+		buffer[readAmount] = 0;
+		m_uReadOffset += size;
+		return true;
+	}
+
+private:
+	bool ValidateRead(size_t amount)
+	{
+		return (m_uReadOffset + amount <= m_uLength);
 	}
 };
 

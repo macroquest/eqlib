@@ -587,7 +587,8 @@ class [[offsetcomments]] CStaticAnimationTemplate : public CStaticScreenPieceTem
 public:
 	EQLIB_OBJECT CStaticAnimationTemplate(CParamStaticAnimation*);
 
-	CTextureAnimation* ptaTextureAnimation;
+/*0x84*/ CTextureAnimation* ptaTextureAnimation;
+/*0x88*/
 };
 
 class CStaticFrameTemplate
