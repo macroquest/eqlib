@@ -52,6 +52,14 @@ using PSPAWNINFO = PlayerClient *;
 
 struct SPAWNINFO;
 
+constexpr int MAX_GROUP_ASSISTS = 1;
+constexpr int MAX_GROUP_MARK_TARGETS = 3;
+constexpr int MAX_RAID_ASSISTS = 3;
+constexpr int MAX_RAID_MARK_TARGETS = 3;
+
+constexpr int MAX_MOVEMENT_STATS = 20;
+
+
 struct [[offsetcomments]] ARMOR
 {
 /*0x00*/ unsigned int ID;                        // idfile on Lucy
@@ -645,10 +653,10 @@ struct [[offsetcomments]] SPAWNINFO
 
 /*0x0618*/ TCircularBuffer<SDoCollisionMovementStats, 0x14> MovementStats; // size (0x74 * 0x14) +8 = 0x918
 /*0x0f30*/ SPAWNINFO*        WhoFollowing;                 // NULL if autofollow off
-/*0x0f34*/ unsigned int      GroupAssistNPC[0x1];
-/*0x0f38*/ unsigned int      RaidAssistNPC[0x3];
-/*0x0f44*/ unsigned int      GroupMarkNPC[0x3];
-/*0x0f50*/ unsigned int      RaidMarkNPC[0x3];
+/*0x0f34*/ unsigned int      GroupAssistNPC[MAX_GROUP_ASSISTS];
+/*0x0f38*/ unsigned int      RaidAssistNPC[MAX_RAID_ASSISTS];
+/*0x0f44*/ unsigned int      GroupMarkNPC[MAX_GROUP_MARK_TARGETS];
+/*0x0f50*/ unsigned int      RaidMarkNPC[MAX_RAID_MARK_TARGETS];
 /*0x0f5c*/ unsigned int      TargetOfTarget;
 /*0x0f60*/ uint8_t           PhysStuff[0x20];
 /*0x0f80*/ unsigned int      ParticleCastStartTime;
@@ -1082,16 +1090,14 @@ public:
 /*0x060c*/ bool                     bBetaBuffed;
 /*0x0610*/ unsigned int             NextIntimidateTime;
 /*0x0614*/ unsigned int             StunTimer;
-
 // @end: PlayerZoneClient Members
 
-	enum { MAX_MOVEMENT_STATS = 20 };
 /*0x0618*/ TCircularBuffer<SDoCollisionMovementStats, MAX_MOVEMENT_STATS> MovementStats; // size (0x74 * 0x14) +8 = 0x918
-/*0x0f30*/ PlayerClient*      WhoFollowing;                // NULL if autofollow off
-/*0x0f34*/ unsigned int       GroupAssistNPC[0x1];
-/*0x0f38*/ unsigned int       RaidAssistNPC[0x3];
-/*0x0f44*/ unsigned int       GroupMarkNPC[0x3];
-/*0x0f50*/ unsigned int       RaidMarkNPC[0x3];
+/*0x0f30*/ PlayerClient*      WhoFollowing;                       // NULL if autofollow off
+/*0x0f34*/ unsigned int       GroupAssistNPC[MAX_GROUP_ASSISTS];
+/*0x0f38*/ unsigned int       RaidAssistNPC[MAX_RAID_ASSISTS];
+/*0x0f44*/ unsigned int       GroupMarkNPC[MAX_GROUP_MARK_TARGETS];
+/*0x0f50*/ unsigned int       RaidMarkNPC[MAX_RAID_MARK_TARGETS];
 /*0x0f5c*/ unsigned int       TargetOfTarget;
 /*0x0f60*/ uint8_t            PhysStuff[0x20];
 /*0x0f80*/ unsigned int       ParticleCastStartTime;

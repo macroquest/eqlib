@@ -1052,7 +1052,7 @@ EQLIB_VAR EQSOCIAL*                                  pSocialList;
 EQLIB_VAR SpellLoadout*                              pSpellSets;
 EQLIB_VAR CTaskManager*                              pTaskManager;
 EQLIB_VAR BYTE*                                      pTributeActive;
-EQLIB_VAR EQZoneInfo*                                pZoneInfo;
+EQLIB_VAR ZONEINFO*                                  pZoneInfo;
 EQLIB_VAR SoeUtil::String*                           pExceptionSubmissionEndpoint;
 
 // Spawn/Char related

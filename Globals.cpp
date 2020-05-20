@@ -1021,7 +1021,7 @@ EQSOCIAL*              pSocialList               = nullptr;
 SpellLoadout*          pSpellSets                = nullptr;
 CTaskManager*          pTaskManager              = nullptr;
 BYTE*                  pTributeActive            = nullptr;
-EQZoneInfo*            pZoneInfo                 = nullptr;
+ZONEINFO*              pZoneInfo                 = nullptr;
 SoeUtil::String*       pExceptionSubmissionEndpoint = nullptr;
 
 ForeignPointer<PcClient, CHARINFO>               pCharData;
@@ -1238,7 +1238,7 @@ void InitializeEQGameOffsets()
 	pSpellSets                      = (SpellLoadout*)pinstSpellSets;
 	pTaskManager                    = (CTaskManager*)pinstCTaskManager;
 	pTributeActive                  = (BYTE*)instTributeActive;
-	pZoneInfo                       = (EQZoneInfo*)instEQZoneInfo;
+	pZoneInfo                       = (ZONEINFO*)instEQZoneInfo;
 
 	// Spawn/Char pointers
 	pCharData                       = pinstCharData;

@@ -619,6 +619,8 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetCurrentMod(int index), Character
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetModCap(int index, bool bToggle), CharacterZoneClient__GetModCap);
 #endif
 
+FUNCTION_AT_VIRTUAL_ADDRESS(int CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x20);
+
 //============================================================================
 // EQ_CharacterData
 //============================================================================

@@ -38,9 +38,6 @@
 #define USE_NEW_CHARINFO       0
 #define USE_NEW_PCPROFILE      0
 
-constexpr int MAX_BLOCKED_SPELLS = 40;
-constexpr int MAX_BLOCKED_SPELLS_PET = 40;
-
 namespace eqlib {
 
 class BaseProfile;
@@ -96,10 +93,10 @@ enum eProfileType
 	ePTUnknown
 };
 
-class CharacterPropertyHash : public HashTable<int>
-{
-public:
-};
+constexpr int MAX_BLOCKED_SPELLS = 40;
+constexpr int MAX_BLOCKED_SPELLS_PET = 40;
+
+constexpr int EQSKILL_HIDE = 29;
 
 //============================================================================
 // Structs
@@ -197,6 +194,10 @@ public:
 	}
 };
 
+class CharacterPropertyHash : public HashTable<int>
+{
+};
+
 // size 34 i think in eqgame dated mar 23 2015 but i have no address for it atm
 struct [[offsetcomments]] GROUPMEMBER
 {
@@ -231,7 +232,6 @@ struct [[offsetcomments]] GROUPMEMBER
 };
 using PGROUPMEMBER [[deprecated]] = GROUPMEMBER*;
 
-
 struct [[offsetcomments]] GROUPINFO
 {
 /*0x00*/ void* vftable;
@@ -240,7 +240,6 @@ struct [[offsetcomments]] GROUPINFO
 /*0x20*/
 };
 using PGROUPINFO [[deprecated]] = GROUPINFO*;
-
 
 // size 0x4c 12-25-09 - ieatacid
 struct [[offsetcomments]] XTARGETSLOT
@@ -1712,6 +1711,11 @@ enum GILocationOption
 	Socket
 };
 
+enum GameFeatures
+{
+	eSpellRankFeature = 3
+};
+
 class IFreeToPlayInfo
 {
 public:
@@ -1896,6 +1900,7 @@ public:
 	EQLIB_OBJECT CharacterZoneClient();
 
 	// Verified
+	EQLIB_OBJECT /* virtual */ int CalculateInvisLevel(InvisibleTypes Type, bool bIncludeSoS = true);
 	EQLIB_OBJECT bool CanUseItem(CONTENTS** pItem, bool bUseRequiredLvl, bool bOutput = true);
 	EQLIB_OBJECT unsigned char CastSpell(unsigned char gemid, int spellid, EQ_Item** ppItem, const ItemGlobalIndex& itemLoc, ItemSpellTypes slot, unsigned char spell_loc, int arg7, int arg8, int arg9, bool arg10);
 	EQLIB_OBJECT int Cur_HP(int Spawntype/*PC = 0 NPC=1 and so on*/, bool bCapAtMax = true);
@@ -2355,8 +2360,19 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2838*/ BYTE Filler[0x3C];
-/*0x2874*/
+/*0x2838*/ ExtendedTargetList* pXTargetMgr;
+/*0x283c*/ DWORD               InCombat;
+/*0x2840*/ DWORD               Downtime;
+/*0x2844*/ DWORD               DowntimeStamp;
+/*0x2848*/ bool                bOverrideAvatarProximity;
+/*0x284c*/ GROUPINFO*          pGroupInfo;
+/*0x2850*/ bool                bIAmCreatingGroup;
+/*0x2854*/ VeArray<VePointer<CONTENTS*>> ItemsPendingID;       // size 0xc
+/*0x2860*/ int                 ParcelStatus;                   // eParcelStatus
+/*0x2864*/ int                 SubscriptionDays;               // 24BC for sure see 7A6C40 in may 11 2018 live exe
+/*0x2868*/ short               BaseKeyRingSlots[4];
+/*0x2870*/ bool                bPickZoneFewest;                // for sure see 4A424A in may 11 2018 live exe
+/*0x2874*/ int                 Unknown0x2874;
 
 	// Verified
 	EQLIB_OBJECT unsigned long GetConLevel(const PlayerClient*);

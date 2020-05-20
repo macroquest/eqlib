@@ -371,6 +371,7 @@ struct STableCell;
 struct STempTable;
 struct STempTableCell;
 struct STempTableRow;
+struct ZONEINFO;
 
 #ifdef NEWCHARINFO
 using CHARINFO = CHARINFONEW;
