@@ -758,42 +758,7 @@ private:
 	}
 };
 
-struct guildmotdSet;
 struct connection_t;
-struct GuildMember;
-
-class CGuild
-{
-public:
-	EQLIB_OBJECT CGuild();
-	EQLIB_OBJECT bool ValidGuildName(int);
-	EQLIB_OBJECT char* GetGuildMotd();
-	EQLIB_OBJECT char* GetGuildMotdAuthor();
-	EQLIB_OBJECT const char* GetGuildName(int64_t);
-	EQLIB_OBJECT int64_t GetGuildIndex(char*);
-	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
-	EQLIB_OBJECT void DeleteAllMembers();
-	EQLIB_OBJECT void DemoteMember(GuildMember*);
-	EQLIB_OBJECT void HandleGuildMessage(connection_t*, uint32_t, char*, uint32_t);
-	EQLIB_OBJECT void SendPublicCommentChange(char*, char*);
-	EQLIB_OBJECT void SetGuildMotd(guildmotdSet*);
-
-	// virtual
-	EQLIB_OBJECT ~CGuild();
-
-	// private
-	EQLIB_OBJECT void AddGuildMember(GuildMember*);
-	EQLIB_OBJECT void ChangeGuildMemberName(char*);
-	EQLIB_OBJECT void HandleAddGuildMember(char*, int);
-	EQLIB_OBJECT void HandleDeleteGuildResponse(char*);
-	EQLIB_OBJECT void HandleGuildInvite(connection_t*, uint32_t, char*, uint32_t);
-	EQLIB_OBJECT void HandleMemberLevelUpdate(char*);
-	EQLIB_OBJECT void HandleRemoveGuildMember(char*, int);
-	EQLIB_OBJECT void InitializeFromDump(char*);
-	EQLIB_OBJECT void UpdateGuildMemberOnWindow(GuildMember*);
-	EQLIB_OBJECT void UpdateMemberStatus(char*);
-	EQLIB_OBJECT void UpdatePublicComment(char*);
-};
 
 class CWndDisplayManager
 {

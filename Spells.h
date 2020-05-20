@@ -585,6 +585,9 @@ enum eEQSPA
 	SPA_SHIELDBLOCKCHANCE DEPRECATE("Use SPA_SHIELD_BLOCK_CHANCE instead") = SPA_SHIELD_BLOCK_CHANCE,
 	SPA_SPELLDAMAGETAKEN DEPRECATE("Use SPA_FOCUS_INCOMING_DMG_MOD instead") = SPA_FOCUS_INCOMING_DMG_MOD,
 	SPA_REMOVE_DETRIMENTAL DEPRECATE("Use SPA_CANCEL_NEGATIVE_MAGIC instead") = SPA_CANCEL_NEGATIVE_MAGIC,
+	SPA_INVIS DEPRECATE("Use SPA_INVISIBILITY isntead") = SPA_INVISIBILITY,
+	SPA_INVIS_TO_UNDEAD DEPRECATE("Use SPA_INVIS_VS_UNDEAD instead") = SPA_INVIS_VS_UNDEAD,
+	SPA_INVIS_TO_ANIMALS DEPRECATE("Use SPA_INVIS_VS_ANIMALS isntead") = SPA_INVIS_VS_ANIMALS,
 };
 
 // this is here to be able to strongly type the enum while still allowing easy integral values for eqgame functions
@@ -1102,7 +1105,12 @@ struct [[offsetcomments]] SPELLMGR
 /*0x03dae4*/ SPELL*         Spells[TOTAL_SPELL_COUNT];    // 60000
 /*0x07a3a4*/ SPELL*         PtrToUnknownSpell;            // default bailout pointer...
 /*0x07a3a8*/ SPELLCALCINFO* CalcInfo[CalcInfoSize];       // 200000
-/*0x143668*/ DWORD          What1[0x6];
+/*0x143668*/ SPELLCALCINFO* PtrToUnknownSpellAffect;
+/*0x14366c*/ SPELLCALCINFO* PtrToUnknownSpellAffectAC;
+/*0x143670*/ int            UnknownSpellCRC;
+/*0x143674*/ int            SpellFileCRC;
+/*0x143678*/ int            SpellAssocFileCRC;
+/*0x14367c*/ int            SpellStackingFileCRC;
 /*0x143680*/ DWORD          What2[0x1E460];               // 120000
 /*0x1bc800*/ //(1820672) 1.8 mill! large struct in memory for sure...
 };

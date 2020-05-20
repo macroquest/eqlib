@@ -152,13 +152,6 @@ struct [[offsetcomments]] ALCHEMYBONUSSKILLDATA
 /*0x08*/
 };
 
-struct [[offsetcomments]] BenefitSelection
-{
-/*0x00*/ int BenefitID;
-/*0x04*/ int BenefitTier;
-/*0x08*/
-};
-
 class [[offsetcomments]] ProfileList
 {
 public:
@@ -960,57 +953,54 @@ struct [[offsetcomments]] CHARINFOOLD
 /*0x2ada*/ bool                                          Corpse;
 /*0x2adb*/ bool                                          ClientGmFlagSet;
 /*0x2adc*/ DWORD                                         BankSharedPlat;                 // 31e4 CharBaseBegin+488
-/*0x2ae0*/ DWORD                                         BankSharedGold;                 // CharBaseBegin+48c
-/*0x2ae4*/ DWORD                                         BankSharedSilver;               // CharBaseBegin+490
-/*0x2ae8*/ DWORD                                         BankSharedCopper;               // CharBaseBegin+494
-/*0x2aec*/ DWORD                                         BankPlat;                       // CharBaseBegin+498
-/*0x2af0*/ DWORD                                         BankGold;                       // CharBaseBegin+49c
-/*0x2af4*/ DWORD                                         BankSilver;                     // CharBaseBegin+4a0
-/*0x2af8*/ DWORD                                         BankCopper;                     // CharBaseBegin+4a4
-/*0x2afc*/ int                                           STR;                            // CharBaseBegin+4a8
-/*0x2b00*/ int                                           STA;                            // CharBaseBegin+4ac
-/*0x2b04*/ int                                           CHA;                            // CharBaseBegin+4b0
-/*0x2b08*/ int                                           DEX;                            // CharBaseBegin+4b4
-/*0x2b0c*/ int                                           INT;                            // CharBaseBegin+4b8
-/*0x2b10*/ int                                           AGI;                            // CharBaseBegin+4bc
-/*0x2b14*/ int                                           WIS;                            // CharBaseBegin+4c0
-/*0x2b18*/ int                                           LCK;                            // CharBaseBegin+4c4
-/*0x2b1c*/ int                                           SavePoison;                     // CharBaseBegin+4c8
-/*0x2b20*/ int                                           SaveMagic;                      // CharBaseBegin+4cc
-/*0x2b24*/ int                                           SaveDisease;                    // CharBaseBegin+4d0
-/*0x2b28*/ int                                           SaveCorruption;                 // CharBaseBegin+4d4
-/*0x2b2c*/ int                                           SaveFire;                       // CharBaseBegin+4d8
-/*0x2b30*/ int                                           SaveCold;                       // CharBaseBegin+4dc
-/*0x2b34*/ int                                           SavePhysical;                   // CharBaseBegin+4e0
-/*0x2b38*/ int                                           UncappedStr;
-/*0x2b3c*/ int                                           UncappedSta;
-/*0x2b40*/ int                                           UncappedCha;
-/*0x2b44*/ int                                           UncappedDex;
-/*0x2b48*/ int                                           UncappedInt;
-/*0x2b4c*/ int                                           UncappedAgi;
-/*0x2b50*/ int                                           UncappedWis;
-/*0x2b54*/ int                                           UncappedResistPoison;
-/*0x2b58*/ int                                           UncappedResistMagic;
-/*0x2b5c*/ int                                           UncappedResistDisease;
-/*0x2b60*/ int                                           UncappedResistCorruption;
-/*0x2b64*/ int                                           UncappedResistFire;
-/*0x2b68*/ int                                           UncappedResistCold;
-/*0x2b6c*/ int                                           UncappedResistPhysical;
-/*0x2b70*/ int                                           NoBuffStr;
-/*0x2b74*/ int                                           NoBuffSta;
-/*0x2b78*/ int                                           NoBuffCha;
-/*0x2b7c*/ int                                           NoBuffDex;
-/*0x2b80*/ int                                           NoBuffInt;
-/*0x2b84*/ int                                           NoBuffAgi;
-/*0x2b88*/ int                                           NoBuffWis;
-/*0x2b8c*/ int                                           NoBuffResistPoison;
-/*0x2b90*/ int                                           NoBuffResistMagic;
-/*0x2b94*/ int                                           NoBuffResistDisease;
-/*0x2b98*/ int                                           NoBuffResistCorruption;
-/*0x2b9c*/ int                                           NoBuffResistFire;
-/*0x2ba0*/ int                                           NoBuffResistCold;
-/*0x2ba4*/ int                                           NoBuffResistPhysical;
-/*0x2ba8*/
+/*0x2ae0*/ DWORD                                         BankPlat;                       // CharBaseBegin+498
+/*0x2ae4*/ DWORD                                         BankGold;                       // CharBaseBegin+49c
+/*0x2ae8*/ DWORD                                         BankSilver;                     // CharBaseBegin+4a0
+/*0x2aec*/ DWORD                                         BankCopper;                     // CharBaseBegin+4a4
+/*0x2af0*/ int                                           STR;                            // CharBaseBegin+4a8
+/*0x2af4*/ int                                           STA;                            // CharBaseBegin+4ac
+/*0x2af8*/ int                                           CHA;                            // CharBaseBegin+4b0
+/*0x2afc*/ int                                           DEX;                            // CharBaseBegin+4b4
+/*0x2b00*/ int                                           INT;                            // CharBaseBegin+4b8
+/*0x2b04*/ int                                           AGI;                            // CharBaseBegin+4bc
+/*0x2b08*/ int                                           WIS;                            // CharBaseBegin+4c0
+/*0x2b0c*/ int                                           LCK;                            // CharBaseBegin+4c4
+/*0x2b10*/ int                                           SavePoison;                     // CharBaseBegin+4c8
+/*0x2b14*/ int                                           SaveMagic;                      // CharBaseBegin+4cc
+/*0x2b18*/ int                                           SaveDisease;                    // CharBaseBegin+4d0
+/*0x2b1c*/ int                                           SaveCorruption;                 // CharBaseBegin+4d4
+/*0x2b20*/ int                                           SaveFire;                       // CharBaseBegin+4d8
+/*0x2b24*/ int                                           SaveCold;                       // CharBaseBegin+4dc
+/*0x2b28*/ int                                           SavePhysical;                   // CharBaseBegin+4e0
+/*0x2b2c*/ int                                           UncappedStr;
+/*0x2b30*/ int                                           UncappedSta;
+/*0x2b34*/ int                                           UncappedCha;
+/*0x2b38*/ int                                           UncappedDex;
+/*0x2b3c*/ int                                           UncappedInt;
+/*0x2b40*/ int                                           UncappedAgi;
+/*0x2b44*/ int                                           UncappedWis;
+/*0x2b48*/ int                                           UncappedResistPoison;
+/*0x2b4c*/ int                                           UncappedResistMagic;
+/*0x2b50*/ int                                           UncappedResistDisease;
+/*0x2b54*/ int                                           UncappedResistCorruption;
+/*0x2b58*/ int                                           UncappedResistFire;
+/*0x2b5c*/ int                                           UncappedResistCold;
+/*0x2b60*/ int                                           UncappedResistPhysical;
+/*0x2b64*/ int                                           NoBuffStr;
+/*0x2b68*/ int                                           NoBuffSta;
+/*0x2b6c*/ int                                           NoBuffCha;
+/*0x2b70*/ int                                           NoBuffDex;
+/*0x2b74*/ int                                           NoBuffInt;
+/*0x2b78*/ int                                           NoBuffAgi;
+/*0x2b7c*/ int                                           NoBuffWis;
+/*0x2b80*/ int                                           NoBuffResistPoison;
+/*0x2b84*/ int                                           NoBuffResistMagic;
+/*0x2b88*/ int                                           NoBuffResistDisease;
+/*0x2b8c*/ int                                           NoBuffResistCorruption;
+/*0x2b90*/ int                                           NoBuffResistFire;
+/*0x2b94*/ int                                           NoBuffResistCold;
+/*0x2b98*/ int                                           NoBuffResistPhysical;
+/*0x2b9c*/
 };
 
 struct [[offsetcomments]] CHARINFONEW
@@ -1344,57 +1334,54 @@ struct [[offsetcomments]] CHARINFONEW
 /*0x2ada*/ bool                                          Corpse;
 /*0x2adb*/ bool                                          ClientGmFlagSet;
 /*0x2adc*/ DWORD                                         BankSharedPlat;                 // 31e4 CharBaseBegin+488
-/*0x2ae0*/ DWORD                                         BankSharedGold;                 // CharBaseBegin+48c
-/*0x2ae4*/ DWORD                                         BankSharedSilver;               // CharBaseBegin+490
-/*0x2ae8*/ DWORD                                         BankSharedCopper;               // CharBaseBegin+494
-/*0x2aec*/ DWORD                                         BankPlat;                       // CharBaseBegin+498
-/*0x2af0*/ DWORD                                         BankGold;                       // CharBaseBegin+49c
-/*0x2af4*/ DWORD                                         BankSilver;                     // CharBaseBegin+4a0
-/*0x2af8*/ DWORD                                         BankCopper;                     // CharBaseBegin+4a4
-/*0x2afc*/ int                                           STR;                            // CharBaseBegin+4a8
-/*0x2b00*/ int                                           STA;                            // CharBaseBegin+4ac
-/*0x2b04*/ int                                           CHA;                            // CharBaseBegin+4b0
-/*0x2b08*/ int                                           DEX;                            // CharBaseBegin+4b4
-/*0x2b0c*/ int                                           INT;                            // CharBaseBegin+4b8
-/*0x2b10*/ int                                           AGI;                            // CharBaseBegin+4bc
-/*0x2b14*/ int                                           WIS;                            // CharBaseBegin+4c0
-/*0x2b18*/ int                                           LCK;                            // CharBaseBegin+4c4
-/*0x2b1c*/ int                                           SavePoison;                     // CharBaseBegin+4c8
-/*0x2b20*/ int                                           SaveMagic;                      // CharBaseBegin+4cc
-/*0x2b24*/ int                                           SaveDisease;                    // CharBaseBegin+4d0
-/*0x2b28*/ int                                           SaveCorruption;                 // CharBaseBegin+4d4
-/*0x2b2c*/ int                                           SaveFire;                       // CharBaseBegin+4d8
-/*0x2b30*/ int                                           SaveCold;                       // CharBaseBegin+4dc
-/*0x2b34*/ int                                           SavePhysical;                   // CharBaseBegin+4e0
-/*0x2b38*/ int                                           UncappedStr;
-/*0x2b3c*/ int                                           UncappedSta;
-/*0x2b40*/ int                                           UncappedCha;
-/*0x2b44*/ int                                           UncappedDex;
-/*0x2b48*/ int                                           UncappedInt;
-/*0x2b4c*/ int                                           UncappedAgi;
-/*0x2b50*/ int                                           UncappedWis;
-/*0x2b54*/ int                                           UncappedResistPoison;
-/*0x2b58*/ int                                           UncappedResistMagic;
-/*0x2b5c*/ int                                           UncappedResistDisease;
-/*0x2b60*/ int                                           UncappedResistCorruption;
-/*0x2b64*/ int                                           UncappedResistFire;
-/*0x2b68*/ int                                           UncappedResistCold;
-/*0x2b6c*/ int                                           UncappedResistPhysical;
-/*0x2b70*/ int                                           NoBuffStr;
-/*0x2b74*/ int                                           NoBuffSta;
-/*0x2b78*/ int                                           NoBuffCha;
-/*0x2b7c*/ int                                           NoBuffDex;
-/*0x2b80*/ int                                           NoBuffInt;
-/*0x2b84*/ int                                           NoBuffAgi;
-/*0x2b88*/ int                                           NoBuffWis;
-/*0x2b8c*/ int                                           NoBuffResistPoison;
-/*0x2b90*/ int                                           NoBuffResistMagic;
-/*0x2b94*/ int                                           NoBuffResistDisease;
-/*0x2b98*/ int                                           NoBuffResistCorruption;
-/*0x2b9c*/ int                                           NoBuffResistFire;
-/*0x2ba0*/ int                                           NoBuffResistCold;
-/*0x2ba4*/ int                                           NoBuffResistPhysical;
-/*0x2ba8*/
+/*0x2ae0*/ DWORD                                         BankPlat;                       // CharBaseBegin+498
+/*0x2ae4*/ DWORD                                         BankGold;                       // CharBaseBegin+49c
+/*0x2ae8*/ DWORD                                         BankSilver;                     // CharBaseBegin+4a0
+/*0x2aec*/ DWORD                                         BankCopper;                     // CharBaseBegin+4a4
+/*0x2af0*/ int                                           STR;                            // CharBaseBegin+4a8
+/*0x2af4*/ int                                           STA;                            // CharBaseBegin+4ac
+/*0x2af8*/ int                                           CHA;                            // CharBaseBegin+4b0
+/*0x2afc*/ int                                           DEX;                            // CharBaseBegin+4b4
+/*0x2b00*/ int                                           INT;                            // CharBaseBegin+4b8
+/*0x2b04*/ int                                           AGI;                            // CharBaseBegin+4bc
+/*0x2b08*/ int                                           WIS;                            // CharBaseBegin+4c0
+/*0x2b0c*/ int                                           LCK;                            // CharBaseBegin+4c4
+/*0x2b10*/ int                                           SavePoison;                     // CharBaseBegin+4c8
+/*0x2b14*/ int                                           SaveMagic;                      // CharBaseBegin+4cc
+/*0x2b18*/ int                                           SaveDisease;                    // CharBaseBegin+4d0
+/*0x2b1c*/ int                                           SaveCorruption;                 // CharBaseBegin+4d4
+/*0x2b20*/ int                                           SaveFire;                       // CharBaseBegin+4d8
+/*0x2b24*/ int                                           SaveCold;                       // CharBaseBegin+4dc
+/*0x2b28*/ int                                           SavePhysical;                   // CharBaseBegin+4e0
+/*0x2b2c*/ int                                           UncappedStr;
+/*0x2b30*/ int                                           UncappedSta;
+/*0x2b34*/ int                                           UncappedCha;
+/*0x2b38*/ int                                           UncappedDex;
+/*0x2b3c*/ int                                           UncappedInt;
+/*0x2b40*/ int                                           UncappedAgi;
+/*0x2b44*/ int                                           UncappedWis;
+/*0x2b48*/ int                                           UncappedResistPoison;
+/*0x2b4c*/ int                                           UncappedResistMagic;
+/*0x2b50*/ int                                           UncappedResistDisease;
+/*0x2b54*/ int                                           UncappedResistCorruption;
+/*0x2b58*/ int                                           UncappedResistFire;
+/*0x2b5c*/ int                                           UncappedResistCold;
+/*0x2b60*/ int                                           UncappedResistPhysical;
+/*0x2b64*/ int                                           NoBuffStr;
+/*0x2b68*/ int                                           NoBuffSta;
+/*0x2b6c*/ int                                           NoBuffCha;
+/*0x2b70*/ int                                           NoBuffDex;
+/*0x2b74*/ int                                           NoBuffInt;
+/*0x2b78*/ int                                           NoBuffAgi;
+/*0x2b7c*/ int                                           NoBuffWis;
+/*0x2b80*/ int                                           NoBuffResistPoison;
+/*0x2b84*/ int                                           NoBuffResistMagic;
+/*0x2b88*/ int                                           NoBuffResistDisease;
+/*0x2b8c*/ int                                           NoBuffResistCorruption;
+/*0x2b90*/ int                                           NoBuffResistFire;
+/*0x2b94*/ int                                           NoBuffResistCold;
+/*0x2b98*/ int                                           NoBuffResistPhysical;
+/*0x2b9c*/
 };
 
 //============================================================================
@@ -1725,10 +1712,16 @@ enum GILocationOption
 	Socket
 };
 
-class [[offsetcomments]] CharacterBase
+class IFreeToPlayInfo
 {
 public:
-/*0x000*/ void*                       CharacterBase_vftable;
+	virtual int GetGameFeature(int feature) const = 0;
+	virtual int GetMembershipLevel() const = 0;
+};
+
+class [[offsetcomments]] CharacterBase : public IFreeToPlayInfo
+{
+public:
 /*0x004*/ CProfileManager             ProfileManager;
 /*0x00c*/ TSafeArrayStatic<BYTE, 0x20> languages;
 /*0x02c*/ float                       X;
@@ -1758,56 +1751,53 @@ public:
 /*0x25e*/ bool                        Corpse;
 /*0x25f*/ bool                        ClientGmFlagSet;
 /*0x260*/ int                         BankSharedPlat;               // 31e4 CharBaseBegin+488
-/*0x264*/ int                         BankSharedGold;               // CharBaseBegin+48c
-/*0x268*/ int                         BankSharedSilver;             // CharBaseBegin+490
-/*0x26c*/ int                         BankSharedCopper;             // CharBaseBegin+494
-/*0x270*/ int                         BankPlat;                     // CharBaseBegin+498
-/*0x274*/ int                         BankGold;                     // CharBaseBegin+49c
-/*0x278*/ int                         BankSilver;                   // CharBaseBegin+4a0
-/*0x27c*/ int                         BankCopper;                   // CharBaseBegin+4a4
-/*0x280*/ int                         STR;                          // CharBaseBegin+4a8
-/*0x284*/ int                         STA;                          // CharBaseBegin+4ac
-/*0x288*/ int                         CHA;                          // CharBaseBegin+4b0
-/*0x28c*/ int                         DEX;                          // CharBaseBegin+4b4
-/*0x290*/ int                         INT;                          // CharBaseBegin+4b8
-/*0x294*/ int                         AGI;                          // CharBaseBegin+4bc
-/*0x298*/ int                         WIS;                          // CharBaseBegin+4c0
-/*0x29c*/ int                         SavePoison;                   // CharBaseBegin+4c4
-/*0x2a0*/ int                         SaveMagic;                    // CharBaseBegin+4c8
-/*0x2a4*/ int                         SaveDisease;                  // CharBaseBegin+4cc
-/*0x2a8*/ int                         SaveCorruption;               // CharBaseBegin+4d0
-/*0x2ac*/ int                         SaveFire;                     // CharBaseBegin+4d4
-/*0x2b0*/ int                         SaveCold;                     // CharBaseBegin+4d8
-/*0x2b4*/ int                         SavePhysical;
-/*0x2b8*/ int                         UncappedStr;
-/*0x2bc*/ int                         UncappedSta;
-/*0x2c0*/ int                         UncappedCha;
-/*0x2c4*/ int                         UncappedDex;
-/*0x2c8*/ int                         UncappedInt;
-/*0x2cc*/ int                         UncappedAgi;
-/*0x2d0*/ int                         UncappedWis;
-/*0x2d4*/ int                         UncappedResistPoison;
-/*0x2d8*/ int                         UncappedResistMagic;
-/*0x2dc*/ int                         UncappedResistDisease;
-/*0x2e0*/ int                         UncappedResistCorruption;
-/*0x2e4*/ int                         UncappedResistFire;
-/*0x2e8*/ int                         UncappedResistCold;
-/*0x2ec*/ int                         UncappedResistPhysical;
-/*0x2f0*/ int                         NoBuffStr;
-/*0x2f4*/ int                         NoBuffSta;
-/*0x2f8*/ int                         NoBuffCha;
-/*0x2fc*/ int                         NoBuffDex;
-/*0x300*/ int                         NoBuffInt;
-/*0x304*/ int                         NoBuffAgi;
-/*0x308*/ int                         NoBuffWis;
-/*0x30c*/ int                         NoBuffResistPoison;
-/*0x310*/ int                         NoBuffResistMagic;
-/*0x314*/ int                         NoBuffResistDisease;
-/*0x318*/ int                         NoBuffResistCorruption;
-/*0x31c*/ int                         NoBuffResistFire;
-/*0x320*/ int                         NoBuffResistCold;
-/*0x324*/ int                         NoBuffResistPhysical;
-/*0x328*/
+/*0x264*/ int                         BankPlat;                     // CharBaseBegin+498
+/*0x268*/ int                         BankGold;                     // CharBaseBegin+49c
+/*0x26c*/ int                         BankSilver;                   // CharBaseBegin+4a0
+/*0x270*/ int                         BankCopper;                   // CharBaseBegin+4a4
+/*0x274*/ int                         STR;                          // CharBaseBegin+4a8
+/*0x278*/ int                         STA;                          // CharBaseBegin+4ac
+/*0x27c*/ int                         CHA;                          // CharBaseBegin+4b0
+/*0x280*/ int                         DEX;                          // CharBaseBegin+4b4
+/*0x284*/ int                         INT;                          // CharBaseBegin+4b8
+/*0x288*/ int                         AGI;                          // CharBaseBegin+4bc
+/*0x28c*/ int                         WIS;                          // CharBaseBegin+4c0
+/*0x290*/ int                         SavePoison;                   // CharBaseBegin+4c4
+/*0x294*/ int                         SaveMagic;                    // CharBaseBegin+4c8
+/*0x298*/ int                         SaveDisease;                  // CharBaseBegin+4cc
+/*0x29c*/ int                         SaveCorruption;               // CharBaseBegin+4d0
+/*0x2a0*/ int                         SaveFire;                     // CharBaseBegin+4d4
+/*0x2a4*/ int                         SaveCold;                     // CharBaseBegin+4d8
+/*0x2a8*/ int                         SavePhysical;
+/*0x2ac*/ int                         UncappedStr;
+/*0x2b0*/ int                         UncappedSta;
+/*0x2b4*/ int                         UncappedCha;
+/*0x2b8*/ int                         UncappedDex;
+/*0x2bc*/ int                         UncappedInt;
+/*0x2c0*/ int                         UncappedAgi;
+/*0x2c4*/ int                         UncappedWis;
+/*0x2c8*/ int                         UncappedResistPoison;
+/*0x2cc*/ int                         UncappedResistMagic;
+/*0x2d0*/ int                         UncappedResistDisease;
+/*0x2d4*/ int                         UncappedResistCorruption;
+/*0x2d8*/ int                         UncappedResistFire;
+/*0x2dc*/ int                         UncappedResistCold;
+/*0x2e0*/ int                         UncappedResistPhysical;
+/*0x2e4*/ int                         NoBuffStr;
+/*0x2e8*/ int                         NoBuffSta;
+/*0x2ec*/ int                         NoBuffCha;
+/*0x2f0*/ int                         NoBuffDex;
+/*0x2f4*/ int                         NoBuffInt;
+/*0x2f8*/ int                         NoBuffAgi;
+/*0x2fc*/ int                         NoBuffWis;
+/*0x300*/ int                         NoBuffResistPoison;
+/*0x304*/ int                         NoBuffResistMagic;
+/*0x308*/ int                         NoBuffResistDisease;
+/*0x30c*/ int                         NoBuffResistCorruption;
+/*0x310*/ int                         NoBuffResistFire;
+/*0x314*/ int                         NoBuffResistCold;
+/*0x318*/ int                         NoBuffResistPhysical;
+/*0x31c*/
 
 	// Verified
 	EQLIB_OBJECT int IsExpansionFlag(int);
@@ -1846,7 +1836,7 @@ public:
 /*0x2464*/ DWORD                       HPBonus;                      // vtable2+24
 /*0x2468*/ DWORD                       ManaBonus;                    // vtable2+28
 /*0x246c*/ DWORD                       EnduranceBonus;               // vtable2+2c
-/*0x2470*/ BYTE                        Unknown0x2450[0x4];
+/*0x2470*/ int                         EnduranceCostPerSecond;
 /*0x2474*/ DWORD                       CombatEffectsBonus;           // vtable2+34 Combat Effects in UI
 /*0x2478*/ DWORD                       ShieldingBonus;               // vtable2+38 Melee Shielding in UI
 /*0x247c*/ DWORD                       SpellShieldBonus;             // vtable2+3c Spell Shielding in UI

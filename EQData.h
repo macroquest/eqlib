@@ -1637,32 +1637,33 @@ struct [[offsetcomments]] EVERQUEST
 /*0x005c8*/ int              GameState;
 /*0x005cc*/ bool             bStopAreaProcessing;
 /*0x005cd*/ bool             bRAFEnabled;
-/*0x005d0*/ int64_t          ServerTimeSync;
-/*0x005d8*/ int64_t          ServerTimeBase;
-/*0x005e0*/ int64_t          ServerTimeLastReported;
-/*0x005e8*/ bool             bServerTimeHasWrapped;
-/*0x005ec*/ float            TargetCameraDistance;
-/*0x005f0*/ bool             bUnknown0x5f0;
-/*0x005f4*/ int              TotalCharacterSlots;
-/*0x005f8*/ int              MarketplaceCharacterSlots;
-/*0x005fc*/ int              Unknown0x5fc;
-/*0x00600*/ void*            CampDialog;                   // CPopDialogWnd
-/*0x00604*/ PickZoneTimerHandler pickZoneTimerHandler;     // size 0x10?
-/*0x00614*/ USINGSKILL       UsingSkill;                   // size 0x8
-/*0x0061c*/ PETITIONSTATUS   PetitionStatus[0x200];        // size 0xb8 * 0x200 = 0x17000
-/*0x1761c*/ int              TotalQ;                       // see 760EE8 in Sep 18 2017
-/*0x17620*/ int              TotalClientPetitions;
-/*0x17624*/ char             ChatText[0x840];
-/*0x17e64*/ int              TrimIdx;                      // correct
-/*0x17e68*/ char             ChatChanged;                  // 1 or 0?
-/*0x17e69*/ char             Trim[0x40][0x840];            // correct. size 0x40*0x840= 0x21000
-/*0x38e6c*/ BOOL             bChat;
-/*0x38e70*/ int              Unknown0x38E70;
-/*0x38e74*/ int              Red;                          // for sure see 564105 in spe 18 2017 exe
-/*0x38e78*/ int              Green;
-/*0x38e7c*/ int              Blue;
-/*0x38e80*/ ArrayClass<CSINFO> pCharSelectPlayerArray;
-/*0x38e90*/ // more data
+/*0x005d0*/ int              ClientOutOfDate;              // I think string ID of popupdialog text (4BAD8A), is client out of date? this func checks it: 4ACD10 see May 12 2020 test exe
+/*0x005d8*/ int64_t          ServerTimeSync;
+/*0x005e0*/ int64_t          ServerTimeBase;
+/*0x005e8*/ int64_t          ServerTimeLastReported;
+/*0x005f0*/ bool             bServerTimeHasWrapped;
+/*0x005f4*/ float            TargetCameraDistance;
+/*0x005f8*/ bool             bUnknown0x5f0;
+/*0x005fc*/ int              TotalCharacterSlots;
+/*0x00600*/ int              MarketplaceCharacterSlots;
+/*0x00604*/ int              Unknown0x5fc;
+/*0x00608*/ void*            CampDialog;                   // CPopDialogWnd
+/*0x0060c*/ PickZoneTimerHandler pickZoneTimerHandler;     // size 0x10?
+/*0x0061c*/ USINGSKILL       UsingSkill;                   // size 0x8
+/*0x00624*/ PETITIONSTATUS   PetitionStatus[0x200];        // size 0xb8 * 0x200 = 0x17000
+/*0x17624*/ int              TotalQ;                       // see 760EE8 in Sep 18 2017
+/*0x17628*/ int              TotalClientPetitions;
+/*0x1762c*/ char             ChatText[0x840];
+/*0x17e6c*/ int              TrimIdx;                      // correct
+/*0x17e70*/ char             ChatChanged;                  // 1 or 0?
+/*0x17e71*/ char             Trim[0x40][0x840];            // correct. size 0x40*0x840= 0x21000
+/*0x38e74*/ BOOL             bChat;
+/*0x38e78*/ int              Unknown0x38E70;
+/*0x38e7c*/ int              Red;                          // for sure see 564105 in spe 18 2017 exe
+/*0x38e80*/ int              Green;
+/*0x38e84*/ int              Blue;
+/*0x38e88*/ ArrayClass<CSINFO> pCharSelectPlayerArray;
+/*0x38e98*/ // more data
 };
 using _EVERQUEST DEPRECATE("Use EVERQUEST instead") = EVERQUEST;
 using PEVERQUEST DEPRECATE("Use EVERQUEST* instead") = EVERQUEST*;
@@ -1896,8 +1897,15 @@ struct [[offsetcomments]] GROUPAGGRO
 };
 using PGROUPAGGRO [[deprecated]] = GROUPAGGRO*;
 
+struct [[offsetcomments]] BenefitSelection
+{
+/*0x00*/ int BenefitID;
+/*0x04*/ int BenefitTier;
+/*0x08*/
+};
+
 #define EQ_ASSIST_CALC                           0x020c0f19
-#define EQ_ASSIST_COMPLETE                       0x34ea    // aMsgTimeStampRe
-#define EQ_ASSIST                                0x761e    // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+#define EQ_ASSIST_COMPLETE                       0x071E    // aMsgTimeStampRe
+#define EQ_ASSIST                                0x173B    // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
 } // namespace eqlib

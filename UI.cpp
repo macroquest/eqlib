@@ -900,6 +900,9 @@ FUNCTION_AT_ADDRESS(void CBankWnd::UpdateMoneyDisplay(), CBankWnd__UpdateMoneyDi
 #ifdef CBankWnd__GetNumBankSlots_x
 FUNCTION_AT_ADDRESS(int CBankWnd::GetNumBankSlots() const, CBankWnd__GetNumBankSlots);
 #endif
+#ifdef CBankWnd__AutoBank_x
+FUNCTION_AT_ADDRESS(void CBankWnd::AutoBank(bool bCanCombine), CBankWnd__AutoBank);
+#endif
 
 //============================================================================
 // CBazaarSearchWnd

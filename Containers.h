@@ -1333,4 +1333,20 @@ public:
 
 //----------------------------------------------------------------------------
 
+template <int NumBits>
+class BitField
+{
+public:
+	enum {
+		ElementBits = sizeof(uint32_t) * 8
+	};
+	enum {
+		ElementCount = (NumBits / ElementBits) + 1
+	};
+
+	uint32_t Bits[ElementCount];
+};
+
+//----------------------------------------------------------------------------
+
 } // namespace eqlib
