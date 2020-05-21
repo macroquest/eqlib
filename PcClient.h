@@ -2373,7 +2373,7 @@ public:
 /*0x2868*/ short               BaseKeyRingSlots[4];
 /*0x2870*/ bool                bPickZoneFewest;                // for sure see 4A424A in may 11 2018 live exe
 /*0x2874*/ int                 Unknown0x2874;
-
+/*0x2878*/
 	// Verified
 	EQLIB_OBJECT unsigned long GetConLevel(const PlayerClient*);
 

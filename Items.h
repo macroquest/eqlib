@@ -549,55 +549,55 @@ using ItemEvolutionDataPtr = SoeUtil::SharedPtr<ItemEvolutionData>;
 class [[offsetcomments]] ItemBase
 {
 public:
-/*0x000*/ void* vtable;
+/*0x00*/ void* vtable;
 
 	// base class member - reference count
-/*0x004*/ mutable int  RefCount;
+/*0x04*/ mutable int  RefCount;
 	// base class vftable
-/*0x008*/ void* punknown;
+/*0x08*/ void* punknown;
 
 // @start: ItemBase Members
-/*0x00c*/ int                Luck;
-/*0x010*/ int                StackCount;
-/*0x014*/ unsigned int       ItemHash;
-/*0x018*/ bool               bRankDisabled;
-/*0x01c*/ unsigned int       Tint;
-/*0x020*/ unsigned int       NewArmorID;
-/*0x024*/ bool               bItemNeedsUpdate;
-/*0x028*/ ItemGlobalIndex    GlobalIndex;                 // Size is 0xa (0xc)
-/*0x034*/ CXStr              SaveString;
-/*0x038*/ bool               bCopied;
-/*0x03c*/ int                NoteStatus;
-/*0x040*/ ArrayClass<unsigned int> RealEstateArray;
-/*0x050*/ EqItemGuid         ItemGUID;
-/*0x064*/ int                Charges;
-/*0x068*/ bool               bConvertable;
-/*0x06c*/ int                ID;
-/*0x070*/ bool               bDisableAugTexture;
-/*0x074*/ ItemBaseContainer2 Contents;                    // Size is 0x1c
-/*0x090*/ int64_t            DontKnow;
-/*0x098*/ int                AugFlag;
-/*0x09c*/ int                NoDropFlag;
-/*0x0a0*/ bool               bCollected;
-/*0x0a4*/ unsigned int       RespawnTime;
-/*0x0a8*/ bool               bRealEstateItemPlaceable;
-/*0x0b0*/ int64_t            MerchantSlot;
-/*0x0b8*/ unsigned int       LastCastTime;
-/*0x0bc*/ CXStr              ActorTag1;
-/*0x0c0*/ int                Open;
-/*0x0c4*/ ItemEvolutionDataPtr pEvolutionData;
-/*0x0cc*/ int                Power;
-/*0x0d0*/ int                ArmorType;
-/*0x0d8*/ int64_t            Price;
-/*0x0e0*/ int                MerchantQuantity;
-/*0x0e4*/ int                OrnamentationIcon;
-/*0x0e8*/ int                ConvertItemID;
-/*0x0ec*/ ITEMINFO*          Item1;
-/*0x0f0*/ int                RealEstateID;
-/*0x0f4*/ int                ScriptIndex;
-/*0x0f8*/ CXStr              ActorTag2;
-/*0x0fc*/ CXStr              ConvertItemName;
-/*0x100*/
+/*0x0c*/ bool               bRankDisabled;
+/*0x10*/ CXStr              ActorTag2;
+/*0x14*/ int                ID;
+/*0x18*/ bool               bCollected;
+/*0x1c*/ int                RealEstateID;
+/*0x20*/ bool               bCopied;
+/*0x24*/ CXStr              ActorTag1;
+/*0x28*/ ItemEvolutionDataPtr pEvolutionData;
+/*0x30*/ int64_t            DontKnow;
+/*0x38*/ unsigned int       NewArmorID;
+/*0x40*/ int64_t            Price;
+/*0x48*/ int                NoteStatus;
+/*0x4c*/ int                StackCount;
+/*0x50*/ int                Power;
+/*0x54*/ ItemBaseContainer2 Contents;                    // Size is 0x1c
+/*0x70*/ bool               bDisableAugTexture;
+/*0x71*/ bool               bRealEstateItemPlaceable;
+/*0x72*/ bool               bConvertable;
+/*0x74*/ unsigned int       ItemHash;
+/*0x78*/ EqItemGuid         ItemGUID;
+/*0x8c*/ unsigned int       Tint;
+/*0x90*/ ITEMINFO*          Item1;
+/*0x94*/ int                MerchantQuantity;
+/*0x98*/ bool               bItemNeedsUpdate;
+/*0x9c*/ unsigned int       LastCastTime;
+/*0xa0*/ int                AugFlag;
+/*0xa4*/ int                ArmorType;
+/*0xa8*/ ArrayClass<unsigned int> RealEstateArray;
+/*0xb8*/ int                Charges;
+/*0xbc*/ int                ScriptIndex;
+/*0xc0*/ int                ConvertItemID;
+/*0xc8*/ int64_t            MerchantSlot;
+/*0xd0*/ int                NoDropFlag;
+/*0xd4*/ int                OrnamentationIcon;
+/*0xd8*/ CXStr              SaveString;
+/*0xdc*/ int                Open;
+/*0xe0*/ unsigned int       RespawnTime;
+/*0xe4*/ int                Luck;
+/*0xe8*/ ItemGlobalIndex    GlobalIndex;                 // Size is 0xa (0xc)
+/*0xf4*/ CXStr              ConvertItemName;
+/*0xf8*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT bool IsLore(bool bIncludeSockets = false) const;
@@ -611,10 +611,10 @@ class [[offsetcomments]] ItemClient : public ItemBase
 
 public:
 	// Reference counted pointer to ItemDefinition
-/*0x100*/ DWORD        Item2RefCnt;
-/*0x104*/ ITEMINFO*    Item2;
-/*0x108*/ CXStr        ClientString;
-/*0x10c*/
+/*0x0f8*/ DWORD        Item2RefCnt;
+/*0x0fc*/ ITEMINFO*    Item2;
+/*0x100*/ CXStr        ClientString;
+/*0x104*/
 
 	EQLIB_OBJECT ItemClient* GetContent(uint32_t index);
 	EQLIB_OBJECT ItemGlobalIndex GetGlobalIndex() const;
@@ -630,55 +630,55 @@ struct [[offsetcomments]] CONTENTS : public VeBaseReferenceCount,
 	public IChildItemContainer<CONTENTS>
 {
 // @start: ItemBase Members
-/*0x00c*/ int                Luck;
-/*0x010*/ int                StackCount;
-/*0x014*/ unsigned int       ItemHash;
-/*0x018*/ bool               bRankDisabled;
-/*0x01c*/ unsigned int       Tint;
-/*0x020*/ unsigned int       NewArmorID;
-/*0x024*/ bool               bItemNeedsUpdate;
-/*0x028*/ ItemGlobalIndex    GlobalIndex;                 // Size is 0xa (0xc)
-/*0x034*/ CXStr              SaveString;
-/*0x038*/ bool               bCopied;
-/*0x03c*/ int                NoteStatus;
-/*0x040*/ ArrayClass<unsigned int> RealEstateArray;
-/*0x050*/ EqItemGuid         ItemGUID;
-/*0x064*/ int                Charges;
-/*0x068*/ bool               bConvertable;
-/*0x06c*/ int                ID;
+/*0x00c*/ bool               bRankDisabled;
+/*0x010*/ CXStr              ActorTag2;
+/*0x014*/ int                ID;
+/*0x018*/ bool               bCollected;
+/*0x01c*/ int                RealEstateID;
+/*0x020*/ bool               bCopied;
+/*0x024*/ CXStr              ActorTag1;
+/*0x028*/ ItemEvolutionDataPtr pEvolutionData;
+/*0x030*/ int64_t            DontKnow;
+/*0x038*/ unsigned int       NewArmorID;
+/*0x040*/ int64_t            Price;
+/*0x048*/ int                NoteStatus;
+/*0x04c*/ int                StackCount;
+/*0x050*/ int                Power;
+/*0x054*/ ItemBaseContainer2 Contents;                    // Size is 0x1c
 /*0x070*/ bool               bDisableAugTexture;
-/*0x074*/ ItemBaseContainer2 Contents;                    // Size is 0x1c
-/*0x090*/ int64_t            DontKnow;
-/*0x098*/ int                AugFlag;
-/*0x09c*/ int                NoDropFlag;
-/*0x0a0*/ bool               bCollected;
-/*0x0a4*/ unsigned int       RespawnTime;
-/*0x0a8*/ bool               bRealEstateItemPlaceable;
-/*0x0b0*/ int64_t            MerchantSlot;
-/*0x0b8*/ unsigned int       LastCastTime;
-/*0x0bc*/ CXStr              ActorTag1;
-/*0x0c0*/ int                Open;
-/*0x0c4*/ ItemEvolutionDataPtr pEvolutionData;
-/*0x0cc*/ int                Power;
-/*0x0d0*/ int                ArmorType;
-/*0x0d8*/ int64_t            Price;
-/*0x0e0*/ int                MerchantQuantity;
-/*0x0e4*/ int                OrnamentationIcon;
-/*0x0e8*/ int                ConvertItemID;
-/*0x0ec*/ ITEMINFO*          Item1;
-/*0x0f0*/ int                RealEstateID;
-/*0x0f4*/ int                ScriptIndex;
-/*0x0f8*/ CXStr              ActorTag2;
-/*0x0fc*/ CXStr              ConvertItemName;
+/*0x071*/ bool               bRealEstateItemPlaceable;
+/*0x072*/ bool               bConvertable;
+/*0x074*/ unsigned int       ItemHash;
+/*0x078*/ EqItemGuid         ItemGUID;
+/*0x08c*/ unsigned int       Tint;
+/*0x090*/ ITEMINFO*          Item1;
+/*0x094*/ int                MerchantQuantity;
+/*0x098*/ bool               bItemNeedsUpdate;
+/*0x09c*/ unsigned int       LastCastTime;
+/*0x0a0*/ int                AugFlag;
+/*0x0a4*/ int                ArmorType;
+/*0x0a8*/ ArrayClass<unsigned int> RealEstateArray;
+/*0x0b8*/ int                Charges;
+/*0x0bc*/ int                ScriptIndex;
+/*0x0c0*/ int                ConvertItemID;
+/*0x0c8*/ int64_t            MerchantSlot;
+/*0x0d0*/ int                NoDropFlag;
+/*0x0d4*/ int                OrnamentationIcon;
+/*0x0d8*/ CXStr              SaveString;
+/*0x0dc*/ int                Open;
+/*0x0e0*/ unsigned int       RespawnTime;
+/*0x0e4*/ int                Luck;
+/*0x0e8*/ ItemGlobalIndex    GlobalIndex;                 // Size is 0xa (0xc)
+/*0x0f4*/ CXStr              ConvertItemName;
 
 // @end: ItemBase Members
 
 	// start of ItemClient
-/*0x100*/ uint32_t          Item2RefCnt;
-/*0x104*/ ITEMINFO*         Item2;
-/*0x108*/ CXStr             ClientString;
-/*0x10c*/ uint8_t           Filler0x0154[0x4];
-/*0x110*/
+/*0x0f8*/ uint32_t          Item2RefCnt;
+/*0x0fc*/ ITEMINFO*         Item2;
+/*0x100*/ CXStr             ClientString;
+/*0x104*/ uint8_t           Filler0x0154[0x4];
+/*0x108*/
 
 	// Constructor is technically for ItemClient. Make sure the size
 	// of the class matches.
