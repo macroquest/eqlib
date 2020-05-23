@@ -150,27 +150,27 @@ public:
 /*0x04*/ BYTE               Header[0x1c];
 /*0x20*/ eBitmapType        eType;
 /*0x24*/ int                eMemoryPoolManagerType;   // eMemoryPoolManagerType need to figure out this enum
-/*0x28*/ char* FileName;
-/*0x2c*/ UINT               SourceWidth;
-/*0x30*/ UINT               SourceHeight;
+/*0x28*/ char*              FileName;
+/*0x2c*/ uint32_t           SourceWidth;
+/*0x30*/ uint32_t           SourceHeight;
 /*0x34*/ float              DetailScale;
-/*0x38*/ UINT               GrassDensity;
-/*0x3c*/ UINT               Width;
-/*0x40*/ UINT               Height;
+/*0x38*/ uint32_t           GrassDensity;
+/*0x3c*/ uint32_t           Width;
+/*0x40*/ uint32_t           Height;
 /*0x44*/ bool               bHasTexture;
 	union
 	{
 	/*0x48*/ void* pD3DTexture;              // IDirect3DBaseTexture9
 	/*0x48*/ void* pRawBitmap;
 	};
-/*0x4c*/ UINT               ObjectIndex;
-/*0x50*/ UINT               Size;
+/*0x4c*/ uint32_t           ObjectIndex;
+/*0x50*/ uint32_t           Size;
 /*0x54*/ bool               bForceMipMap;
 /*0x58*/ int                TrackingType;
 /*0x5c*/ float              SQDistanceToCamera;
-/*0x60*/ UINT               LastDistanceTime;
-/*0x64*/ UINT               LastRenderTime;
-/*0x68*/ UINT               LoadedTime;
+/*0x60*/ uint32_t           LastDistanceTime;
+/*0x64*/ uint32_t           LastRenderTime;
+/*0x68*/ uint32_t           LoadedTime;
 /*0x6c*/
 };
 
