@@ -1159,6 +1159,7 @@
 #define CCursorAttachment__Deactivate_x                            0x72FCE0
 
 // CEQSuiteTextureLoader
+#define CEQSuiteTextureLoader__CreateTexture_x                     0x977A40
 #define CEQSuiteTextureLoader__GetDefaultUIPath_x                  0x9781C0
 #define CEQSuiteTextureLoader__GetTexture_x                        0x977E80
 

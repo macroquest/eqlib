@@ -474,6 +474,7 @@ INITIALIZE_EQGAME_OFFSET(CEditWnd__ReplaceSelection);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__SelectableCharFromPoint);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__SetEditable);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__SetWindowTextA);
+INITIALIZE_EQGAME_OFFSET(CEQSuiteTextureLoader__CreateTexture);
 INITIALIZE_EQGAME_OFFSET(CEQSuiteTextureLoader__GetDefaultUIPath);
 INITIALIZE_EQGAME_OFFSET(CEQSuiteTextureLoader__GetTexture);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__ClickedPlayer);

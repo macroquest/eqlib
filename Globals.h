@@ -499,6 +499,7 @@ EQLIB_VAR DWORD CEditWnd__ReplaceSelection;
 EQLIB_VAR DWORD CEditWnd__SelectableCharFromPoint;
 EQLIB_VAR DWORD CEditWnd__SetEditable;
 EQLIB_VAR DWORD CEditWnd__SetWindowTextA;
+EQLIB_VAR DWORD CEQSuiteTextureLoader__CreateTexture;
 EQLIB_VAR DWORD CEQSuiteTextureLoader__GetDefaultUIPath;
 EQLIB_VAR DWORD CEQSuiteTextureLoader__GetTexture;
 EQLIB_VAR DWORD CEverQuest__ClickedPlayer;
