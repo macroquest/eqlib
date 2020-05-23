@@ -1861,7 +1861,8 @@ public:
 /*0x384*/ uint8_t     Unknown0x038c[0x210];
 /*0x594*/ int         BuffId[NUM_LONG_BUFFS];
 /*0x63c*/ int         BuffTimer[NUM_LONG_BUFFS];
-/*0x6e4*/ uint8_t     Unknown0x06ec[0x28];
+/*0x6e4*/ HashTable<CXStr> WhoCast;
+/*0x6f4*/ uint8_t     Unknown0x06ec[0x18];
 /*0x70c*/ int         MaxLongBuffs;             // 0x2a (NUM_LONG_BUFFS)
 /*0x710*/ int         MaxShortBuffs;            // 0x37 (NUM_SHORT_BUFFS)
 /*0x714*/ uint8_t     Unknown0x071c[0xc];
@@ -4621,7 +4622,8 @@ public:
 /*0x298*/ uint8_t            Unknown0x298[0x174];
 /*0x40c*/ CButtonWnd*        pWnd[NUM_BUFF_SLOTS];     // buff buttons
 /*0x590*/ int                Buff[NUM_BUFF_SLOTS];     // Spell ID# of each buff -- 97 total
-/*0x714*/ uint8_t            Unknown0x714[0x20];
+/*0x714*/ HashTable<CXStr>   WhoCast;
+/*0x724*/ uint8_t            Unknown0x724[0x10];
 /*0x734*/ unsigned int       PetBuffTimer[NUM_BUFF_SLOTS]; // duration until buff fades, in thousands of a second
 /*0x8b8*/ uint8_t            Unknown0x8b8[0xc];
 /*0x8c4*/ bool               bPetButtonsDirty;
