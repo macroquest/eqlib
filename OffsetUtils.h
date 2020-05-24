@@ -207,7 +207,7 @@ public:
 	}
 
 	template <typename U>
-	U* get_as() const noexcept { return (U*)m_ptr; }
+	U* get_as() const noexcept { return (U*)get(); }
 
 	bool is_valid() const noexcept { return m_ptr && *m_ptr; }
 
