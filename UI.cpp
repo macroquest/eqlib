@@ -881,7 +881,7 @@ FUNCTION_AT_ADDRESS(int CActionsWnd::SocialsPageDeactivate(), CActionsWnd__Socia
 FUNCTION_AT_ADDRESS(void CAdvancedLootWnd::DoAdvLootAction(int, const CXStr&, bool, int), CAdvancedLootWnd__DoAdvLootAction);
 #endif
 #ifdef CAdvancedLootWnd__DoSharedAdvLootAction_x
-FUNCTION_AT_ADDRESS(void CAdvancedLootWnd::DoSharedAdvLootAction(AdvancedLootItem* pLootItem, const CXStr& Assignee, bool Action, int Quantity), CAdvancedLootWnd__DoSharedAdvLootAction);
+FUNCTION_AT_ADDRESS(void CAdvancedLootWnd::DoSharedAdvLootAction(const AdvancedLootItem& pLootItem, const CXStr& Assignee, bool Action, int Quantity), CAdvancedLootWnd__DoSharedAdvLootAction);
 #endif
 
 //============================================================================

@@ -92,7 +92,7 @@ public:
 	EQLIB_OBJECT int CalculateSingingMasteryMod(PcZoneClient*, int);
 	EQLIB_OBJECT int CalculateSpellCastingMastery(PcZoneClient*);
 	EQLIB_OBJECT int CalculateStalwartEnduranceChance(PcZoneClient*);
-	EQLIB_OBJECT bool CanTrainAbility(PcZoneClient*, CAltAbilityData*, bool, bool, bool);
+	EQLIB_OBJECT bool CanTrainAbility(PcZoneClient* pWho, CAltAbilityData* pAbility, bool = false, bool = false, bool = false);
 	EQLIB_OBJECT bool CanSeeAbility(PcZoneClient*, CAltAbilityData*);
 	EQLIB_OBJECT int GetAALevelNeeded(PcZoneClient*, int);
 	EQLIB_OBJECT int GetAbilityTitle(PcZoneClient*);

@@ -1536,7 +1536,7 @@ public:
 	// GiveTo
 	EQLIB_OBJECT void DoAdvLootAction(int listindex, const CXStr& Name, bool Action, int Quantity);
 	// GiveTo
-	EQLIB_OBJECT void DoSharedAdvLootAction(AdvancedLootItem* pLootItem, const CXStr& Assignee, bool Action, int Quantity);
+	EQLIB_OBJECT void DoSharedAdvLootAction(const AdvancedLootItem& pLootItem, const CXStr& Assignee, bool Action, int Quantity);
 
 	//----------------------------------------------------------------------------
 	// data members
