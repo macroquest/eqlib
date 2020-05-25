@@ -142,8 +142,8 @@ T& Array<T>::at(int index)
 template <typename T>
 const T& Array<T>::at(int index) const
 {
-	assert(index >= 0 && i < m_size);
-	return m_array[i];
+	assert(index >= 0 && index < m_size);
+	return m_array[index];
 }
 
 template <typename T>
@@ -213,7 +213,7 @@ void Array<T>::Resize(int count)
 		m_size = std::min(m_alloc, count);
 		while (pos < count)
 		{
-			new (&m_array[pos]) T;
+			new (&m_array[pos++]) T;
 		}
 	}
 	else
