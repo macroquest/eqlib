@@ -2706,6 +2706,9 @@ public:
 // CExtendedTargetWnd
 //============================================================================
 
+constexpr int MAX_EXTENDED_TARGET_SIZE = 23; // total available extended targets
+
+
 class CExtendedTargetWnd : public CSidlScreenWnd
 {
 public:

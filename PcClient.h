@@ -239,7 +239,7 @@ struct [[offsetcomments]] GROUPINFO
 /*0x1c*/ GROUPMEMBER* pLeader;
 /*0x20*/
 };
-using PGROUPINFO [[deprecated]] = GROUPINFO*;
+using PGROUPINFO DEPRECATE("Use GROUPINFO* instead") = GROUPINFO*;
 
 // size 0x4c 12-25-09 - ieatacid
 struct [[offsetcomments]] XTARGETSLOT
@@ -250,7 +250,7 @@ struct [[offsetcomments]] XTARGETSLOT
 /*0x0c*/ char   Name[0x40];
 /*0x4c*/
 };
-using PXTARGETSLOT = XTARGETSLOT*;
+using PXTARGETSLOT DEPRECATE("Use XTARGETSLOT* instead") = XTARGETSLOT*;
 
 constexpr int MAX_EXTENDED_TARGETS = 23;
 

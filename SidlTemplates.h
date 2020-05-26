@@ -466,6 +466,23 @@ public:
 // CControlTemplate
 //============================================================================
 
+// Flags for use with CControlTemplate::uStyleBits
+constexpr int WSF_VSCROLL         = 0x00000001;
+constexpr int WSF_HSCROLL         = 0x00000002;
+constexpr int WSF_TITLEBAR        = 0x00000004;
+constexpr int WSF_CLOSEBOX        = 0x00000008;
+constexpr int WSF_MINIMIZEBOX     = 0x00000020;
+constexpr int WSF_BORDER          = 0x00000040;
+constexpr int WSF_RELATIVERECT    = 0x00000080;
+constexpr int WSF_AUTOSTRETCHV    = 0x00000100;
+constexpr int WSF_SIZABLE         = 0x00000200;
+constexpr int WSF_TRANSPARENT     = 0x00000400;
+constexpr int WSF_USEMYALPHA      = 0x00000800;
+constexpr int WSF_NOHITTEST       = 0x00008000;
+constexpr int WSF_MAXIMIZEBOX     = 0x00040000;
+constexpr int WSF_CLIENTMOVABLE   = 0x00200000;
+constexpr int WSF_AUTOSTRETCHH    = 0x00400000;
+
 class [[offsetcomments]] CControlTemplate : public CScreenPieceTemplate
 {
 	FORCE_SYMBOLS;
