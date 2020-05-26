@@ -256,13 +256,29 @@ public:
 			return newRect;
 		if (bottom < other.top)
 			return newRect;
-		
+
 		newRect.left = std::max(left, other.left);
 		newRect.top = std::max(top, other.top);
 		newRect.right = std::min(right, other.right);
 		newRect.bottom = std::min(bottom, other.bottom);
 
 		return newRect;
+	}
+
+	CXRect& operator+=(const CXRect& other)
+	{
+		left += other.left;
+		top += other.top;
+		bottom += other.bottom;
+		right += other.right;
+		return *this;
+	}
+
+	CXRect operator+(const CXRect& other) const
+	{
+		CXRect temp = *this;
+		temp += other;
+		return temp;
 	}
 
 	int GetWidth() const { return right - left; }
