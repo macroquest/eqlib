@@ -1050,24 +1050,121 @@ template <class T>
 class LinkedListNode
 {
 public:
-/*0x00*/ T Object;
-/*0x04*/ LinkedListNode* pNext;
-/*0x08*/ LinkedListNode* pPrev;
-/*0x0c*/
+	// makes a copy of the thing.
+	LinkedListNode(T& obj) : m_object(obj) {}
+
+	T m_object;
+	LinkedListNode* m_pNext = nullptr;
+	LinkedListNode* m_pPrev = nullptr;
 };
 
 template <class T>
 class DoublyLinkedList
 {
 public:
-/*0x00*/ void* vfTable;
-/*0x04*/ LinkedListNode<T>* pHead;
-/*0x08*/ LinkedListNode<T>* pTail;
-/*0x0c*/ LinkedListNode<T>* pCurObject;
-/*0x10*/ LinkedListNode<T>* pCurObjectNext;
-/*0x14*/ LinkedListNode<T>* pCurObjectPrev;
-/*0x18*/ int NumObjects;
-/*0x1c*/ int RefCount;
+	using Node = LinkedListNode<T>;
+
+	class Iterator
+	{
+		Node* m_node;
+
+	public:
+		Iterator(Node* node = nullptr)
+			: m_node(node) {}
+
+		Iterator& operator++() {
+			m_node = m_node->m_pNext;
+			return *this;
+		}
+
+		Node* node() const { return m_node; }
+
+		T& operator*() const { return node()->m_object; }
+		T* operator->() const { return &node()->m_object; }
+
+		bool operator==(Iterator other) const { return m_node == other.m_node; }
+		bool operator!=(Iterator other) const { return m_node != other.m_node; }
+	};
+
+	DoublyLinkedList() = default;
+
+	virtual ~DoublyLinkedList()
+	{
+		if (m_refCount <= 0)
+			UnlinkAll();
+
+		m_refCount = 0;
+	}
+
+	// non copyable
+	DoublyLinkedList(const DoublyLinkedList&) = delete;
+	DoublyLinkedList& operator=(const DoublyLinkedList&) = delete;
+
+	void Add(T& obj)
+	{
+		Node* node = new Node(obj);
+
+		if (m_pHead != nullptr)
+		{
+			// Add to the end of the list.
+			m_pTail->m_pNext = node;
+			node->m_pPrev = m_pTail;
+
+			m_pTail = pNode;
+		}
+		else
+		{
+			// First item, set as first and last.
+			m_pTail = m_pHead = pNode;
+		}
+
+		++m_numObjects;
+	}
+
+	void UnlinkAll()
+	{
+		Node* current = m_pHead;
+
+		while (current != nullptr)
+		{
+			Node* temp = current;
+			current = current->m_pNext;
+			delete temp;
+		}
+
+		m_pHead = m_pTail = nullptr;
+		m_numObjects = 0;
+	}
+
+	T* GetHead() const
+	{
+		if (!m_pHead)
+			return nullptr;
+
+		return &m_pHead->m_object;
+	}
+
+	T* GetTail() const
+	{
+		if (!m_pTail)
+			return nullptr;
+
+		return &m_pTail->m_object;
+	}
+
+	int GetSize() const { return m_numObjects; }
+
+	Iterator begin() { return m_pHead; }
+	Iterator end() { return Iterator(); }
+
+private:
+/*0x04*/ Node* m_pHead = 0;
+/*0x08*/ Node* m_pTail = 0;
+/*0x0c*/ Node* m_pCurObject = 0;
+/*0x10*/ Node* m_pCurObjectNext = 0;
+/*0x14*/ Node* m_pCurObjectPrev = 0;
+/*0x18*/ int m_numObjects = 0;
+/*0x1c*/ int m_refCount = 0;
 /*0x20*/
 };
 

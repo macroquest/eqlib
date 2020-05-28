@@ -406,7 +406,7 @@ namespace SoeUtil
 class LoginController;
 class CLoginViewManager;
 class LoginServerAPI;
-struct SERVERSTUFF;
+class LoginClient;
 
 // End forward class declarations
 

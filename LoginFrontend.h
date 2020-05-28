@@ -52,29 +52,31 @@ public:
 class CLoginViewManager
 {
 public:
-	EQLIB_OBJECT int SendLMouseClick(CXPoint&);
+	EQLIB_OBJECT int HandleLButtonUp(CXPoint&);
 };
 
 class LoginServerAPI
 {
 public:
 	//see 100129F0 in eqmain.dll dated jul 13 2017 - eqmule
-	EQLIB_OBJECT unsigned int EnterGame(int serverID, void* userdata = 0, int timeoutseconds = 10);
+	EQLIB_OBJECT unsigned int JoinServer(int serverID, void* userdata = 0, int timeoutseconds = 10);
 };
 
-struct [[offsetcomments]] DateStruct
+namespace EQLS {
+
+struct [[offsetcomments]] Date
 {
-/*0x18*/ char      Hours;
-/*0x19*/ char      Minutes;
-/*0x1a*/ char      Seconds;
-/*0x1b*/ char      Month;
-/*0x1c*/ char      Day;
-/*0x1e*/ WORD      Year;
-/*0x20*/ CXStr     Unknown0x08;
-/*0x24*/ CXStr     Unknown0x0c;
-/*0x28*/ CXStr     Unknown0x10;
-/*0x30*/ int64_t   TimeStamp;
-/*0x38*/
+/*0x00*/ int8_t    Hours;
+/*0x01*/ int8_t    Minutes;
+/*0x02*/ int8_t    Seconds;
+/*0x03*/ int8_t    Month;
+/*0x04*/ int8_t    Day;
+/*0x06*/ int16_t   Year;
+/*0x08*/ CXStr     Unknown0x08;
+/*0x0c*/ CXStr     Unknown0x0c;
+/*0x10*/ CXStr     Unknown0x10;
+/*0x18*/ int64_t   TimeStamp;
+/*0x20*/
 };
 
 enum eServerStatus : uint32_t
@@ -83,109 +85,95 @@ enum eServerStatus : uint32_t
 	eServerStatus_Locked = 4
 };
 
-// EQClientServerData
-struct [[offsetcomments]] SERVERINFO
+struct [[offsetcomments]] EQClientServerData
 {
 /*0x00*/ int           ID;
 /*0x04*/ CXStr         ServerName;
 /*0x08*/ CXStr         HostName;
-/*0x0C*/ CXStr         ServerIP;
+/*0x0c*/ CXStr         ServerIP;
 /*0x10*/ int           ExternalPort;
 /*0x14*/ int           InternalPort;
-/*0x18*/ DateStruct    DateCreated;
+/*0x18*/ Date          DateCreated;
 /*0x38*/ int           Flags;
-/*0x3C*/ int           ServerType;
+/*0x3c*/ int           ServerType;
 /*0x40*/ CXStr         LanguageCode;
 /*0x44*/ CXStr         CountryCode;
 /*0x48*/ eServerStatus StatusFlags;
-/*0x4C*/ int           PopulationRanking;
+/*0x4c*/ int           PopulationRanking;
 /*0x50*/
 };
 
-struct [[offsetcomments]] SERVERLIST
-{
-/*0x00*/ SERVERINFO* Info;
-/*0x04*/ SERVERLIST* Prev;
-/*0x08*/ SERVERLIST* Next;
-/*0x0C*/ DWORD     Unknown0x0C;
-/*0x10*/ DWORD     Unknown0x10;
-/*0x14*/ DWORD     Unknown0x14;
-/*0x18*/
-};
-
-// LoginClient
-struct [[offsetcomments]] SERVERSTUFF
-{
-/*0x000*/ BYTE     Unknown0x000[0x8];
-/*0x008*/ void*    GFXENGINE;
-/*0x00C*/ BYTE     Unknown0x00C[0x9C];
-/*0x0A8*/ DWORD    CurrentServerID;
-/*0x0AC*/ DWORD    Unknown0x0AC;
-/*0x0B0*/ CXStr    LoginName;
-/*0x0B4*/ CXStr    Password;
-/*0x0B8*/ CXStr    LoginNameCopy;
-/*0x0BC*/ CXStr    PasswordCopy;
-/*0x0C0*/ CXStr    AccountKey;
-/*0x0C4*/ BYTE     Unknown0x0C4[0x14];
-/*0x0D8*/ SERVERINFO** FirstServer;
-/*0x0DC*/ SERVERINFO** LastServer;
-/*0x0E0*/ BYTE     Unknown0x0E0[0x8];
-/*0x0E8*/ SERVERLIST* pServerList;
-/*0x0EC*/ DWORD    ServerListSize;
-/*0x0F0*/ BYTE     Unknown0x0F0[0x8];
-/*0x0F8*/ DWORD    QuickConnectServerID;
-/*0x0FC*/ CXStr    QuickConnectServerName;
-/*0x100*/ CXStr    QuickConnectIPAddress;
-/*0x104*/
-};
-
-struct [[offsetcomments]] HOST
-{
-	CXStr* Name;
-	int Port;
-};
-
-struct [[offsetcomments]] EQDEVICE
-{
-	char Name[0x40];
-};
-
-struct [[offsetcomments]] EQLOGIN
-{
-	EQDEVICE  Devices[0x10];
-	int       NumDevices;
-	HWND      hEQWnd;
-	int       ReturnCode; // -1 = failed login
-	char      Login[0x80];
-	char      PW[0x80];
-	char      PW2[0x80];
-	char      ServerLong[0x80];
-	int       ServerPort;
-	char      AccountKey[0x80];
-	int       ActiveDeviceIndex;
-	char      LastZoneEntered[0x20];
-	char      StationName[0x20];
-	char      ExeName[0x20];
-	char      CommandLine[0x1c0];
-	char      ServerShort[0x80];
-	char      Session[0x40];
-	char      Character[0x40];
-	// more below I don't need atm
-};
-
-// work in progress to get short servername... -eqmule
-class [[offsetcomments]] LoginClient// : public A_Callback?, public ChannelServerHandler?
+class [[offsetcomments]] LoginServerCallback
 {
 public:
-	void*     A_Callback_vfTable;
-	void*     ChannelServerHandler_vfTable;
-	EQLOGIN*  pLoginData;
-	DoublyLinkedList<HOST*> Hosts;
-	HOST*     pHost;
-	bool      bRetryConnect;
-	// more below don't need right now
+	virtual void OnConnect() {}
+	virtual void OnDisconnect(bool) {}
+	// more virtuals...
 };
 
+class [[offsetcomments]] ChannelServerHandler
+{
+public:
+	virtual void Channel_VirtualFunction1(bool) {}
+	virtual void Channel_VirtualFunction2(void*) {}
+	// more virtuals ...
+};
+
+struct [[offsetcomments]] EQDevice
+{
+	/*0x00*/ char Name[0x40];
+/*0x40*/ };
+
+struct [[offsetcomments]] EQLogin
+{
+/*0x000*/ EQDevice  Devices[0x10];
+/*0x400*/ int       NumDevices;
+/*0x404*/ HWND      hEQWnd;
+/*0x408*/ int       ReturnCode; // -1 = failed login
+/*0x40c*/ char      Login[0x80];
+/*0x48c*/ char      PW[0x80];
+/*0x50c*/ char      PW2[0x80];
+/*0x58c*/ char      ServerLong[0x80];
+/*0x60c*/ int       ServerPort;
+/*0x610*/ char      AccountKey[0x80];
+/*0x690*/ int       ActiveDeviceIndex;
+/*0x694*/ char      LastZoneEntered[0x20];
+/*0x6b4*/ char      StationName[0x20];
+/*0x6d4*/ char      ExeName[0x20];
+/*0x6f4*/ char      CommandLine[0x1c0];
+/*0x8b4*/ char      ServerShort[0x80];
+/*0x934*/ char      Session[0x40];
+/*0x974*/ char      Character[0x40];
+/*0x9b4*/ // more...
+};
+
+} // namespace EQLS
+
+// LoginClient
+class [[offsetcomments]] LoginClient : public EQLS::LoginServerCallback,
+	public EQLS::ChannelServerHandler
+{
+public:
+	struct Host
+	{
+		CXStr Name;
+		int   Port;
+	};
+
+/*0x008*/ EQLS::EQLogin* pLoginData;
+/*0x00c*/ DoublyLinkedList<Host*> Hosts;
+/*0x02c*/ Host*    pHost;
+/*0x030*/ bool     bRetryConnect;
+/*0x031*/ uint8_t  Unknown0x031[0x7C];
+/*0x0b0*/ CXStr    LoginName;
+/*0x0b4*/ CXStr    Password;
+/*0x0b8*/ CXStr    LoginNameCopy;
+/*0x0bc*/ CXStr    PasswordCopy;
+/*0x0c0*/ CXStr    AccountKey;
+/*0x0c4*/ uint8_t  Unknown0x0C4[0x10];
+/*0x0d8*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
+/*0x0f8*/ EQLS::EQClientServerData QuickConnectServer;
+/*0x148*/ };
 
 //----------------------------------------------------------------------------
 

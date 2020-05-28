@@ -1263,3 +1263,22 @@
 
 #define __eqgraphics_fopen_x                                       0x10147468
 #define CParticleSystem__Render_x                                  0x10071190
+
+//
+// eqmain.dll offsets
+//
+
+#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x100892D0
+#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x10019900
+#define EQMain__CXWndManager__GetCursorToDisplay_x                 0x1007B5C0
+#define EQMain__LoginController__FlushDxKeyboard_x                 0x10015190
+#define EQMain__LoginController__GiveTime_x                        0x100151F0
+#define EQMain__LoginServerAPI__JoinServer_x                       0x10016D50
+#define EQMain__WndProc_x                                          0x1000BEA0
+
+#define EQMain__pinstCEQSuiteTextureLoader_x                       0x10163EB0
+#define EQMain__pinstCLoginViewManager_x                           0x1016A524
+#define EQMain__pinstCXWndManager_x                                0x1037CA1C
+#define EQMain__pinstCSidlManager_x                                0x1037CA20
+#define EQMain__pinstLoginController_x                             0x1016A528
+#define EQMain__pinstLoginServerAPI_x                              0x1016A518

@@ -1242,25 +1242,28 @@ EQLIB_VAR DWORD CParticleSystem__Render;
 // eqmain.dll Offsets
 //============================================================================
 
-EQLIB_VAR DWORD EQMain__WndProc;
-EQLIB_VAR DWORD EQMain__CXWndManager;
+EQLIB_VAR DWORD EQMain__CEQSuiteTextureLoader__GetTexture;
+EQLIB_VAR DWORD EQMain__CLoginViewManager__HandleLButtonUp;
 EQLIB_VAR DWORD EQMain__CXWndManager__GetCursorToDisplay;
-EQLIB_VAR DWORD EQMain__CSidlManager;
-EQLIB_VAR DWORD LoginController__FlushDxKeyboard;
-EQLIB_VAR DWORD LoginController__GiveTime;
-EQLIB_VAR DWORD LoginController__ProcessKeyboardEvents;
-EQLIB_VAR DWORD LoginController__ProcessMouseEvents;
-EQLIB_VAR DWORD pinstLoginController;
-EQLIB_VAR DWORD EQMain__LoginServerAPI;
-EQLIB_VAR DWORD LoginServerAPI__EnterGame;
-EQLIB_VAR DWORD EQMain__CLoginViewManager;
-EQLIB_VAR DWORD CLoginViewManager__SendLMouseClick;
-EQLIB_VAR DWORD pinstServerInfo;
+EQLIB_VAR DWORD EQMain__LoginController__FlushDxKeyboard;
+EQLIB_VAR DWORD EQMain__LoginController__GiveTime;
+EQLIB_VAR DWORD EQMain__LoginController__ProcessKeyboardEvents;
+EQLIB_VAR DWORD EQMain__LoginController__ProcessMouseEvents;
+EQLIB_VAR DWORD EQMain__LoginServerAPI__JoinServer;
+EQLIB_VAR DWORD EQMain__WndProc;
 
+EQLIB_VAR DWORD EQMain__pinstCEQSuiteTextureLoader;
+EQLIB_VAR DWORD EQMain__pinstCLoginViewManager;
+EQLIB_VAR DWORD EQMain__pinstCSidlManager;
+EQLIB_VAR DWORD EQMain__pinstCXWndManager;
+EQLIB_VAR DWORD EQMain__pinstLoginController;
+EQLIB_VAR DWORD EQMain__pinstLoginServerAPI;
+EQLIB_VAR DWORD EQMain__pinstServerInfo;
+
+EQLIB_VAR ForeignPointer<CLoginViewManager> g_pLoginViewManager;
+EQLIB_VAR ForeignPointer<LoginClient> g_pLoginClient;
 EQLIB_VAR ForeignPointer<LoginController> g_pLoginController;
 EQLIB_VAR ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
-EQLIB_VAR ForeignPointer<CLoginViewManager> g_pLoginViewManager;
-EQLIB_VAR ForeignPointer<SERVERSTUFF> g_pServerInfo;
 
 //----------------------------------------------------------------------------
 // Global Functions

@@ -1407,106 +1407,33 @@ void InitializeEQGraphicsOffsets()
 //----------------------------------------------------------------------------
 // offsets / patterns
 
-// LoginController__GiveTime
-// IDA Style Sig: 56 8B F1 E8 ? ? ? ? 8B CE 5E E9
-static uint8_t* LoginController_GiveTime_pattern = (uint8_t*)"\x56\x8B\xF1\xE8\x00\x00\x00\x00\x8B\xCE\x5E\xE9";
-static char     LoginController_GiveTime_mask[] = "xxxx????xxxx";
-DWORD           LoginController__GiveTime = 0;
+DWORD EQMain__CEQSuiteTextureLoader__GetTexture = 0;
+DWORD EQMain__CLoginViewManager__HandleLButtonUp = 0;
+DWORD EQMain__CXWndManager__GetCursorToDisplay = 0;
+DWORD EQMain__LoginController__FlushDxKeyboard = 0;
+DWORD EQMain__LoginController__GiveTime = 0;
+DWORD EQMain__LoginController__ProcessKeyboardEvents = 0;
+DWORD EQMain__LoginController__ProcessMouseEvents = 0;
+DWORD EQMain__LoginServerAPI__JoinServer = 0;
+DWORD EQMain__WndProc = 0;
 
-// WndProc
-// 55 8B EC 83 EC 54 A1 ? ? ? ? 33 C5 89 45 FC 8B 0D ? ? ? ? 53 8B 5D 08 56 8B 75 10 57 8B 7D 14 85 C9
-static uint8_t* EQMain__WndProc_pattern = (uint8_t*)"\x55\x8B\xEC\x83\xEC\x54\xA1\x00\x00\x00\x00\x33\xC5\x89\x45\xFC\x8B\x0D\x00\x00\x00\x00\x53\x8B\x5D\x08\x56\x8B\x75\x10\x57\x8B\x7D\x14\x85\xC9";
-static char     EQMain__WndProc_mask[] = "xxxxxxx????xxxxxxx????xxxxxxxxxxxxxx";
-DWORD           EQMain__WndProc = 0;
+DWORD EQMain__pinstCEQSuiteTextureLoader = 0;
+DWORD EQMain__pinstCLoginViewManager = 0;
+DWORD EQMain__pinstCSidlManager = 0;
+DWORD EQMain__pinstCXWndManager = 0;
+DWORD EQMain__pinstLoginController = 0;
+DWORD EQMain__pinstLoginServerAPI = 0;
+DWORD EQMain__pinstServerInfo = 0;
 
-// CXWndManager
-// A1 ? ? ? ? 89 88 ? ? ? ?
-// .text:10009400 A1 7C 7F 36 10                       mov     eax, CXWndManager* wndmgr
-static uint8_t* EQMain__CXWndManager_pattern = (uint8_t*)"\xA1\x00\x00\x00\x00\x89\x88\x00\x00\x00\x00";
-static char     EQMain__CXWndManager_mask[] = "x????xx????";
-DWORD           EQMain__CXWndManager = 0;
-
-// CSidlManager
-// 8B 35 ? ? ? ? C6 45 FC 08
-// .text:1000A098 8B 35 00 CA 37 10                    mov     esi, dword_1037CA00
-static uint8_t* EQMain__CSidlManager_pattern = (uint8_t*)"\x8B\x35\x00\x00\x00\x00\xC6\x45\xFC\x08";
-static char     EQMain__CSidlManager_mask[] = "xx????xxxx";
-DWORD           EQMain__CSidlManager = 0;
-
-// CXWndManager::GetCursorToDisplay
-// 51 53 56 8B F1 C7 44 24 ? ? ? ? ? 57 8D 44 24 0C 50 8D 9E ? ? ? ? 53 E8 ? ? ? ?
-static uint8_t* EQMain__CXWndManager__GetCursorToDisplay_pattern = (uint8_t*)"\x51\x53\x56\x8B\xF1\xC7\x44\x24\x00\x00\x00\x00\x00\x57\x8D\x44\x24\x0C\x50\x8D\x9E\x00\x00\x00\x00\x53\xE8\x00\x00\x00\x00";
-static char     EQMain__CXWndManager__GetCursorToDisplay_mask[] = "xxxxxxxx?????xxxxxxxx????xx????";
-DWORD           EQMain__CXWndManager__GetCursorToDisplay;
-
-// LoginController::ProcessKeyboardEvents
-// 55 8B EC 81 EC ? ? ? ? A1 ? ? ? ? 33 C5 89 45 FC 57 8B F9 C7 85 ? ? ? ? ? ? ? ? FF 15 ? ? ? ?
-DWORD LoginController__ProcessKeyboardEvents = 0;
-
-// LoginController::ProcessMouseEvents
-// 55 8B EC 81 EC ? ? ? ? A1 ? ? ? ? 33 C5 89 45 FC 56 57 8B 3D ? ? ? ? 8B F1 C7 85 ? ? ? ? ? ?
-DWORD LoginController__ProcessMouseEvents = 0;
-
-// LoginController::FlushDXKeyboard
-// 55 8B EC 81 EC ? ? ? ? A1 ? ? ? ? 33 C5 89 45 FC 8B 41 04 8D 95 ? ? ? ? 6A 00 52 8D 95 ? ? ?
-static uint8_t* LoginController__FlushDXKeyboard_pattern = (uint8_t*)"\x55\x8B\xEC\x81\xEC\x00\x00\x00\x00\xA1\x00\x00\x00\x00\x33\xC5\x89\x45\xFC\x8B\x41\x04\x8D\x95\x00\x00\x00\x00\x6A\x00\x52\x8D\x95\x00\x00\x00\x00\xC7\x85\x00\x00\x00\x00\x00\x00\x00\x00";
-static char     LoginController__FlushDxKeyboard_mask[] = "xxxxx????x????xxxxxxxxxx????xxxxx????xx????????";
-DWORD           LoginController__FlushDxKeyboard = 0;
-
-// LoginController::SwapScreenMode
-// 56 8B 35 ? ? ? ? 8B 4E 08 85 C9 74 1C 8B 01 51 FF 50 20 8B 46 08 50 8B 10
-static uint8_t* LoginController__SwapScreenMode_pattern = (uint8_t*)"\x56\x8B\x35\x00\x00\x00\x00\x8B\x4E\x08\x85\xC9\x74\x1C\x8B\x01\x51\xFF\x50\x20\x8B\x46\x08\x50\x8B\x10\xFF\x52\x08\xC7\x46\x00\x00\x00\x00\x00\x8B\x35\x00\x00\x00\x00";
-static char     LoginController__SwapScreenMode_mask[] = "xxx????xxxxxxxxxxxxxxxxxxxxxxxx?????xx????";
-DWORD           LoginController__SwapScreenMode = 0;
-
-// CEQSuiteTextureLoader::g_SuiteTextureLoader
-// 56 8B 74 24 08 85 F6 74 1C 83 7E 14 FF 75 0B 56 B9 ? ? ? ? E8 ? ? ? ? 56
-static uint8_t* EQMain__CEQSuiteTextureLoader__instance_pattern = (uint8_t*)"\x56\x8B\x74\x24\x08\x85\xF6\x74\x1C\x83\x7E\x14\xFF\x75\x0B\x56\xB9\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x56";
-static char     EQMain__CEQSuiteTextureLoader__instance_mask[] = "xxxxxxxxxxxxxxxxx????x????x";
-DWORD           EQMain__CEQSuiteTextureLoader__offset = 17;
-DWORD           EQMain__CEQSuiteTextureLoader__instance = 0;
-
-// CEQSuiteTextureLoader::GetTexture
-// 55 8B EC 6A FF 68 ? ? ? ? 64 A1 ? ? ? ? 50 64 89 25 ? ? ? ? 83 EC 10 8B 55 08 53 56 57 8B 7A 14 8D
-static uint8_t* EQMain__CEQSuiteTextureLoader__GetTexture_pattern = (uint8_t*)"\x55\x8B\xEC\x6A\xFF\x68\x00\x00\x00\x00\x64\xA1\x00\x00\x00\x00\x50\x64\x89\x25\x00\x00\x00\x00\x83\xEC\x10\x8B\x55\x08\x53\x56\x57\x8B\x7A\x14\x8D\x59\x04\x33\xF6";
-static char     EQMain__CEQSuiteTextureLoader__GetTexture_mask[] = "xxxxxx????xx????xxxx????xxxxxxxxxxxxxxxxx";
-DWORD           EQMain__CEQSuiteTextureLoader__GetTexture = 0;
-
-// We use SwapScreenMode to find the LoginController instance
-DWORD           pinstLoginController = 0;
+ForeignPointer<CLoginViewManager> g_pLoginViewManager;
+ForeignPointer<LoginClient> g_pLoginClient;
 ForeignPointer<LoginController> g_pLoginController;
-
-// LoginServerAPI
-// IDA Style Sig: 89 0D ? ? ? ? 8B 46 2C
-static uint8_t* EQMain__LoginServerAPI_pattern = (PBYTE)"\x89\x0D\x00\x00\x00\x00\x8B\x46\x2C";
-static char     EQMain__LoginServerAPI_mask[] = "xx????xxx";
-DWORD           EQMain__LoginServerAPI = 0;
 ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 
-// LoginServerAPI::EnterGame
-// 55 8B EC 6A FF 68 ?? ?? ?? ?? 64 A1 ?? ?? ?? ?? 50 83 EC 3C 56
-static uint8_t* LoginServerAPI__EnterGame_pattern = (PBYTE)"\x55\x8B\xEC\x6A\xFF\x68\x00\x00\x00\x00\x64\xA1\x00\x00\x00\x00\x50\x83\xEC\x3C\x56";
-static char     LoginServerAPI__EnterGame_mask[] = "xxxxxx????xx????xxxxx";
-DWORD           LoginServerAPI__EnterGame = 0;
-FUNCTION_AT_VARIABLE_ADDRESS(unsigned int LoginServerAPI::EnterGame(int, void*, int), LoginServerAPI__EnterGame);
-
-// CLoginViewManager
-// A3 ? ? ? ? E8 ? ? ? ? 83 C4 04 85 C0
-static uint8_t* EQMain__CLoginViewManager_pattern = (PBYTE)"\xA3\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x83\xC4\x04\x85\xC0";
-static char     EQMain__CLoginViewManager_mask[] = "x????x????xxxxx";
-DWORD           EQMain__CLoginViewManager = 0;
-ForeignPointer<CLoginViewManager> g_pLoginViewManager;
-
-// CLoginViewManager::SendLMouseClick
-// 55 8B EC 6A FF 68 ? ? ? ? 64 A1 ? ? ? ? 50 83 EC 08 53 56 57 A1 ? ? ? ? 33 C5 50 8D 45 F4 64 A3 ? ? ? ? 8B F1 83 7E 14 00 74 5D 51 8B CC 89 65 F0 68 ? ? ? ? E8 ? ? ? ? 51 8B CC 89 65 EC 68 ? ? ? ? C7 45 ? ? ? ? ? E8 ? ? ? ? 8B 4E 14 C6 45 FC 01 E8 ? ? ? ? 8B F8 51 8B DC 8B 0F 85 C9 74 09 51 E8 ? ? ? ? 83 C4 04 8B 07 8B CE 89 03 C7 45 ? ? ? ? ? E8 ? ? ? ? 84 C0 75 17 8B 4E 1C 8B 7D 08 85 C9 74 26 8B 01 57 FF 90 ? ? ? ? 85 C0 74 29 B8 ? ? ? ? 8B 4D F4 64 89 0D ? ? ? ? 59 5F 5E 5B 8B E5 5D C2 04 00 8B 4E 14 85 C9 74 09 8B 01 57 FF 90 ? ? ? ? 8B 0D ? ? ? ? 57 E8 ? ? ? ? 8B 4D F4 64 89 0D ? ? ? ? 59 5F 5E 5B 8B E5 5D C2 04 00
-static uint8_t* CLoginViewManager__SendLMouseClick_pattern = (PBYTE)"\x55\x8B\xEC\x6A\xFF\x68\x00\x00\x00\x00\x64\xA1\x00\x00\x00\x00\x50\x83\xEC\x08\x53\x56\x57\xA1\x00\x00\x00\x00\x33\xC5\x50\x8D\x45\xF4\x64\xA3\x00\x00\x00\x00\x8B\xF1\x83\x7E\x14\x00\x74\x5D\x51\x8B\xCC\x89\x65\xF0\x68\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x51\x8B\xCC\x89\x65\xEC\x68\x00\x00\x00\x00\xC7\x45\x00\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x8B\x4E\x14\xC6\x45\xFC\x01\xE8\x00\x00\x00\x00\x8B\xF8\x51\x8B\xDC\x8B\x0F\x85\xC9\x74\x09\x51\xE8\x00\x00\x00\x00\x83\xC4\x04\x8B\x07\x8B\xCE\x89\x03\xC7\x45\x00\x00\x00\x00\x00\xE8\x00\x00\x00\x00\x84\xC0\x75\x17\x8B\x4E\x1C\x8B\x7D\x08\x85\xC9\x74\x26\x8B\x01\x57\xFF\x90\x00\x00\x00\x00\x85\xC0\x74\x29\xB8\x00\x00\x00\x00\x8B\x4D\xF4\x64\x89\x0D\x00\x00\x00\x00\x59\x5F\x5E\x5B\x8B\xE5\x5D\xC2\x04\x00\x8B\x4E\x14\x85\xC9\x74\x09\x8B\x01\x57\xFF\x90\x00\x00\x00\x00\x8B\x0D\x00\x00\x00\x00\x57\xE8\x00\x00\x00\x00\x8B\x4D\xF4\x64\x89\x0D\x00\x00\x00\x00\x59\x5F\x5E\x5B\x8B\xE5\x5D\xC2\x04\x00";
-static char     CLoginViewManager__SendLMouseClick_mask[] = "xxxxxx????xx????xxxxxxxx????xxxxxxxx????xxxxxxxxxxxxxxx????x????xxxxxxx????xx?????x????xxxxxxxx????xxxxxxxxxxxxx????xxxxxxxxxxx?????x????xxxxxxxxxxxxxxxxxxx????xxxxx????xxxxxx????xxxxxxxxxxxxxxxxxxxxxx????xx????xx????xxxxxx????xxxxxxxxxx";
-DWORD           CLoginViewManager__SendLMouseClick = 0;
-FUNCTION_AT_VARIABLE_ADDRESS(int CLoginViewManager::SendLMouseClick(CXPoint&), CLoginViewManager__SendLMouseClick);
+FUNCTION_AT_VARIABLE_ADDRESS(int CLoginViewManager::HandleLButtonUp(CXPoint&), EQMain__CLoginViewManager__HandleLButtonUp);
+FUNCTION_AT_VARIABLE_ADDRESS(unsigned int LoginServerAPI::JoinServer(int, void*, int), EQMain__LoginServerAPI__JoinServer);
 
 // We use CLoginViewManager to find the ServerInfo instance
-DWORD           pinstServerInfo = 0;
-ForeignPointer<SERVERSTUFF> g_pServerInfo;
 
 bool InitializeEQMainOffsets()
 {
@@ -1514,94 +1441,43 @@ bool InitializeEQMainOffsets()
 	{
 		EQMainBaseAddress = (uintptr_t)*ghEQMainInstance;
 
-		LoginController__GiveTime = FindPattern(EQMainBaseAddress, 0x100000,
-			LoginController_GiveTime_pattern, LoginController_GiveTime_mask);
+		EQMain__CEQSuiteTextureLoader__GetTexture = FixEQMainOffset(EQMain__CEQSuiteTextureLoader__GetTexture_x);
+		EQMain__CLoginViewManager__HandleLButtonUp = FixEQMainOffset(EQMain__CLoginViewManager__HandleLButtonUp_x);
+		EQMain__CXWndManager__GetCursorToDisplay = FixEQMainOffset(EQMain__CXWndManager__GetCursorToDisplay_x);
+		EQMain__LoginController__FlushDxKeyboard = FixEQMainOffset(EQMain__LoginController__FlushDxKeyboard_x);
+		EQMain__LoginController__GiveTime = FixEQMainOffset(EQMain__LoginController__GiveTime_x);
+		EQMain__LoginServerAPI__JoinServer = FixEQMainOffset(EQMain__LoginServerAPI__JoinServer_x);
+		EQMain__WndProc = FixEQMainOffset(EQMain__WndProc_x);
 
-		EQMain__WndProc = FindPattern(EQMainBaseAddress, 0x100000,
-			EQMain__WndProc_pattern, EQMain__WndProc_mask);
+		EQMain__pinstCEQSuiteTextureLoader = FixEQMainOffset(EQMain__pinstCEQSuiteTextureLoader_x);
+		EQMain__pinstCLoginViewManager = FixEQMainOffset(EQMain__pinstCLoginViewManager_x);
+		EQMain__pinstCSidlManager = FixEQMainOffset(EQMain__pinstCSidlManager_x);
+		EQMain__pinstCXWndManager = FixEQMainOffset(EQMain__pinstCXWndManager_x);
+		EQMain__pinstLoginController = FixEQMainOffset(EQMain__pinstLoginController_x);
+		EQMain__pinstLoginServerAPI = FixEQMainOffset(EQMain__pinstLoginServerAPI_x);
+		EQMain__pinstServerInfo = EQMain__pinstCLoginViewManager - 4;
 
-		if (uint32_t addr = FindPattern(EQMainBaseAddress, 0x100000,
-			EQMain__CXWndManager_pattern, EQMain__CXWndManager_mask))
-		{
-			EQMain__CXWndManager = GetDWordAt(addr, 1);
-		}
-
-		if (uint32_t addr = FindPattern(EQMainBaseAddress, 0x100000,
-			EQMain__CSidlManager_pattern, EQMain__CSidlManager_mask))
-		{
-			EQMain__CSidlManager = GetDWordAt(addr, 2);
-		}
-
-		EQMain__CXWndManager__GetCursorToDisplay = FindPattern(EQMainBaseAddress, 0x100000,
-			EQMain__CXWndManager__GetCursorToDisplay_pattern, EQMain__CXWndManager__GetCursorToDisplay_mask);
-
-		if (uint32_t addr = FindPattern(EQMainBaseAddress, 0x100000,
-			EQMain__CEQSuiteTextureLoader__instance_pattern, EQMain__CEQSuiteTextureLoader__instance_mask))
-		{
-			EQMain__CEQSuiteTextureLoader__instance = GetDWordAt(addr, EQMain__CEQSuiteTextureLoader__offset);
-			if (EQMain__CEQSuiteTextureLoader__instance)
-			{
-				pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)EQMain__CEQSuiteTextureLoader__instance;
-			}
-		}
-
-		EQMain__CEQSuiteTextureLoader__GetTexture = FindPattern(EQMainBaseAddress, 0x100000,
-			EQMain__CEQSuiteTextureLoader__GetTexture_pattern, EQMain__CEQSuiteTextureLoader__GetTexture_mask);
-		if (EQMain__CEQSuiteTextureLoader__GetTexture)
-		{
-			CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
-		}
-
-
-		if (LoginController__GiveTime)
+		if (EQMain__LoginController__GiveTime)
 		{
 			//.text:10014B00                      public: void __thiscall LoginController::GiveTime(void) proc near
 			//.text:10014B00 56                                   push    esi
 			//.text:10014B01 8B F1                                mov     esi, this
 			//.text:10014B03 E8 D8 06 00 00                       call    LoginController::ProcessKeyboardEvents(void)
-			LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(LoginController__GiveTime + 3, 1, 4);
+			EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 3, 1, 4);
 			//.text:10014B08 8B CE                                mov     this, esi       ; this
 			//.text:10014B0A 5E                                   pop     esi
 			//.text:10014B0B E9 A0 08 00 00                       jmp     LoginController::ProcessMouseEvents(void)
-			LoginController__ProcessMouseEvents = GetFunctionAddressAt(LoginController__GiveTime + 11, 1, 4);
+			EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 11, 1, 4);
 		}
 
-		LoginController__FlushDxKeyboard = FindPattern(EQMainBaseAddress, 0x100000,
-			LoginController__FlushDXKeyboard_pattern, LoginController__FlushDxKeyboard_mask);
+		g_pLoginViewManager = EQMain__pinstCLoginViewManager;
+		g_pLoginController = EQMain__pinstLoginController;
+		g_pLoginServerAPI = EQMain__pinstLoginServerAPI;
+		g_pLoginClient = EQMain__pinstServerInfo;
 
-		LoginController__SwapScreenMode = FindPattern(EQMainBaseAddress, 0x100000,
-			LoginController__SwapScreenMode_pattern, LoginController__SwapScreenMode_mask);
-
-		if (LoginController__SwapScreenMode)
-		{
-			pinstLoginController = GetDWordAt(LoginController__SwapScreenMode, 3);
-			g_pLoginController = pinstLoginController;
-		}
-
-		EQMain__LoginServerAPI = FindPattern(EQMainBaseAddress, 0x100000,
-			EQMain__LoginServerAPI_pattern, EQMain__LoginServerAPI_mask);
-
-		if (EQMain__LoginServerAPI)
-		{
-			g_pLoginServerAPI = GetDWordAt(EQMain__LoginServerAPI, 2);
-		}
-
-		LoginServerAPI__EnterGame = FindPattern(EQMainBaseAddress, 0x200000,
-			LoginServerAPI__EnterGame_pattern, LoginServerAPI__EnterGame_mask);
-
-		EQMain__CLoginViewManager = FindPattern(EQMainBaseAddress, 0x200000,
-			EQMain__CLoginViewManager_pattern, EQMain__CLoginViewManager_mask);
-
-		if (EQMain__CLoginViewManager)
-		{
-			EQMain__CLoginViewManager = GetDWordAt(EQMain__CLoginViewManager, 1);
-			pinstServerInfo = EQMain__CLoginViewManager - 4;
-			g_pLoginViewManager = EQMain__CLoginViewManager;
-			g_pServerInfo = pinstServerInfo;
-		}
-
-		CLoginViewManager__SendLMouseClick = FindPattern(EQMainBaseAddress, 0x100000,
-			CLoginViewManager__SendLMouseClick_pattern, CLoginViewManager__SendLMouseClick_mask);
+		// Update addresses shared with eqgame.exe
+		CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
+		pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)EQMain__pinstCEQSuiteTextureLoader;
 
 		return true;
 	}
@@ -1612,19 +1488,29 @@ bool InitializeEQMainOffsets()
 void CleanupEQMainOffsets()
 {
 	EQMainBaseAddress = 0;
-	LoginController__GiveTime = 0;
-	EQMain__WndProc = 0;
-	EQMain__CXWndManager = 0;
-	EQMain__CSidlManager = 0;
-	EQMain__CXWndManager__GetCursorToDisplay = 0;
-	EQMain__CEQSuiteTextureLoader__instance = 0;
+
 	EQMain__CEQSuiteTextureLoader__GetTexture = 0;
-	LoginController__ProcessKeyboardEvents = 0;
-	LoginController__ProcessMouseEvents = 0;
-	LoginController__FlushDxKeyboard = 0;
-	LoginController__SwapScreenMode = 0;
-	pinstLoginController = 0;
+	EQMain__CLoginViewManager__HandleLButtonUp = 0;
+	EQMain__CXWndManager__GetCursorToDisplay = 0;
+	EQMain__LoginController__FlushDxKeyboard = 0;
+	EQMain__LoginController__GiveTime = 0;
+	EQMain__LoginController__ProcessKeyboardEvents = 0;
+	EQMain__LoginController__ProcessMouseEvents = 0;
+	EQMain__LoginServerAPI__JoinServer = 0;
+	EQMain__WndProc = 0;
+
+	EQMain__pinstCEQSuiteTextureLoader = 0;
+	EQMain__pinstCLoginViewManager = 0;
+	EQMain__pinstCSidlManager = 0;
+	EQMain__pinstCXWndManager = 0;
+	EQMain__pinstLoginController = 0;
+	EQMain__pinstLoginServerAPI = 0;
+	EQMain__pinstServerInfo = 0;
+
 	g_pLoginController.reset();
+	g_pLoginViewManager.reset();
+	g_pLoginServerAPI.reset();
+	g_pLoginClient.reset();
 
 	// re-initialize offsets that were overwritten by eqmain
 	pWndMgr = pinstCXWndManager;
