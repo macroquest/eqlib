@@ -2000,6 +2000,16 @@ FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetSpell(int SpellID, bool HasSpellDes
 FUNCTION_AT_ADDRESS(int CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, const VePointer<CONTENTS>& pItem, int index), CKeyRingWnd__ExecuteRightClick);
 #endif
 
+CListWnd* CKeyRingWnd::GetKeyRingList(KeyRingType type) const
+{
+	if (type < 0 || type >= eKeyRingTypeCount)
+	{
+		return pList[type];
+	}
+
+	return nullptr;
+}
+
 //============================================================================
 // CLootWnd
 //============================================================================

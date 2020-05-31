@@ -818,4 +818,21 @@ FUNCTION_AT_ADDRESS(void PcClient::InitializeNewPCVariables(int), EQ_PC__Initial
 FUNCTION_AT_ADDRESS(BaseProfile* ProfileManager::GetCurrentProfile(), ProfileManager__GetCurrentProfile);
 #endif
 
+//----------------------------------------------------------------------------
+
+ItemBaseContainer& PcBase::GetKeyRingItems(KeyRingType type)
+{
+	if (type == eMount)
+		return MountKeyRingItems;
+	if (type == eIllusion)
+		return IllusionKeyRingItems;
+	if (type == eFamiliar)
+		return FamiliarKeyRingItems;
+	if (type == eHeroForge)
+		return HeroForgeKeyRingItems;
+
+	return MountKeyRingItems;
+}
+
+
 } // namespace eqlib

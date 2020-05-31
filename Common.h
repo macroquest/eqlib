@@ -141,9 +141,9 @@
 #define DEPRECATE(x) [[deprecated(x)]]
 #endif
 
-#define ALT_MEMBER_GETTER_DEPRECATED(type, orig, name) \
-    decltype(auto) getter_ ## name() { return (orig); } \
-    __declspec(property(get=getter_ ## name)) type name;
+#define ALT_MEMBER_GETTER_DEPRECATED(type, orig, name, msg) \
+    type& getter_ ## name() { return (*reinterpret_cast<type*>(&orig)); } \
+    __declspec(deprecated(msg)) __declspec(property(get=getter_ ## name)) type name;
 
 namespace eqlib {
 
@@ -602,7 +602,9 @@ enum KeyRingType
 	eMount = 0,
 	eIllusion = 1,
 	eFamiliar = 2,
-	//eHerosForge = 3, // Not yet supported
+	eHeroForge = 3,
+
+	eKeyRingTypeCount = 4
 };
 
 union EqGuid

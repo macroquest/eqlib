@@ -254,7 +254,6 @@
 #define pinstCItemExpTransferWnd_x                                 0xF85DA0
 #define pinstCItemOverflowWnd_x                                    0xE159CC
 #define pinstCJournalCatWnd_x                                      0xE1532C
-//#define pinstCJournalNPCWnd_x                                    0xDA93B0
 #define pinstCJournalTextWnd_x                                     0xE152C4
 #define pinstCKeyRingWnd_x                                         0xE15278
 #define pinstCLargeDialogWnd_x                                     0xF87EE8

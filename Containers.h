@@ -1018,6 +1018,14 @@ template <typename T>
 class VeArray
 {
 public:
+	using value_type = T;
+	using pointer = T*;
+	using reference = T&;
+	using const_reference = const T&;
+
+	using iterator = T*;
+	using const_iterator = const T*;
+
 	VeArray() = default;
 
 	T& operator[](uint32_t i)
@@ -1030,9 +1038,19 @@ public:
 		return m_data[i];
 	}
 
+	iterator begin() { return m_data; }
+	const_iterator begin() const { return m_data; }
+	const_iterator cbegin() const { return m_data; }
+
+	iterator end() { return m_data + m_size; }
+	const_iterator end() const { return m_data + m_size; }
+	const_iterator cend() const { return m_data + m_size; }
+
 	ALT_MEMBER_GETTER(T*, m_data, Begin);
 	ALT_MEMBER_GETTER(uint32_t, m_size, Size);
 	ALT_MEMBER_GETTER(uint32_t, m_capacity, Capacity);
+
+	size_t size() const { return m_size; }
 
 private:
 /*0x00*/ T*       m_data;

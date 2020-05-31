@@ -3983,15 +3983,36 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// size 0x2E0 see 0x550DE3 in 2020-01-19 live
-class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd,
-	public WndEventHandler
+// size 0x2E0 see 0x556DD3 in 2020-05-21 live
+class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
 	EQLIB_OBJECT CKeyRingWnd(CXWnd* parent);
 	EQLIB_OBJECT virtual ~CKeyRingWnd();
 
 	EQLIB_OBJECT static int ExecuteRightClick(KeyRingType keyRingType, const VePointer<CONTENTS>& pItem, int index);
+
+	EQLIB_OBJECT CListWnd* GetKeyRingList(KeyRingType type) const;
+
+/*0x23c*/ CListWnd*     pList[eKeyRingTypeCount];        // KRW_Mounts_List, KRW_Illusions_List, KRW_Familiars_List, KRW_HeroForge_List
+/*0x24c*/ CLabel*       pStatLabel[eKeyRingTypeCount];   // KRW_Mounts_StatsNameLabel, KRW_Illusions_StatNameLabel, KRW_Familiars_StatNameLabel,
+/*0x25c*/ CLabel*       pCountLabel[eKeyRingTypeCount];  // KRW_Mounts_CountLabel, KRW_Illusions_CountLabel, KRW_Familiars_CountLabel, KRW_HeroForge_CountLabel
+/*0x26c*/ CButtonWnd*   pBtnStat[eKeyRingTypeCount];     // KRW_Mounts_Selected, KRW_Illusions_Selected, KRW_Familiars_Selected, KRW_HeroForge_SlotButton
+/*0x27c*/ CButtonWnd*   pBtnSlot[eKeyRingTypeCount];     // KRW_Mounts_SlotButton, KRW_Illusions_SlotButton, KRW_Familiars_SlotButton
+/*0x28c*/ uint8_t       Unknown0x28c[0x18];
+/*0x2a4*/ CButtonWnd*   pItemBtnTemplate;                // KRW_ItemBtnTemplate
+/*0x2a8*/ CButtonWnd*   pBtnFamiliarLeave;               // KRW_Familiars_LeaveButton
+/*0x2ac*/ CButtonWnd*   pBtnFamiliarAutoLeave;           // KRW_Familiars_AutoLeaveButton
+/*0x2b0*/ CListWnd*     pKeysList;                       // KRW_Keys_List
+/*0x2b4*/ uint8_t       Unknown0x2b4[0xc];
+/*0x2c0*/ CPageWnd*     pPageMounts;                     // KRW_Mounts_Page
+/*0x2c4*/ CPageWnd*     pPageIllusions;                  // KRW_Illusions_Page
+/*0x2c8*/ CPageWnd*     pPageFamiliars;                  // KRW_Familiars_Page
+/*0x2cc*/ CPageWnd*     pPageKeys;                       // KRW_Keys_Page
+/*0x2d0*/ CPageWnd*     pPageHeroForge;                  // KRW_HeroForge_Page
+/*0x2d4*/ CTabWnd*      pTabBox;                         // KRW_Subwindows
+/*0x2d8*/ KeyRingType   CurrentPage;
+/*0x2dc*/
 };
 
 //============================================================================

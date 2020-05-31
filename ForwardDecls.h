@@ -121,6 +121,7 @@ class CJournalCatWnd;
 class CJournalNPCWnd;
 class CJournalTextWnd;
 class CKeyCXStrValueInt32;
+class CKeyRingWnd;
 class CLabel;
 class CLabelTemplate;
 class CLargeDialogWnd;

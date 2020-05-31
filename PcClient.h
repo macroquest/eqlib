@@ -2225,7 +2225,7 @@ public:
 /*0x1de8*/ EqGuid                                GroupID;
 /*0x1df0*/ char                                  UnknownPadding[0x90];
 	// End of things that need checking
-	
+
 /*0x1e80*/ int64_t                               Exp;
 /*0x1e88*/ int                                   DaysEntitled;
 /*0x1e8c*/ bool                                  bAutoConsentGroup;
@@ -2315,8 +2315,10 @@ public:
 
 	PcProfile* GetCurrentPcProfile()
 	{
-		return (PcProfile*)& GetCurrentBaseProfile();
+		return (PcProfile*)&GetCurrentBaseProfile();
 	}
+
+	EQLIB_OBJECT ItemBaseContainer& GetKeyRingItems(KeyRingType type);
 };
 
 class DebugText
