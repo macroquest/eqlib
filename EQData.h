@@ -607,7 +607,7 @@ constexpr int TT_AE_PC_V2 = 40;
 constexpr int TT_DIRECTIONAL = 42;
 constexpr int TT_SPLASH = 45;
 
-constexpr char* KeyRingWindowParent DEPRECATE("Use pKeyRingWnd isntead of looking it up by name") = "KeyRingWnd";
+constexpr char* KeyRingWindowParent DEPRECATE("Use pKeyRingWnd instead of looking it up by name") = "KeyRingWnd";
 constexpr char* MountWindowList = "KRW_Mounts_List";
 constexpr char* IllusionWindowList = "KRW_Illusions_List";
 constexpr char* FamiliarWindowList = "KRW_Familiars_list";

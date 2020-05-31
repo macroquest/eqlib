@@ -2003,11 +2003,9 @@ FUNCTION_AT_ADDRESS(int CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, 
 CListWnd* CKeyRingWnd::GetKeyRingList(KeyRingType type) const
 {
 	if (type < 0 || type >= eKeyRingTypeCount)
-	{
-		return pList[type];
-	}
+		return nullptr;
 
-	return nullptr;
+	return pList[type];
 }
 
 //============================================================================

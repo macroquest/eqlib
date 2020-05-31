@@ -604,7 +604,9 @@ enum KeyRingType
 	eFamiliar = 2,
 	eHeroForge = 3,
 
-	eKeyRingTypeCount = 4
+	eKeyRingTypeCount = 4,
+	eKeyRingTypeFirst = eMount,
+	eKeyRingTypeLast = eHeroForge,
 };
 
 union EqGuid
