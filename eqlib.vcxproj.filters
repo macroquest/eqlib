@@ -131,6 +131,9 @@
     <ClCompile Include="ExceptionsDisabled.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicsEngine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssemblyFunctions.asm">

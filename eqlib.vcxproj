@@ -114,6 +114,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Globals.cpp" />
+    <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="Items.cpp" />
     <ClCompile Include="PcClient.cpp" />
     <ClCompile Include="pch.cpp">

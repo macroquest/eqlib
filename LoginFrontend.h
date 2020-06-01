@@ -171,7 +171,7 @@ public:
 /*0x0bc*/ CXStr    PasswordCopy;
 /*0x0c0*/ CXStr    AccountKey;
 /*0x0c4*/ uint8_t  Unknown0x0C4[0x10];
-/*0x0d8*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
+/*0x0d4*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
 /*0x0f8*/ EQLS::EQClientServerData QuickConnectServer;
 /*0x148*/ };
 

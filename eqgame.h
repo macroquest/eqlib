@@ -206,7 +206,6 @@
 #define pinstCButtonWnd_x                                          0x1604EC8
 #define pinstCCastingWnd_x                                         0xE15280
 #define pinstCCastSpellWnd_x                                       0xE159C8
-//#define pinstCCharacterCreationWnd_x                             0xDA8EBC
 #define pinstCCharacterListWnd_x                                   0xE15A08
 #define pinstCChatWindowManager_x                                  0xF82210
 #define pinstCClaimWnd_x                                           0xF82368
