@@ -1386,6 +1386,8 @@ void InitializeEQGameOffsets()
 // EQGraphicsDX9.dll Offsets
 INITIALIZE_EQGRAPHICS_OFFSET(__eqgraphics_fopen);
 INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__Render);
+INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderScene);
+INITIALIZE_EQGRAPHICS_OFFSET(CRender__ResetDevice);
 
 void InitializeEQGraphicsOffsets()
 {
@@ -1397,6 +1399,8 @@ void InitializeEQGraphicsOffsets()
 
 		__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);
 		CParticleSystem__Render = FixEQGraphicsOffset(CParticleSystem__Render_x);
+		CRender__RenderScene = FixEQGraphicsOffset(CRender__RenderScene_x);
+		CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
 	}
 }
 

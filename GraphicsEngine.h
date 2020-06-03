@@ -379,24 +379,33 @@ public:
 	EQLIB_OBJECT CDisplay(HWND);
 	EQLIB_OBJECT ~CDisplay();
 
+	// Imported Functions
+	EQLIB_OBJECT float GetFloorHeight(float X, float Y, float F, float Radius = 0.0f, const CVector3& CollisionVector = CVector3(-1, -1, 1), CActorApplicationData* pAppData = 0, EActorType eActorType = Undefined, float ZOffset = 1.0f);
+	EQLIB_OBJECT CActorInterface* GetClickedActor(int X, int Y, bool bClimbLadder, CVector3& outHitLocation, CVector3& outHitNormal);
+	EQLIB_OBJECT bool GetWorldFilePath(char*, const char*);
+	EQLIB_OBJECT void ReloadUI(bool, bool);
+	EQLIB_OBJECT int is_3dON();
+	EQLIB_OBJECT float TrueDistance(float fromx, float fromy, float fromz, float tox, float toy, float toz, float zfactor);
+	EQLIB_OBJECT void SetViewActor(CActorInterface*);
+	EQLIB_OBJECT void SetRenderWindow(int mode);
+	EQLIB_OBJECT void ToggleScreenshotMode();
+	EQLIB_OBJECT static COLORREF GetUserDefinedColor(int);
+	EQLIB_OBJECT static int WriteTextHD2(const char* text, int X, int Y, int color);
+
 	EQLIB_OBJECT bool GenericSphereColl(float, float, float, float, float, float, float*, float*, float*, unsigned char);
 	EQLIB_OBJECT bool SlideSwitchLeftRight(EQSwitch*, float, int, float);
-	EQLIB_OBJECT bool const GetWorldFilePath(char*, const char*);
 	EQLIB_OBJECT char* GetIniRaceName(int);
 	EQLIB_OBJECT PlayerClient* GetNearestPlayerInView(float, bool);
 	EQLIB_OBJECT float FindZoneTopZ(float, float, float);
 	EQLIB_OBJECT float FixHeading(float);
-	EQLIB_OBJECT float GetFloorHeight(float X, float Y, float F, float Radius = 0.0f, const CVector3& CollisionVector = CVector3(-1, -1, 1), CActorApplicationData* pAppData = 0, EActorType eActorType = Undefined, float ZOffset = 1.0f);
 	EQLIB_OBJECT float HeadingDiff(float, float, float*);
 	EQLIB_OBJECT float PlayerDistance(PlayerZoneClient*, PlayerZoneClient*, float);
 	EQLIB_OBJECT float PlayerSimpleDistance(PlayerZoneClient*, PlayerZoneClient*, float);
 	EQLIB_OBJECT float SetActorBoundingRadius(CActorInterface*, float, float);
 	EQLIB_OBJECT float SimpleDistance(float, float, float, float, float, float, float);
-	EQLIB_OBJECT float TrueDistance(float fromx, float fromy, float fromz, float tox, float toy, float toz, float zfactor);
 	EQLIB_OBJECT int GetItemType(int);
 	EQLIB_OBJECT int GetNewPCIniFlag(int, int);
 	EQLIB_OBJECT int GetSkyTime(int*, int*);
-	EQLIB_OBJECT int is_3dON();
 	EQLIB_OBJECT int is_ParticleSystemON();
 	EQLIB_OBJECT int MoveMissile(EQMissile*);
 	EQLIB_OBJECT int ShouldLoadNewPcModel(int, int);
@@ -405,12 +414,9 @@ public:
 	EQLIB_OBJECT long SetUserRender(int);
 	EQLIB_OBJECT static char* DefaultUIPath;
 	EQLIB_OBJECT static char* UIPath;
-	EQLIB_OBJECT static int __cdecl WriteTextHD2(const char* text, int X, int Y, int color);
-	EQLIB_OBJECT static unsigned long __cdecl GetUserDefinedColor(int);
 	EQLIB_OBJECT static void __cdecl SetUserDefinedColor(int, int, int, int);
 	EQLIB_OBJECT CLightInterface* CreateLight(unsigned char, float, float, float, float);
 	EQLIB_OBJECT CActorInterface* CreateActor(char*, float, float, float, float, float, float, bool, bool);
-	EQLIB_OBJECT CActorInterface* GetClickedActor(int X, int Y, bool bFlag, CVector3& Vector1, CVector3& Vector2);
 	EQLIB_OBJECT unsigned char GetEnvironment(float, float, float, int*);
 	EQLIB_OBJECT unsigned char GetIntensity(unsigned char);
 	EQLIB_OBJECT unsigned char LoadBMPFile();
@@ -452,7 +458,6 @@ public:
 	EQLIB_OBJECT void ProcessSwitches();
 	EQLIB_OBJECT void ProcessWeather();
 	EQLIB_OBJECT void RealRender_World();
-	EQLIB_OBJECT void ReloadUI(bool, bool);
 	EQLIB_OBJECT void Render_MinWorld();
 	EQLIB_OBJECT void Render_World();
 	EQLIB_OBJECT void ResetRenderWindow();
@@ -473,9 +478,6 @@ public:
 	EQLIB_OBJECT void SetSunLight();
 	EQLIB_OBJECT void SetupEmitterEnvironment();
 	EQLIB_OBJECT void SetupEQPlayers();
-	EQLIB_OBJECT void SetViewActor(CActorInterface*);
-	EQLIB_OBJECT void SetRenderWindow(int mode);
-	EQLIB_OBJECT void ToggleScreenshotMode();
 	EQLIB_OBJECT void SetViewActorByName(char*);
 	EQLIB_OBJECT void SetViewAngle(int);
 	EQLIB_OBJECT void SetYon(float);

@@ -144,7 +144,7 @@ FUNCTION_AT_ADDRESS(void CDisplay::NewUIProcessEscape(), CDisplay__NewUIProcessE
 FUNCTION_AT_ADDRESS(void CDisplay::KeyMapUpdated(), CDisplay__KeyMapUpdated);
 #endif
 #ifdef CDisplay__GetWorldFilePath_x
-FUNCTION_AT_ADDRESS(bool const CDisplay::GetWorldFilePath(char*, const char*), CDisplay__GetWorldFilePath);
+FUNCTION_AT_ADDRESS(bool CDisplay::GetWorldFilePath(char*, const char*), CDisplay__GetWorldFilePath);
 #endif
 #ifdef CDisplay__LoadWorldFile_x
 FUNCTION_AT_ADDRESS(unsigned char CDisplay::LoadWorldFile(char*, char*, int, unsigned char), CDisplay__LoadWorldFile);
@@ -177,7 +177,7 @@ FUNCTION_AT_ADDRESS(unsigned int CDisplay::IsShield(int) const, CDisplay__IsShie
 FUNCTION_AT_ADDRESS(int CDisplay::GetItemType(int), CDisplay__GetItemType);
 #endif
 #ifdef CDisplay__GetUserDefinedColor_x
-FUNCTION_AT_ADDRESS(unsigned long CDisplay::GetUserDefinedColor(int), CDisplay__GetUserDefinedColor);
+FUNCTION_AT_ADDRESS(COLORREF CDisplay::GetUserDefinedColor(int), CDisplay__GetUserDefinedColor);
 #endif
 #ifdef CDisplay__SetUserDefinedColor_x
 FUNCTION_AT_ADDRESS(void CDisplay::SetUserDefinedColor(int, int, int, int), CDisplay__SetUserDefinedColor);

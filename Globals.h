@@ -1240,6 +1240,8 @@ EQLIB_VAR fGetLabelFromEQ      GetLabelFromEQ;
 
 EQLIB_VAR DWORD __eqgraphics_fopen;
 EQLIB_VAR DWORD CParticleSystem__Render;
+EQLIB_VAR DWORD CRender__RenderScene;
+EQLIB_VAR DWORD CRender__ResetDevice;
 
 //============================================================================
 // eqmain.dll Offsets

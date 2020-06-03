@@ -1263,7 +1263,11 @@
 //
 
 #define __eqgraphics_fopen_x                                       0x10147468
+
 #define CParticleSystem__Render_x                                  0x10071190
+
+#define CRender__RenderScene_x                                     0x100933D0
+#define CRender__ResetDevice_x                                     0x10092C40
 
 //
 // eqmain.dll offsets
