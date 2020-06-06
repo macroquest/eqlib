@@ -713,13 +713,14 @@ public:
 	EQLIB_OBJECT void ReadString(std::string& out)
 	{
 		int len = 0;
-		while (m_pBuffer[m_uReadOffset] != '\0')
+		while (m_uReadOffset < m_uLength)
 		{
-			out.append(1, (char)(m_pBuffer[m_uReadOffset]));
-			m_uReadOffset++;
-		}
+			int offset = m_uReadOffset++;
+			if (m_pBuffer[offset] == '\0')
+				break;
 
-		m_uReadOffset++;
+			out.append(1, (char)(m_pBuffer[offset]));
+		}
 	}
 
 	template <typename T>
@@ -734,9 +735,9 @@ public:
 		}
 	}
 
-	bool ReadString(char* buffer, size_t bufferSize)
+	EQLIB_OBJECT bool ReadString(char* buffer, size_t bufferSize)
 	{
-		size_t size = strlen(m_pBuffer + m_uReadOffset) + 1;
+		size_t size = strnlen(m_pBuffer + m_uReadOffset, m_uLength - m_uReadOffset) + 1;
 		size_t readAmount = std::min(bufferSize - 1, size);
 
 		if (!ValidateRead(readAmount))

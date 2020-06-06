@@ -1256,6 +1256,9 @@
 // KeyCombo
 #define KeyCombo__GetTextDescription_x                             0x92A2D0
 
+// CUnSerializeBuffer
+#define CUnSerializeBuffer__GetString_x                            0x483010
+
 //
 // EQGraphicsDX9.dll offsets (maybe this should go in eqgraphics.h?)
 //

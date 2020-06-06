@@ -755,6 +755,7 @@ INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText1);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText2);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__GetTextExtent);
+INITIALIZE_EQGAME_OFFSET(CUnSerializeBuffer__GetString);
 INITIALIZE_EQGAME_OFFSET(CWebManager__CreateHtmlWnd);
 INITIALIZE_EQGAME_OFFSET(CWndDisplayManager__FindWindowA);
 INITIALIZE_EQGAME_OFFSET(CXMLDataManager__GetXMLData);

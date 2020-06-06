@@ -782,6 +782,7 @@ EQLIB_VAR DWORD CTextureFont__DrawWrappedText;
 EQLIB_VAR DWORD CTextureFont__DrawWrappedText1;
 EQLIB_VAR DWORD CTextureFont__DrawWrappedText2;
 EQLIB_VAR DWORD CTextureFont__GetTextExtent;
+EQLIB_VAR DWORD CUnSerializeBuffer__GetString;
 EQLIB_VAR DWORD CWebManager__CreateHtmlWnd;
 EQLIB_VAR DWORD CWndDisplayManager__FindWindowA;
 EQLIB_VAR DWORD CXMLDataManager__GetXMLData;
