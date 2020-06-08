@@ -2197,12 +2197,12 @@ FUNCTION_AT_ADDRESS(int SoundManager::StreamingGetSongLength(), SoundManager__St
 // SpellManager
 //============================================================================
 
-#ifdef SpellManager__SpellManager_x
-FUNCTION_AT_ADDRESS(SpellManager::SpellManager(char*), SpellManager__SpellManager);
-#endif
-#ifdef SpellManager__dSpellManager_x
-FUNCTION_AT_ADDRESS(SpellManager::~SpellManager(), SpellManager__dSpellManager);
-#endif
+//#ifdef SpellManager__SpellManager_x
+//FUNCTION_AT_ADDRESS(SpellManager::SpellManager(char*), SpellManager__SpellManager);
+//#endif
+//#ifdef SpellManager__dSpellManager_x
+//FUNCTION_AT_ADDRESS(SpellManager::~SpellManager(), SpellManager__dSpellManager);
+//#endif
 #ifdef SpellManager__GetSpellByGroupAndRank_x
 FUNCTION_AT_ADDRESS(const EQ_Spell* SpellManager::GetSpellByGroupAndRank(int Group, int SubGroup, int Rank, bool bLesserRanksOk), SpellManager__GetSpellByGroupAndRank);
 #endif

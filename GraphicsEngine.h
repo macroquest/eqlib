@@ -520,7 +520,7 @@ public:
 /*0x0120*/ CVector3*              CamOrientation;
 /*0x0124*/ SWadFile*              WadFileLoadScreen;
 /*0x0128*/ uint8_t                NewPCModelsLoaded;
-/*0x0128*/ bool                   bHorsesLoaded;
+/*0x0129*/ bool                   bHorsesLoaded;
 /*0x012c*/ ActorTagManager*       pActorTagManager;
 /*0x0130*/ uint8_t                Unknown0x130[0x24];
 /*0x0154*/ uint32_t               TimeStamp;
@@ -541,6 +541,7 @@ public:
 /*0x2d77*/ bool                   bWindowedIncreasedGamma;
 /*0x2d78*/ int                    ActorClipPlane;
 /*0x2d7c*/ int                    ShadowClipPlane;
+/*0x2d80*/
 };
 
 } // namespace eqlib

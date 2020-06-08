@@ -1186,39 +1186,49 @@ private:
 /*0x20*/
 };
 
-template <typename KeyType, typename T, int _Size, int _Cnt>
+//----------------------------------------------------------------------------
+
+template <typename KeyT, typename T, int TableSize, int EmbeddedSize>
 class HashListMap;
 
-template <typename KeyType, typename T, int _Size>
-class HashListMap<KeyType, T, _Size, -1>
+template <typename KeyT, typename T, int TableSize>
+class HashListMap<KeyT, T, TableSize, -1>
 {
 public:
+	using KeyType = KeyT;
+	using ValueType = T;
+	enum { StorageSize = ((TableSize == 0) ? 1 : TableSize) };
+
+	HashListMap();
+	HashListMap(const HashListMap& other);
+	virtual ~HashListMap();
+
+	HashListMap& operator=(const HashListMap& other);
+
+	template <int OtherTableSize>
+	HashListMap& operator=(const HashListMap<KeyT, T, OtherTableSize, -1>& other);
+
 	struct Node
 	{
 		T Value;
 		Node* pNext;
 		Node* pPrev;
 		KeyType Key;
-		Node *pHashNext;
+		Node* pHashNext;
 	};
 
 	Node* NodeGet(const T* cur) const
 	{
-		return (Node *)((byte *)cur - (size_t)((byte *)(&((Node*)1)->Value) - (byte *)1));
+		return (Node*)((byte*)cur - (size_t)((byte*)(&((Node*)1)->Value) - (byte*)1));
 	}
 
-	enum { TheSize = ((_Size == 0) ? 1 : _Size) };
-
-	void* vfTable;
-	int DynSize;
-	int MaxDynSize;
-	Node* pHead;
-	Node* pTail;
-	int Count;
+/*0x04*/ int   Count;
+/*0x08*/ Node* pHead;
+/*0x0c*/ Node* pTail;
 	union
 	{
-		Node *Table[TheSize];
-		Node **DynTable;
+	/*0x10*/ Node* Table[StorageSize];
+	/*0x10*/ Node** DynTable;
 	};
 };
 

@@ -2493,7 +2493,7 @@ class [[offsetcomments]] SpellRequirementAssociationManager : public Requirement
 {
 public:
 /*0x0230*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
-/*0x11e8*/
+/*0x11e0*/
 };
 
 struct [[offsetcomments]] StageType
@@ -2634,8 +2634,8 @@ public:
 /*0x3c8ec*/ int            SpellAssocFileCRC;
 /*0x3c8f0*/ int            SpellStackingFileCRC;
 /*0x3c8f4*/ SpellRequirementAssociationManager ReqAssocManager;
-/*0x3dadc*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;
-/*0x3daec*/
+/*0x3dad4*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;
+/*0x3dae4*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -2658,11 +2658,11 @@ public:
 	EQLIB_OBJECT SPELLCALCINFO* GetSpellAffect(int index);
 	EQLIB_OBJECT bool GetSpellAffectEmpty(bool);
 
-/*0x03daec*/ SPELL*                       Spells[TOTAL_SPELL_COUNT+1];         // 60001 last one is the unknown spell...
-/*0x07a3b0*/ SPELLCALCINFO*               CalcInfo[CalcInfoSize];              // 175000
-/*0x143670*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT+1];
-/*0x1bc7f8*/ HashTable<StackingGroupData> StackingData;
-/*0x1bc808*/
+/*0x03dae4*/ SPELL*                       Spells[TOTAL_SPELL_COUNT+1];         // 60001 last one is the unknown spell...
+/*0x07a3a8*/ SPELLCALCINFO*               CalcInfo[CalcInfoSize];              // 175000
+/*0x143668*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT+1];
+/*0x1bc7f0*/ HashTable<StackingGroupData> StackingData;
+/*0x1bc800*/
 };
 
 class StringTable

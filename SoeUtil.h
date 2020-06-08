@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <cassert>
+
 namespace eqlib {
 namespace SoeUtil {
 
