@@ -473,7 +473,8 @@ struct [[offsetcomments]] SPAWNINFO
 /*0x0f84*/ unsigned int      ParticleCastStartTime;
 /*0x0f88*/ unsigned int      ParticleCastDuration;
 /*0x0f8c*/ int               ParticleVisualSpellNum;
-/*0x0f90*/ ActorClient       mActorClient;                 // start of ActorClient struct  size 0x1BC?
+/*0x0f90*/ uint8_t           Filler0x0f90[0x4];
+/*0x0f94*/ ActorClient       mActorClient;                 // start of ActorClient struct  size 0x1BC?
 /*0x114c*/ PlayerAnimationBase* pAnimation;
 /*0x1150*/ float             MeleeRadius;                  // used by GetMeleeRange
 /*0x1154*/ unsigned int      CollisionCounter;
