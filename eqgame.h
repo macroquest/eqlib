@@ -1159,7 +1159,7 @@
 // CEQSuiteTextureLoader
 #define CEQSuiteTextureLoader__CreateTexture_x                     0x9778A0
 #define CEQSuiteTextureLoader__GetDefaultUIPath_x                  0x978020
-#define CEQSuiteTextureLoader__GetTexture_x                        0x9778A0
+#define CEQSuiteTextureLoader__GetTexture_x                        0x977CE0
 
 // CFindItemWnd
 #define CFindItemWnd__CFindItemWnd_x                               0x514D10
