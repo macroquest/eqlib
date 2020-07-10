@@ -24,15 +24,7 @@ namespace eqlib {
 // uses frequently. We need to be able to lock this same
 // mutex so that we don't race against EQ.
 
-// NEEDS OFFSET & INSTALLATION
 CMutexSync* gCXStrMutex = nullptr;
-
-class CXFreeList
-{
-public:
-	size_t blockSize;
-	CStrRep* repList;
-};
 
 // This is the list of free lists. Each CXStr has a pointer
 // to it, so the easiest way to find it is to interact with
@@ -47,6 +39,27 @@ void InitializeCXStr()
 
 void ShutdownCXStr()
 {
+}
+
+CXFreeList* internal::GetCXFreeList()
+{
+	return gFreeLists;
+}
+
+void internal::LockCXStrMutex()
+{
+	if (gCXStrMutex)
+	{
+		gCXStrMutex->lock();
+	}
+}
+
+void internal::UnlockCXStrMutex()
+{
+	if (gCXStrMutex)
+	{
+		gCXStrMutex->unlock();
+	}
 }
 
 // Unicode / Utf8 conversion functions

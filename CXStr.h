@@ -52,6 +52,13 @@ enum ECompareMode
 	CaseInsensitive,
 };
 
+class CXFreeList
+{
+public:
+	size_t blockSize;
+	CStrRep* repList;
+};
+
 using Unicode16 = wchar_t;
 
 class CXFreeList;
@@ -1762,6 +1769,17 @@ inline void swap(CXStr& lhs, CXStr& rhs) noexcept
 	return std::move(rhs.insert(static_cast<size_t>(0), static_cast<size_t>(1), lhs));
 }
 
+//----------------------------------------------------------------------------
+
+namespace internal {
+// Internal stuff for debug purposes.
+
+
+EQLIB_OBJECT CXFreeList* GetCXFreeList();
+EQLIB_OBJECT void LockCXStrMutex();
+EQLIB_OBJECT void UnlockCXStrMutex();
+
+} // namespace internal
 } // namespace eqlib
 
 //----------------------------------------------------------------------------
