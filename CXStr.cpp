@@ -31,6 +31,11 @@ CMutexSync* gCXStrMutex = nullptr;
 // an existing CXStr.
 CXFreeList* gFreeLists = nullptr;
 
+namespace internal {
+	size_t gStrRepAllocations = 0;
+	size_t gStrRepLiveObjects = 0;
+}
+
 void InitializeCXStr()
 {
 	gFreeLists = (CXFreeList*)CXStr__gFreeLists;
@@ -280,6 +285,9 @@ CStrRep* CXStr::AllocRepNoLock(size_t size, EStringEncoding encoding)
 	size_t newSize = sizeof(CStrRep) - sizeof(CStrRep::utf8) + size;
 	CStrRep* rep = new (eqlib::eqAlloc(newSize)) CStrRep;
 
+	++internal::gStrRepAllocations;
+	++internal::gStrRepLiveObjects;
+
 	rep->next = nullptr;
 	rep->length = 0;
 	rep->alloc = size;
@@ -321,6 +329,8 @@ void CXStr::FreeRepNoLock(CStrRep* rep)
 
 		++i;
 	}
+
+	--internal::gStrRepLiveObjects;
 
 	eqDelete(rep);
 }

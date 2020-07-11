@@ -1774,10 +1774,12 @@ inline void swap(CXStr& lhs, CXStr& rhs) noexcept
 namespace internal {
 // Internal stuff for debug purposes.
 
-
 EQLIB_OBJECT CXFreeList* GetCXFreeList();
 EQLIB_OBJECT void LockCXStrMutex();
 EQLIB_OBJECT void UnlockCXStrMutex();
+
+EQLIB_VAR size_t gStrRepAllocations;
+EQLIB_VAR size_t gStrRepLiveObjects;
 
 } // namespace internal
 } // namespace eqlib
