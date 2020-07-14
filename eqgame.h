@@ -383,6 +383,7 @@
 #define Util__FastTime_x                                           0x913680
 #define __eq_delete_x                                              0x9B65FE
 #define __eq_new_x                                                 0x9B6BC4
+#define __CopyLayout_x                                             0x63AB10
 
 ////
 // Section 4: Function Offsets

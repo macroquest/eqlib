@@ -354,6 +354,7 @@ EQLIB_VAR DWORD __CastRay;
 EQLIB_VAR DWORD __CastRay2;
 EQLIB_VAR DWORD __CleanItemTags;
 EQLIB_VAR DWORD __ConvertItemTags;
+EQLIB_VAR DWORD __CopyLayout;
 EQLIB_VAR DWORD __CreateCascadeMenuItems;
 EQLIB_VAR DWORD __DoesFileExist;
 EQLIB_VAR DWORD __eq_delete;
@@ -1292,6 +1293,9 @@ EQLIB_OBJECT CXStr STMLToText(const CXStr& In, bool bReplaceBrWithNewline = true
 EQLIB_API class IconCache* __cdecl GetAnimationCache(int index);
 EQLIB_API void SaveColors(int, int, int, int);
 EQLIB_API bool EQExecuteCmd(unsigned int command, bool keyDown, void* data, const KeyCombo* combo);
+EQLIB_API bool CopyLayout(const CXStr& currlayout, const CXStr& newlayout, bool bHotbuttons, bool bLoadouts,
+	bool bSocials, CXStr& ErrorOut, bool bForceReload = false);
+
 
 //----------------------------------------------------------------------------
 // FIXME: Remove these macros

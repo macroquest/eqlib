@@ -101,6 +101,8 @@ FUNCTION_AT_ADDRESS(bool EQExecuteCmd(unsigned int command, bool keyDown, void* 
 #ifdef __FlushDxKeyboard_x
 FUNCTION_AT_ADDRESS(void FlushDxKeyboard(), __FlushDxKeyboard);
 #endif
-
+#ifdef __CopyLayout_x
+FUNCTION_AT_ADDRESS(bool CopyLayout(const CXStr& currlayout, const CXStr& newlayout, bool bHotbuttons, bool bLoadouts, bool bSocials, CXStr& ErrorOut, bool bForceReload), __CopyLayout);
+#endif
 
 } // namespace eqlib
