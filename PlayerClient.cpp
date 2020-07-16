@@ -494,7 +494,7 @@ FUNCTION_AT_ADDRESS(PcClient* PlayerClient::GetPcClient() const, PlayerClient__G
 //============================================================================
 
 #ifdef PlayerZoneClient__LegalPlayerRace_x
-FUNCTION_AT_ADDRESS(int PlayerZoneClient::LegalPlayerRace(int), PlayerZoneClient__LegalPlayerRace);
+FUNCTION_AT_ADDRESS(bool PlayerZoneClient::LegalPlayerRace(), PlayerZoneClient__LegalPlayerRace);
 #endif
 #ifdef PlayerZoneClient__GetLevel_x
 FUNCTION_AT_ADDRESS(unsigned char PlayerZoneClient::GetLevel() const, PlayerZoneClient__GetLevel);

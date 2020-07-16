@@ -399,27 +399,6 @@ enum eFilterMacro
 #define MAX_VARNAME                              64
 
 
-constexpr int EQR_HUMAN                        = 1;
-constexpr int EQR_BARBARIAN                    = 2;
-constexpr int EQR_ERUDITE                      = 3;
-constexpr int EQR_ELF                          = 4;
-constexpr int EQR_HIGH_ELF                     = 5;
-constexpr int EQR_DARK_ELF                     = 6;
-constexpr int EQR_HALF_ELF                     = 7;
-constexpr int EQR_DWARF                        = 8;
-constexpr int EQR_TROLL                        = 9;
-constexpr int EQR_OGRE                         = 10;
-constexpr int EQR_HALFLING                     = 11;
-constexpr int EQR_GNOME                        = 12;
-constexpr int EQR_SKELETON                     = 60;
-constexpr int EQR_IKSAR                        = 128;
-constexpr int EQR_VAHSHIR                      = 130;
-constexpr int EQR_FROGLOCK                     = 330;
-constexpr int EQR_SKELETON_NEW                 = 367;
-constexpr int EQR_DRAKKIN                      = 522;
-constexpr int EQR_OEQ_SKELETON                 = 802;
-constexpr int EQR_SOL_SKELETON                 = 803;
-
 // Inventory Slots
 enum eInventorySlot
 {
@@ -1908,7 +1887,7 @@ struct [[offsetcomments]] BenefitSelection
 };
 
 #define EQ_ASSIST_CALC                           0x020c0f19
-#define EQ_ASSIST_COMPLETE                       0x456C    // aMsgTimeStampRe
-#define EQ_ASSIST                                0x3CBA    // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+#define EQ_ASSIST_COMPLETE                       0x5EEF    // aMsgTimeStampRe
+#define EQ_ASSIST                                0x1AA5    // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
 } // namespace eqlib
