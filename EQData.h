@@ -439,7 +439,8 @@ enum eInventorySlot
 
 	InvSlot_Max,
 	InvSlot_FirstBagSlot = InvSlot_Bag1,
-	InvSlot_LastBagsLot = InvSlot_Bag10,
+	InvSlot_LastBagSlot = InvSlot_Bag10,
+	InvSlot_LastBagsLot	DEPRECATE("Use InvSlot_LastBagSlot instead") = InvSlot_LastBagSlot,
 };
 
 // AltCurrency values

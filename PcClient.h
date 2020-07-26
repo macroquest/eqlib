@@ -1566,9 +1566,8 @@ public:
 
 /*0x0000*/ BYTE                                            Unknown0x0000[0x10];
 /*0x0010*/ DWORD                                           BaseProfile;
-/*0x0014*/ BYTE                                            Unknown0x0014[0x8];
-/*0x001c*/ INVENTORYARRAY*                                 pInventoryArray;                        // This is a VePointer
-/*0x0020*/ BYTE                                            Unknown0x0020[0x48];
+/*0x0014*/ ItemBaseContainer InventoryContainer;
+/*0x0030*/ BYTE                                            Unknown0x0030[0x38];
 /*0x0068*/ SPELLBUFF                                       Buff[NUM_LONG_BUFFS];                   // EQ_Affect size is 0x68 * 0x2a = 0x1110
 /*0x1178*/ SPELLBUFF                                       ShortBuff[NUM_SHORT_BUFFS];             // EQ_Affect size is 0x68 * 0x37 = 0x1658
 /*0x27d0*/ int                                             SpellBook[NUM_BOOK_SLOTS];
@@ -1628,7 +1627,13 @@ public:
 /*0x3afc*/ int                                             ParentId;
 /*0x3b00*/ int                                             TattooIndex;
 /*0x3b04*/ int                                             FacialAttachmentIndex;
-/*0x3b08*/
+/*0x3b08*/ //BaseProfile
+	
+	EQLIB_OBJECT ItemContainer::ItemPointer GetInventorySlot(eInventorySlot type);
+
+	// TODO: deprecate this eventually (after refactoring away all uses of it in core)
+	INVENTORYARRAY* getter_pInventoryArray() { return reinterpret_cast<INVENTORYARRAY*>(&InventoryContainer.Items[0]); }
+	__declspec(property(get = getter_pInventoryArray)) INVENTORYARRAY* pInventoryArray;
 };
 
 //============================================================================

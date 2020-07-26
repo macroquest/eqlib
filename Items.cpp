@@ -120,6 +120,17 @@ bool ItemContainer::IsEmpty() const
 	return true;
 }
 
+bool ItemContainer::IsFull() const
+{
+	for (const auto& item : *this)
+	{
+		if (item == nullptr)
+			return false;
+	}
+
+	return true;
+}
+
 bool ItemContainer::IsValidIndex(const ItemIndex& index) const
 {
 	ItemContainer* container = const_cast<ItemContainer*>(this);

@@ -820,6 +820,11 @@ FUNCTION_AT_ADDRESS(BaseProfile* ProfileManager::GetCurrentProfile(), ProfileMan
 
 //----------------------------------------------------------------------------
 
+ItemContainer::ItemPointer BaseProfile::GetInventorySlot(eInventorySlot type)
+{
+	return InventoryContainer.GetItem(type);
+}
+
 ItemBaseContainer& PcBase::GetKeyRingItems(KeyRingType type)
 {
 	if (type == eMount)

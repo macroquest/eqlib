@@ -277,6 +277,7 @@ public:
 	inline int GetAtDepth() const { return m_atDepth; } // depth of this container within a parent container
 
 	EQLIB_OBJECT bool IsEmpty() const;
+	EQLIB_OBJECT bool IsFull() const;
 	EQLIB_OBJECT bool IsValidIndex(const ItemIndex& index) const;
 
 	//
@@ -430,6 +431,99 @@ private:
 	}
 
 public:
+	//
+	// functions used for search for a single empty slot
+	//
+
+	// Predicate functions take the form of: bool Predicate(const VePointer<ItemClient>&, const ItemIndex& location)
+	// this predicate will check if a container meets the requirements of the empty slot since the slot information
+	// is stored on the container
+
+	// Find a specified range and depth
+	template <typename Predicate>
+	ItemIndex FindEmptySlot(int beginSlot, int endSlot, int depth, Predicate visitor)
+	{
+		ItemIndex cursor = CreateItemIndex(std::max(0, beginSlot));
+		return FindEmptySlotImpl(beginSlot, endSlot, depth, cursor, visitor);
+	}
+
+	// Find to a specified depth
+	template <typename Predicate>
+	ItemIndex FindEmptySlot(int depth, Predicate visitor)
+	{
+		ItemIndex cursor = CreateItemIndex(0);
+		return FindEmptySlotImpl(-1, -1, depth, cursor, visitor);
+	}
+
+	// Find in everything
+	template <typename Predicate>
+	ItemIndex FindEmptySlot(Predicate visitor)
+	{
+		ItemIndex cursor = CreateItemIndex(0);
+		return FindEmptySlotImpl(-1, -1, -1, cursor, visitor);
+	}
+
+private:
+	template <typename Predicate>
+	ItemIndex FindEmptySlotImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate)
+	{
+		// Create our range
+		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
+		if (!IsValidRange(iter, endIter))
+			return ItemIndex();
+
+		// first loop the top-level slots of the container. assume if one of these is empty, that's what the user wants
+		// ie, this is breadth-first
+		int slot = std::max(0, beginSlot);
+		while (iter != endIter)
+		{
+			cursor.SetSlot(m_atDepth, slot);
+			if (*iter == nullptr)
+			{
+				return cursor;
+			}
+
+			++iter;
+			++slot;
+		}
+
+		// no top-level slots are empty so search the containers, contingent on the predicates
+		// only do this if we have a depth
+		if (depth != 0)
+		{
+			iter = GetStartIterator(beginSlot);
+			slot = std::max(0, beginSlot);
+			while (iter != endIter)
+			{
+				cursor.SetSlot(m_atDepth, slot);
+				const ItemPointer& ptr = *iter;
+
+				if (ptr != nullptr && predicate(ptr, cursor))
+				{
+					if (auto container = ptr->GetChildItemContainer())
+					{
+						if (!container->IsFull())
+						{
+							ItemIndex tempIndex = cursor;
+
+							ItemIndex foundIndex = container->FindEmptySlotImpl(-1, -1, depth - 1, cursor, predicate);
+							if (foundIndex.IsValid())
+								return foundIndex;
+
+							cursor = tempIndex;
+						}
+					}
+				}
+
+				++iter;
+				++slot;
+			}
+		}
+
+		return ItemIndex();
+	}
+
+public:
 	// Retrieve an item at a specific index in this container
 	EQLIB_OBJECT ItemPointer GetItem(int index) const;
 
@@ -450,10 +544,15 @@ public:
 	EQLIB_OBJECT uint32_t GetSize(int depth = 0) const;
 
 	// Retrieves the number of items in the container.
-	inline uint32_t GetCount(int depth = 0) const
+	inline uint32_t GetCount(int beginSlot, int endSlot, int depth) const
 	{
 		ItemContainer* container = const_cast<ItemContainer*>(this);
-		return container->VisitItems(depth, ItemCountVisitor()).GetCount();
+		return container->VisitItems(beginSlot, endSlot, depth, ItemCountVisitor()).GetCount();
+	}
+
+	inline uint32_t GetCount(int depth = 0) const
+	{
+		return GetCount(-1, -1, depth);
 	}
 
 private:
