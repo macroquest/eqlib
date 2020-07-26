@@ -392,6 +392,11 @@ public:
 	EQLIB_OBJECT static COLORREF GetUserDefinedColor(int);
 	EQLIB_OBJECT static int WriteTextHD2(const char* text, int X, int Y, int color);
 
+	EQLIB_OBJECT void SetYon(float);
+	EQLIB_OBJECT void SetActorYon(float);
+	EQLIB_OBJECT void SetActorClipPlane(int);
+	EQLIB_OBJECT void SetShadowClipPlane(int);
+
 	EQLIB_OBJECT bool GenericSphereColl(float, float, float, float, float, float, float*, float*, float*, unsigned char);
 	EQLIB_OBJECT bool SlideSwitchLeftRight(EQSwitch*, float, int, float);
 	EQLIB_OBJECT char* GetIniRaceName(int);
@@ -464,7 +469,6 @@ public:
 	EQLIB_OBJECT void SetActorScaleFactor(CActorInterface*, float, unsigned char);
 	EQLIB_OBJECT void SetActorSpriteTint(EQRGB*, CActorInterface*);
 	EQLIB_OBJECT void SetActorUserData(CActorInterface*, void*);
-	EQLIB_OBJECT void SetActorYon(float);
 	EQLIB_OBJECT void SetAmbientLight(float);
 	EQLIB_OBJECT void SetCCreateCamera(int);
 	EQLIB_OBJECT void SetDayPeriod(unsigned char);
@@ -480,7 +484,6 @@ public:
 	EQLIB_OBJECT void SetupEQPlayers();
 	EQLIB_OBJECT void SetViewActorByName(char*);
 	EQLIB_OBJECT void SetViewAngle(int);
-	EQLIB_OBJECT void SetYon(float);
 	EQLIB_OBJECT void ShowDisplay();
 	EQLIB_OBJECT void StartWeather(int, unsigned char);
 	EQLIB_OBJECT void StartWorldDisplay(EQZoneIndex);
