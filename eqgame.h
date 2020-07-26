@@ -384,6 +384,7 @@
 #define __eq_delete_x                                              0x9B6D6E
 #define __eq_new_x                                                 0x9B7324
 #define __CopyLayout_x                                             0x63A6B0
+#define __ThrottleFrameRate_x                                      0x623A70
 
 ////
 // Section 4: Function Offsets
@@ -505,6 +506,7 @@
 #define CContainerWnd__SetContainer_x                              0x72C550
 
 // CDisplay
+#define CDisplay__cameraType_x                                     0xE171EC
 #define CDisplay__ZoneMainUI_x                                     0x554F90
 #define CDisplay__PreZoneMainUI_x                                  0x554FA0
 #define CDisplay__CleanGameUI_x                                    0x55A3A0
@@ -519,6 +521,7 @@
 #define CDisplay__GetFloorHeight_x                                 0x54A080
 #define CDisplay__SetRenderWindow_x                                0x548A00
 #define CDisplay__ToggleScreenshotMode_x                           0x54C750
+#define CDisplay__RealRender_World_x                               0x547E70
 
 // CEditBaseWnd
 #define CEditBaseWnd__SetSel_x                                     0x982540
@@ -1172,7 +1175,6 @@
 #define IString__Append_x                                          0x504D70
 
 // Camera
-#define CDisplay__cameraType_x                                     0xE171EC
 #define EverQuest__Cameras_x                                       0xED246C
 
 // LootFiltersManager
