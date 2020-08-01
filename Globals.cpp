@@ -1524,8 +1524,6 @@ void CleanupEQMainOffsets()
 	g_pLoginClient.reset();
 
 	// re-initialize offsets that were overwritten by eqmain
-	pWndMgr = pinstCXWndManager;
-	pSidlMgr = pinstCSidlManager;
 	pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
 	CEQSuiteTextureLoader__GetTexture = FixEQGameOffset(CEQSuiteTextureLoader__GetTexture_x);
 }
