@@ -88,6 +88,10 @@ struct [[offsetcomments]] CStrRep
 /*0x18*/
 };
 
+namespace internal {
+	EQLIB_OBJECT CXFreeList* GetCXFreeList();
+}
+
 // Simple iterator traits checks
 template <typename Iter>
 using iter_cat_t = typename std::iterator_traits<Iter>::iterator_category;
@@ -347,9 +351,18 @@ public:
 	// Copy constructor. Constructs the string with a copy of the contents of other.
 	CXStr(const CXStr& other)
 	{
-		m_data = other.m_data;
-		if (m_data)
-			++m_data->refCount;
+		// Do not share strings across free lists. Makes a deep copy of the string
+		// on our own free list if the string isn't a part of our own free list.
+		if (other.m_data && internal::GetCXFreeList() != other.m_data->freeList)
+		{
+			assign(std::string_view{ other });
+		}
+		else
+		{
+			m_data = other.m_data;
+			if (m_data)
+				++m_data->refCount;
+		}
 	}
 
 	// Constructs the string with a substring [pos, pos + count) of other.
@@ -364,6 +377,11 @@ public:
 	CXStr(const CXStr& other, size_type pos, size_type count)
 	{
 		assign(other, pos, count);
+	}
+
+	// Constructing a CXStr with nullptr just initializes an empty CXStr.
+	CXStr(nullptr_t)
+	{
 	}
 
 	// Constructs the string with the contents initialized with a copy of the
@@ -407,7 +425,21 @@ public:
 	// move semantics. other is left in valid, empty state.
 	CXStr(CXStr&& other) noexcept
 	{
-		m_data = other.m_data;
+		// Do not share strings across free lists. Makes a deep copy of the string
+		// on our own free list if the string isn't a part of our own free list.
+		if (other.m_data && internal::GetCXFreeList() != other.m_data->freeList)
+		{
+			// string_view here forces a deep copy. An ideal implementation would provide
+			// a more direct and efficient deep copy implementation
+			assign(std::string_view{ other });
+
+			FreeRep(other.m_data);
+		}
+		else
+		{
+			m_data = other.m_data;
+		}
+
 		other.m_data = nullptr;
 	}
 
@@ -451,6 +483,14 @@ public:
 	{
 		if (this != std::addressof(str))
 		{
+			// Do not share strings across free lists. Makes a deep copy of the string
+			// on our own free list if the string isn't a part of our own free list.
+			if (str.m_data && internal::GetCXFreeList() != str.m_data->freeList)
+			{
+				assign(std::string_view{ str });
+				return *this;
+			}
+
 			// increment other first in case they both share the same rep.
 			if (str.m_data)
 				++str.m_data->refCount;
@@ -468,6 +508,14 @@ public:
 	{
 		if (this != std::addressof(str))
 		{
+			// Do not share strings across free lists. Makes a deep copy of the string
+			// on our own free list if the string isn't a part of our own free list.
+			if (str.m_data && internal::GetCXFreeList() != str.m_data->freeList)
+			{
+				assign(std::string_view{ str });
+				return *this;
+			}
+
 			// If they both point to the same rep we don't want to release.
 			if (str.m_data != m_data)
 				FreeRep(m_data);
@@ -555,6 +603,9 @@ public:
 	{
 		FreeRep(m_data);
 		m_data = nullptr;
+
+		if (count == 0)
+			return *this;
 
 		Assure(count + 1, StringEncodingUtf8);
 
@@ -709,27 +760,6 @@ public:
 	{
 		return std::string_view(data(), size());
 	}
-
-#if 0
-	// dangerous conversion operators.
-	operator const void*() const
-	{
-		return data();
-	}
-	operator const void*()
-	{
-		return data();
-	}
-
-	operator const char*() const
-	{
-		return data();
-	}
-	operator const char*()
-	{
-		return data();
-	}
-#endif
 
 	// ** Iterators **
 
@@ -1774,7 +1804,6 @@ inline void swap(CXStr& lhs, CXStr& rhs) noexcept
 namespace internal {
 // Internal stuff for debug purposes.
 
-EQLIB_OBJECT CXFreeList* GetCXFreeList();
 EQLIB_OBJECT void LockCXStrMutex();
 EQLIB_OBJECT void UnlockCXStrMutex();
 
