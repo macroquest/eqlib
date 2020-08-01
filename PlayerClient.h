@@ -43,7 +43,7 @@ class PcClient;
 class MissileBase;
 
 struct EQC_INFO;
-struct LAUNCHSPELLDATA;
+struct LaunchSpellData;
 struct chngForm;
 
 #if 0 // when we're ready
@@ -183,36 +183,36 @@ struct [[offsetcomments]] FELLOWSHIPINFO
 using PFELLOWSHIPINFO [[deprecated]] = FELLOWSHIPINFO *;
 
 // size 0x58 see 442783 in eqgame.exe 2017 04 11 test
-struct [[offsetcomments]] LAUNCHSPELLDATA
+struct [[offsetcomments]] LaunchSpellData
 {
-/*0x00*/ UINT    SpellETA;                       // Calculated TimeStamp when current spell being cast will land. 0 while not casting.
-/*0x04*/ int     SpellID;                        // -1 = not casting a spell
-/*0x08*/ BYTE    SpellSlot;                      // 0xFF if not casting, otherwise it's the spell gem number (0 - 8)
-/*0x09*/ BYTE    SpellLevel;
-/*0x0c*/ ITEMLOCATION ItemLocation;
+/*0x00*/ uint32_t       SpellETA;                // Calculated TimeStamp when current spell being cast will land. 0 while not casting.
+/*0x04*/ int            SpellID;                 // -1 = not casting a spell
+/*0x08*/ uint8_t        SpellSlot;               // 0xFF if not casting, otherwise it's the spell gem number (0 - 8)
+/*0x09*/ uint8_t        SpellLevel;
+/*0x0c*/ ITEMLOCATION   ItemLocation;
 /*0x18*/ ItemSpellTypes ItemCastType;
-/*0x1c*/ int     ItemID;
-/*0x20*/ float   CastingY;
-/*0x24*/ float   CastingX;
-/*0x28*/ int     DamageID;
-/*0x2c*/ UINT    TargetID;
-/*0x30*/ bool    bDetrimental;
-/*0x31*/ bool    bResetMeleeTimers;
-/*0x32*/ bool    bResetAAOnNotTakeHold;
-/*0x33*/ bool    bFreeTarget;
-/*0x34*/ float   TargetPosY;
-/*0x38*/ float   TargetPosX;
-/*0x3c*/ float   TargetPosZ;
-/*0x40*/ bool    bTwinCast;
-/*0x41*/ bool    bLanded;
-/*0x42*/ bool    bNPCTarget;
-/*0x43*/ bool    bHasHitRecourse;
-/*0x44*/ float   AnchorPosY;
-/*0x48*/ float   AnchorPosX;
-/*0x4c*/ float   AnchorPosZ;
-/*0x50*/ bool    bIgnoreRange;
-/*0x51*/ bool    bResetAAOnNotTakeHoldSuccess;
-/*0x54*/ int     Unknown0x54;
+/*0x1c*/ int            ItemID;
+/*0x20*/ float          CastingY;
+/*0x24*/ float          CastingX;
+/*0x28*/ int            DamageID;
+/*0x2c*/ uint32_t       TargetID;
+/*0x30*/ bool           bDetrimental;
+/*0x31*/ bool           bResetMeleeTimers;
+/*0x32*/ bool           bResetAAOnNotTakeHold;
+/*0x33*/ bool           bFreeTarget;
+/*0x34*/ float          TargetPosY;
+/*0x38*/ float          TargetPosX;
+/*0x3c*/ float          TargetPosZ;
+/*0x40*/ bool           bTwinCast;
+/*0x41*/ bool           bLanded;
+/*0x42*/ bool           bNPCTarget;
+/*0x43*/ bool           bHasHitRecourse;
+/*0x44*/ float          AnchorPosY;
+/*0x48*/ float          AnchorPosX;
+/*0x4c*/ float          AnchorPosZ;
+/*0x50*/ bool           bIgnoreRange;
+/*0x51*/ bool           bResetAAOnNotTakeHoldSuccess;
+/*0x54*/ int            Unknown0x54;
 /*0x58*/
 
 	bool IsCasting() const
@@ -220,7 +220,8 @@ struct [[offsetcomments]] LAUNCHSPELLDATA
 		return SpellID != -1;
 	}
 };
-using PLAUNCHSPELLDATA [[deprecated]] = LAUNCHSPELLDATA*;
+using LAUNCHSPELLDATA DEPRECATE("Use LaunchSpellData instead") = LaunchSpellData;
+using PLAUNCHSPELLDATA DEPRECATE("Use LaunchSpellData* instead") = LaunchSpellData*;
 
 //============================================================================
 // PhysicsBase & PlayerPhysics
@@ -374,7 +375,7 @@ struct [[offsetcomments]] SPAWNINFO
 /*0x0340*/ unsigned int             MinuteTimer;
 /*0x0344*/ char                     Handle[0x20];
 /*0x0364*/ unsigned int             ACounter;                     // not sure what this one is for (m_uHibernatingCount)
-/*0x0368*/ LAUNCHSPELLDATA          CastingData;                  // size: 0x58
+/*0x0368*/ LaunchSpellData          CastingData;                  // size: 0x58
 /*0x03c0*/ unsigned int             SpellGemETA[0xf];             // InnateETA is now the last member in this array
 /*0x03fc*/ unsigned int             CombatSkillUsed[0x2];
 /*0x0404*/ unsigned int             LastResendAddPlayerPacket;
@@ -816,7 +817,7 @@ public:
 /*0x0340*/ unsigned int             MinuteTimer;
 /*0x0344*/ char                     Handle[0x20];
 /*0x0364*/ unsigned int             ACounter;                     // not sure what this one is for (m_uHibernatingCount)
-/*0x0368*/ LAUNCHSPELLDATA          CastingData;                  // size: 0x58
+/*0x0368*/ LaunchSpellData          CastingData;                  // size: 0x58
 /*0x03c0*/ unsigned int             SpellGemETA[0xf];             // InnateETA is now the last member in this array
 /*0x03fc*/ unsigned int             CombatSkillUsed[0x2];
 /*0x0404*/ unsigned int             LastResendAddPlayerPacket;
@@ -953,7 +954,7 @@ public:
 	EQLIB_OBJECT bool CanIHit(const PlayerZoneClient*, int);
 	EQLIB_OBJECT bool IsFlyer();
 	EQLIB_OBJECT bool IsInvisible(PlayerZoneClient*, bool = false);
-	EQLIB_OBJECT bool IWasHit(EQMissileHitinfo*, LAUNCHSPELLDATA*, int = 0);
+	EQLIB_OBJECT bool IWasHit(EQMissileHitinfo*, LaunchSpellData*, int = 0);
 	EQLIB_OBJECT bool UpdatePlayerActor();
 	EQLIB_OBJECT float GetDefaultHeight(int race, unsigned char);
 	EQLIB_OBJECT float GetPlayerFloorHeight(float, float, float, unsigned char);
