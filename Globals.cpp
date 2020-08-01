@@ -1489,6 +1489,8 @@ bool InitializeEQMainOffsets()
 		// Update addresses shared with eqgame.exe
 		CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
 		pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)EQMain__pinstCEQSuiteTextureLoader;
+		pSidlMgr = EQMain__pinstCSidlManager;
+		pWndMgr = EQMain__pinstCXWndManager;
 
 		return true;
 	}
