@@ -1270,6 +1270,7 @@
 #define CParticleSystem__Render_x                                  0x10070F10
 
 #define CRender__RenderScene_x                                     0x10093140
+#define CRender__UpdateDisplay_x                                   0x100937d0
 #define CRender__ResetDevice_x                                     0x100929B0
 
 //
