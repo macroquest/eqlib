@@ -185,7 +185,6 @@ FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::OnProcessFrame(), CButtonWnd, CXWnd,
 FORWARD_FUNCTION_TO_VTABLE2(bool CButtonWnd::IsPointTransparent(const CXPoint& point) const, CButtonWnd, CXWnd, IsPointTransparent);
 FORWARD_FUNCTION_TO_VTABLE2(void CButtonWnd::SetAttributesFromSidl(CParamScreenPiece*), CButtonWnd, CXWnd, SetAttributesFromSidl);
 
-
 //============================================================================
 // CCheckBoxWnd
 //============================================================================
@@ -334,6 +333,9 @@ FUNCTION_AT_ADDRESS(void CGaugeWnd::SpecialToolTip(), CGaugeWnd__SpecialToolTip)
 
 #ifdef CHotButton__SetButtonSize_x
 FUNCTION_AT_ADDRESS(void CHotButton::SetButtonSize(int percent, bool bUpdateParent), CHotButton__SetButtonSize);
+#endif
+#ifdef CHotButton__SetCheck_x
+FUNCTION_AT_ADDRESS(void CHotButton::SetCheck(bool), CHotButton__SetCheck);
 #endif
 
 //============================================================================

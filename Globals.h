@@ -598,6 +598,7 @@ EQLIB_VAR DWORD CharacterZoneClient__UseSkill;
 EQLIB_VAR DWORD ChatManagerClient__Instance;
 EQLIB_VAR DWORD CHelpWnd__SetFile;
 EQLIB_VAR DWORD CHotButton__SetButtonSize;
+EQLIB_VAR DWORD CHotButton__SetCheck;
 EQLIB_VAR DWORD CHotButtonWnd__DoHotButton;
 EQLIB_VAR DWORD CHtmlComponentWnd__ValidateUri;
 EQLIB_VAR DWORD CHtmlWnd__AddObserver;
