@@ -418,6 +418,7 @@ public:
 	bool IsClientRectDirty() const { return bClientRectChanged; }
 	bool IsClientClipRectDirty() const { return bClientClipRectChanged; }
 	bool IsScreenClipRectDirty() const { return bScreenClipRectChanged; }
+	DEPRECATE("Use GetWindowText()") CXStr CGetWindowText() const { return GetWindowText(); }
 
 public:
 	// functions we have offsets for
