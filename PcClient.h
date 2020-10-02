@@ -36,7 +36,6 @@
 //   PcProfile -> BaseProfile
 
 #define USE_NEW_CHARINFO       0
-#define USE_NEW_PCPROFILE      0
 
 namespace eqlib {
 
@@ -1384,155 +1383,6 @@ struct [[offsetcomments]] CHARINFONEW
 };
 
 //============================================================================
-// CHARINFO2 a.k.a. PcProfile
-//============================================================================
-
-#if !USE_NEW_PCPROFILE
-//aSdeityD CharInfo2__CharInfo2
-#define CHARINFO2_Size 0xAE68 // Jul 08 2019 test (see 8A2EB9) - eqmule
-
-struct [[offsetcomments]] CHARINFO2
-{
-/******************************** BaseProfile Start ********************************/
-/*0x0000*/ BYTE                                            Unknown0x0000[0x10];
-/*0x0010*/ DWORD                                           BaseProfile;
-/*0x0014*/ BYTE                                            Unknown0x0014[0x8];
-/*0x001c*/ INVENTORYARRAY*                                 pInventoryArray;
-/*0x0020*/ BYTE                                            Unknown0x0020[0x48];
-/*0x0068*/ SPELLBUFF                                       Buff[NUM_LONG_BUFFS];                   // EQ_Affect size is 0x68 * 0x2a = 0x1110
-/*0x1178*/ SPELLBUFF                                       ShortBuff[NUM_SHORT_BUFFS];             // EQ_Affect size is 0x68 * 0x37 = 0x1658
-/*0x27d0*/ int                                             SpellBook[NUM_BOOK_SLOTS];
-/*0x36d0*/ DWORD                                           MemorizedSpells[0x12];
-/*0x3718*/ DWORD                                           Skill[NUM_SKILLS];
-/*0x38a8*/ DWORD                                           InnateSkill[0x19];
-/*0x390c*/ TSafeArrayStatic<ArmorProperties, 9>            ArmorProps;                             // size 0xb4
-/*0x39c0*/ TSafeArrayStatic<DWORD, 9>                      CharacterTint;                          // size 0x24
-/*0x39e4*/ BYTE                                            Gender;
-/*0x39e8*/ DWORD                                           Race;
-/*0x39ec*/ DWORD                                           Class;
-/*0x39f0*/ HashTable<int>                                  properties;
-/*0x3a00*/ DWORD                                           Level;
-/*0x3a04*/ DWORD                                           Mana;
-/*0x3a08*/ DWORD                                           Endurance;
-/*0x3a10*/ int64_t                                         BaseHP;
-/*0x3a18*/ DWORD                                           BaseSTR;
-/*0x3a1c*/ DWORD                                           BaseSTA;
-/*0x3a20*/ DWORD                                           BaseCHA;
-/*0x3a24*/ DWORD                                           BaseDEX;
-/*0x3a28*/ DWORD                                           BaseINT;
-/*0x3a2c*/ DWORD                                           BaseAGI;
-/*0x3a30*/ DWORD                                           BaseWIS;
-/*0x3a34*/ BYTE                                            Face;
-/*0x3a38*/ DWORD                                           Plat;
-/*0x3a3c*/ DWORD                                           Gold;
-/*0x3a40*/ DWORD                                           Silver;
-/*0x3a44*/ DWORD                                           Copper;
-/*0x3a48*/ DWORD                                           CursorPlat;
-/*0x3a4c*/ DWORD                                           CursorGold;
-/*0x3a50*/ DWORD                                           CursorSilver;
-/*0x3a54*/ DWORD                                           CursorCopper;
-/*0x3a58*/ int                                             _max_allowed_spell_slots;
-/*0x3a5c*/ int                                             practices;
-/*0x3a60*/ int                                             height;
-/*0x3a64*/ int                                             width;
-/*0x3a68*/ int                                             length;
-/*0x3a6c*/ int                                             view_height;
-/*0x3a70*/ char                                            texture_type;
-/*0x3a71*/ char                                            m_armorMat;
-/*0x3a72*/ char                                            m_armorVariation;
-/*0x3a73*/ char                                            headType;
-/*0x3a74*/ char                                            caneditface;
-/*0x3a78*/ int                                             DisciplineTimer;
-/*0x3a7c*/ UINT                                            MendTimer;
-/*0x3a80*/ int                                             ForageTimer;
-/*0x3a84*/ int                                             thirstlevel;
-/*0x3a88*/ int                                             hungerlevel;
-/*0x3a8c*/ int                                             PotionCount;
-/*0x3a90*/ int                                             profileType;                            // enum PT_Main = 0, PT_Alt, PT_MonsterMission, PT_TypeUnknown
-/*0x3a94*/ int                                             Shrouded;                               // templateId
-/*0x3a98*/ int                                             systemId;
-/*0x3a9c*/ int                                             designId;
-/*0x3aa0*/ int                                             InventorySlotBitmask;
-/*0x3aa4*/ UINT                                            CurrentProgressionID;
-/*0x3aa8*/ BYTE                                            Unknown0x3c28[0x54];
-/*0x3afc*/ int                                             ParentId;
-/*0x3b00*/ int                                             TattooIndex;
-/*0x3b04*/ int                                             FacialAttachmentIndex;
-/******************************** BaseProfile End ********************************/
-/******************************** PcProfile Start ********************************/
-/*0x3b08*/ TSafeArrayStatic<WorldLocation, 5>              BoundLocations;                         // size 0x64 home_zone
-/*0x3b6c*/ TSafeArrayStatic<ArmorProperties, 0x16>         ArmorType;
-/*0x3d24*/ TSafeArrayStatic<AALIST, AA_CHAR_MAX_REAL>      AAList;                                 // AlternateAbilities
-/*0x4b34*/ TSafeArrayStatic<DWORD, 0x9>                    BodyColor;
-/*0x4b58*/ TSafeArrayStatic<int, 0x800>                    FactionTable;                           // factiontable
-/*0x6b58*/ TSafeArrayStatic<int, NUM_COMBAT_ABILITIES>     CombatAbilities;                        // KnownCombatAbilities
-/*0x7008*/ TSafeArrayStatic<UINT, 0xF>                     SpellRecastTimer;                       // spell_used
-/*0x7044*/ TSafeArrayStatic<UINT, 0x19>                    CombatAbilityTimers;                    // fs
-/*0x70a8*/ TList<CombatAbilityTimer>                       CombatAbilityTimersList;                // size 8 for sure CombatAbilityTimersAddl
-/*0x70b0*/ TSafeArrayStatic<UINT, 0x19>                    LinkedSpellTimers;                      // for sure, we used to call thius CombatAbilityTimes...
-/*0x7114*/ TSafeArrayStatic<UINT, 0x64>                    ItemRecastTimers;                       // for sure
-/*0x72a4*/ TSafeArrayStatic<UINT, 0x64>                    AATimers;                               // for sure
-/*0x7434*/ TSafeArrayStatic<BandolierSet, 0x14>            Bandolier;                              // size 0x1900 = 0x140 * 0x14 for sure see 8DE476 Jan 04 2019 test
-/*0x8d34*/ TSafeArrayStatic<BenefitSelection, 5>           ActiveTributeBenefits;                  // size 0x28 = 8 * 5 for sure see 8DE437 Jan 04 2019 test
-/*0x8d5c*/ TSafeArrayStatic<BenefitSelection, 0xa>         ActiveTrophyTributeBenefits;            // size 0x50 = 8 * 0xa
-/*0x8dac*/ ItemBaseContainer                               GuildTributeBenefitItems;               // size 0x1c for sure see 8C9D9C in 21 Sep 2018
-/*0x8dc8*/ ItemBaseContainer                               GuildTrophyTributeBenefitItems;         // size 0x1c
-/*0x8de4*/ ArrayClass<CXStr>                               MercenarySaveStrings;                   // size 0x10
-/*0x8df4*/ AssociatedNPCSaveStringNode*                    PetSaveString;                          // for sure
-/*0x8df8*/ DWORD                                           Deity;                                  // fs see 8DE504 Jan 04 2019 test
-/*0x8dfc*/ bool                                            bPVPFlag;
-/*0x8dfd*/ BYTE                                            HighestLevel;
-/*0x8e00*/ DWORD                                           Drunkenness;                            // inebriation
-/*0x8e04*/ BYTE                                            HairColor;
-/*0x8e05*/ BYTE                                            BeardColor;
-/*0x8e08*/ int                                             NpcTintIndex;
-/*0x8e0c*/ BYTE                                            LeftEye;
-/*0x8e0d*/ BYTE                                            RightEye;
-/*0x8e0e*/ BYTE                                            Hair;
-/*0x8e0f*/ BYTE                                            Beard;
-/*0x8e10*/ BYTE                                            OldFace;
-/*0x8e14*/ DWORD                                           AAPoints;
-/*0x8e18*/ char                                            PocketPetSaveString[0x2000];            // 0x1000 in older clients
-/*0xae18*/ CXStr                                           ItemBuffer;
-/*0xae1c*/ UINT                                            LastShield;
-/*0xae20*/ bool                                            bSneak;
-/*0xae21*/ bool                                            bHide;
-/*0xae24*/ DWORD                                           AAPointsSpent;
-/*0xae28*/ DWORD                                           AAPointsAssigned[6];                    // none, general, arch, class, special, focus, merc
-/*0xae40*/ void*                                           pPetData;                               // PetObjectData todo fill in
-/*0xae44*/ DWORD                                           PrimActor;
-/*0xae48*/ DWORD                                           SecdActor;
-/*0xae4c*/ bool                                            bUseTemplateFaction;
-/*0xae50*/ DWORD                                           TitlePrefixID;
-/*0xae54*/ DWORD                                           TitleSuffixID;
-/*0xae58*/ bool                                            bAreHandsMagic;
-/*0xae5c*/ DWORD                                           SoleEnabledZoneID;
-/*0xae60*/ DWORD                                           NewBodyTint;
-/*0xae64*/ DWORD                                           CurrentMercenaryIndex;
-/*0xae68*/
-/******************************** PcProfile End ********************************/
-};
-using PCHARINFO2 [[deprecated]] = CHARINFO2*;
-
-#if !defined(NEWCHARINFO)
-struct [[offsetcomments]] CI2_INFO
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ eProfileListType ListType;
-/*0x04*/ CHARINFO2* pCharInfo2;
-/*0x08*/ CHARINFO2* pLast;
-/*0x0c*/ CHARINFO2* pNext;
-/*0x10*/ CHARINFO2* pPrev;
-/*0x14*/
-};
-using PCI2_INFO = CI2_INFO*;
-
-#endif // !defined(NEWCHARINFO)
-
-#endif // USE_NEW_PCPROFILE
-
-//============================================================================
 // EQ_PC
 //============================================================================
 
@@ -1566,7 +1416,7 @@ public:
 
 /*0x0000*/ BYTE                                            Unknown0x0000[0x10];
 /*0x0010*/ DWORD                                           BaseProfile;
-/*0x0014*/ ItemBaseContainer InventoryContainer;
+/*0x0014*/ ItemBaseContainer                               InventoryContainer;
 /*0x0030*/ BYTE                                            Unknown0x0030[0x38];
 /*0x0068*/ SPELLBUFF                                       Buff[NUM_LONG_BUFFS];                   // EQ_Affect size is 0x68 * 0x2a = 0x1110
 /*0x1178*/ SPELLBUFF                                       ShortBuff[NUM_SHORT_BUFFS];             // EQ_Affect size is 0x68 * 0x37 = 0x1658
@@ -1644,6 +1494,8 @@ constexpr int MAX_BANDOLIER_ITEMS = 20;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
 {
+	FORCE_SYMBOLS;
+
 public:
 /*0x3b08*/ TSafeArrayStatic<WorldLocation, 5>              BoundLocations;                         // size 0x64 home_zone
 /*0x3b6c*/ TSafeArrayStatic<ArmorProperties, 0x16>         ArmorType;
@@ -1695,15 +1547,9 @@ public:
 /*0xae60*/ DWORD                                           NewBodyTint;
 /*0xae64*/ DWORD                                           CurrentMercenaryIndex;
 /*0xae68*/
-
-	// force symbols for this struct
-	EQLIB_OBJECT void dummy() {}
 };
-
-#if USE_NEW_PCPROFILE
-using CHARINFO2 [[deprecated]] = PcProfile;
-using PCHARINFO2 [[deprecated]] = PcProfile*;
-#endif
+using CHARINFO2 DEPRECATE("Use PcProfile instead") = PcProfile;
+using PCHARINFO2 DEPRECATE("Use PcProfile* instead") = PcProfile*;
 
 //============================================================================
 // CharacterBase
