@@ -4988,8 +4988,11 @@ public:
 // CSpellBookWnd
 //============================================================================
 
-class CSpellBookWnd : public CSidlScreenWnd
+class [[offsetcomments]] CSpellBookWnd : public CSidlScreenWnd,
+	public PopDialogHandler, public WndEventHandler
 {
+	FORCE_SYMBOLS
+
 public:
 	CSpellBookWnd(CXWnd*);
 	virtual ~CSpellBookWnd();
@@ -5020,6 +5023,16 @@ public:
 	EQLIB_OBJECT void UpdateSpellBookDisplay();
 
 	EQLIB_OBJECT static int GetBookSlot(int);
+
+/*0x248*/ CPopDialogWnd* m_currentPopup;
+/*0x24c*/ int            LeftPageNbr;
+/*0x250*/ int            SelectedBookIndex;
+/*0x254*/ int            MemSlotIndex;
+/*0x258*/ int            SpellId;
+/*0x25c*/ int            MemTicksLeft;
+/*0x260*/ int            ScribeBoolSlot;
+/*0x264*/ int            ScribeTicksLeft;
+/*0x268*/
 };
 
 //============================================================================
