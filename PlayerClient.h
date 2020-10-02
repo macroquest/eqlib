@@ -677,9 +677,9 @@ public:
 	EQLIB_OBJECT PlayerClient* GetPlayerFromPartialName(const char*, PlayerBase*);
 };
 
-using EQPlayerManager [[deprecated]] = PlayerManagerClient;
-using SPAWNMANAGER [[deprecated]] = PlayerManagerClient;
-using PSPAWNMANAGER [[deprecated]] = PlayerManagerClient *;
+using EQPlayerManager DEPRECATE("Use PlayerManagerClient instead") = PlayerManagerClient;
+using SPAWNMANAGER DEPRECATE("Use PlayerManagerClient instead") = PlayerManagerClient;
+using PSPAWNMANAGER DEPRECATE("Use PlayerManagerClient* instead") = PlayerManagerClient*;
 
 //============================================================================
 // PlayerBase
@@ -1215,7 +1215,7 @@ public:
 };
 
 // For compatibility with all the old stuff
-using EQPlayer [[deprecated]] = PlayerClient;
+using EQPlayer DEPRECATE("Use PlayerClient instead") = PlayerClient;
 
 inline PcClient* SPAWNINFO::GetPcClient() const { return ((PlayerClient*)this)->GetPcClient(); }
 
