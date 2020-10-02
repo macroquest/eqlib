@@ -547,5 +547,8 @@ public:
 /*0x2d80*/
 };
 
+using CDISPLAY DEPRECATE("Use CDisplay instead") = CDisplay;
+using PCDISPLAY DEPRECATE("Use CDisplay* instead") = CDisplay*;
+
 } // namespace eqlib
 

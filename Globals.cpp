@@ -1054,7 +1054,7 @@ ForeignPointer<CContainerMgr>                    pContainerMgr;
 ForeignPointer<CContextMenuManager>              pContextMenuManager;
 ForeignPointer<MAPLABEL>                         pCurrentMapLabel;
 ForeignPointer<DatabaseStringTable>              pDBStr;
-ForeignPointer<CDisplay, CDISPLAY>               pDisplay;
+ForeignPointer<CDisplay>                         pDisplay;
 ForeignPointer<DZMEMBER>                         pDZMember;
 ForeignPointer<DZTIMERINFO>                      pDZTimerInfo;
 ForeignPointer<EqSoundManager>                   pEqSoundManager;

@@ -335,7 +335,6 @@ class UdpConnection;
 class Wave3dInstance;
 class WaveInstance;
 struct AUTOSKILL;
-struct CDISPLAY;
 struct CDynamicZone;
 struct CHARINFONEW;
 struct CHARINFOOLD;

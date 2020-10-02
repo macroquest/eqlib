@@ -1086,7 +1086,7 @@ EQLIB_VAR ForeignPointer<CContainerMgr>              pContainerMgr;
 EQLIB_VAR ForeignPointer<CContextMenuManager>        pContextMenuManager;
 EQLIB_VAR ForeignPointer<DatabaseStringTable>        pDBStr;
 EQLIB_VAR ForeignPointer<MAPLABEL>                   pCurrentMapLabel;
-EQLIB_VAR ForeignPointer<CDisplay, CDISPLAY>         pDisplay;
+EQLIB_VAR ForeignPointer<CDisplay>                   pDisplay;
 EQLIB_VAR ForeignPointer<DynamicZonePlayerInfo>      pDZMember;
 EQLIB_VAR ForeignPointer<DynamicZoneClientTimerData> pDZTimerInfo;
 EQLIB_VAR ForeignPointer<EqSoundManager>             pEqSoundManager;
