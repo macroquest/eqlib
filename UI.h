@@ -5030,7 +5030,7 @@ public:
 /*0x254*/ int            MemSlotIndex;
 /*0x258*/ int            SpellId;
 /*0x25c*/ int            MemTicksLeft;
-/*0x260*/ int            ScribeBoolSlot;
+/*0x260*/ int            ScribeBookSlot;
 /*0x264*/ int            ScribeTicksLeft;
 /*0x268*/
 };
@@ -5212,7 +5212,8 @@ public:
 	virtual ~CTextEntryWnd();
 
 	EQLIB_OBJECT void Open(CXWnd* pwnd, int EditMode, char* Prompt, int MinLength, int MaxLength, const char* InitialText);
-	EQLIB_OBJECT CXStr GetEntryText();
+	EQLIB_OBJECT CXStr GetEntryText() const { return m_text; };
+	EQLIB_OBJECT void SetEntryText(const CXStr& text) { m_text = text; }
 	EQLIB_OBJECT void Activate(CXWnd*, int, char*, int, int, char*);
 	EQLIB_OBJECT void Callback(bool);
 	EQLIB_OBJECT void UpdateButtons();
