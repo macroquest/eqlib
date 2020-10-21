@@ -1266,29 +1266,29 @@
 // EQGraphicsDX9.dll offsets (maybe this should go in eqgraphics.h?)
 //
 
-#define __eqgraphics_fopen_x                                       0x101473C8
+#define __eqgraphics_fopen_x                                       0x10147CD8
 
-#define CParticleSystem__Render_x                                  0x0
+#define CParticleSystem__Render_x                                  0x100710F0
 
-#define CRender__RenderScene_x                                     0x0
-#define CRender__ResetDevice_x                                     0x0
-#define CRender__UpdateDisplay_x                                   0x0
+#define CRender__RenderScene_x                                     0x10093240
+#define CRender__ResetDevice_x                                     0x10092AB0
+#define CRender__UpdateDisplay_x                                   0x100938D0
 
 //
 // eqmain.dll offsets
 //
 
-#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x0
-#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x0
-#define EQMain__CXWndManager__GetCursorToDisplay_x                 0x0
-#define EQMain__LoginController__FlushDxKeyboard_x                 0x0
-#define EQMain__LoginController__GiveTime_x                        0x0
-#define EQMain__LoginServerAPI__JoinServer_x                       0x0
-#define EQMain__WndProc_x                                          0x0
+#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x10089F40
+#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x100198A0
+#define EQMain__CXWndManager__GetCursorToDisplay_x                 0x1007C230
+#define EQMain__LoginController__FlushDxKeyboard_x                 0x100151E0
+#define EQMain__LoginController__GiveTime_x                        0x10015240
+#define EQMain__LoginServerAPI__JoinServer_x                       0x10016D00
+#define EQMain__WndProc_x                                          0x1000BF50
 
-#define EQMain__pinstCEQSuiteTextureLoader_x                       0x0
-#define EQMain__pinstCLoginViewManager_x                           0x0
-#define EQMain__pinstCXWndManager_x                                0x0
-#define EQMain__pinstCSidlManager_x                                0x0
-#define EQMain__pinstLoginController_x                             0x0
-#define EQMain__pinstLoginServerAPI_x                              0x0
+#define EQMain__pinstCEQSuiteTextureLoader_x                       0x10166D38
+#define EQMain__pinstCLoginViewManager_x                           0x1016D3B4
+#define EQMain__pinstCXWndManager_x                                0x1037F8AC
+#define EQMain__pinstCSidlManager_x                                0x1037F8B0
+#define EQMain__pinstLoginController_x                             0x1016D3B8
+#define EQMain__pinstLoginServerAPI_x                              0x1016D3A8
