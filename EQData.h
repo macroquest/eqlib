@@ -369,14 +369,15 @@ constexpr int ITEMTYPE_BOOK = 2;
 #define EVENT_BREAK                              7
 #define NUM_EVENTS                               8
 
-#define CHAT_SAY                                 1
-#define CHAT_TELL                                2
-#define CHAT_OOC                                 4
-#define CHAT_SHOUT                               8
-#define CHAT_AUC                                 16
-#define CHAT_GUILD                               32
-#define CHAT_GROUP                               64
-#define CHAT_CHAT                                128
+constexpr int CHAT_SAY                         = 0x0001;
+constexpr int CHAT_TELL                        = 0x0002;
+constexpr int CHAT_OOC                         = 0x0004;
+constexpr int CHAT_SHOUT                       = 0x0008;
+constexpr int CHAT_AUC                         = 0x0010;
+constexpr int CHAT_GUILD                       = 0x0020;
+constexpr int CHAT_GROUP                       = 0x0040;
+constexpr int CHAT_RAID                        = 0x0080;
+constexpr int CHAT_CHAT                        = 0x0100;
 #define CHATEVENT(x)                             (gEventChat & x)
 
 enum eFilterSkill
