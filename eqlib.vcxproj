@@ -90,6 +90,7 @@
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GraphicsEngine.h" />
     <ClInclude Include="Items.h" />
+    <ClInclude Include="KeyCombo.h" />
     <ClInclude Include="LoginFrontend.h" />
     <ClInclude Include="Mutex.h" />
     <ClInclude Include="OffsetUtils.h" />
