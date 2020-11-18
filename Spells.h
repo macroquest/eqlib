@@ -1042,7 +1042,7 @@ public:
 /*0x20c*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
 /*0x210*/ uint8_t              CRC32Marker = 0;
 /*0x211*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
-/*0x215*/
+/*0x218*/
 
 	// Currently necessary because of MQ2DataTypes
 	EQLIB_OBJECT EQ_Spell()
