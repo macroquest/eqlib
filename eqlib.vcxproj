@@ -97,6 +97,7 @@
     <ClInclude Include="PcClient.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerClient.h" />
+    <ClInclude Include="SerializeBuffer.h" />
     <ClInclude Include="SidlParams.h" />
     <ClInclude Include="SidlTemplates.h" />
     <ClInclude Include="SoeUtil.h" />

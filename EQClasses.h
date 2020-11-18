@@ -19,6 +19,7 @@
 #include "KeyCombo.h"
 #include "PcClient.h"
 #include "PlayerClient.h"
+#include "SerializeBuffer.h"
 #include "Spells.h"
 #include "UI.h"
 
@@ -452,122 +453,6 @@ public:
 	EQLIB_OBJECT void CshOnMessage(char*, char*, int, char*, bool);
 	EQLIB_OBJECT void CshOnPlayerEntering(char*, int, char*);
 	EQLIB_OBJECT void CshOnPlayerLeaving(char*, int, char*);
-};
-
-namespace detail
-{
-	template <typename, typename T>
-	struct has_unserialize {
-		static_assert(
-			std::integral_constant<T, false>::value,
-			"Second template parameter needs to be of function type.");
-	};
-
-	// specialization that does the checking
-	template <typename C, typename Ret, typename... Args>
-	struct has_unserialize<C, Ret(Args...)> {
-	private:
-		template <typename T>
-		static constexpr auto check(T*)
-			-> typename std::is_same<
-			decltype(std::declval<T>().UnSerialize(std::declval<Args>()...)),
-			Ret>::type;
-
-		template <typename>
-		static constexpr std::false_type check(...);
-
-		using type = decltype(check<C>(0));
-
-	public:
-		static constexpr bool value = type::value;
-	};
-}
-
-class CUnSerializeBuffer
-{
-public:
-	const char* m_pBuffer = nullptr;
-	size_t      m_uLength = 0;
-	size_t      m_uReadOffset = 0;
-
-	EQLIB_OBJECT CUnSerializeBuffer() = default;
-
-	EQLIB_OBJECT CUnSerializeBuffer(const CUnSerializeBuffer& other)
-		: m_pBuffer(other.m_pBuffer)
-		, m_uLength(other.m_uLength)
-		, m_uReadOffset(other.m_uReadOffset)
-	{}
-
-	EQLIB_OBJECT CUnSerializeBuffer(const char* buffer, size_t length)
-		: m_pBuffer(buffer)
-		, m_uLength(length)
-	{}
-
-	EQLIB_OBJECT void Reset() { m_uReadOffset = 0; }
-
-	EQLIB_OBJECT void Read(CXStr& str);
-
-
-	template <typename T>
-	std::enable_if_t<detail::has_unserialize<T, void(CUnSerializeBuffer&)>::value, void> Read(T& obj)
-	{
-		obj.UnSerialize(*this);
-	}
-
-	template <typename T>
-	std::enable_if_t<!detail::has_unserialize<T, void(CUnSerializeBuffer&)>::value, void> Read(T& r)
-	{
-		r = *(T*)(m_pBuffer + m_uReadOffset);
-		m_uReadOffset += sizeof(T);
-	}
-
-	EQLIB_OBJECT void ReadString(std::string& out)
-	{
-		int len = 0;
-		while (m_uReadOffset < m_uLength)
-		{
-			int offset = m_uReadOffset++;
-			if (m_pBuffer[offset] == '\0')
-				break;
-
-			out.append(1, (char)(m_pBuffer[offset]));
-		}
-	}
-
-	template <typename T>
-	void Read(T* r, size_t size)
-	{
-		size_t savedSize;
-		Read(savedSize);
-
-		for (size_t i = 0; i < savedSize && i < size; i++)
-		{
-			Read(r[i]);
-		}
-	}
-
-	EQLIB_OBJECT bool ReadString(char* buffer, size_t bufferSize)
-	{
-		size_t size = strnlen(m_pBuffer + m_uReadOffset, m_uLength - m_uReadOffset) + 1;
-		size_t readAmount = std::min(bufferSize - 1, size);
-
-		if (!ValidateRead(readAmount))
-		{
-			*buffer = 0;
-			return false;
-		}
-
-		memcpy(buffer, m_pBuffer + m_uReadOffset, readAmount);
-		buffer[readAmount] = 0;
-		m_uReadOffset += size;
-		return true;
-	}
-
-private:
-	bool ValidateRead(size_t amount)
-	{
-		return (m_uReadOffset + amount <= m_uLength);
-	}
 };
 
 struct connection_t;
