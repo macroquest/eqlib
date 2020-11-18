@@ -644,7 +644,7 @@ union EqGuid
 	EqGuid() : GUID(0) {}
 };
 
-#if defined (_DEBUG)
+#if defined (_DEBUG) && (defined(EQLIB_EXPORTS) || defined(MQ2MAIN_EXPORTS))
 #define FORCE_SYMBOLS __declspec(dllexport) const void* __force_symbol_generation__() const { return this; }
 #else
 #define FORCE_SYMBOLS
