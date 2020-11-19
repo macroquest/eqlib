@@ -41,7 +41,7 @@
 #define __AC6_x                                                    0x60FF26
 #define __AC7_x                                                    0x5F9BF0
 #define __AC1_Data                                                 0x11111111
-#define __EP1_Data_x                                               0x0
+#define __EP1_Data_x                                               0x191CC4
 
 // Direct Input
 #define DI8__Main_x                                                0xF470D8
@@ -266,14 +266,14 @@
 #define pinstCMailAddressBookWnd_x                                 0xDE6AFC
 #define pinstCMailCompositionWnd_x                                 0xDE6AB8
 #define pinstCMailIgnoreListWnd_x                                  0xDE6B00
-#define pinstCMailWnd_x                                            0xDE6AA4
+#define pinstCMailWnd_x                                            0xDE6AA0
 #define pinstCManageLootWnd_x                                      0xDE7E10
 #define pinstCMapToolbarWnd_x                                      0xDE6794
 #define pinstCMapViewWnd_x                                         0xDE6760
 #define pinstCMarketplaceWnd_x                                     0xDE67F4
 #define pinstCMerchantWnd_x                                        0xDE6AD4
 #define pinstCMIZoneSelectWnd_x                                    0xF57D68
-#define pinstCMusicPlayerWnd_x                                     0xDE6AA0
+#define pinstCMusicPlayerWnd_x                                     0xDE6870
 #define pinstCNameChangeMercWnd_x                                  0xDE6790
 #define pinstCNameChangePetWnd_x                                   0xDE6764
 #define pinstCNameChangeWnd_x                                      0xDE67A4
