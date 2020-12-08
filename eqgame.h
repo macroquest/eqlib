@@ -41,7 +41,7 @@
 #define __AC6_x                                                    0x6137B6
 #define __AC7_x                                                    0x5FD470
 #define __AC1_Data                                                 0x11111111
-#define __EP1_Data_x                                               0x0
+#define __EP1_Data_x                                               0x1912E0
 
 // Direct Input
 #define DI8__Main_x                                                0xF4D118
@@ -234,7 +234,7 @@
 #define pinstCGroupSearchFiltersWnd_x                              0xDEC518
 #define pinstCGroupSearchWnd_x                                     0xF59CF8
 #define pinstCGroupWnd_x                                           0xF59DA8
-#define pinstCGuildBankWnd_x                                       0xEA6D40
+#define pinstCGuildBankWnd_x                                       0xF59E58
 #define pinstCGuildCreationWnd_x                                   0xF59F08
 #define pinstCGuildMgmtWnd_x                                       0xF59FB8
 #define pinstCharacterCreation_x                                   0xDEC438
@@ -245,12 +245,12 @@
 #define pinstCHotButtonWnd2_x                                      0xF5C114
 #define pinstCHotButtonWnd3_x                                      0xF5C118
 #define pinstCHotButtonWnd4_x                                      0xF5C11C
-#define pinstCIconSelectionWnd_x                                   0xDEC530
+#define pinstCIconSelectionWnd_x                                   0xDEC528
 #define pinstCInspectWnd_x                                         0xDEC508
 #define pinstCInventoryWnd_x                                       0xDEC4D4
 #define pinstCInvSlotMgr_x                                         0xDEBF38
 #define pinstCItemDisplayManager_x                                 0xF5C6A0
-#define pinstCItemExpTransferWnd_x                                 0xF5C7CC
+#define pinstCItemExpTransferWnd_x                                 0xF5C7D0
 #define pinstCItemOverflowWnd_x                                    0xDEBF50
 #define pinstCJournalCatWnd_x                                      0xDEBF24
 #define pinstCJournalTextWnd_x                                     0xDEBEE4
@@ -282,7 +282,7 @@
 #define pinstCOptionsWnd_x                                         0xDEC47C
 #define pinstCPetInfoWnd_x                                         0xDEBEFC
 #define pinstCPetitionQWnd_x                                       0xDEC428
-//#define pinstCPlayerCustomizationWnd_x                           0xDA8E24
+//#define pinstCPlayerCustomizationWnd_x                           0xDEC430
 #define pinstCPlayerNotesWnd_x                                     0xDEC410
 #define pinstCPlayerWnd_x                                          0xDEBEF0
 #define pinstCPopupWndManager_x                                    0xF5DC98
@@ -302,7 +302,7 @@
 #define pinstCRealEstatePlotSearchWnd_x                            0xDEBF04
 #define pinstCRealEstatePurchaseWnd_x                              0xDEBF20
 #define pinstCRespawnWnd_x                                         0xDEC4F8
-//#define pinstCRewardSelectionWnd_x                               0x10205B0
+//#define pinstCRewardSelectionWnd_x                               0xF5E5F0
 #define pinstCSelectorWnd_x                                        0xDEC424
 #define pinstCSendMoneyWnd_x                                       0xDEC49C
 #define pinstCServerListWnd_x                                      0xDEBF2C
@@ -973,7 +973,7 @@
 #define EQ_PC__GetCombatAbility_x                                  0x8A9740
 #define EQ_PC__GetCombatAbilityTimer_x                             0x8A97B0
 #define EQ_PC__GetItemRecastTimer_x                                0x662690
-#define EQ_PC__HasLoreItem_x                                       0x6590B0
+#define EQ_PC__HasLoreItem_x                                       0x659110
 #define EQ_PC__AlertInventoryChanged_x                             0x658230
 #define EQ_PC__GetPcZoneClient_x                                   0x685120
 #define EQ_PC__RemoveMyAffect_x                                    0x6658C0
