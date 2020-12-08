@@ -1876,7 +1876,7 @@ struct [[offsetcomments]] BenefitSelection
 };
 
 #define EQ_ASSIST_CALC                           0x020c0f19
-#define EQ_ASSIST_COMPLETE                       0x7C82    // aMsgTimeStampRe
-#define EQ_ASSIST                                0x5E5E    // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+#define EQ_ASSIST_COMPLETE                       0x24AB    // aMsgTimeStampRe
+#define EQ_ASSIST                                0x0DD2    // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
 } // namespace eqlib
