@@ -433,6 +433,8 @@
 #define CharacterZoneClient__HasSkill_x                            0x4D5EC0
 #define CharacterZoneClient__IsStackBlocked_x                      0x4C27A0
 #define CharacterZoneClient__MakeMeVisible_x                       0x4D75E0
+#define CharacterZoneClient__NotifyPCAffectChange_x                0x4E2720
+#define CharacterZoneClient__RemovePCAffectex_x                    0x4C4000
 
 // CBankWnd
 #define CBankWnd__GetNumBankSlots_x                                0x6DAA90

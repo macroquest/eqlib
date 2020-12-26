@@ -1794,7 +1794,6 @@ public:
 	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, SPAWNINFO* pCaster, EQ_Affect* pEffecs = NULL, int EffectsSize = 0, bool bMessageOn = false);
 	EQLIB_OBJECT int BardCastBard(const EQ_Spell* pSpell, signed int caster_class) const;
 	EQLIB_OBJECT unsigned char GetMaxEffects() const;
-	EQLIB_OBJECT EQ_Affect& GetEffect(int) const;
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
 	EQLIB_OBJECT int GetFirstEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill);
 	EQLIB_OBJECT int GetLastEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, bool bIsDisplay = false);
@@ -1818,7 +1817,7 @@ public:
 	EQLIB_OBJECT char* Class(int);
 	EQLIB_OBJECT char* KunarkClass(int, int, int, bool);
 	EQLIB_OBJECT char* Race(int);
-	EQLIB_OBJECT EQ_Affect& GetEffect(int);
+	EQLIB_OBJECT EQ_Affect& GetEffect(int) const;
 	EQLIB_OBJECT EQ_Equipment* GetFocusItem(EQ_Spell const*, int);
 	EQLIB_OBJECT EQ_Spell* GetFocusEffect(EQ_Spell const*, int);
 	EQLIB_OBJECT PlayerClient* FindClosest(int, int, int, int, int);
@@ -1944,7 +1943,7 @@ public:
 	EQLIB_OBJECT void ProcessEnvironment();
 	EQLIB_OBJECT void ProcessHungerandThirst(unsigned int);
 	EQLIB_OBJECT void RemovePCAffect(EQ_Affect*);
-	EQLIB_OBJECT void RemovePCAffectex(EQ_Affect*, int);
+	EQLIB_OBJECT void RemovePCAffectex(EQ_Affect*, bool, ArrayClass<LaunchSpellData*>&, int, int, int);
 	EQLIB_OBJECT void ResetCur_HP(int);
 	EQLIB_OBJECT void UpdateMyVisibleStatus();
 

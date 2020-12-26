@@ -583,7 +583,7 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::InSpecialBindSpot(EQPlayer*), Chara
 FUNCTION_AT_ADDRESS(void CharacterZoneClient::RemovePCAffect(EQ_Affect*), CharacterZoneClient__RemovePCAffect);
 #endif
 #ifdef CharacterZoneClient__RemovePCAffectex_x
-FUNCTION_AT_ADDRESS(void CharacterZoneClient::RemovePCAffectex(EQ_Affect*, int), CharacterZoneClient__RemovePCAffectex);
+FUNCTION_AT_ADDRESS(void CharacterZoneClient::RemovePCAffectex(EQ_Affect*, bool, ArrayClass<LaunchSpellData*>&, int, int, int), CharacterZoneClient__RemovePCAffectex);
 #endif
 #ifdef CharacterZoneClient__StopSpellCast_x
 FUNCTION_AT_ADDRESS(void CharacterZoneClient1::StopSpellCast(unsigned char), CharacterZoneClient__StopSpellCast);

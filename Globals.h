@@ -592,6 +592,8 @@ EQLIB_VAR DWORD CharacterZoneClient__MakeMeVisible;
 EQLIB_VAR DWORD CharacterZoneClient__Max_Endurance;
 EQLIB_VAR DWORD CharacterZoneClient__Max_HP;
 EQLIB_VAR DWORD CharacterZoneClient__Max_Mana;
+EQLIB_VAR DWORD CharacterZoneClient__NotifyPCAffectChange;
+EQLIB_VAR DWORD CharacterZoneClient__RemovePCAffectex;
 EQLIB_VAR DWORD CharacterZoneClient__SpellDuration;
 EQLIB_VAR DWORD CharacterZoneClient__TotalEffect;
 EQLIB_VAR DWORD CharacterZoneClient__UseSkill;
