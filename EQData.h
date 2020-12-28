@@ -444,54 +444,6 @@ enum eInventorySlot
 	InvSlot_LastBagsLot	DEPRECATE("Use InvSlot_LastBagSlot instead") = InvSlot_LastBagSlot,
 };
 
-// AltCurrency values
-enum ALTCURRENCY
-{
-	ALTCURRENCY_DOUBLOONS              = 10, // TBS
-	ALTCURRENCY_ORUX                   = 11, // TBS
-	ALTCURRENCY_PHOSPHENES             = 12, // TBS
-	ALTCURRENCY_PHOSPHITES             = 13, // TBS
-	ALTCURRENCY_FAYCITES               = 14, // SoF
-	ALTCURRENCY_CHRONOBINES            = 15, // SoD
-	ALTCURRENCY_SILVERTOKENS           = 16, // UF
-	ALTCURRENCY_GOLDTOKENS             = 17, // UF
-	ALTCURRENCY_MCKENZIE               = 18, // SoD
-	ALTCURRENCY_BAYLE                  = 19, // SoD
-	ALTCURRENCY_RECLAMATION            = 20, // EQ
-	ALTCURRENCY_BRELLIUM               = 21, // UF
-	ALTCURRENCY_MOTES                  = 22, // HoT
-	ALTCURRENCY_REBELLIONCHITS         = 23, // VoA
-	ALTCURRENCY_DIAMONDCOINS           = 24, // VoA
-	ALTCURRENCY_BRONZEFIATS            = 25, // VoA
-	ALTCURRENCY_VOUCHER                = 26, // TDS
-	ALTCURRENCY_VELIUMSHARDS           = 27, // RoF
-	ALTCURRENCY_CRYSTALLIZEDFEAR       = 28, // RoF
-	ALTCURRENCY_SHADOWSTONES           = 29, // RoF
-	ALTCURRENCY_DREADSTONES            = 30, // RoF
-	ALTCURRENCY_MARKSOFVALOR           = 31, // CoTF
-	ALTCURRENCY_MEDALSOFHEROISM        = 32, // CoTF
-	ALTCURRENCY_COMMEMORATIVE_COINS    = 33, // VoA
-	ALTCURRENCY_FISTSOFBAYLE           = 34, // CoTF
-	ALTCURRENCY_NOBLES                 = 35, // EQ
-	ALTCURRENCY_ENERGYCRYSTALS         = 36, // TDS
-	ALTCURRENCY_PIECESOFEIGHT          = 37, // TDS
-	ALTCURRENCY_REMNANTSOFTRANQUILITY  = 38, // TBM
-	ALTCURRENCY_BIFURCATEDCOIN         = 39, // TBM
-	ALTCURRENCY_ADOPTIVE               = 40, // EQ
-	ALTCURRENCY_SATHIRSTRADEGEMS       = 41, // EoK
-	ALTCURRENCY_ANCIENTSEBILISIANCOINS = 42, // EoK
-	ALTCURRENCY_BATHEZIDTRADEGEMS      = 43, // RoS
-	ALTCURRENCY_ANCIENTDRACONICCOIN    = 44, // RoS
-	ALTCURRENCY_FETTERREDIFRITCOINS    = 45, // TBL
-	ALTCURRENCY_ENTWINEDDJINNCOINS     = 46, // TBL
-	ALTCURRENCY_CRYSTALLIZEDLUCK       = 47, // TBL
-	ALTCURRENCY_FROSTSTONEDUCAT        = 48, // ToV Group
-	ALTCURRENCY_WARLORDSSYMBOL         = 49, // ToV Raid
-	ALTCURRENCY_OVERSEERTETRADRACHM    = 50, // Overseer
-	ALTCURRENCY_WARFORGEDEMBLEM        = 51, // CoV
-	ALTCURRENCY_RESTLESSMARK           = 52, // CoV
-};
-
 enum MOUSE_DATA_TYPES
 {
 	MD_Unknown        = -1,
@@ -541,35 +493,6 @@ constexpr int BAG_SLOT_START = 23;
 constexpr int NUM_SKILLS = 100;
 constexpr int NUM_INNATE = 25;
 constexpr int CONCURRENT_SKILLS = 2;
-
-#define EQ_EXPANSION(x)                          (1 << (x - 1))
-#define EXPANSION_RoK                            EQ_EXPANSION(1)
-#define EXPANSION_SoV                            EQ_EXPANSION(2)
-#define EXPANSION_SoL                            EQ_EXPANSION(3)
-#define EXPANSION_PoP                            EQ_EXPANSION(4)
-#define EXPANSION_LoY                            EQ_EXPANSION(5)
-#define EXPANSION_LDoN                           EQ_EXPANSION(6)
-#define EXPANSION_GoD                            EQ_EXPANSION(7)
-#define EXPANSION_OoW                            EQ_EXPANSION(8)
-#define EXPANSION_DoN                            EQ_EXPANSION(9)
-#define EXPANSION_DoD                            EQ_EXPANSION(10)
-#define EXPANSION_PoR                            EQ_EXPANSION(11)
-#define EXPANSION_TSS                            EQ_EXPANSION(12)
-#define EXPANSION_TBS                            EQ_EXPANSION(13)
-#define EXPANSION_SoF                            EQ_EXPANSION(14)
-#define EXPANSION_SoD                            EQ_EXPANSION(15)
-#define EXPANSION_UFT                            EQ_EXPANSION(16)
-#define EXPANSION_HoT                            EQ_EXPANSION(17)
-#define EXPANSION_VoA                            EQ_EXPANSION(18)
-#define EXPANSION_RoF                            EQ_EXPANSION(19)
-#define EXPANSION_CotF                           EQ_EXPANSION(20)
-#define EXPANSION_TDS                            EQ_EXPANSION(21)
-#define EXPANSION_TBM                            EQ_EXPANSION(22)
-#define EXPANSION_EoK                            EQ_EXPANSION(23)
-#define EXPANSION_RoS                            EQ_EXPANSION(24)
-#define EXPANSION_TBL                            EQ_EXPANSION(25)
-#define EXPANSION_TOV                            EQ_EXPANSION(26)
-constexpr int NUM_EXPANSIONS = 26;
 
 // LDON Dungeon themes. This is a bitmask.
 constexpr int LDON_None = 0;
@@ -1184,28 +1107,23 @@ using PEQMERCALTABILITIES = EQMERCALTABILITIES*;
 
 // size 0x98 (3-12-2014)
 // size 0x9c 3-18-2015 test see (49A077)
-struct [[offsetcomments]] EQRAIDMEMBER
+struct [[offsetcomments]] RaidPlayer
 {
-/*0x00*/ char      Name[0x40];
-/*0x40*/ char      RaidNote[0x40];
-/*0x80*/ DWORD     nLevel;
-/*0x84*/ DWORD     nClass;
-/*0x88*/ BYTE      RaidLeader;
-/*0x89*/ BYTE      GroupLeader;
-/*0x8a*/ BYTE      RaidMainAssist;
-/*0x8b*/ BYTE      RaidMarker;
-/*0x8c*/ DWORD     MasterLooter;
-/*0x90*/ DWORD     GroupNumber;
+/*0x00*/ char      Name[EQ_MAX_NAME];
+/*0x40*/ char      RaidNote[MAX_RAID_NOTE];
+/*0x80*/ int       nLevel;
+/*0x84*/ int       nClass;
+/*0x88*/ bool      RaidLeader;
+/*0x89*/ bool      GroupLeader;
+/*0x8a*/ bool      RaidMainAssist;
+/*0x8b*/ bool      RaidMarker;
+/*0x8c*/ int       MasterLooter;
+/*0x90*/ int       GroupNumber;
 /*0x94*/ BYTE      Unknown0x94[0x8];            // i guess new master looter is in here...
 /*0x9c*/
 };
-using PEQRAIDMEMBER = EQRAIDMEMBER*;
-
-constexpr int MAX_RAID_LOOTERS = 19;
-constexpr int MAX_RAID_SIZE = 72;
-constexpr int MAX_RAID_MOTD = 1024;
-
-constexpr int MAX_GROUP_SIZE = 6;
+using EQRAIDMEMBER = RaidPlayer;
+using PEQRAIDMEMBER = RaidPlayer*;
 
 enum eRaidLootType : int32_t
 {
@@ -1236,23 +1154,23 @@ enum eRaidState : int32_t
 struct [[offsetcomments]] EQRAID
 {
 /*0x0000*/ BYTE              Unknown0x0000[0xe0];
-/*0x00e0*/ char              RaidMemberUsed[MAX_RAID_SIZE];
-/*0x0128*/ EQRAIDMEMBER      RaidMember[MAX_RAID_SIZE];
+/*0x00e0*/ bool              RaidMemberUsed[MAX_RAID_SIZE];
+/*0x0128*/ RaidPlayer        RaidMember[MAX_RAID_SIZE];
 /*0x2d08*/ BYTE              Unknown0x2d08[0x4];
 /*0x2d0c*/ int               RaidMemberCount;
-/*0x2d10*/ char              RaidLeaderName[0x40];
+/*0x2d10*/ char              RaidLeaderName[EQ_MAX_NAME];
 /*0x2d50*/ char              RaidMOTD[MAX_RAID_MOTD];
-/*0x3150*/ char              Inviter[0x40];
+/*0x3150*/ char              Inviter[EQ_MAX_NAME];
 /*0x3190*/ eRaidState        Invited;
-/*0x3194*/ UINT              RaidID;                       // not sure
+/*0x3194*/ int               RaidID;                       // not sure
 /*0x3198*/ bool              bCreateRaidInvite;
 /*0x3199*/ bool              IsRaidLeader;
 /*0x319a*/ BYTE              Filler0x319a[0x2];
 /*0x319c*/ DWORD             RaidTarget;
 /*0x31a0*/ eRaidLootType     LootType;
-/*0x31a4*/ char              RaidLooters[MAX_RAID_LOOTERS][0x40];
+/*0x31a4*/ char              RaidLooters[MAX_RAID_LOOTERS][EQ_MAX_NAME];
 /*0x3664*/ DWORD             TotalRaidMemberLevels;        // TotalRaidMemberLevels/RaidMemberCount=RaidAvgLevel
-/*0x3668*/ BYTE              Locked;
+/*0x3668*/ bool              Locked;
 /*0x3669*/ BYTE              Unknown0x3669[0x7];
 /*0x3670*/ // <- im sure this is not right but whatever... we got what we came for...
 };
@@ -1264,10 +1182,10 @@ struct [[offsetcomments]] EQGROUP
 	FORCE_SYMBOLS;
 
 /*0x000*/ BYTE         MemberExists[5];
-/*0x005*/ char         MemberName[5][0x40];
+/*0x005*/ char         MemberName[5][EQ_MAX_NAME];
 /*0x145*/ BYTE         Unused[3];
 /*0x148*/ SPAWNINFO*   pMember[5];
-/*0x15c*/ char         LeaderName[0x40];
+/*0x15c*/ char         LeaderName[EQ_MAX_NAME];
 /*0x19c*/
 };
 using PEQGROUP = EQGROUP*;

@@ -56,9 +56,6 @@ FUNCTION_AT_ADDRESS(int CDisplay::ReplaceCloakMaterials(int, T3D_HIERARCHICALSPR
 #ifdef CDisplay__ReloadUI_x
 FUNCTION_AT_ADDRESS(void CDisplay::ReloadUI(bool, bool), CDisplay__ReloadUI);
 #endif
-#ifdef CDisplay__HandleMaterial_x
-FUNCTION_AT_ADDRESS(void CDisplay::HandleMaterial(EQ_PC*, int, EQ_Item*, EQ_Item*), CDisplay__HandleMaterial);
-#endif
 #ifdef CDisplay__FixHeading_x
 FUNCTION_AT_ADDRESS(float CDisplay::FixHeading(float), CDisplay__FixHeading);
 #endif

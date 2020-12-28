@@ -1087,8 +1087,8 @@ struct [[offsetcomments]] SpellAffectData
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
 
-constexpr int TOTAL_SPELL_COUNT = 62000; // # of spells allocated in memory (07/10/2019 test 4F1197)
-constexpr int CalcInfoSize = 206000;     // 4E8814 in eqgame 2018 10 Apr test
+constexpr int TOTAL_SPELL_COUNT          = 62000;    // # of spells allocated in memory (07/10/2019 test 4F1197)
+constexpr int TOTAL_SPELL_AFFECT_COUNT   = 230000;   // 69EAAA in eqgame 2020 Oct 19
 
 // CalcInfoSize is 3 * TOTAL_SPELL_COUNT
 
@@ -1099,22 +1099,239 @@ constexpr int CalcInfoSize = 206000;     // 4E8814 in eqgame 2018 10 Apr test
 // size: 0x1BC800 2019-07-10 test (see 5E36C2) - eqmule
 struct [[offsetcomments]] SPELLMGR
 {
-/*0x000000*/ void*          vfTable;                       // need this for some calls later
-/*0x000004*/ BYTE           Unknown0x00004[0x3DAE0];
-/*0x03dae4*/ SPELL*         Spells[TOTAL_SPELL_COUNT];    // 60000
-/*0x07a3a4*/ SPELL*         PtrToUnknownSpell;            // default bailout pointer...
-/*0x07a3a8*/ SPELLCALCINFO* CalcInfo[CalcInfoSize];       // 200000
-/*0x143668*/ SPELLCALCINFO* PtrToUnknownSpellAffect;
-/*0x14366c*/ SPELLCALCINFO* PtrToUnknownSpellAffectAC;
-/*0x143670*/ int            UnknownSpellCRC;
-/*0x143674*/ int            SpellFileCRC;
-/*0x143678*/ int            SpellAssocFileCRC;
-/*0x14367c*/ int            SpellStackingFileCRC;
-/*0x143680*/ DWORD          What2[0x1E460];               // 120000
-/*0x1bc800*/ //(1820672) 1.8 mill! large struct in memory for sure...
+/*0x000000*/ void*            vfTable;                       // need this for some calls later
+/*0x000004*/ BYTE             Unknown0x00004[0x3DAE0];       // this includes the spell CRC data
+/*0x03dae4*/ EQ_Spell*        Spells[TOTAL_SPELL_COUNT];
+/*0x07a3a4*/ EQ_Spell*        PtrToUnknownSpell;             // default bailout pointer...
+/*0x07a3a8*/ SpellAffectData* CalcInfo[TOTAL_SPELL_AFFECT_COUNT];
+/*0x143668*/ SpellAffectData* PtrToUnknownSpellAffect;
+/*0x14366c*/ SpellAffectData* PtrToUnknownSpellAffectAC;
+/*0x143670*/ int              UnknownSpellCRC;
+/*0x143674*/ int              SpellFileCRC;
+/*0x143678*/ int              SpellAssocFileCRC;
+/*0x14367c*/ int              SpellStackingFileCRC;
+/*0x143680*/ DWORD            What2[0x1E460];                // 124000
+/*0x1bc800*/
 };
 // TODO: Merge with ClientSpellManager
 using PSPELLMGR = SPELLMGR*;
+
+
+class [[offsetcomments]] FileStatMgr
+{
+public:
+	struct FileStat
+	{
+		struct _stat32 Stats;
+		CXStr          Filename;
+		CXStr          Key;
+	};
+
+/*0x00*/ HashTable<FileStat*> FileStats;
+/*0x10*/
+};
+
+enum ReqType
+{
+	RT_None,
+	RT_Sex,
+	RT_MinLevel,
+	RT_MaxLevel,
+	RT_LevelRange,
+	RT_Class,
+	RT_Race,
+	// there are like 72 more of these I dont have time to add them all now.
+};
+
+class [[offsetcomments]] RequirementAssociationManager : public FileStatMgr
+{
+public:
+	/*0x010*/ void* vfTable;
+	/*0x014*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
+	/*0x024*/ char               AssocFilename[512];
+	/*0x224*/ ReqType            LastFailReason;
+	/*0x228*/ int                LastFailGroupID;
+	/*0x22c*/ int                LastFailReqID;
+	/*0x230*/
+};
+
+class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
+{
+public:
+/*0x0230*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
+/*0x11e0*/
+};
+
+
+enum EEffectActor
+{
+	EEA_None,
+	EEA_Caster,
+	EEA_Missile,
+	EEA_Target,
+	EEA_COUNT,
+};
+
+enum EAttachPoint
+{
+	EAP_None,
+	EAP_Default,
+	EAP_Chest,
+	EAP_Head,
+	EAP_LeftHand,
+	EAP_RightHand,
+	EAP_LeftFoot,
+	EAP_RightFoot,
+	EAP_Weapon,
+	EAP_LeftEye,
+	EAP_RightEye,
+	EAP_Mouth,
+	EAP_Ground,
+	EAP_Cnt,
+};
+
+struct [[offsetcomments]] SpellEffectEmitter
+{
+/*0x00*/ int DefIndex;
+/*0x04*/ int RequiredLevel;
+/*0x08*/ EEffectActor EffectActor;
+/*0x0c*/ EAttachPoint AttachPoint;
+/*0x10*/
+};
+
+struct [[offsetcomments]] SpellEffectStage
+{
+/*0x00*/ int                SoundNum;
+/*0x04*/ SpellEffectEmitter Emitters[4];
+/*0x44*/
+};
+
+struct [[offsetcomments]] NewSpellEffect
+{
+/*0x000*/ char               szSpellEffectName[0x40];
+/*0x040*/ SpellEffectStage   Stages[3];
+/*0x10c*/
+};
+
+struct [[offsetcomments]] StageType
+{
+/*0x000*/ char               BlitSprite[3][0x20];
+/*0x060*/ char               AttachTag[0x20];
+/*0x080*/ int                DAGnum[3];
+/*0x08c*/ int                pcloud[3];
+/*0x098*/ char               SpriteTAG[0xc][0x20];
+/*0x218*/ int                SpritEffect;
+/*0x21c*/ int                SoundNum;
+/*0x220*/ ARGBCOLOR          Tint[3];
+/*0x22c*/ float              Gravity[3];
+/*0x238*/ float              NormalX1;
+/*0x23c*/ float              NormalY1;
+/*0x240*/ float              NormalZ1;
+/*0x244*/ float              NormalX2;
+/*0x248*/ float              NormalY2;
+/*0x24c*/ float              NormalZ2;
+/*0x250*/ float              NormalX3;
+/*0x254*/ float              NormalY3;
+/*0x258*/ float              NormalZ3;
+/*0x25c*/ float              Radius[3];
+/*0x268*/ float              Angle[3];
+/*0x274*/ ULONG              Lifespan[3];
+/*0x280*/ float              Velocity[3];
+/*0x28c*/ ULONG              Rate[3];
+/*0x298*/ float              Scale[3];
+/*0x2a4*/ EQRGB              SpriteRGB[0xc];
+/*0x2c8*/ float              RollRate[0xc];
+/*0x2f8*/ short              HdgOffset[0xc];
+/*0x310*/ short              PitchOffset[0xc];
+/*0x328*/ float              Distance[0xc];
+/*0x358*/ short              EffectType[12];
+/*0x370*/ float              ScaleFactor[12];
+/*0x3a0*/
+};
+
+struct [[offsetcomments]] OldSpellEffect
+{
+/*0x000*/ int                Tgts;
+/*0x004*/ int                Perm;
+/*0x008*/ StageType          stages[3];
+/*0xae8*/
+};
+
+class [[offsetcomments]] EQSpellExtra
+{
+public:
+/*0x00*/ OldSpellEffect*    OldSpellEff;
+/*0x04*/ NewSpellEffect*    NewSpellEff;
+/*0x08*/
+};
+
+//Matching stack group ID rules
+enum ESpellStackingRules
+{
+	ESSR_None,                                   // default
+	ESSR_SingleCaster,
+	ESSR_AllCasters,
+	ESSR_SingleCasterOnlyGreater,
+	ESSR_AllCastersOnlyGreater,
+	ESSR_SingleCasterNeverOverwrite,
+	ESSR_AllCastersNeverOverwrite,
+	ESSR_SingleCasterAlwaysOverwrite,
+	ESSR_AllCastersAlwaysOverwrite,
+	ESSR_Invalid,
+};
+
+struct [[offsetcomments]] StackingGroupData
+{
+/*0x00*/ int StackingGroupID;
+/*0x04*/ int StackingGroupRank;
+/*0x08*/ ESpellStackingRules StackingGroupRuleType;
+/*0x0c*/
+};
+
+// really would like to get this to work and align but its kinda complicated, maybe another day.
+class [[offsetcomments]] SpellManager : public FileStatMgr
+{
+public:
+/*0x00014*/ int            SpellsCrc32[TOTAL_SPELL_COUNT + 1];
+/*0x3c8d8*/ SPELL*         MissingSpell;
+/*0x3c8dc*/ SPELLCALCINFO* MissingSpellAffect;
+/*0x3c8e0*/ SPELLCALCINFO* MissingSpellAffectAC;
+/*0x3c8e4*/ int            MissingSpellCrc32;
+/*0x3c8e8*/ int            SpellFileCRC;
+/*0x3c8ec*/ int            SpellAssocFileCRC;
+/*0x3c8f0*/ int            SpellStackingFileCRC;
+/*0x3c8f4*/ SpellRequirementAssociationManager ReqAssocManager;
+/*0x3dad4*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;
+/*0x3dae4*/
+
+	SpellManager(char*);
+	virtual ~SpellManager() {}
+
+	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
+};
+
+class [[offsetcomments]] ClientSpellManager : public SpellManager
+{
+public:
+	EQLIB_OBJECT virtual ~ClientSpellManager();
+	EQLIB_OBJECT bool LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName);
+	EQLIB_OBJECT bool LoadSpellStackingData(const char* StackingFileName);
+	EQLIB_OBJECT bool DoesMeetRequirement(PlayerZoneClient* pPlayer, int SpellAssocID);
+	EQLIB_OBJECT void PrintFailedRequirementString(int StrToken, int StringID);
+	EQLIB_OBJECT int GetSpellStackingGroupID(int SpellID);
+	EQLIB_OBJECT int GetSpellStackingGroupRank(int SpellID);
+	EQLIB_OBJECT ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
+	EQLIB_OBJECT PSPELL GetSpellByID(int SpellID);
+	EQLIB_OBJECT SPELLCALCINFO* GetSpellAffect(int index);
+	EQLIB_OBJECT bool GetSpellAffectEmpty(bool);
+
+/*0x03dae4*/ SPELL* Spells[TOTAL_SPELL_COUNT + 1];         // 60001 last one is the unknown spell...
+/*0x07a3a8*/ SPELLCALCINFO* CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 175000
+/*0x143668*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT + 1];
+/*0x1bc7f0*/ HashTable<StackingGroupData> StackingData;
+/*0x1bc800*/
+};
+
 
 class [[offsetcomments]] MercenaryAbilityEffectsDefinition
 {

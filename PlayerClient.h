@@ -15,6 +15,7 @@
 #pragma once
 
 #include "Common.h"
+#include "Constants.h"
 #include "Containers.h"
 #include "CXStr.h"
 #include "GraphicsEngine.h"
@@ -52,13 +53,6 @@ using PSPAWNINFO = PlayerClient *;
 #endif
 
 struct SPAWNINFO;
-
-constexpr int MAX_GROUP_ASSISTS = 1;
-constexpr int MAX_GROUP_MARK_TARGETS = 3;
-constexpr int MAX_RAID_ASSISTS = 3;
-constexpr int MAX_RAID_MARK_TARGETS = 3;
-
-constexpr int MAX_MOVEMENT_STATS = 20;
 
 //============================================================================
 // Misc
@@ -140,7 +134,7 @@ struct [[offsetcomments]] PhysicsEffect
 struct [[offsetcomments]] FELLOWSHIPMEMBER
 {
 /*0x00*/ EqGuid       UniqueEntityID;
-/*0x08*/ char         Name[0x40];
+/*0x08*/ char         Name[EQ_MAX_NAME];
 /*0x48*/ int          ZoneID;
 /*0x4c*/ int          Level;
 /*0x50*/ int          Class;

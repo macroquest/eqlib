@@ -173,7 +173,7 @@
 #define pinstCAAWnd_x                                              0xDEBF44
 #define pinstCAchievementsWnd_x                                    0xDEC45C
 #define pinstCActionsWnd_x                                         0xDEBF80
-#define pinstCAdvancedDisplayOptionsWnd_x                          0xDEC51C
+#define pinstCAdvancedDisplayOptionsWindow_x                       0xDEC51C
 #define pinstCAdvancedLootWnd_x                                    0xDEC4CC
 #define pinstCAdventureLeaderboardWnd_x                            0xF56920
 #define pinstCAdventureRequestWnd_x                                0xF569D0
@@ -222,7 +222,7 @@
 #define pinstCEQMainWnd_x                                          0xF595A8
 #define pinstCEventCalendarWnd_x                                   0xDEBF4C
 #define pinstCExtendedTargetWnd_x                                  0xDEC4E0
-#define pinstCFacePick_x                                           0xDEC430
+#define pinstCPlayerCustomizationWnd_x                             0xDEC430
 #define pinstCFactionWnd_x                                         0xDEC450
 #define pinstCFellowshipWnd_x                                      0xF597A8
 #define pinstCFileSelectionWnd_x                                   0xDEBF08
@@ -253,6 +253,7 @@
 #define pinstCItemExpTransferWnd_x                                 0xF5C7D0
 #define pinstCItemOverflowWnd_x                                    0xDEBF50
 #define pinstCJournalCatWnd_x                                      0xDEBF24
+#define pinstCJournalNPCWnd_x                                      0xDEBEE4
 #define pinstCJournalTextWnd_x                                     0xDEBEE4
 #define pinstCKeyRingWnd_x                                         0xDEC53C
 #define pinstCLargeDialogWnd_x                                     0xF5E918
@@ -282,7 +283,6 @@
 #define pinstCOptionsWnd_x                                         0xDEC47C
 #define pinstCPetInfoWnd_x                                         0xDEBEFC
 #define pinstCPetitionQWnd_x                                       0xDEC428
-//#define pinstCPlayerCustomizationWnd_x                           0xDEC430
 #define pinstCPlayerNotesWnd_x                                     0xDEC410
 #define pinstCPlayerWnd_x                                          0xDEBEF0
 #define pinstCPopupWndManager_x                                    0xF5DC98
@@ -302,7 +302,7 @@
 #define pinstCRealEstatePlotSearchWnd_x                            0xDEBF04
 #define pinstCRealEstatePurchaseWnd_x                              0xDEBF20
 #define pinstCRespawnWnd_x                                         0xDEC4F8
-//#define pinstCRewardSelectionWnd_x                               0xF5E5F0
+#define pinstCRewardSelectionWnd_x                                 0xF5E5F0
 #define pinstCSelectorWnd_x                                        0xDEC424
 #define pinstCSendMoneyWnd_x                                       0xDEC49C
 #define pinstCServerListWnd_x                                      0xDEBF2C

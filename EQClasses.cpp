@@ -2212,7 +2212,7 @@ FUNCTION_AT_ADDRESS(const EQ_Spell* SpellManager::GetSpellByGroupAndRank(int Gro
 //============================================================================
 
 #ifdef StringTable__getString_x
-FUNCTION_AT_ADDRESS(const char* StringTable::getString(unsigned long, bool*), StringTable__getString);
+FUNCTION_AT_ADDRESS(const char* StringTable::getString(uint32_t, bool*), StringTable__getString);
 #endif
 
 //============================================================================

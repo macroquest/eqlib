@@ -48,6 +48,12 @@
 #define EQLIB_OBJECT __declspec(dllimport)
 #endif
 
+#if defined (_DEBUG) && (defined(EQLIB_EXPORTS) || defined(MQ2MAIN_EXPORTS))
+#define FORCE_SYMBOLS __declspec(dllexport) const void* __force_symbol_generation__() const { return this; }
+#else
+#define FORCE_SYMBOLS
+#endif
+
 // these macros do nothing but indicate to the reader that the function is actually in AssemblyFunctions.asm
 #define CONSTRUCTOR_AT_ADDRESS(function, offset)
 #define DESTRUCTOR_AT_ADDRESS(function, offset)
@@ -142,8 +148,9 @@
 #endif
 
 #define ALT_MEMBER_GETTER_DEPRECATED(type, orig, name, msg) \
+    /*DEPRECATE(msg)*/ \
     type& getter_ ## name() { return (*reinterpret_cast<type*>(&orig)); } \
-    __declspec(deprecated(msg)) __declspec(property(get=getter_ ## name)) type name;
+    __declspec(property(get=getter_ ## name)) type name;
 
 namespace eqlib {
 
@@ -466,68 +473,6 @@ struct EQLOC
 
 enum UIType;
 
-enum EQExpansion
-{
-	EQExpansionNone                    = 0,
-	EQExpansionKunark                  = 1,
-	EQExpansionVelious                 = 2,
-	EQExpansionLuclin                  = 3,
-	EQExpansionPOP                     = 4,
-	EQExpansionYkesha                  = 5,
-	EQExpansionLDON                    = 6,
-	EQExpansionGates                   = 7,
-	EQExpansionOOW                     = 8,
-	EQExpansionDON                     = 9,
-	EQExpansionDODH                    = 10,
-	EQExpansionPOR                     = 11,
-	EQExpansionTSS                     = 12,
-	EQExpansionTBS                     = 13,
-	EQExpansionSOF                     = 14,
-	EQExpansionSOD                     = 15,
-	EQExpansionUF                      = 16,
-	EQExpansionHOT                     = 17,
-	EQExpansionVOA                     = 18,
-	EQExpansionROF                     = 19,
-	EQExpansionCOTF                    = 20,
-	EQExpansionTDS                     = 21,
-	EQExpansionTBM                     = 22,
-	EQExpansionEOK                     = 23,
-	EQExpansionROS                     = 24,
-	EQExpansionTBL                     = 25,
-};
-
-enum EQExpansionOwned
-{
-	EQExpansionNoneOwned               = 0x00000000,
-	EQExpansionKunarkOwned             = 0x00000001,
-	EQExpansionVeliousOwned            = 0x00000002,
-	EQExpansionLuclinOwned             = 0x00000004,
-	EQExpansionPOPOwned                = 0x00000008,
-	EQExpansionYkeshaOwned             = 0x00000010,
-	EQExpansionLDONOwned               = 0x00000020,
-	EQExpansionGatesOwned              = 0x00000040,
-	EQExpansionOOWOwned                = 0x00000080,
-	EQExpansionDONOwned                = 0x00000100,
-	EQExpansionDODHOwned               = 0x00000200,
-	EQExpansionPOROwned                = 0x00000400,
-	EQExpansionTSSOwned                = 0x00000800,
-	EQExpansionTBSOwned                = 0x00001000,
-	EQExpansionSOFOwned                = 0x00002000,
-	EQExpansionSODOwned                = 0x00004000,
-	EQExpansionUFOwned                 = 0x00008000,
-	EQExpansionHOTOwned                = 0x00010000,
-	EQExpansionVOAOwned                = 0x00020000,
-	EQExpansionROFOwned                = 0x00040000,
-	EQExpansionCOTFOwned               = 0x00080000,
-	EQExpansionTDSOwned                = 0x00100000,
-	EQExpansionTBMOwned                = 0x00200000,
-	EQExpansionEOKOwned                = 0x00400000,
-	EQExpansionROSOwned                = 0x00800000,
-	EQExpansionTBLOwned                = 0x01000000,
-
-	EQExpansionAllOwned                = 0x01ffffff,
-};
-
 // TODO: Find a common place to put constants
 constexpr int MAX_BANDOLIER_SLOTS = 4;
 
@@ -644,12 +589,7 @@ union EqGuid
 	EqGuid() : GUID(0) {}
 };
 
-#if defined (_DEBUG) && (defined(EQLIB_EXPORTS) || defined(MQ2MAIN_EXPORTS))
-#define FORCE_SYMBOLS __declspec(dllexport) const void* __force_symbol_generation__() const { return this; }
-#else
-#define FORCE_SYMBOLS
-#endif
-
 } // namespace eqlib
 
+#include "Constants.h"
 #include "ForwardDecls.h"

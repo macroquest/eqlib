@@ -441,7 +441,6 @@ public:
 	EQLIB_OBJECT void DeleteActor(CActorInterface*);
 	EQLIB_OBJECT void DeleteLight(CLightInterface*);
 	EQLIB_OBJECT void GetOnActor(CActorInterface*, PlayerZoneClient*);
-	EQLIB_OBJECT void HandleMaterial(PcClient*, int, EQ_Item*, EQ_Item*);
 	EQLIB_OBJECT void hideGrassObjects();
 	EQLIB_OBJECT void InitCharSelectUI();
 	EQLIB_OBJECT void InitCommonLights();

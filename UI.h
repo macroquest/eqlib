@@ -16,6 +16,7 @@
 
 #include "ForwardDecls.h"
 #include "Common.h"
+#include "Constants.h"
 #include "Containers.h"
 #include "CXStr.h"
 #include "CXWnd.h"
@@ -5521,8 +5522,6 @@ struct [[offsetcomments]] ZonePathData
 /*0x04*/ int                TransferTypeIndex;
 /*0x08*/
 };
-
-constexpr int ZONE_COUNT = 837;
 
 class [[offsetcomments]] ZoneGuideManagerBase
 {

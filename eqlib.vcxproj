@@ -77,6 +77,7 @@
   <ItemGroup>
     <ClInclude Include="Allocator.h" />
     <ClInclude Include="Common.h" />
+    <ClInclude Include="Constants.h" />
     <ClInclude Include="Containers.h" />
     <ClInclude Include="CXStr.h" />
     <ClInclude Include="CXWnd.h" />
