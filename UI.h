@@ -336,7 +336,7 @@ public:
 	};
 
 	// points to the eq instance of the virtual function table for this class
-	static VirtualFunctionTable* sm_vftable;
+	EQLIB_OBJECT static VirtualFunctionTable* sm_vftable;
 };
 
 using CBUTTONWND [[deprecated]] = CButtonWnd;
@@ -650,33 +650,33 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x1d8*/ int          BarIndex;
-/*0x1dc*/ int          ButtonIndex;
-/*0x1e0*/ unsigned int Timer;
-/*0x1e4*/ CTextureAnimation* DecalIcon;
-/*0x1e8*/ int          LastButtonType;
-/*0x1ec*/ int          LastButtonSlot;
-/*0x1f0*/ char         LastButtonPage;
-/*0x1f1*/ EqItemGuid   LastItemGuid;
-/*0x204*/ int          LastItemId;
-/*0x208*/ int          LastIconType;
-/*0x20c*/ int          LastIconSlot;
-/*0x210*/ CXStr        LastLabel;
-/*0x214*/ CXStr        DefaultLabel;
-/*0x218*/ bool         bForceUpdate;
-/*0x21c*/ CTextObjectInterface* pKeyMapText;
-/*0x220*/ int          Unknown0x228;
-/*0x224*/ CButtonWnd*  pButtonWnd;
-/*0x228*/ CInvSlotWnd* pInvSlotWnd;
-/*0x22c*/ CSpellGemWnd* pSpellGemWnd;
-/*0x230*/ CXSize       BaseSize;
-/*0x238*/ int          ButtonPercentSize;
-/*0x23c*/ CXSize       BaseButtonSize;
-/*0x244*/ CXSize       BaseDecalSize;
-/*0x24c*/ CXSize       BaseInvButtonSize;
-/*0x254*/ CXSize       BaseSpellButtonSize;
-/*0x25c*/ int          Unknown0x264;
-/*0x260*/
+/*0x1e8*/ int                BarIndex;
+/*0x1ec*/ int                ButtonIndex;
+/*0x1f0*/ uint32_t           Timer;
+/*0x1f4*/ CTextureAnimation* DecalIcon;
+/*0x1f8*/ int                LastButtonType;
+/*0x1fc*/ int                LastButtonSlot;
+/*0x200*/ char               LastButtonPage;
+/*0x201*/ EqItemGuid         LastItemGuid;
+/*0x214*/ int          LastItemId;
+/*0x218*/ int          LastIconType;
+/*0x21c*/ int          LastIconSlot;
+/*0x220*/ CXStr        LastLabel;
+/*0x224*/ CXStr        DefaultLabel;
+/*0x228*/ bool         bForceUpdate;
+/*0x22c*/ CTextObjectInterface* pKeyMapText;
+/*0x230*/ int          Unknown0x228;
+/*0x234*/ CButtonWnd*  pButtonWnd;
+/*0x238*/ CInvSlotWnd* pInvSlotWnd;
+/*0x23c*/ CSpellGemWnd* pSpellGemWnd;
+/*0x240*/ CXSize       BaseSize;
+/*0x248*/ int          ButtonPercentSize;
+/*0x24c*/ CXSize       BaseButtonSize;
+/*0x254*/ CXSize       BaseDecalSize;
+/*0x25c*/ CXSize       BaseInvButtonSize;
+/*0x264*/ CXSize       BaseSpellButtonSize;
+/*0x26c*/ int          Unknown0x264;
+/*0x270*/
 };
 //============================================================================
 // CLabelWnd
@@ -1658,7 +1658,7 @@ struct BazaarTraderData
 /*0x04*/ uint32_t UniquePlayerID;
 /*0x08*/ uint32_t SpawnID;
 /*0x0c*/ char     Name[0x40];
-/*0x4c*/ 
+/*0x4c*/
 };
 
 // CBazaarSearchWnd__CBazaarSearchWnd_x aBazaarsearchwn
@@ -1739,39 +1739,39 @@ using PBAZAARSEARCHWND [[deprecated]] = CBazaarSearchWnd*;
 // CBazaarWnd
 //============================================================================
 
+constexpr int MAX_BAZAAR_ITEMS = 200;
+
+// .text:0055B42B                 push    9E8h   // live 2020-12-05
 class [[offsetcomments]] CBazaarWnd : public CSidlScreenWnd, public WndEventHandler
 {
+	FORCE_SYMBOLS
+
 public:
-	CBazaarWnd(CXWnd*);
-	virtual ~CBazaarWnd();
+	inline ItemContainer& GetBazaarItems() { return bazaarItems; }
 
-	// virtual
-	virtual int OnProcessFrame() override;
-	virtual int PostDraw() override;
-	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
-
-	EQLIB_OBJECT bool StoreSelectedPrice();
-	EQLIB_OBJECT char* GetPriceString(unsigned long);
-	EQLIB_OBJECT EQ_Item* ReturnItemByIndex(int);
-	EQLIB_OBJECT int UpdateBazaarListtoServer();
-	EQLIB_OBJECT long GetQtyFromCoinType(int);
-	EQLIB_OBJECT unsigned long GetPrice();
-	EQLIB_OBJECT void AddBazaarText(char*, int);
-	EQLIB_OBJECT void AddEquipmentToBazaarArray(EQ_Item*, int, unsigned long);
-	EQLIB_OBJECT void BuildBazaarItemArray();
-	EQLIB_OBJECT void ClickedMoneyButton(int, int);
-	EQLIB_OBJECT void HandleTraderMsg(char*);
-	EQLIB_OBJECT void RebuildItemArray();
-	EQLIB_OBJECT void SelectBazaarSlotItem(int, CTextureAnimation*);
-	EQLIB_OBJECT void SetMoneyButton(int, int);
-	EQLIB_OBJECT void UpdatePriceButtons();
-
-	// protected
-	EQLIB_OBJECT void UpdateButtons();
-
-	// private
-	EQLIB_OBJECT void CreateBZRIniFilename();
-	EQLIB_OBJECT void ToggleBzrItemActive(int, bool);
+/*0x234*/ int                selectedSlot;
+/*0x238*/ int                curBazaarIndex;
+/*0x23c*/ int                curItemPrice;
+/*0x240*/ int                moneyBtnIndex;
+/*0x244*/ ItemPtr            selectedItem;
+/*0x248*/ CButtonWnd*        startButton;
+/*0x24c*/ CButtonWnd*        endButton;
+/*0x250*/ CButtonWnd*        clearButton;
+/*0x254*/ CButtonWnd*        setPriceButton;
+/*0x258*/ CButtonWnd*        listButton;
+/*0x25c*/ uint32_t           unknown0x25c;
+/*0x260*/ CButtonWnd*        addButton;
+/*0x264*/ CButtonWnd*        removeButton;
+/*0x268*/ CButtonWnd*        moneyButton[4];         // NumMoneySlotTypes
+/*0x278*/ CButtonWnd*        offlineModeButton;
+/*0x27c*/ CStmlWnd*          bazaarText;
+/*0x280*/ CInvSlotWnd*       bazaarSlots[MAX_BAZAAR_ITEMS];
+/*0x5a0*/ ItemContainer      bazaarItems;
+/*0x5bc*/ uint32_t           myPrice[MAX_BAZAAR_ITEMS];
+/*0x8dc*/ bool               bItemActive[MAX_BAZAAR_ITEMS];
+/*0x9a4*/ char               iniFilename[64];
+/*0x9e4*/ bool               bIsMerchant;
+/*0x9e8*/
 };
 
 //============================================================================
@@ -2458,7 +2458,7 @@ public:
 	EQLIB_OBJECT void HandleCombine();
 
 	// TODO: Fix for inaccuracies
-/*0x230*/ CONTENTS*     pContents;
+/*0x230*/ ItemPtr       Container;
 /*0x234*/ ItemGlobalIndex Location;
 /*0x240*/ VeArray<CInvSlotWnd*> InvSlotWnds;
 /*0x24c*/ CButtonWnd*   pCombineButton;
@@ -2483,24 +2483,14 @@ public:
 /*0x294*/ CContextMenu* ContextMenu;
 /*0x298*/
 
-#if 0 // old stuff
-/*0x000*/ CSIDLWND     Wnd;
-/*0x148*/ CONTENTS* pContents;                // Pointer to the contents of the container;
-												 // Matches the pointer in CHARINFO.Inventory/Bank/World
-/*0x14c*/ CSIDLWND* pSlots[0x0a];
-/*0x000*/ CSIDLWND* pCombine;
-/*0x168*/ CSIDLWND* pDone;
-/*0x16c*/ CSIDLWND* pIcon;
-/*0x170*/ CSIDLWND* pUnknown;
-/*0x174*/ CSIDLWND* pLabel;
-/*0x178*/ BYTE         Unknown0x178[4];
-/*0x17c*/
-#endif
+	DEPRECATE("CContainerWnd: Use Container instead of pContents")
+	inline CONTENTS* get_pContents() { return Container.get(); }
+	__declspec(property(get = get_pContents)) CONTENTS* pContents;
 };
 using EQCONTAINERWINDOW [[deprecated]] = CContainerWnd;
 using PEQCONTAINERWINDOW [[deprecated]] = CContainerWnd *;
 
-#define MAX_CONTAINERS           40
+constexpr int MAX_CONTAINERS = 40;
 
 class [[offsetcomments]] CContainerMgr
 {
@@ -2510,38 +2500,44 @@ public:
 	CContainerMgr();
 	virtual ~CContainerMgr();
 
+	inline ItemPtr GetWorldContainerItem() const { return WorldContainer; };
+
+	// Retrieves a window for the given item container, if it is active.
+	EQLIB_OBJECT CContainerWnd* GetWindowForItem(const ItemPtr& pContainer) const;
+
 	EQLIB_OBJECT bool CloseAllContainers();
-	EQLIB_OBJECT EQ_Item* GetWorldContainerItem(int);
 	EQLIB_OBJECT void ClearWorldContainerItems();
-	EQLIB_OBJECT void CloseContainer(CONTENTS**, bool deleteWindow);
-	EQLIB_OBJECT void CloseEQContainer(EQ_Container*);
-	EQLIB_OBJECT void OpenContainer(CONTENTS**, const ItemGlobalIndex& location, bool allowTradeskill = true);
-	EQLIB_OBJECT void OpenWorldContainer(EQ_Container*, unsigned long);
+	EQLIB_OBJECT void CloseContainer(const ItemPtr& pContainer, bool deleteWindow = true);
+	EQLIB_OBJECT void OpenContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location, bool allowTradeskill = true);
+	EQLIB_OBJECT void OpenWorldContainer(const ItemPtr&, unsigned long);
 	EQLIB_OBJECT void Process();
-	EQLIB_OBJECT void SetWorldContainerItem(EQ_Item*, int);
+	EQLIB_OBJECT void SetWorldContainerItem(const ItemPtr&, int);
 	EQLIB_OBJECT CContainerWnd* GetFreeContainerWnd();
-	EQLIB_OBJECT void OpenExperimentContainer(const VePointer<CONTENTS>& pCont, const ItemGlobalIndex& Location);
+	EQLIB_OBJECT void OpenExperimentContainer(const ItemPtr& pCont, const ItemGlobalIndex& Location);
 
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x04*/ CContainerWnd*     pContainerWnds[40];
+/*0x04*/ CContainerWnd*     pContainerWnds[MAX_CONTAINERS];
 /*0xa4*/ ArrayClass<CContainerWnd*> ContainerWndsToDelete;
-/*0xb4*/ VePointer<CONTENTS> pWorldContainer;
+/*0xb4*/ ItemPtr            WorldContainer;
 /*0xb8*/ DWORD              WorldContainerSerialNumber;
 /*0xbc*/ int                WorldContainerRealEstateID;
 /*0xc0*/ int                WorldContainerRealEstateItemID;
 /*0xc4*/ DWORD              Timer;
 /*0xc8*/ bool               bShowDone;
 /*0xcc*/
+
+	CONTENTS* getter_pWorldContainer() { return WorldContainer.get(); }
+	__declspec(property(get = getter_pWorldContainer)) CONTENTS* pWorldContainer;
 };
 
 //============================================================================
 // CContextMenuManager
 //============================================================================
 
-#define MAX_CONTEXT_MENU_DEPTH 8
-#define MAX_CONTEXT_MENUS 1024
+constexpr int MAX_CONTEXT_MENU_DEPTH = 8;
+constexpr int MAX_CONTEXT_MENUS = 1024;
 
 // combination of CContexTMenuManager and CContextMenuManagerBase
 class [[offsetcomments]] CContextMenuManager : public CXWnd
@@ -2943,8 +2939,6 @@ public:
 //============================================================================
 // CGiveWnd
 //============================================================================
-
-constexpr int MAX_GIVE_SLOTS = 4;
 
 class [[offsetcomments]] CGiveWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
@@ -3604,22 +3598,20 @@ public:
 // CInspectWnd
 //============================================================================
 
+// .text:0055B8B8                 push    268h       live 2020-12-05
 class CInspectWnd : public CSidlScreenWnd, public WndEventHandler
 {
+	FORCE_SYMBOLS
+
 public:
-	EQLIB_OBJECT CInspectWnd(CXWnd*);
-	EQLIB_OBJECT void PlayerBeingDeleted(PlayerClient*);
+	inline ItemContainer& GetInspectItems() { return inspectItems; }
 
-	// virtual
-	EQLIB_OBJECT ~CInspectWnd();
-	EQLIB_OBJECT int Draw() const;
-	EQLIB_OBJECT int OnProcessFrame();
-	EQLIB_OBJECT int WndNotification(CXWnd*, uint32_t, void*);
-	EQLIB_OBJECT void Deactivate();
-
-	// private
-	EQLIB_OBJECT void AcceptInspectText();
-	EQLIB_OBJECT void Init();
+/*0x234*/ uint32_t           nextRefreshTime;
+/*0x238*/ uint32_t           lastInspectTextSaveTime;
+/*0x23c*/ PlayerClient*      inspectPlayer;
+/*0x240*/ ItemContainer      inspectItems;
+/*0x25c*/ CEditWnd*          inspectEdit;
+/*0x260*/ CButtonWnd*        doneButton;
 };
 
 //============================================================================
@@ -3661,8 +3653,6 @@ using PINVENTORYWND [[deprecated]] = CInventoryWnd*;
 
 class CInvSlotWnd;
 
-const int MAX_INV_SLOTS = 0x900;
-
 // actual size 0x14 10-12-2010
 // I think this is correct:
 // see (69FF1E) in eqgame.exe dated 2013 11 13
@@ -3673,7 +3663,6 @@ public:
 	virtual ~CInvSlot();
 
 	EQLIB_OBJECT bool IllegalBigBank(int);
-	EQLIB_OBJECT void DoDrinkEatPoison(EQ_Item*, int);
 	EQLIB_OBJECT void HandleLButtonDown(const CXPoint&);
 	EQLIB_OBJECT void HandleLButtonHeld(const CXPoint&);
 	EQLIB_OBJECT void HandleLButtonUp(const CXPoint&, bool);
@@ -3683,10 +3672,15 @@ public:
 	EQLIB_OBJECT void HandleRButtonUp(const CXPoint&);
 	EQLIB_OBJECT void HandleRButtonUpAfterHeld(const CXPoint&);
 	EQLIB_OBJECT void SetInvSlotWnd(CInvSlotWnd*);
-	EQLIB_OBJECT void SetItem(EQ_Item*);
+	EQLIB_OBJECT void SetItem(const ItemPtr&);
 	EQLIB_OBJECT void SliderComplete(int);
-	EQLIB_OBJECT void GetItemBase(CONTENTS**);
 	EQLIB_OBJECT void UpdateItem();
+
+	DEPRECATE("Use GetItem() instead of GetItemBase") EQLIB_OBJECT void GetItemBase(CONTENTS**);
+	EQLIB_OBJECT ItemPtr GetItem();
+
+	// Retrieves the global index of this item slot
+	EQLIB_OBJECT ItemGlobalIndex GetItemLocation() const;
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -3697,8 +3691,10 @@ public:
 /*0x10*/ bool               bEnabled;                 // Valid
 /*0x14*/
 };
-using EQINVSLOT [[deprecated]] = CInvSlot;
-using PEQINVSLOT [[deprecated]] = CInvSlot*;
+using EQINVSLOT DEPRECATE("Use CInvSlot instead") = CInvSlot;
+using PEQINVSLOT DEPRECATE("Use CInvSlot* instead") = CInvSlot*;
+
+const int MAX_INV_SLOTS = 2304;
 
 //----------------------------------------------------------------------------
 // Size 0x2418 see 534532 in Nov 06 2018 Test
@@ -3711,12 +3707,14 @@ public:
 	EQLIB_OBJECT CInvSlot* CreateInvSlot(CInvSlotWnd*);
 	EQLIB_OBJECT CInvSlot* FindInvSlot(int TopSlot, int SubSlot = -1,
 		ItemContainerInstance location = eItemContainerPossessions, bool includeLinks = true);
-	EQLIB_OBJECT CInvSlot* FindInvSlot(const ItemGlobalIndex& index, bool includeLinks = true)
+
+	inline CInvSlot* FindInvSlot(const ItemGlobalIndex& index, bool includeLinks = true)
 	{
 		return FindInvSlot(index.GetTopSlot(), index.GetIndex().GetSlot(1), index.GetLocation(), includeLinks);
 	}
 
-	EQLIB_OBJECT bool MoveItem(const ItemGlobalIndex& from, const ItemGlobalIndex& to, bool bDebugOut, bool CombineIsOk, bool MoveFromIntoToBag = false, bool MoveToIntoFromBag = false);
+	EQLIB_OBJECT bool MoveItem(const ItemGlobalIndex& from, const ItemGlobalIndex& to, bool bDebugOut = true,
+		bool CombineIsOk = true, bool MoveFromIntoToBag = false, bool MoveToIntoFromBag = false);
 	EQLIB_OBJECT void Process();
 	EQLIB_OBJECT void SelectSlot(CInvSlot*);
 	EQLIB_OBJECT void UpdateSlots();
@@ -3769,7 +3767,7 @@ public:
 
 /*0x280*/ CTextureAnimation* pBackground;
 /*0x284*/ ItemGlobalIndex    ItemLocation;            // WindowType = ItemLocation.Location, InvSlot = ItemLocation.GetTopSlot()
-/*0x290*/ VePointer<CONTENTS> LinkedItem;              // ItemBasePtr
+/*0x290*/ ItemPtr            LinkedItem;              // If the slot is linked to a specific item
 /*0x294*/ int                ItemOffsetX;
 /*0x298*/ int                ItemOffsetY;
 /*0x29c*/ CTextureAnimation* ptItem;
@@ -3785,9 +3783,11 @@ public:
 /*0x2bc*/ int                Mode;
 /*0x2c0*/ D3DCOLOR           BGTintRollover;
 /*0x2c4*/ D3DCOLOR           BGTintNormal;
-/*0x2c8*/ long               LastTime;
+/*0x2c8*/ int                LastTime;
 /*0x2cc*/ int                Unknown0x2cc;
 /*0x2d0*/
+
+	inline bool IsHotButton() const { return bHotButton; }
 
 	// Backwards Compat Macros
 	ALT_MEMBER_GETTER_COPY(ItemContainerInstance, ItemLocation.GetLocation(), WindowType);
@@ -3799,8 +3799,8 @@ public:
 	ALT_MEMBER_GETTER_COPY(short, ItemLocation.GetIndex().GetSlot(2), Slot3);
 	ALT_MEMBER_GETTER_COPY(short, ItemLocation.GetIndex().GetSlot(2), GlobalSlot);
 };
-using EQINVSLOTWND [[deprecated]] = CInvSlotWnd;
-using PEQINVSLOTWND [[deprecated]] = CInvSlotWnd*;
+using EQINVSLOTWND DEPRECATE("Use CInvSlotWnd instead of EQINVSLOTWND") = CInvSlotWnd;
+using PEQINVSLOTWND DEPRECATE("Use CInvSlotWnd* instead of PEQINVSLOTWND") = CInvSlotWnd*;
 
 //============================================================================
 // CItemDisplayWnd
@@ -3830,8 +3830,8 @@ public:
 	EQLIB_OBJECT virtual int WndNotification(CXWnd* pWnd, uint32_t Message, void* pData) override;
 	EQLIB_OBJECT virtual bool AboutToShow() override;
 
-	EQLIB_OBJECT CXStr CreateEquipmentStatusString(EQ_Item*);
-	EQLIB_OBJECT void SetItem(CONTENTS** pCont, int flags);
+	EQLIB_OBJECT CXStr CreateEquipmentStatusString(const ItemPtr&);
+	EQLIB_OBJECT void SetItem(const ItemPtr& pItem, int flags);
 	EQLIB_OBJECT void SetItemText(char*);
 	EQLIB_OBJECT void SetSpell(int SpellID, bool HasSpellDescr, int);
 	EQLIB_OBJECT void UpdateStrings();
@@ -3870,7 +3870,7 @@ public:
 /*0x2b4*/ CXStr             BackupTabTitle;
 /*0x2b8*/ CXStr             SolventText;
 /*0x2bc*/ CXStr             ItemInformationText;      // Item Information: Placing this augment into blah blah, this armor can only be used in blah blah
-/*0x2c0*/ VePointer<CONTENTS> pItem; // ItemBasePtr
+/*0x2c0*/ ItemPtr           pItem;
 /*0x2c4*/ bool              bActiveItem;
 /*0x2c5*/ bool              bItemTextSet;
 /*0x2c8*/ CTextureAnimation* BuffIcons;
@@ -3992,7 +3992,7 @@ public:
 	EQLIB_OBJECT CKeyRingWnd(CXWnd* parent);
 	EQLIB_OBJECT virtual ~CKeyRingWnd();
 
-	EQLIB_OBJECT static int ExecuteRightClick(KeyRingType keyRingType, const VePointer<CONTENTS>& pItem, int index);
+	EQLIB_OBJECT static int ExecuteRightClick(KeyRingType keyRingType, const ItemPtr& pItem, int index);
 
 	EQLIB_OBJECT CListWnd* GetKeyRingList(KeyRingType type) const;
 
@@ -4046,7 +4046,7 @@ public:
 //============================================================================
 
 // CLootWnd__CLootWnd aLootwnd
-// CLootWnd_size: 0x390 (see 550C06) in Dec 19 2019 Live
+// CLootWnd_size: 0x398 (see 55B1D6) in Dec 5 2020 Live
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -4059,9 +4059,7 @@ public:
 	virtual int PostDraw() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
-	EQLIB_OBJECT void AddContainerToLootArray(EQ_Item*);
-	EQLIB_OBJECT void AddEquipmentToLootArray(EQ_Item*);
-	EQLIB_OBJECT void AddNoteToLootArray(EQ_Item*);
+	EQLIB_OBJECT void AddItemToLootArray(const ItemPtr&);
 	EQLIB_OBJECT void Deactivate(bool);
 	EQLIB_OBJECT void LootAll(bool close);
 	EQLIB_OBJECT void RequestLootSlot(int Slot, bool bAutoInventory);
@@ -4071,29 +4069,39 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-	// todo: most of this is wrong
-/*0x238*/ BYTE              Unknown0x240[0x94];
-/*0x2cc*/ DWORD             NumOfSlots;
-/*0x2d0*/ BYTE              Unknown0x02e0[0x4];
-/*0x2d4*/ INVENTORYARRAY*   pInventoryArray;
-/*0x2d8*/ DWORD             Size;
-/*0x2dc*/ DWORD             NumOfSlots3;
-/*0x2e0*/ BYTE              Unknown0x2e8[0x8];
-/*0x2e8*/ BYTE              Unknown0x2f0;
-/*0x2e9*/ BYTE              Unknown0x2f1;
-/*0x2ea*/ BYTE              Unknown0x2f2;
-/*0x2eb*/ BYTE              Unknown0x2f3;
+/*0x238*/ bool              bServerClose;
+/*0x239*/ bool              bLootingActive;
+/*0x23c*/ int               LootIndex[InvSlot_Max];
+/*0x2c4*/ uint32_t          nNextRefreshTime;
+/*0x2c8*/ bool              bInventoryWasActive;
+/*0x2cc*/ ItemContainer     LootItems;
+/*0x2e8*/ bool              bCloseOnComplete;
+/*0x2e9*/ bool              bRightClickLoot;
+/*0x2ea*/ bool              bLootAllReady;
 /*0x2ec*/ CXWnd*            LootInvWnd;
-/*0x2f0*/ CInvSlotWnd*      LootSlotWnd[0x22];
-/*0x378*/ CLabel*           LW_CorpseName;
+/*0x2f0*/ CInvSlotWnd*      LootSlotWnd[InvSlot_Max];
+/*0x378*/ CLabel*           CorpseNameLabel;
 /*0x37c*/ CButtonWnd*       DoneButton;
 /*0x380*/ CButtonWnd*       BroadcastButton;
 /*0x384*/ CButtonWnd*       LootAllButton;
-/*0x388*/ BYTE              Unknown0x390[0x10];
-/*0x398*/
+/*0x388*/ bool              bPopupPending;
+/*0x38c*/
+
+	inline ItemContainer& GetLootItems() { return LootItems; }
+	inline ItemPtr GetLootItem(int slot) { return LootItems.GetItem(slot); }
+	EQLIB_OBJECT ItemPtr GetLootItemByInvSlot(int invSlot) const;
+
+	INVENTORYARRAY* get_pInventoryArray() { return reinterpret_cast<INVENTORYARRAY*>(&LootItems.Items[0]); }
+	__declspec(property(get = get_pInventoryArray)) INVENTORYARRAY* pInventoryArray;
+
+	int get_Size() { return LootItems.GetSize(); }
+	__declspec(property(get = get_Size)) int Size;
+
+	DEPRECATE("CLootWnd: Use Loots.GetSize() instead of NumOfSlots")
+	__declspec(property(get = get_Size)) int NumOfSlots;
 };
-using EQLOOTWINDOW [[deprecated]] = CLootWnd;
-using PEQLOOTWINDOW [[deprecated]] = CLootWnd*;
+using EQLOOTWINDOW DEPRECATE("Use CLootWnd instead of EQLOOTWINDOW") = CLootWnd;
+using PEQLOOTWINDOW DEPRECATE("Use CLootWnd* instead of PEQLOOTWINDOW") = CLootWnd*;
 
 //============================================================================
 // CMapViewWnd
@@ -4316,23 +4324,14 @@ enum eMerchantServices
 
 struct [[offsetcomments]] CONTENTDATA
 {
-/*0x00*/ CONTENTS*     pCont;
+/*0x00*/ ItemPtr       pItem;
 /*0x04*/ int           Unknown;
 /*0x08*/
-};
 
-struct [[offsetcomments]] CONTENTSARRAY
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ struct CONTENTDATA Array[1];
-/*0x08*/
+	ALT_MEMBER_GETTER_DEPRECATED(ItemClient*, pItem, pCont, "Use pItem instead of pCont");
 };
-using PCONTENTSARRAY [[deprecated]] = CONTENTSARRAY *;
 
 // todo: finish mapping this and verify
-
-#if 1
 class [[offsetcomments]] MerchantPageHandler : public VeBaseReferenceCount
 {
 public:
@@ -4363,16 +4362,16 @@ public:
 /*0x74*/
 
 	// offset comments indicate vtable offset
-	/*0x0c*/ EQLIB_OBJECT virtual void Unknownv0x08();
+	/*0x08*/ EQLIB_OBJECT virtual void Unknownv0x08();
 	/*0x0c*/ EQLIB_OBJECT virtual void Unknownv0x0c();
 	/*0x10*/ EQLIB_OBJECT virtual void Unknownv0x10();
 	/*0x14*/ EQLIB_OBJECT virtual void Unknownv0x14();
 	/*0x18*/ EQLIB_OBJECT virtual void DestroyItemByUniqueId(int64_t UniqueID);
 	/*0x1c*/ EQLIB_OBJECT virtual void DestroyItemByItemGuid(const EqItemGuid& ItemGuid);
-	/*0x20*/ EQLIB_OBJECT virtual bool AddItemToArray(const VePointer<CONTENTS>& pSentItem);
+	/*0x20*/ EQLIB_OBJECT virtual bool AddItemToArray(const ItemPtr& pSentItem);
 	/*0x24*/ EQLIB_OBJECT virtual int Sort(SListWndSortInfo* SortInfo);
 	/*0x28*/ EQLIB_OBJECT virtual void UpdateList();
-	/*0x2c*/ EQLIB_OBJECT virtual int DisplayBuyOrSellPrice(const VePointer<CONTENTS>& pItem, bool bBuy) const;
+	/*0x2c*/ EQLIB_OBJECT virtual int DisplayBuyOrSellPrice(const ItemPtr& pItem, bool bBuy) const;
 	/*0x30*/ EQLIB_OBJECT virtual CXStr GetPriceString(int Price) const;
 	/*0x34*/ EQLIB_OBJECT virtual void UpdateControls();
 	/*0x38*/ EQLIB_OBJECT virtual bool RequestGetItem(int Qty);
@@ -4386,6 +4385,7 @@ public:
 	/*0x58*/ EQLIB_OBJECT virtual void Unknownv0x58() const;
 };
 
+// Size 0xa8 (0x7a331f) 2020-12-05
 class [[offsetcomments]] PurchasePageHandler : public MerchantPageHandler
 {
 	FORCE_SYMBOLS;
@@ -4405,35 +4405,8 @@ public:
 	EQLIB_OBJECT bool RequestGetItem(int);
 	EQLIB_OBJECT void RequestPutItem(int);
 };
-#endif
 
-struct CONTENTSARRAY;
 struct sell_msg;
-
-// this is actually PurchasePageHandler?
-struct [[offsetcomments]] merchdata
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ void* vftable;                  // VeBaseReferenceCount
-/*0x04*/ BYTE          Unknown0x4[0x8];
-/*0x0c*/ DWORD         MerchSlots;
-/*0x10*/ DWORD         SelectedListItem;
-/*0x14*/ DWORD         Unknown0x14[4];
-/*0x24*/ CONTENTSARRAY* pMerchArray;
-/*0x28*/ DWORD         MerchMaxSlots;
-/*0x2c*/
-};
-
-struct [[offsetcomments]] merch_other
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ merchdata* pMerchData;          // purchase page
-/*0x04*/ void* other;                    // buyback page
-/*0x08*/ void* other2;                   // mail page
-/*0x0c*/
-};
 
 enum MerchantPages
 {
@@ -4445,76 +4418,65 @@ enum MerchantPages
 };
 
 // CMerchantWnd__CMerchantWnd_x (aMerchantwnd)
-// CMerchantWnd_size: 0x440 (see 550D62) in Dec 19 2019 Live
+// CMerchantWnd_size: 0x448 (see 55B337) in Dec 5 2020 Live
 class [[offsetcomments]] CMerchantWnd : public CSidlScreenWnd, public WndEventHandler, PopDialogHandler
 {
 	FORCE_SYMBOLS
 
 public:
+	using PageHandlerPtr = VePointer<MerchantPageHandler>;
+	using PageHandlerArray = VeArray<PageHandlerPtr>;
 
-	// TODO: This structure needs to be verified
-	// TODO: add aliases
-#if 0
-/*0x240*/ BYTE        Unknown0x240[0x8];
-/*0x248*/ merch_other* pMerchOther;             // found in CMerchantWnd__CMerchantWnd
-/*0x24c*/ BYTE        Unknown0x24c[0x8];
-/*0x254*/ float       Markup;                   // found in CMerchantWnd__DisplayBuyOrSellPrice_x
-/*0x258*/ BYTE        Unknown0x258[0xc];
-/*0x264*/ DWORD       SelectedSlotID;
-/*0x268*/ BYTE        Unknown0x268[0x1e8];
-/*0x458*/
-#else
-/*0x238*/ uint32_t     NextRefreshTime;
-/*0x23c*/ bool         bInventoryWasActive;
-/*0x240*/ VeArray<VePointer<MerchantPageHandler>> PageHandlers;
-/*0x24c*/ float        MerchantGreed;
-/*0x250*/ ItemGlobalIndex ItemLocation;
-/*0x25c*/ BYTE         Unknown0x254[0x8];
-/*0x264*/ VePointer<CONTENTS> pSelectedItem;
-/*0x268*/ __time32_t   MailExpireTime;
-/*0x26c*/ bool         bAutoRetrieveingMail;
-/*0x26d*/ BYTE         Unknown0x268[0x17];
-/*0x284*/ char*        Labels[0xc];
-/*0x2b4*/ CEditWnd*    SearchEdit;
-/*0x2b8*/ CButtonWnd*  SearchButton;
-/*0x2bc*/ CLabel*      MerchantNameLabel;
-/*0x2c0*/ CLabel*      SelectedItemLabel;
-/*0x2c4*/ CLabel*      SelectedPriceLabel;
-/*0x2c8*/ CButtonWnd*  InspectButton;
-/*0x2cc*/ CButtonWnd*  PreviewButton;
-/*0x2d0*/ CButtonWnd*  SelectedItemButton;
-/*0x2d4*/ CButtonWnd*  BuyButton;
-/*0x2d8*/ CButtonWnd*  BuyMarketPlaceButton;
-/*0x2dc*/ CButtonWnd*  SellButton;
-/*0x2e0*/ CButtonWnd*  RecoverButton;
-/*0x2e4*/ CButtonWnd*  RetrieveButton;
-/*0x2e8*/ CButtonWnd*  RetrieveAllButton;
-/*0x2ec*/ CButtonWnd*  SendButton;
-/*0x2f0*/ CButtonWnd*  AdventureButton;
-/*0x2f4*/ CLabel*      SendToLabel;
-/*0x2f8*/ CEditWnd*    SendToEdit;
-/*0x2fc*/ CLabel*      NoteLabel;
-/*0x300*/ CEditWnd*    NoteEdit;
-/*0x304*/ CButtonWnd*  ClearNoteButton;
-/*0x308*/ CListWnd*    ItemsList;
-/*0x30c*/ CListWnd*    ItemsRecoveryList;
-/*0x310*/ CListWnd*    ItemsMailList;
-/*0x314*/ CButtonWnd*  DoneButton;
-/*0x318*/ CPageWnd*    PurchasePage;
-/*0x31c*/ CPageWnd*    RecoveryPage;
-/*0x320*/ CPageWnd*    MailPage;
-/*0x324*/ CTabWnd*     TabWindow;
-/*0x328*/ CButtonWnd*  UsableButton;
-/*0x32c*/ CLabel*      CurrentCurrencyLabel;
-/*0x330*/ int          Unknown0x32c;
-/*0x334*/ int          Unknown0x330;
-/*0x338*/ int          Unknown0x334;
-/*0x33c*/ int          Unknown0x338;
-/*0x340*/ int          Unknown0x33C;
-/*0x344*/ int          Guk_Currency;
-/*0x348*/ uint8_t      Unknown0x340[0x100];
+/*0x238*/ uint32_t           NextRefreshTime;
+/*0x23c*/ bool               bInventoryWasActive;
+/*0x240*/ PageHandlerArray   PageHandlers;
+/*0x24c*/ float              MerchantGreed;
+/*0x250*/ ItemGlobalIndex    ItemLocation;
+/*0x25c*/ BYTE               Unknown0x254[0x8];
+/*0x264*/ ItemPtr            pSelectedItem;
+/*0x268*/ __time32_t         MailExpireTime;
+/*0x26c*/ bool               bAutoRetrieveingMail;
+/*0x26d*/ BYTE               Unknown0x268[0x17];
+/*0x284*/ char*              Labels[0xc];
+/*0x2b4*/ CEditWnd*          SearchEdit;
+/*0x2b8*/ CButtonWnd*        SearchButton;
+/*0x2bc*/ CLabel*            MerchantNameLabel;
+/*0x2c0*/ CLabel*            SelectedItemLabel;
+/*0x2c4*/ CLabel*            SelectedPriceLabel;
+/*0x2c8*/ CButtonWnd*        InspectButton;
+/*0x2cc*/ CButtonWnd*        PreviewButton;
+/*0x2d0*/ CButtonWnd*        SelectedItemButton;
+/*0x2d4*/ CButtonWnd*        BuyButton;
+/*0x2d8*/ CButtonWnd*        BuyMarketPlaceButton;
+/*0x2dc*/ CButtonWnd*        SellButton;
+/*0x2e0*/ CButtonWnd*        RecoverButton;
+/*0x2e4*/ CButtonWnd*        RetrieveButton;
+/*0x2e8*/ CButtonWnd*        RetrieveAllButton;
+/*0x2ec*/ CButtonWnd*        SendButton;
+/*0x2f0*/ CButtonWnd*        AdventureButton;
+/*0x2f4*/ CLabel*            SendToLabel;
+/*0x2f8*/ CEditWnd*          SendToEdit;
+/*0x2fc*/ CLabel*            NoteLabel;
+/*0x300*/ CEditWnd*          NoteEdit;
+/*0x304*/ CButtonWnd*        ClearNoteButton;
+/*0x308*/ CListWnd*          ItemsList;
+/*0x30c*/ CListWnd*          ItemsRecoveryList;
+/*0x310*/ CListWnd*          ItemsMailList;
+/*0x314*/ CButtonWnd*        DoneButton;
+/*0x318*/ CPageWnd*          PurchasePage;
+/*0x31c*/ CPageWnd*          RecoveryPage;
+/*0x320*/ CPageWnd*          MailPage;
+/*0x324*/ CTabWnd*           TabWindow;
+/*0x328*/ CButtonWnd*        UsableButton;
+/*0x32c*/ CLabel*            CurrentCurrencyLabel;
+/*0x330*/ int                Unknown0x32c;
+/*0x334*/ int                Unknown0x330;
+/*0x338*/ int                Unknown0x334;
+/*0x33c*/ int                Unknown0x338;
+/*0x340*/ int                Unknown0x33C;
+/*0x344*/ int                Guk_Currency;
+/*0x348*/ uint8_t            Unknown0x340[0x100];
 /*0x448*/
-#endif
 
 	CMerchantWnd(CXWnd*);
 	virtual ~CMerchantWnd();
@@ -4526,13 +4488,13 @@ public:
 	EQLIB_OBJECT void FinishBuyingItem(sell_msg*);
 	EQLIB_OBJECT void FinishSellingItem(sell_msg*);
 	EQLIB_OBJECT int SelectBuySellSlot(const ItemGlobalIndex&, int ListIndex = -1);
-	EQLIB_OBJECT void DisplayBuyOrSellPrice(bool, EQ_Item*);
+	EQLIB_OBJECT void DisplayBuyOrSellPrice(const ItemPtr& item, bool buy);
 	EQLIB_OBJECT void HandleBuy(int);
 	EQLIB_OBJECT void HandleSell(int);
 	EQLIB_OBJECT void UpdateBuySellButtons();
 };
-using EQMERCHWINDOW [[deprecated]] = CMerchantWnd;
-using PEQMERCHWINDOW [[deprecated]] = CMerchantWnd *;
+using EQMERCHWINDOW DEPRECATE("Use CMerchantWnd instead of EQMERCHWINDOW") = CMerchantWnd;
+using PEQMERCHWINDOW DEPRECATE("Use CMerchantWnd* instead of PEQMERCHWINDOW") = CMerchantWnd *;
 
 //============================================================================
 // CMusicPlayerWnd
@@ -5352,8 +5314,6 @@ using PEQTRADESKILLWINDOW [[deprecated]] = CTradeSkillWnd*;
 // CTradeWnd
 //============================================================================
 
-constexpr int MAX_TRADE_SLOTS = 16;
-
 // CTradeWnd__CTradeWnd aTradewnd
 // CTradeWnd__size: 0x2e8 (see 550E08) in Dec 19 2019 Live
 class [[offsetcomments]] CTradeWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5392,16 +5352,17 @@ public:
 /*0x26c*/ CInvSlotWnd*       pInvSlotWnd[MAX_TRADE_SLOTS];
 /*0x2ac*/ long               HisMoney[4];
 /*0x2bc*/ long               MyMoney[4];
-/*0x2cc*/ ItemBaseContainer  TradeItems;
+/*0x2cc*/ ItemContainer      TradeItems;
 /*0x2e8*/ bool               bHisReadyTrade;           // was HisTradeReady
 /*0x2e9*/ bool               bMyReadyTrade;            // was MyTradeReady
 /*0x2ea*/ bool               bIsTrading;               // was TradeWndOpen
 /*0x2ec*/
 
+	inline ItemContainer& GetTradeItems() { return TradeItems; }
 	// TODO: Add aliases
 };
-using EQTRADEWINDOW [[deprecated]] = CTradeWnd;
-using PEQTRADEWINDOW [[deprecated]] = CTradeWnd *;
+using EQTRADEWINDOW DEPRECATE("Use CTradeWnd instead of EQTRADEWINDOW") = CTradeWnd;
+using PEQTRADEWINDOW DEPRECATE("Use CTradeWnd* instead of PEQTRADEWINDOW") = CTradeWnd *;
 
 //============================================================================
 // CTrainWnd
@@ -5536,10 +5497,10 @@ public:
 	//virtual void Unserialize(CUnserializeBuffer&);
 
 /*0x0004*/ ZoneGuideZone Zones[ZONE_COUNT];
-/*0x8fe0*/ ArrayClass<ZoneGuideContinent> Continents;
-/*0x8ff0*/ ArrayClass<ZoneGuideZoneType> ZoneTypes;
-/*0x9000*/ ArrayClass<ZoneGuideTransferType> TransferTypes;
-/*0x9010*/
+/*0x90e8*/ ArrayClass<ZoneGuideContinent> Continents;
+/*0x90f8*/ ArrayClass<ZoneGuideZoneType> ZoneTypes;
+/*0x9108*/ ArrayClass<ZoneGuideTransferType> TransferTypes;
+/*0x9118*/
 };
 
 // size: 0x9010 see 6AB098 in Apr 15 2019 exe
@@ -5548,15 +5509,15 @@ class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
 	FORCE_SYMBOLS;
 
 public:
-/*0x9010*/ ArrayClass<ZonePathData> ActivePath;
-/*0x9020*/ ArrayClass<ZonePathData> PreviewPath;
-/*0x9030*/ EQZoneIndex CurrZone;
-/*0x9034*/ int         HerosJourneyIndex;
-/*0x9038*/ bool        bZoneGuideDataSet;
-/*0x9039*/ bool        bIncludeBindZoneInPath;
-/*0x903a*/ bool        bAutoFindActivePath;
-/*0x903b*/ bool        bFindActivePath;
-/*0x903c*/
+/*0x9118*/ ArrayClass<ZonePathData> ActivePath;
+/*0x9128*/ ArrayClass<ZonePathData> PreviewPath;
+/*0x9138*/ EQZoneIndex CurrZone;
+/*0x913c*/ int         HerosJourneyIndex;
+/*0x9140*/ bool        bZoneGuideDataSet;
+/*0x9141*/ bool        bIncludeBindZoneInPath;
+/*0x9142*/ bool        bAutoFindActivePath;
+/*0x9143*/ bool        bFindActivePath;
+/*0x9144*/
 
 	static ZoneGuideManagerClient& Instance();
 };
@@ -6074,6 +6035,46 @@ public:
 
 	EQLIB_OBJECT CTextureAnimation* GetIcon(int);
 };
+
+//----------------------------------------------------------------------------
+
+class CWndDisplayManager
+{
+public:
+	EQLIB_OBJECT int FindWindow(bool bNewWnd);
+	//EQLIB_OBJECT bool CloseNewest();
+	//EQLIB_OBJECT void CloseAll();
+
+	EQLIB_OBJECT virtual int CreateWindowInstance();
+
+	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<CXWnd*>, m_windows, pWindows, "pWindows is deprecated. Use helper functions instread.");
+	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<int>, m_times, pTimes, "pTimes is deprecated. Use helper functions instread.");
+
+	inline CXWnd* GetWindow(int index) const
+	{
+		if (index >= 0 && index < m_windows.GetLength())
+			return m_windows[index];
+		return nullptr;
+	}
+
+	inline int GetCount() const { return m_windows.GetLength(); }
+	inline int GetMaxWindows() const { return MaxWindows; }
+
+protected:
+	ArrayClass2<CXWnd*>      m_windows;
+	ArrayClass2<int>         m_times;
+	int                      MaxWindows;
+};
+
+class CItemDisplayManager : public CWndDisplayManager
+{
+public:
+	EQLIB_OBJECT virtual int CreateWindowInstance() override;
+	EQLIB_OBJECT void ShowItem(const ItemPtr& pItem);
+
+	inline CItemDisplayWnd* GetWindow(int index) const { return static_cast<CItemDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
+};
+
 
 //----------------------------------------------------------------------------
 

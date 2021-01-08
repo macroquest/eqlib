@@ -35,11 +35,13 @@ const char* szCombineTypes[] = {
 };
 size_t MAX_COMBINES = lengthof(szCombineTypes);
 
-const char* szItemTypes[] = {
-#include "../eqdata/itemtypes.h"
+const char* szItemClasses[] = {
+#include "../eqdata/itemclasses.h"
 	nullptr
 };
-size_t MAX_ITEMTYPES = lengthof(szItemTypes);
+size_t MAX_ITEMCLASSES = lengthof(szItemClasses);
+const char** szItemTypes = szItemClasses;
+size_t MAX_ITEMTYPES = lengthof(szItemClasses);
 
 const char* szSPATypes[] = {
 #include "../eqdata/spelleffects.h"
@@ -1012,6 +1014,7 @@ DWORD*                 gpPCNames                 = nullptr;
 BYTE*                  gpShiftKeyDown            = nullptr; // addr+1=ctrl, addr+2=alt
 DWORD*                 gpShowNames               = nullptr;
 DYNAMICZONE*           pDynamicZone              = nullptr;
+EQLogin*               pEQLogin                  = nullptr;
 EQMisc*                pEQMisc                   = nullptr;
 CEQSuiteTextureLoader* pEQSuiteTextureLoader     = nullptr;
 EVERQUESTINFO*         pEverQuestInfo            = nullptr;
@@ -1230,6 +1233,7 @@ void InitializeEQGameOffsets()
 	gpShiftKeyDown                  = (BYTE*)__ShiftKeyDown; // addr+1=ctrl, addr+2=alt
 	gpShowNames                     = (DWORD*)__ShowNames;
 	pDynamicZone                    = (DYNAMICZONE*)instDynamicZone;
+	pEQLogin                        = (EQLogin*)pinstEqLogin;
 	pEQMisc                         = (EQMisc*)instEQMisc;
 	pEQSuiteTextureLoader           = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
 	pEverQuestInfo                  = (EVERQUESTINFO*)pinstEverQuestInfo;

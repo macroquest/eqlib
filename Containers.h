@@ -845,7 +845,7 @@ public:
 
 	VePointer(nullptr_t) {}
 
-	explicit VePointer(T* init)
+	VePointer(T* init)
 	{
 		m_pObject = init;
 
@@ -909,7 +909,7 @@ public:
 		{
 			if (pOther)
 			{
-				static_cast<VeBaseReferenceCount*>(other.m_pObject)->IncrementRefCount();
+				static_cast<VeBaseReferenceCount*>(pOther)->IncrementRefCount();
 			}
 
 			if (m_pObject)
@@ -955,6 +955,9 @@ public:
 
 	explicit operator bool() const { return m_pObject != nullptr; }
 
+	operator T* () { return m_pObject; }
+	operator const T* () const { return m_pObject; }
+
 	inline bool operator<(const VePointer& other) const
 	{
 		return m_pObject < other.m_pObject;
@@ -990,7 +993,7 @@ private:
 };
 
 template <typename T>
-[[nodiscard]] bool operator==(nullptr_t, const VePointer<T> & rhs) noexcept {
+[[nodiscard]] bool operator==(nullptr_t, const VePointer<T>& rhs) noexcept {
 	return nullptr == rhs.get();
 }
 
@@ -1008,6 +1011,37 @@ template <typename T>
 [[nodiscard]] bool operator!=(const VePointer<T>& lhs, nullptr_t) noexcept {
 	return lhs.get() != nullptr;
 }
+
+template <typename T>
+[[nodiscard]] bool operator==(const VePointer<T>& lhs, const VePointer<T>& rhs) noexcept {
+	return lhs.get() == rhs.get();
+}
+
+template <typename T>
+[[nodiscard]] bool operator==(const VePointer<T>& lhs, const T* rhs) noexcept {
+	return lhs.get() == rhs;
+}
+
+template <typename T>
+[[nodiscard]] bool operator==(const T* lhs, const VePointer<T>& rhs) noexcept {
+	return lhs == rhs.get();
+}
+
+template <typename T>
+[[nodiscard]] bool operator!=(const VePointer<T>& lhs, const VePointer<T>& rhs) noexcept {
+	return lhs.get() != rhs.get();
+}
+
+template <typename T>
+[[nodiscard]] bool operator!=(const VePointer<T>& lhs, const T* rhs) noexcept {
+	return lhs.get() != rhs;
+}
+
+template <typename T>
+[[nodiscard]] bool operator!=(const T* lhs, const VePointer<T>& rhs) noexcept {
+	return lhs != rhs.get();
+}
+
 
 #pragma endregion
 

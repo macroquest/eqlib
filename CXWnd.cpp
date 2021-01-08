@@ -242,7 +242,6 @@ CXStr CXWnd::GetTypeName() const
 	return UITypeToString(GetType());
 }
 
-
 const char* UITypeToString(UIType type)
 {
 	switch (type)
@@ -306,6 +305,38 @@ const char* UITypeToString(UIType type)
 	default: return "Unknown(new)";
 	}
 }
+
+const char* EWndRuntimeTypeToString(EWndRuntimeType type)
+{
+	switch (type)
+	{
+	case WRT_WND: return "WND";
+	case WRT_LISTWND: return "LISTWND";
+	case WRT_EDITWND: return "EDITWND";
+	case WRT_TREEWND: return "TREEWND";
+	case WRT_PAGEWND: return "PAGEWND";
+	case WRT_TABWND: return "TABWND";
+	case WRT_HTMLWND: return "HTMLWND";
+	case WRT_HOTKEYWND: return "HOTKEYWND";
+	case WRT_EDITHOTKEYWND: return "EDITHOTKEYWND";
+	case WRT_RANGESLIDERWND: return "RANGESLIDERWND";
+	case WRT_STMLWND: return "STMLWND";
+	case WRT_BROWSERWND: return "BROWSERWND";
+	case WRT_MODALMESSAGEWND: return "MODALMESSAGEWND";
+	case WRT_CHECKBOXWND: return "CHECKBOXWND";
+	case WRT_SIDLSCREENWND: return "SIDLSCREENWND";
+	case WRT_SLIDERWND: return "SLIDERWND";
+	case WRT_LABEL: return "LABEL";
+	case WRT_BUTTON: return "BUTTON";
+	case WRT_GAUGE: return "GAUGE";
+	case WRT_COMBOBOX: return "COMBOBOX";
+	case WRT_CHATWND: return "CHATWND";
+	case WRT_HELPWND: return "HELPWND";
+	default: return "UNKNOWN";
+	}
+}
+
+
 
 #ifdef CXWnd__IsType_x
 FUNCTION_AT_ADDRESS(bool CXWnd::IsType(enum EWndRuntimeType) const, CXWnd__IsType);

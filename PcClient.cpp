@@ -16,6 +16,7 @@
 #include "PcClient.h"
 
 #include "Globals.h"
+#include "UI.h"
 
 namespace eqlib {
 
@@ -23,9 +24,9 @@ namespace eqlib {
 // BaseProfile
 //============================================================================
 
-#ifdef BaseProfile__GetItemPossession_x
-FUNCTION_AT_ADDRESS(VePointer<CONTENTS> BaseProfile::GetItemPossession(const ItemIndex& lIndex) const, BaseProfile__GetItemPossession);
-#endif
+//#ifdef BaseProfile__GetItemPossession_x
+//FUNCTION_AT_ADDRESS(ItemPtr BaseProfile::GetItemPossession(const ItemIndex& lIndex) const, BaseProfile__GetItemPossession);
+//#endif
 
 //============================================================================
 // CharacterBase
@@ -34,24 +35,21 @@ FUNCTION_AT_ADDRESS(VePointer<CONTENTS> BaseProfile::GetItemPossession(const Ite
 #ifdef CharacterBase__GetMemorizedSpell_x
 FUNCTION_AT_ADDRESS(int CharacterBase::GetMemorizedSpell(int), CharacterBase__GetMemorizedSpell);
 #endif
-#ifdef CharacterBase__CreateItemGlobalIndex_x
-FUNCTION_AT_ADDRESS(ItemGlobalIndex CharacterBase::CreateItemGlobalIndex(int, int, int), CharacterBase__CreateItemGlobalIndex);
-#endif
-#ifdef CharacterBase__CreateItemIndex_x
-FUNCTION_AT_ADDRESS(ItemIndex CharacterBase::CreateItemIndex(int, int, int), CharacterBase__CreateItemIndex);
-#endif
+//#ifdef CharacterBase__CreateItemGlobalIndex_x
+//FUNCTION_AT_ADDRESS(ItemGlobalIndex CharacterBase::CreateItemGlobalIndex(int, int, int), CharacterBase__CreateItemGlobalIndex);
+//#endif
+//#ifdef CharacterBase__CreateItemIndex_x
+//FUNCTION_AT_ADDRESS(ItemIndex CharacterBase::CreateItemIndex(int, int, int), CharacterBase__CreateItemIndex);
+//#endif
 #ifdef CharacterBase__GetItemByGlobalIndex_x
-FUNCTION_AT_ADDRESS(VePointer<CONTENTS> CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const, CharacterBase__GetItemByGlobalIndex);
+FUNCTION_AT_ADDRESS(ItemPtr CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const, CharacterBase__GetItemByGlobalIndex);
 #endif
 #ifdef CharacterBase__GetItemByGlobalIndex1_x
-FUNCTION_AT_ADDRESS(VePointer<CONTENTS> CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex, GILocationOption Option) const, CharacterBase__GetItemByGlobalIndex1);
+FUNCTION_AT_ADDRESS(ItemPtr CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex, ItemContainer::CheckDepthOptions Option) const, CharacterBase__GetItemByGlobalIndex1);
 #endif
-#ifdef CharacterBase__GetItemPossession_x
-FUNCTION_AT_ADDRESS(VePointer<CONTENTS> CharacterBase::GetItemPossession(const ItemIndex& lIndex) const, CharacterBase__GetItemPossession);
-#endif
-#ifdef CharacterBase__GetEffectId_x
-FUNCTION_AT_ADDRESS(unsigned int CharacterBase::GetEffectId(int), CharacterBase__GetEffectId);
-#endif
+//#ifdef CharacterBase__GetItemPossession_x
+//FUNCTION_AT_ADDRESS(ItemPtr CharacterBase::GetItemPossession(const ItemIndex& lIndex) const, CharacterBase__GetItemPossession);
+//#endif
 #ifdef CharacterBase__IsExpansionFlag_x
 FUNCTION_AT_ADDRESS(int CharacterBase::IsExpansionFlag(int), CharacterBase__IsExpansionFlag);
 #endif
@@ -115,7 +113,7 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::CalcAffectChange(const EQ_Spell* sp
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::CalcAffectChangeGeneric(const EQ_Spell* spell, BYTE, BYTE, const EQ_Affect*, int, bool), CharacterZoneClient__CalcAffectChangeGeneric);
 #endif
 #ifdef CharacterZoneClient__GetFocusReuseMod_x
-FUNCTION_AT_ADDRESS(const int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, VePointer<CONTENTS>& pOutItem), CharacterZoneClient__GetFocusReuseMod);
+FUNCTION_AT_ADDRESS(const int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem), CharacterZoneClient__GetFocusReuseMod);
 #endif
 #ifdef CharacterZoneClient__IsStackBlocked_x
 FUNCTION_AT_ADDRESS(bool CharacterZoneClient::IsStackBlocked(const EQ_Spell*, PSPAWNINFO, EQ_Affect*, int, bool), CharacterZoneClient__IsStackBlocked);
@@ -280,7 +278,7 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::ApplyFatigue(int), CharacterZoneCli
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::max_encumbrance(), CharacterZoneClient__max_encumbrance);
 #endif
 #ifdef CharacterZoneClient__CanUseItem_x
-FUNCTION_AT_ADDRESS(bool CharacterZoneClient::CanUseItem(CONTENTS**, bool, bool), CharacterZoneClient__CanUseItem);
+FUNCTION_AT_ADDRESS(bool CharacterZoneClient::CanUseItem(const ItemPtr& pItem, bool, bool), CharacterZoneClient__CanUseItem);
 #endif
 #ifdef CharacterZoneClient__encum_factor_x
 FUNCTION_AT_ADDRESS(float CharacterZoneClient::encum_factor(), CharacterZoneClient__encum_factor);
@@ -478,13 +476,13 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetIndexSkillMinDamageMod(int), Cha
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFocusConserveRegChance(EQ_Spell const*, EQ_Equipment**), CharacterZoneClient__GetFocusConserveRegChance);
 #endif
 #ifdef CharacterZoneClient__GetFocusCastingTimeModifier_x
-FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFocusCastingTimeModifier(const EQ_Spell* pSpell, VePointer<CONTENTS>& pItemOut, bool bEvalOnly), CharacterZoneClient__GetFocusCastingTimeModifier);
+FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFocusCastingTimeModifier(const EQ_Spell* pSpell, ItemPtr& pItemOut, bool bEvalOnly), CharacterZoneClient__GetFocusCastingTimeModifier);
 #endif
 #ifdef CharacterZoneClient__GetFocusDurationMod_x
-FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFocusDurationMod(const EQ_Spell* spell, VePointer<CONTENTS>& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2), CharacterZoneClient__GetFocusDurationMod);
+FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2), CharacterZoneClient__GetFocusDurationMod);
 #endif
 #ifdef CharacterZoneClient__GetFocusRangeModifier_x
-FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, VePointer<CONTENTS>& pItemOut), CharacterZoneClient__GetFocusRangeModifier);
+FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& pItemOut), CharacterZoneClient__GetFocusRangeModifier);
 #endif
 #ifdef CharacterZoneClient__GetFocusItem_x
 FUNCTION_AT_ADDRESS(EQ_Equipment* CharacterZoneClient::GetFocusItem(EQ_Spell const*, int), CharacterZoneClient__GetFocusItem);
@@ -502,7 +500,7 @@ FUNCTION_AT_ADDRESS(EQPlayer* CharacterZoneClient::GetMyPetPlayer(), CharacterZo
 FUNCTION_AT_ADDRESS(void CharacterZoneClient1::SetEffectId(unsigned char, unsigned int), CharacterZoneClient__SetEffectId);
 #endif
 #ifdef CharacterZoneClient__CastSpell_x
-FUNCTION_AT_ADDRESS(unsigned char CharacterZoneClient::CastSpell(unsigned char gemid, int spellid, EQ_Item** ppItem, const ItemGlobalIndex&, enum ItemSpellTypes slot, unsigned char spell_loc, int arg7, int arg8, int arg9, bool arg10), CharacterZoneClient__CastSpell);
+FUNCTION_AT_ADDRESS(unsigned char CharacterZoneClient::CastSpell(unsigned char gemid, int spellid, const ItemPtr& ppItem, const ItemGlobalIndex&, enum ItemSpellTypes slot, unsigned char spell_loc, int arg7, int arg8, int arg9, bool arg10), CharacterZoneClient__CastSpell);
 #endif
 #ifdef CharacterZoneClient__GetBardInstrumentMod_x
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetBardInstrumentMod(int), CharacterZoneClient__GetBardInstrumentMod);
@@ -518,9 +516,6 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetCastingTimeModifier(const EQ_Spe
 #endif
 #ifdef CharacterZoneClient__IsValidAffect_x
 FUNCTION_AT_ADDRESS(bool CharacterZoneClient::IsValidAffect(int), CharacterZoneClient__IsValidAffect);
-#endif
-#ifdef CharacterZoneClient__LaunchSpell_x
-FUNCTION_AT_ADDRESS(unsigned char CharacterZoneClient::LaunchSpell(unsigned char, int, EQ_Item**), CharacterZoneClient__LaunchSpell);
 #endif
 #ifdef CharacterZoneClient__HandleSpecialPCAffects_x
 FUNCTION_AT_ADDRESS(void CharacterZoneClient::HandleSpecialPCAffects(int), CharacterZoneClient__HandleSpecialPCAffects);
@@ -654,13 +649,13 @@ FUNCTION_AT_ADDRESS(void PcZoneClient::RemovePetEffect(int), PcZoneClient__Remov
 FUNCTION_AT_ADDRESS(bool PcZoneClient::HasAlternateAbility(int aaindex, int*, bool, bool), PcZoneClient__HasAlternateAbility);
 #endif
 #ifdef PcZoneClient__GetItemByID_x
-FUNCTION_AT_ADDRESS(CONTENTS** PcZoneClient::GetItemByID(CONTENTS** contOut, int itemid, ItemIndex*), PcZoneClient__GetItemByID);
+FUNCTION_AT_ADDRESS(ItemPtr PcZoneClient::GetItemByID(int itemid, ItemIndex*), PcZoneClient__GetItemByID);
 #endif
 #ifdef PcZoneClient__GetItemByItemClass_x
-FUNCTION_AT_ADDRESS(CONTENTS** PcZoneClient::GetItemByItemClass(CONTENTS** contOut, int itemclass, ItemIndex*), PcZoneClient__GetItemByItemClass);
+FUNCTION_AT_ADDRESS(ItemPtr PcZoneClient::GetItemByItemClass(int itemclass, ItemIndex*), PcZoneClient__GetItemByItemClass);
 #endif
 #ifdef PcZoneClient__CanEquipItem_x
-FUNCTION_AT_ADDRESS(bool PcZoneClient::CanEquipItem(CONTENTS** pCont, int slotid, bool bOutputDebug, bool bUseRequiredLevel), PcZoneClient__CanEquipItem);
+FUNCTION_AT_ADDRESS(bool PcZoneClient::CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel), PcZoneClient__CanEquipItem);
 #endif
 #ifdef PcZoneClient__RemoveBuffEffect_x
 FUNCTION_AT_ADDRESS(void PcZoneClient::RemoveBuffEffect(int Index, int SpawnID), PcZoneClient__RemoveBuffEffect);
@@ -722,9 +717,6 @@ FUNCTION_AT_ADDRESS(unsigned char PcClient::RemoveMyAffect(int), EQ_PC__RemoveMy
 #ifdef EQ_PC__ProcessFatigue_x
 FUNCTION_AT_ADDRESS(void PcClient::ProcessFatigue(), EQ_PC__ProcessFatigue);
 #endif
-#ifdef EQ_PC__DelLoreItemDup_x
-FUNCTION_AT_ADDRESS(int PcClient::DelLoreItemDup(int, int, int, EQ_Item*), EQ_PC__DelLoreItemDup);
-#endif
 #ifdef EQ_PC__CheckDupLoreItems_x
 FUNCTION_AT_ADDRESS(int PcClient::CheckDupLoreItems(), EQ_PC__CheckDupLoreItems);
 #endif
@@ -759,7 +751,7 @@ FUNCTION_AT_ADDRESS(int PcClient::numInParty(), EQ_PC__numInParty);
 FUNCTION_AT_ADDRESS(unsigned char PcClient::AtSkillLimit(int), EQ_PC__AtSkillLimit);
 #endif
 #ifdef EQ_PC__GetItemRecastTimer_x
-FUNCTION_AT_ADDRESS(unsigned long PcClient::GetItemRecastTimer(EQ_Item* item, ItemSpellTypes etype), EQ_PC__GetItemRecastTimer);
+FUNCTION_AT_ADDRESS(uint32_t PcZoneClient::GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype), EQ_PC__GetItemRecastTimer);
 #endif
 #ifdef EQ_PC__GetAlternateAbilityId_x
 FUNCTION_AT_ADDRESS(int PcClient::GetAlternateAbilityId(int), EQ_PC__GetAlternateAbilityId);
@@ -774,7 +766,7 @@ FUNCTION_AT_ADDRESS(PcZoneClient* PcClient::GetPcZoneClient() const, EQ_PC__GetP
 FUNCTION_AT_ADDRESS(unsigned long PcClient::GetCombatAbilityTimer(int, int), EQ_PC__GetCombatAbilityTimer);
 #endif
 #ifdef EQ_PC__HasLoreItem_x
-FUNCTION_AT_ADDRESS(bool PcClient::HasLoreItem(EQ_Item*, int, int, int, int), EQ_PC__HasLoreItem);
+FUNCTION_AT_ADDRESS(bool PcClient::HasLoreItem(const ItemPtr&, bool, bool, bool, bool), EQ_PC__HasLoreItem);
 #endif
 #ifdef EQ_PC__GetItemContainedRealEstateIds_x
 FUNCTION_AT_ADDRESS(void PcClient::GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>&, bool, bool, bool), EQ_PC__GetItemContainedRealEstateIds);
@@ -820,12 +812,7 @@ FUNCTION_AT_ADDRESS(BaseProfile* ProfileManager::GetCurrentProfile(), ProfileMan
 
 //----------------------------------------------------------------------------
 
-ItemContainer::ItemPointer BaseProfile::GetInventorySlot(eInventorySlot type)
-{
-	return InventoryContainer.GetItem(type);
-}
-
-ItemBaseContainer& PcBase::GetKeyRingItems(KeyRingType type)
+ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
 {
 	if (type == eMount)
 		return MountKeyRingItems;
@@ -838,6 +825,5 @@ ItemBaseContainer& PcBase::GetKeyRingItems(KeyRingType type)
 
 	return MountKeyRingItems;
 }
-
 
 } // namespace eqlib
