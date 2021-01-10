@@ -82,21 +82,24 @@ enum ItemContainerInstance
 
 EQLIB_API const char* GetNameForContainerInstance(ItemContainerInstance container);
 
-// BAD - DO NOT USE
-struct ITEMBASEARRAY
+inline namespace deprecated
 {
-	CONTENTS* Item[1];
-};
-using PITEMBASEARRAY [[deprecated]] = ITEMBASEARRAY*;
+	// BAD - DO NOT USE
+	struct ITEMBASEARRAY
+	{
+		CONTENTS* Item[1];
+	};
+	using PITEMBASEARRAY [[deprecated]] = ITEMBASEARRAY*;
 
-class [[offsetcomments]] ItemArray
-{
-public:
-/*0x00*/ ITEMBASEARRAY* pItems;
-/*0x04*/ size_t         Size;
-/*0x08*/ unsigned int   Capacity;
-/*0x0c*/
-};
+	class [[offsetcomments]] ItemArray
+	{
+	public:
+	/*0x00*/ ITEMBASEARRAY* pItems;
+	/*0x04*/ size_t         Size;
+	/*0x08*/ unsigned int   Capacity;
+	/*0x0c*/
+	};
+}
 
 class [[offsetcomments]] ItemIndex
 {
@@ -703,7 +706,7 @@ public:
 	// deprecated accessors
 	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_size, ContentSize, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(int, m_type, ItemLocation, "Use GetContainerType() instead");
-	ALT_MEMBER_GETTER_DEPRECATED(eqlib::ItemArray, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
+	ALT_MEMBER_GETTER_DEPRECATED(eqlib::deprecated::ItemArray, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[0], ItemSlot, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[1], ItemSlot2, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 };

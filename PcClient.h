@@ -692,6 +692,19 @@ struct [[offsetcomments]] EQC_INFO
 /*0x08*/
 };
 
+inline namespace deprecated
+{
+	struct BANKARRAY
+	{
+		CONTENTS* Bank[NUM_BANK_SLOTS];
+	};
+
+	struct SHAREDBANKARRAY
+	{
+		CONTENTS* SharedBank[NUM_SHAREDBANK_SLOTS];
+	};
+}
+
 //aStartingLoad
 #define CHARINFO_Size 0x2B78 //in Nov 01 2018 beta (see 5D7008) - eqmule
 /*0x1c4c*/ //ItemIndex	StatKeyRingItemIndex[3];//0xe46 confirmed
@@ -1010,6 +1023,33 @@ struct [[offsetcomments]] CHARINFOOLD
 /*0x2bc4*/ int                                           NoBuffResistCold;
 /*0x2bc8*/ int                                           NoBuffResistPhysical;
 /*0x2bcc*/
+
+	//----------------------------------------------------------------------------
+	// Deprecated properties
+
+	DEPRECATE("pBankArraySize is deprecated. Use BankItems.GetSize() instead.")
+	inline int get_pBankArraySize() const { return BankItems.GetSize(); }
+	__declspec(property(get = get_pBankArraySize)) int pBankArraySize;
+
+	DEPRECATE("pBankArraySpec is deprecated. Use BankItems.GetContainerType() instead.")
+		inline int get_pBankArraySpec() const { return BankItems.GetContainerType(); }
+	__declspec(property(get = get_pBankArraySpec)) int pBankArraySpec;
+
+	DEPRECATE("pBankArray is deprecated. Adapt the code to use BankItems instead.")
+	inline deprecated::BANKARRAY* get_pBankArray() { return reinterpret_cast<deprecated::BANKARRAY*>(BankItems.ContainedItems.pItems); }
+	__declspec(property(get = get_pBankArray)) deprecated::BANKARRAY* pBankArray;
+
+	DEPRECATE("NumBankSlots is deprecated. Use BankItems.GetSize() instead.")
+	inline int get_NumBankSlots() const { return BankItems.GetSize(); }
+	__declspec(property(get = get_NumBankSlots)) int NumBankSlots;
+
+	DEPRECATE("pSharedBankArray is deprecated. Adapt the code to use BankItems instead.")
+	inline deprecated::SHAREDBANKARRAY* get_pSharedBankArray() { return reinterpret_cast<deprecated::SHAREDBANKARRAY*>(SharedBankItems.ContainedItems.pItems); }
+	__declspec(property(get = get_pSharedBankArray)) deprecated::SHAREDBANKARRAY* pSharedBankArray;
+
+	DEPRECATE("NumSharedSlots is deprecated. Use SharedBankItems.GetSize() instead.")
+		inline int get_NumSharedSlots() const { return SharedBankItems.GetSize(); }
+	__declspec(property(get = get_NumSharedSlots)) int NumSharedSlots;
 };
 
 struct [[offsetcomments]] CHARINFONEW
