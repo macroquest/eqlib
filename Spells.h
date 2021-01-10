@@ -1104,14 +1104,14 @@ struct [[offsetcomments]] SPELLMGR
 /*0x03dae4*/ EQ_Spell*        Spells[TOTAL_SPELL_COUNT];
 /*0x07a3a4*/ EQ_Spell*        PtrToUnknownSpell;             // default bailout pointer...
 /*0x07a3a8*/ SpellAffectData* CalcInfo[TOTAL_SPELL_AFFECT_COUNT];
-/*0x143668*/ SpellAffectData* PtrToUnknownSpellAffect;
-/*0x14366c*/ SpellAffectData* PtrToUnknownSpellAffectAC;
-/*0x143670*/ int              UnknownSpellCRC;
-/*0x143674*/ int              SpellFileCRC;
-/*0x143678*/ int              SpellAssocFileCRC;
-/*0x14367c*/ int              SpellStackingFileCRC;
-/*0x143680*/ DWORD            What2[0x1E460];                // 124000
-/*0x1bc800*/
+/*0x15ad68*/ SpellAffectData* PtrToUnknownSpellAffect;
+/*0x15ad6c*/ SpellAffectData* PtrToUnknownSpellAffectAC;
+/*0x15ad70*/ int              UnknownSpellCRC;
+/*0x15ad74*/ int              SpellFileCRC;
+/*0x15ad78*/ int              SpellAssocFileCRC;
+/*0x15ad7c*/ int              SpellStackingFileCRC;
+/*0x15ad80*/ DWORD            What2[0x1E460];                // 124000
+/*0x1d3f00*/
 };
 // TODO: Merge with ClientSpellManager
 using PSPELLMGR = SPELLMGR*;
@@ -1327,9 +1327,9 @@ public:
 
 /*0x03dae4*/ SPELL* Spells[TOTAL_SPELL_COUNT + 1];         // 60001 last one is the unknown spell...
 /*0x07a3a8*/ SPELLCALCINFO* CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 175000
-/*0x143668*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT + 1];
-/*0x1bc7f0*/ HashTable<StackingGroupData> StackingData;
-/*0x1bc800*/
+/*0x15ad68*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT + 1];
+/*0x1d3ef0*/ HashTable<StackingGroupData> StackingData;
+/*0x1d3f00*/
 };
 
 

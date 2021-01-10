@@ -121,14 +121,6 @@ FUNCTION_AT_ADDRESS(bool CXMLSOMDocumentBase::XMLRead(const CXStr&, const CXStr&
 // MISC
 
 
-#ifdef CWndDisplayManager__FindWindowA_x
-FUNCTION_AT_ADDRESS(int CWndDisplayManager::FindWindow(bool bNewWnd), CWndDisplayManager__FindWindowA);
-#endif
-
-#ifdef CItemDisplayManager__CreateWindowInstance_x
-FUNCTION_AT_ADDRESS(int CItemDisplayManager::CreateWindowInstance(), CItemDisplayManager__CreateWindowInstance);
-#endif
-
 
 //============================================================================
 // CRadioGroup
@@ -949,7 +941,7 @@ FUNCTION_AT_ADDRESS(void CBazaarWnd::CreateBZRIniFilename(), CBazaarWnd__CreateB
 FUNCTION_AT_ADDRESS(void CBazaarWnd::AddBazaarText(char*, int), CBazaarWnd__AddBazaarText);
 #endif
 #ifdef CBazaarWnd__ReturnItemByIndex_x
-FUNCTION_AT_ADDRESS(EQ_Item* CBazaarWnd::ReturnItemByIndex(int), CBazaarWnd__ReturnItemByIndex);
+FUNCTION_AT_ADDRESS(ItemPtr CBazaarWnd::ReturnItemByIndex(int), CBazaarWnd__ReturnItemByIndex);
 #endif
 #ifdef CBazaarWnd__GetPriceString_x
 FUNCTION_AT_ADDRESS(char* CBazaarWnd::GetPriceString(unsigned long), CBazaarWnd__GetPriceString);
@@ -962,9 +954,6 @@ FUNCTION_AT_ADDRESS(void CBazaarWnd::RebuildItemArray(), CBazaarWnd__RebuildItem
 #endif
 #ifdef CBazaarWnd__BuildBazaarItemArray_x
 FUNCTION_AT_ADDRESS(void CBazaarWnd::BuildBazaarItemArray(), CBazaarWnd__BuildBazaarItemArray);
-#endif
-#ifdef CBazaarWnd__AddEquipmentToBazaarArray_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::AddEquipmentToBazaarArray(EQ_Item*, int, unsigned long), CBazaarWnd__AddEquipmentToBazaarArray);
 #endif
 #ifdef CBazaarWnd__Activate_x
 FUNCTION_AT_ADDRESS(void CBazaarWnd::Activate(), CBazaarWnd__Activate);
@@ -1390,7 +1379,7 @@ FUNCTION_AT_ADDRESS(bool CContainerWnd::ContainsNoDrop(), CContainerWnd__Contain
 FUNCTION_AT_ADDRESS(CContainerWnd* CContainerMgr::GetFreeContainerWnd(), CContainerMgr__GetFreeContainerWnd);
 #endif
 #ifdef CContainerMgr__OpenExperimentContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::OpenExperimentContainer(const VePointer<CONTENTS>& pCont, const ItemGlobalIndex& Location), CContainerMgr__OpenExperimentContainer);
+FUNCTION_AT_ADDRESS(void CContainerMgr::OpenExperimentContainer(const ItemPtr& pCont, const ItemGlobalIndex& Location), CContainerMgr__OpenExperimentContainer);
 #endif
 #ifdef CContainerMgr__CContainerMgr_x
 FUNCTION_AT_ADDRESS(CContainerMgr::CContainerMgr(), CContainerMgr__CContainerMgr);
@@ -1399,10 +1388,10 @@ FUNCTION_AT_ADDRESS(CContainerMgr::CContainerMgr(), CContainerMgr__CContainerMgr
 FUNCTION_AT_ADDRESS(void CContainerMgr::Process(), CContainerMgr__Process);
 #endif
 #ifdef CContainerMgr__OpenWorldContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::OpenWorldContainer(EQ_Container*, unsigned long), CContainerMgr__OpenWorldContainer);
+FUNCTION_AT_ADDRESS(void CContainerMgr::OpenWorldContainer(const ItemPtr&, unsigned long), CContainerMgr__OpenWorldContainer);
 #endif
 #ifdef CContainerMgr__SetWorldContainerItem_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::SetWorldContainerItem(EQ_Item*, int), CContainerMgr__SetWorldContainerItem);
+FUNCTION_AT_ADDRESS(void CContainerMgr::SetWorldContainerItem(const ItemPtr&, int), CContainerMgr__SetWorldContainerItem);
 #endif
 #ifdef CContainerMgr__GetWorldContainerItem_x
 FUNCTION_AT_ADDRESS(EQ_Item* CContainerMgr::GetWorldContainerItem(int), CContainerMgr__GetWorldContainerItem);
@@ -1411,17 +1400,25 @@ FUNCTION_AT_ADDRESS(EQ_Item* CContainerMgr::GetWorldContainerItem(int), CContain
 FUNCTION_AT_ADDRESS(void CContainerMgr::ClearWorldContainerItems(), CContainerMgr__ClearWorldContainerItems);
 #endif
 #ifdef CContainerMgr__OpenContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::OpenContainer(CONTENTS**, const ItemGlobalIndex&, bool), CContainerMgr__OpenContainer);
-#endif
-#ifdef CContainerMgr__CloseEQContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::CloseEQContainer(EQ_Container*), CContainerMgr__CloseEQContainer);
+FUNCTION_AT_ADDRESS(void CContainerMgr::OpenContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location, bool), CContainerMgr__OpenContainer);
 #endif
 #ifdef CContainerMgr__CloseContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::CloseContainer(CONTENTS**, bool), CContainerMgr__CloseContainer);
+FUNCTION_AT_ADDRESS(void CContainerMgr::CloseContainer(const ItemPtr& pContainer, bool bDeleteWindow), CContainerMgr__CloseContainer);
 #endif
 #ifdef CContainerMgr__CloseAllContainers_x
 FUNCTION_AT_ADDRESS(bool CContainerMgr::CloseAllContainers(), CContainerMgr__CloseAllContainers);
 #endif
+
+CContainerWnd* CContainerMgr::GetWindowForItem(const ItemPtr& pContainer) const
+{
+	for (auto& pContainerWnd : pContainerMgr->pContainerWnds)
+	{
+		if (pContainerWnd && pContainerWnd->Container == pContainer)
+			return pContainerWnd;
+	}
+
+	return nullptr;
+}
 
 //============================================================================
 // CContextMenuManager
@@ -1853,6 +1850,7 @@ FUNCTION_AT_ADDRESS(CInvSlot::CInvSlot(), CInvSlot__CInvSlot);
 #endif
 #ifdef CInvSlot__GetItemBase_x
 FUNCTION_AT_ADDRESS(void CInvSlot::GetItemBase(CONTENTS**), CInvSlot__GetItemBase);
+FUNCTION_AT_ADDRESS(ItemPtr CInvSlot::GetItem(), CInvSlot__GetItemBase);
 #endif
 #ifdef CInvSlot__UpdateItem_x
 FUNCTION_AT_ADDRESS(void CInvSlot::UpdateItem(), CInvSlot__UpdateItem);
@@ -1861,7 +1859,7 @@ FUNCTION_AT_ADDRESS(void CInvSlot::UpdateItem(), CInvSlot__UpdateItem);
 FUNCTION_AT_ADDRESS(void CInvSlot::SetInvSlotWnd(CInvSlotWnd*), CInvSlot__SetInvSlotWnd);
 #endif
 #ifdef CInvSlot__SetItem_x
-FUNCTION_AT_ADDRESS(void CInvSlot::SetItem(EQ_Item*), CInvSlot__SetItem);
+FUNCTION_AT_ADDRESS(void CInvSlot::SetItem(const ItemPtr&), CInvSlot__SetItem);
 #endif
 #ifdef CInvSlot__SliderComplete_x
 FUNCTION_AT_ADDRESS(void CInvSlot::SliderComplete(int), CInvSlot__SliderComplete);
@@ -1871,9 +1869,6 @@ FUNCTION_AT_ADDRESS(void CInvSlot::HandleLButtonUp(CXPoint, bool), CInvSlot__Han
 #endif
 #ifdef CInvSlot__HandleLButtonHeld_x
 FUNCTION_AT_ADDRESS(void CInvSlot::HandleLButtonHeld(CXPoint), CInvSlot__HandleLButtonHeld);
-#endif
-#ifdef CInvSlot__DoDrinkEatPoison_x
-FUNCTION_AT_ADDRESS(void CInvSlot::DoDrinkEatPoison(EQ_Item*, int), CInvSlot__DoDrinkEatPoison);
 #endif
 #ifdef CInvSlot__HandleRButtonUp_x
 FUNCTION_AT_ADDRESS(void CInvSlot::HandleRButtonUp(const CXPoint&), CInvSlot__HandleRButtonUp);
@@ -1896,6 +1891,16 @@ FUNCTION_AT_ADDRESS(void CInvSlot::HandleLButtonUpAfterHeld(CXPoint), CInvSlot__
 #ifdef CInvSlot__HandleRButtonDown_x
 FUNCTION_AT_ADDRESS(void CInvSlot::HandleRButtonDown(CXPoint), CInvSlot__HandleRButtonDown);
 #endif
+
+ItemGlobalIndex CInvSlot::GetItemLocation() const
+{
+	if (pInvSlotWnd)
+	{
+		return pInvSlotWnd->ItemLocation;
+	}
+
+	return ItemGlobalIndex();
+}
 
 //============================================================================
 // CInvSlotMgr
@@ -1961,7 +1966,7 @@ FUNCTION_AT_ADDRESS(void CItemDisplayWnd::RequestConvertItem(), CItemDisplayWnd_
 //FUNCTION_AT_ADDRESS(CItemDisplayWnd::~CItemDisplayWnd(), CItemDisplayWnd__dCItemDisplayWnd);
 #endif
 #ifdef CItemDisplayWnd__SetItem_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetItem(CONTENTS** pCont, int flags), CItemDisplayWnd__SetItem);
+FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetItem(const ItemPtr& pItem, int flags), CItemDisplayWnd__SetItem);
 #endif
 #ifdef CItemDisplayWnd__AboutToShow_x
 FUNCTION_AT_ADDRESS(bool CItemDisplayWnd::AboutToShow(), CItemDisplayWnd__AboutToShow);
@@ -1988,7 +1993,7 @@ FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateMealSizeString(EQ_Equipment*), 
 FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateModString(EQ_Equipment*, int, int, int*), CItemDisplayWnd__CreateModString);
 #endif
 #ifdef CItemDisplayWnd__CreateEquipmentStatusString_x
-FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateEquipmentStatusString(EQ_Item*), CItemDisplayWnd__CreateEquipmentStatusString);
+FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateEquipmentStatusString(const ItemPtr&), CItemDisplayWnd__CreateEquipmentStatusString);
 #endif
 #ifdef CItemDisplayWnd__SetSpell_x
 FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetSpell(int SpellID, bool HasSpellDescr, int), CItemDisplayWnd__SetSpell);
@@ -1999,7 +2004,7 @@ FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetSpell(int SpellID, bool HasSpellDes
 //============================================================================
 
 #ifdef CKeyRingWnd__ExecuteRightClick_x
-FUNCTION_AT_ADDRESS(int CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, const VePointer<CONTENTS>& pItem, int index), CKeyRingWnd__ExecuteRightClick);
+FUNCTION_AT_ADDRESS(int CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, const ItemPtr& pItem, int index), CKeyRingWnd__ExecuteRightClick);
 #endif
 
 CListWnd* CKeyRingWnd::GetKeyRingList(KeyRingType type) const
@@ -2032,14 +2037,8 @@ FUNCTION_AT_ADDRESS(void CLootWnd::LootAll(bool), CLootWnd__LootAll);
 #ifdef CLootWnd__FinalizeLoot_x
 FUNCTION_AT_ADDRESS(void CLootWnd::FinalizeLoot(), CLootWnd__FinalizeLoot);
 #endif
-#ifdef CLootWnd__AddEquipmentToLootArray_x
-FUNCTION_AT_ADDRESS(void CLootWnd::AddEquipmentToLootArray(EQ_Item*), CLootWnd__AddEquipmentToLootArray);
-#endif
-#ifdef CLootWnd__AddNoteToLootArray_x
-FUNCTION_AT_ADDRESS(void CLootWnd::AddNoteToLootArray(EQ_Item*), CLootWnd__AddNoteToLootArray);
-#endif
-#ifdef CLootWnd__AddContainerToLootArray_x
-FUNCTION_AT_ADDRESS(void CLootWnd::AddContainerToLootArray(EQ_Item*), CLootWnd__AddContainerToLootArray);
+#ifdef CLootWnd__AddItemToLootArray_x
+FUNCTION_AT_ADDRESS(void CLootWnd::AddItemToLootArray(const ItemPtr&), CLootWnd__AddItemToLootArray);
 #endif
 #ifdef CLootWnd__RequestLootSlot_x
 FUNCTION_AT_ADDRESS(void CLootWnd::RequestLootSlot(int, bool), CLootWnd__RequestLootSlot);
@@ -2047,6 +2046,19 @@ FUNCTION_AT_ADDRESS(void CLootWnd::RequestLootSlot(int, bool), CLootWnd__Request
 #ifdef CLootWnd__SlotLooted_x
 FUNCTION_AT_ADDRESS(void CLootWnd::SlotLooted(int), CLootWnd__SlotLooted);
 #endif
+
+ItemPtr CLootWnd::GetLootItemByInvSlot(int invSlot) const
+{
+	for (int i = 0; i < InvSlot_Max; ++i)
+	{
+		if (LootIndex[i] == invSlot)
+		{
+			return LootItems.GetItem(invSlot);
+		}
+	}
+
+	return nullptr;
+}
 
 //============================================================================
 // CMapViewWnd
@@ -2213,7 +2225,7 @@ FUNCTION_AT_ADDRESS(void CMerchantWnd::UpdateBuySellButtons(), CMerchantWnd__Upd
 FUNCTION_AT_ADDRESS(int CMerchantWnd::SelectBuySellSlot(const ItemGlobalIndex&, int Unknown), CMerchantWnd__SelectBuySellSlot);
 #endif
 #ifdef CMerchantWnd__DisplayBuyOrSellPrice_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::DisplayBuyOrSellPrice(bool, EQ_Item*), CMerchantWnd__DisplayBuyOrSellPrice);
+FUNCTION_AT_ADDRESS(void CMerchantWnd::DisplayBuyOrSellPrice(const ItemPtr& item, bool buy), CMerchantWnd__DisplayBuyOrSellPrice);
 #endif
 #ifdef CMerchantWnd__PurchasePageHandler__RequestGetItem_x
 //FUNCTION_AT_ADDRESS(bool CMerchantWnd::PurchasePageHandler::RequestGetItem(int), CMerchantWnd__PurchasePageHandler__RequestGetItem);
@@ -3060,6 +3072,42 @@ void CascadeItemCommand::ExecuteCommand()
 }
 
 //============================================================================
+
+// CWndDisplayManager
+#ifdef CWndDisplayManager__FindWindowA_x
+FUNCTION_AT_ADDRESS(int CWndDisplayManager::FindWindow(bool bNewWnd), CWndDisplayManager__FindWindowA);
+#endif
+
+
+// CItemDisplayManager
+
+#ifdef CItemDisplayManager__CreateWindowInstance_x
+FUNCTION_AT_ADDRESS(int CItemDisplayManager::CreateWindowInstance(), CItemDisplayManager__CreateWindowInstance);
+#endif
+
+void CItemDisplayManager::ShowItem(const ItemPtr& pItem)
+{
+	int flags = pWndMgr->IsShiftKey() ? 0 : 1;
+
+	int index = FindWindow(true);
+	if (index == -1)
+	{
+		index = CreateWindowInstance();
+	}
+
+	if (index >= 0)
+	{
+		if (CItemDisplayWnd* pWnd = GetWindow(index))
+		{
+			pWnd->Minimize(false);
+			pWnd->SetItem(pItem, flags);
+			pWnd->Activate();
+
+			// update time so we know it is the newest window.
+			pTimes[index] = EQGetTime();
+		}
+	}
+}
 
 //----------------------------------------------------------------------------
 

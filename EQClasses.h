@@ -132,7 +132,7 @@ class [[offsetcomments]] EQGroundItem
 public:
 /*0x00*/ EQGroundItem* pPrev;
 /*0x04*/ EQGroundItem* pNext;
-/*0x08*/ VePointer<CONTENTS> pContents;
+/*0x08*/ ItemPtr       pContents;
 /*0x0c*/ DWORD         DropID;                   // unique id
 /*0x10*/ DWORD         ZoneID;
 /*0x14*/ DWORD         DropSubID;                // well zonefile id, but yeah...
@@ -149,9 +149,9 @@ public:
 /*0x7c*/ int           Weight;                   // -1 means it can't be picked up
 /*0x80*/
 
-	DEPRECATE("Use pContents instead") inline VePointer<CONTENTS> get_ID() const { return pContents; }
-	DEPRECATE("Use pContents instead") inline void set_ID(VePointer<CONTENTS> ptr) { pContents = ptr; }
-	__declspec(property(get = get_ID, put = set_ID)) VePointer<CONTENTS> ID;
+	DEPRECATE("Use pContents instead") inline ItemPtr get_ID() const { return pContents; }
+	DEPRECATE("Use pContents instead") inline void set_ID(ItemPtr ptr) { pContents = ptr; }
+	__declspec(property(get = get_ID, put = set_ID)) ItemPtr ID;
 };
 using GROUNDITEM = EQGroundItem;
 using PGROUNDITEM = EQGroundItem*;
@@ -456,29 +456,6 @@ public:
 };
 
 struct connection_t;
-
-class CWndDisplayManager
-{
-public:
-	ArrayClass2_RO<CXWnd*>   pWindows;
-	ArrayClass2_RO<long>     pTimes;
-	int                      MaxWindows;
-
-	EQLIB_OBJECT CWndDisplayManager();
-	EQLIB_OBJECT ~CWndDisplayManager();
-
-	EQLIB_OBJECT int FindWindow(bool bNewWnd);
-	EQLIB_OBJECT bool CloseNewest();
-	EQLIB_OBJECT void CloseAll();
-
-	EQLIB_OBJECT virtual int CreateWindowInstance();
-};
-
-class CItemDisplayManager : public CWndDisplayManager
-{
-public:
-	EQLIB_OBJECT virtual int CreateWindowInstance() override;
-};
 
 class JournalCategory;
 
@@ -1088,34 +1065,6 @@ enum eAugFitRet
 	AF_ERR_NOEQUIPPEDLOC,
 };
 
-// this is really the ItemBase class
-class EQ_Item
-{
-public:
-	EQLIB_OBJECT bool IsSpecialNoDrop();
-	EQLIB_OBJECT char* ValueSBuy(float, long);
-	EQLIB_OBJECT char* ValueSRent();
-	EQLIB_OBJECT char* ValueSSell(float, long);
-	EQLIB_OBJECT int Copper();
-	EQLIB_OBJECT int Gold();
-	EQLIB_OBJECT int Platinum();
-	EQLIB_OBJECT int Silver();
-	EQLIB_OBJECT long ValueSellMerchant(float, long) const;
-	EQLIB_OBJECT bool IsStackable();
-	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag = true); // SwiftyMUSE 11-09-2018
-	EQLIB_OBJECT bool CanDrop(bool bDisplayText = false, bool bIncludeContainedItems = true, bool bAllowOverrideNoDropCheck = false, bool bCantDropIfContainingRealEstate = true) const;
-	EQLIB_OBJECT int GetImageNum() const;
-	EQLIB_OBJECT static VePointer<CONTENTS> CreateItemClient(BYTE**, DWORD);
-	EQLIB_OBJECT int GetItemValue(bool) const;
-	EQLIB_OBJECT bool IsKeyRingItem(KeyRingType type) const;
-	EQLIB_OBJECT bool CanGoInBag(CONTENTS** pCont, int OutputText = 0, bool mustbefalse = false) const;
-	EQLIB_OBJECT bool IsEmpty() const;
-	EQLIB_OBJECT int GetMaxItemCount() const;
-	EQLIB_OBJECT int GetAugmentFitBySlot(CONTENTS** Aug, int Slot, bool bCheckSlot = true, bool bCheckDup = true) const;
-
-	ITEMINFO Data;
-};
-
 class EQ_LoadingS
 {
 public:
@@ -1315,7 +1264,7 @@ public:
 class [[offsetcomments]] RealEstateItemObject
 {
 public:
-/*0x00*/ VePointer<CONTENTS> pItemBase;
+/*0x00*/ ItemPtr pItemBase;
 /*0x04*/
 };
 

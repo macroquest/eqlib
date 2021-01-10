@@ -72,8 +72,8 @@ enum ELockoutCharacterReason
 
 enum eProfileListType
 {
-	ePLT_Regular,
-	cPLT_MonsterMission
+	eProfileTypeNormal = 0,
+	eProfileTypeMonsterMission,
 };
 
 enum eXTSlotStatus
@@ -86,11 +86,12 @@ enum eXTSlotStatus
 
 enum eProfileType
 {
-	ePTMain,
-	ePTAlt,
-	ePTMonsterMission,
-	ePTUnknown
+	eProfileTypeMain = 0,
+	eProfileTypeAlt,
+	eProfileTypeMonster,
+	eProfileTypeOther
 };
+
 
 constexpr int MAX_BLOCKED_SPELLS = 40;
 constexpr int MAX_BLOCKED_SPELLS_PET = 40;
@@ -119,7 +120,7 @@ struct [[offsetcomments]] BandolierItemInfo
 {
 /*0x00*/ int ItemID;
 /*0x04*/ int IconID;
-/*0x08*/ char Name[0x40];
+/*0x08*/ char Name[EQ_MAX_NAME];
 /*0x48*/
 };
 
@@ -178,6 +179,16 @@ public:
 			}
 
 			pWalk = pWalk->pNext;
+		}
+		return nullptr;
+	}
+
+	BaseProfile* GetCurrentProfile()
+	{
+		const ProfileList* pList = GetCurrentProfileList();
+		if (pList != nullptr)
+		{
+			return pList->pFirst;
 		}
 		return nullptr;
 	}
@@ -439,7 +450,7 @@ struct [[offsetcomments]] PCQuestHistoryData
 
 struct [[offsetcomments]] PvPKill
 {
-/*0x00*/ char VictimName[0x40];
+/*0x00*/ char VictimName[EQ_MAX_NAME];
 /*0x40*/ int VictimLevel;
 /*0x44*/ int Unknown0x44;
 /*0x48*/ int Unknown0x48;
@@ -453,7 +464,7 @@ struct [[offsetcomments]] PvPKill
 
 struct [[offsetcomments]] PvPDeath
 {
-/*0x00*/ char KillerName[0x40];
+/*0x00*/ char KillerName[EQ_MAX_NAME];
 /*0x40*/ int KillerLevel;
 /*0x44*/ DWORD KillerRace;
 /*0x48*/ DWORD KillerClass;
@@ -681,6 +692,19 @@ struct [[offsetcomments]] EQC_INFO
 /*0x08*/
 };
 
+inline namespace deprecated
+{
+	struct BANKARRAY
+	{
+		CONTENTS* Bank[NUM_BANK_SLOTS];
+	};
+
+	struct SHAREDBANKARRAY
+	{
+		CONTENTS* SharedBank[NUM_SHAREDBANK_SLOTS];
+	};
+}
+
 //aStartingLoad
 #define CHARINFO_Size 0x2B78 //in Nov 01 2018 beta (see 5D7008) - eqmule
 /*0x1c4c*/ //ItemIndex	StatKeyRingItemIndex[3];//0xe46 confirmed
@@ -699,33 +723,31 @@ struct [[offsetcomments]] CHARINFOOLD
 /*0x1078*/ TSafeArrayStatic<BenefitSelection, 5>         ActiveTributeBenefits;          // size 0x28 8 * 5
 /*0x10a0*/ TSafeArrayStatic<BenefitSelection, 0xa>       ActiveTrophyTributeBenefits;
 /*0x10f0*/ TSafeArrayStatic<BYTE, 0x320>                 BitFlags2;
-/*0x1410*/ int                                           pBankArraySize;
-/*0x1414*/ int                                           pBankArraySpec;
-/*0x1418*/ BANKARRAY*                                    pBankArray;
-/*0x141c*/ DWORD                                         NumBankSlots;                   // how many bank slots we have
-/*0x1420*/ BYTE                                          Unknown0x1420[0x14];
-/*0x1434*/ SHAREDBANKARRAY*                              pSharedBankArray;
-/*0x1438*/ DWORD                                         NumSharedSlots;                 // how many sharedbank slots we have
-/*0x143c*/ BYTE                                          Unknown0x143c[0x4c];
-/*0x1488*/ MERCEQUIPMENT*                                pMercEquipment;
-/*0x148c*/ DWORD                                         NumMercEquipSlots;              // how many pMercEquipment slots we have
-/*0x1490*/ BYTE                                          Unknown0x1490[0xc];
-/*0x149c*/ DWORD                                         KeyRing1;                       // always 0x7d
-/*0x14a0*/ DWORD                                         eMount;                         // always eItemContainerMountKeyRingItems (27)
-/*0x14a4*/ KEYRINGARRAY*                                 pMountsArray;
-/*0x14a8*/ BYTE                                          Unknown0x14a8[0x10];
-/*0x14b8*/ DWORD                                         KeyRing2;                       // always 0x7d
-/*0x14bc*/ DWORD                                         eIllusion;                      // always eItemContainerIllusionKeyRingItems (29)
-/*0x14c0*/ KEYRINGARRAY*                                 pIllusionsArray;
-/*0x14c4*/ BYTE                                          Unknown0x14c4[0x10];
-/*0x14d4*/ DWORD                                         KeyRing3;                       // always 0x7d
-/*0x14d8*/ DWORD                                         eFamiliar;                      // always eItemContainerViewModFamiliarKeyRingItems (31)
-/*0x14dc*/ KEYRINGARRAY*                                 pFamiliarArray;
-/*0x14e0*/ BYTE                                          Unknown0x14e0[0x10];
-/*0x14f0*/ DWORD                                         KeyRing4;
-/*0x14f4*/ DWORD                                         eHeroForge;                     // always eItemContainerViewModHeroForgeKeyRingItems (35?)
-/*0x14f8*/ KEYRINGARRAY*                                 pHeroForgeArray;
-/*0x14fc*/ BYTE                                          Unknown0x14fc[0x104];
+/*0x1410*/ ItemContainer                                 BankItems;                      // size 0x1c pBankArray
+/*0x142c*/ ItemContainer                                 SharedBankItems;
+/*0x1448*/ ItemContainer                                 OverflowBufferItems;
+/*0x1464*/ ItemContainer                                 LimboBufferItems;
+/*0x1480*/ ItemContainer                                 MercenaryItems;
+/*0x149c*/ ItemContainer                                 MountKeyRingItems;
+/*0x14b8*/ ItemContainer                                 IllusionKeyRingItems;
+/*0x14d4*/ ItemContainer                                 FamiliarKeyRingItems;
+/*0x14f0*/ ItemContainer                                 HeroForgeKeyRingItems;
+/*0x150c*/ ItemContainer                                 DragonHoardItems;
+/*0x1528*/ ItemContainer                                 AltStorageItems;
+/*0x1544*/ ItemContainer                                 ArchivedDeletedItems;
+/*0x1560*/ ItemContainer                                 MailItemsItems;
+/*0x157c*/ HashTable<MailItemData, EqItemGuid, ResizePolicyNoShrink> MailItemsData;      // size 0x10
+/*0x158c*/ TSafeArrayStatic<UINT, 1>                     RecentMoves;
+/*0x1590*/ HashTable<DynamicZoneData>                    CurrentDynamicZones;
+/*0x15a0*/ HashTable<int>                                LearnedRecipes;
+/*0x15b0*/ EQList<TradeskillRecipeCount*>                QualifyingRecipeCounts;
+/*0x15c0*/ HashTable<int>                                NonrepeatableQuests;
+/*0x15d0*/ HashTable<int>                                CompletedTasks;
+/*0x15e0*/ HashTable<int>                                CompletedQuests;
+/*0x15f0*/ UINT                                          AlchemyTimestamp;
+/*0x15f4*/ bool                                          bGoHomeOverride;
+/*0x15f5*/ bool                                          bSomethingHome;
+/*0x15f8*/ DWORD                                         LoginTime;                      // next must start on 8 align
 /*0x1600*/ int64_t                                       GuildID;                        // GuildID_0
 /*0x1608*/ int64_t                                       FellowshipID;
 /*0x1610*/ FELLOWSHIPINFO*                               pFellowship;
@@ -1001,6 +1023,33 @@ struct [[offsetcomments]] CHARINFOOLD
 /*0x2bc4*/ int                                           NoBuffResistCold;
 /*0x2bc8*/ int                                           NoBuffResistPhysical;
 /*0x2bcc*/
+
+	//----------------------------------------------------------------------------
+	// Deprecated properties
+
+	DEPRECATE("pBankArraySize is deprecated. Use BankItems.GetSize() instead.")
+	inline int get_pBankArraySize() const { return BankItems.GetSize(); }
+	__declspec(property(get = get_pBankArraySize)) int pBankArraySize;
+
+	DEPRECATE("pBankArraySpec is deprecated. Use BankItems.GetContainerType() instead.")
+		inline int get_pBankArraySpec() const { return BankItems.GetContainerType(); }
+	__declspec(property(get = get_pBankArraySpec)) int pBankArraySpec;
+
+	DEPRECATE("pBankArray is deprecated. Adapt the code to use BankItems instead.")
+	inline deprecated::BANKARRAY* get_pBankArray() { return reinterpret_cast<deprecated::BANKARRAY*>(BankItems.ContainedItems.pItems); }
+	__declspec(property(get = get_pBankArray)) deprecated::BANKARRAY* pBankArray;
+
+	DEPRECATE("NumBankSlots is deprecated. Use BankItems.GetSize() instead.")
+	inline int get_NumBankSlots() const { return BankItems.GetSize(); }
+	__declspec(property(get = get_NumBankSlots)) int NumBankSlots;
+
+	DEPRECATE("pSharedBankArray is deprecated. Adapt the code to use BankItems instead.")
+	inline deprecated::SHAREDBANKARRAY* get_pSharedBankArray() { return reinterpret_cast<deprecated::SHAREDBANKARRAY*>(SharedBankItems.ContainedItems.pItems); }
+	__declspec(property(get = get_pSharedBankArray)) deprecated::SHAREDBANKARRAY* pSharedBankArray;
+
+	DEPRECATE("NumSharedSlots is deprecated. Use SharedBankItems.GetSize() instead.")
+		inline int get_NumSharedSlots() const { return SharedBankItems.GetSize(); }
+	__declspec(property(get = get_NumSharedSlots)) int NumSharedSlots;
 };
 
 struct [[offsetcomments]] CHARINFONEW
@@ -1017,19 +1066,19 @@ struct [[offsetcomments]] CHARINFONEW
 /*0x1078*/ TSafeArrayStatic<BenefitSelection, 5>         ActiveTributeBenefits;          // size 0x28 8 * 5
 /*0x10a0*/ TSafeArrayStatic<BenefitSelection, 0xa>       ActiveTrophyTributeBenefits;
 /*0x10f0*/ TSafeArrayStatic<BYTE, 0x320>                 BitFlags2;
-/*0x1410*/ ItemBaseContainer                             BankItems;                      // size 0x1c pBankArray
-/*0x142c*/ ItemBaseContainer                             SharedBankItems;
-/*0x1448*/ ItemBaseContainer                             OverflowBufferItems;
-/*0x1464*/ ItemBaseContainer                             LimboBufferItems;
-/*0x1480*/ ItemBaseContainer                             MercenaryItems;
-/*0x149c*/ ItemBaseContainer                             MountKeyRingItems;
-/*0x14b8*/ ItemBaseContainer                             IllusionKeyRingItems;
-/*0x14d4*/ ItemBaseContainer                             FamiliarKeyRingItems;
-/*0x14f0*/ ItemBaseContainer                             HeroForgeKeyRingItems;
-/*0x150c*/ ItemBaseContainer                             AltStorageItems;
-/*0x1528*/ ItemBaseContainer                             ArchivedDeletedItems;
-/*0x1544*/ ItemBaseContainer                             MailItems;
-/*0x1560*/ ItemBaseContainer                             UnknownItems;                   // need to figure out what this is
+/*0x1410*/ ItemContainer                                 BankItems;                      // size 0x1c pBankArray
+/*0x142c*/ ItemContainer                                 SharedBankItems;
+/*0x1448*/ ItemContainer                                 OverflowBufferItems;
+/*0x1464*/ ItemContainer                                 LimboBufferItems;
+/*0x1480*/ ItemContainer                                 MercenaryItems;
+/*0x149c*/ ItemContainer                                 MountKeyRingItems;
+/*0x14b8*/ ItemContainer                                 IllusionKeyRingItems;
+/*0x14d4*/ ItemContainer                                 FamiliarKeyRingItems;
+/*0x14f0*/ ItemContainer                                 HeroForgeKeyRingItems;
+/*0x150c*/ ItemContainer                                 DragonHoardItems;
+/*0x1528*/ ItemContainer                                 AltStorageItems;
+/*0x1544*/ ItemContainer                                 ArchivedDeletedItems;
+/*0x1560*/ ItemContainer                                 MailItems;
 /*0x157c*/ HashTable<MailItemData, EqItemGuid, ResizePolicyNoShrink> MailItemsData;      // size 0x10
 /*0x158c*/ TSafeArrayStatic<UINT, 1>                     RecentMoves;
 /*0x1590*/ HashTable<DynamicZoneData>                    CurrentDynamicZones;
@@ -1418,14 +1467,18 @@ public:
 class [[offsetcomments]] BaseProfile
 {
 public:
-	EQLIB_OBJECT VePointer<CONTENTS> GetItemPossession(const ItemIndex& index) const;
+	virtual ~BaseProfile() {}
+	// other virtual methods are not mapped out
 
-/*0x0000*/ BYTE                                            Unknown0x0000[0x10];
-/*0x0010*/ DWORD                                           BaseProfile;
-/*0x0014*/ ItemBaseContainer                               InventoryContainer;
-/*0x0030*/ BYTE                                            Unknown0x0030[0x38];
-/*0x0068*/ SPELLBUFF                                       Buff[NUM_LONG_BUFFS];                   // EQ_Affect size is 0x68 * 0x2a = 0x1110
-/*0x1178*/ SPELLBUFF                                       ShortBuff[NUM_SHORT_BUFFS];             // EQ_Affect size is 0x68 * 0x37 = 0x1658
+/*0x0000*/ // vftable
+/*0x0008*/ BaseProfile*                                    nextProfile;
+/*0x000c*/ BaseProfile*                                    prevProfile;
+/*0x0010*/ eProfileListType                                profileListType;
+/*0x0014*/ ItemContainer                                   InventoryContainer;
+/*0x0030*/ ItemContainer                                   TributeBenefitItems;
+/*0x004c*/ ItemContainer                                   TrophyTributeBenefitItems;
+/*0x0068*/ EQ_Affect                                       Buff[NUM_LONG_BUFFS];                   // EQ_Affect size is 0x68 * 0x2a = 0x1110
+/*0x1178*/ EQ_Affect                                       ShortBuff[NUM_SHORT_BUFFS];             // EQ_Affect size is 0x68 * 0x37 = 0x1658
 /*0x27d0*/ int                                             SpellBook[NUM_BOOK_SLOTS];
 /*0x36d0*/ DWORD                                           MemorizedSpells[MAX_MEMORIZED_SPELLS];
 /*0x3718*/ DWORD                                           Skill[NUM_SKILLS];
@@ -1473,7 +1526,7 @@ public:
 /*0x3a84*/ int                                             thirstlevel;
 /*0x3a88*/ int                                             hungerlevel;
 /*0x3a8c*/ int                                             PotionCount;
-/*0x3a90*/ int                                             profileType;                            // enum PT_Main = 0, PT_Alt, PT_MonsterMission, PT_TypeUnknown
+/*0x3a90*/ eProfileType                                    profileType;
 /*0x3a94*/ int                                             Shrouded;                               // templateId
 /*0x3a98*/ int                                             systemId;
 /*0x3a9c*/ int                                             designId;
@@ -1484,10 +1537,17 @@ public:
 /*0x3b00*/ int                                             TattooIndex;
 /*0x3b04*/ int                                             FacialAttachmentIndex;
 /*0x3b08*/ //BaseProfile
-	
-	EQLIB_OBJECT ItemContainer::ItemPointer GetInventorySlot(eInventorySlot type);
 
-	// TODO: deprecate this eventually (after refactoring away all uses of it in core)
+	// This expects parameter of type eInventorySlot
+	inline ItemPtr GetInventorySlot(int invSlot) const { return InventoryContainer.GetItem(invSlot); }
+	inline const ItemContainer& GetInventory() const { return InventoryContainer; }
+	inline ItemContainer& GetInventory() { return InventoryContainer; }
+
+	inline ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return InventoryContainer.CreateItemIndex(slot0, slot1, slot2); }
+	inline ItemGlobalIndex CreateItemGlobalIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return InventoryContainer.CreateItemGlobalIndex(eItemContainerPossessions, slot0, slot1, slot2); }
+	inline ItemPtr GetItemPossession(const ItemIndex& index) const { return InventoryContainer.GetItem(index); }
+	inline ItemContainer& GetItemPosessions() { return InventoryContainer; }
+
 	INVENTORYARRAY* getter_pInventoryArray() { return reinterpret_cast<INVENTORYARRAY*>(&InventoryContainer.Items[0]); }
 	__declspec(property(get = getter_pInventoryArray)) INVENTORYARRAY* pInventoryArray;
 };
@@ -1495,8 +1555,6 @@ public:
 //============================================================================
 // PcProfile
 //============================================================================
-
-constexpr int MAX_BANDOLIER_ITEMS = 20;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
 {
@@ -1515,11 +1573,11 @@ public:
 /*0x70b0*/ TSafeArrayStatic<UINT, 0x19>                    LinkedSpellTimers;                      // for sure, we used to call thius CombatAbilityTimes...
 /*0x7114*/ TSafeArrayStatic<UINT, 0x64>                    ItemRecastTimers;                       // for sure
 /*0x72a4*/ TSafeArrayStatic<UINT, 0x64>                    AATimers;                               // for sure
-/*0x7434*/ TSafeArrayStatic<BandolierSet, MAX_BANDOLIER_ITEMS> Bandolier;                              // size 0x1900 = 0x140 * 0x14 for sure see 8DE476 Jan 04 2019 test
+/*0x7434*/ TSafeArrayStatic<BandolierSet, MAX_BANDOLIER_ITEMS> Bandolier;                          // size 0x1900 = 0x140 * 0x14 for sure see 8DE476 Jan 04 2019 test
 /*0x8d34*/ TSafeArrayStatic<BenefitSelection, 5>           ActiveTributeBenefits;                  // size 0x28 = 8 * 5 for sure see 8DE437 Jan 04 2019 test
 /*0x8d5c*/ TSafeArrayStatic<BenefitSelection, 0xa>         ActiveTrophyTributeBenefits;            // size 0x50 = 8 * 0xa
-/*0x8dac*/ ItemBaseContainer                               GuildTributeBenefitItems;               // size 0x1c for sure see 8C9D9C in 21 Sep 2018
-/*0x8dc8*/ ItemBaseContainer                               GuildTrophyTributeBenefitItems;         // size 0x1c
+/*0x8dac*/ ItemContainer                                   GuildTributeBenefitItems;               // size 0x1c for sure see 8C9D9C in 21 Sep 2018
+/*0x8dc8*/ ItemContainer                                   GuildTrophyTributeBenefitItems;         // size 0x1c
 /*0x8de4*/ ArrayClass<CXStr>                               MercenarySaveStrings;                   // size 0x10
 /*0x8df4*/ AssociatedNPCSaveStringNode*                    PetSaveString;                          // for sure
 /*0x8df8*/ DWORD                                           Deity;                                  // fs see 8DE504 Jan 04 2019 test
@@ -1589,7 +1647,7 @@ public:
 /*0x28dc*/ float                       Y;
 /*0x28e0*/ float                       Z;
 /*0x28e4*/ float                       Heading;
-/*0x28e8*/ TSafeString<0x40>           Name;
+/*0x28e8*/ char                        Name[EQ_MAX_NAME];
 /*0x2928*/ TSafeString<0x20>           Lastname;
 /*0x2948*/ TSafeString<0x80>           Title;
 /*0x29c8*/ TSafeString<0x40>           VehicleName;
@@ -1663,20 +1721,24 @@ public:
 	// Verified
 	EQLIB_OBJECT int IsExpansionFlag(int);
 	EQLIB_OBJECT int GetMemorizedSpell(int gem);             // 0-0xf this func returns the spellid for whatever is in the gem
-	EQLIB_OBJECT ItemGlobalIndex CreateItemGlobalIndex(int Slot0, int Slot1 = -1, int Slot2 = -1);
-	EQLIB_OBJECT ItemIndex CreateItemIndex(int Slot0, int Slot1 = -1, int Slot2 = -1);
-	EQLIB_OBJECT VePointer<CONTENTS> GetItemPossession(const ItemIndex& lIndex) const;
-	EQLIB_OBJECT VePointer<CONTENTS> GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const;
-	EQLIB_OBJECT VePointer<CONTENTS> GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex, GILocationOption Option) const;
+
+	// Items
+	EQLIB_OBJECT ItemPtr GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const;
+	EQLIB_OBJECT ItemPtr GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex, ItemContainer::CheckDepthOptions Option) const;
+
+	//EQLIB_OBJECT bool IsValidGlobalIndex(const ItemGlobalIndex& globalIndex) const;
+	//EQLIB_OBJECT /*virtual*/ ItemContainer* GetItemContainerByGlobalIndex(const ItemGlobalIndex& index) const;
+
+	inline ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemIndex(slot0, slot1, slot2); }
+	inline ItemGlobalIndex CreateItemGlobalIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemGlobalIndex(slot0, slot1, slot2); }
+	inline ItemPtr GetItemPossession(const ItemIndex& lIndex) { return GetCurrentBaseProfile().GetItemPossession(lIndex); }
+	inline ItemContainer& GetItemPosessions() { return GetCurrentBaseProfile().GetItemPosessions(); }
+
+	inline BaseProfile& GetCurrentBaseProfile() { return *ProfileManager.GetCurrentProfile(); }
+	inline const BaseProfile& GetCurrentBaseProfile() const { return *ProfileManager.GetCurrentProfile(); }
 
 	// Unverified
-	EQLIB_OBJECT unsigned int GetEffectId(int index);
 	EQLIB_OBJECT BYTE GetLanguageSkill(int) const;
-
-	EQLIB_OBJECT const BaseProfile& GetCurrentBaseProfile() const
-	{
-		return *ProfileManager.GetCurrentProfile();
-	}
 };
 
 class [[offsetcomments(0x2470)]] CharacterZoneClient : virtual public CharacterBase
@@ -1758,8 +1820,8 @@ public:
 
 	// Verified
 	EQLIB_OBJECT /* virtual */ int CalculateInvisLevel(InvisibleTypes Type, bool bIncludeSoS = true);
-	EQLIB_OBJECT bool CanUseItem(CONTENTS** pItem, bool bUseRequiredLvl, bool bOutput = true);
-	EQLIB_OBJECT unsigned char CastSpell(unsigned char gemid, int spellid, EQ_Item** ppItem, const ItemGlobalIndex& itemLoc, ItemSpellTypes slot, unsigned char spell_loc, int arg7, int arg8, int arg9, bool arg10);
+	EQLIB_OBJECT bool CanUseItem(const ItemPtr& pItem, bool bUseRequiredLvl, bool bOutput = true);
+	EQLIB_OBJECT unsigned char CastSpell(unsigned char gemid, int spellid, const ItemPtr& pItem, const ItemGlobalIndex& itemLoc, ItemSpellTypes slot, unsigned char spell_loc, int arg7, int arg8, int arg9, bool arg10);
 	EQLIB_OBJECT int Cur_HP(int Spawntype/*PC = 0 NPC=1 and so on*/, bool bCapAtMax = true);
 	EQLIB_OBJECT int Cur_Mana(bool bCapAtMax = true);
 	EQLIB_OBJECT int GetAdjustedSkill(int);
@@ -1767,9 +1829,9 @@ public:
 	/* virtual */ EQLIB_OBJECT int GetBaseSkill(int);
 	EQLIB_OBJECT int GetEnduranceRegen(bool bIncItemsAndBuffs = true, bool bCombat = true);
 	EQLIB_OBJECT int GetCastingTimeModifier(const EQ_Spell* pSpell); // used to get aa modifiers
-	EQLIB_OBJECT int GetFocusCastingTimeModifier(const EQ_Spell* pSpell, VePointer<CONTENTS>& pItemOut, bool bEvalOnly = false);
-	EQLIB_OBJECT int GetFocusDurationMod(const EQ_Spell* spell, VePointer<CONTENTS>& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2);
-	EQLIB_OBJECT int GetFocusRangeModifier(const EQ_Spell* pSpell, VePointer<CONTENTS>& pItemOut);
+	EQLIB_OBJECT int GetFocusCastingTimeModifier(const EQ_Spell* pSpell, ItemPtr& pItemOut, bool bEvalOnly = false);
+	EQLIB_OBJECT int GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2);
+	EQLIB_OBJECT int GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& pItemOut);
 	EQLIB_OBJECT int GetHPRegen(bool bIncItemsAndBuffs = true, bool* pOutIsBleeding = nullptr, bool bCombat = false);
 	EQLIB_OBJECT int GetManaRegen(bool bIncItemsAndBuffs = true, bool bCombat = true);
 	EQLIB_OBJECT int GetModCap(int index, bool bToggle = false);
@@ -1797,7 +1859,7 @@ public:
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
 	EQLIB_OBJECT int GetFirstEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill);
 	EQLIB_OBJECT int GetLastEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, bool bIsDisplay = false);
-	EQLIB_OBJECT const int GetFocusReuseMod(const EQ_Spell* pSpell, VePointer<CONTENTS>& pOutItem);
+	EQLIB_OBJECT const int GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem);
 	EQLIB_OBJECT bool FindItemByGuid(const EqItemGuid& ItemGuid, int* pos_slot, int* con_slot);
 	EQLIB_OBJECT BYTE FindItemByRecord(int ItemNumber, int* pos_slot, int* con_slot, bool bReverseLookup);
 
@@ -1914,7 +1976,6 @@ public:
 	EQLIB_OBJECT unsigned char HumanCanWorship(unsigned char, unsigned char);
 	EQLIB_OBJECT unsigned char IksarCanWorship(unsigned char, unsigned char);
 	EQLIB_OBJECT unsigned char IsSpellAffectingPC(int, int);
-	EQLIB_OBJECT unsigned char LaunchSpell(unsigned char, int, EQ_Item**);
 	EQLIB_OBJECT unsigned char OgreCanWorship(unsigned char, unsigned char);
 	EQLIB_OBJECT unsigned char SpellFizzled(unsigned char, EQ_Spell*);
 	EQLIB_OBJECT unsigned char TrollCanWorship(unsigned char, unsigned char);
@@ -1951,10 +2012,19 @@ public:
 	EQLIB_OBJECT int GetCachEQSPA(int);
 	EQLIB_OBJECT void ReCachItemEffects();
 	EQLIB_OBJECT void ReCachSpellEffects();
+
+	// DEPRECATED METHODS -- DO NOT USE
+
+	DEPRECATE("CanUseItem: First parameter no longer takes a double pointer. If you have a CONTENTS* then just pass it in.\n"
+		"  CanUseItem(&pItem, true) -> CanUseItem(pItem, true)")
+	inline bool CanUseItem(CONTENTS** pItem, bool bUseRequiredLvl, bool bOutput = true)
+	{
+		return CanUseItem(*pItem, bUseRequiredLvl, bOutput);
+	}
 };
 
-using EQ_Character [[deprecated("Use CharacterZoneClient (or PcClient) instead")]] = CharacterZoneClient;
-using EQ_Character1 [[deprecated("Use CharacterZoneClient instead")]] = CharacterZoneClient;
+using EQ_Character DEPRECATE("Use CharacterZoneClient (or PcClient) instead") = CharacterZoneClient;
+using EQ_Character1 DEPRECATE("Use CharacterZoneClient instead") = CharacterZoneClient;
 
 // work in progres
 class [[offsetcomments]] PcBase : virtual public CharacterBase
@@ -1973,19 +2043,19 @@ public:
 /*0x1078*/ TSafeArrayStatic<BenefitSelection, 5> ActiveTributeBenefits;
 /*0x10a0*/ TSafeArrayStatic<BenefitSelection, 10> ActiveTrophyTributeBenefits;
 /*0x10f0*/ TSafeArrayStatic<BYTE, 0x320>         BitFlags2;
-/*0x1410*/ ItemBaseContainer                     BankItems;
-/*0x142c*/ ItemBaseContainer                     SharedBankItems;
-/*0x1448*/ ItemBaseContainer                     OverflowBufferItems;
-/*0x1464*/ ItemBaseContainer                     LimboBufferItems;
-/*0x1480*/ ItemBaseContainer                     MercenaryItems;
-/*0x149c*/ ItemBaseContainer                     MountKeyRingItems;
-/*0x14b8*/ ItemBaseContainer                     IllusionKeyRingItems;
-/*0x14d4*/ ItemBaseContainer                     FamiliarKeyRingItems;
-/*0x14f0*/ ItemBaseContainer                     HeroForgeKeyRingItems;
-/*0x150c*/ ItemBaseContainer                     AltStorageItems;
-/*0x1528*/ ItemBaseContainer                     ArchivedDeletedItems;
-/*0x1544*/ ItemBaseContainer                     MailItems;
-/*0x1560*/ ItemBaseContainer                     UnknownItems;
+/*0x1410*/ ItemContainer                         BankItems;
+/*0x142c*/ ItemContainer                         SharedBankItems;
+/*0x1448*/ ItemContainer                         OverflowBufferItems;
+/*0x1464*/ ItemContainer                         LimboBufferItems;
+/*0x1480*/ ItemContainer                         MercenaryItems;
+/*0x149c*/ ItemContainer                         MountKeyRingItems;
+/*0x14b8*/ ItemContainer                         IllusionKeyRingItems;
+/*0x14d4*/ ItemContainer                         FamiliarKeyRingItems;
+/*0x14f0*/ ItemContainer                         HeroForgeKeyRingItems;
+/*0x150c*/ ItemContainer                         DragonHoardItems;
+/*0x1528*/ ItemContainer                         AltStorageItems;
+/*0x1544*/ ItemContainer                         ArchivedDeletedItems;
+/*0x1560*/ ItemContainer                         MailItems;
 /*0x157c*/ HashTable<MailItemData, EqItemGuid, ResizePolicyNoShrink> MailItemsData;
 /*0x158c*/ TSafeArrayStatic<UINT, 1>             RecentMoves;
 //fine to this point
@@ -2171,7 +2241,7 @@ public:
 		return (PcProfile*)&GetCurrentBaseProfile();
 	}
 
-	EQLIB_OBJECT ItemBaseContainer& GetKeyRingItems(KeyRingType type);
+	EQLIB_OBJECT ItemContainer& GetKeyRingItems(KeyRingType type);
 };
 
 class DebugText
@@ -2198,12 +2268,13 @@ public:
 	EQLIB_OBJECT int GetPcSkillLimit(int, bool = true);
 	EQLIB_OBJECT void RemovePetEffect(int);
 	EQLIB_OBJECT bool HasAlternateAbility(int aaindex, int* pIndex = nullptr, bool bProfile = false, bool bMerc = false);
-	EQLIB_OBJECT bool CanEquipItem(CONTENTS** pCont, int slotid, bool bOutputDebug, bool bUseRequiredLevel = false);
-	EQLIB_OBJECT CONTENTS** GetItemByID(CONTENTS** contOut, int itemid, ItemIndex* itemindex = nullptr); // FIXME RVO
-	EQLIB_OBJECT CONTENTS** GetItemByItemClass(CONTENTS** contOut, int itemclass, ItemIndex* itemindex = nullptr); // FIXME RVO
+	EQLIB_OBJECT bool CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel = false);
+	EQLIB_OBJECT ItemPtr GetItemByID(int itemid, ItemIndex* itemindex = nullptr);
+	EQLIB_OBJECT ItemPtr GetItemByItemClass(int itemclass, ItemIndex* itemindex = nullptr);
 	EQLIB_OBJECT void RemoveBuffEffect(int Index, int SpawnID);
 	EQLIB_OBJECT void BandolierSwap(int index);
 	EQLIB_OBJECT uint32_t GetLinkedSpellReuseTimer(int index);
+	EQLIB_OBJECT uint32_t GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype);
 
 	// Unverified
 	EQLIB_OBJECT bool HasCombatAbility(int);
@@ -2233,6 +2304,7 @@ public:
 
 	// Verified
 	EQLIB_OBJECT unsigned long GetConLevel(const PlayerClient*);
+	EQLIB_OBJECT bool HasLoreItem(const ItemPtr&, bool, bool, bool, bool);
 
 	// Unverified
 	// TODO: Methods from EQ_PC: The ones we use need to be validated. Not all of them live in PcClient.
@@ -2240,7 +2312,6 @@ public:
 	EQLIB_OBJECT int CheckDupLoreItems();
 	EQLIB_OBJECT int checkLang(int);
 	EQLIB_OBJECT int CostToTrain(int, float, int);
-	EQLIB_OBJECT int DelLoreItemDup(int, int, int, EQ_Item*);
 	// GetAlternateAbilityId checked on May 1 2016 only reason why it looks like it takes 2 args(which it doesnt) is cause it pushes another which is meant for AltAdvManager__GetAAById_x see 43BBB7 in eqgame 21 apr 2016 live for an example.
 	EQLIB_OBJECT int GetAlternateAbilityId(int);
 	EQLIB_OBJECT int GetArmorType(int);
@@ -2274,11 +2345,9 @@ public:
 	EQLIB_OBJECT void UnpackMyNetPC(char*, int);
 	EQLIB_OBJECT void AlertInventoryChanged();
 	EQLIB_OBJECT unsigned long GetCombatAbilityTimer(int, int);
-	EQLIB_OBJECT unsigned long GetItemRecastTimer(EQ_Item* item, ItemSpellTypes etype);
-	EQLIB_OBJECT bool HasLoreItem(EQ_Item*, int, int, int, int);
 	EQLIB_OBJECT void GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>& Out, bool bCurrentProfileOnly = false, bool bIncludeAltStorage = true, bool bIncludeArchived = true);
 	EQLIB_OBJECT void GetNonArchivedOwnedRealEstates(ArrayClass<int>& output);
 };
 using EQ_PC [[deprecated("Use PcClient instead")]] = PcZoneClient;
 
-} // namespace
+} // namespace eqlib
