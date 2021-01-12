@@ -1219,67 +1219,6 @@ FUNCTION_AT_ADDRESS(int EQ_Equipment::IsInstrument(), EQ_Equipment__IsInstrument
 FUNCTION_AT_ADDRESS(void EQ_Equipment::SendTextRequestMsg(), EQ_Equipment__SendTextRequestMsg);
 #endif
 
-//============================================================================
-// EQ_Item
-//============================================================================
-
-#ifdef EQ_Item__CreateItemTagString_x
-FUNCTION_AT_ADDRESS(char* EQ_Item::CreateItemTagString(char*, int, bool), EQ_Item__CreateItemTagString);
-#endif
-#ifdef EQ_Item__GetImageNum_x
-FUNCTION_AT_ADDRESS(int EQ_Item::GetImageNum() const, EQ_Item__GetImageNum);
-#endif
-#ifdef EQ_Item__CreateItemClient_x
-FUNCTION_AT_ADDRESS(VePointer<CONTENTS> EQ_Item::CreateItemClient(BYTE**, DWORD), EQ_Item__CreateItemClient);
-#endif
-#ifdef EQ_Item__CanDrop_x
-FUNCTION_AT_ADDRESS(bool EQ_Item::CanDrop(bool, bool, bool, bool) const, EQ_Item__CanDrop);
-#endif
-#ifdef EQ_Item__Platinum_x
-FUNCTION_AT_ADDRESS(int EQ_Item::Platinum(), EQ_Item__Platinum);
-#endif
-#ifdef EQ_Item__Gold_x
-FUNCTION_AT_ADDRESS(int EQ_Item::Gold(), EQ_Item__Gold);
-#endif
-#ifdef EQ_Item__Silver_x
-FUNCTION_AT_ADDRESS(int EQ_Item::Silver(), EQ_Item__Silver);
-#endif
-#ifdef EQ_Item__Copper_x
-FUNCTION_AT_ADDRESS(int EQ_Item::Copper(), EQ_Item__Copper);
-#endif
-#ifdef EQ_Item__GetItemValue_x
-FUNCTION_AT_ADDRESS(int EQ_Item::GetItemValue(bool) const, EQ_Item__GetItemValue);
-#endif
-#ifdef EQ_Item__IsKeyRingItem_x
-FUNCTION_AT_ADDRESS(bool EQ_Item::IsKeyRingItem(KeyRingType) const, EQ_Item__IsKeyRingItem);
-#endif
-#ifdef EQ_Item__CanGoInBag_x
-FUNCTION_AT_ADDRESS(bool EQ_Item::CanGoInBag(CONTENTS** pCont, int unused, bool mustbefalse) const, EQ_Item__CanGoInBag);
-#endif
-#ifdef EQ_Item__IsEmpty_x
-FUNCTION_AT_ADDRESS(bool EQ_Item::IsEmpty() const, EQ_Item__IsEmpty);
-#endif
-#ifdef EQ_Item__ValueSellMerchant_x
-FUNCTION_AT_ADDRESS(long EQ_Item::ValueSellMerchant(float, long) const, EQ_Item__ValueSellMerchant);
-#endif
-#ifdef EQ_Item__GetAugmentFitBySlot_x
-FUNCTION_AT_ADDRESS(int EQ_Item::GetAugmentFitBySlot(CONTENTS**, int, bool, bool index) const, EQ_Item__GetAugmentFitBySlot);
-#endif
-#ifdef EQ_Item__ValueSSell_x
-FUNCTION_AT_ADDRESS(char* EQ_Item::ValueSSell(float, long), EQ_Item__ValueSSell);
-#endif
-#ifdef EQ_Item__ValueSBuy_x
-FUNCTION_AT_ADDRESS(char* EQ_Item::ValueSBuy(float, long), EQ_Item__ValueSBuy);
-#endif
-#ifdef EQ_Item__ValueSRent_x
-FUNCTION_AT_ADDRESS(char* EQ_Item::ValueSRent(), EQ_Item__ValueSRent);
-#endif
-#ifdef EQ_Item__IsSpecialNoDrop_x
-FUNCTION_AT_ADDRESS(bool EQ_Item::IsSpecialNoDrop(), EQ_Item__IsSpecialNoDrop);
-#endif
-#ifdef EQ_Item__IsStackable_x
-FUNCTION_AT_ADDRESS(bool EQ_Item::IsStackable(), EQ_Item__IsStackable);
-#endif
 
 //============================================================================
 // EQ_LoadingS

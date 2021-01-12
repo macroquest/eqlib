@@ -279,7 +279,6 @@ class EQ_AltAbility;
 class EQ_CharacterData;
 class EQ_Container;
 class EQ_Equipment;
-class EQ_Item;
 class EQ_LoadingS;
 class EQ_Note;
 class EQ_Skill;
@@ -305,7 +304,8 @@ class EQWorldData;
 class EQZoneInfo;
 class IconCache;
 class ItemBase;
-class ItemBaseContainer;
+class ItemContainer;
+using ItemBaseContainer = ItemContainer;
 class JournalNPC;
 class KeyCombo;
 class KeypressHandler;
@@ -340,7 +340,6 @@ struct CHARINFONEW;
 struct CHARINFOOLD;
 struct CMDLIST;
 struct connection_t;
-struct CONTENTS;
 struct CStrRep;
 struct CUITextureInfo;
 struct DynamicZoneClientTimerData;
@@ -372,6 +371,7 @@ struct STempTable;
 struct STempTableCell;
 struct STempTableRow;
 struct ZONEINFO;
+struct EQLogin;
 
 #ifdef NEWCHARINFO
 using CHARINFO = CHARINFONEW;
@@ -380,6 +380,9 @@ using PCHARINFO [[deprecated]] = CHARINFONEW*;
 using CHARINFO = CHARINFOOLD;
 using PCHARINFO /*[[deprecated]]*/ = CHARINFOOLD*;
 #endif
+
+class ItemClient;
+using CONTENTS = ItemClient;
 
 // Graphics types
 struct SGraphicsEngine;

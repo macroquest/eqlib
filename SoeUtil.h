@@ -22,8 +22,8 @@ namespace SoeUtil {
 EQLIB_OBJECT void* Alloc(int bytes, int align = 0);
 EQLIB_OBJECT void Free(void* p, int align = 0);
 
-template <typename T>
-T* Align(T* p, int align)
+template <typename T, typename U>
+T* Align(U* p, int align)
 {
 	return (T*)( ((uintptr_t)p + align - 1) & ((uintptr_t)(align - 1)) );
 }
@@ -522,6 +522,7 @@ namespace Internal
 	{
 	public:
 		SharedData() = default;
+		virtual ~SharedData() {}
 
 		void IncrementReferenceCount()
 		{
@@ -536,22 +537,23 @@ namespace Internal
 		}
 
 		template <typename T>
-		bool is_inplace_constructed(T* p) const
+		bool is_inplace_constructed(T* p) const noexcept
 		{
 			return get_inplace_storage<T>() == p;
 		}
 
 		template <typename T>
-		T* get_inplace_storage()
+		T* get_inplace_storage() const noexcept
 		{
 			// The object is located after this object's storage aligned on m_alignment or 8.
-			return Align(reinterpret_cast<uint8_t*>(this) + sizeof(this), m_alignment);
+			return Align<T>(reinterpret_cast<const uint8_t*>(this) + sizeof(this), 0);
 		}
 
+		virtual void unknown() {}
+
 	public:
-		std::atomic_int32_t m_refs{ 1 };              // reference counter for SharedDaa
+		std::atomic_int32_t m_refs{ 1 };              // reference counter for SharedData
 		std::atomic_int32_t m_strongRefs{ 1 };        // reference counter for the data
-		int m_alignment = 0;
 	};
 }
 

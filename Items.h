@@ -23,21 +23,16 @@
 
 namespace eqlib {
 
-constexpr int ITEM_NAME_LEN = 64;
-constexpr int LORE_NAME_LEN = 80;
-
-constexpr int NUM_INV_SLOTS = 33;
-constexpr int NUM_BANK_SLOTS = 24;
-constexpr int NUM_BAG_SLOTS = 10;
-constexpr int NUM_WORN_ITEMS = 21;
-constexpr int NUM_SHAREDBANK_SLOTS = 6;
-constexpr int MAX_KEYRINGITEMS = 27; // not really sure need to confirm this
-
-#if 0 // to be enabled when compatible
 class ItemClient;
+using ItemPtr = VePointer<ItemClient>;
+
+// Other names that have been used for an item, but we don't need them.
+using ItemClientPtr = ItemPtr;
+using ItemBasePtr = ItemPtr;
+
+// CONTENTS is now an alias of ItemClient
 using CONTENTS = ItemClient;
-using CONTENTS* = ItemClient *;
-#endif
+using PCONTENTS = ItemClient*;
 
 class CUnSerializeBuffer;
 
@@ -77,29 +72,34 @@ enum ItemContainerInstance
 	eItemContainerViewModIllusionKeyRingItems    = 30,
 	eItemContainerFamiliarKeyRingItems           = 31,
 	eItemContainerViewModFamiliarKeyRingItems    = 32,
-	eItemContainerCursor                         = 33,
+	eItemContainerHeroForgeKeyRingItems          = 33,
+	eItemContainerViewModHeroForgeKeyRingItems   = 34,
+	eItemContainerOverflow                       = 35,
+	eItemContainerDragonHoard                    = 36,
 
-	eNumItemContainers                           = 34,
+	eNumItemContainers                           = 37,
 };
 
-enum ItemClass
+EQLIB_API const char* GetNameForContainerInstance(ItemContainerInstance container);
+
+inline namespace deprecated
 {
-	eItemClass_Mount                             = 68,
-	eItemClass_Illusion                          = 69,
-	eItemClass_Familiar                          = 70,
-};
+	// BAD - DO NOT USE
+	struct ITEMBASEARRAY
+	{
+		CONTENTS* Item[1];
+	};
+	using PITEMBASEARRAY [[deprecated]] = ITEMBASEARRAY*;
 
-// BAD - DO NOT USE
-struct ITEMBASEARRAY;
-
-class [[offsetcomments]] ItemArray
-{
-public:
-/*0x00*/ ITEMBASEARRAY* pItems;
-/*0x04*/ size_t         Size;
-/*0x08*/ unsigned int   Capacity;
-/*0x0c*/
-};
+	class [[offsetcomments]] ItemArray
+	{
+	public:
+	/*0x00*/ ITEMBASEARRAY* pItems;
+	/*0x04*/ size_t         Size;
+	/*0x08*/ unsigned int   Capacity;
+	/*0x0c*/
+	};
+}
 
 class [[offsetcomments]] ItemIndex
 {
@@ -126,28 +126,21 @@ public:
 		m_slots[2] = slot3;
 	}
 
-	EQLIB_OBJECT ItemIndex& operator=(const ItemIndex& other)
+	inline ItemIndex& operator=(const ItemIndex& other)
 	{
 		memcpy(m_slots, &other.m_slots, sizeof(m_slots));
 		return *this;
 	}
 
-	EQLIB_OBJECT bool operator==(const ItemIndex& other) const
-	{
-		return m_slots[0] == other.m_slots[0]
-			&& m_slots[1] == other.m_slots[1]
-			&& m_slots[2] == other.m_slots[2];
-	}
+	inline short GetTopSlot() const { return m_slots[0]; }
 
-	EQLIB_OBJECT short GetTopSlot() const { return m_slots[0]; }
-
-	EQLIB_OBJECT void SetSlot(int depth, short value)
+	inline void SetSlot(int depth, short value)
 	{
 		if (depth < MAX_INVENTORY_DEPTH)
 			m_slots[depth] = value;
 	}
 
-	EQLIB_OBJECT short GetSlot(int depth) const
+	inline short GetSlot(int depth) const
 	{
 		if (depth < MAX_INVENTORY_DEPTH)
 			return m_slots[depth];
@@ -155,14 +148,25 @@ public:
 		return -1;
 	}
 
-	EQLIB_OBJECT short& operator[](int slot) { return m_slots[slot]; }
+	inline short GetDeepestSlot() const
+	{
+		for (int i = MAX_INVENTORY_DEPTH - 1; i >= 0; --i)
+		{
+			if (m_slots[i] != -1)
+				return m_slots[i];
+		}
 
-	EQLIB_OBJECT bool IsValid() const { return m_slots[0] != -1; }
-	EQLIB_OBJECT bool IsBase() const { return m_slots[0] != -1 && m_slots[1] == -1; }
-	EQLIB_OBJECT bool IsInContainer() const { return m_slots[0] != -1 && m_slots[1] != -1; }
+		return -1;
+	}
 
-	// Remote one depth to get index representing whatever the parent is.
-	EQLIB_OBJECT ItemIndex GetParentIndex() const
+	inline short& operator[](int slot) { return m_slots[slot]; }
+
+	inline bool IsValid() const { return m_slots[0] != -1; }
+	inline bool IsBase() const { return m_slots[0] != -1 && m_slots[1] == -1; }
+	inline bool IsInContainer() const { return m_slots[0] != -1 && m_slots[1] != -1; }
+
+	// Remove one depth to get index representing whatever the parent is.
+	inline ItemIndex GetParentIndex() const
 	{
 		ItemIndex copy = *this;
 
@@ -178,18 +182,33 @@ public:
 		return copy;
 	}
 
+	EQLIB_OBJECT char* FormatItemIndex(char* dest, size_t len) const;
+
 	// alias for existing bad code
 	__declspec(property(get = getSlot1, put = setSlot1)) int Slot1;
 	__declspec(property(get = getSlot2, put = setSlot2)) int Slot2;
 	__declspec(property(get = getSlot3, put = setSlot3)) int Slot3;
 
-	[[deprecated]] EQLIB_OBJECT int getSlot1() const { return m_slots[0]; }
-	[[deprecated]] EQLIB_OBJECT void setSlot1(int v) { m_slots[0] = v; }
-	[[deprecated]] EQLIB_OBJECT int getSlot2() const { return m_slots[1]; }
-	[[deprecated]] EQLIB_OBJECT void setSlot2(int v) { m_slots[1] = v; }
-	[[deprecated]] EQLIB_OBJECT int getSlot3() const { return m_slots[2]; }
-	[[deprecated]] EQLIB_OBJECT void setSlot3(int v) { m_slots[2] = v; }
+	[[deprecated]] inline int getSlot1() const { return m_slots[0]; }
+	[[deprecated]] inline void setSlot1(int v) { m_slots[0] = v; }
+	[[deprecated]] inline int getSlot2() const { return m_slots[1]; }
+	[[deprecated]] inline void setSlot2(int v) { m_slots[1] = v; }
+	[[deprecated]] inline int getSlot3() const { return m_slots[2]; }
+	[[deprecated]] inline void setSlot3(int v) { m_slots[2] = v; }
 };
+
+
+inline bool operator==(const ItemIndex& lhs, const ItemIndex& rhs)
+{
+	return lhs.m_slots[0] == rhs.m_slots[0]
+		&& lhs.m_slots[1] == rhs.m_slots[1]
+		&& lhs.m_slots[2] == rhs.m_slots[2];
+}
+
+inline bool operator!=(const ItemIndex& lhs, const ItemIndex& rhs)
+{
+	return !(lhs == rhs);
+}
 
 class [[offsetcomments]] ItemGlobalIndex
 {
@@ -199,26 +218,32 @@ public:
 /*0x0c*/
 
 	EQLIB_OBJECT ItemGlobalIndex() = default;
-	EQLIB_OBJECT ItemGlobalIndex(const ItemGlobalIndex& other)
+
+	inline ItemGlobalIndex(const ItemGlobalIndex& other)
 		: Location(other.Location)
 		, Index(other.Index)
 	{}
 
-	EQLIB_OBJECT bool operator==(const ItemGlobalIndex& other)
-	{
-		return Location == other.Location && Index == other.Index;
-	}
+	inline ItemGlobalIndex(ItemContainerInstance location, const ItemIndex& index)
+		: Location(location)
+		, Index(index)
+	{}
 
-	EQLIB_OBJECT void SetLocation(ItemContainerInstance location) { Location = location; }
-	EQLIB_OBJECT ItemContainerInstance GetLocation() const { return Location; }
+	inline ItemGlobalIndex(ItemContainerInstance location, int slot1, int slot2 = -1, int slot3 = -1)
+		: Location(Location)
+		, Index(slot1, slot2, slot3)
+	{}
 
-	EQLIB_OBJECT void SetIndex(const ItemIndex& index) { Index = index; }
-	EQLIB_OBJECT ItemIndex& GetIndex() { return Index; }
-	EQLIB_OBJECT const ItemIndex& GetIndex() const { return Index; }
+	inline void SetLocation(ItemContainerInstance location) { Location = location; }
+	inline ItemContainerInstance GetLocation() const { return Location; }
 
-	EQLIB_OBJECT short GetTopSlot() const { return GetIndex().GetTopSlot(); }
+	inline void SetIndex(const ItemIndex& index) { Index = index; }
+	inline ItemIndex& GetIndex() { return Index; }
+	inline const ItemIndex& GetIndex() const { return Index; }
 
-	EQLIB_OBJECT ItemGlobalIndex GetParent() const
+	inline short GetTopSlot() const { return GetIndex().GetTopSlot(); }
+
+	inline ItemGlobalIndex GetParent() const
 	{
 		ItemGlobalIndex copy = *this;
 
@@ -226,41 +251,59 @@ public:
 		return copy;
 	}
 
-	EQLIB_OBJECT bool IsKeyRingLocation() const
+	inline bool IsKeyRingLocation() const
 	{
 		return Location == eItemContainerMountKeyRingItems
 			|| Location == eItemContainerIllusionKeyRingItems
 			|| Location == eItemContainerFamiliarKeyRingItems;
 	}
 
-	EQLIB_OBJECT bool IsEquippedLocation() const
+	inline bool IsEquippedLocation() const
 	{
 		return Location == eItemContainerPossessions
 			&& Index.IsBase()
-			&& Index.GetTopSlot() <= 22;
+			&& Index.GetTopSlot() <= InvSlot_LastWornItem;
 	}
 
-	EQLIB_OBJECT bool IsValidIndex() const
+	inline bool IsValidIndex() const
 	{
 		return IsValidLocation() && Index.IsValid();
 	}
 
-	EQLIB_OBJECT bool IsValidLocation() const
+	inline bool IsValidLocation() const
 	{
 		return Location >= 0 && Location < eNumItemContainers;
 	}
 };
+
+inline bool operator==(const ItemGlobalIndex& lhs, const ItemGlobalIndex& rhs)
+{
+	return lhs.GetLocation() == rhs.GetLocation()
+		&& lhs.GetIndex() == rhs.GetIndex();
+}
+
+inline bool operator!=(const ItemGlobalIndex& lhs, const ItemGlobalIndex& rhs)
+{
+	return !(lhs == rhs);
+}
 
 //----------------------------------------------------------------------------
 
 class ItemContainer
 {
 public:
-	using ItemPointer = VePointer<CONTENTS>;
-	using ItemArray = VeArray<ItemPointer>;
+	using ItemArray = VeArray<ItemPtr>;
 
 	using iterator = typename ItemArray::iterator;
 	using const_iterator = typename ItemArray::const_iterator;
+
+	enum CheckDepthOptions { eCheckDepthBagOrBase, eCheckDepthSocket };
+
+	ItemContainer(int size, ItemContainerInstance instance, bool dynamic = false)
+		: m_size(size)
+		, m_type(instance)
+		, m_bDynamic(dynamic)
+	{}
 
 	inline iterator begin() { return Items.begin(); }
 	inline const_iterator begin() const { return m_items.begin(); }
@@ -269,9 +312,13 @@ public:
 	inline const_iterator end() const { return m_items.end(); }
 	inline const_iterator cend() const { return m_items.cend(); }
 
-	bool IsValidRange(const_iterator a, const_iterator b);
+	bool IsValidRange(const_iterator a, const_iterator b) const;
 
 	EQLIB_OBJECT ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const;
+	inline ItemGlobalIndex CreateItemGlobalIndex(ItemContainerInstance location, int slot0, int slot1 = -1, int slot2 = -1) const
+	{
+		return ItemGlobalIndex(location, CreateItemIndex(slot0, slot1, slot2));
+	}
 
 	inline ItemContainerInstance GetContainerType() const { return m_type; }
 	inline int GetAtDepth() const { return m_atDepth; } // depth of this container within a parent container
@@ -279,16 +326,17 @@ public:
 	EQLIB_OBJECT bool IsEmpty() const;
 	EQLIB_OBJECT bool IsFull() const;
 	EQLIB_OBJECT bool IsValidIndex(const ItemIndex& index) const;
+	bool IsValidIndex(int index) const { return static_cast<uint32_t>(index) < m_size; }
 
 	//
 	// functions used for visiting items in the container
 	//
 
-	// Visitor functions take the form of: void Visitor(const VePointer<ItemClient>&, const ItemIndex& location)
+	// Visitor functions take the form of: void Visitor(const ItemPtr&, const ItemIndex& location)
 
 	// Visit a specified range and depth
 	template <typename Visitor>
-	Visitor VisitItems(int beginSlot, int endSlot, int depth, Visitor visitor)
+	Visitor VisitItems(int beginSlot, int endSlot, int depth, Visitor visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(std::max(0, beginSlot));
 		return VisitItemsImpl(beginSlot, endSlot, depth, cursor, visitor);
@@ -296,7 +344,7 @@ public:
 
 	// Visit to a specified depth
 	template <typename Visitor>
-	Visitor VisitItems(int depth, Visitor visitor)
+	Visitor VisitItems(int depth, Visitor visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
 		return VisitItemsImpl(-1, -1, depth, cursor, visitor);
@@ -304,7 +352,7 @@ public:
 
 	// Visit Everything
 	template <typename Visitor>
-	Visitor VisitItems(Visitor visitor)
+	Visitor VisitItems(Visitor visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
 		return VisitItemsImpl(-1, -1, -1, cursor, visitor);
@@ -312,7 +360,7 @@ public:
 
 private:
 	template <typename Visitor>
-	Visitor& VisitItemsImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor)
+	Visitor& VisitItemsImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const
 	{
 		// Create our range
 		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
@@ -324,7 +372,7 @@ private:
 		{
 			// Update the cursor
 			cursor.SetSlot(m_atDepth, slot);
-			const ItemPointer& ptr = *iter;
+			const ItemPtr& ptr = *iter;
 
 			if (ptr != nullptr)
 			{
@@ -352,15 +400,86 @@ private:
 
 public:
 	//
+	// functions for visiting containers and items (does not visit placed augments)
+	//
+
+	// Visitor functions take the form of: void Visitor(const ItemPtr& item, const ItemIndex& location)
+
+	// Visit a specific range and depth
+	template <typename Visitor>
+	Visitor VisitContainers(int beginSlot, int endSlot, int depth, Visitor visitor) const
+	{
+		ItemIndex cursor = CreateItemIndex(std::max(0, beginSlot));
+		return VisitContainersImpl(beginSlot, endSlot, depth, visitor);
+	}
+
+	// Visit to a specified depth
+	template <typename Visitor>
+	Visitor VisitContainers(int depth, Visitor visitor) const
+	{
+		ItemIndex cursor = CreateItemIndex(0);
+		return VisitItemsImpl(-1, -1, depth, cursor, visitor);
+	}
+
+	// Visit Everything
+	template <typename Visitor>
+	Visitor VisitContainers(Visitor visitor) const
+	{
+		ItemIndex cursor = CreateItemIndex(0);
+		return VisitItemsImpl(-1, -1, -1, cursor, visitor);
+	}
+
+private:
+	template <typename Visitor>
+	Visitor& VisitContainersImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const
+	{
+		// Create our range
+		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
+		if (!IsValidRange(iter, endIter))
+			return visitor;
+
+		int slot = std::max(0, beginSlot);
+		while (iter != endIter)
+		{
+			// Update the cursor
+			cursor.SetSlot(m_atDepth, slot);
+			const ItemPtr& ptr = *iter;
+
+			if (ptr != nullptr)
+			{
+				// Found an item. Visit it.
+				visitor(ptr, cursor);
+
+				// If we have depth, recurse into a container.
+				if (depth != 0 && ptr->IsContainer())
+				{
+					if (auto container = ptr->GetChildItemContainer())
+					{
+						ItemIndex tempIndex = cursor;
+						container->VisitContainersImpl(-1, -1, depth - 1, cursor, visitor);
+						cursor = tempIndex;
+					}
+				}
+			}
+
+			++iter;
+			++slot;
+		}
+
+		return visitor;
+	}
+
+public:
+	//
 	// functions used for search for a single item
 	//
 
-	// Predicate functions take the form of: bool Predicate(const VePointer<ItemClient>&, const ItemIndex& location)
+	// Predicate functions take the form of: bool Predicate(const ItemPtr&, const ItemIndex& location)
 	// for convenience, some predicates are provided below the definition of ItemContainer
 
 	// Find a specified range and depth
 	template <typename Predicate>
-	ItemIndex FindItem(int beginSlot, int endSlot, int depth, Predicate visitor)
+	ItemIndex FindItem(int beginSlot, int endSlot, int depth, Predicate visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(std::max(0, beginSlot));
 		return FindItemImpl(beginSlot, endSlot, depth, cursor, visitor);
@@ -368,7 +487,7 @@ public:
 
 	// Find to a specified depth
 	template <typename Predicate>
-	ItemIndex FindItem(int depth, Predicate visitor)
+	ItemIndex FindItem(int depth, Predicate visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
 		return FindItemImpl(-1, -1, depth, cursor, visitor);
@@ -376,7 +495,7 @@ public:
 
 	// Find in everything
 	template <typename Predicate>
-	ItemIndex FindItem(Predicate visitor)
+	ItemIndex FindItem(Predicate visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
 		return FindItemImpl(-1, -1, -1, cursor, visitor);
@@ -384,7 +503,7 @@ public:
 
 private:
 	template <typename Predicate>
-	ItemIndex FindItemImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate)
+	ItemIndex FindItemImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate) const
 	{
 		// Create our range
 		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
@@ -396,7 +515,7 @@ private:
 		{
 			// Update the cursor
 			cursor.SetSlot(m_atDepth, slot);
-			const ItemPointer& ptr = *iter;
+			const ItemPtr& ptr = *iter;
 
 			if (ptr != nullptr)
 			{
@@ -435,13 +554,13 @@ public:
 	// functions used for search for a single empty slot
 	//
 
-	// Predicate functions take the form of: bool Predicate(const VePointer<ItemClient>&, const ItemIndex& location)
+	// Predicate functions take the form of: bool Predicate(const ItemPtr&, const ItemIndex& location)
 	// this predicate will check if a container meets the requirements of the empty slot since the slot information
 	// is stored on the container
 
 	// Find a specified range and depth
 	template <typename Predicate>
-	ItemIndex FindEmptySlot(int beginSlot, int endSlot, int depth, Predicate visitor)
+	ItemIndex FindEmptySlot(int beginSlot, int endSlot, int depth, Predicate visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(std::max(0, beginSlot));
 		return FindEmptySlotImpl(beginSlot, endSlot, depth, cursor, visitor);
@@ -449,7 +568,7 @@ public:
 
 	// Find to a specified depth
 	template <typename Predicate>
-	ItemIndex FindEmptySlot(int depth, Predicate visitor)
+	ItemIndex FindEmptySlot(int depth, Predicate visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
 		return FindEmptySlotImpl(-1, -1, depth, cursor, visitor);
@@ -457,7 +576,7 @@ public:
 
 	// Find in everything
 	template <typename Predicate>
-	ItemIndex FindEmptySlot(Predicate visitor)
+	ItemIndex FindEmptySlot(Predicate visitor) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
 		return FindEmptySlotImpl(-1, -1, -1, cursor, visitor);
@@ -465,7 +584,7 @@ public:
 
 private:
 	template <typename Predicate>
-	ItemIndex FindEmptySlotImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate)
+	ItemIndex FindEmptySlotImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate) const
 	{
 		// Create our range
 		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
@@ -496,7 +615,7 @@ private:
 			while (iter != endIter)
 			{
 				cursor.SetSlot(m_atDepth, slot);
-				const ItemPointer& ptr = *iter;
+				const ItemPtr& ptr = *iter;
 
 				if (ptr != nullptr && predicate(ptr, cursor))
 				{
@@ -525,15 +644,15 @@ private:
 
 public:
 	// Retrieve an item at a specific index in this container
-	EQLIB_OBJECT ItemPointer GetItem(int index) const;
+	EQLIB_OBJECT ItemPtr GetItem(int index) const;
 
 	// Retrieve an item with its item index
-	EQLIB_OBJECT ItemPointer GetItem(const ItemIndex& index) const;
+	EQLIB_OBJECT ItemPtr GetItem(const ItemIndex& index) const;
 
 	// A visitor to count the number of items.
 	struct ItemCountVisitor
 	{
-		void operator() (const ItemPointer&, const ItemIndex&) { ++m_count;  }
+		void operator() (const ItemPtr&, const ItemIndex&) { ++m_count;  }
 		uint32_t GetCount() const { return m_count; }
 
 	private:
@@ -541,7 +660,8 @@ public:
 	};
 
 	// Retrieves the size of the container. Not every slot may have an item in it.
-	EQLIB_OBJECT uint32_t GetSize(int depth = 0) const;
+	inline int GetSize(int depth = 0) const { return m_size; }
+	EQLIB_OBJECT int GetRecursiveSize(int depth) const;
 
 	// Retrieves the number of items in the container.
 	inline uint32_t GetCount(int beginSlot, int endSlot, int depth) const
@@ -554,6 +674,9 @@ public:
 	{
 		return GetCount(-1, -1, depth);
 	}
+
+	EQLIB_OBJECT bool IsItemInBagOrBase(const ItemIndex& index) const;
+	EQLIB_OBJECT bool IsItemInSocket(const ItemIndex& index) const;
 
 private:
 	// Helper function for evaluating indexes in this container
@@ -579,7 +702,21 @@ public:
 	ALT_MEMBER_GETTER(uint32_t, m_size, Size);
 	ALT_MEMBER_GETTER(ItemContainerInstance, m_type, Spec);
 	ALT_MEMBER_GETTER(ItemArray, m_items, Items);
+
+	// deprecated accessors
+	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_size, ContentSize, "Use the helpers in ItemContainer instead of directly accessing the item storage");
+	ALT_MEMBER_GETTER_DEPRECATED(int, m_type, ItemLocation, "Use GetContainerType() instead");
+	ALT_MEMBER_GETTER_DEPRECATED(eqlib::deprecated::ItemArray, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
+	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[0], ItemSlot, "Use the helpers in ItemContainer instead of directly accessing the item storage");
+	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[1], ItemSlot2, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 };
+
+// Technically all of these are polymorphic ItemBaseContainers, but we don't need to distinguish between two different
+// types, because in practice, all ItemBaseContainers are also ItemContainers.
+using ItemBaseContainer = ItemContainer;
+
+// This type is deprecated. All implementations should just use ItemContainer instead.
+using ItemBaseContainer2 DEPRECATE("Use ItemContainer instead") = ItemContainer;
 
 inline ItemContainer::iterator ItemContainer::GetStartIterator(int slot)
 {
@@ -601,7 +738,7 @@ inline ItemContainer::const_iterator ItemContainer::GetEndIterator(int slot) con
 	return slot >= 0 ? cbegin() + slot + 1 : cend();
 }
 
-inline bool ItemContainer::IsValidRange(const_iterator a, const_iterator b)
+inline bool ItemContainer::IsValidRange(const_iterator a, const_iterator b) const
 {
 	// make sure the range is valid -- a comes before b, and both come before end.
 	// based on thel ogic of the previous helper functions, we shouldn't ever be
@@ -611,30 +748,17 @@ inline bool ItemContainer::IsValidRange(const_iterator a, const_iterator b)
 
 //----------------------------------------------------------------------------
 
+// An Item is also a container. This is an interface to get that container.
 class IChildItemContainer
 {
 public:
 	virtual ItemContainer* GetChildItemContainer() = 0;
 	virtual const ItemContainer* GetChildItemContainer() const = 0;
-	virtual VePointer<CONTENTS> CreateCopy() const = 0;
+	virtual ItemPtr CreateCopy() const = 0;
 	virtual void SetItemLocation(ItemContainerInstance container, const ItemIndex& index) = 0;
 };
 
 //----------------------------------------------------------------------------
-
-class ItemBaseContainer : public ItemContainer
-{
-public:
-
-	// deprecated accessors
-	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_size, ContentSize, "Use the helpers in ItemContainer instead of directly accessing the item storage");
-	ALT_MEMBER_GETTER_DEPRECATED(int, m_type, ItemLocation, "Use GetContainerType() instead");
-	ALT_MEMBER_GETTER_DEPRECATED(eqlib::ItemArray, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
-	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[0], ItemSlot, "Use the helpers in ItemContainer instead of directly accessing the item storage");
-	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[1], ItemSlot2, "Use the helpers in ItemContainer instead of directly accessing the item storage");
-};
-
-using ItemBaseContainer2 DEPRECATE("Use ItemBaseContainer instead") = ItemBaseContainer;
 
 //============================================================================
 
@@ -657,7 +781,7 @@ enum eItemEffectType : uint8_t
 // size is 0x64 02-16-2007
 struct [[offsetcomments]] ITEMSPELLS
 {
-/*0x00*/ DWORD SpellID;
+/*0x00*/ int   SpellID;
 /*0x04*/ BYTE  RequiredLevel;
 /*0x05*/ BYTE  EffectType;                       // bIsActivated
 /*0x08*/ int   EffectiveCasterLevel;
@@ -686,20 +810,22 @@ public:
 /*0x14*/
 };
 
-struct [[offsetcomments]] AugSocket
+struct ItemAugmentationSocket
 {
-/*0x00*/ int Type;
-/*0x04*/ bool bVisible;
-/*0x05*/ bool bInfusible;
-/*0x08*/
+	int Type;
+	bool bVisible;
+	bool bInfusible;
 };
-
-#define MAX_AUG_SOCKETS 6
 
 class ItemSocketData
 {
 public:
-	AugSocket Sockets[MAX_AUG_SOCKETS];
+	ItemAugmentationSocket Sockets[MAX_AUG_SOCKETS];
+
+	inline bool IsSocketValid(int socket) const { return Sockets[socket].Type != 0; }
+	inline int GetSocketType(int socket) const { return Sockets[socket].Type; }
+	inline int IsSocketVisible(int socket) const { return Sockets[socket].bVisible; }
+	inline int IsSocketInfusable(int socket) const { return Sockets[socket].bInfusible; }
 };
 
 
@@ -707,7 +833,7 @@ public:
 // to check this look at ItemBase__ResetItemInstance_x
 // actual size: 0x704 Nov  6 2018 Test (see 63F00F)
 // actual size: 0x70c Oct 31 2018 Beta (see 7291CC)
-struct [[offsetcomments]] ITEMINFO
+struct [[offsetcomments]] ItemDefinition
 {
 /*0x000*/ char                Name[ITEM_NAME_LEN];
 /*0x040*/ char                LoreName[LORE_NAME_LEN];
@@ -796,7 +922,7 @@ struct [[offsetcomments]] ITEMINFO
 /*0x188*/ int                 MinLuck;
 /*0x18c*/ int                 MaxLuck;
 /*0x190*/ int                 Prestige;                   // 884816 jun 11 2018 test
-/*0x194*/ BYTE                ItemType;
+/*0x194*/ uint8_t             ItemClass;
 /*0x198*/ ArmorProperties     ArmorProps;                 // size is 0x14
 /*0x1ac*/ ItemSocketData      AugData;
 /*0x1dc*/ DWORD               AugType;
@@ -824,7 +950,7 @@ struct [[offsetcomments]] ITEMINFO
 /*0x5c0*/ DWORD               DmgBonusValue;              // MinDamageMod;
 /*0x5c4*/ DWORD               CharmFileID;
 /*0x5c8*/ DWORD               FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
-/*0x5cc*/ BYTE                Combine;
+/*0x5cc*/ uint8_t             Combine;
 /*0x5cd*/ BYTE                Slots;
 /*0x5ce*/ BYTE                SizeCapacity;
 /*0x5cf*/ BYTE                WeightReduction;
@@ -878,31 +1004,39 @@ struct [[offsetcomments]] ITEMINFO
 /*0x6ad*/ uint8_t             SocketSubClassCount;
 /*0x6b0*/ int                 SocketSubClass[0xa];
 /*0x6d8*/
+
+	// This is actually the item *class* but we used to call it ItemType. Not to be confused with
+	// Type in ItemClient.
+	inline uint8_t get_ItemType() { return ItemClass; }
+	__declspec(property(get = get_ItemType)) uint8_t ItemType;
 };
-using PITEMINFO = ITEMINFO*;
+using ITEMINFO = ItemDefinition;
+using PITEMINFO = ItemDefinition*;
+
+using ItemDefinitionPtr = SoeUtil::SharedPtr<ItemDefinition>;
 
 class EqItemGuid
 {
 public:
-	enum { GUID = 18 };
+	enum { GUID_LENGTH = 18 };
 
 	EqItemGuid()
 	{
 		memset(guid, 0, sizeof(guid));
 	}
 
-	char guid[GUID];
+	char guid[GUID_LENGTH];
 
 	EQLIB_OBJECT void UnSerialize(CUnSerializeBuffer& buffer);
 };
 
 struct [[offsetcomments]] ItemEvolutionData
 {
-	/*0x00*/ int    GroupID;
-	/*0x04*/ int    EvolvingCurrentLevel;
-	/*0x08*/ double EvolvingExpPct;
-	/*0x10*/ int    EvolvingMaxLevel;
-	/*0x14*/ int    LastEquipped;
+/*0x00*/ int    GroupID;
+/*0x04*/ int    EvolvingCurrentLevel;
+/*0x08*/ double EvolvingExpPct;
+/*0x10*/ int    EvolvingMaxLevel;
+/*0x14*/ int    LastEquipped;
 /*0x18*/ };
 using ItemEvolutionDataPtr = SoeUtil::SharedPtr<ItemEvolutionData>;
 
@@ -910,20 +1044,13 @@ using ItemEvolutionDataPtr = SoeUtil::SharedPtr<ItemEvolutionData>;
 // ItemBase
 //============================================================================
 
-class [[offsetcomments]] ItemBase
+class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildItemContainer
 {
 public:
-/*0x00*/ void* vtable;
-
-	// base class member - reference count
-/*0x04*/ mutable int  RefCount;
-	// base class vftable
-/*0x08*/ void* punknown;
-
 // @start: ItemBase Members
 /*0x0c*/ int                   ScriptIndex;
 /*0x10*/ bool                  bCollected;
-/*0x14*/ ItemGlobalIndex       GlobalIndex;                 // Size is 0xa (0xc)
+/*0x14*/ ItemGlobalIndex       GlobalIndex;
 /*0x20*/ bool                  bRankDisabled;
 /*0x21*/ bool                  bDisableAugTexture;
 /*0x24*/ ArrayClass<uint32_t>  RealEstateArray;
@@ -937,10 +1064,10 @@ public:
 /*0x54*/ CXStr                 ActorTag1;
 /*0x58*/ CXStr                 ConvertItemName;
 /*0x5c*/ bool                  bCopied;
-/*0x60*/ ItemBaseContainer     Contents;                    // Size is 0x1c
+/*0x60*/ ItemContainer         Contents;
 /*0x80*/ int64_t               DontKnow;
 /*0x88*/ int                   NoDropFlag;
-/*0x8c*/ ITEMINFO*             Item1;
+/*0x8c*/ ItemDefinition*       Item1;
 /*0x90*/ unsigned int          LastCastTime;
 /*0x94*/ int                   Power;
 /*0x98*/ unsigned int          ItemHash;
@@ -964,139 +1091,114 @@ public:
 /*0xf4*/
 // @end: ItemBase Members
 
+	// Constructor is technically for ItemClient. Make sure the size
+	// of the class matches.
+	EQLIB_OBJECT ItemBase();
+
+	// ItemClient::`vftable'{for `VeBaseReferenceCount'}
+	virtual ~ItemBase() {}
+	virtual ITEMINFO* GetItemDefinition() const { return nullptr; }
+	virtual void SetItemDefinition(const ITEMINFO* item) {}
+	// ... more
+
+	// ItemClient::`vftable'{for `IChildItemContainer<class ItemBase>'}
+	virtual ItemContainer* GetChildItemContainer() override { return (ItemContainer*)&Contents; }
+	virtual const ItemContainer* GetChildItemContainer() const override { return (const ItemContainer*)&Contents; }
+	virtual ItemPtr CreateCopy() const override { return nullptr; }
+	virtual void SetItemLocation(ItemContainerInstance container, const ItemIndex& index) override {};
+
+	// Common accessors
+	inline int GetID() const { return GetItemDefinition()->ItemNumber; }
+	inline uint8_t GetType() const { return GetItemDefinition()->Type; }
+	inline uint8_t GetItemClass() const { return GetItemDefinition()->ItemClass; }
+	inline const char* GetName() const { return GetItemDefinition()->Name; }
+	inline bool IsContainer() const { return GetType() == ITEMTYPE_PACK; }
+
+	// current and max item counts (number in the stack)
+	inline int GetMaxItemCount() const { return GetItemDefinition()->StackSize; }
+	inline int GetItemCount() const { return StackCount; }
+	inline bool IsStackable() const { return GetItemDefinition()->StackSize > 1; }
+
+	inline ItemPtr GetHeldItem(int index) const { return Contents.GetItem(index); }
+	inline ItemPtr GetHeldItem(const ItemIndex& index) const { return Contents.GetItem(index); }
+	inline ItemContainer& GetHeldItems() { return Contents; }
+	inline const ItemContainer& GetHeldItems() const { return Contents; }
+	inline const ItemGlobalIndex& GetItemLocation() const { return GlobalIndex; }
+	inline bool IsEmpty() const { return Contents.IsEmpty(); }
+	inline ItemClient* GetContent(int index) { return GetHeldItem(index).get(); }
+
 	EQLIB_OBJECT bool IsLore(bool bIncludeSockets = false) const;
 	EQLIB_OBJECT bool IsLoreEquipped(bool bIncludeSockets = false) const;
+
+	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag = true); // SwiftyMUSE 11-09-2018
+	EQLIB_OBJECT ItemPtr CreateItemClient(CUnSerializeBuffer& buffer);
+	EQLIB_OBJECT bool CanDrop(bool bDisplayText = false, bool bIncludeContainedItems = true, bool bAllowOverrideNoDropCheck = false, bool bCantDropIfContainingRealEstate = true) const;
+	EQLIB_OBJECT int GetImageNum() const;
+	EQLIB_OBJECT int GetItemValue(bool) const;
+	EQLIB_OBJECT bool IsKeyRingItem(KeyRingType type) const;
+	EQLIB_OBJECT bool CanGoInBag(const ItemPtr& pItem, int unused = 0, bool mustbefalse = false) const;
+	EQLIB_OBJECT int GetAugmentFitBySlot(const ItemPtr& Aug, int Slot, bool bCheckSlot = true, bool bCheckDup = true) const;
+	EQLIB_OBJECT int ValueSellMerchant(float, int) const;
+
+	inline bool IsSocketValid(int index)
+	{
+		if (index >= 0 && index < MAX_AUG_SOCKETS)
+		{
+			return GetItemDefinition()->AugData.IsSocketValid(index);
+		}
+
+		return false;
+	}
+
+	//----------------------------------------------------------------------------
+	// DEPRECATED METHODS
+
+	DEPRECATE("Use GetItemLocation instead of GetGlobalIndex")
+	inline const ItemGlobalIndex& GetGlobalIndex() const { return GlobalIndex; }
+
+	// Compatibility properties for ItemEvolutionData
+	DEPRECATE("Use pEvolutionData->GroupID instead of EvolvingGroupID")
+	inline int get_EvolvingGroupID() { return pEvolutionData ? pEvolutionData->GroupID : 0; }
+	__declspec(property(get = get_EvolvingGroupID)) int GroupID;
+
+	DEPRECATE("Use pEvolutionData->EvolvingCurrentLevel instead of EvolvingCurrentLevel")
+	inline int get_EvolvingCurrentLevel() { return pEvolutionData ? pEvolutionData->EvolvingCurrentLevel : 0; }
+	__declspec(property(get = get_EvolvingCurrentLevel)) int EvolvingCurrentLevel;
+
+	DEPRECATE("Use pEvolutionData->EvolvingExpPct instead of EvolvingExpPct")
+	inline double get_EvolvingExpPct() { return pEvolutionData ? pEvolutionData->EvolvingExpPct : 0.0; }
+	__declspec(property(get = get_EvolvingExpPct)) double EvolvingExpPct;
+
+	DEPRECATE("Use pEvolutionData->EvolvingMaxLevel instead of EvolvingMaxLevel")
+	inline int get_EvolvingMaxLevel() { return pEvolutionData ? pEvolutionData->EvolvingMaxLevel : 0; }
+	__declspec(property(get = get_EvolvingMaxLevel)) int EvolvingMaxLevel;
+
+	DEPRECATE("Use pEvolutionData->LastEquipped instead of LastEquipped")
+	inline int get_LastEquipped() { return pEvolutionData ? pEvolutionData->LastEquipped : 0; }
+	__declspec(property(get = get_LastEquipped)) int LastEquipped;
+
+	DEPRECATE("Use GetItemDefinition() instead of accessing Item2 directly")
+	inline ItemDefinition* get_Item2() { return GetItemDefinition(); }
+	__declspec(property(get = get_Item2)) ItemDefinition* Item2;
 };
 
-// Actual Size: 0x110 (see 0x75AD9E in eqgame.exe dated Jul 13 2020)
+// Actual Size: 0x108 (see 0x75AD9E in eqgame.exe dated Jul 13 2020)
 class [[offsetcomments]] ItemClient : public ItemBase
 {
 	FORCE_SYMBOLS;
 
 public:
-	// Reference counted pointer to ItemDefinition
-/*0x0f8*/ DWORD        Item2RefCnt;
-/*0x0fc*/ ITEMINFO*    Item2;
-/*0x100*/ CXStr        ClientString;
-/*0x104*/ uint8_t      Filler0x010c[0x4];
-/*0x108*/
+	EQLIB_OBJECT ItemClient() = default;
 
-	EQLIB_OBJECT ItemClient* GetContent(uint32_t index);
-	EQLIB_OBJECT ItemGlobalIndex GetGlobalIndex() const;
-};
-
-//============================================================================
-// CONTENTS
-// This is ItemClient/ItemBase
-//============================================================================
-
-// Actual Size: 0x160 (see 0x62856C in eqgame.exe Live dated Dec 19 2019)
-struct [[offsetcomments]] CONTENTS : public VeBaseReferenceCount, public IChildItemContainer
-{
-// @start: ItemBase Members
-/*0x00c*/ int                   ScriptIndex;
-/*0x010*/ bool                  bCollected;
-/*0x014*/ ItemGlobalIndex       GlobalIndex;                 // Size is 0xa (0xc)
-/*0x020*/ bool                  bRankDisabled;
-/*0x021*/ bool                  bDisableAugTexture;
-/*0x024*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x034*/ CXStr                 ActorTag2;
-/*0x038*/ CXStr                 SaveString;
-/*0x03c*/ int                   Luck;
-/*0x040*/ int                   ID;
-/*0x044*/ unsigned int          RespawnTime;
-/*0x048*/ int64_t               MerchantSlot;
-/*0x050*/ int                   ConvertItemID;
-/*0x054*/ CXStr                 ActorTag1;
-/*0x058*/ CXStr                 ConvertItemName;
-/*0x05c*/ bool                  bCopied;
-/*0x060*/ ItemBaseContainer     Contents;                    // Size is 0x1c
-/*0x080*/ int64_t               DontKnow;
-/*0x088*/ int                   NoDropFlag;
-/*0x08c*/ ITEMINFO*             Item1;
-/*0x090*/ unsigned int          LastCastTime;
-/*0x094*/ int                   Power;
-/*0x098*/ unsigned int          ItemHash;
-/*0x09c*/ bool                  bRealEstateItemPlaceable;
-/*0x0a0*/ int                   StackCount;
-/*0x0a4*/ int                   OrnamentationIcon;
-/*0x0a8*/ int                   MerchantQuantity;
-/*0x0ac*/ bool                  bItemNeedsUpdate;
-/*0x0b0*/ int64_t               Price;
-/*0x0b8*/ int                   Open;
-/*0x0bc*/ int                   NoteStatus;
-/*0x0c0*/ bool                  bConvertable;
-/*0x0c1*/ EqItemGuid            ItemGUID;
-/*0x0d4*/ unsigned int          Tint;
-/*0x0d8*/ int                   ArmorType;
-/*0x0dc*/ int                   AugFlag;
-/*0x0e0*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x0e8*/ unsigned int          NewArmorID;
-/*0x0ec*/ int                   RealEstateID;
-/*0x0f0*/ int                   Charges;
-
-// @end: ItemBase Members
-
-	// start of ItemClient
-	__declspec(align(8)) // force alignment to 8 byte boundary as this is forced by inheritance
-/*0x0f8*/ uint32_t          Item2RefCnt;
-/*0x0fc*/ ITEMINFO*         Item2;
+/*0x0f8*/ ItemDefinitionPtr SharedItemDef;
 /*0x100*/ CXStr             ClientString;
 /*0x104*/ uint8_t           Filler0x010c[0x4];
 /*0x108*/
-
-	// Constructor is technically for ItemClient. Make sure the size
-	// of the class matches.
-	CONTENTS();
-
-	// ItemClient::`vftable'{for `VeBaseReferenceCount'}
-	virtual ~CONTENTS();
-	virtual ITEMINFO* GetItemDefinition() { return nullptr; }
-	virtual void SetItemDefinition(const ITEMINFO* item) {}
-	// ... more
-
-
-	// ItemClient::`vftable'{for `IChildItemContainer<class ItemBase>'}
-	virtual ItemContainer* GetChildItemContainer() override { return (ItemContainer*)&Contents; }
-	virtual const ItemContainer* GetChildItemContainer() const override { return (const ItemContainer*) & Contents; }
-	virtual VePointer<CONTENTS> CreateCopy() const override { return nullptr; }
-	virtual void SetItemLocation(ItemContainerInstance container, const ItemIndex& index) override {};
-
-	EQLIB_OBJECT CONTENTS* GetContent(unsigned int index);
-	EQLIB_OBJECT ItemGlobalIndex GetGlobalIndex() const;
-
-	// Compatibility properties for ItemEvolutionData
-	[[deprecated("Use pEvolutionData->GroupID instead")]]
-	inline int get_EvolvingGroupID() { return pEvolutionData ? pEvolutionData->GroupID : 0; }
-	__declspec(property(get = get_EvolvingGroupID)) int GroupID;
-
-	[[deprecated("Use pEvolutionData->EvolvingCurrentLevel instead")]]
-	inline int get_EvolvingCurrentLevel() { return pEvolutionData ? pEvolutionData->EvolvingCurrentLevel : 0; }
-	__declspec(property(get = get_EvolvingCurrentLevel)) int EvolvingCurrentLevel;
-
-	[[deprecated("Use pEvolutionData->EvolvingExpPct instead")]]
-	inline double get_EvolvingExpPct() { return pEvolutionData ? pEvolutionData->EvolvingExpPct : 0.0; }
-	__declspec(property(get = get_EvolvingExpPct)) double EvolvingExpPct;
-
-	[[deprecated("Use pEvolutionData->EvolvingMaxLevel instead")]]
-	inline int get_EvolvingMaxLevel() { return pEvolutionData ? pEvolutionData->EvolvingMaxLevel : 0; }
-	__declspec(property(get = get_EvolvingMaxLevel)) int EvolvingMaxLevel;
-
-	[[deprecated("Use pEvolutionData->LastEquipped instead")]]
-	inline int get_LastEquipped() { return pEvolutionData ? pEvolutionData->LastEquipped : 0; }
-	__declspec(property(get = get_LastEquipped)) int LastEquipped;
 };
-using PCONTENTS = CONTENTS*;
 
-using ItemClientPtr = VePointer<CONTENTS>;
+using EQ_Item DEPRECATE("Use ItemClient instead (or make sure the conversion is even necessary)") = ItemClient;
 
 //----------------------------------------------------------------------------
-
-struct ITEMBASEARRAY
-{
-	CONTENTS* Item[1];
-};
-using PITEMBASEARRAY [[deprecated]] = ITEMBASEARRAY *;
 
 // 20101012 - ieatacid
 struct [[offsetcomments]] INVENTORY
@@ -1132,46 +1234,24 @@ using PINVENTORY [[deprecated]] = INVENTORY;
 
 struct INVENTORYARRAY
 {
-	union
-	{
-	/*0x00*/ INVENTORY Inventory;
-	/*0x00*/ CONTENTS* InventoryArray[NUM_INV_SLOTS];
-	};
-};
-using PINVENTORYARRAY [[deprecated]] = INVENTORYARRAY*;
+#pragma warning(disable: 4996) // Disable ability for these definitions to trigger their own deprecation notices
 
-struct BANKARRAY
-{
-/*0x00*/ CONTENTS* Bank[NUM_BANK_SLOTS];
-/*0x60*/
-};
-using PBANKARRAY [[deprecated]] = BANKARRAY *;
+	DEPRECATE("Instead of accessing Inventory slots directly, use ItemContainer::GetItem or GetInventorySlot().\n"
+		"  For example, do: pObj->ItemContainer.GetItem(InvSlot_Cursor)\n"
+		"       instead of: pObj->pInventoryArray->Inventory.Cursor\n"
+		"    if using PcProfile, you can do: pProfile->GetInventorySlot(InvSlot_Cursor) too.")
+	inline INVENTORY& get_Inventory() { return *(INVENTORY*)&InventoryArray[0]; }
+	__declspec(property(get = get_Inventory)) INVENTORY Inventory;
 
-struct SHAREDBANKARRAY
-{
-/*0x00*/ CONTENTS* SharedBank[NUM_SHAREDBANK_SLOTS];
-/*0x10*/
-};
-using PSHAREDBANKARRAY [[deprecated]] = SHAREDBANKARRAY*;
+	DEPRECATE("Instead of accessing InventoryArray directly, use ItemContainer::GetItem or GetInventorySlot().\n"
+		"  For example, do: pObj->ItemContainer.GetItem(InvSlot_Head)\n"
+		"       instead of: pObj->pInventoryArray->InventoryArray[InvSlot_Head]\n"
+		"    if using PcProfile, you can do: pProfile->GetInventorySlot(InvSlot_Cursor) too.")
+	CONTENTS* InventoryArray[InvSlot_Max];
 
-struct MERCEQUIPMENT
-{
-/*0x00*/ CONTENTS* MercEquipment[4];
-/*0x68*/
+#pragma warning(default: 4996)
 };
-using PMERCEQUIPMENT [[deprecated]] = MERCEQUIPMENT*;
-
-struct KEYRINGARRAY
-{
-	union
-	{
-	/*0x00*/ CONTENTS* Mounts[MAX_KEYRINGITEMS];
-	/*0x00*/ CONTENTS* Illusions[MAX_KEYRINGITEMS];
-	/*0x00*/ CONTENTS* Familiars[MAX_KEYRINGITEMS];
-	};
-	/*0x28*/
-};
-using PKEYRINGARRAY [[deprecated]] = KEYRINGARRAY*;
+using PINVENTORYARRAY DEPRECATE("Use INVENTORYARRAY* Instead of PINVENTORYARRAY") = INVENTORYARRAY*;
 
 // offsets are relative to their position in LAUNCHSPELLDATA
 struct [[offsetcomments]] ITEMLOCATION
@@ -1193,7 +1273,7 @@ struct FindItemByNamePred
 	FindItemByNamePred(std::string_view sv, bool exact = true)
 		: sv(sv), exact(exact) {}
 
-	bool operator()(const ItemContainer::ItemPointer& item, const ItemIndex&)
+	bool operator()(const ItemPtr& item, const ItemIndex&)
 	{
 		return mq::ci_equals(item->GetItemDefinition()->Name, sv, exact);
 	}
@@ -1208,7 +1288,7 @@ struct FindItemByIdPred
 {
 	FindItemByIdPred(int itemId) : itemId(itemId) {}
 
-	bool operator()(const ItemContainer::ItemPointer& item, const ItemIndex&)
+	bool operator()(const ItemPtr& item, const ItemIndex&)
 	{
 		return item->GetItemDefinition()->ItemNumber == itemId;
 	}
@@ -1216,5 +1296,6 @@ struct FindItemByIdPred
 private:
 	int itemId;
 };
+
 
 } // namespace eqlib

@@ -612,7 +612,6 @@
 #define CItemDisplayWnd__UpdateStrings_x                           0x75A670
 #define CItemDisplayWnd__InsertAugmentRequest_x                    0x7543B0
 #define CItemDisplayWnd__RemoveAugmentRequest_x                    0x7548B0
-//only 1 arg now? need to check
 #define CItemDisplayWnd__SetItem_x                                 0x75AC80
 #define CItemDisplayWnd__AboutToShow_x                             0x75A2B0
 #define CItemDisplayWnd__WndNotification_x                         0x75BED0

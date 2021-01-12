@@ -123,6 +123,16 @@ class CTextureFont;
 #define BitClear(field, bit)                     ((field) &= (~(1 << bit)));
 // End CXWnd WindowStyle Defines
 
+// For use with CXWndManager
+enum eKeyboardFlags {
+	KeyboardFlags_Shift = 0x01,
+	KeyboardFlags_Ctrl  = 0x02,
+	KeyboardFlags_LAlt  = 0x04,
+	KeyboardFlags_RAlt  = 0x08,
+
+	KeyboardFlags_Alt   = KeyboardFlags_LAlt | KeyboardFlags_RAlt,
+};
+
 // Used to identify the type of XML CParam class objects
 enum UIType
 {
@@ -183,7 +193,7 @@ enum UIType
 	UI_TopLevelWindowList                        = 53,
 	UI_HotButton                                 = 54,
 };
-EQLIB_VAR const char* UITypeToString(UIType type);
+EQLIB_API const char* UITypeToString(UIType type);
 
 enum EScrollCode
 {
@@ -221,6 +231,7 @@ enum EWndRuntimeType
 	WRT_CHATWND,
 	WRT_HELPWND,
 };
+EQLIB_API const char* EWndRuntimeTypeToString(EWndRuntimeType type);
 
 
 using EDockAction = uint32_t;
@@ -1125,6 +1136,10 @@ public:
 /*0x140*/ bool                         bManagerDeletionPending;
 /*0x144*/ CursorClass                  CC;
 /*0x180*/
+
+	inline bool IsShiftKey() const { return KeyboardFlags[0]; }
+	inline bool IsCtrlKey() const { return KeyboardFlags[1]; }
+	inline bool IsAltKey() const { return KeyboardFlags[2] | KeyboardFlags[3]; }
 };
 
 //============================================================================
