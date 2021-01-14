@@ -148,6 +148,9 @@ FUNCTION_AT_ADDRESS(int ItemBase::GetAugmentFitBySlot(const ItemPtr& pItem, int,
 //#ifdef EQ_Item__IsStackable_x
 //FUNCTION_AT_ADDRESS(bool ItemBase::IsStackable() const, EQ_Item__IsStackable);
 //#endif
+// Defined in AssemblyFunctions.asm
+//ItemClient::ItemClient()
+//ItemClient::~ItemClient()
 
 char* ItemIndex::FormatItemIndex(char* dest, size_t len) const
 {

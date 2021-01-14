@@ -1013,7 +1013,7 @@ DWORD*                 gpMouseEventTime          = nullptr;
 DWORD*                 gpPCNames                 = nullptr;
 BYTE*                  gpShiftKeyDown            = nullptr; // addr+1=ctrl, addr+2=alt
 DWORD*                 gpShowNames               = nullptr;
-DYNAMICZONE*           pDynamicZone              = nullptr;
+CDynamicZone*          pDynamicZone              = nullptr;
 EQLogin*               pEQLogin                  = nullptr;
 EQMisc*                pEQMisc                   = nullptr;
 CEQSuiteTextureLoader* pEQSuiteTextureLoader     = nullptr;
@@ -1060,8 +1060,8 @@ ForeignPointer<CContextMenuManager>              pContextMenuManager;
 ForeignPointer<MAPLABEL>                         pCurrentMapLabel;
 ForeignPointer<DatabaseStringTable>              pDBStr;
 ForeignPointer<CDisplay>                         pDisplay;
-ForeignPointer<DZMEMBER>                         pDZMember;
-ForeignPointer<DZTIMERINFO>                      pDZTimerInfo;
+ForeignPointer<DynamicZonePlayerInfo>            pDZMember;
+ForeignPointer<DynamicZoneClientTimerData>       pDZTimerInfo;
 ForeignPointer<EqSoundManager>                   pEqSoundManager;
 ForeignPointer<EQSpellStrings>                   pEQSpellStrings;
 ForeignPointer<CEverQuest, EVERQUEST>            pEverQuest;
@@ -1080,7 +1080,7 @@ ForeignPointer<PlayerManagerClient>              pSpawnManager;
 ForeignPointer<ClientSpellManager, SPELLMGR>     pSpellMgr;
 ForeignPointer<StringTable, EQSTRINGTABLE>       pStringTable;
 ForeignPointer<EqSwitchManager>                  pSwitchMgr;
-ForeignPointer<TASKMEMBER>                       pTaskMember;
+ForeignPointer<SharedTaskPlayerInfo>             pTaskMember;
 ComputedPointer<CBroadcast>                      pTextOverlay([]{ return CBroadcast::Get(); });
 ForeignPointer<CWebManager>                      pWebManager;
 ForeignPointer<CXWndManager>                     pWndMgr;
@@ -1232,7 +1232,7 @@ void InitializeEQGameOffsets()
 	gpPCNames                       = (DWORD*)__PCNames;
 	gpShiftKeyDown                  = (BYTE*)__ShiftKeyDown; // addr+1=ctrl, addr+2=alt
 	gpShowNames                     = (DWORD*)__ShowNames;
-	pDynamicZone                    = (DYNAMICZONE*)instDynamicZone;
+	pDynamicZone                    = (CDynamicZone*)instDynamicZone;
 	pEQLogin                        = (EQLogin*)pinstEqLogin;
 	pEQMisc                         = (EQMisc*)instEQMisc;
 	pEQSuiteTextureLoader           = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;

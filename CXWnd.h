@@ -429,7 +429,7 @@ public:
 	bool IsClientRectDirty() const { return bClientRectChanged; }
 	bool IsClientClipRectDirty() const { return bClientClipRectChanged; }
 	bool IsScreenClipRectDirty() const { return bScreenClipRectChanged; }
-	DEPRECATE("Use GetWindowText()") CXStr CGetWindowText() const { return GetWindowText(); }
+	DEPRECATE("Use GetWindowText() instead of CGetWindowText") CXStr CGetWindowText() const { return GetWindowText(); }
 
 public:
 	// functions we have offsets for
@@ -838,8 +838,10 @@ public:
 // @end: CXWnd Members
 };
 
-using CXWND [[deprecated]] = CXWnd;
-using PCXWND [[deprecated]] = CXWnd*;
+inline namespace deprecated {
+	using CXWND DEPRECATE("Use CXWnd instead of CXWND") = CXWnd;
+	using PCXWND DEPRECATE("Use CXWnd* instead of PCXWND") = CXWnd*;
+}
 
 //============================================================================
 // CSidlScreenWnd
@@ -961,8 +963,10 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-using CSIDLWND [[deprecated]] = CSidlScreenWnd;
-using PCSIDLWND [[deprecated]] = CSidlScreenWnd*;
+inline namespace deprecated {
+	using CSIDLWND DEPRECATE("Use CSidlScreenWnd instead of CSIDLWND") = CSidlScreenWnd;
+	using PCSIDLWND DEPRECATE("Use CSidlScreenWnd* instead of PCSIDLWND") = CSidlScreenWnd*;
+}
 
 //============================================================================
 // CXWndManager
@@ -1201,8 +1205,10 @@ public:
 /*0x1ac*/
 };
 
-using CXWNDMGR [[deprecated]] = CEQXWndManager;
-using PCXWNDMGR [[deprecated]] = CEQXWndManager*;
+inline namespace deprecated {
+	using CXWNDMGR DEPRECATE("Use CEQXWndManager instead of CXWNDMGR") = CEQXWndManager;
+	using PCXWNDMGR DEPRECATE("Use CEQXWndManager* instead of PCXWNDMGR") = CEQXWndManager*;
+}
 
 //----------------------------------------------------------------------------
 

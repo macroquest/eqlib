@@ -43,7 +43,9 @@ class PlayerClient;
 class PcClient;
 class MissileBase;
 
-struct EQC_INFO;
+inline namespace deprecated {
+	struct EQC_INFO;
+}
 struct LaunchSpellData;
 struct chngForm;
 
@@ -141,7 +143,10 @@ struct [[offsetcomments]] FELLOWSHIPMEMBER
 /*0x54*/ int          LastOn;
 /*0x58*/
 };
-using PFELLOWSHIPMEMBER [[deprecated]] = FELLOWSHIPMEMBER*;
+
+inline namespace deprecated {
+	using PFELLOWSHIPMEMBER DEPRECATE("Use FELLOWSHIPMEMBER* instead of PFELLOWSHIPMEMBER") = FELLOWSHIPMEMBER*;
+}
 
 struct FSDATA
 {
@@ -174,7 +179,10 @@ struct [[offsetcomments]] FELLOWSHIPINFO
 	inline uint32_t get_FellowshipID() { return FellowshipGUID.UniqueEntityID; }
 	__declspec(property(get = get_FellowshipID)) uint32_t FellowshipID;
 };
-using PFELLOWSHIPINFO [[deprecated]] = FELLOWSHIPINFO *;
+
+inline namespace deprecated {
+	using PFELLOWSHIPINFO DEPRECATE("Use FELLOWSHIPINFO* instead of PFELLOWSHIPINFO") = FELLOWSHIPINFO*;
+}
 
 // size 0x58 see 442783 in eqgame.exe 2017 04 11 test
 struct [[offsetcomments]] LaunchSpellData
@@ -214,8 +222,11 @@ struct [[offsetcomments]] LaunchSpellData
 		return SpellID != -1;
 	}
 };
-using LAUNCHSPELLDATA DEPRECATE("Use LaunchSpellData instead") = LaunchSpellData;
-using PLAUNCHSPELLDATA DEPRECATE("Use LaunchSpellData* instead") = LaunchSpellData*;
+
+inline namespace deprecated {
+	using LAUNCHSPELLDATA DEPRECATE("Use LaunchSpellData instead of LAUNCHSPELLDATA") = LaunchSpellData;
+	using PLAUNCHSPELLDATA DEPRECATE("Use LaunchSpellData* instead PLAUNCHSPELLDATA") = LaunchSpellData*;
+}
 
 //============================================================================
 // PhysicsBase & PlayerPhysics
@@ -617,7 +628,8 @@ struct [[offsetcomments]] SPAWNINFO
 	unsigned int GetId() const { return SpawnID; }
 
 	// a.k.a. GetPcClient
-	[[deprecated("Use GetPcClient instead")]] EQLIB_OBJECT void* GetCharacter() const { return GetPcClient(); }
+	DEPRECATE("Use GetPcClient instead of GetCharacter()")
+		EQLIB_OBJECT void* GetCharacter() const { return GetPcClient(); }
 	EQLIB_OBJECT PcClient* GetPcClient() const;
 
 	EQLIB_OBJECT unsigned int GetZoneID() const { return (int)Zone; }
@@ -670,9 +682,11 @@ public:
 	EQLIB_OBJECT PlayerClient* GetPlayerFromPartialName(const char*, PlayerBase*);
 };
 
-using EQPlayerManager DEPRECATE("Use PlayerManagerClient instead") = PlayerManagerClient;
-using SPAWNMANAGER DEPRECATE("Use PlayerManagerClient instead") = PlayerManagerClient;
-using PSPAWNMANAGER DEPRECATE("Use PlayerManagerClient* instead") = PlayerManagerClient*;
+inline namespace deprecated {
+	using EQPlayerManager DEPRECATE("Use PlayerManagerClient instead of EQPlayerManager") = PlayerManagerClient;
+	using SPAWNMANAGER DEPRECATE("Use PlayerManagerClient instead SPAWNMANAGER") = PlayerManagerClient;
+	using PSPAWNMANAGER DEPRECATE("Use PlayerManagerClient* instead PSPAWNMANAGER") = PlayerManagerClient*;
+}
 
 //============================================================================
 // PlayerBase
@@ -1206,8 +1220,10 @@ public:
 	EQLIB_OBJECT static PlayerClient* IsPlayerActor(CActorInterface*);
 };
 
-// For compatibility with all the old stuff
-using EQPlayer DEPRECATE("Use PlayerClient instead") = PlayerClient;
+inline namespace deprecated {
+	// For compatibility with all the old stuff
+	using EQPlayer DEPRECATE("Use PlayerClient instead of EQPlayer") = PlayerClient;
+}
 
 inline PcClient* SPAWNINFO::GetPcClient() const { return ((PlayerClient*)this)->GetPcClient(); }
 

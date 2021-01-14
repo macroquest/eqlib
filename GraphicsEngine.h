@@ -249,7 +249,10 @@ struct [[offsetcomments]] ARMOR
 /*0x10*/ unsigned int NewArmorType;
 /*0x14*/
 };
-using PARMOR [[deprecated]] = ARMOR*;
+
+inline namespace deprecated {
+	using PARMOR DEPRECATE("Use ARMOR* instead of PARMOR") = ARMOR*;
+}
 
 struct [[offsetcomments]] EQUIPMENT
 {
@@ -270,7 +273,10 @@ struct [[offsetcomments]] EQUIPMENT
 	};
 /*0xb4*/
 };
-using PEQUIPMENT [[deprecated]] = EQUIPMENT*;
+
+inline namespace deprecated {
+	using PEQUIPMENT DEPRECATE("Use EQUIPMENT* instead of PEQUIPMENT") = EQUIPMENT*;
+}
 
 class [[offsetcomments]] ActorBase
 {
@@ -546,8 +552,10 @@ public:
 /*0x2d80*/
 };
 
-using CDISPLAY DEPRECATE("Use CDisplay instead") = CDisplay;
-using PCDISPLAY DEPRECATE("Use CDisplay* instead") = CDisplay*;
+inline namespace deprecated {
+	using CDISPLAY DEPRECATE("Use CDisplay instead of CDISPLAY") = CDisplay;
+	using PCDISPLAY DEPRECATE("Use CDisplay* instead of PCDISPLAY") = CDisplay*;
+}
 
 } // namespace eqlib
 

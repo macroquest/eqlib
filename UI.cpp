@@ -1365,7 +1365,7 @@ FUNCTION_AT_ADDRESS(void CContainerWnd::Activate(), CContainerWnd__Activate);
 FUNCTION_AT_ADDRESS(void CContainerWnd::HandleCombine(), CContainerWnd__HandleCombine);
 #endif
 #ifdef CContainerWnd__SetContainer_x
-FUNCTION_AT_ADDRESS(void CContainerWnd::SetContainer(CONTENTS*& pContainer, const ItemGlobalIndex& location), CContainerWnd__SetContainer);
+FUNCTION_AT_ADDRESS(void CContainerWnd::SetContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location), CContainerWnd__SetContainer);
 #endif
 #ifdef CContainerWnd__CheckCloseable_x
 FUNCTION_AT_ADDRESS(void CContainerWnd::CheckCloseable(), CContainerWnd__CheckCloseable);
@@ -1390,15 +1390,15 @@ FUNCTION_AT_ADDRESS(void CContainerMgr::Process(), CContainerMgr__Process);
 #ifdef CContainerMgr__OpenWorldContainer_x
 FUNCTION_AT_ADDRESS(void CContainerMgr::OpenWorldContainer(const ItemPtr&, unsigned long), CContainerMgr__OpenWorldContainer);
 #endif
-#ifdef CContainerMgr__SetWorldContainerItem_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::SetWorldContainerItem(const ItemPtr&, int), CContainerMgr__SetWorldContainerItem);
-#endif
-#ifdef CContainerMgr__GetWorldContainerItem_x
-FUNCTION_AT_ADDRESS(EQ_Item* CContainerMgr::GetWorldContainerItem(int), CContainerMgr__GetWorldContainerItem);
-#endif
-#ifdef CContainerMgr__ClearWorldContainerItems_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::ClearWorldContainerItems(), CContainerMgr__ClearWorldContainerItems);
-#endif
+//#ifdef CContainerMgr__SetWorldContainerItem_x
+//FUNCTION_AT_ADDRESS(void CContainerMgr::SetWorldContainerItem(const ItemPtr&, int), CContainerMgr__SetWorldContainerItem);
+//#endif
+//#ifdef CContainerMgr__GetWorldContainerItem_x
+//FUNCTION_AT_ADDRESS(ItemPtr CContainerMgr::GetWorldContainerItem(int), CContainerMgr__GetWorldContainerItem);
+//#endif
+//#ifdef CContainerMgr__ClearWorldContainerItems_x
+//FUNCTION_AT_ADDRESS(void CContainerMgr::ClearWorldContainerItems(), CContainerMgr__ClearWorldContainerItems);
+//#endif
 #ifdef CContainerMgr__OpenContainer_x
 FUNCTION_AT_ADDRESS(void CContainerMgr::OpenContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location, bool), CContainerMgr__OpenContainer);
 #endif
@@ -1849,7 +1849,7 @@ FUNCTION_AT_ADDRESS(void CInventoryWnd::UpdateMoneyDisplay(), CInventoryWnd__Upd
 FUNCTION_AT_ADDRESS(CInvSlot::CInvSlot(), CInvSlot__CInvSlot);
 #endif
 #ifdef CInvSlot__GetItemBase_x
-FUNCTION_AT_ADDRESS(void CInvSlot::GetItemBase(CONTENTS**), CInvSlot__GetItemBase);
+FUNCTION_AT_ADDRESS(void CInvSlot::GetItemBase(ItemClient**), CInvSlot__GetItemBase);
 FUNCTION_AT_ADDRESS(ItemPtr CInvSlot::GetItem(), CInvSlot__GetItemBase);
 #endif
 #ifdef CInvSlot__UpdateItem_x

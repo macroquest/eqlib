@@ -41,7 +41,9 @@ struct TargetBuff
 	int count;
 	char casterName[64];
 };
-using PTargetBuff DEPRECATE("Use TargetBuff* Instead") = TargetBuff*;
+inline namespace deprecated {
+	using PTargetBuff DEPRECATE("Use TargetBuff* Instead of PTargetBuff") = TargetBuff*;
+}
 
 struct AggroMeterListEntry
 {
@@ -149,8 +151,8 @@ public:
 /*0x7c*/ int           Weight;                   // -1 means it can't be picked up
 /*0x80*/
 
-	DEPRECATE("Use pContents instead") inline ItemPtr get_ID() const { return pContents; }
-	DEPRECATE("Use pContents instead") inline void set_ID(ItemPtr ptr) { pContents = ptr; }
+	DEPRECATE("Use pContents instead of ID") inline ItemPtr get_ID() const { return pContents; }
+	DEPRECATE("Use pContents instead of ID") inline void set_ID(ItemPtr ptr) { pContents = ptr; }
 	__declspec(property(get = get_ID, put = set_ID)) ItemPtr ID;
 };
 using GROUNDITEM = EQGroundItem;
@@ -189,7 +191,9 @@ public:
 /*0x24*/ int                MaxAlpha;
 /*0x28*/
 };
-using CTextOverlay DEPRECATE("Use CBroadcast instead") = CBroadcast;
+inline namespace deprecated {
+	using CTextOverlay DEPRECATE("Use CBroadcast instead of CTextOverlay") = CBroadcast;
+}
 
 class ChatManagerClient
 {
@@ -202,12 +206,6 @@ class CDistillerInfo
 public:
 	static EQLIB_OBJECT CDistillerInfo &Instance();
 	EQLIB_OBJECT int GetIDFromRecordNum(int ID, bool bWhat);
-};
-
-class UniversalChatProxy
-{
-public:
-	EQLIB_OBJECT char* GetChannelName(int channelNumber);
 };
 
 struct [[offsetcomments]] TARGETRING
@@ -1661,8 +1659,11 @@ public:
 /*0x1d4*/ int                Unknown0x1D4;
 /*0x1d8*/
 };
-using ZONELIST DEPRECATE("Use EQZoneInfo instead") = EQZoneInfo;
-using PZONELIST DEPRECATE("Use EQZoneInfo* instead") = EQZoneInfo*;
+
+inline namespace deprecated {
+	using ZONELIST DEPRECATE("Use EQZoneInfo instead of ZONELIST") = EQZoneInfo;
+	using PZONELIST DEPRECATE("Use EQZoneInfo* instead of PZONELIST") = EQZoneInfo*;
+}
 
 // EQWorldData__EQWorldData_x
 // Size 0xFC0 see 5721F1 in eqgame.exe live 21 apr 2016 - eqmule
@@ -1722,8 +1723,11 @@ public:
 /*0x020*/ EQZoneInfo*  ZoneArray[MAX_ZONES];     // see 867D1B in eqgame.exe live 21 apr 2016
 /*0xfc0*/
 };
-using WORLDDATA DEPRECATE("Use EQWorldData instead") = EQWorldData;
-using PWORLDDATA DEPRECATE("Use EQWorldData* instead") = EQWorldData*;
+
+inline namespace deprecated {
+	using WORLDDATA DEPRECATE("Use EQWorldData instead WORLDDATA") = EQWorldData;
+	using PWORLDDATA DEPRECATE("Use EQWorldData* instead of PWORLDDATA") = EQWorldData*;
+}
 
 enum EOutDoor : BYTE
 {
@@ -2264,7 +2268,8 @@ class DatabaseStringTable
 public:
 	EQLIB_OBJECT const char* GetString(int id, eDatabaseStringType type, bool* found = nullptr);
 
-	DEPRECATE("Use eDatabaseStringType enum") const char* GetString(int id, int type)
+	DEPRECATE("DatabaseStringTable::GetString: Use eDatabaseStringType enum for the 2nd parameter")
+	const char* GetString(int id, int type)
 	{
 		return GetString(id, static_cast<eDatabaseStringType>(type), nullptr);
 	}

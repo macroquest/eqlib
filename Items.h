@@ -87,9 +87,9 @@ inline namespace deprecated
 	// BAD - DO NOT USE
 	struct ITEMBASEARRAY
 	{
-		CONTENTS* Item[1];
+		ItemClient* Item[1];
 	};
-	using PITEMBASEARRAY [[deprecated]] = ITEMBASEARRAY*;
+	using PITEMBASEARRAY DEPRECATE("Use ITEMBASEARRAY* instead of PITEMBASEARRAY") = ITEMBASEARRAY*;
 
 	class [[offsetcomments]] ItemArray
 	{
@@ -189,12 +189,18 @@ public:
 	__declspec(property(get = getSlot2, put = setSlot2)) int Slot2;
 	__declspec(property(get = getSlot3, put = setSlot3)) int Slot3;
 
-	[[deprecated]] inline int getSlot1() const { return m_slots[0]; }
-	[[deprecated]] inline void setSlot1(int v) { m_slots[0] = v; }
-	[[deprecated]] inline int getSlot2() const { return m_slots[1]; }
-	[[deprecated]] inline void setSlot2(int v) { m_slots[1] = v; }
-	[[deprecated]] inline int getSlot3() const { return m_slots[2]; }
-	[[deprecated]] inline void setSlot3(int v) { m_slots[2] = v; }
+	DEPRECATE("Use GetSlot(0) instead of Slot1")
+	inline int getSlot1() const { return m_slots[0]; }
+	DEPRECATE("Use SetSlot(0) instead of Slot1")
+	inline void setSlot1(int v) { m_slots[0] = v; }
+	DEPRECATE("Use GetSlot(1) instead of Slot2")
+	inline int getSlot2() const { return m_slots[1]; }
+	DEPRECATE("Use SetSlot(1) instead of Slot2")
+	inline void setSlot2(int v) { m_slots[1] = v; }
+	DEPRECATE("Use GetSlot(2) instead of Slot3")
+	inline int getSlot3() const { return m_slots[2]; }
+	DEPRECATE("Use SetSlot(2) instead of Slot3")
+	inline void setSlot3(int v) { m_slots[2] = v; }
 };
 
 
@@ -715,8 +721,10 @@ public:
 // types, because in practice, all ItemBaseContainers are also ItemContainers.
 using ItemBaseContainer = ItemContainer;
 
-// This type is deprecated. All implementations should just use ItemContainer instead.
-using ItemBaseContainer2 DEPRECATE("Use ItemContainer instead") = ItemContainer;
+inline namespace deprecated {
+	// This type is deprecated. All implementations should just use ItemContainer instead.
+	using ItemBaseContainer2 DEPRECATE("Use ItemContainer instead") = ItemContainer;
+}
 
 inline ItemContainer::iterator ItemContainer::GetStartIterator(int slot)
 {
@@ -1037,7 +1045,8 @@ struct [[offsetcomments]] ItemEvolutionData
 /*0x08*/ double EvolvingExpPct;
 /*0x10*/ int    EvolvingMaxLevel;
 /*0x14*/ int    LastEquipped;
-/*0x18*/ };
+/*0x18*/
+};
 using ItemEvolutionDataPtr = SoeUtil::SharedPtr<ItemEvolutionData>;
 
 //============================================================================
@@ -1196,41 +1205,44 @@ public:
 /*0x108*/
 };
 
-using EQ_Item DEPRECATE("Use ItemClient instead (or make sure the conversion is even necessary)") = ItemClient;
-
 //----------------------------------------------------------------------------
+
+inline namespace deprecated {
+
+using EQ_Item DEPRECATE("Use ItemClient instead (or make sure the conversion is even necessary)") = ItemClient;
 
 // 20101012 - ieatacid
 struct [[offsetcomments]] INVENTORY
 {
-/*0x00*/ CONTENTS* Charm;
-/*0x04*/ CONTENTS* LeftEar;
-/*0x08*/ CONTENTS* Head;
-/*0x0c*/ CONTENTS* Face;
-/*0x10*/ CONTENTS* RightEar;
-/*0x14*/ CONTENTS* Neck;
-/*0x18*/ CONTENTS* Shoulders;
-/*0x1c*/ CONTENTS* Arms;
-/*0x20*/ CONTENTS* Back;
-/*0x24*/ CONTENTS* LeftWrist;
-/*0x28*/ CONTENTS* RightWrist;
-/*0x2c*/ CONTENTS* Range;
-/*0x30*/ CONTENTS* Hands;
-/*0x34*/ CONTENTS* Primary;
-/*0x38*/ CONTENTS* Secondary;
-/*0x3c*/ CONTENTS* LeftFinger;
-/*0x40*/ CONTENTS* RightFinger;
-/*0x44*/ CONTENTS* Chest;
-/*0x48*/ CONTENTS* Legs;
-/*0x4c*/ CONTENTS* Feet;
-/*0x50*/ CONTENTS* Waist;
-/*0x54*/ CONTENTS* PowerSource;
-/*0x58*/ CONTENTS* Ammo;
-/*0x5c*/ CONTENTS* Pack[NUM_BAG_SLOTS];
-/*0x84*/ CONTENTS* Cursor;
+/*0x00*/ ItemClient* Charm;
+/*0x04*/ ItemClient* LeftEar;
+/*0x08*/ ItemClient* Head;
+/*0x0c*/ ItemClient* Face;
+/*0x10*/ ItemClient* RightEar;
+/*0x14*/ ItemClient* Neck;
+/*0x18*/ ItemClient* Shoulders;
+/*0x1c*/ ItemClient* Arms;
+/*0x20*/ ItemClient* Back;
+/*0x24*/ ItemClient* LeftWrist;
+/*0x28*/ ItemClient* RightWrist;
+/*0x2c*/ ItemClient* Range;
+/*0x30*/ ItemClient* Hands;
+/*0x34*/ ItemClient* Primary;
+/*0x38*/ ItemClient* Secondary;
+/*0x3c*/ ItemClient* LeftFinger;
+/*0x40*/ ItemClient* RightFinger;
+/*0x44*/ ItemClient* Chest;
+/*0x48*/ ItemClient* Legs;
+/*0x4c*/ ItemClient* Feet;
+/*0x50*/ ItemClient* Waist;
+/*0x54*/ ItemClient* PowerSource;
+/*0x58*/ ItemClient* Ammo;
+/*0x5c*/ ItemClient* Pack[NUM_BAG_SLOTS];
+/*0x84*/ ItemClient* Cursor;
 /*0x88*/
 };
-using PINVENTORY [[deprecated]] = INVENTORY;
+
+using PINVENTORY DEPRECATE("Use INVENTORY* instead of PINVENTORY") = INVENTORY*;
 
 struct INVENTORYARRAY
 {
@@ -1240,14 +1252,14 @@ struct INVENTORYARRAY
 		"  For example, do: pObj->ItemContainer.GetItem(InvSlot_Cursor)\n"
 		"       instead of: pObj->pInventoryArray->Inventory.Cursor\n"
 		"    if using PcProfile, you can do: pProfile->GetInventorySlot(InvSlot_Cursor) too.")
-	inline INVENTORY& get_Inventory() { return *(INVENTORY*)&InventoryArray[0]; }
+		inline INVENTORY& get_Inventory() { return *(INVENTORY*)&InventoryArray[0]; }
 	__declspec(property(get = get_Inventory)) INVENTORY Inventory;
 
 	DEPRECATE("Instead of accessing InventoryArray directly, use ItemContainer::GetItem or GetInventorySlot().\n"
 		"  For example, do: pObj->ItemContainer.GetItem(InvSlot_Head)\n"
 		"       instead of: pObj->pInventoryArray->InventoryArray[InvSlot_Head]\n"
 		"    if using PcProfile, you can do: pProfile->GetInventorySlot(InvSlot_Cursor) too.")
-	CONTENTS* InventoryArray[InvSlot_Max];
+		ItemClient* InventoryArray[InvSlot_Max];
 
 #pragma warning(default: 4996)
 };
@@ -1256,13 +1268,15 @@ using PINVENTORYARRAY DEPRECATE("Use INVENTORYARRAY* Instead of PINVENTORYARRAY"
 // offsets are relative to their position in LAUNCHSPELLDATA
 struct [[offsetcomments]] ITEMLOCATION
 {
-/*0x00*/ ItemContainerInstance Location [[deprecated("Use ItemGlobalIndex")]] ;
-/*0x04*/ short InvSlot [[deprecated("Use ItemGlobalIndex")]] ;
-/*0x06*/ short BagSlot [[deprecated("Use ItemGlobalIndex")]] ;
-/*0x08*/ short AugSlot [[deprecated("Use ItemGlobalIndex")]] ;
-/*0x0c*/
+	/*0x00*/ ItemContainerInstance Location DEPRECATE("Use ItemGlobalIndex");
+	/*0x04*/ short InvSlot DEPRECATE("Use ItemGlobalIndex");
+	/*0x06*/ short BagSlot DEPRECATE("Use ItemGlobalIndex");
+	/*0x08*/ short AugSlot DEPRECATE("Use ItemGlobalIndex");
+	/*0x0c*/
 };
-using PITEMLOCATION [[deprecated("Use ItemGlobalIndex")]] = ITEMLOCATION*;
+using PITEMLOCATION DEPRECATE("Use ItemGlobalIndex instead of ITEMLOCATION") = ITEMLOCATION*;
+
+} // end inline namespace deprecated
 
 //----------------------------------------------------------------------------
 // item find predicates.

@@ -587,7 +587,7 @@ enum eEQSPA
 	SPA_REMOVE_DETRIMENTAL DEPRECATE("Use SPA_CANCEL_NEGATIVE_MAGIC instead") = SPA_CANCEL_NEGATIVE_MAGIC,
 	SPA_INVIS DEPRECATE("Use SPA_INVISIBILITY isntead") = SPA_INVISIBILITY,
 	SPA_INVIS_TO_UNDEAD DEPRECATE("Use SPA_INVIS_VS_UNDEAD instead") = SPA_INVIS_VS_UNDEAD,
-	SPA_INVIS_TO_ANIMALS DEPRECATE("Use SPA_INVIS_VS_ANIMALS isntead") = SPA_INVIS_VS_ANIMALS,
+	SPA_INVIS_TO_ANIMALS DEPRECATE("Use SPA_INVIS_VS_ANIMALS instead") = SPA_INVIS_VS_ANIMALS,
 };
 
 // this is here to be able to strongly type the enum while still allowing easy integral values for eqgame functions
@@ -1384,7 +1384,7 @@ public:
 
 	struct CachedFocusItem
 	{
-		CONTENTS* pContents;
+		ItemClient*    pContents;
 		int	           Percent;
 		ItemSpellTypes SpellType;
 	};
@@ -1469,7 +1469,10 @@ public:
 		Unknown0x64 = 0;
 	}
 };
-using PSPELLBUFF DEPRECATE("Use EQ_Affect* instead") = EQ_Affect*;
-using SPELLBUFF  = EQ_Affect;
+
+inline namespace deprecated {
+	using PSPELLBUFF DEPRECATE("Use EQ_Affect* instead of PSPELLBUFF") = EQ_Affect*;
+	using SPELLBUFF = EQ_Affect;
+}
 
 } // namespace eqlib

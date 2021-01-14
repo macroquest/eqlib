@@ -39,8 +39,11 @@ struct SClassInfo
 	char* ShortName;
 	char* UCShortName;
 };
-using CLASSINFO [[deprecated]] = SClassInfo;
-using PCLASSINFO [[deprecated]] = SClassInfo *;
+
+inline namespace deprecated {
+	using CLASSINFO DEPRECATE("Use SClassInfo instead of CLASSINFO") = SClassInfo;
+	using PCLASSINFO DEPRECATE("Use SClassInfo instead of CLASSINFO") = SClassInfo*;
+}
 
 static SClassInfo ClassInfo[] =
 {
@@ -73,12 +76,14 @@ enum MOUSE_DATA_TYPES
 	MD_Button1        = 3,
 };
 
-constexpr char* KeyRingWindowParent DEPRECATE("Use pKeyRingWnd instead of looking it up by name") = "KeyRingWnd";
-constexpr char* MountWindowList = "KRW_Mounts_List";
-constexpr char* IllusionWindowList = "KRW_Illusions_List";
-constexpr char* FamiliarWindowList = "KRW_Familiars_list";
-constexpr char* HeroForgeWindowList = "KRW_HeroForge_List";
-constexpr char* KeyRingTab = "KRW_Subwindows";
+inline namespace deprecated {
+	constexpr char* KeyRingWindowParent DEPRECATE("Use pKeyRingWnd instead of looking it up by name") = "KeyRingWnd";
+	constexpr char* MountWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Mounts_List";
+	constexpr char* IllusionWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Illusions_List";
+	constexpr char* FamiliarWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Familiars_list";
+	constexpr char* HeroForgeWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_HeroForge_List";
+	constexpr char* KeyRingTab DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Subwindows";
+}
 
 template <typename T>
 inline int EQHeading(T heading)
@@ -398,8 +403,11 @@ struct [[offsetcomments]] SpellLoadout
 /*0x52*/ bool changed;
 /*0x54*/
 };
-using SPELLFAVORITE [[deprecated("Use SpellLoadout instead")]] = SpellLoadout;
-using PSPELLFAVORITE [[deprecated("Use SpellLoadout* instead")]] = SpellLoadout*;
+
+inline namespace deprecated {
+	using SPELLFAVORITE DEPRECATE("Use SpellLoadout instead of SPELLFAVORITE") = SpellLoadout;
+	using PSPELLFAVORITE DEPRECATE("Use SpellLoadout* instead of PSPELLFAVORITE") = SpellLoadout*;
+}
 
 struct [[offsetcomments]] CMDLIST
 {
@@ -688,7 +696,10 @@ struct [[offsetcomments]] EQSTRINGTABLE
 /*0x0c*/ DWORD      Unknown0x0c;
 /*0x10*/
 };
-using PEQSTRINGTABLE [[deprecated]] = EQSTRINGTABLE*;
+
+inline namespace deprecated {
+	using PEQSTRINGTABLE DEPRECATE("Use EQSTRINGTABLE* instead of PEQSTRINGTABLE") = EQSTRINGTABLE*;
+}
 
 // updated by eqmule
 // see 7B000C in eqgame.exe dated jul 16 2014
@@ -704,8 +715,11 @@ struct [[offsetcomments]] connection_t
 /*0x124*/ DWORD Last;
 /*0x128*/
 };
-using CONNECTION_T [[deprecated]] = connection_t;
-using PCONNECTION_T [[deprecated]] = connection_t*;
+
+inline namespace deprecated {
+	using CONNECTION_T DEPRECATE("Use connection_t instead of CONNECTION_T") = connection_t;
+	using PCONNECTION_T DEPRECATE("Use connection_t instead of PCONNECTION_T") = connection_t*;
+}
 
 enum eDynamicZoneType
 {
@@ -744,9 +758,11 @@ struct [[offsetcomments]] DynamicZoneClientTimerData
 /*0x188*/ DynamicZoneClientTimerData* pNext;
 /*0x18c*/
 };
-using DZTIMERINFO = DynamicZoneClientTimerData;
-using PDZTIMERINFO [[deprecated]] = DZTIMERINFO*;
 
+inline namespace deprecated {
+	using DZTIMERINFO DEPRECATE("Use DynamicZoneClientTimerData instead of DZTIMERINFO") = DynamicZoneClientTimerData;
+	using PDZTIMERINFO DEPRECATE("Use DynamicZoneClientTimerData* instead of PDZTIMERINFO") = DynamicZoneClientTimerData*;
+}
 
 enum eDyanicZonePlayerStatus
 {
@@ -759,14 +775,18 @@ enum eDyanicZonePlayerStatus
 
 struct [[offsetcomments]] DynamicZonePlayerInfo
 {
-	/*0x00*/ char                     Name[0x40];                // The usual name length
-	/*0x40*/ eDyanicZonePlayerStatus  Status;
-	/*0x44*/ DynamicZonePlayerInfo*   pNext;
-	/*0x48*/ bool                     bFlagged;                  // Do we meet the requirements?
-	/*0x49*/ bool                     bCheckedZoneReqs;          // Zone reqs serverside checked?
-/*0x4c*/ };
-using DZMEMBER = DynamicZonePlayerInfo;
-using PDZMEMBER [[deprecated]] = DynamicZonePlayerInfo*;
+/*0x00*/ char                     Name[0x40];                // The usual name length
+/*0x40*/ eDyanicZonePlayerStatus  Status;
+/*0x44*/ DynamicZonePlayerInfo*   pNext;
+/*0x48*/ bool                     bFlagged;                  // Do we meet the requirements?
+/*0x49*/ bool                     bCheckedZoneReqs;          // Zone reqs serverside checked?
+/*0x4c*/
+};
+
+inline namespace deprecated {
+	using DZMEMBER DEPRECATE("Use DynamicZonePlayerInfo instead of DZMEMBER") = DynamicZonePlayerInfo;
+	using PDZMEMBER DEPRECATE("Use DynamicZonePlayerInfo* instead of PDZMEMBER") = DynamicZonePlayerInfo*;
+}
 
 enum eSharedTaskPlayerRole
 {
@@ -785,43 +805,58 @@ struct [[offsetcomments]] SharedTaskPlayerInfo
 
 	ALT_MEMBER_GETTER(DWORD, Role, IsLeader);
 };
-using TASKMEMBER = SharedTaskPlayerInfo;
-using PTASKMEMBER [[deprecated]] = SharedTaskPlayerInfo*;
+
+inline namespace deprecated {
+	using TASKMEMBER DEPRECATE("Use SharedTaskPlayerInfo instead of TASKMEMBER") = SharedTaskPlayerInfo;
+	using PTASKMEMBER DEPRECATE("Use SharedTaskPlayerInfo* instead of PTASKMEMBER") = SharedTaskPlayerInfo*;
+}
 
 struct [[offsetcomments]] DynamicZoneSwitchInfo
 {
-	/*0x00*/ int          DZID;
-	/*0x04*/ int          Type;
-	/*0x08*/ int          DZSwitchID;
-	/*0x0c*/ float        SwitchX;
-	/*0x10*/ float        SwitchY;
-	/*0x14*/ float        SwitchZ;
-/*0x18*/ };
-using DZSWITCHINFO = DynamicZoneSwitchInfo;
-using PDZSWITCHINFO [[deprecated]] = DynamicZoneSwitchInfo*;
-using _DZSWITCHINFO [[deprecated]] = DynamicZoneSwitchInfo;
+/*0x00*/ int          DZID;
+/*0x04*/ int          Type;
+/*0x08*/ int          DZSwitchID;
+/*0x0c*/ float        SwitchX;
+/*0x10*/ float        SwitchY;
+/*0x14*/ float        SwitchZ;
+/*0x18*/
+};
+
+inline namespace deprecated {
+	using DZSWITCHINFO DEPRECATE("Use DynamicZoneSwitchInfo instead of DZSWITCHINFO") = DynamicZoneSwitchInfo;
+	using PDZSWITCHINFO DEPRECATE("Use DynamicZoneSwitchInfo* instead of PDZSWITCHINFO") = DynamicZoneSwitchInfo*;
+	using _DZSWITCHINFO DEPRECATE("Use DynamicZoneSwitchInfo instead of _DZSWITCHINFO") = DynamicZoneSwitchInfo;
+}
 
 struct [[offsetcomments]] DynamicZoneCompass
 {
-	/*0x00*/ int          R;
-	/*0x04*/ int          G;
-	/*0x08*/ int          B;
-	/*0x0c*/ float        X;
-	/*0x10*/ float        Y;
-	/*0x14*/ float        Z;
-	/*0x18*/ bool         bVisible;
-	/*0x1c*/ int          PixelOffset;
-	/*0x20*/ bool         bInWindow;
-/*0x24*/ };
-using DZCOMPASS = DynamicZoneCompass;
-using PDZCOMPASS [[deprecated]] = DynamicZoneCompass*;
+/*0x00*/ int          R;
+/*0x04*/ int          G;
+/*0x08*/ int          B;
+/*0x0c*/ float        X;
+/*0x10*/ float        Y;
+/*0x14*/ float        Z;
+/*0x18*/ bool         bVisible;
+/*0x1c*/ int          PixelOffset;
+/*0x20*/ bool         bInWindow;
+/*0x24*/
+};
+
+inline namespace deprecated {
+	using DZCOMPASS DEPRECATE("Use DynamicZoneCompass instead of DZCOMPASS") = DynamicZoneCompass;
+	using PDZCOMPASS DEPRECATE("Use DynamicZoneCompass* instead of PDZCOMPASS") = DynamicZoneCompass*;
+}
 
 struct [[offsetcomments]] DynamicZoneClientSwitchInfo : public DynamicZoneSwitchInfo
 {
-	/*0x18*/ DynamicZoneCompass* pCompass;
-/*0x1c*/ };
-using DZSWITCH = DynamicZoneClientSwitchInfo;
-using PDZSWITCH [[deprecated]] = DynamicZoneClientSwitchInfo*;
+/*0x18*/ DynamicZoneCompass* pCompass;
+/*0x1c*/
+};
+
+inline namespace deprecated {
+	using DZSWITCH DEPRECATE("Use DynamicZoneCompass instead of DZCOMPASS") = DynamicZoneClientSwitchInfo;
+	using PDZSWITCH DEPRECATE("Use DynamicZoneCompass instead of DZCOMPASS") = DynamicZoneClientSwitchInfo*;
+}
 
 // CDynamicZone size: 0x128
 struct [[offsetcomments]] CDynamicZone : public PopDialogHandler
@@ -841,62 +876,70 @@ struct [[offsetcomments]] CDynamicZone : public PopDialogHandler
 	ALT_MEMBER_GETTER_ARRAY(char, 0x80, DZName, ExpeditionName);
 	ALT_MEMBER_GETTER(DynamicZonePlayerInfo*, pFirstMember, pMemberList);
 };
-using DYNAMICZONE = CDynamicZone;
-using PDYNAMICZONE [[deprecated]] = CDynamicZone*;
 
-struct [[offsetcomments]] CHATCHANNELS
-{
-/*0x00*/ char* ChannelName[0xa];
-/*0x28*/
-};
-using PCHATCHANNELS [[deprecated]] = CHATCHANNELS*;
+inline namespace deprecated {
+	using DYNAMICZONE DEPRECATE("Use CDynamicZone instead of DYNAMICZONE") = CDynamicZone;
+	using PDYNAMICZONE DEPRECATE("Use CDynamicZone* instead of PDYNAMICZONE") = CDynamicZone*;
+}
 
-enum eFriendStatus
-{
-	eFriendRemoved,
-	eFriendOffline,
-	eFriendOnline,
-	eFriendOnlineAway,
-	eFriendOnlineInvisible,
-	eFriendInGame,
-	eFriendInGameAway,
-	eFriendInGameInvisible
-};
+class UniversalChatProxyHandler;
 
-struct [[offsetcomments]] FriendEntry
-{
-/*0x00*/ char               Name[0x30];
-/*0x30*/ eFriendStatus      Status;
-/*0x34*/ bool               bName;                    // not sure.
-/*0x38*/
-};
+constexpr int ChatProxy_MaxNameLen = 48;
 
-struct [[offsetcomments]] _CHATSERVICE
+class [[offsetcomments]] UniversalChatProxy
 {
-/*0x00*/ void*        vfTable;
-/*0x04*/ void*        pChatProxyHandler;
-/*0x08*/ void*        pUdpManager;
-/*0x0c*/ CHATCHANNELS* ChannelList;             // really just a char**
-/*0x10*/ int          ActiveChannels;           // number of channels joined, aka channelcount
-/*0x14*/ bool         mAuthenticated;
-/*0x15*/ bool         bLoginSent;
-/*0x16*/ bool         bInvisible;
-/*0x17*/ bool         bFullNotifyMode;
-/*0x18*/ void*        UdpConnection;
-/*0x1c*/ char         ChatID[0x30];             // "ServerName.CharName"
-/*0x4c*/ char         ChatPass[0x30];
-/*0x7c*/ char         ServerName[0x30];         // "ServerName."
-/*0xac*/ int          ServerNameLen;
-/*0xb0*/ char         Locale[0x10];
-/*0xc0*/ const char*  ChatPrefix;
-/*0xc4*/ int          LastDisconnectCheckTime;
-/*0xc8*/ FriendEntry** BuddyList;
-/*0xcc*/ int          BuddyListCount;
+public:
+	virtual ~UniversalChatProxy() {}
+
+	EQLIB_OBJECT char* GetChannelName(int channelNumber);
+
+	enum class BuddyStatus
+	{
+		eFriendRemoved,
+		eFriendOffline,
+		eFriendOnline,
+		eFriendOnlineAway,
+		eFriendOnlineInvisible,
+		eFriendInGame,
+		eFriendInGameAway,
+		eFriendInGameInvisible
+	};
+
+	struct [[offsetcomments]] BuddyEntry
+	{
+	/*0x00*/ char          Name[ChatProxy_MaxNameLen];
+	/*0x30*/ BuddyStatus   Status;
+	/*0x34*/ bool          bInMyNamespace;
+	/*0x38*/
+	};
+
+/*0x04*/ UniversalChatProxyHandler* pChatProxyHandler;
+/*0x08*/ void*             pUdpManager;             // UdpLibrary::UdpManager
+/*0x0c*/ char**            ChannelList;
+/*0x10*/ int               ActiveChannels;          // number of channels joined, aka channelcount
+/*0x14*/ bool              mAuthenticated;
+/*0x15*/ bool              bLoginSent;
+/*0x16*/ bool              bInvisible;
+/*0x17*/ bool              bFullNotifyMode;
+/*0x18*/ void*             UdpConnection;           // UdpLibrary::UdpConnection
+/*0x1c*/ char              ChatID[ChatProxy_MaxNameLen];              // "ServerName.CharName"
+/*0x4c*/ char              ChatPass[ChatProxy_MaxNameLen];
+/*0x7c*/ char              ServerName[ChatProxy_MaxNameLen];          // "ServerName."
+/*0xac*/ int               ServerNameLen;
+/*0xb0*/ char              Locale[16];
+/*0xc0*/ const char*       ChatPrefix;
+/*0xc4*/ int               LastDisconnectCheckTime;
+/*0xc8*/ BuddyEntry**      BuddyList;
+/*0xcc*/ int               BuddyListCount;
 /*0xd0*/ ArrayClass<CXStr> IgnoreList;
 /*0xe0*/
 };
-using PCHATSERVICE [[deprecated]] = _CHATSERVICE*;
-using CHATSERVICE/* [[deprecated]]*/ = _CHATSERVICE;
+
+inline namespace deprecated {
+	using FriendEntry DEPRECATE("Use UniversalChatProxy::BuddyEntry instead of FriendEntry") = UniversalChatProxy::BuddyEntry;
+	using PCHATSERVICE DEPRECATE("Use UniversalChatProxy* instead of PCHATSERVICE") = UniversalChatProxy*;
+	using CHATSERVICE DEPRECATE("Use UniversalChatProxy instead of PCHATSERVICE") = UniversalChatProxy;
+}
 
 class [[offsetcomments]] PickZoneTimerHandler
 {
@@ -911,7 +954,7 @@ public:
 /*0x10*/
 };
 
-struct [[offsetcomments]] PETITIONSTATUS
+struct [[offsetcomments]] PetitionStatus
 {
 /*0x00*/ int           ID;
 /*0x04*/ int           Priority;                 // todo: check
@@ -924,7 +967,11 @@ struct [[offsetcomments]] PETITIONSTATUS
 /*0xb4*/ DWORD         TimeStamp;                // not sure what its for
 /*0xb8*/
 };
-using PPETITIONSTATUS [[deprecated]] = PETITIONSTATUS*;
+
+inline namespace deprecated {
+	using PPETITIONSTATUS DEPRECATE("Use PetitionStatus* instead of PPETITIONSTATUS") = PetitionStatus*;
+	using PETITIONSTATUS DEPRECATE("Use PetitionStatus instead of PETITIONSTATUS") = PetitionStatus;
+}
 
 // size is 0x170 see 4467A5 in Sep 18 2017 Live
 struct [[offsetcomments]] CSINFO
@@ -969,17 +1016,10 @@ struct [[offsetcomments]] CSINFO
 /*0x16c*/ int          Unknown0x16c;
 /*0x170*/
 };
-using PCSINFO [[deprecated]] = CSINFO*;
 
-struct [[offsetcomments]] CharSelectPlayerArray
-{
-	FORCE_SYMBOLS;
-
-	// note that CharSelectPlayerCount determines how many are actully here
-/*0x0000*/ CSINFO CharacterInfo[13];                    // is 13 chars the max u can have?
-/*0x12b0*/
-};
-using PCharSelectPlayerArray [[deprecated]] = CharSelectPlayerArray*;
+inline namespace deprecated {
+	using PCSINFO DEPRECATE("Use CSINFO* instead of PCSINFO") = CSINFO*;
+}
 
 // this struct is actually part of EverQuestInfo struct
 struct MQMouseInfo
@@ -990,13 +1030,16 @@ struct MQMouseInfo
 	int SpeedY = 0;
 	int Scroll = 0;
 };
-using MOUSEINFO [[deprecated("Use MQMouseInfo instead")]] = MQMouseInfo;
-using PMOUSEINFO [[deprecated("Use MQMouseInfo* instead")]] = MQMouseInfo *;
+
+inline namespace deprecated {
+	using MOUSEINFO DEPRECATE("Use MQMouseInfo instead of MOUSEINFO") = MQMouseInfo;
+	using PMOUSEINFO DEPRECATE("Use MQMouseInfo* instead PMOUSEINFO") = MQMouseInfo*;
+}
 
 struct [[offsetcomments]] EVERQUEST
 {
 /*0x00000*/ BYTE             Unknown[0x2a4];
-/*0x002a4*/ CHATSERVICE*     ChatService;
+/*0x002a4*/ UniversalChatProxy* ChatService;
 /*0x002a8*/ BYTE             Unknown0x2a8[0x8];
 /*0x002b0*/ bool             bJoinedChannel;
 /*0x002b1*/ char             ChannelPlayerName[0x100];
@@ -1022,7 +1065,7 @@ struct [[offsetcomments]] EVERQUEST
 /*0x00608*/ void*            CampDialog;                   // CPopDialogWnd
 /*0x0060c*/ PickZoneTimerHandler pickZoneTimerHandler;     // size 0x10?
 /*0x0061c*/ USINGSKILL       UsingSkill;                   // size 0x8
-/*0x00624*/ PETITIONSTATUS   PetitionStatus[0x200];        // size 0xb8 * 0x200 = 0x17000
+/*0x00624*/ PetitionStatus   PetitionStatus[0x200];        // size 0xb8 * 0x200 = 0x17000
 /*0x17624*/ int              TotalQ;                       // see 760EE8 in Sep 18 2017
 /*0x17628*/ int              TotalClientPetitions;
 /*0x1762c*/ char             ChatText[0x840];
@@ -1037,51 +1080,38 @@ struct [[offsetcomments]] EVERQUEST
 /*0x38e88*/ ArrayClass<CSINFO> pCharSelectPlayerArray;
 /*0x38e98*/ // more data
 };
-using _EVERQUEST DEPRECATE("Use EVERQUEST instead") = EVERQUEST;
-using PEVERQUEST DEPRECATE("Use EVERQUEST* instead") = EVERQUEST*;
 
-struct [[offsetcomments]] AURAINFO
+inline namespace deprecated {
+	using _EVERQUEST DEPRECATE("Use EVERQUEST instead of _EVERQUEST") = EVERQUEST;
+	using PEVERQUEST DEPRECATE("Use EVERQUEST* instead of PEVERQUEST") = EVERQUEST*;
+}
+
+// EQ Refers to Auras as SOI or "sphere of influence", but we'll just call them Auras.
+struct [[offsetcomments]] AuraData
 {
-/*0x00*/ char         Name[0x40];
+/*0x00*/ char         Name[EQ_MAX_NAME];
 /*0x40*/ uint32_t     SpawnID;
 /*0x44*/ int          Cost;
-/*0x48*/ int          IconnID;
+/*0x48*/ int          IconID;
 /*0x4c*/
 };
-using PAURAINFO [[deprecated]] = AURAINFO*;
 
-struct [[offsetcomments]] AURAS
+inline namespace deprecated {
+	using AURAINFO DEPRECATE("Use AuraData instead of AURAINFO") = AuraData;
+	using PAURAINFO DEPRECATE("Use AuraData* instead of PAURAINFO") = AuraData*;
+}
+
+struct [[offsetcomments]] ClientAuraManager
 {
 	FORCE_SYMBOLS;
 
-/*0x00*/ AURAINFO     Aura[0x2];
-/*0x98*/
+/*0x00*/ ArrayClass2<AuraData> Auras;
 };
-using PAURAS = AURAS*;
 
-struct [[offsetcomments]] AURAMGR
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ DWORD        NumAuras;
-/*0x04*/ BYTE         Unknown0x4[0xc];
-/*0x10*/ AURAS**      pAuraInfo;
-/*0x14*/ BYTE         Unknown0x14[0x8];
-/*0x1c*/
-};
-using PAURAMGR [[deprecated]] = AURAMGR*;
-
-struct [[offsetcomments]] INTERACTSWITCH
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ DWORD        switchID;
-/*0x04*/ DWORD        dwzero;
-/*0x08*/ DWORD        dwneg1;
-/*0x0c*/ DWORD        spawnID;
-/*0x10*/
-};
-using PINTERACTSWITCH [[deprecated]] = INTERACTSWITCH*;
+inline namespace deprecated {
+	using AURAMGR DEPRECATE("Use ClientAuraManager instead of AURAMGR") = ClientAuraManager;
+	using PAURAMGR DEPRECATE("Use ClientAuraManager& instead of PAURAMGR") = ClientAuraManager*;
+}
 
 struct [[offsetcomments]] MERCSTANCEDATA
 {
@@ -1089,7 +1119,6 @@ struct [[offsetcomments]] MERCSTANCEDATA
 /*0x04*/ DWORD nDbStance;
 /*0x08*/
 };
-using PMERCSTANCEDATA [[deprecated]] = MERCSTANCEDATA*;
 
 struct [[offsetcomments]] MERCSINFO
 {
@@ -1103,7 +1132,6 @@ struct [[offsetcomments]] MERCSINFO
 /*0x4c*/ BYTE          Unknown0x4c[0x88];
 /*0xd4*/
 };
-using PMERCSINFO [[deprecated]] = MERCSINFO*;
 
 // Size 0xD4 in eqgame.exe dated 01 22 2015
 struct [[offsetcomments]] MERCSLIST
@@ -1111,7 +1139,6 @@ struct [[offsetcomments]] MERCSLIST
 /*0x000*/ MERCSINFO     mercinfo[7];              // is 7 max, even with slots u can buy for sc?
 /*0x5cc*/
 };
-using PMERCSLIST [[deprecated]] = MERCSLIST*;
 
 // Actual Size: 0x2fc (See 57117F in eqgame dated dec 10 2013) - eqmule
 // CMercenaryInfo__CMercenaryInfo
@@ -1140,7 +1167,10 @@ struct [[offsetcomments]] MERCENARYINFO
 /*0x260*/ BYTE               Unknown0x260[0x9c];
 /*0x2fc*/
 };
-using PMERCENARYINFO [[deprecated]] = MERCENARYINFO*;
+
+inline namespace deprecated {
+	using PMERCENARYINFO DEPRECATE("Use MERCENARYINFO* instead of PMERCENARYINFO") = MERCENARYINFO*;
+}
 
 struct [[offsetcomments]] MERCENARYSTATS
 {
@@ -1169,11 +1199,12 @@ struct [[offsetcomments]] MERCENARYSTATS
 /*0x50*/ DWORD        SpellDamage;
 /*0x54*/
 };
-using PMERCENARYSTATS [[deprecated]] = MERCENARYSTATS*;
 
-#define MAX_XTARGETS                             20
+inline namespace deprecated {
+	using PMERCENARYSTATS DEPRECATE("Use MERCENARYSTATS* instead of PMERCENARYSTATS") = MERCENARYSTATS*;
+}
 
-enum xTargetTypes
+enum XTargetTypes
 {
 	XTARGET_EMPTY_TARGET,
 	XTARGET_AUTO_HATER,
@@ -1204,6 +1235,12 @@ enum xTargetTypes
 	XTARGET_MY_MERCENTARY_TARGET
 };
 
+inline namespace deprecated {
+	using xTargetTypes DEPRECATE("Use XTargetTypes instead of xTargetTypes") = XTargetTypes;
+}
+
+constexpr int MAX_XTARGETS = 20;
+
 struct [[offsetcomments]] AGGRODATA
 {
 	FORCE_SYMBOLS;
@@ -1213,7 +1250,10 @@ struct [[offsetcomments]] AGGRODATA
 /*0x05*/ BYTE          padding[3];
 /*0x08*/
 };
-using PAGGRODATA [[deprecated]] = AGGRODATA*;
+
+inline namespace deprecated {
+	using PAGGRODATA DEPRECATE("Use AGGRODATA* instead of PAGGRODATA") = AGGRODATA*;
+}
 
 // size 0xe4 11-28-12 - ieatacid (in GetAggroInfo)
 // size 0xfc see 422F94 in 20 Aug 2015
@@ -1227,7 +1267,10 @@ struct [[offsetcomments]] AGGROINFO
 /*0xf8*/ DWORD         AggroSecondaryID;         // this is id of whoever the npc is fighting
 /*0xfc*/
 };
-using PAGGROINFO [[deprecated]] = AGGROINFO*;
+
+inline namespace deprecated {
+	using PAGGROINFO DEPRECATE("Use AGGROINFO* instead of PAGGROINFO") = AGGROINFO*;
+}
 
 enum AggroDataTypes
 {
@@ -1267,7 +1310,10 @@ struct [[offsetcomments]] GROUPAGGRO
 /*0x08*/ DWORD         GroupMemberAggro[6];      // player is ALWAYS the 6th member...
 /*0x20*/
 };
-using PGROUPAGGRO [[deprecated]] = GROUPAGGRO*;
+
+inline namespace deprecated {
+	using PGROUPAGGRO DEPRECATE("Use GROUPAGGRO* instead of PGROUPAGGRO") = GROUPAGGRO*;
+}
 
 struct [[offsetcomments]] BenefitSelection
 {
@@ -1282,8 +1328,8 @@ struct [[offsetcomments]] EQLogin
 /*0x6b4*/ char        station_name[32];
 };
 
-#define EQ_ASSIST_CALC                           0x020c0f19
-#define EQ_ASSIST_COMPLETE                       0x24AB    // aMsgTimeStampRe
-#define EQ_ASSIST                                0x0DD2    // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+constexpr uint32_t EQ_ASSIST_CALC     = 0x020c0f19;
+constexpr uint32_t EQ_ASSIST_COMPLETE = 0x24AB;        // aMsgTimeStampRe
+constexpr uint32_t EQ_ASSIST          = 0x0DD2;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
 } // namespace eqlib

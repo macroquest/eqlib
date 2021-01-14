@@ -8,5 +8,5 @@ EXPORTS
     ??1CSidlScreenWnd@eqlib@@UAE@XZ
     ??0MapViewMap@eqlib@@QAE@XZ
     ??1MapViewMap@eqlib@@UAE@XZ
-    ??0CONTENTS@eqlib@@QAE@XZ
-    ??1CONTENTS@eqlib@@UAE@XZ
+    ??0ItemClient@eqlib@@QAE@XZ
+    ??1ItemClient@eqlib@@UAE@XZ

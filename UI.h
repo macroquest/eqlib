@@ -339,8 +339,10 @@ public:
 	EQLIB_OBJECT static VirtualFunctionTable* sm_vftable;
 };
 
-using CBUTTONWND [[deprecated]] = CButtonWnd;
-using PCBUTTONWND [[deprecated]] = CButtonWnd*;
+inline namespace deprecated {
+	using CBUTTONWND DEPRECATE("Use CButtonWnd instead of CBUTTONWND") = CButtonWnd;
+	using PCBUTTONWND DEPRECATE("Use CButtonWnd* instead of PCBUTTONWND") = CButtonWnd*;
+}
 
 //============================================================================
 // CCheckBoxWnd
@@ -428,7 +430,7 @@ enum eTextAlign
 	eta_Right,
 };
 
-#define EDITWND_MAX_TAGS 10
+constexpr int EDITWND_MAX_TAGS = 10;
 
 enum EditWndStyle
 {
@@ -734,8 +736,11 @@ public:
 /*0x20c*/ int          Unknown0x20c;
 /*0x210*/
 };
-using CLABEL [[deprecated]] = CLabel;
-using PCLABEL [[deprecated]] = CLabel*;
+
+inline namespace deprecated {
+	using CLABEL DEPRECATE("Use CLabel instead of CLABEL") = CLabel;
+	using PCLABEL DEPRECATE("Use CLabel* instead of PCLABEL") = CLabel*;
+}
 
 //============================================================================
 // CListWnd
@@ -1445,8 +1450,11 @@ struct [[offsetcomments]] AdvancedLootItemNPC
 /*0x0d*/ char          Name[0x40];
 /*0x50*/ //more data here?
 };
-using LOOTDETAILS [[deprecated]] = AdvancedLootItemNPC;
-using PLOOTDETAILS [[deprecated]] = AdvancedLootItemNPC*;
+
+inline namespace deprecated {
+	using LOOTDETAILS DEPRECATE("Use AdvancedLootItemNPC instead of LOOTDETAILS") = AdvancedLootItemNPC;
+	using PLOOTDETAILS DEPRECATE("Use AdvancedLootItemNPC* instead of PLOOTDETAILS") = AdvancedLootItemNPC*;
+}
 
 //.text:0041ECBD                 imul    eax, 84h in Apr 15 2015 test
 enum eAdvLootState
@@ -1493,8 +1501,11 @@ struct [[offsetcomments]] AdvancedLootItem
 /*0x8b*/ bool          Never;
 /*0x8c*/
 };
-using LOOTITEM [[deprecated]] = AdvancedLootItem;
-using PLOOTITEM [[deprecated]] = AdvancedLootItem*;
+
+inline namespace deprecated {
+	using LOOTITEM DEPRECATE("Use AdvancedLootItem instead of LOOTITEM") = AdvancedLootItem;
+	using PLOOTITEM DEPRECATE("Use AdvancedLootItem* instead of PLOOTITEM") = AdvancedLootItem*;
+}
 
 struct [[offsetcomments]] AdvancedLootItemList
 {
@@ -1504,8 +1515,11 @@ struct [[offsetcomments]] AdvancedLootItemList
 /*0x18*/ CComboWnd*   PersonalLootList;
 /*0x1c*/
 };
-using LOOTLIST [[deprecated]] = AdvancedLootItemList;
-using PLOOTLIST [[deprecated]] = AdvancedLootItemList*;
+
+inline namespace deprecated {
+	using LOOTLIST DEPRECATE("Use AdvancedLootItemList instead of LOOTLIST") = AdvancedLootItemList;
+	using PLOOTLIST DEPRECATE("Use AdvancedLootItemList* instead of PLOOTLIST") = AdvancedLootItemList*;
+}
 
 class CorpseData;
 class RefreshCorpseItemChoices;
@@ -1555,9 +1569,11 @@ public:
 /*0x2e8*/ BYTE         Unknown0x2f0[0x18];
 /*0x300*/
 };
-using EQADVLOOTWND [[deprecated]] = CAdvancedLootWnd;
-using PEQADVLOOTWND [[deprecated]] = CAdvancedLootWnd*;
 
+inline namespace deprecated {
+	using EQADVLOOTWND DEPRECATE("Use CAdvancedLootWnd instead of EQADVLOOTWND") = CAdvancedLootWnd;
+	using PEQADVLOOTWND DEPRECATE("Use CAdvancedLootWnd* instead of PEQADVLOOTWND") = CAdvancedLootWnd*;
+}
 
 //============================================================================
 // CAlarmWnd
@@ -1732,8 +1748,11 @@ public:
 /*0x92c8*/ BYTE        Unknown0x92C8[0x8];
 /*0x92d0*/
 };
-using BAZAARSEARCHWND [[deprecated]] = CBazaarSearchWnd;
-using PBAZAARSEARCHWND [[deprecated]] = CBazaarSearchWnd*;
+
+inline namespace deprecated {
+	using BAZAARSEARCHWND DEPRECATE("Use CBazaarSearchWnd instead of BAZAARSEARCHWND") = CBazaarSearchWnd;
+	using PBAZAARSEARCHWND DEPRECATE("Use CBazaarSearchWnd* instead of PBAZAARSEARCHWND") = CBazaarSearchWnd*;
+}
 
 //============================================================================
 // CBazaarWnd
@@ -1869,8 +1888,11 @@ public:
 /*0x70c*/ uint8_t     Unknown0x071c[0xc];
 /*0x718*/
 };
-using EQBUFFWINDOW [[deprecated]] = CBuffWindow;
-using PEQBUFFWINDOW [[deprecated]] = CBuffWindow*;
+
+inline namespace deprecated {
+	using EQBUFFWINDOW DEPRECATE("Use CBuffWindow instead of EQBUFFWINDOW") = CBuffWindow;
+	using PEQBUFFWINDOW DEPRECATE("Use CBuffWindow* instead of PEQBUFFWINDOW") = CBuffWindow*;
+}
 
 //============================================================================
 // CCastingWnd
@@ -1934,8 +1956,11 @@ public:
 /*0x27c*/ BYTE           Unknown0x284[0x54];
 /*0x2d0*/
 };
-using EQCASTSPELLWINDOW [[deprecated]] = CCastSpellWnd;
-using PEQCASTSPELLWINDOW [[deprecated]] = CCastSpellWnd*;
+
+inline namespace deprecated {
+	using EQCASTSPELLWINDOW DEPRECATE("Use CCastSpellWnd instead of EQCASTSPELLWINDOW") = CCastSpellWnd;
+	using PEQCASTSPELLWINDOW DEPRECATE("Use CCastSpellWnd* instead of PEQCASTSPELLWINDOW") = CCastSpellWnd*;
+}
 
 //============================================================================
 // CCharacterCreation
@@ -2219,17 +2244,20 @@ public:
 /*0x36c*/ int                DamageShieldsFilterSubIndex;
 /*0x370*/ CContextMenu*      pCM_BeneficialSpellsFilterMenu;
 /*0x374*/ int                BeneficialSpellsFilteIndex;
-	/*0x378*/
+/*0x378*/
 };
-using EQCHATMGR [[deprecated]] = CChatWindowManager;
-using PEQCHATMGR [[deprecated]] = CChatWindowManager *;
+
+inline namespace deprecated {
+	using EQCHATMGR DEPRECATE("Use CChatWindowManager instead of EQCHATMGR") = CChatWindowManager;
+	using PEQCHATMGR DEPRECATE("Use CChatWindowManager* instead of PEQCHATMGR") = CChatWindowManager*;
+}
 
 //============================================================================
 // CChatWindow
 //============================================================================
 
 // in CChatWindow__SetChatFont see 692847 in eqgame.exe Test dated Jun 28 2016
-const int EQ_CHAT_FONT_OFFSET = 0x11c;
+constexpr int EQ_CHAT_FONT_OFFSET = 0x11c;
 
 // CChatWindow__CChatWindow_x
 // Size 0x370 see 69A7DD in Oct 17 2017 Live exe
@@ -2288,8 +2316,10 @@ public:
 /*0x378*/
 };
 
-using EQCHATWINDOW [[deprecated]] = CChatWindow;
-using PEQCHATWINDOW [[deprecated]] = CChatWindow *;
+inline namespace deprecated {
+	using EQCHATWINDOW DEPRECATE("Use CChatWindow instead of EQCHATWINDOW") = CChatWindow;
+	using PEQCHATWINDOW DEPRECATE("Use CChatWindow* instead of PEQCHATWINDOW") = CChatWindow*;
+}
 
 //============================================================================
 // CColorPickerWnd
@@ -2391,8 +2421,11 @@ public:
 /*0x24c*/ DWORD        LineBlue;
 /*0x250*/
 };
-using EQCOMPASSWINDOW [[deprecated]] = CCompassWnd;
-using PEQCOMPASSWINDOW [[deprecated]] = CCompassWnd*;
+
+inline namespace deprecated {
+	using EQCOMPASSWINDOW DEPRECATE("Use CCompassWnd instead of EQCOMPASSWINDOW") = CCompassWnd;
+	using PEQCOMPASSWINDOW DEPRECATE("Use CCompassWnd* instead of PEQCOMPASSWINDOW") = CCompassWnd*;
+}
 
 //============================================================================
 // CConfirmationDialog
@@ -2453,7 +2486,7 @@ public:
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
 	EQLIB_OBJECT void CheckCloseable();
-	EQLIB_OBJECT void SetContainer(CONTENTS*& pContainer, const ItemGlobalIndex& location); // should be ItemBasePtr
+	EQLIB_OBJECT void SetContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location);
 	EQLIB_OBJECT bool ContainsNoDrop();
 	EQLIB_OBJECT void HandleCombine();
 
@@ -2484,11 +2517,14 @@ public:
 /*0x298*/
 
 	DEPRECATE("CContainerWnd: Use Container instead of pContents")
-	inline CONTENTS* get_pContents() { return Container.get(); }
-	__declspec(property(get = get_pContents)) CONTENTS* pContents;
+	inline ItemClient* get_pContents() { return Container.get(); }
+	__declspec(property(get = get_pContents)) ItemClient* pContents;
 };
-using EQCONTAINERWINDOW [[deprecated]] = CContainerWnd;
-using PEQCONTAINERWINDOW [[deprecated]] = CContainerWnd *;
+
+inline namespace deprecated {
+	using EQCONTAINERWINDOW DEPRECATE("Use CContainerWnd instead of EQCONTAINERWINDOW") = CContainerWnd;
+	using PEQCONTAINERWINDOW DEPRECATE("Use CContainerWnd* instead of PEQCONTAINERWINDOW") = CContainerWnd*;
+}
 
 constexpr int MAX_CONTAINERS = 40;
 
@@ -2528,8 +2564,8 @@ public:
 /*0xc8*/ bool               bShowDone;
 /*0xcc*/
 
-	CONTENTS* getter_pWorldContainer() { return WorldContainer.get(); }
-	__declspec(property(get = getter_pWorldContainer)) CONTENTS* pWorldContainer;
+	ItemClient* getter_pWorldContainer() { return WorldContainer.get(); }
+	__declspec(property(get = getter_pWorldContainer)) ItemClient* pWorldContainer;
 };
 
 //============================================================================
@@ -2741,8 +2777,11 @@ public:
 /*0x274*/ CListWnd*        FactionList;
 /*0x278*/
 };
-using EQFACTIONWINDOW [[deprecated]] = CFactionWnd;
-using PEQFACTIONWINDOW [[deprecated]] = CFactionWnd *;
+
+inline namespace deprecated {
+	using EQFACTIONWINDOW DEPRECATE("Use CFactionWnd instead of EQFACTIONWINDOW") = CFactionWnd;
+	using PEQFACTIONWINDOW DEPRECATE("Use CFactionWnd* instead of PEQFACTIONWINDOW") = CFactionWnd*;
+}
 
 //============================================================================
 // CFacePick
@@ -3197,11 +3236,13 @@ struct [[offsetcomments]] GuildMember
 /*0x39d*/ bool               bTrophyTributeOptIn;
 /*0x3a0*/
 };
-using GUILDMEMBERCLIENT [[deprecated]] = GuildMember;
-using PGUILDMEMBERCLIENT [[deprecated]] = GuildMember*;
-using GUILDMEMBERINFO [[deprecated]] = GuildMember;
-using PGUILDMEMBERINFO [[deprecated]] = GuildMember*;
-using GuildMember = GuildMember;
+
+inline namespace deprecated {
+	using GUILDMEMBERCLIENT DEPRECATE("Use GuildMember instead of GUILDMEMBERCLIENT") = GuildMember;
+	using PGUILDMEMBERCLIENT DEPRECATE("Use GuildMember* instead of PGUILDMEMBERCLIENT") = GuildMember*;
+	using GUILDMEMBERINFO DEPRECATE("Use GuildMember instead of GUILDMEMBERINFO") = GuildMember;
+	using PGUILDMEMBERINFO DEPRECATE("Use GuildMember* instead of PGUILDMEMBERINFO") = GuildMember*;
+}
 
 // FIXME: Technically part of a HashMap of some kind
 struct [[offsetcomments]] GuildNameEntry
@@ -3473,8 +3514,11 @@ public:
 /*0x4b4*/ DWORD        Unknown0x3cc;             // some sort of bizaare pointer...
 /*0x4b8*/
 };
-using EQGUILDWINDOW [[deprecated]] = CGuildMgmtWnd;
-using PEQGUILDWINDOW [[deprecated]] = CGuildMgmtWnd*;
+
+inline namespace deprecated {
+	using EQGUILDWINDOW DEPRECATE("Use CGuildMgmtWnd instead of EQGUILDWINDOW") = CGuildMgmtWnd;
+	using PEQGUILDWINDOW DEPRECATE("Use CGuildMgmtWnd* instead of PEQGUILDWINDOW") = CGuildMgmtWnd*;
+}
 
 //============================================================================
 // CHelpWnd
@@ -3644,8 +3688,11 @@ public:
 /*0x2c8*/ int         AAVitalityCap;
 /*0x2cc*/
 };
-using INVENTORYWND [[deprecated]] = CInventoryWnd;
-using PINVENTORYWND [[deprecated]] = CInventoryWnd*;
+
+inline namespace deprecated {
+	using INVENTORYWND DEPRECATE("Use CInventoryWnd instead of INVENTORYWND") = CInventoryWnd;
+	using PINVENTORYWND DEPRECATE("Use CInventoryWnd* instead of PINVENTORYWND") = CInventoryWnd*;
+}
 
 //============================================================================
 // CInvSlotWnd
@@ -3676,7 +3723,7 @@ public:
 	EQLIB_OBJECT void SliderComplete(int);
 	EQLIB_OBJECT void UpdateItem();
 
-	DEPRECATE("Use GetItem() instead of GetItemBase") EQLIB_OBJECT void GetItemBase(CONTENTS**);
+	DEPRECATE("Use GetItem() instead of GetItemBase") EQLIB_OBJECT void GetItemBase(ItemClient**);
 	EQLIB_OBJECT ItemPtr GetItem();
 
 	// Retrieves the global index of this item slot
@@ -3691,8 +3738,11 @@ public:
 /*0x10*/ bool               bEnabled;                 // Valid
 /*0x14*/
 };
-using EQINVSLOT DEPRECATE("Use CInvSlot instead") = CInvSlot;
-using PEQINVSLOT DEPRECATE("Use CInvSlot* instead") = CInvSlot*;
+
+inline namespace deprecated {
+	using EQINVSLOT DEPRECATE("Use CInvSlot instead of EQINVSLOT") = CInvSlot;
+	using PEQINVSLOT DEPRECATE("Use CInvSlot* instead PEQINVSLOT") = CInvSlot*;
+}
 
 const int MAX_INV_SLOTS = 2304;
 
@@ -3731,8 +3781,11 @@ public:
 /*0x2415*/ bool         bToggleBankBagsOpen;
 /*0x2418*/
 };
-using EQINVSLOTMGR [[deprecated]] = CInvSlotMgr;
-using PEQINVSLOTMGR [[deprecated]] = CInvSlotMgr*;
+
+inline namespace deprecated {
+	using EQINVSLOTMGR DEPRECATE("Use CInvSlotMgr instead of EQINVSLOTMGR") = CInvSlotMgr;
+	using PEQINVSLOTMGR DEPRECATE("Use CInvSlotMgr* instead of PEQINVSLOTMGR") = CInvSlotMgr*;
+}
 
 //----------------------------------------------------------------------------
 
@@ -3799,8 +3852,11 @@ public:
 	ALT_MEMBER_GETTER_COPY(short, ItemLocation.GetIndex().GetSlot(2), Slot3);
 	ALT_MEMBER_GETTER_COPY(short, ItemLocation.GetIndex().GetSlot(2), GlobalSlot);
 };
-using EQINVSLOTWND DEPRECATE("Use CInvSlotWnd instead of EQINVSLOTWND") = CInvSlotWnd;
-using PEQINVSLOTWND DEPRECATE("Use CInvSlotWnd* instead of PEQINVSLOTWND") = CInvSlotWnd*;
+
+inline namespace deprecated {
+	using EQINVSLOTWND DEPRECATE("Use CInvSlotWnd instead of EQINVSLOTWND") = CInvSlotWnd;
+	using PEQINVSLOTWND DEPRECATE("Use CInvSlotWnd* instead of PEQINVSLOTWND") = CInvSlotWnd*;
+}
 
 //============================================================================
 // CItemDisplayWnd
@@ -3907,8 +3963,11 @@ public:
 /*0x624*/ DWORD             ItemWndIndex;             // 0-5? you can have max 6 windows up I think before it starts overwriting the sixth.
 /*0x628*/
 };
-using EQITEMWINDOW [[deprecated]] = CItemDisplayWnd;
-using PEQITEMWINDOW [[deprecated]] = CItemDisplayWnd*;
+
+inline namespace deprecated {
+	using EQITEMWINDOW DEPRECATE("Use CItemDisplayWnd instead of EQITEMWINDOW") = CItemDisplayWnd;
+	using PEQITEMWINDOW DEPRECATE("Use CItemDisplayWnd* instead of PEQITEMWINDOW") = CItemDisplayWnd*;
+}
 
 //============================================================================
 // CJournalWnd
@@ -4100,8 +4159,11 @@ public:
 	DEPRECATE("CLootWnd: Use Loots.GetSize() instead of NumOfSlots")
 	__declspec(property(get = get_Size)) int NumOfSlots;
 };
-using EQLOOTWINDOW DEPRECATE("Use CLootWnd instead of EQLOOTWINDOW") = CLootWnd;
-using PEQLOOTWINDOW DEPRECATE("Use CLootWnd* instead of PEQLOOTWINDOW") = CLootWnd*;
+
+inline namespace deprecated {
+	using EQLOOTWINDOW DEPRECATE("Use CLootWnd instead of EQLOOTWINDOW") = CLootWnd;
+	using PEQLOOTWINDOW DEPRECATE("Use CLootWnd* instead of PEQLOOTWINDOW") = CLootWnd*;
+}
 
 //============================================================================
 // CMapViewWnd
@@ -4307,8 +4369,10 @@ private:
 	PMAPLABEL getLabels() { return MapView.pLabels; }
 };
 
-using EQMAPWINDOW [[deprecated]] = CMapViewWnd;
-using PEQMAPWINDOW [[deprecated]] = CMapViewWnd *;
+inline namespace deprecated {
+	using EQMAPWINDOW DEPRECATE("Use CMapViewWnd instead of EQMAPWINDOW") = CMapViewWnd;
+	using PEQMAPWINDOW DEPRECATE("Use CMapViewWnd* instead of PEQMAPWINDOW") = CMapViewWnd*;
+}
 
 //============================================================================
 // CMerchantWnd
@@ -4493,8 +4557,11 @@ public:
 	EQLIB_OBJECT void HandleSell(int);
 	EQLIB_OBJECT void UpdateBuySellButtons();
 };
-using EQMERCHWINDOW DEPRECATE("Use CMerchantWnd instead of EQMERCHWINDOW") = CMerchantWnd;
-using PEQMERCHWINDOW DEPRECATE("Use CMerchantWnd* instead of PEQMERCHWINDOW") = CMerchantWnd *;
+
+inline namespace deprecated {
+	using EQMERCHWINDOW DEPRECATE("Use CMerchantWnd instead of EQMERCHWINDOW") = CMerchantWnd;
+	using PEQMERCHWINDOW DEPRECATE("Use CMerchantWnd* instead of PEQMERCHWINDOW") = CMerchantWnd*;
+}
 
 //============================================================================
 // CMusicPlayerWnd
@@ -4535,8 +4602,11 @@ struct [[offsetcomments]] KeyboardAssignmentData
 /*0x04*/ int nAssignmentNumber;
 /*0x08*/
 };
-using EQKBASSIGN [[deprecated]] = KeyboardAssignmentData;
-using PEQKBASSIGN [[deprecated]] = KeyboardAssignmentData*;
+
+inline namespace deprecated {
+	using EQKBASSIGN DEPRECATE("Use KeyboardAssignmentData instead of EQKBASSIGN") = KeyboardAssignmentData;
+	using PEQKBASSIGN DEPRECATE("Use KeyboardAssignmentData* instead of PEQKBASSIGN") = KeyboardAssignmentData*;
+}
 
 // size 0x904 3-10-2004
 class [[offsetcomments]] COptionsWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4587,8 +4657,10 @@ public:
 /*0x904*/
 };
 
-using EQOPTIONSWINDOW [[deprecated]] = COptionsWnd;
-using PEQOPTIONSWINDOW [[deprecated]] = COptionsWnd*;
+inline namespace deprecated {
+	using EQOPTIONSWINDOW DEPRECATE("Use COptionsWnd instead of EQOPTIONSWINDOW") = COptionsWnd;
+	using PEQOPTIONSWINDOW DEPRECATE("Use COptionsWnd* instead of PEQOPTIONSWINDOW") = COptionsWnd*;
+}
 
 //============================================================================
 // CPetInfoWnd
@@ -4639,8 +4711,11 @@ public:
 /*0x8c5*/ bool               Focus;
 /*0x8c8*/
 };
-using EQPETINFOWINDOW [[deprecated]] = CPetInfoWnd;
-using PEQPETINFOWINDOW [[deprecated]] = CPetInfoWnd *;
+
+inline namespace deprecated {
+	using EQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd instead of EQPETINFOWINDOW") = CPetInfoWnd;
+	using PEQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd* instead of PEQPETINFOWINDOW") = CPetInfoWnd*;
+}
 
 //============================================================================
 // CPlayerNotesWnd
@@ -4690,8 +4765,11 @@ public:
 /*0x2e4*/ uint32_t           Unknown0x2f4;
 /*0x2e8*/
 };
-using CPLAYERWND [[deprecated]] = CPlayerWnd;
-using PCPLAYERWND [[deprecated]] = CPlayerWnd*;
+
+inline namespace deprecated {
+	using CPLAYERWND DEPRECATE("Use CPlayerWnd instead of CPLAYERWND") = CPlayerWnd;
+	using PCPLAYERWND DEPRECATE("Use CPlayerWnd* instead of PCPLAYERWND") = CPlayerWnd*;
+}
 
 //============================================================================
 // CPotionBeltWnd
@@ -4737,35 +4815,35 @@ public:
 	// data members
 
 	// todo: verify
-/*0x238*/ int                Unknown0x008;
-/*0x23c*/ int                NumItems;
-/*0x240*/ bool               HdrItemName;
-/*0x241*/ bool               HdrTheme;
-/*0x242*/ bool               HdrPrice;
-/*0x243*/ char               OriginalPointsLabel[0x40];
-/*0x284*/ CLabel* MerchantNameLabel;
-/*0x288*/ CListWnd* ItemList;
-/*0x28c*/ CListWnd* PointList;
-/*0x290*/ CButtonWnd* EquipButton;
-/*0x294*/ CButtonWnd* PurchaseButton;
-/*0x298*/ CButtonWnd* SellButton;
-/*0x29c*/ CButtonWnd* DoneButton;
-/*0x2a0*/ CLabel* PointsAvailableValue;
-/*0x2a4*/ CLabel* PointsEverEarnedLabel;
-/*0x2a8*/ CLabel* PointsAvailableLabel;
-/*0x2ac*/ unsigned int       NextRefreshTime;
-/*0x2b0*/ PSPAWNINFO         ActiveMerchant; // PlayerClient*
+/*0x238*/ int                 Unknown0x008;
+/*0x23c*/ int                 NumItems;
+/*0x240*/ bool                HdrItemName;
+/*0x241*/ bool                HdrTheme;
+/*0x242*/ bool                HdrPrice;
+/*0x243*/ char                OriginalPointsLabel[0x40];
+/*0x284*/ CLabel*             MerchantNameLabel;
+/*0x288*/ CListWnd*           ItemList;
+/*0x28c*/ CListWnd*           PointList;
+/*0x290*/ CButtonWnd*         EquipButton;
+/*0x294*/ CButtonWnd*         PurchaseButton;
+/*0x298*/ CButtonWnd*         SellButton;
+/*0x29c*/ CButtonWnd*         DoneButton;
+/*0x2a0*/ CLabel*             PointsAvailableValue;
+/*0x2a4*/ CLabel*             PointsEverEarnedLabel;
+/*0x2a8*/ CLabel*             PointsAvailableLabel;
+/*0x2ac*/ unsigned int        NextRefreshTime;
+/*0x2b0*/ SPAWNINFO*          ActiveMerchant; // PlayerClient*
 /*0x2b4*/ PointMerchantItem** Items;
-/*0x2b8*/ int                MerchantThemeId;
-/*0x2bc*/ int                CurrentSelection;
-/*0x2c0*/ int                CurrentSort;
-/*0x2c4*/ bool               bCurrentAscending;
-/*0x2c8*/ ItemGlobalIndex    ItemLocation;
-/*0x2d4*/ CONTENTS* pSelectedItem; // ItemBasePtr
-/*0x2d8*/ bool               bInventoryWasActive;
-/*0x2dc*/ int                CurrentItem;
-/*0x2e0*/ int                CurrentQuantity;
-/*0x2e4*/ int                SliderType;
+/*0x2b8*/ int                 MerchantThemeId;
+/*0x2bc*/ int                 CurrentSelection;
+/*0x2c0*/ int                 CurrentSort;
+/*0x2c4*/ bool                bCurrentAscending;
+/*0x2c8*/ ItemGlobalIndex     ItemLocation;
+/*0x2d4*/ ItemPtr             pSelectedItem;
+/*0x2d8*/ bool                bInventoryWasActive;
+/*0x2dc*/ int                 CurrentItem;
+/*0x2e0*/ int                 CurrentQuantity;
+/*0x2e4*/ int                 SliderType;
 /*0x2e8*/ PointMerchantInterface* pHandler;
 /*0x2ec*/
 };
@@ -4846,8 +4924,11 @@ public:
 /*0x328*/ uint8_t            Unknown0x330[0x80];
 /*0x3a8*/
 };
-using EQRAIDWINDOW [[deprecated]] = CRaidWnd;
-using PEQRAIDWINDOW [[deprecated]] = CRaidWnd *;
+
+inline namespace deprecated {
+	using EQRAIDWINDOW DEPRECATE("Use CRaidWnd instead of EQRAIDWINDOW") = CRaidWnd;
+	using PEQRAIDWINDOW DEPRECATE("Use CRaidWnd* instead of PEQRAIDWINDOW") = CRaidWnd*;
+}
 
 //============================================================================
 // CRealEstateItemsWnd
@@ -5041,8 +5122,11 @@ public:
 /*0x27c*/ int                LastUpdateTime;
 /*0x280*/
 };
-using EQSPELLINFOWINDOW [[deprecated]] = CSpellDisplayWnd;
-using PEQSPELLINFOWINDOW [[deprecated]] = CSpellDisplayWnd*;
+
+inline namespace deprecated {
+	using EQSPELLINFOWINDOW DEPRECATE("Use CSpellDisplayWnd instead of EQSPELLINFOWINDOW") = CSpellDisplayWnd;
+	using PEQSPELLINFOWINDOW DEPRECATE("Use CSpellDisplayWnd& instead of PEQSPELLINFOWINDOW") = CSpellDisplayWnd*;
+}
 
 //============================================================================
 // CSpellGemWnd
@@ -5084,8 +5168,11 @@ public:
 /*0x310*/ CSpellGemDrawTemplate DrawTemplate;
 /*0x320*/
 };
-using EQCASTSPELLGEM [[deprecated]] = CSpellGemWnd;
-using PEQCASTSPELLGEM [[deprecated]] = CSpellGemWnd *;
+
+inline namespace deprecated {
+	using EQCASTSPELLGEM DEPRECATE("Use CSpellGemWnd instead of EQCASTSPELLGEM") = CSpellGemWnd;
+	using PEQCASTSPELLGEM DEPRECATE("Use CSpellGemWnd* instead of PEQCASTSPELLGEM") = CSpellGemWnd*;
+}
 
 //============================================================================
 // CStoryWnd
@@ -5143,8 +5230,11 @@ public:
 /*0x87c*/ uint8_t            Unknown0x884[0x4c];
 /*0x8c8*/
 };
-using CTARGETWND [[deprecated]] = CTargetWnd;
-using PCTARGETWND [[deprecated]] = CTargetWnd*;
+
+inline namespace deprecated {
+	using CTARGETWND DEPRECATE("Use CTargetWnd instead of CTARGETWND") = CTargetWnd;
+	using PCTARGETWND DEPRECATE("Use CTargetWnd* instead of PCTARGETWND") = CTargetWnd*;
+}
 
 //============================================================================
 // CTaskWnd
@@ -5189,8 +5279,11 @@ public:
 /*0x250*/ CButtonWnd*  m_cancel;
 /*0x254*/
 };
-using CTEXTENTRYWND [[deprecated]] = CTextEntryWnd;
-using PCTEXTENTRYWND [[deprecated]] = CTextEntryWnd*;
+
+inline namespace deprecated {
+	using CTEXTENTRYWND DEPRECATE("Use CTextEntryWnd instead of CTEXTENTRYWND") = CTextEntryWnd;
+	using PCTEXTENTRYWND DEPRECATE("Use CTextEntryWnd* instead of PCTEXTENTRYWND") = CTextEntryWnd*;
+}
 
 //============================================================================
 // CTimeLeftWnd
@@ -5254,7 +5347,7 @@ public:
 // CTradeSkillWnd
 //============================================================================
 
-#define MAX_RECIPE_ITEMS 10
+constexpr int MAX_RECIPE_ITEMS = 10;
 
 struct [[offsetcomments]] TradeskillRecipe
 {
@@ -5271,8 +5364,11 @@ struct [[offsetcomments]] TradeskillRecipe
 /*0x80*/ int IngredientIcon[MAX_RECIPE_ITEMS];             // Icon# of ingredient(s) (Note: 499 is blank)
 /*0xa8*/
 };
-using EQTRADESKILLRECIPE [[deprecated]] = TradeskillRecipe;
-using PEQTRADESKILLRECIPE [[deprecated]] = TradeskillRecipe *;
+
+inline namespace deprecated {
+	using EQTRADESKILLRECIPE DEPRECATE("Use TradeskillRecipe instead of EQTRADESKILLRECIPE") = TradeskillRecipe;
+	using PEQTRADESKILLRECIPE DEPRECATE("Use TradeskillRecipe* instead of PEQTRADESKILLRECIPE") = TradeskillRecipe*;
+}
 
 // size: 0xd28 Jun 10, 2019 (test)
 class [[offsetcomments]] CTradeSkillWnd : public CSidlScreenWnd
@@ -5292,7 +5388,7 @@ public:
 /*0x42c*/ DWORD        Unknown0x344;
 /*0x430*/ DWORD        Unknown0x348;
 /*0x434*/ DWORD        Unknown0x34c;
-/*0x438*/ CONTENTS*    Container;
+/*0x438*/ ItemPtr      Container;
 /*0x43c*/ DWORD        Unknown0x354;
 /*0x440*/ TradeskillRecipe* SelectedRecipe;
 /*0x444*/ DWORD        Unknown0x35c;
@@ -5307,8 +5403,11 @@ public:
 /*0x4c0*/ DWORD        Unknown0x3d8;
 /*0x4c4*/
 };
-using EQTRADESKILLWINDOW [[deprecated]] = CTradeSkillWnd;
-using PEQTRADESKILLWINDOW [[deprecated]] = CTradeSkillWnd*;
+
+inline namespace deprecated {
+	using EQTRADESKILLWINDOW DEPRECATE("Use CTradeSkillWnd instead of EQTRADESKILLWINDOW") = CTradeSkillWnd;
+	using PEQTRADESKILLWINDOW DEPRECATE("Use CTradeSkillWnd* instead of PEQTRADESKILLWINDOW") = CTradeSkillWnd*;
+}
 
 //============================================================================
 // CTradeWnd
@@ -5361,8 +5460,11 @@ public:
 	inline ItemContainer& GetTradeItems() { return TradeItems; }
 	// TODO: Add aliases
 };
-using EQTRADEWINDOW DEPRECATE("Use CTradeWnd instead of EQTRADEWINDOW") = CTradeWnd;
-using PEQTRADEWINDOW DEPRECATE("Use CTradeWnd* instead of PEQTRADEWINDOW") = CTradeWnd *;
+
+inline namespace deprecated {
+	using EQTRADEWINDOW DEPRECATE("Use CTradeWnd instead of EQTRADEWINDOW") = CTradeWnd;
+	using PEQTRADEWINDOW DEPRECATE("Use CTradeWnd* instead of PEQTRADEWINDOW") = CTradeWnd*;
+}
 
 //============================================================================
 // CTrainWnd
@@ -5862,8 +5964,10 @@ public:
 	EQLIB_OBJECT CXWnd* CreateHtmlComponentWnd(CXWnd* parent, CControlTemplate* pTemplate);
 };
 
-using CSIDLMGR [[deprecated]] = CSidlManager;
-using PCSIDLMGR [[deprecated]] = CSidlManager*;
+inline namespace deprecated {
+	using CSIDLMGR DEPRECATE("Use CSidlManager instead of CSIDLMGR") = CSidlManager;
+	using PCSIDLMGR DEPRECATE("Use CSidlManager* instead of PCSIDLMGR") = CSidlManager*;
+}
 
 //----------------------------------------------------------------------------
 

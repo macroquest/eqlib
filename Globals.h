@@ -72,8 +72,10 @@ EQLIB_VAR size_t MAX_SPELLEFFECTS;
 EQLIB_VAR const char* szFactionNames[];
 EQLIB_VAR size_t MAX_FACTIONNAMES;
 
-EQLIB_VAR size_t MAX_ITEMTYPES DEPRECATE("Use MAX_ITEMCLASSES instead of MAX_ITEMTYPES");
-EQLIB_VAR const char** szItemTypes DEPRECATE("Use szItemClasses instead of szItemTypes");
+inline namespace deprecated {
+	EQLIB_VAR size_t MAX_ITEMTYPES DEPRECATE("Use MAX_ITEMCLASSES instead of MAX_ITEMTYPES");
+	EQLIB_VAR const char** szItemTypes DEPRECATE("Use szItemClasses instead of szItemTypes");
+}
 
 struct ACTORDEFENTRY
 {

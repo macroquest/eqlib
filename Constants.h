@@ -707,12 +707,14 @@ enum eItemClass : uint8_t
 	ItemClass_None                 = 255,
 };
 
-constexpr int ITEMITEMTYPE_FOOD DEPRECATE("Use ItemClass_Food instead of ITEMITEMTYPE_FOOD") = ItemClass_Food;
-constexpr int ITEMITEMTYPE_WATER DEPRECATE("Use ItemClass_Drink instead of ITEMITEMTYPE_WATER") = ItemClass_Drink;
-constexpr int ITEMITEMTYPE_SCROLL DEPRECATE("Use ItemClass_Spell instead of ITEMITEMTYPE_SCROLL") = ItemClass_Spell;
-constexpr int ITEMITEMTYPE_ALCOHOL DEPRECATE("Use ItemClass_Alcohol instead of ITEMITEMTYPE_ALCOHOL") = ItemClass_Alcohol;
-constexpr int ITEMITEMTYPE_POISON DEPRECATE("Use ItemClass_Poison instead of ITEMITEMTYPE_POISON") = ItemClass_Poison;
-constexpr int ITEMITEMTYPE_AUGUMENT DEPRECATE("Use ItemClass_Augmentation instead of ITEMITEMTYPE_AUGUMENT") = ItemClass_Augmentation;
+inline namespace deprecated {
+	constexpr int ITEMITEMTYPE_FOOD DEPRECATE("Use ItemClass_Food instead of ITEMITEMTYPE_FOOD") = ItemClass_Food;
+	constexpr int ITEMITEMTYPE_WATER DEPRECATE("Use ItemClass_Drink instead of ITEMITEMTYPE_WATER") = ItemClass_Drink;
+	constexpr int ITEMITEMTYPE_SCROLL DEPRECATE("Use ItemClass_Spell instead of ITEMITEMTYPE_SCROLL") = ItemClass_Spell;
+	constexpr int ITEMITEMTYPE_ALCOHOL DEPRECATE("Use ItemClass_Alcohol instead of ITEMITEMTYPE_ALCOHOL") = ItemClass_Alcohol;
+	constexpr int ITEMITEMTYPE_POISON DEPRECATE("Use ItemClass_Poison instead of ITEMITEMTYPE_POISON") = ItemClass_Poison;
+	constexpr int ITEMITEMTYPE_AUGUMENT DEPRECATE("Use ItemClass_Augmentation instead of ITEMITEMTYPE_AUGUMENT") = ItemClass_Augmentation;
+}
 
 enum eBandolierSlot
 {

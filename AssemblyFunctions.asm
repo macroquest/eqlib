@@ -72,16 +72,16 @@ global ??1MapViewMap@eqlib@@UAE@XZ
 
 ;---------------------------------------------------------------------------------------
 
-; public: __thiscall eqlib::CONTENTS::CONTENTS(eqlib::CONTENTS *__hidden this)
-global ??0CONTENTS@eqlib@@QAE@XZ
-??0CONTENTS@eqlib@@QAE@XZ:
+; public: __thiscall eqlib::ItemClient::ItemClient(eqlib::ItemClient *__hidden this)
+global ??0ItemClient@eqlib@@QAE@XZ
+??0ItemClient@eqlib@@QAE@XZ:
 	mov eax, [_ItemClient__ItemClient]
 	jmp eax
 
 ;---------------------------------------------------------------------------------------
 
-; void __thiscall eqlib::CONTENTS::~CONTENTS(eqlib::CONTENTS *__hidden this)
-global ??1CONTENTS@eqlib@@UAE@XZ:
-??1CONTENTS@eqlib@@UAE@XZ:
+; void __thiscall eqlib::ItemClient::~ItemClient(eqlib::ItemClient *__hidden this)
+global ??1ItemClient@eqlib@@UAE@XZ:
+??1ItemClient@eqlib@@UAE@XZ:
 	mov eax, [_ItemClient__dItemClient]
 	jmp eax

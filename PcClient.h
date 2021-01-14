@@ -138,7 +138,10 @@ struct [[offsetcomments]] AALIST
 /*0x08*/ DWORD ChargeSpent;            // charges spent in the last 10 min?
 /*0x0c*/
 };
-using PAALIST [[deprecated]] = AALIST;
+
+inline namespace deprecated {
+	using PAALIST DEPRECATE("Use AALIST instead of PAALIST") = AALIST;
+}
 
 struct [[offsetcomments]] ALCHEMYBONUSSKILLDATA
 {
@@ -232,15 +235,18 @@ struct [[offsetcomments]] GROUPMEMBER
 	// Compat wrapper for pName
 	__declspec(property(get = getPName)) CXStr* pName;
 
-	[[deprecated("Use Name instead of pName")]]
+	DEPRECATE("Use Name instead of pName")
 	inline CXStr* getPName() { return &Name; }
 
 	__declspec(property(get = getMercenary)) BYTE Mercenary;
 
-	[[deprecated("Use Type instead of Mercenary")]]
+	DEPRECATE("Use Type instead of Mercenary")
 	inline BYTE getMercenary() { return (BYTE)Type; }
 };
-using PGROUPMEMBER [[deprecated]] = GROUPMEMBER*;
+
+inline namespace deprecated {
+	using PGROUPMEMBER DEPRECATE("Use GROUPMEMBER* instead of PGROUPMEMBER") = GROUPMEMBER*;
+}
 
 struct [[offsetcomments]] GROUPINFO
 {
@@ -249,7 +255,10 @@ struct [[offsetcomments]] GROUPINFO
 /*0x1c*/ GROUPMEMBER* pLeader;
 /*0x20*/
 };
-using PGROUPINFO DEPRECATE("Use GROUPINFO* instead") = GROUPINFO*;
+
+inline namespace deprecated {
+	using PGROUPINFO DEPRECATE("Use GROUPINFO* instead of PGROUPINFO") = GROUPINFO*;
+}
 
 // size 0x4c 12-25-09 - ieatacid
 struct [[offsetcomments]] XTARGETSLOT
@@ -260,7 +269,10 @@ struct [[offsetcomments]] XTARGETSLOT
 /*0x0c*/ char   Name[0x40];
 /*0x4c*/
 };
-using PXTARGETSLOT DEPRECATE("Use XTARGETSLOT* instead") = XTARGETSLOT*;
+
+inline namespace deprecated {
+	using PXTARGETSLOT DEPRECATE("Use XTARGETSLOT* instead of PXTARGETSLOT") = XTARGETSLOT*;
+}
 
 constexpr int MAX_EXTENDED_TARGETS = 23;
 
@@ -672,36 +684,36 @@ using CHARINFO = CHARINFOOLD;
 using PCHARINFO /*[[deprecated]]*/ = CHARINFOOLD*;
 #endif
 
-// these are just virtual base tables
-struct [[offsetcomments]] CI_INFO
-{
-/*0x00*/ DWORD   minus8;
-/*0x04*/ DWORD   stuff_offset;
-/*0x08*/ DWORD   Unknown0x8;    // 2000
-/*0x0c*/ DWORD   Unknown0xc;    // 2500
-/*0x10*/ DWORD   Unknown0x10;   // 3000
-/*0x14*/ DWORD   Unknown0x14;   // 4000
-/*0x18*/ DWORD   Unknown0x18;   // 10000
-/*0x1c*/
-};
-
-struct [[offsetcomments]] EQC_INFO
-{
-/*0x00*/ DWORD   minus4;
-/*0x04*/ DWORD   stuff_offset;
-/*0x08*/
-};
-
 inline namespace deprecated
 {
+	// these are just virtual base tables
+	struct [[offsetcomments]] CI_INFO
+	{
+	/*0x00*/ DWORD   minus8;
+	/*0x04*/ DWORD   stuff_offset;
+	/*0x08*/ DWORD   Unknown0x8;    // 2000
+	/*0x0c*/ DWORD   Unknown0xc;    // 2500
+	/*0x10*/ DWORD   Unknown0x10;   // 3000
+	/*0x14*/ DWORD   Unknown0x14;   // 4000
+	/*0x18*/ DWORD   Unknown0x18;   // 10000
+	/*0x1c*/
+	};
+
+	struct [[offsetcomments]] EQC_INFO
+	{
+	/*0x00*/ DWORD   minus4;
+	/*0x04*/ DWORD   stuff_offset;
+	/*0x08*/
+	};
+
 	struct BANKARRAY
 	{
-		CONTENTS* Bank[NUM_BANK_SLOTS];
+		ItemClient* Bank[NUM_BANK_SLOTS];
 	};
 
 	struct SHAREDBANKARRAY
 	{
-		CONTENTS* SharedBank[NUM_SHAREDBANK_SLOTS];
+		ItemClient* SharedBank[NUM_SHAREDBANK_SLOTS];
 	};
 }
 
@@ -934,7 +946,7 @@ struct [[offsetcomments]] CHARINFOOLD
 /*0x2878*/ bool                                          bOverrideAvatarProximity;
 /*0x287c*/ GROUPINFO*                                    pGroupInfo;
 /*0x2880*/ bool                                          bIAmCreatingGroup;
-/*0x2884*/ VeArray<VePointer<CONTENTS*>>                 ItemsPendingID;                 // size 0xc
+/*0x2884*/ VeArray<ItemPtr>                              ItemsPendingID;                 // size 0xc
 /*0x2890*/ int                                           ParcelStatus;                   // eParcelStatus
 /*0x2894*/ int                                           SubscriptionDays;               // 24BC for sure see 7A6C40 in may 11 2018 live exe
 /*0x2898*/ short                                         BaseKeyRingSlots[4];
@@ -1346,7 +1358,7 @@ struct [[offsetcomments]] CHARINFONEW
 /*0x2878*/ bool                                          bOverrideAvatarProximity;
 /*0x287c*/ GROUPINFO*                                    pGroupInfo;
 /*0x2880*/ bool                                          bIAmCreatingGroup;
-/*0x2884*/ VeArray<VePointer<CONTENTS*>>                 ItemsPendingID;                 // size 0xc
+/*0x2884*/ VeArray<ItemPtr>                              ItemsPendingID;                 // size 0xc
 /*0x2890*/ int                                           ParcelStatus;                   // eParcelStatus
 /*0x2894*/ int                                           SubscriptionDays;               // 24BC for sure see 7A6C40 in may 11 2018 live exe
 /*0x2898*/ short                                         BaseKeyRingSlots[4];
@@ -1612,19 +1624,15 @@ public:
 /*0xae64*/ DWORD                                           CurrentMercenaryIndex;
 /*0xae68*/
 };
-using CHARINFO2 DEPRECATE("Use PcProfile instead") = PcProfile;
-using PCHARINFO2 DEPRECATE("Use PcProfile* instead") = PcProfile*;
+
+inline namespace deprecated {
+	using CHARINFO2 DEPRECATE("Use PcProfile instead of CHARINFO2") = PcProfile;
+	using PCHARINFO2 DEPRECATE("Use PcProfile* instead of PCHARINFO2") = PcProfile*;
+}
 
 //============================================================================
 // CharacterBase
 //============================================================================
-
-// ItemBaseContainer::CheckDepthOptions
-enum GILocationOption
-{
-	Bag_Or_Base,
-	Socket
-};
 
 enum GameFeatures
 {
@@ -2015,16 +2023,13 @@ public:
 
 	// DEPRECATED METHODS -- DO NOT USE
 
-	DEPRECATE("CanUseItem: First parameter no longer takes a double pointer. If you have a CONTENTS* then just pass it in.\n"
+	DEPRECATE("CanUseItem: First parameter no longer takes a double pointer. If you have a ItemClient* then just pass it in.\n"
 		"  CanUseItem(&pItem, true) -> CanUseItem(pItem, true)")
-	inline bool CanUseItem(CONTENTS** pItem, bool bUseRequiredLvl, bool bOutput = true)
+	inline bool CanUseItem(ItemClient** pItem, bool bUseRequiredLvl, bool bOutput = true)
 	{
 		return CanUseItem(*pItem, bUseRequiredLvl, bOutput);
 	}
 };
-
-using EQ_Character DEPRECATE("Use CharacterZoneClient (or PcClient) instead") = CharacterZoneClient;
-using EQ_Character1 DEPRECATE("Use CharacterZoneClient instead") = CharacterZoneClient;
 
 // work in progres
 class [[offsetcomments]] PcBase : virtual public CharacterBase
@@ -2293,7 +2298,7 @@ public:
 /*0x2878*/ bool                bOverrideAvatarProximity;
 /*0x287c*/ GROUPINFO*          pGroupInfo;
 /*0x2880*/ bool                bIAmCreatingGroup;
-/*0x2884*/ VeArray<VePointer<CONTENTS*>> ItemsPendingID;       // size 0xc
+/*0x2884*/ VeArray<ItemPtr>    ItemsPendingID;       // size 0xc
 /*0x2890*/ int                 ParcelStatus;                   // eParcelStatus
 /*0x2894*/ int                 SubscriptionDays;               // 24BC for sure see 7A6C40 in may 11 2018 live exe
 /*0x2898*/ short               BaseKeyRingSlots[4];
@@ -2348,6 +2353,10 @@ public:
 	EQLIB_OBJECT void GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>& Out, bool bCurrentProfileOnly = false, bool bIncludeAltStorage = true, bool bIncludeArchived = true);
 	EQLIB_OBJECT void GetNonArchivedOwnedRealEstates(ArrayClass<int>& output);
 };
-using EQ_PC [[deprecated("Use PcClient instead")]] = PcZoneClient;
+inline namespace deprecated {
+	using EQ_PC DEPRECATE("Use PcClient instead of EQ_PC") = PcClient;
+	using EQ_Character DEPRECATE("Use PcClient instead of EQ_Character") = PcClient;
+	using EQ_Character1 DEPRECATE("Use PcClient instead of EQ_Character1") = PcClient;
+}
 
 } // namespace eqlib
