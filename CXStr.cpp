@@ -362,4 +362,67 @@ int CXStr::CompareN(const CXStr& other, int len, ECompareMode mode /*= CaseSensi
 	return s1.Compare(s2, mode);
 }
 
+char CXStr::GetChar(int pos) const
+{
+	if (m_data == nullptr)
+		return 0;
+
+	if (pos < 0 || pos >= GetLength())
+		return 0;
+
+	if (m_data->encoding == StringEncodingUtf8)
+		return m_data->utf8[pos];
+
+	if (m_data->encoding == StringEncodingUtf16)
+	{
+		char16_t c = m_data->unicode[pos];
+
+		if (c & 0x80)
+			return -1;
+		return static_cast<char>(c);
+	}
+
+	return 0;
+}
+
+char16_t CXStr::GetUnicode(int pos) const
+{
+	if (m_data == nullptr)
+		return 0;
+
+	if (pos < 0 || pos >= GetLength())
+		return 0;
+
+	if (m_data->encoding == StringEncodingUtf16)
+		return m_data->unicode[pos];
+
+	if (m_data->encoding == StringEncodingUtf8)
+	{
+		char c = m_data->utf8[pos];
+		if (c & 0x80)
+			return -1;
+
+		return static_cast<char16_t>(c);
+	}
+
+	return 0;
+}
+
+void CXStr::Delete(int pos, int count)
+{
+	if (!m_data || pos >= GetLength())
+		return;
+
+	// Only supporting Utf8 currently
+	Assure(length(), StringEncodingUtf8);
+
+	if (!m_data)
+		return;
+
+	count = std::min<int>(count, GetLength() - pos);
+
+	traits_type::move(m_data->utf8 + pos, m_data->utf8 + pos + count, count);
+	m_data->length -= count;
+}
+
 } // namespace eqlib

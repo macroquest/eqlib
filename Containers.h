@@ -1080,11 +1080,16 @@ public:
 	const_iterator end() const { return m_data + m_size; }
 	const_iterator cend() const { return m_data + m_size; }
 
-	ALT_MEMBER_GETTER(T*, m_data, Begin);
-	ALT_MEMBER_GETTER(uint32_t, m_size, Size);
-	ALT_MEMBER_GETTER(uint32_t, m_capacity, Capacity);
-
 	size_t size() const { return m_size; }
+	[[nodiscard]] bool empty() const { return size() == 0; }
+	size_t capacity() const { return m_capacity; }
+
+	void resize(uint32_t newSize);
+	void reserve(uint32_t newCapacity);
+
+	ALT_MEMBER_GETTER_DEPRECATED(T*, m_data, Begin, "VeArray: Begin is deprecated, use data() or index operators.");
+	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_size, Size, "VeArray: Size is deprecated, use size() instead.");
+	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_capacity, Capacity, "VeArray: Capacity is deprecated, use capacity() instead.");
 
 private:
 /*0x00*/ T*       m_data;

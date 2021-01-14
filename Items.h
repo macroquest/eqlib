@@ -320,6 +320,22 @@ public:
 
 	bool IsValidRange(const_iterator a, const_iterator b) const;
 
+	// Retrieves a range that is iterable using range based for.
+	auto GetRange(int beginSlot, int endSlot) const
+	{
+		struct IteratorRange {
+			const_iterator a, b;
+			const_iterator begin() const { return a; }
+			const_iterator end() const { return b; }
+
+			IteratorRange(const IteratorRange&) = delete;
+			IteratorRange& operator=(const IteratorRange&) = delete;
+		};
+
+		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
+		return IteratorRange{ iter, endIter };
+	}
+
 	EQLIB_OBJECT ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const;
 	inline ItemGlobalIndex CreateItemGlobalIndex(ItemContainerInstance location, int slot0, int slot1 = -1, int slot2 = -1) const
 	{
@@ -333,6 +349,8 @@ public:
 	EQLIB_OBJECT bool IsFull() const;
 	EQLIB_OBJECT bool IsValidIndex(const ItemIndex& index) const;
 	bool IsValidIndex(int index) const { return static_cast<uint32_t>(index) < m_size; }
+
+	EQLIB_OBJECT void SetSize(int size);
 
 	//
 	// functions used for visiting items in the container
@@ -786,26 +804,93 @@ enum eItemEffectType : uint8_t
 	ItemEffectFamiliar
 };
 
-// size is 0x64 02-16-2007
-struct [[offsetcomments]] ITEMSPELLS
+enum eItemSpellType
 {
-/*0x00*/ int   SpellID;
-/*0x04*/ BYTE  RequiredLevel;
-/*0x05*/ BYTE  EffectType;                       // bIsActivated
-/*0x08*/ int   EffectiveCasterLevel;
-/*0x0c*/ int   MaxCharges;
-/*0x10*/ int   CastTime;
-/*0x14*/ int   TimerID;                          // RecastTime
-/*0x18*/ int   RecastType;
-/*0x1c*/ int   ProcRate;                         // chance to proc
-/*0x20*/ char  OtherName[0x40];                  // some kind of override
-/*0x60*/ int   OtherID;                          // Description ID
-/*0x64*/
+	ItemSpellType_Clicky = 0,
+	ItemSpellType_Proc,
+	ItemSpellType_Worn,
+	ItemSpellType_Focus,
+	ItemSpellType_Scroll,
+	ItemSpellType_Focus2,
+	ItemSpellType_Mount,
+	ItemSpellType_Illusion,
+	ItemSpellType_Familiar,
 
-	// Currently necessary because of MQ2DataTypes
-	ITEMSPELLS() { ZeroMemory(this, sizeof(ITEMSPELLS)); }
+	ItemSpellType_Max,
 };
-using PITEMSPELLS = ITEMSPELLS*;
+
+inline namespace deprecated
+{
+	// size is 0x64 02-16-2007
+	struct [[offsetcomments]] ITEMSPELLS
+	{
+		/*0x00*/ int   SpellID;
+		/*0x04*/ BYTE  RequiredLevel;
+		/*0x05*/ BYTE  EffectType;                       // bIsActivated
+		/*0x08*/ int   EffectiveCasterLevel;
+		/*0x0c*/ int   MaxCharges;
+		/*0x10*/ int   CastTime;
+		/*0x14*/ int   TimerID;                          // RecastTime
+		/*0x18*/ int   RecastType;
+		/*0x1c*/ int   ProcRate;                         // chance to proc
+		/*0x20*/ char  OtherName[0x40];                  // some kind of override
+		/*0x60*/ int   OtherID;                          // Description ID
+		/*0x64*/
+
+			// Currently necessary because of MQ2DataTypes
+		ITEMSPELLS() { ZeroMemory(this, sizeof(ITEMSPELLS)); }
+	};
+	using PITEMSPELLS = ITEMSPELLS*;
+}
+
+//----------------------------------------------------------------------------
+
+class ItemSpellData
+{
+public:
+	struct SpellData
+	{
+		int                   SpellID;
+		uint8_t               RequiredLevel;
+		eItemEffectType       EffectType;
+		int                   EffectiveCasterLevel;
+		int                   MaxCharges;
+		int                   CastTime;
+		int                   RecastTime;
+		int                   RecastType;
+		int                   ProcRate;
+		char                  OverrideName[64];            // name override
+		int                   OverrideDesc;                // override description id
+
+		EQLIB_OBJECT SpellData();
+		EQLIB_OBJECT void Reset();
+
+		inline int get_TimerID() const { return RecastTime; }
+		__declspec(property(get = get_TimerID)) int TimerID;
+	};
+
+	SpellData Spells[ItemSpellType_Max];
+	uint32_t  SkillMask[5];               // bit field for each skill required to use
+
+	// Convenience accessors
+	inline int GetSpellId(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].SpellID : 0; }
+	inline uint8_t GetSpelllRequiredLevel(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].RequiredLevel : 0; }
+	inline eItemEffectType GetSpellEffectType(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].EffectType : ItemEffectProc; }
+	inline int GetSpellEffectiveCasterLevel(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].EffectiveCasterLevel : 0; }
+	inline int GetSpellMaxCharges(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].MaxCharges : 0; }
+	inline int GetSpellCastTime(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].CastTime : 0; }
+	inline int GetSpellRecastTime(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].RecastTime : 0; }
+	inline int GetSpellRecastType(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].RecastType : 0; }
+	inline int GetSpellChanceProc(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].ProcRate : 0; }
+	inline const char* GetOverrideName(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].OverrideName : ""; }
+	inline int GetOverrideDesc(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].OverrideDesc : 0; }
+	inline SpellData* GetSpellData(eItemSpellType type) { return type < ItemSpellType_Max ? &Spells[type] : nullptr; }
+
+	EQLIB_OBJECT ItemSpellData();
+	EQLIB_OBJECT void Reset();
+};
+
+//----------------------------------------------------------------------------
 
 class [[offsetcomments]] ArmorProperties
 {
@@ -834,27 +919,37 @@ public:
 	inline int GetSocketType(int socket) const { return Sockets[socket].Type; }
 	inline int IsSocketVisible(int socket) const { return Sockets[socket].bVisible; }
 	inline int IsSocketInfusable(int socket) const { return Sockets[socket].bInfusible; }
-};
 
+	inline void Reset()
+	{
+		for (auto& socket : Sockets)
+		{
+			socket.Type = 0;
+			socket.bVisible = false;
+			socket.bInfusible = false;
+		}
+	}
+};
 
 // ItemDefinition class
 // to check this look at ItemBase__ResetItemInstance_x
 // actual size: 0x704 Nov  6 2018 Test (see 63F00F)
 // actual size: 0x70c Oct 31 2018 Beta (see 7291CC)
-struct [[offsetcomments]] ItemDefinition
+class [[offsetcomments]] ItemDefinition
 {
+public:
 /*0x000*/ char                Name[ITEM_NAME_LEN];
 /*0x040*/ char                LoreName[LORE_NAME_LEN];
-/*0x090*/ char                AdvancedLoreName[0x20];
+/*0x090*/ char                AdvancedLoreName[32];
 /*0x0b0*/ int                 IDFile;
 /*0x0b4*/ int                 IDFile2;
 /*0x0b8*/ int                 ItemNumber;                        // recordnum
 /*0x0bc*/ int                 EquipSlots;                        // its position, where it can be equipped
 /*0x0c0*/ int                 Cost;
-/*0x0c4*/ DWORD               IconNumber;
-/*0x0c8*/ BYTE                eGMRequirement;                    // todo figure out this enum
+/*0x0c4*/ int                 IconNumber;
+/*0x0c8*/ uint8_t             eGMRequirement;                    // this is an unmapped enum
 /*0x0c9*/ bool                bPoofOnDeath;
-/*0x0cc*/ DWORD               Weight;
+/*0x0cc*/ int                 Weight;
 /*0x0d0*/ bool                NoRent;                            // 0=temp, 1=default
 /*0x0d1*/ bool                NoDrop;                            // 0=no drop, 1=can drop
 /*0x0d2*/ bool                Attuneable;
@@ -863,15 +958,15 @@ struct [[offsetcomments]] ItemDefinition
 /*0x0d5*/ bool                NoDestroy;
 /*0x0d6*/ bool                bNoNPC;
 /*0x0d7*/ bool                NoZone;
-/*0x0d8*/ DWORD               MakerID;                           // 0-?? I did up to 12, I think it asks server for the name see 883655 in 11 jun 2018 test - eqmule
+/*0x0d8*/ int                 MakerID;                           // 0-?? I did up to 12, I think it asks server for the name see 883655 in 11 jun 2018 test - eqmule
 /*0x0dc*/ bool                NoGround;                          // 88607E 11 jun 2018 test
 /*0x0dd*/ bool                bNoLoot;
 /*0x0de*/ bool                MarketPlace;                       // 886F85 11 jun 2018 test
 /*0x0df*/ bool                bFreeSlot;                         // 885565 11 jun 2018 test
 /*0x0e0*/ bool                bAutoUse;                          // 885865 11 jun 2018 test
-/*0x0e4*/ int                 Unknown0x0118;
-/*0x0e8*/ BYTE                Size;                              // 884920 11 jun 2018 test
-/*0x0e9*/ BYTE                Type;                              // 884BA5 11 jun 2018 test
+/*0x0e4*/ int                 Unknown0x0e4;
+/*0x0e8*/ uint8_t             Size;                              // 884920 11 jun 2018 test
+/*0x0e9*/ uint8_t             Type;                              // 884BA5 11 jun 2018 test
 /*0x0ea*/ bool                TradeSkills;                       // 886EC5 11 jun 2018 test
 /*0x0ec*/ int                 Lore;                              // -1=Lore 0=Not Lore >=1=Lore Group see 885EE1 in 11 jun 2018 test
 /*0x0f0*/ int                 LoreEquipped;                      // just guessing todo: check
@@ -909,71 +1004,62 @@ struct [[offsetcomments]] ItemDefinition
 /*0x144*/ int                 Classes;
 /*0x148*/ int                 Races;
 /*0x14c*/ int                 Diety;
-/*0x150*/ UINT                MaterialTintIndex;
+/*0x150*/ uint32_t            MaterialTintIndex;
 /*0x154*/ bool                Magic;
-/*0x155*/ BYTE                Light;                      // 884045 jun 11 2018 test
-/*0x156*/ BYTE                Delay;
-/*0x157*/ BYTE                ElementalFlag;              // used to be called DmgBonusType;
-/*0x158*/ BYTE                ElementalDamage;            // used to be called DmgBonusVal
-/*0x159*/ BYTE                Range;
-/*0x15c*/ DWORD               Damage;                     // BaseDamage
-/*0x160*/ DWORD               BackstabDamage;
-/*0x164*/ DWORD               HeroicSTR;
-/*0x168*/ DWORD               HeroicINT;                  // 883A30 jun 11 2018 test
-/*0x16c*/ DWORD               HeroicWIS;                  // 883A90 jun 11 2018 test
-/*0x170*/ DWORD               HeroicAGI;                  // 8839D0 jun 11 2018 test
-/*0x174*/ DWORD               HeroicDEX;
-/*0x178*/ DWORD               HeroicSTA;                  // 883A50 jun 11 2018 test
-/*0x17c*/ DWORD               HeroicCHA;                  // 8839F0 jun 11 2018 test
-/*0x180*/ DWORD               HealAmount;                 // 883980 jun 11 2018 test
-/*0x184*/ DWORD               SpellDamage;
+/*0x155*/ uint8_t             Light;                      // 884045 jun 11 2018 test
+/*0x156*/ uint8_t             Delay;
+/*0x157*/ uint8_t             ElementalFlag;              // used to be called DmgBonusType;
+/*0x158*/ uint8_t             ElementalDamage;            // used to be called DmgBonusVal
+/*0x159*/ uint8_t             Range;
+/*0x15c*/ int                 Damage;                     // BaseDamage
+/*0x160*/ int                 BackstabDamage;
+/*0x164*/ int                 HeroicSTR;
+/*0x168*/ int                 HeroicINT;                  // 883A30 jun 11 2018 test
+/*0x16c*/ int                 HeroicWIS;                  // 883A90 jun 11 2018 test
+/*0x170*/ int                 HeroicAGI;                  // 8839D0 jun 11 2018 test
+/*0x174*/ int                 HeroicDEX;
+/*0x178*/ int                 HeroicSTA;                  // 883A50 jun 11 2018 test
+/*0x17c*/ int                 HeroicCHA;                  // 8839F0 jun 11 2018 test
+/*0x180*/ int                 HealAmount;                 // 883980 jun 11 2018 test
+/*0x184*/ int                 SpellDamage;
 /*0x188*/ int                 MinLuck;
 /*0x18c*/ int                 MaxLuck;
 /*0x190*/ int                 Prestige;                   // 884816 jun 11 2018 test
 /*0x194*/ uint8_t             ItemClass;
 /*0x198*/ ArmorProperties     ArmorProps;                 // size is 0x14
 /*0x1ac*/ ItemSocketData      AugData;
-/*0x1dc*/ DWORD               AugType;
-/*0x1e0*/ DWORD               AugSkinTypeMask;
-/*0x1e4*/ DWORD               AugRestrictions;
-/*0x1e8*/ DWORD               SolventItemID;              // ID# of Solvent (Augs only)
-/*0x1ec*/ DWORD               LDTheme;
-/*0x1f0*/ DWORD               LDCost;
-/*0x1f4*/ DWORD               LDType;
-/*0x1f8*/ int                 Unknown0x022c;
-/*0x1fc*/ int                 Unknown0x0230;
-/*0x200*/ char                CharmFile[0x20];
-/*0x220*/ float               Unknown0x0254;
-/*0x224*/ ITEMSPELLS          Clicky;                     // size 0x64
-/*0x288*/ ITEMSPELLS          Proc;
-/*0x2ec*/ ITEMSPELLS          Worn;
-/*0x350*/ ITEMSPELLS          Focus;
-/*0x3b4*/ ITEMSPELLS          Scroll;
-/*0x418*/ ITEMSPELLS          Focus2;
-/*0x47c*/ ITEMSPELLS          Mount;
-/*0x4e0*/ ITEMSPELLS          Illusion;
-/*0x544*/ ITEMSPELLS          Familiar;
-/*0x5a8*/ DWORD               SkillMask[5];               // this is just an array but I dont have time to figure it out for now.
-/*0x5bc*/ DWORD               DmgBonusSkill;              // SkillMinDamageMod;
-/*0x5c0*/ DWORD               DmgBonusValue;              // MinDamageMod;
-/*0x5c4*/ DWORD               CharmFileID;
-/*0x5c8*/ DWORD               FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
-/*0x5cc*/ uint8_t             Combine;
-/*0x5cd*/ BYTE                Slots;
-/*0x5ce*/ BYTE                SizeCapacity;
-/*0x5cf*/ BYTE                WeightReduction;
-/*0x5d0*/ BYTE                BookType;                   // 0=note, !0=book 884CF5 jun 11 2018 test
-/*0x5d1*/ BYTE                BookLang;
-/*0x5d2*/ char                BookFile[0x1e];
-/*0x5f0*/ DWORD               Favor;                      // Tribute Value
-/*0x5f4*/ DWORD               GuildFavor;
+/*0x1dc*/ int                 AugType;
+/*0x1e0*/ uint32_t            AugSkinTypeMask;
+/*0x1e4*/ int                 AugRestrictions;
+/*0x1e8*/ int                 SolventItemID;              // ID# of Solvent (Augs only)
+/*0x1ec*/ uint32_t            LDTheme;
+/*0x1f0*/ int                 LDCost;
+/*0x1f4*/ int                 LDType;
+/*0x1f8*/ int                 PointBuyBackPercent;
+/*0x1fc*/ int                 NeedAdventureCompleted;
+/*0x200*/ char                CharmFile[32];
+/*0x220*/ float               MerchantGreedMod;
+/*0x224*/ ItemSpellData       SpellData;
+/*0x5bc*/ int                 DmgBonusSkill;              // SkillMinDamageMod;
+/*0x5c0*/ int                 DmgBonusValue;              // MinDamageMod;
+/*0x5c4*/ int                 CharmFileID;
+/*0x5c8*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
+/*0x5cc*/ uint8_t             Combine;                    // ContainerType
+/*0x5cd*/ uint8_t             Slots;
+/*0x5ce*/ uint8_t             SizeCapacity;
+/*0x5cf*/ uint8_t             WeightReduction;
+/*0x5d0*/ uint8_t             BookType;                   // 0=note, !0=book 884CF5 jun 11 2018 test
+/*0x5d1*/ int8_t              BookLang;
+/*0x5d2*/ char                BookFile[30];
+/*0x5f0*/ int                 Favor;                      // Tribute Value
+/*0x5f4*/ int                 GuildFavor;
 /*0x5f8*/ bool                bIsFVNoDrop;
-/*0x5fc*/ DWORD               Endurance;
-/*0x600*/ DWORD               Attack;
-/*0x604*/ DWORD               HPRegen;
-/*0x608*/ DWORD               ManaRegen;
-/*0x60c*/ DWORD               EnduranceRegen;
-/*0x610*/ DWORD               Haste;
+/*0x5fc*/ int                 Endurance;
+/*0x600*/ int                 Attack;
+/*0x604*/ int                 HPRegen;
+/*0x608*/ int                 ManaRegen;
+/*0x60c*/ int                 EnduranceRegen;
+/*0x610*/ int                 Haste;
 /*0x614*/ int                 AnimationOverride;
 /*0x618*/ int                 PaletteTintIndex;
 /*0x61c*/ bool                bNoPetGive;
@@ -986,12 +1072,12 @@ struct [[offsetcomments]] ItemDefinition
 /*0x634*/ bool                bIsEpic;
 /*0x638*/ int                 RightClickScriptID;
 /*0x63c*/ int                 ItemLaunchScriptID;
-/*0x640*/ BYTE                QuestItem;
-/*0x641*/ BYTE                Expendable;
-/*0x644*/ DWORD               Clairvoyance;
+/*0x640*/ bool                QuestItem;
+/*0x641*/ bool                Expendable;
+/*0x644*/ int                 Clairvoyance;
 /*0x648*/ int                 SubClass;
 /*0x64c*/ bool                bLoginRegReqItem;
-/*0x650*/ DWORD               Placeable;
+/*0x650*/ int                 Placeable;
 /*0x654*/ bool                bPlaceableIgnoreCollisions;
 /*0x658*/ int                 PlacementType;              // todo: this is an enum need to figure out.
 /*0x65c*/ int                 RealEstateDefID;
@@ -999,7 +1085,7 @@ struct [[offsetcomments]] ItemDefinition
 /*0x664*/ float               PlaceableScaleRangeMax;
 /*0x668*/ int                 RealEstateUpkeepID;
 /*0x66c*/ int                 MaxPerRealEstate;
-/*0x670*/ char                HousepetFileName[0x20];
+/*0x670*/ char                HousepetFileName[32];
 /*0x690*/ int                 TrophyBenefitID;
 /*0x694*/ bool                bDisablePlacementRotation;
 /*0x695*/ bool                bDisableFreePlacement;
@@ -1010,17 +1096,40 @@ struct [[offsetcomments]] ItemDefinition
 /*0x6a8*/ float               PlaceableDefRoll;
 /*0x6ac*/ bool                bInteractiveObject;
 /*0x6ad*/ uint8_t             SocketSubClassCount;
-/*0x6b0*/ int                 SocketSubClass[0xa];
+/*0x6b0*/ int                 SocketSubClass[10];
 /*0x6d8*/
+
+	EQLIB_OBJECT ItemDefinition();
 
 	// This is actually the item *class* but we used to call it ItemType. Not to be confused with
 	// Type in ItemClient.
 	inline uint8_t get_ItemType() { return ItemClass; }
 	__declspec(property(get = get_ItemType)) uint8_t ItemType;
+
+	// Moved ITEMSPELLS into ItemSpellData, this provides access to the original members
+#define ITEMSPELLS_ACCESSOR(Name) \
+	inline ITEMSPELLS& get_##Name() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_ ##Name)); } \
+	__declspec(property(get = get_##Name)) ITEMSPELLS Name;
+
+	// Creates something like: ITEMSPELLS Clicky;
+	ITEMSPELLS_ACCESSOR(Clicky);
+	ITEMSPELLS_ACCESSOR(Proc);
+	ITEMSPELLS_ACCESSOR(Worn);
+	ITEMSPELLS_ACCESSOR(Focus);
+	ITEMSPELLS_ACCESSOR(Scroll);
+	ITEMSPELLS_ACCESSOR(Focus2);
+	ITEMSPELLS_ACCESSOR(Mount);
+	ITEMSPELLS_ACCESSOR(Illusion);
+	ITEMSPELLS_ACCESSOR(Familiar);
+
+#undef ITEMSPELLS_ACCESSOR
+
+	inline uint32_t get_SkillMask(int idx) { return SpellData.SkillMask[idx]; }
+	__declspec(property(get = get_SkillMask)) uint32_t SkillMask[];
 };
+
 using ITEMINFO = ItemDefinition;
 using PITEMINFO = ItemDefinition*;
-
 using ItemDefinitionPtr = SoeUtil::SharedPtr<ItemDefinition>;
 
 class EqItemGuid
@@ -1100,14 +1209,12 @@ public:
 /*0xf4*/
 // @end: ItemBase Members
 
-	// Constructor is technically for ItemClient. Make sure the size
-	// of the class matches.
 	EQLIB_OBJECT ItemBase();
 
 	// ItemClient::`vftable'{for `VeBaseReferenceCount'}
 	virtual ~ItemBase() {}
-	virtual ITEMINFO* GetItemDefinition() const { return nullptr; }
-	virtual void SetItemDefinition(const ITEMINFO* item) {}
+	virtual ItemDefinition* GetItemDefinition() const;
+	virtual void SetItemDefinition(ItemDefinition* item);
 	// ... more
 
 	// ItemClient::`vftable'{for `IChildItemContainer<class ItemBase>'}
@@ -1159,6 +1266,8 @@ public:
 		return false;
 	}
 
+	void UpdateItemDefinition();
+
 	//----------------------------------------------------------------------------
 	// DEPRECATED METHODS
 
@@ -1197,7 +1306,10 @@ class [[offsetcomments]] ItemClient : public ItemBase
 	FORCE_SYMBOLS;
 
 public:
-	EQLIB_OBJECT ItemClient() = default;
+	EQLIB_OBJECT ItemClient();
+	EQLIB_OBJECT virtual ~ItemClient();
+
+	virtual ItemDefinition* GetItemDefinition() const override;
 
 /*0x0f8*/ ItemDefinitionPtr SharedItemDef;
 /*0x100*/ CXStr             ClientString;

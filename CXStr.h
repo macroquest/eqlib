@@ -1524,6 +1524,26 @@ public:
 		return sv.find(t, pos);
 	}
 
+	int GetLength() const { return static_cast<int>(m_data ? m_data->length : 0); }
+	char GetChar(int pos) const;
+	char16_t GetUnicode(int pos) const;
+
+	CXStr Mid(int pos, int length) const
+	{
+		return substr(static_cast<size_t>(pos), static_cast<size_t>(length));
+	}
+
+	void Delete(int pos, int length);
+	void Insert(int pos, std::string_view sv) { insert(static_cast<size_t>(pos), sv); }
+
+	bool FindNext(char ch, int& pos) const
+	{
+		size_t foundPos = find(ch, static_cast<size_t>(pos));
+		if (foundPos == std::string_view::npos) return false;
+		pos = static_cast<int>(foundPos);
+		return true;
+	}
+
 private:
 	mutable CStrRep* m_data = nullptr;
 

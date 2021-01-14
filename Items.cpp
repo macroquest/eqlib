@@ -22,6 +22,39 @@ namespace eqlib {
 
 //============================================================================
 
+ItemSpellData::ItemSpellData()
+{
+	Reset();
+}
+
+void ItemSpellData::Reset()
+{
+	for (SpellData& data : Spells)
+		data.Reset();
+
+	memset(SkillMask, 0, sizeof(SkillMask));
+}
+
+ItemSpellData::SpellData::SpellData()
+{
+	Reset();
+}
+
+void ItemSpellData::SpellData::Reset()
+{
+	SpellID = -1;
+	RequiredLevel = 0;
+	EffectType = ItemEffectProc;
+	EffectiveCasterLevel = 0;
+	MaxCharges = 0;
+	CastTime = 0;
+	RecastTime = 0;
+	RecastType = 0;
+	ProcRate = 0;
+	memset(OverrideName, 0, sizeof(OverrideName));
+	OverrideDesc = -1;
+}
+
 const char* szContainerInstanceNames[] = {
 	"Inventory",
 	"Bank",
@@ -80,42 +113,237 @@ const char* GetNameForContainerInstance(ItemContainerInstance container)
 }
 
 //============================================================================
+// ItemDefinition
+//============================================================================
+
+ItemDefinition::ItemDefinition()
+{
+	memset(Name, 0, sizeof(Name));
+	memset(LoreName, 0, sizeof(LoreName));
+	memset(AdvancedLoreName, 0, sizeof(AdvancedLoreName));
+	IDFile = 0;
+	IDFile2 = 0;
+	ItemNumber = 0;
+	EquipSlots = 0;
+	Cost = 0;
+	IconNumber = 0;
+	eGMRequirement = 0;
+	bPoofOnDeath = false;
+	Weight = 0;
+	NoRent = false;
+	NoDrop = false;
+	Attuneable = false;
+	Heirloom = false;
+	Collectible = false;
+	NoDestroy = false;
+	bNoNPC = false;
+	NoZone = false;
+	MakerID = 0;
+	NoGround = false;
+	bNoLoot = false;
+	MarketPlace = false;
+	bFreeSlot = false;
+	bAutoUse = false;
+	Unknown0x0e4 = -1;
+	Size = 0;
+	Type = 0;
+	TradeSkills = false;
+	Lore = 0;
+	LoreEquipped = 0;
+	Artifact = false;
+	Summoned = false;
+	SvCold = 0;
+	SvFire = 0;
+	SvMagic = 0;
+	SvDisease = 0;
+	SvPoison = 0;
+	SvCorruption = 0;
+	STR = 0;
+	STA = 0;
+	AGI = 0;
+	DEX = 0;
+	CHA = 0;
+	INT = 0;
+	WIS = 0;
+	HP = 0;
+	Mana = 0;
+	AC = 0;
+	RequiredLevel = 0;
+	RecommendedLevel = 0;
+	RecommendedSkill = 0;
+	SkillModType = 0;
+	SkillModValue = 0;
+	SkillModMax = 0;
+	SkillModBonus = 0;
+	BaneDMGRace = 0;
+	BaneDMGBodyType = 0;
+	BaneDMGBodyTypeValue = 0;
+	BaneDMGRaceValue = 0;
+	InstrumentType = 0;
+	InstrumentMod = 0;
+	Classes = 0;
+	Races = 0;
+	Diety = 0;
+	MaterialTintIndex = 0;
+	Magic = false;
+	Light = 0;
+	Delay = 0;
+	ElementalFlag = 0;
+	ElementalDamage = 0;
+	Range = 0;
+	Damage = 0;
+	BackstabDamage = 0;
+	HeroicSTR = 0;
+	HeroicINT = 0;
+	HeroicWIS = 0;
+	HeroicAGI = 0;
+	HeroicDEX = 0;
+	HeroicSTA = 0;
+	HeroicCHA = 0;
+	HealAmount = 0;
+	SpellDamage = 0;
+	MinLuck = 0;
+	MaxLuck = 0;
+	Prestige = 0;
+	ItemClass = 0;
+	ArmorProps.Type = 0;
+	ArmorProps.Variation = 0;
+	ArmorProps.Material = 0;
+	ArmorProps.NewArmorID = 0;
+	ArmorProps.NewArmorType = 0;
+	AugData.Reset();
+	AugType = 0;
+	AugSkinTypeMask = -1;
+	AugRestrictions = 0;
+	SolventItemID = 0;
+	LDTheme = 0;
+	LDCost = 0;
+	LDType = 0;
+	PointBuyBackPercent = 0;
+	NeedAdventureCompleted = 0;
+	memset(CharmFile, 0, sizeof(CharmFile));
+	MerchantGreedMod = 0.0f;
+
+	// TODO: Init ITEMSPELLS
+
+	DmgBonusSkill = 0;
+	DmgBonusValue = 0;
+	CharmFileID = 0;
+	FoodDuration = 0;
+	Combine = 0;
+	Slots = 0;
+	SizeCapacity = 0;
+	WeightReduction = 0;
+	BookType = 0;
+	BookLang = 0;
+	memset(BookFile, 0, sizeof(BookFile));
+	Favor = 0;
+	GuildFavor = 0;
+	bIsFVNoDrop = false;
+	Endurance = 0;
+	Attack = 0;
+	HPRegen = 0;
+	ManaRegen = 0;
+	EnduranceRegen = 0;
+	Haste = 0;
+	AnimationOverride = -1;
+	PaletteTintIndex = 0;
+	bNoPetGive = false;
+	bSomeProfile = false;
+	SomeIDFlag = 0;
+	StackSize = 1;
+	bNoStorage = false;
+	MaxPower = 0;
+	Purity = 0;
+	bIsEpic = false;
+	RightClickScriptID = -1;
+	ItemLaunchScriptID = -1;
+	QuestItem = false;
+	Expendable = false;
+	Clairvoyance = 0;
+	SubClass = 0;
+	bLoginRegReqItem = false;
+	Placeable = 0;
+	bPlaceableIgnoreCollisions = false;
+	PlacementType = 0;
+	RealEstateDefID = 0;
+	PlaceableScaleRangeMin = .5f;
+	PlaceableScaleRangeMax = 2.0;
+	RealEstateUpkeepID = 0;
+	MaxPerRealEstate = -1;
+	memset(HousepetFileName, 0, sizeof(HousepetFileName));
+	TrophyBenefitID = -1;
+	bDisablePlacementRotation = false;
+	bDisableFreePlacement = false;
+	NpcRespawnInterval = 0;
+	PlaceableDefScale = 1.0f;
+	PlaceableDefHeading = 0.0f;
+	PlaceableDefPitch = 0.0f;
+	PlaceableDefRoll = 0.0f;
+	bInteractiveObject = false;
+	SocketSubClassCount = 0;
+	memset(SocketSubClass, 0, sizeof(SocketSubClass));
+}
+
+//============================================================================
 // ItemBase / ItemClient
 //============================================================================
 
 ItemBase::ItemBase()
 	: Contents(0, eItemContainerOther)
-	, ScriptIndex(0)
-	, bCollected(false)
-	, bRankDisabled(false)
-	, bDisableAugTexture(false)
-	, Luck(0)
-	, ID(0)
-	, RespawnTime(0)
-	, MerchantSlot(0)
-	, ConvertItemID(0)
-	, bCopied(false)
-	, DontKnow(0)
-	, NoDropFlag(0)
-	, LastCastTime(0)
-	, Power(0)
-	, ItemHash(0)
-	, bRealEstateItemPlaceable(false)
-	, StackCount(1)
-	, OrnamentationIcon(-1)
-	, MerchantQuantity(1)
-	, bItemNeedsUpdate(false)
-	, Price(0)
-	, Open(0)
-	, NoteStatus(0)
-	, bConvertable(false)
-	, Tint(0)
-	, ArmorType(0)
-	, AugFlag(0)
-	, NewArmorID(0)
-	, RealEstateID(-1)
-	, Charges(0)
 {
+	ScriptIndex = 0;
+	bCollected = false;
+	bRankDisabled = false;
+	bDisableAugTexture = false;
+	Luck = 0;
+	ID = 0;
+	RespawnTime = 0;
+	MerchantSlot = 0;
+	ConvertItemID = 0;
+	bCopied = false;
+	DontKnow = 0;
+	NoDropFlag = 0;
+	LastCastTime = 0;
+	Power = 0;
+	ItemHash = 0;
+	bRealEstateItemPlaceable = false;
+	StackCount = 1;
+	OrnamentationIcon = -1;
+	MerchantQuantity = 1;
+	bItemNeedsUpdate = false;
+	Price = 0;
+	Open = 0;
+	NoteStatus = 0;
+	bConvertable = false;
+	Tint = 0;
+	ArmorType = 0;
+	AugFlag = 0;
+	NewArmorID = 0;
+	RealEstateID = -1;
+	Charges = 0;
+	Item1 = nullptr;
+}
+
+ItemDefinition* ItemBase::GetItemDefinition() const
+{
+	return const_cast<ItemDefinition*>(Item1);
+}
+
+void ItemBase::SetItemDefinition(ItemDefinition* item)
+{
+	Item1 = item;
+	UpdateItemDefinition();
+}
+
+void ItemBase::UpdateItemDefinition()
+{
+	ItemDefinition* pItemDef = GetItemDefinition();
+	int containerSlots = pItemDef ? pItemDef->Slots : 0;
+
+	// if no slots, then add slots for augments
+	if (containerSlots == 0) containerSlots = MAX_AUG_SOCKETS;
+	Contents.SetSize(containerSlots);
 }
 
 #ifdef EQ_Item__CreateItemTagString_x
@@ -145,12 +373,19 @@ FUNCTION_AT_ADDRESS(int ItemBase::ValueSellMerchant(float, int) const, EQ_Item__
 #ifdef EQ_Item__GetAugmentFitBySlot_x
 FUNCTION_AT_ADDRESS(int ItemBase::GetAugmentFitBySlot(const ItemPtr& pItem, int, bool, bool index) const, EQ_Item__GetAugmentFitBySlot);
 #endif
-//#ifdef EQ_Item__IsStackable_x
-//FUNCTION_AT_ADDRESS(bool ItemBase::IsStackable() const, EQ_Item__IsStackable);
-//#endif
+
+//----------------------------------------------------------------------------
+
 // Defined in AssemblyFunctions.asm
 //ItemClient::ItemClient()
 //ItemClient::~ItemClient()
+
+ItemDefinition* ItemClient::GetItemDefinition() const
+{
+	return const_cast<ItemDefinition*>(Item1 ? Item1 : SharedItemDef.get());
+}
+
+//----------------------------------------------------------------------------
 
 char* ItemIndex::FormatItemIndex(char* dest, size_t len) const
 {
@@ -253,6 +488,21 @@ bool ItemContainer::IsValidIndex(const ItemIndex& index) const
 	short slot = -1;
 
 	return GetIndex(index, container, slot);
+}
+
+void ItemContainer::SetSize(int size)
+{
+	m_size = size;
+
+	// Only allocate for the container if we already have done so. Otherwise it
+	// will happen later when we add items.
+
+	// VeArray hasn't yet implemented resize. As long as we don't call SetSize when
+	// it has items, we should be fine...
+	//if (!m_items.empty())
+	//{
+	//	m_items.resize(size);
+	//}
 }
 
 bool ItemContainer::GetIndex(const ItemIndex& index, ItemContainer*& outContainer, short& outSlot) const

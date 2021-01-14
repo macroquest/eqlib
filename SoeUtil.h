@@ -681,7 +681,7 @@ private:
 	}
 
 	template <typename U>
-	void move_construct_from(const SharedPtr<U>& other) noexcept
+	void move_construct_from(SharedPtr<U>&& other) noexcept
 	{
 		m_ptr = other.m_ptr;
 		m_rep = other.m_rep;
@@ -712,7 +712,7 @@ private:
 				}
 				else
 				{
-					delete m_ptr;
+					eqDelete(m_ptr);
 					m_ptr = nullptr;
 				}
 			}
@@ -796,8 +796,8 @@ template <typename T, typename ... Args>
 SharedPtr<T> MakeShared(Args&&... args)
 {
 	SharedPtr<T> p;
-	p.m_rep = new (SoeUtil::Alloc(sizeof(Internal::SharedData) + sizeof(T) + __alignof(T))) Internal::SharedData(__alignof(T));
-	p.m_ptr = new (p.m_rep->get_inplace_storage()) T(std::forward<Args>(args)...);
+	p.m_rep = new (SoeUtil::Alloc(sizeof(Internal::SharedData) + sizeof(T) + __alignof(T))) Internal::SharedData();
+	p.m_ptr = new (p.m_rep->get_inplace_storage<T>()) T(std::forward<Args>(args)...);
 	return p;
 }
 
