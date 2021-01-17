@@ -1088,7 +1088,7 @@ EQLIB_VAR ComputedPointer<AggroMeterManagerClient>   pAggroInfo;
 EQLIB_VAR ForeignPointer<AltAdvManager>              pAltAdvManager;
 EQLIB_VAR ComputedPointer<ClientSOIManager>          pAuraMgr;
 EQLIB_VAR ForeignPointer<CChatWindowManager>         pChatManager;
-EQLIB_VAR ComputedPointer<CChatService>              pChatService;
+EQLIB_VAR ComputedPointer<UniversalChatProxy>        pChatService;
 EQLIB_VAR ForeignPointer<connection_t>               pConnection;
 EQLIB_VAR ForeignPointer<CContainerMgr>              pContainerMgr;
 EQLIB_VAR ForeignPointer<CContextMenuManager>        pContextMenuManager;

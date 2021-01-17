@@ -913,6 +913,7 @@ public:
 	/*0x38*/
 	};
 
+	// FIXME: This is off and needs to update updated (members don't align with the functions)
 /*0x04*/ UniversalChatProxyHandler* pChatProxyHandler;
 /*0x08*/ void*             pUdpManager;             // UdpLibrary::UdpManager
 /*0x0c*/ char**            ChannelList;
@@ -933,7 +934,12 @@ public:
 /*0xcc*/ int               BuddyListCount;
 /*0xd0*/ ArrayClass<CXStr> IgnoreList;
 /*0xe0*/
+
+	EQLIB_OBJECT int GetNumberOfFriends();
+	EQLIB_OBJECT const char* GetFriendName(int);
 };
+
+using CChatService = UniversalChatProxy;
 
 inline namespace deprecated {
 	using FriendEntry DEPRECATE("Use UniversalChatProxy::BuddyEntry instead of FriendEntry") = UniversalChatProxy::BuddyEntry;

@@ -150,10 +150,10 @@ FUNCTION_AT_ADDRESS(CBroadcast* CBroadcast::Get(), CBroadcast__Get);
 //============================================================================
 
 #ifdef CChatService__GetNumberOfFriends_x
-FUNCTION_AT_ADDRESS(int CChatService::GetNumberOfFriends(), CChatService__GetNumberOfFriends);
+FUNCTION_AT_ADDRESS(int UniversalChatProxy::GetNumberOfFriends(), CChatService__GetNumberOfFriends);
 #endif
 #ifdef CChatService__GetFriendName_x
-FUNCTION_AT_ADDRESS(const char* CChatService::GetFriendName(int), CChatService__GetFriendName);
+FUNCTION_AT_ADDRESS(const char* UniversalChatProxy::GetFriendName(int), CChatService__GetFriendName);
 #endif
 
 //============================================================================

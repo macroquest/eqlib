@@ -2357,15 +2357,6 @@ using CSkillMgr = SkillManager;
 using SKILLMGR = SkillManager;
 using PSKILLMGR = SkillManager*;
 
-class CChatService
-{
-public:
-	EQLIB_OBJECT int GetNumberOfFriends();
-	EQLIB_OBJECT const char* GetFriendName(int);
-
-	// TODO: Merge with _CHATSERVICE
-};
-
 enum eKeyboardMode
 {
 	Typing,

@@ -54,7 +54,6 @@ class CCastingWnd;
 class CCastSpellWnd;
 class CCharacterCreation;
 class CCharacterListWnd;
-class CChatService;
 class CChatWindow;
 class CChatWindowManager;
 class CCheckBoxWnd;
@@ -332,6 +331,7 @@ class SoundObject;
 class SpellManager;
 class StringTable;
 class UdpConnection;
+class UniversalChatProxy;
 class Wave3dInstance;
 class WaveInstance;
 struct AUTOSKILL;
@@ -372,6 +372,8 @@ struct STempTableCell;
 struct STempTableRow;
 struct ZONEINFO;
 struct EQLogin;
+
+using CChatService = UniversalChatProxy;
 
 #ifdef NEWCHARINFO
 using CHARINFO = CHARINFONEW;
