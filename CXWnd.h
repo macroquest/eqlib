@@ -622,6 +622,21 @@ public:
 	EQLIB_OBJECT CXStr GetXMLName() const;
 	EQLIB_OBJECT CXStr GetTypeName() const;
 
+	inline int ParentWndNotification(CXWnd* sender, uint32_t message, void* data) const
+	{
+		if (pController)
+		{
+			pController->WndNotification(sender, message, data);
+		}
+
+		if (ParentWindow)
+		{
+			return ParentWindow->WndNotification(sender, message, data);
+		}
+
+		return 0;
+	}
+
 	struct [[offsetcomments]] VirtualFunctionTable
 	{
 	/*0x000*/ void* IsValid;
