@@ -25,19 +25,6 @@ namespace eqlib {
 // Structures
 // ***************************************************************************
 
-struct [[offsetcomments]] EQCURRENTSELECTION
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ DWORD Unknown;
-/*0x04*/ DWORD SelectedWnd;                      // address to selection in tree
-/*0x08*/ DWORD Unknownlodncrap;
-/*0x0c*/ DWORD NumberOfSlots;                    // merchantslots == 79
-/*0x10*/ DWORD TextureAnim;
-/*0x14*/
-};
-using PEQCURRENTSELECTION = EQCURRENTSELECTION*;
-
 enum eContextMenuFilterIDs
 {
 	CONTEXT_FILTER_SAY = 100,

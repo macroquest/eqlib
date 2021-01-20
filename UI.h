@@ -2784,18 +2784,18 @@ inline namespace deprecated {
 }
 
 //============================================================================
-// CFacePick
+// CPlayerCustomizationWnd
 //============================================================================
 
-// todo: actually CPlayerCustomizationWnd
-class [[offsetcomments]] CFacePick : public CSidlScreenWnd
+class [[offsetcomments]] CPlayerCustomizationWnd : public CSidlScreenWnd
 {
 public:
-	EQLIB_OBJECT CFacePick(CXWnd*);
+	EQLIB_OBJECT CPlayerCustomizationWnd(CXWnd*);
+	EQLIB_OBJECT ~CPlayerCustomizationWnd();
+
 	EQLIB_OBJECT void SetFaceSelectionsFromPlayer();
 
 	// virtual
-	EQLIB_OBJECT ~CFacePick();
 	EQLIB_OBJECT int Draw() const;
 	EQLIB_OBJECT int OnProcessFrame();
 	EQLIB_OBJECT int WndNotification(CXWnd*, uint32_t, void*);
@@ -3402,7 +3402,7 @@ class [[offsetcomments]] CGuild : public GuildBase
 {
 public:
 /*0xbc8*/ __time32_t   LastGuildNameRequest;
-/*0xbcc*/ HashListSet<GuildNameEntry*, 0xFA> GuildNamesTable;//this is not correct container for sure, todo: figure out what is
+/*0xbcc*/ HashListSet<GuildNameEntry*, 250> GuildNamesTable;      //this is not correct container for sure, todo: figure out what is
 //0xFC4 - 0xBCC = 0x3F8 and we learn from 4B0A5C in Apr 13 2020 exe that is the size... push 3F8h
 /*0xfc4*/ int          Unknown0xFC4[3];
 /*0xfd0*/ int          OnlineCount;//definately correct see 4AF50F in apr 13 2020 - eqmule
