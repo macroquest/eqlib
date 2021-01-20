@@ -339,7 +339,6 @@
 #define pinstCVoiceMacroWnd_x                                      0xF3A2D8
 #define pinstCVoteResultsWnd_x                                     0xDDCE90
 #define pinstCVoteWnd_x                                            0xDDCE80
-#define pinstCWebManager_x                                         0x0
 #define pinstCZoneGuideWnd_x                                       0xDDCFA4
 #define pinstCZonePathWnd_x                                        0xDDCFB8
 #define pinstEQSuiteTextureLoader_x                                0xC7B810
@@ -818,16 +817,6 @@
 #define CTextureFont__DrawWrappedText1_x                           0x915480
 #define CTextureFont__DrawWrappedText2_x                           0x9155A0
 #define CTextureFont__GetTextExtent_x                              0x915710
-
-// CWebManager
-#define CWebManager__CreateHtmlWnd_x                               0x0
-#define CHtmlComponentWnd__ValidateUri_x                           0x0
-#define CHtmlWnd__SetClientCallbacks_x                             0x0
-#define CHtmlWnd__AddObserver_x                                    0x0
-#define CHtmlWnd__RemoveObserver_x                                 0x0
-#define Window__getProgress_x                                      0x0
-#define Window__getStatus_x                                        0x0
-#define Window__getURI_x                                           0x0
 
 // CXMLDataManager
 #define CXMLDataManager__GetXMLData_x                              0x94E590

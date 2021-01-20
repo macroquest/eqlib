@@ -244,7 +244,6 @@ class CTreeView;
 class CUITexturePiece;
 class CVector3;
 class CVideoModesWnd;
-class CWebManager;
 class CXFileXML;
 class CXMLData;
 class CXMLDataClass;

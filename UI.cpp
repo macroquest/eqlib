@@ -1748,37 +1748,6 @@ FUNCTION_AT_ADDRESS(CHelpWnd::CHelpWnd(CXWnd*), CHelpWnd__CHelpWnd);
 #endif
 
 //============================================================================
-// CHtmlWnd & components
-//============================================================================
-
-// CHtmlWnd
-#ifdef CHtmlWnd__SetClientCallbacks_x
-FUNCTION_AT_ADDRESS(void CHtmlWnd::SetClientCallbacks(libMozilla::ICallback*), CHtmlWnd__SetClientCallbacks);
-#endif
-#ifdef CHtmlWnd__AddObserver_x
-FUNCTION_AT_ADDRESS(void CHtmlWnd::AddObserver(IObserver*), CHtmlWnd__AddObserver);
-#endif
-#ifdef CHtmlWnd__RemoveObserver_x
-FUNCTION_AT_ADDRESS(void CHtmlWnd::RemoveObserver(IObserver*), CHtmlWnd__RemoveObserver);
-#endif
-
-// libMozilla::Window
-#ifdef Window__getProgress_x
-FUNCTION_AT_ADDRESS(float libMozilla::Window::getProgress(bool& bIsLoading), Window__getProgress);
-#endif
-#ifdef Window__getStatus_x
-FUNCTION_AT_ADDRESS(const wchar_t* libMozilla::Window::getStatus() const, Window__getStatus);
-#endif
-#ifdef Window__getURI_x
-FUNCTION_AT_ADDRESS(const char* libMozilla::Window::getURI() const, Window__getURI);
-#endif
-
-// CWebManager
-#ifdef CWebManager__CreateHtmlWnd_x
-FUNCTION_AT_ADDRESS(CHtmlWnd* CWebManager::CreateHtmlWnd(const char*, const char*, const char*, bool, const char*), CWebManager__CreateHtmlWnd);
-#endif
-
-//============================================================================
 // CHotButtonWnd
 //============================================================================
 

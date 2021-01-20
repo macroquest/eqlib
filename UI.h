@@ -3538,81 +3538,6 @@ public:
 };
 
 //============================================================================
-// CHtmlWnd
-//============================================================================
-
-namespace libMozilla {
-
-class Window
-{
-public:
-	EQLIB_OBJECT float getProgress(bool& bIsLoading);
-	EQLIB_OBJECT const wchar_t* getStatus() const;
-	EQLIB_OBJECT const char* getURI() const;
-};
-
-class ICallback
-{
-public:
-	EQLIB_OBJECT virtual void onURIChanged(Window*) = 0;
-	EQLIB_OBJECT virtual void onProgressChanged(Window*) = 0;
-	EQLIB_OBJECT virtual void onStatusChanged(Window*) = 0;
-	EQLIB_OBJECT virtual bool doValidateURI(Window*, const char*) = 0;
-};
-
-} // namepsace libMozilla
-
-class [[offsetcomments]] CHtmlComponentWnd
-	: public CXWnd
-	, public libMozilla::ICallback
-	, public CObservable
-{
-public:
-	CHtmlComponentWnd(CXWnd* parent, uint32_t id, CXRect rect, CXStr startURI = "");
-	virtual ~CHtmlComponentWnd();
-
-/*0x1f8*/ libMozilla::Window* m_mozillaWnd;
-/*0x1fc*/
-	// more ...
-};
-
-class [[offsetcomments]] CHtmlWnd : public CSidlScreenWnd, public TListNode<CHtmlWnd>
-{
-	FORCE_SYMBOLS
-
-public:
-	CHtmlWnd(const char* uri, const char* postData, const char* windowId, bool byPassfilter = false, const char* title = nullptr);
-	virtual ~CHtmlWnd();
-
-	EQLIB_OBJECT void SetClientCallbacks(libMozilla::ICallback* cb);
-	EQLIB_OBJECT void AddObserver(IObserver* observer);
-	EQLIB_OBJECT void RemoveObserver(IObserver* observer);
-
-	const CHtmlWnd* GetNextHtmlWnd() const { return TListNode<CHtmlWnd>::GetNext(); }
-	CHtmlWnd* GetNextHtmlWnd() { return TListNode<CHtmlWnd>::GetNext(); }
-
-/*0x23c*/ CHtmlComponentWnd*       pHtmlComponentMain;
-/*0x240*/ CButtonWnd*              pBackBtn;
-/*0x244*/ CButtonWnd*              pForwardBtn;
-/*0x248*/ CGaugeWnd*               pProgressGauge;
-/*0x24c*/ CLabelWnd*               pStatusLabel;
-/*0x250*/ CXStr                    WindowID;
-/*0x254*/
-};
-
-class [[offsetcomments]] CWebManager
-{
-public:
-	EQLIB_OBJECT CHtmlWnd* CreateHtmlWnd(const char* uri, const char* windowId, const char* postBuffer = nullptr,
-		bool bypassFilter = false, const char* titleOverride = nullptr);
-
-	EQLIB_OBJECT CHtmlWnd* GetHtmlWnd(const char* windowId);
-
-/*0x00*/ TList<CHtmlWnd>             m_htmlWndList;
-/*0x08*/
-};
-
-//============================================================================
 // CHotButtonWnd
 //============================================================================
 
@@ -5961,7 +5886,6 @@ public:
 	EQLIB_OBJECT CXWnd* CreateGuageWnd(CXWnd* parent, CControlTemplate* pTemplate);
 	EQLIB_OBJECT CXWnd* CreateSpellGemWnd(CXWnd* parent, CControlTemplate* pTemplate);
 	EQLIB_OBJECT CXWnd* CreateInvSlotWnd(CXWnd* parent, CControlTemplate* pTemplate);
-	EQLIB_OBJECT CXWnd* CreateHtmlComponentWnd(CXWnd* parent, CControlTemplate* pTemplate);
 };
 
 inline namespace deprecated {

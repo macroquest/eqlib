@@ -296,7 +296,6 @@ EQLIB_VAR DWORD pinstCTradeWnd;
 EQLIB_VAR DWORD pinstCTrainWnd;
 EQLIB_VAR DWORD pinstCVideoModesWnd;
 EQLIB_VAR DWORD pinstCVoiceMacroWnd;
-EQLIB_VAR DWORD pinstCWebManager;
 EQLIB_VAR DWORD pinstCXWndManager;
 EQLIB_VAR DWORD pinstCZoneGuideWnd;
 EQLIB_VAR DWORD pinstDZMember;
@@ -609,10 +608,6 @@ EQLIB_VAR DWORD CHelpWnd__SetFile;
 EQLIB_VAR DWORD CHotButton__SetButtonSize;
 EQLIB_VAR DWORD CHotButton__SetCheck;
 EQLIB_VAR DWORD CHotButtonWnd__DoHotButton;
-EQLIB_VAR DWORD CHtmlComponentWnd__ValidateUri;
-EQLIB_VAR DWORD CHtmlWnd__AddObserver;
-EQLIB_VAR DWORD CHtmlWnd__RemoveObserver;
-EQLIB_VAR DWORD CHtmlWnd__SetClientCallbacks;
 EQLIB_VAR DWORD CInvSlot__GetItemBase;
 EQLIB_VAR DWORD CInvSlot__HandleRButtonUp;
 EQLIB_VAR DWORD CInvSlot__SliderComplete;
@@ -796,7 +791,6 @@ EQLIB_VAR DWORD CTextureFont__DrawWrappedText1;
 EQLIB_VAR DWORD CTextureFont__DrawWrappedText2;
 EQLIB_VAR DWORD CTextureFont__GetTextExtent;
 EQLIB_VAR DWORD CUnSerializeBuffer__GetString;
-EQLIB_VAR DWORD CWebManager__CreateHtmlWnd;
 EQLIB_VAR DWORD CWndDisplayManager__FindWindowA;
 EQLIB_VAR DWORD CXMLDataManager__GetXMLData;
 EQLIB_VAR DWORD CXMLSOMDocumentBase__XMLRead;
@@ -1121,7 +1115,6 @@ EQLIB_VAR ForeignPointer<StringTable, EQSTRINGTABLE> pStringTable;
 EQLIB_VAR ForeignPointer<EqSwitchManager>            pSwitchMgr;
 EQLIB_VAR ForeignPointer<SharedTaskPlayerInfo>       pTaskMember;
 EQLIB_VAR ComputedPointer<CBroadcast>                pTextOverlay;
-EQLIB_VAR ForeignPointer<CWebManager>                pWebManager;
 EQLIB_VAR ForeignPointer<CXWndManager>               pWndMgr;
 EQLIB_VAR ForeignPointer<EQWorldData>                pWorldData;
 
@@ -1221,7 +1214,6 @@ EQLIB_VAR ForeignPointer<DWORD>                      g_pDrawHandler;
 
 //----------------------------------------------------------------------------
 
-#define pCWebManager pWebManager
 #define ScreenMode (*pScreenMode)
 #define ScreenX (*pScreenX)
 #define ScreenXMax (*pScreenXMax)

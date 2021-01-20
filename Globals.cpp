@@ -268,7 +268,6 @@ INITIALIZE_EQGAME_OFFSET(pinstCTradeWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCTrainWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCVideoModesWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCVoiceMacroWnd);
-INITIALIZE_EQGAME_OFFSET(pinstCWebManager);
 INITIALIZE_EQGAME_OFFSET(pinstCXWndManager);
 INITIALIZE_EQGAME_OFFSET(pinstCZoneGuideWnd);
 INITIALIZE_EQGAME_OFFSET(pinstDZMember);
@@ -578,10 +577,6 @@ INITIALIZE_EQGAME_OFFSET(CHelpWnd__SetFile);
 INITIALIZE_EQGAME_OFFSET(CHotButton__SetButtonSize);
 INITIALIZE_EQGAME_OFFSET(CHotButton__SetCheck);
 INITIALIZE_EQGAME_OFFSET(CHotButtonWnd__DoHotButton);
-INITIALIZE_EQGAME_OFFSET(CHtmlComponentWnd__ValidateUri);
-INITIALIZE_EQGAME_OFFSET(CHtmlWnd__AddObserver);
-INITIALIZE_EQGAME_OFFSET(CHtmlWnd__RemoveObserver);
-INITIALIZE_EQGAME_OFFSET(CHtmlWnd__SetClientCallbacks);
 INITIALIZE_EQGAME_OFFSET(CInvSlot__GetItemBase);
 INITIALIZE_EQGAME_OFFSET(CInvSlot__HandleRButtonUp);
 INITIALIZE_EQGAME_OFFSET(CInvSlot__SliderComplete);
@@ -764,7 +759,6 @@ INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText1);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText2);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__GetTextExtent);
 INITIALIZE_EQGAME_OFFSET(CUnSerializeBuffer__GetString);
-INITIALIZE_EQGAME_OFFSET(CWebManager__CreateHtmlWnd);
 INITIALIZE_EQGAME_OFFSET(CWndDisplayManager__FindWindowA);
 INITIALIZE_EQGAME_OFFSET(CXMLDataManager__GetXMLData);
 INITIALIZE_EQGAME_OFFSET(CXMLSOMDocumentBase__XMLRead);
@@ -960,9 +954,6 @@ INITIALIZE_EQGAME_OFFSET(StringTable__getString);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table_Size);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table);
 INITIALIZE_EQGAME_OFFSET(Util__FastTime);
-INITIALIZE_EQGAME_OFFSET(Window__getProgress);
-INITIALIZE_EQGAME_OFFSET(Window__getStatus);
-INITIALIZE_EQGAME_OFFSET(Window__getURI);
 
 //----------------------------------------------------------------------------
 // Instance Pointers
@@ -1082,7 +1073,6 @@ ForeignPointer<StringTable, EQSTRINGTABLE>       pStringTable;
 ForeignPointer<EqSwitchManager>                  pSwitchMgr;
 ForeignPointer<SharedTaskPlayerInfo>             pTaskMember;
 ComputedPointer<CBroadcast>                      pTextOverlay([]{ return CBroadcast::Get(); });
-ForeignPointer<CWebManager>                      pWebManager;
 ForeignPointer<CXWndManager>                     pWndMgr;
 ForeignPointer<EQWorldData>                      pWorldData;
 
@@ -1294,7 +1284,6 @@ void InitializeEQGameOffsets()
 	pStringTable                    = pinstStringTable;
 	pSwitchMgr                      = pinstSwitchManager;
 	pTaskMember                     = pinstTaskMember;
-	pWebManager                     = pinstCWebManager;
 	pWndMgr                         = pinstCXWndManager;
 	pWorldData                      = pinstWorldData;
 
