@@ -19,8 +19,8 @@
 //
 
 #define __ClientName                                              "eqgame"
-#define __ExpectedVersionDate                                     "Dec  5 2020"
-#define __ExpectedVersionTime                                     "00:41:50"
+#define __ExpectedVersionDate                                     "Jan 14 2021"
+#define __ExpectedVersionTime                                     "17:08:06"
 #define __ActualVersionDate_x                                      0xAEB114
 #define __ActualVersionTime_x                                      0xAEB108
 #define __ActualVersionBuild_x                                     0xAD9454
@@ -44,7 +44,7 @@
 #define __AC5_x                                                    0x60DB8F
 #define __AC6_x                                                    0x612026
 #define __AC7_x                                                    0x5FBD00
-#define __AC1_Data                                                 0x11100111
+#define __AC1_Data                                                 0x11111111
 #define __EP1_Data_x                                               0x0
 
 // Direct Input
@@ -1262,7 +1262,7 @@
 #define EverQuestinfo__IsItemPending_x                             0xF35204
 
 // KeyCombo
-#define KeyCombo__GetTextDescription_x                             0x8FEC70
+#define KeyCombo__GetTextDescription_x                             0x941090
 
 // CUnSerializeBuffer
 #define CUnSerializeBuffer__GetString_x                            0x481110

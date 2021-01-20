@@ -1007,42 +1007,41 @@ public:
 /*0x15f*/ bool                 AffectInanimate = false;       // ldon trap spells etc
 /*0x160*/ bool                 IsSkill = false;
 /*0x161*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
-/*0x162*/ bool                 ShowDoTMessagfalse;
-/*0x163*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
-/*0x187*/ uint8_t              LightType = 0;
-/*0x188*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x189*/ uint8_t              Resist = 0;                    // see   4B0493 in apr 16 2018 exe        //0=un 1=mr 2=fr 3=cr 4=pr 5=dr 6=chromatic 7=prismatic 8=physical(skills,etc) 9=corruption
-/*0x18a*/ uint8_t              TargetType = 0;                // 03=Group v1, 04=PB AE, 05=Single, 06=Self, 08=Targeted AE, 0e=Pet, 28=AE PC v2, 29=Group v2, 2a=Directional
-/*0x18b*/ uint8_t              CastDifficulty = 0;
-/*0x18c*/ uint8_t              Skill = 0;
-/*0x18d*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
-/*0x18e*/ uint8_t              Environment = 0;
-/*0x18f*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
-/*0x190*/ uint8_t              CastingAnim = 0;
-/*0x191*/ uint8_t              AnimVariation = 0;
-/*0x192*/ uint8_t              TargetAnim = 0;
-/*0x193*/ uint8_t              TravelType = 0;
-/*0x194*/ uint8_t              CancelOnSit = 0;
-/*0x195*/ bool                 CountdownHeld = false;
-/*0x196*/ char                 Name[64];
-/*0x1d6*/ int                  ActorTagId = 0;
-/*0x1da*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
-/*0x1fa*/ bool                 ShowWearOffMessage = false;
-/*0x1fb*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
-/*0x1fc*/ bool                 SneakAttack = false;
-/*0x1fd*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
-/*0x1fe*/ bool                 NoHate = false;
-/*0x1ff*/ bool                 StacksWithSelf = false;
-/*0x200*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells see 7A57DF in Aug 10 2017 live
-/*0x201*/ bool                 NoBuffBlock = false;
-/*0x202*/ int                  Scribable = 1;                 // int?
-/*0x206*/ bool                 NoStripOnDeath = false;
-/*0x207*/ bool                 NoRemove = false;              // spell can't be clicked off?
-/*0x208*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
-/*0x20c*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
-/*0x210*/ uint8_t              CRC32Marker = 0;
-/*0x211*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
-/*0x218*/
+/*0x162*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
+/*0x186*/ uint8_t              LightType = 0;
+/*0x187*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
+/*0x188*/ uint8_t              Resist = 0;                    // see   4B0493 in apr 16 2018 exe        //0=un 1=mr 2=fr 3=cr 4=pr 5=dr 6=chromatic 7=prismatic 8=physical(skills,etc) 9=corruption
+/*0x189*/ uint8_t              TargetType = 0;                // 03=Group v1, 04=PB AE, 05=Single, 06=Self, 08=Targeted AE, 0e=Pet, 28=AE PC v2, 29=Group v2, 2a=Directional
+/*0x18a*/ uint8_t              CastDifficulty = 0;
+/*0x18b*/ uint8_t              Skill = 0;
+/*0x18c*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
+/*0x18d*/ uint8_t              Environment = 0;
+/*0x18e*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
+/*0x18f*/ uint8_t              CastingAnim = 0;
+/*0x190*/ uint8_t              AnimVariation = 0;
+/*0x191*/ uint8_t              TargetAnim = 0;
+/*0x192*/ uint8_t              TravelType = 0;
+/*0x193*/ uint8_t              CancelOnSit = 0;
+/*0x194*/ bool                 CountdownHeld = false;
+/*0x195*/ char                 Name[64];
+/*0x1d5*/ int                  ActorTagId = 0;
+/*0x1d9*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
+/*0x1f9*/ bool                 ShowWearOffMessage = false;
+/*0x1fa*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
+/*0x1fb*/ bool                 SneakAttack = false;
+/*0x1fc*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
+/*0x1fd*/ bool                 NoHate = false;
+/*0x1fe*/ bool                 StacksWithSelf = false;
+/*0x1ff*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells see 7A57DF in Aug 10 2017 live
+/*0x200*/ bool                 NoBuffBlock = false;
+/*0x201*/ int                  Scribable = 1;                 // int?
+/*0x205*/ bool                 NoStripOnDeath = false;
+/*0x206*/ bool                 NoRemove = false;              // spell can't be clicked off?
+/*0x207*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
+/*0x20b*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
+/*0x20f*/ uint8_t              CRC32Marker = 0;
+/*0x210*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
+/*0x214*/
 
 	// Currently necessary because of MQ2DataTypes
 	EQLIB_OBJECT EQ_Spell()

@@ -1112,6 +1112,7 @@ struct [[offsetcomments]] ClientAuraManager
 	FORCE_SYMBOLS;
 
 /*0x00*/ ArrayClass2<AuraData> Auras;
+/*0x18*/
 };
 
 inline namespace deprecated {
