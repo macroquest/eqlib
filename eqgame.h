@@ -41,11 +41,11 @@
 #define __AC2_x                                                    0x5FC28F
 #define __AC3_x                                                    0x6038E0
 #define __AC4_x                                                    0x607890
-#define __AC5_x                                                    0x60DB8F
+#define __AC5_x                                                    0x60DB7F
 #define __AC6_x                                                    0x612026
 #define __AC7_x                                                    0x5FBD00
 #define __AC1_Data                                                 0x11111111
-#define __EP1_Data_x                                               0x0
+#define __EP1_Data_x                                               0x1F1448
 
 // Direct Input
 #define DI8__Main_x                                                0xF3D8D0
@@ -208,7 +208,7 @@
 #define pinstCBuffWindowSHORT_x                                    0xDDCEFC
 #define pinstCBugReportWnd_x                                       0xDDCF98
 #define pinstCButtonWnd_x                                          0x15CBAE8
-#define pinstCCastingWnd_x                                         0x0
+#define pinstCCastingWnd_x                                         0xDDCF8C
 #define pinstCCastSpellWnd_x                                       0xDDC9A4
 #define pinstCCharacterListWnd_x                                   0xDDCE68
 #define pinstCChatWindowManager_x                                  0xF493F0
@@ -249,7 +249,7 @@
 #define pinstCHotButtonWnd2_x                                      0xF4C8C4
 #define pinstCHotButtonWnd3_x                                      0xF4C8C8
 #define pinstCHotButtonWnd4_x                                      0xF4C8CC
-#define pinstCIconSelectionWnd_x                                   0xDDCF8C
+#define pinstCIconSelectionWnd_x                                   0xDDCF78
 #define pinstCInspectWnd_x                                         0xDDCF44
 #define pinstCInventoryWnd_x                                       0xDDCF08
 #define pinstCInvSlotMgr_x                                         0xDDC9AC
@@ -871,7 +871,7 @@
 #define CXWnd__DrawColoredRect_x                                   0x918270
 #define CXWnd__DrawTooltip_x                                       0x916920
 #define CXWnd__DrawTooltipAtPoint_x                                0x9169E0
-#define CXWnd__GetBorderFrame_x                                    0x9180B0
+#define CXWnd__GetBorderFrame_x                                    0x9180D0
 #define CXWnd__GetChildItem_x                                      0x91BFE0
 #define CXWnd__GetChildWndAt_x                                     0x91BE70
 #define CXWnd__GetClientClipRect_x                                 0x91A080
