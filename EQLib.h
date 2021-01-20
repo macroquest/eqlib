@@ -18,6 +18,8 @@
 
 // pull in offsets first
 #include "eqgame.h"
+#include "eqgraphics.h"
+#include "eqmain.h"
 
 // pull in private definitions if provided
 #if __has_include("eqgame-private.h")

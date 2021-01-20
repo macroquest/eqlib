@@ -16,6 +16,8 @@
 
 #include "Common.h"
 #include "eqgame.h"
+#include "eqgraphics.h"
+#include "eqmain.h"
 #include "ForwardDecls.h"
 
 #if !defined(DIRECTINPUT_VERSION)

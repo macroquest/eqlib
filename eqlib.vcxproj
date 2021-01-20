@@ -85,7 +85,9 @@
     <ClInclude Include="EQClasses.h" />
     <ClInclude Include="EQData.h" />
     <ClInclude Include="eqgame.h" />
+    <ClInclude Include="eqgraphics.h" />
     <ClInclude Include="EQLib.h" />
+    <ClInclude Include="eqmain.h" />
     <ClInclude Include="EQUIStructs.h" />
     <ClInclude Include="ForwardDecls.h" />
     <ClInclude Include="Globals.h" />
