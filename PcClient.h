@@ -967,73 +967,74 @@ struct [[offsetcomments]] CHARINFOOLD
 /*0x2948*/ TSafeString<0x80>                             Title;
 /*0x29c8*/ TSafeString<0x40>                             VehicleName;
 /*0x2a08*/ BYTE                                          Stunned;                        // CharBaseBegin+104
-/*0x2a0a*/ WORD                                          zoneId;                         // CharBaseBegin+108 Zone_0
-/*0x2a0c*/ WORD                                          instance;
-/*0x2a0e*/ BYTE                                          standstate;                     // CharBaseBegin+10c
-/*0x2a10*/ RaidData                                      raidData;                       // size 0xdc
-/*0x2aec*/ DWORD                                         ExpansionFlags;                 // CharBaseBegin+464
-/*0x2af0*/ bool                                          bSuperPKILL;
-/*0x2af1*/ bool                                          bUnclone;
-/*0x2af2*/ bool                                          bDead;
-/*0x2af4*/ int                                           LD_Timer;
-/*0x2af8*/ int                                           SpellInterruptCount;
-/*0x2afc*/ bool                                          bAutoSplit;
-/*0x2afd*/ bool                                          bTellsOff;
-/*0x2afe*/ bool                                          bGmInvis;
-/*0x2b00*/ int                                           KillMe;
-/*0x2b04*/ bool                                          CheaterLdFlag;                  // likely this is int SoulMarkCount instead.
-/*0x2b05*/ bool                                          NoRent;
-/*0x2b06*/ bool                                          Corpse;
-/*0x2b07*/ bool                                          ClientGmFlagSet;
-/*0x2b08*/ DWORD                                         BankSharedPlat;                 // 31e4 CharBaseBegin+488
-/*0x2b0c*/ DWORD                                         BankPlat;                       // CharBaseBegin+498
-/*0x2b10*/ DWORD                                         BankGold;                       // CharBaseBegin+49c
-/*0x2b14*/ DWORD                                         BankSilver;                     // CharBaseBegin+4a0
-/*0x2b18*/ DWORD                                         BankCopper;                     // CharBaseBegin+4a4
-/*0x2b1c*/ int                                           STR;                            // CharBaseBegin+4a8
-/*0x2b20*/ int                                           STA;                            // CharBaseBegin+4ac
-/*0x2b24*/ int                                           CHA;                            // CharBaseBegin+4b0
-/*0x2b28*/ int                                           DEX;                            // CharBaseBegin+4b4
-/*0x2b2c*/ int                                           INT;                            // CharBaseBegin+4b8
-/*0x2b30*/ int                                           AGI;                            // CharBaseBegin+4bc
-/*0x2b34*/ int                                           WIS;                            // CharBaseBegin+4c0
-/*0x2b38*/ int                                           LCK;                            // CharBaseBegin+4c4
-/*0x2b3c*/ int                                           SavePoison;                     // CharBaseBegin+4c8
-/*0x2b40*/ int                                           SaveMagic;                      // CharBaseBegin+4cc
-/*0x2b44*/ int                                           SaveDisease;                    // CharBaseBegin+4d0
-/*0x2b48*/ int                                           SaveCorruption;                 // CharBaseBegin+4d4
-/*0x2b4c*/ int                                           SaveFire;                       // CharBaseBegin+4d8
-/*0x2b50*/ int                                           SaveCold;                       // CharBaseBegin+4dc
-/*0x2b54*/ int                                           SavePhysical;                   // CharBaseBegin+4e0
-/*0x2b58*/ int                                           UncappedStr;
-/*0x2b5c*/ int                                           UncappedSta;
-/*0x2b60*/ int                                           UncappedCha;
-/*0x2b64*/ int                                           UncappedDex;
-/*0x2b68*/ int                                           UncappedInt;
-/*0x2b6c*/ int                                           UncappedAgi;
-/*0x2b70*/ int                                           UncappedWis;
-/*0x2b74*/ int                                           UncappedResistPoison;
-/*0x2b78*/ int                                           UncappedResistMagic;
-/*0x2b7c*/ int                                           UncappedResistDisease;
-/*0x2b80*/ int                                           UncappedResistCorruption;
-/*0x2b84*/ int                                           UncappedResistFire;
-/*0x2b88*/ int                                           UncappedResistCold;
-/*0x2b8c*/ int                                           UncappedResistPhysical;
-/*0x2b90*/ int                                           NoBuffStr;
-/*0x2b94*/ int                                           NoBuffSta;
-/*0x2b98*/ int                                           NoBuffCha;
-/*0x2b9c*/ int                                           NoBuffDex;
-/*0x2ba0*/ int                                           NoBuffInt;
-/*0x2ba4*/ int                                           NoBuffAgi;
-/*0x2ba8*/ int                                           NoBuffWis;
-/*0x2bac*/ int                                           NoBuffResistPoison;
-/*0x2bb0*/ int                                           NoBuffResistMagic;
-/*0x2bb4*/ int                                           NoBuffResistDisease;
-/*0x2bb8*/ int                                           NoBuffResistCorruption;
-/*0x2bbc*/ int                                           NoBuffResistFire;
-/*0x2bc0*/ int                                           NoBuffResistCold;
-/*0x2bc4*/ int                                           NoBuffResistPhysical;
-/*0x2bc8*/
+/*0x2a09*/ BYTE                                          Padding0x2A09[0x3];
+/*0x2a0c*/ WORD                                          zoneId;                         // CharBaseBegin+108 Zone_0
+/*0x2a0e*/ WORD                                          instance;
+/*0x2a10*/ BYTE                                          standstate;                     // CharBaseBegin+10c
+/*0x2a14*/ RaidData                                      raidData;                       // size 0xdc
+/*0x2af0*/ DWORD                                         ExpansionFlags;                 // CharBaseBegin+464
+/*0x2af4*/ bool                                          bSuperPKILL;
+/*0x2af5*/ bool                                          bUnclone;
+/*0x2af6*/ bool                                          bDead;
+/*0x2af8*/ int                                           LD_Timer;
+/*0x2afc*/ int                                           SpellInterruptCount;
+/*0x2b00*/ bool                                          bAutoSplit;
+/*0x2b01*/ bool                                          bTellsOff;
+/*0x2b02*/ bool                                          bGmInvis;
+/*0x2b04*/ int                                           KillMe;
+/*0x2b08*/ bool                                          CheaterLdFlag;                  // likely this is int SoulMarkCount instead.
+/*0x2b09*/ bool                                          NoRent;
+/*0x2b0a*/ bool                                          Corpse;
+/*0x2b0b*/ bool                                          ClientGmFlagSet;
+/*0x2b0c*/ DWORD                                         BankSharedPlat;                 // 31e4 CharBaseBegin+488
+/*0x2b10*/ DWORD                                         BankPlat;                       // CharBaseBegin+498
+/*0x2b14*/ DWORD                                         BankGold;                       // CharBaseBegin+49c
+/*0x2b18*/ DWORD                                         BankSilver;                     // CharBaseBegin+4a0
+/*0x2b1c*/ DWORD                                         BankCopper;                     // CharBaseBegin+4a4
+/*0x2b20*/ int                                           STR;                            // CharBaseBegin+4a8
+/*0x2b24*/ int                                           STA;                            // CharBaseBegin+4ac
+/*0x2b28*/ int                                           CHA;                            // CharBaseBegin+4b0
+/*0x2b2c*/ int                                           DEX;                            // CharBaseBegin+4b4
+/*0x2b30*/ int                                           INT;                            // CharBaseBegin+4b8
+/*0x2b34*/ int                                           AGI;                            // CharBaseBegin+4bc
+/*0x2b38*/ int                                           WIS;                            // CharBaseBegin+4c0
+/*0x2b3c*/ int                                           LCK;                            // CharBaseBegin+4c4
+/*0x2b40*/ int                                           SavePoison;                     // CharBaseBegin+4c8
+/*0x2b44*/ int                                           SaveMagic;                      // CharBaseBegin+4cc
+/*0x2b48*/ int                                           SaveDisease;                    // CharBaseBegin+4d0
+/*0x2b4c*/ int                                           SaveCorruption;                 // CharBaseBegin+4d4
+/*0x2b50*/ int                                           SaveFire;                       // CharBaseBegin+4d8
+/*0x2b54*/ int                                           SaveCold;                       // CharBaseBegin+4dc
+/*0x2b58*/ int                                           SavePhysical;                   // CharBaseBegin+4e0
+/*0x2b5c*/ int                                           UncappedStr;
+/*0x2b60*/ int                                           UncappedSta;
+/*0x2b64*/ int                                           UncappedCha;
+/*0x2b68*/ int                                           UncappedDex;
+/*0x2b6c*/ int                                           UncappedInt;
+/*0x2b70*/ int                                           UncappedAgi;
+/*0x2b74*/ int                                           UncappedWis;
+/*0x2b78*/ int                                           UncappedResistPoison;
+/*0x2b7c*/ int                                           UncappedResistMagic;
+/*0x2b80*/ int                                           UncappedResistDisease;
+/*0x2b84*/ int                                           UncappedResistCorruption;
+/*0x2b88*/ int                                           UncappedResistFire;
+/*0x2b8c*/ int                                           UncappedResistCold;
+/*0x2b90*/ int                                           UncappedResistPhysical;
+/*0x2b94*/ int                                           NoBuffStr;
+/*0x2b98*/ int                                           NoBuffSta;
+/*0x2b9c*/ int                                           NoBuffCha;
+/*0x2ba0*/ int                                           NoBuffDex;
+/*0x2ba4*/ int                                           NoBuffInt;
+/*0x2ba8*/ int                                           NoBuffAgi;
+/*0x2bac*/ int                                           NoBuffWis;
+/*0x2bb0*/ int                                           NoBuffResistPoison;
+/*0x2bb4*/ int                                           NoBuffResistMagic;
+/*0x2bb8*/ int                                           NoBuffResistDisease;
+/*0x2bbc*/ int                                           NoBuffResistCorruption;
+/*0x2bc0*/ int                                           NoBuffResistFire;
+/*0x2bc4*/ int                                           NoBuffResistCold;
+/*0x2bc8*/ int                                           NoBuffResistPhysical;
+/*0x2bcc*/
 
 	//----------------------------------------------------------------------------
 	// Deprecated properties
@@ -1378,6 +1379,7 @@ struct [[offsetcomments]] CHARINFONEW
 /*0x2948*/ TSafeString<0x80>                             Title;
 /*0x29c8*/ TSafeString<0x40>                             VehicleName;
 /*0x2a08*/ BYTE                                          Stunned;                        // CharBaseBegin+104
+/*0x2a09*/ BYTE                                          Padding0x2A09[0x3];
 /*0x2a0c*/ uint16_t                                      zoneId;                         // CharBaseBegin+108 Zone_0
 /*0x2a0e*/ uint16_t                                      instance;
 /*0x2a10*/ BYTE                                          standstate;                     // CharBaseBegin+10c
