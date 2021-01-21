@@ -405,7 +405,9 @@ constexpr int CHAT_CHAT                        = 0x0100;
 #define CHATEVENT(x)                             (gEventChat & x)
 
 constexpr int EQ_MAX_NAME                      = 64;
+constexpr int EQ_MAX_STATION_ID                = 32;
 
+constexpr int EQ_MAX_MERCENARIES               = 11;
 
 // KeypressHandler__HandleKeyUp_x has this one
 constexpr int nEQMappableCommands = 546;
