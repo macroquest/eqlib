@@ -280,7 +280,6 @@ const char* UITypeToString(UIType type)
 	case UI_Button: return "Button";
 	case UI_Gauge: return "Gauge";
 	case UI_SpellGem: return "SpellGem";
-	case UI_HtmlComponent: return "HtmlComponent";
 	case UI_InvSlot: return "InvSlot";
 	case UI_EditBox: return "EditBox";
 	case UI_Slider: return "Slider";
