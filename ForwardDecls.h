@@ -337,7 +337,6 @@ class Wave3dInstance;
 class WaveInstance;
 struct AUTOSKILL;
 struct CDynamicZone;
-struct CHARINFOOLD;
 struct CMDLIST;
 struct connection_t;
 struct CStrRep;
@@ -376,9 +375,10 @@ struct EQLogin;
 using CChatService = UniversalChatProxy;
 
 class PcClient;
-using CHARINFO = CHARINFOOLD;
-using PCHARINFO /*[[deprecated]]*/ = CHARINFOOLD*;
+using CHARINFO = PcClient;
+using PCHARINFO /*[[deprecated]]*/ = PcClient*;
 using CHARINFONEW = PcClient;
+using CHARINFOOLD = PcClient;
 
 class ItemClient;
 using CONTENTS = ItemClient;
