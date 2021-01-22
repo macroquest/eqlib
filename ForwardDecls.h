@@ -95,6 +95,8 @@ class CGiveWnd;
 class CGroupSearchFiltersWnd;
 class CGroupSearchWnd;
 class CGroupWnd;
+class CGroup;
+class CGroupMember;
 class CGuild;
 class CGuildMgmtWnd;
 class CharacterBase;
@@ -335,7 +337,6 @@ class Wave3dInstance;
 class WaveInstance;
 struct AUTOSKILL;
 struct CDynamicZone;
-struct CHARINFONEW;
 struct CHARINFOOLD;
 struct CMDLIST;
 struct connection_t;
@@ -374,13 +375,10 @@ struct EQLogin;
 
 using CChatService = UniversalChatProxy;
 
-#ifdef NEWCHARINFO
-using CHARINFO = CHARINFONEW;
-using PCHARINFO [[deprecated]] = CHARINFONEW*;
-#else
+class PcClient;
 using CHARINFO = CHARINFOOLD;
 using PCHARINFO /*[[deprecated]]*/ = CHARINFOOLD*;
-#endif
+using CHARINFONEW = PcClient;
 
 class ItemClient;
 using CONTENTS = ItemClient;

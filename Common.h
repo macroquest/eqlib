@@ -152,6 +152,11 @@
     type& getter_ ## name() { return (*reinterpret_cast<type*>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type name;
 
+#define ALT_MEMBER_GETTER_ARRAY_DEPRECATED(type, size, orig, name, msg) \
+    DEPRECATE(msg) \
+    type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
+    __declspec(property(get=getter_ ## name)) type (&name)[size];
+
 namespace eqlib {
 
 class CXSize;

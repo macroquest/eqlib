@@ -1330,61 +1330,6 @@ public:
 	EQLIB_OBJECT void HandleFactionMessage(UINT MessageID, char* pData, unsigned int DataLength);
 };
 
-enum eParcelStatus
-{
-	ePS_NoParcels,
-	ePS_HasParcels,
-	ePS_OverParcelsLimit,
-};
-
-class [[offsetcomments]] CGroupMemberBase
-{
-public:
-/*0x00*/ void*         vftable;
-/*0x04*/ CXStr         Name;
-/*0x08*/ short         Type;
-/*0x0c*/ CXStr         OwnerName;
-/*0x10*/ int           Level;
-/*0x14*/ bool          bIsOffline;
-/*0x18*/ UINT          UniquePlayerID;
-/*0x1c*/ bool          bRoleStates[6];
-/*0x24*/ UINT          CurrentRoleBits;
-/*0x28*/ UINT          OnlineTimestamp;
-/*0x2c*/
-};
-
-class [[offsetcomments]] CGroupMemberClient : public CGroupMemberBase
-{
-	FORCE_SYMBOLS;
-
-public:
-/*0x2c*/ CharacterZoneClient* pCharacter;
-/*0x30*/ SPAWNINFO*           pSpawn;
-/*0x34*/ int                  GroupIndex;
-/*0x38*/
-};
-
-class [[offsetcomments]] CGroupBase
-{
-	FORCE_SYMBOLS;
-
-public:
-/*0x00*/ void*         vftable;
-/*0x04*/ CGroupMemberClient* pMembers[6];
-/*0x1c*/ CGroupMemberClient* pGroupLeader;
-/*0x20*/ uint32_t      ID;
-/*0x24*/
-};
-
-class [[offsetcomments]] CGroupClient : public CGroupBase
-{
-	FORCE_SYMBOLS;
-
-public:
-/*0x24*/ int          GroupSelectID;
-/*0x28*/
-};
-
 EQLIB_OBJECT char* build_token_string_PARAM(char* pBuffer, int token,
 	const char* param0 = nullptr,
 	const char* param1 = nullptr,

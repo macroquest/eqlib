@@ -95,6 +95,8 @@ constexpr int MAX_CLASSES = GM_Berserker;
 #define BI_TRAP                                  4
 #define BI_TIMER                                 8
 
+constexpr int MAX_LANGUAGES = 32;
+
 // player types
 constexpr int EQP_PC = 0;
 constexpr int EQP_NPC = 1;
@@ -405,9 +407,8 @@ constexpr int CHAT_CHAT                        = 0x0100;
 #define CHATEVENT(x)                             (gEventChat & x)
 
 constexpr int EQ_MAX_NAME                      = 64;
+constexpr int EQ_MAX_LASTNAME                  = 32;
 constexpr int EQ_MAX_STATION_ID                = 32;
-
-constexpr int EQ_MAX_MERCENARIES               = 11;
 
 // KeypressHandler__HandleKeyUp_x has this one
 constexpr int nEQMappableCommands = 546;
@@ -448,6 +449,7 @@ constexpr int NUM_COMBAT_ABILITIES = 300;
 constexpr int NUM_SKILLS = 100;
 constexpr int NUM_INNATE = 25;
 constexpr int CONCURRENT_SKILLS = 2;
+constexpr int NUM_ITEM_SKILL_DMG_MOD = 9;  // the number of skill weapon mods
 
 
 enum EQExpansion
@@ -874,6 +876,7 @@ constexpr int TT_SPLASH = 45;
 
 // Mercs
 constexpr int MERC_ALT_ABILITY_COUNT = 12;
+constexpr int EQ_MAX_MERCENARIES = 11;
 
 // Groups
 constexpr int MAX_GROUP_SIZE = 6;
@@ -890,6 +893,20 @@ constexpr int MAX_RAID_MARK_TARGETS = 3;
 constexpr int MAX_RAID_MARKERS = 3;
 
 constexpr int MAX_MOVEMENT_STATS = 20;
+
+// misc
+enum eParcelStatus
+{
+	eParcelStatusNoParcels = 0,
+	eParcelStatusHasParcels,
+	eParcelStatusOverfilled,
+
+	// Use the ones above instead...
+	ePS_NoParcels = eParcelStatusNoParcels,
+	ePS_HasParcels = eParcelStatusHasParcels,
+	ePS_OverParcelsLimit = eParcelStatusOverfilled,
+};
+
 
 // zones
 constexpr int ZONE_COUNT = 843;

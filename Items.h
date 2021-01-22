@@ -91,7 +91,7 @@ inline namespace deprecated
 	};
 	using PITEMBASEARRAY DEPRECATE("Use ITEMBASEARRAY* instead of PITEMBASEARRAY") = ITEMBASEARRAY*;
 
-	class [[offsetcomments]] ItemArray
+	class [[offsetcomments]] ITEMARRAY
 	{
 	public:
 	/*0x00*/ ITEMBASEARRAY* pItems;
@@ -295,13 +295,13 @@ inline bool operator!=(const ItemGlobalIndex& lhs, const ItemGlobalIndex& rhs)
 
 //----------------------------------------------------------------------------
 
+using ItemArray = VeArray<ItemPtr>;
+
 class ItemContainer
 {
 public:
-	using ItemArray = VeArray<ItemPtr>;
-
-	using iterator = typename ItemArray::iterator;
-	using const_iterator = typename ItemArray::const_iterator;
+	using iterator = ItemArray::iterator;
+	using const_iterator = ItemArray::const_iterator;
 
 	enum CheckDepthOptions { eCheckDepthBagOrBase, eCheckDepthSocket };
 
@@ -730,7 +730,7 @@ public:
 	// deprecated accessors
 	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_size, ContentSize, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(int, m_type, ItemLocation, "Use GetContainerType() instead");
-	ALT_MEMBER_GETTER_DEPRECATED(eqlib::deprecated::ItemArray, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
+	ALT_MEMBER_GETTER_DEPRECATED(eqlib::deprecated::ITEMARRAY, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[0], ItemSlot, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[1], ItemSlot2, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 };

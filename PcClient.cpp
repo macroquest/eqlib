@@ -21,6 +21,222 @@
 namespace eqlib {
 
 //============================================================================
+// CGroupMemberBase
+//============================================================================
+
+CGroupMemberBase::CGroupMemberBase()
+	: Type(0)
+	, Level(0)
+	, bIsOffline(false)
+	, OnlineTimestamp(0)
+	, UniquePlayerID(0)
+{
+	ClearRoles();
+}
+
+CGroupMemberBase::~CGroupMemberBase()
+{
+}
+
+void CGroupMemberBase::ClearRoles()
+{
+	CurrentRoleBits = 0;
+	for (int i = 0; i < MaxGroupRoles; ++i)
+		bRoleStates[i] = false;
+}
+
+CGroupMember::CGroupMember()
+	: pCharacter(nullptr)
+	, pPlayer(nullptr)
+	, GroupIndex(-1)
+{
+}
+
+CGroupMember::~CGroupMember()
+{
+}
+
+//============================================================================
+
+CGroupBase::CGroupBase()
+	: m_id(0)
+	, m_groupLeader(nullptr)
+{
+	for (auto& member : m_groupMembers)
+		member = nullptr;
+}
+
+CGroupBase::~CGroupBase()
+{
+}
+
+CGroupMember* CGroup::GetMercenary(std::string_view ownerName) const
+{
+	for (CGroupMember* member : m_groupMembers)
+	{
+		if (member != nullptr
+			&& mq::ci_equals(ownerName, member->GetOwnerName()))
+		{
+			return member;
+		}
+	}
+
+	return nullptr;
+}
+
+CGroupMember* CGroup::GetGroupMember(std::string_view name) const
+{
+	for (CGroupMember* member : m_groupMembers)
+	{
+		if (member != nullptr
+			&& mq::ci_equals(name, member->GetName()))
+		{
+			return member;
+		}
+	}
+
+	return nullptr;
+}
+
+CGroupMember* CGroupBase::GetGroupMember(int index) const
+{
+	if (index >= 0 && index < MAX_GROUP_SIZE)
+		return m_groupMembers[index];
+
+	return nullptr;
+}
+
+CGroupMember* CGroup::GetGroupMember(PlayerClient* pPlayer) const
+{
+	for (CGroupMember* member : m_groupMembers)
+	{
+		if (member != nullptr && member->GetPlayer() == pPlayer)
+		{
+			return member;
+		}
+	}
+
+	return nullptr;
+}
+
+CGroupMember* CGroup::GetGroupMemberByRole(eGroupRoles role) const
+{
+	for (CGroupMember* member : m_groupMembers)
+	{
+		if (member != nullptr && member->GetRole(role))
+		{
+			return member;
+		}
+	}
+
+	return nullptr;
+}
+
+CGroupMember* CGroup::GetNthGroupMember(int position) const
+{
+	if (position < 0 || position >= MAX_GROUP_SIZE)
+		return nullptr;
+
+	for (int index = 0; index < MAX_GROUP_SIZE; ++index)
+	{
+		CGroupMember* pMember = m_groupMembers[index];
+
+		if (pMember)
+		{
+			if (index == 0)
+				return pMember;
+
+			index--;
+		}
+	}
+
+	return nullptr;
+}
+
+uint32_t CGroup::GetNumberOfMembers(bool includeOffline /*= true*/) const
+{
+	uint32_t count = 0;
+
+	for (CGroupMember* member : m_groupMembers)
+	{
+		if (member != nullptr && (includeOffline || !member->IsOffline()))
+			count++;
+	}
+
+	return count;
+}
+
+uint32_t CGroup::GetNumberOfMembersExcludingSelf(bool includeOffline /*= true*/) const
+{
+	uint32_t count = 0;
+
+	for (int index = 1; index < MAX_GROUP_SIZE; ++index)
+	{
+		CGroupMember* member = m_groupMembers[index];
+
+		if (member != nullptr && (includeOffline || !member->IsOffline()))
+			count++;
+	}
+
+	return count;
+}
+
+uint32_t CGroup::GetNumberOfPlayerMembers(bool includeOffline /*= true*/) const
+{
+	uint32_t count = 0;
+
+	for (CGroupMember* member : m_groupMembers)
+	{
+		if (member != nullptr
+			&& (includeOffline || !member->IsOffline())
+			&& (std::string_view{ member->GetOwnerName() }.empty()))
+		{
+			count++;
+		}
+	}
+
+	return count;
+}
+
+int CGroup::GetGroupMemberIndex(CGroupMember* pMember) const
+{
+	if (!pMember) return -1;
+
+	for (int index = 0; index < MAX_GROUP_SIZE; ++index)
+	{
+		if (m_groupMembers[index] == pMember)
+			return index;
+	}
+
+	return -1;
+}
+
+bool CGroup::IsGroupMember(PlayerClient* pPlayer) const
+{
+	if (!pPlayer) return false;
+
+	for (CGroupMember* member : m_groupMembers)
+	{
+		if (member && member->GetPlayer() == pPlayer)
+			return true;
+	}
+
+	return false;
+}
+
+bool CGroup::IsGroupLeader(PlayerClient* pPlayer) const
+{
+	if (!pPlayer) return false;
+
+	if (m_groupLeader)
+	{
+		return m_groupLeader->GetPlayer() == pPlayer;
+	}
+
+	return false;
+}
+
+//============================================================================
 // BaseProfile
 //============================================================================
 
