@@ -1442,6 +1442,8 @@ public:
 	enum MoveSearchOptions
 	{
 		MoveSearchOptionNone,          // don't try to find an item slot
+	};
+
 	struct MoveItem
 	{
 		ItemGlobalIndex        from;
