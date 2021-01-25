@@ -1423,5 +1423,40 @@ private:
 	int itemId;
 };
 
+//============================================================================
+
+class MultipleItemMoveManager
+{
+public:
+	enum ErrorCodes
+	{
+		ErrorOk                                  = 0,
+	};
+
+	enum MoveItemFlags
+	{
+		MoveItemFlagNone               = 0x00,
+		MoveItemFlagSwapEnabled        = 0x01,        // allow item swapping when moving items
+	};
+
+	enum MoveSearchOptions
+	{
+		MoveSearchOptionNone,          // don't try to find an item slot
+	struct MoveItem
+	{
+		ItemGlobalIndex        from;
+		ItemGlobalIndex        to;
+		int                    count = 0;
+		int                    flags = 0;
+		MoveSearchOptions      searchOptions = MoveSearchOptionNone;
+	};
+
+	using MoveItemArray = ArrayClass2<MoveItem>;
+
+	// Moves items between slots. Performs some validation. Other validations are
+	// performed by the server so avoid calling this without being absolutely sure what you're doing.
+	static EQLIB_OBJECT ErrorCodes ProcessMove(PcZoneClient* pPC, const MoveItemArray& moveItemList,
+		bool sendMoves = true, bool clientInitiated = true);
+};
 
 } // namespace eqlib

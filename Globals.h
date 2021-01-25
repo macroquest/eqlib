@@ -955,6 +955,7 @@ EQLIB_VAR DWORD MercenaryAlternateAdvancementManagerClient__Instance;
 EQLIB_VAR DWORD msg_new_text;
 EQLIB_VAR DWORD msg_spell_worn_off;
 EQLIB_VAR DWORD msgTokenText;
+EQLIB_VAR DWORD MultipleItemMoveManager__ProcessMove;
 EQLIB_VAR DWORD PcClient__GetConLevel;
 EQLIB_VAR DWORD PcClient__PcClient;
 EQLIB_VAR DWORD PcZoneClient__doCombatAbility;

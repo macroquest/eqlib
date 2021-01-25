@@ -922,6 +922,7 @@ INITIALIZE_EQGAME_OFFSET(MercenaryAlternateAdvancementManagerClient__Instance);
 INITIALIZE_EQGAME_OFFSET(msg_new_text);
 INITIALIZE_EQGAME_OFFSET(msg_spell_worn_off);
 INITIALIZE_EQGAME_OFFSET(msgTokenText);
+INITIALIZE_EQGAME_OFFSET(MultipleItemMoveManager__ProcessMove);
 INITIALIZE_EQGAME_OFFSET(PcClient__GetConLevel);
 INITIALIZE_EQGAME_OFFSET(PcClient__PcClient);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__doCombatAbility);

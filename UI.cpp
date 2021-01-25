@@ -1508,7 +1508,7 @@ FUNCTION_AT_ADDRESS(bool CCursorAttachment::RemoveAttachment(), CCursorAttachmen
 FUNCTION_AT_ADDRESS(void CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const char* Assigned_Name, const char* Name, int Qty, int IconID), CCursorAttachment__AttachToCursor);
 #endif
 #ifdef CCursorAttachment__AttachToCursor1_x
-FUNCTION_AT_ADDRESS(void CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* Assigned_Name, const char* Name, int Qty, int IconID), CCursorAttachment__AttachToCursor1);
+FUNCTION_AT_ADDRESS(void CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* Assigned_Name, const char* Name, int Qty, int  IconID), CCursorAttachment__AttachToCursor1);
 #endif
 #ifdef CCursorAttachment__Deactivate_x
 FUNCTION_AT_ADDRESS(void CCursorAttachment::Deactivate(), CCursorAttachment__Deactivate);

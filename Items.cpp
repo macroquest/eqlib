@@ -585,4 +585,15 @@ void EqItemGuid::UnSerialize(CUnSerializeBuffer& buffer)
 	strcpy_s(this->guid, temp);
 }
 
+//----------------------------------------------------------------------------
+// MultipleItemMoveManager
+
+#ifdef MultipleItemMoveManager__ProcessMove_x
+FUNCTION_AT_ADDRESS(MultipleItemMoveManager::ErrorCodes
+	MultipleItemMoveManager::ProcessMove(
+		PcZoneClient* pPC,
+		const MultipleItemMoveManager::MoveItemArray& moveItemList,
+		bool sendMoves, bool clientInitiated), MultipleItemMoveManager__ProcessMove);
+#endif
+
 } // namespace eqlib

@@ -1200,6 +1200,8 @@
 #define ItemBase__IsLore_x                                         0x894F20
 #define ItemBase__IsLoreEquipped_x                                 0x894F90
 
+#define MultipleItemMoveManager__ProcessMove_x                     0x64B570
+
 // EQPlacedItemManager
 #define EQPlacedItemManager__Instance_x                            0x5EDF00
 #define EQPlacedItemManager__GetItemByGuid_x                       0x5EE040
