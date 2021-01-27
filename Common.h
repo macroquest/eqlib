@@ -338,8 +338,8 @@ public:
 class CVector3
 {
 public:
-	EQLIB_OBJECT CVector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
-	EQLIB_OBJECT CVector3() {}
+	inline CVector3(float x, float y, float z) : X(x), Y(y), Z(z) {}
+	inline CVector3() {}
 
 	// float GetLength() const;
 	EQLIB_OBJECT float NormalizeAndReturnLength();

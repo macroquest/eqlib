@@ -622,7 +622,18 @@ struct [[offsetcomments]] SPAWNINFO
 /*0x1e98*/
 /*0x2028*/ // see SpawnInfoSize
 
-	int GetClass() { return mActorClient.Class; }
+private:
+	struct key_t {};
+
+public:
+	// not allowed to create this class, only use existing instances
+	//SPAWNINFO() = delete;
+	//SPAWNINFO(key_t) {} // define a custom constructor to prevent initialization
+	//SPAWNINFO(const SPAWNINFO&) = delete;
+	//SPAWNINFO& operator=(const SPAWNINFO&) = delete;
+
+	int GetClass() const { return mActorClient.Class; }
+	int GetRace() const { return mActorClient.Race; }
 	uint8_t GetCharacterType() { return Type; }
 	unsigned int GetId() const { return SpawnID; }
 
@@ -1149,6 +1160,7 @@ public:
 	~PlayerClient();
 
 	inline int GetClass() const { return mActorClient.Class; }
+	inline int GetRace() const { return mActorClient.Race; }
 	inline BYTE GetCharacterType() const { return Type; }
 	inline unsigned int GetId() const { return SpawnID; }
 	inline CharacterZoneClient* GetCharacter() const { return (CharacterZoneClient*)GetPcClient(); }

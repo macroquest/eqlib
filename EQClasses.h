@@ -1436,10 +1436,6 @@ public:
 /*0xff8*/ // more here but i only need volume for now so...
 };
 
-struct EQClientSwitch;
-struct OldDiskSwitch;
-
-
 // Size is 0xe0 see 54933E in dec 13 2016 live - eqmule
 // This is actually EQSwitch
 class [[offsetcomments]] EQSwitch
@@ -1514,11 +1510,6 @@ public:
 /*0xd8*/ bool          bAllowCorpseDrag;
 /*0xdc*/ int           RealEstateDoorID;
 /*0xe0*/
-
-	// Currently necessary because of MQ2DataTypes
-
-	// FIXME: DO NOT DO THIS
-	EQSwitch() { ZeroMemory(this, sizeof(EQSwitch)); }
 };
 using DOOR = EQSwitch;
 using PDOOR = EQSwitch*;
@@ -1539,7 +1530,7 @@ public:
 	EQLIB_OBJECT void DeleteAll();
 
 /*0x000*/ int          NumEntries;
-/*0x004*/ EQSwitch*    Switches[0xFF];
+/*0x004*/ EQSwitch*    Switches[255];
 /*0x400*/
 	// There is more that has not been mapped yet ...
 
