@@ -106,6 +106,7 @@
     <ClInclude Include="SoeUtil.h" />
     <ClInclude Include="Spells.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="UIHelpers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp" />

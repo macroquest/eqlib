@@ -138,6 +138,7 @@ class CLootWnd;
 class CMapToolbarWnd;
 class CMapViewWnd;
 class CMemoryStream;
+class CMercenaryManager;
 class CMerchantWnd;
 class CMusicPlayerWnd;
 class CNoteWnd;
@@ -354,7 +355,6 @@ struct EVERQUESTINFO;
 struct GuildMember;
 struct GUILDS;
 struct MAPLABEL;
-struct MERCENARYINFO;
 struct MOUSECLICK;
 struct MQMouseInfo;
 struct SDragDropInfo;
@@ -371,6 +371,7 @@ struct STempTableCell;
 struct STempTableRow;
 struct ZONEINFO;
 struct EQLogin;
+struct MercenaryInfo;
 
 using CChatService = UniversalChatProxy;
 

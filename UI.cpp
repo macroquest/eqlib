@@ -3073,7 +3073,7 @@ void CItemDisplayManager::ShowItem(const ItemPtr& pItem)
 			pWnd->Activate();
 
 			// update time so we know it is the newest window.
-			pTimes[index] = EQGetTime();
+			m_times[index] = EQGetTime();
 		}
 	}
 }

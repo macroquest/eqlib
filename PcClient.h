@@ -1785,6 +1785,7 @@ public:
 	__declspec(property(get = get_pBankArraySpec)) int pBankArraySpec;
 
 	DEPRECATE("pBankArray is deprecated. Adapt the code to use BankItems instead.")
+#pragma warning(suppress: 4996)
 	inline deprecated::BANKARRAY* get_pBankArray() { return reinterpret_cast<deprecated::BANKARRAY*>(BankItems.ContainedItems.pItems); }
 	__declspec(property(get = get_pBankArray)) deprecated::BANKARRAY* pBankArray;
 
@@ -1793,6 +1794,7 @@ public:
 	__declspec(property(get = get_NumBankSlots)) int NumBankSlots;
 
 	DEPRECATE("pSharedBankArray is deprecated. Adapt the code to use BankItems instead.")
+#pragma warning(suppress: 4996)
 	inline deprecated::SHAREDBANKARRAY* get_pSharedBankArray() { return reinterpret_cast<deprecated::SHAREDBANKARRAY*>(SharedBankItems.ContainedItems.pItems); }
 	__declspec(property(get = get_pSharedBankArray)) deprecated::SHAREDBANKARRAY* pSharedBankArray;
 

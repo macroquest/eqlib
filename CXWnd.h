@@ -17,6 +17,7 @@
 #include "Common.h"
 #include "Containers.h"
 #include "CXStr.h"
+#include "UIHelpers.h"
 
 #ifdef IsMinimized
 #undef IsMinimized
@@ -261,20 +262,6 @@ class [[offsetcomments]] CClickStickInfo
 /*0x1c*/ int        message;
 /*0x20*/ uintptr_t  data;
 /*0x24*/
-};
-
-// "Controller" helper class
-class ControllerBase
-{
-public:
-	virtual ~ControllerBase() {}
-	virtual void* Unknown0x04(CXStr& unknown1, int unknown2) { return nullptr; }
-	virtual void Unknown0x08() {}
-	virtual bool AboutToShow() { return true; }
-	virtual bool AboutToHide() { return true; }
-	virtual void WndNotification(CXWnd* sender, uint32_t message, void* data) {}
-	virtual void Unknown0x14(uint32_t) = 0;
-	virtual void Unknown0x18(const CXStr&) {}
 };
 
 class CLayoutStrategy
@@ -1169,34 +1156,6 @@ public:
 //============================================================================
 // CEQXWndManager
 //============================================================================
-
-//----------------------------------------------------------------------------
-// helpers
-
-class [[offsetcomments]] ControllerFactory
-{
-public:
-	virtual ~ControllerFactory();
-
-	// creates controllers
-	virtual ControllerBase* CreateController(const CXStr& controller, int type);
-
-	// this is probably wrong but might be the right size.
-/*0x04*/ HashTable<void*, int, ResizePolicyNoShrink> Factories;
-/*0x14*/
-};
-
-class [[offsetcomments]] ControllerManager
-{
-public:
-	virtual ~ControllerManager();
-
-/*0x04*/ ControllerFactory* DefaultControllerFactory;
-/*0x08*/ HashTable<ControllerFactory*> ControllerFactories;
-/*0x18*/
-};
-
-//----------------------------------------------------------------------------
 
 // Actual size 0x1b0 in Oct 19 2017 Beta (see 4C2E25)
 class [[offsetcomments]] CEQXWndManager : public CXWndManager

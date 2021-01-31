@@ -21,6 +21,7 @@
 #include "Items.h"
 #include "PlayerClient.h"
 #include "SoeUtil.h"
+#include "UIHelpers.h"
 
 namespace eqlib {
 
@@ -1120,63 +1121,183 @@ inline namespace deprecated {
 	using PAURAMGR DEPRECATE("Use ClientAuraManager& instead of PAURAMGR") = ClientAuraManager*;
 }
 
-struct [[offsetcomments]] MERCSTANCEDATA
+//----------------------------------------------------------------------------
+// Mercenaries
+//----------------------------------------------------------------------------
+
+constexpr int MAX_MERC_STANCES = 10;
+
+struct MercenaryStanceInfo
 {
-/*0x00*/ DWORD nStance;
-/*0x04*/ DWORD nDbStance;
-/*0x08*/
+	int stanceId;
+	int stanceStringId;
+
+	ALT_MEMBER_GETTER(DWORD, stanceId, nStance);
+	ALT_MEMBER_GETTER(DWORD, stanceStringId, nDbStance);
 };
 
-struct [[offsetcomments]] MERCSINFO
+namespace deprecated {
+	using MERCSTANCEDATA DEPRECATE("Use MercenaryStanceInfo instead of MERCSTANCEDATA") = MercenaryStanceInfo;
+}
+
+struct [[offsetcomments]] MercenaryInfo
 {
-/*0x00*/ DWORD         Unknown0x00;
-/*0x04*/ DWORD         nMercCategory;
-/*0x08*/ DWORD         nMercDesc;
-/*0x0c*/ DWORD         Purchase;                 // in copper
-/*0x10*/ DWORD         Upkeep;                   // in copper
-/*0x14*/ BYTE          Unknown0x14[0x2c];
-/*0x40*/ char          Name[0xC];
-/*0x4c*/ BYTE          Unknown0x4c[0x88];
+/*0x00*/ int                 id;
+/*0x04*/ int                 typeStringId;
+/*0x08*/ int                 subtypeStringId;
+/*0x0c*/ int                 initialCost;
+/*0x10*/ int                 upkeepCost;
+/*0x14*/ int                 altInitialCost;
+/*0x18*/ int                 altUpkeepCost;
+/*0x1c*/ int                 altCurrencyId;
+/*0x20*/ bool                altCurrencyOnly;
+/*0x24*/ uint32_t            timeRemaining;
+/*0x28*/ int                 stanceGroupId;
+/*0x2c*/ int                 stanceId;
+/*0x30*/ int                 numStances;
+/*0x34*/ __time32_t          unsuspendedTime;
+/*0x38*/ bool                autoAssist;
+/*0x3c*/ int                 type;
+/*0x40*/ char                name[EQ_MAX_NAME];
+/*0x80*/ MercenaryStanceInfo stanceData[MAX_MERC_STANCES];
+/*0xd0*/ int                 requiredMembershipLevel;
 /*0xd4*/
+
+	// These should all be marked deprecated...
+	ALT_MEMBER_GETTER(DWORD, typeStringId, nMercCategory);
+	ALT_MEMBER_GETTER(DWORD, subtypeStringId, nMercDesc);
+	ALT_MEMBER_GETTER(DWORD, initialCost, Purchase);
+	ALT_MEMBER_GETTER(DWORD, upkeepCost, Upkeep);
+	ALT_MEMBER_GETTER_ARRAY(char, EQ_MAX_NAME, name, Name);
 };
 
-// Size 0xD4 in eqgame.exe dated 01 22 2015
+namespace deprecated {
+	using MERCSINFO DEPRECATE("Use MercenaryInfo instead of MERCSINFO") = MercenaryInfo;
+}
+
 struct [[offsetcomments]] MERCSLIST
 {
-/*0x000*/ MERCSINFO     mercinfo[7];              // is 7 max, even with slots u can buy for sc?
+/*0x000*/ MercenaryInfo     mercinfo[7];              // is 7 max, even with slots u can buy for sc?
 /*0x5cc*/
 };
 
-// Actual Size: 0x2fc (See 57117F in eqgame dated dec 10 2013) - eqmule
-// CMercenaryInfo__CMercenaryInfo
-// this is CMercenaryClientManager
-struct [[offsetcomments]] MERCENARYINFO
+enum eMercenaryState {
+	MercenaryState_Dead             = 0,
+	MercenaryState_Suspended        = 1,
+	MercenaryState_Active           = 5,
+};
+
+class [[offsetcomments]] MercenaryClientData
 {
-/*0x000*/ BYTE               Unknown0x0[0x110];
-/*0x110*/ DWORD              HaveMerc;
-/*0x114*/ DWORD              MercState;          // 1 = suspended, 5 = active
-/*0x118*/ BYTE               Unknown0x118[0x30];
-/*0x148*/ DWORD              ActiveStance;
-/*0x14c*/ BYTE               Unknown0x14c[0x10];
-/*0x15c*/ char               MercName[0x18];
-/*0x174*/ BYTE               Unknown0x174[0x7c];
-/*0x1f0*/ int                MercenaryCount;     // how many mercenaries we have
-/*0x1f4*/ MERCSLIST*         pMercsList;
-/*0x1f8*/ BYTE               Unknown0x1f8[0xc];
-/*0x204*/ DWORD              MaxMercsCount;      // max you can have
-/*0x208*/ BYTE               Unknown0x208[0x10];
-/*0x218*/ DWORD              CurrentMercIndex;
-/*0x21c*/ BYTE               Unknown0x21c[0x8];
-/*0x224*/ DWORD              MercSpawnId;        // yes its the spawnID of the mercenary
-/*0x228*/ BYTE               Unknown0x228[0x30];
-/*0x258*/ int                NumStances;
-/*0x25c*/ MERCSTANCEDATA**   pMercStanceData;
-/*0x260*/ BYTE               Unknown0x260[0x9c];
+public:
+/*0x00*/ bool                     hasMercenary;
+/*0x04*/ eMercenaryState          suspendedState;
+/*0x08*/ __time32_t               restorationTime;
+/*0x0c*/ MercenaryInfo            mercenaryInfo;
+
+	inline int GetCurrentStanceId() const { return mercenaryInfo.stanceId; }
+};
+
+using MercenaryInfoList = ArrayClass<MercenaryInfo>;
+using MercenaryStanceList = ArrayClass<MercenaryStanceInfo>;
+using MercenaryStancePtrList = ArrayClass<MercenaryStanceInfo*>;
+
+// This type may not be right anymore. Take a look at CMercenaryClientManager::ProcessMercenaryUpdateStats
+using MercenaryStats = ArrayClass<int>;
+
+// Enum value representing the keys of MercenaryStats array
+// FIXME: These were copied from MERCENARYSTATS struct and are out of date.
+// There should be 44 values.
+enum eMercenaryStats {
+	MercStat_MaxHP,
+	MercStat_CurrHP,
+	MercStat_MaxMana,
+	Mercstat_CurrMana,
+	MercStat_MaxEndurance,
+	Mercstat_CurrEndurance,
+	MercStat_AC,
+	MercStat_Attack,
+	MercStat_Haste,
+	MercStat_STR,
+	MercStat_STA,
+	MercStat_INT,
+	MercStat_WIS,
+	MercStat_AGI,
+	MercStat_DEX,
+	MercStat_CHA,
+	MercStat_CombatHPRegen,
+	MercStat_CombatManaRegen,
+	MercStat_CombatEnduranceRegen,
+	MercStat_HealAmount,
+	MercStat_SpellDamage,
+};
+
+// Actual Size: 0x2fc (See 57117F in eqgame dated dec 10 2013) - eqmule
+// this is CMercenaryClientManager
+class [[offsetcomments]] CMercenaryManager
+{
+public:
+/*0x000*/ uint8_t                 Unknown0x0[0x110];
+/*0x110*/ MercenaryClientData     currentMercenary;
+/*0x1f0*/ MercenaryInfoList       mercenaries;
+/*0x200*/ int                     numMercenaries;
+/*0x204*/ int                     maxMercenaries;
+/*0x208*/ MercenaryStats          mercenaryStats;
+/*0x218*/ int                     currMercenaryIndex;
+/*0x21c*/ uint32_t                currentMerchantId;
+/*0x220*/ uint32_t                lastMerchantId;
+/*0x224*/ uint32_t                mercenarySpawnId;
+/*0x228*/ uint32_t                initTimeMS;
+/*0x22c*/ uint32_t                warningTimeMS;
+/*0x230*/ uint32_t                lastUpdate;
+/*0x234*/ ControllerFactory       uiControllerFactory;
+/*0x248*/ MercenaryStancePtrList  merchantStanceList;
+/*0x258*/ MercenaryStancePtrList  mercenaryStanceList;
+/*0x268*/ // extra stuff related to event handling at the end
 /*0x2fc*/
+
+	inline bool HasMercenary() const { return currentMercenary.hasMercenary; }
+	inline eMercenaryState GetMercenaryState() const { return currentMercenary.suspendedState; }
+
+	inline const MercenaryStanceInfo* GetActiveMercenaryStance() const
+	{
+		for (const MercenaryStanceInfo* info : mercenaryStanceList)
+		{
+			if (info->stanceId == currentMercenary.GetCurrentStanceId())
+				return info;
+		}
+
+		return nullptr;
+	}
+
+
+	ALT_MEMBER_GETTER_DEPRECATED(DWORD, currentMercenary.hasMercenary, HaveMerc,
+		"Use HasMercenary() instead of HaveMerc");
+	ALT_MEMBER_GETTER_DEPRECATED(DWORD, currentMercenary.suspendedState, MercState,
+		"Use currentMercenary.suspendedState instead of MercState");
+	ALT_MEMBER_GETTER_DEPRECATED(DWORD, currentMercenary.mercenaryInfo.stanceId, ActiveStance,
+		"Use currentMercenary.mercenaryInfo.stanceId instead of ActiveStance");
+	ALT_MEMBER_GETTER_ARRAY_DEPRECATED(char, EQ_MAX_NAME, currentMercenary.mercenaryInfo.name, MercName,
+		"Use currentMercenary.mercenaryInfo.name instead of MercName");
+	ALT_VMEMBER_GETTER_DEPRECATED(int, mercenaries.GetLength(), MercenaryCount,
+		"Use mercenaries.GetLength() instead of MercenaryCount");
+	ALT_MEMBER_GETTER_DEPRECATED(MERCSLIST*, mercenaries[0], pMercsList,
+		"Use mercenaries instead of pMercsList");
+	ALT_MEMBER_GETTER_DEPRECATED(DWORD, maxMercenaries, MaxMercsCount,
+		"Use maxMercenaries instead of MaxMercsCount");
+	ALT_MEMBER_GETTER_DEPRECATED(DWORD, currMercenaryIndex, CurrentMercIndex,
+		"Use currMercenaryIndex instead of CurrentMercIndex");
+	ALT_MEMBER_GETTER_DEPRECATED(DWORD, mercenarySpawnId, MercSpawnId,
+		"Use mercenarySpawnId instead of MercSpawnId");
+	ALT_VMEMBER_GETTER_DEPRECATED(int, mercenaryStanceList.GetLength(), NumStances,
+		"Use mercenaryStanceInfo.GetLength() instead of NumStances");
+	ALT_VMEMBER_GETTER_DEPRECATED(MercenaryStanceInfo**, &mercenaryStanceList[0], pMercStanceData,
+		"Use mercenaryStanceList instead of pMercStanceData");
 };
 
 inline namespace deprecated {
-	using PMERCENARYINFO DEPRECATE("Use MERCENARYINFO* instead of PMERCENARYINFO") = MERCENARYINFO*;
+	using PMERCENARYINFO DEPRECATE("Use CMercenaryManager* instead of PMERCENARYINFO") = CMercenaryManager*;
+	using MERCENARYINFO DEPRECATE("Use CMercenaryManager instead of MERCENARYINFO") = CMercenaryManager;
 }
 
 struct [[offsetcomments]] MERCENARYSTATS

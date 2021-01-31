@@ -148,8 +148,13 @@
 #endif
 
 #define ALT_MEMBER_GETTER_DEPRECATED(type, orig, name, msg) \
-    /*DEPRECATE(msg)*/ \
+    DEPRECATE(msg) \
     type& getter_ ## name() { return (*reinterpret_cast<type*>(&orig)); } \
+    __declspec(property(get=getter_ ## name)) type name;
+
+#define ALT_VMEMBER_GETTER_DEPRECATED(type, orig, name, msg) \
+    DEPRECATE(msg) \
+    type getter_ ## name() { return (static_cast<type>(orig)); } \
     __declspec(property(get=getter_ ## name)) type name;
 
 #define ALT_MEMBER_GETTER_ARRAY_DEPRECATED(type, size, orig, name, msg) \

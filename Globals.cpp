@@ -1063,7 +1063,8 @@ ComputedPointer<EQGroundItemListManager>         pItemList([]{ return &EQGroundI
 ComputedPointer<KeypressHandler>                 pKeypressHandler([]{ return &KeypressHandler::Get(); });
 ForeignPointer<LootFiltersManager>               pLootFiltersManager;
 ComputedPointer<EQMERCALTABILITIES>              pMercAltAbilities([]{ return (EQMERCALTABILITIES*)&MercenaryAlternateAdvancementManagerClient::Instance(); });
-ForeignPointer<MERCENARYINFO>                    pMercInfo;
+ForeignPointer<CMercenaryManager>                pMercInfo;
+ForeignPointer<CMercenaryManager>                pMercManager;
 ComputedPointer<CPlayerPointManager>             pPlayerPointManager([]{ return pCharData ? (PlayerPointManager*)&((CHARINFO*)pCharData)->PointManager : nullptr; });
 ForeignPointer<CResolutionHandler>               pResolutionHandler;
 ForeignPointer<CSidlManager>                     pSidlMgr;
@@ -1276,7 +1277,9 @@ void InitializeEQGameOffsets()
 	pInvSlotMgr                     = pinstCInvSlotMgr;
 	pItemDisplayManager             = pinstCItemDisplayManager;
 	pLootFiltersManager             = pinstLootFiltersManager;
-	pMercInfo                       = pinstMercenaryData;
+#pragma warning(suppress: 4996)
+	pMercInfo                       = pinstMercenaryData;              // deprecated
+	pMercManager                    = pinstMercenaryData;
 	pResolutionHandler              = pinstCResolutionHandler;
 	pSidlMgr                        = pinstCSidlManager;
 	pSkillMgr                       = pinstSkillMgr;
