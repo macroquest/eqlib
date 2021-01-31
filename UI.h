@@ -6075,8 +6075,8 @@ public:
 
 	EQLIB_OBJECT virtual int CreateWindowInstance();
 
-	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<CXWnd*>, m_windows, pWindows, "pWindows is deprecated. Use helper functions instread.");
-	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<int>, m_times, pTimes, "pTimes is deprecated. Use helper functions instread.");
+	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<CXWnd*>, m_windows, pWindows, "pWindows is deprecated. Use helper functions instead.");
+	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<int>, m_times, pTimes, "pTimes is deprecated. Use helper functions instead.");
 
 	inline CXWnd* GetWindow(int index) const
 	{
