@@ -1457,7 +1457,7 @@ struct [[offsetcomments]] EQLogin
 };
 
 constexpr uint32_t EQ_ASSIST_CALC     = 0x020c0f19;
-constexpr uint32_t EQ_ASSIST_COMPLETE = 0x1417;        // aMsgTimeStampRe
-constexpr uint32_t EQ_ASSIST          = 0x1e78;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+constexpr uint32_t EQ_ASSIST_COMPLETE = 0x6FCA;        // aMsgTimeStampRe
+constexpr uint32_t EQ_ASSIST          = 0x6927;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
 } // namespace eqlib
