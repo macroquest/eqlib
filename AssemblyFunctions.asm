@@ -10,7 +10,7 @@ extern _CSidlScreenWnd__CSidlScreenWnd2
 extern _CSidlScreenWnd__dCSidlScreenWnd
 extern _MapViewMap__MapViewMap
 extern _MapViewMap__dMapViewMap
-extern _ItemClient__ItemClient
+;extern _ItemClient__ItemClient
 extern _ItemClient__dItemClient
 
 section .text
@@ -73,10 +73,10 @@ global ??1MapViewMap@eqlib@@UAE@XZ
 ;---------------------------------------------------------------------------------------
 
 ; public: __thiscall eqlib::ItemClient::ItemClient(eqlib::ItemClient *__hidden this)
-global ??0ItemClient@eqlib@@QAE@XZ
-??0ItemClient@eqlib@@QAE@XZ:
-	mov eax, [_ItemClient__ItemClient]
-	jmp eax
+;global ??0ItemClient@eqlib@@QAE@XZ
+;??0ItemClient@eqlib@@QAE@XZ:
+;	mov eax, [_ItemClient__ItemClient]
+;	jmp eax
 
 ;---------------------------------------------------------------------------------------
 

@@ -876,10 +876,21 @@ enum eSpellRecourseType : int
 
 constexpr int MAX_SPELL_REAGENTS = 4;
 
+struct [[offsetcomments]] SpellAffectData
+{
+/*0x00*/ int Slot = 0;
+/*0x04*/ int Base = 0;
+/*0x08*/ int Base2 = 0;
+/*0x0c*/ int Max = 0;
+/*0x10*/ int Calc = 0;
+/*0x14*/ int Attrib = SPA_NOSPELL;
+/*0x18*/
+};
+using SPELLCALCINFO = SpellAffectData;
+using PSPELLCALCINFO = SPELLCALCINFO*;
+
 #pragma pack(push)
 #pragma pack(1)
-
-struct SpellAffectData;
 
 // actual size: 0x215 Oct Oct 19 2020 @ 0x58A4FF
 class [[offsetcomments]] EQ_Spell
@@ -887,7 +898,6 @@ class [[offsetcomments]] EQ_Spell
 public:
 	EQLIB_OBJECT EQ_Spell(char*);
 	EQLIB_OBJECT bool IsStackableDot() const;
-	EQLIB_OBJECT bool IsStackable() const;
 	EQLIB_OBJECT int IsPermIllusionSpell() const;
 	EQLIB_OBJECT int SpellUsesDragonBreathEffect();
 	EQLIB_OBJECT unsigned char SpellAffects(int) const;              // this one takes an attrib(soe calls it affect) and returns the index for it...
@@ -895,7 +905,6 @@ public:
 	EQLIB_OBJECT int SpellAffectBase(int) const;                     // takes a SPA, returns the first matching base it finds for it
 	EQLIB_OBJECT const SpellAffectData* GetSpellAffectBySlot(int Slot) const;
 	EQLIB_OBJECT const SpellAffectData* GetSpellAffectByIndex(int Index) const;
-	EQLIB_OBJECT bool IsNoRemove() const;
 	EQLIB_OBJECT static bool IsDegeneratingLevelMod(int);
 
 	EQLIB_OBJECT static bool IsSPAStacking(int Spa);
@@ -904,14 +913,66 @@ public:
 	EQLIB_OBJECT bool IsNoDispell() const { return NoDisspell; }
 	EQLIB_OBJECT bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
 	EQLIB_OBJECT int GetNoOverwrite() const { return NoOverwrite; }
-	EQLIB_OBJECT bool IsBeneficialSpell() const { return SpellType >= 1; }
-	EQLIB_OBJECT bool IsDetrimentalSpell() const { return SpellType == 0; }
 	EQLIB_OBJECT bool IsShortEffectDuration() const { return DurationWindow; }
 	EQLIB_OBJECT bool GetIsSkillSpell() const { return IsSkill; }
-	EQLIB_OBJECT bool IsDoTSpell() const
+
+	// TODO: Move to cpp
+	inline bool IsLullSpell() const
+	{
+		for (int i = 0; i < NumEffects; ++i)
+		{
+			const SpellAffectData* spellAffect = GetSpellAffectByIndex(i);
+
+			if (spellAffect->Attrib == SPA_NPC_AGGRO || spellAffect->Attrib == SPA_NPC_AGGRO_RADIUS || spellAffect->Attrib == SPA_NPC_HELP_RADIUS)
+				return true;
+		}
+
+		return false;
+	}
+
+	inline bool IsDoTSpell() const
 	{
 		return SpellAffects(0) || SpellAffects(20) || SpellAffects(69) || SpellAffects(114) || SpellAffects(125);
 	}
+
+	inline bool IsStackable() const
+	{
+		if (NotStackableDot)
+			return false;
+		if (SpellType != SpellType_Detrimental)
+			return false;
+		if (DurationType == 0) // TODO: Constant
+			return false;
+
+		return SpellAffects(SPA_HP) != 0 || SpellAffects(SPA_GRAVITATE) != 0;
+	}
+
+	inline bool IsBeneficialSpell() const
+	{
+		return SpellType >= SpellType_Beneficial;
+	}
+
+	inline bool IsBeneficialSpellUsedDetrimentally() const
+	{
+		const SpellAffectData* spellAffect = GetSpellAffectByIndex(0);
+
+		return spellAffect->Attrib == SPA_NPC_WIPE_HATE_LIST
+			|| spellAffect->Attrib == SPA_NPC_AGGRO_RADIUS
+			|| spellAffect->Attrib == SPA_NPC_FACTION
+			|| spellAffect->Attrib == SPA_DISPEL_MAGIC
+			|| IsLullSpell();
+	}
+
+	inline bool IsDetrimentalSpell() const
+	{
+		return !IsBeneficialSpell() || IsBeneficialSpellUsedDetrimentally();
+	}
+
+	inline bool IsNoRemove() const
+	{
+		return !IsBeneficialSpell() || NoRemove;
+	}
+
 
 /*0x000*/ float                Range = 0.0f;
 /*0x004*/ float                AERange = 0.0f;
@@ -1072,19 +1133,6 @@ using SPELL = EQ_Spell;
 using PSPELL = EQ_Spell*;
 
 #pragma pack(pop) // EQ_Spell
-
-struct [[offsetcomments]] SpellAffectData
-{
-/*0x00*/ int Slot = 0;
-/*0x04*/ int Base = 0;
-/*0x08*/ int Base2 = 0;
-/*0x0c*/ int Max = 0;
-/*0x10*/ int Calc = 0;
-/*0x14*/ int Attrib = SPA_NOSPELL;
-/*0x18*/
-};
-using SPELLCALCINFO = SpellAffectData;
-using PSPELLCALCINFO = SPELLCALCINFO*;
 
 constexpr int TOTAL_SPELL_COUNT          = 62000;    // # of spells allocated in memory (07/10/2019 test 4F1197)
 constexpr int TOTAL_SPELL_AFFECT_COUNT   = 230000;   // 69EAAA in eqgame 2020 Oct 19

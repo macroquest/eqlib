@@ -370,14 +370,17 @@ FUNCTION_AT_ADDRESS(bool ItemBase::CanGoInBag(const ItemPtr& pItem, int unused, 
 #ifdef EQ_Item__ValueSellMerchant_x
 FUNCTION_AT_ADDRESS(int ItemBase::ValueSellMerchant(float, int) const, EQ_Item__ValueSellMerchant);
 #endif
-#ifdef EQ_Item__GetAugmentFitBySlot_x
-FUNCTION_AT_ADDRESS(int ItemBase::GetAugmentFitBySlot(const ItemPtr& pItem, int, bool, bool index) const, EQ_Item__GetAugmentFitBySlot);
+#ifdef EQ_Item__CanGemFitInSlot_x
+FUNCTION_AT_ADDRESS(int ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, EQ_Item__CanGemFitInSlot);
 #endif
 
 //----------------------------------------------------------------------------
 
 // Defined in AssemblyFunctions.asm
-//ItemClient::ItemClient()
+ItemClient::ItemClient()
+{
+}
+
 //ItemClient::~ItemClient()
 
 ItemDefinition* ItemClient::GetItemDefinition() const

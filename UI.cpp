@@ -612,12 +612,19 @@ FUNCTION_AT_ADDRESS(CPageWnd::CPageWnd(CXWnd*, uint32_t, CXRect, class CXStr, CP
 #ifdef CPageWnd__FlashTab_x
 FUNCTION_AT_ADDRESS(void CPageWnd::FlashTab(bool, int) const, CPageWnd__FlashTab);
 #endif
-#ifdef CPageWnd__GetTabText_x
-FUNCTION_AT_ADDRESS(CXStr CPageWnd::GetTabText(bool) const, CPageWnd__GetTabText);
-#endif
 #ifdef CPageWnd__SetTabText_x
 FUNCTION_AT_ADDRESS(void CPageWnd::SetTabText(CXStr&) const, CPageWnd__SetTabText);
 #endif
+
+CXStr CPageWnd::GetTabText(bool bShowFlashing) const
+{
+	if (bShowFlashing && bFlashing)
+	{
+		return TabText + "*";
+	}
+
+	return TabText;
+}
 
 
 //============================================================================
@@ -674,9 +681,6 @@ FUNCTION_AT_ADDRESS(int CSliderWnd::DrawThumb() const, CSliderWnd__DrawThumb);
 // CStmlWnd
 //============================================================================
 
-#ifdef CStmlWnd__GetSTMLText_x
-FUNCTION_AT_ADDRESS(CXStr CStmlWnd::GetSTMLText() const, CStmlWnd__GetSTMLText);
-#endif
 #ifdef CStmlWnd__CStmlWnd_x
 FUNCTION_AT_ADDRESS(CStmlWnd::CStmlWnd(CXWnd*, uint32_t, CXRect), CStmlWnd__CStmlWnd);
 #endif
@@ -2921,9 +2925,7 @@ FUNCTION_AT_ADDRESS(COLORREF CChatWindowManager::GetRGBAFromIndex(int), CChatWin
 #ifdef CChatWindowManager__InitContextMenu_x
 FUNCTION_AT_ADDRESS(int CChatWindowManager::InitContextMenu(CChatWindow*), CChatWindowManager__InitContextMenu);
 #endif
-#ifdef CChatWindowManager__GetLockedActiveChatWindow_x
-FUNCTION_AT_ADDRESS(CChatWindow* CChatWindowManager::GetLockedActiveChatWindow(), CChatWindowManager__GetLockedActiveChatWindow);
-#endif
+
 #ifdef CChatWindowManager__SetLockedActiveChatWindow_x
 FUNCTION_AT_ADDRESS(void CChatWindowManager::SetLockedActiveChatWindow(CChatWindow*), CChatWindowManager__SetLockedActiveChatWindow);
 #endif
@@ -2931,6 +2933,16 @@ FUNCTION_AT_ADDRESS(void CChatWindowManager::SetLockedActiveChatWindow(CChatWind
 FUNCTION_AT_ADDRESS(void CChatWindowManager::CreateChatWindow(CXWnd* pParentWnd, int ID, char* Name, int Language, int DefaultChannel,
 	int ChatChannel, char* szTellTarget, int FontStyle, bool bScrollbar, bool bHighLight, COLORREF HighlightColor), CChatWindowManager__CreateChatWindow);
 #endif
+
+CChatWindow* CChatWindowManager::GetLockedActiveChatWindow() const
+{
+	if (LockedActive != -1)
+	{
+		return ChatWnd[LockedActive];
+	}
+
+	return nullptr;
+}
 
 //============================================================================
 // CChatWindow

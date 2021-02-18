@@ -34,8 +34,6 @@ public:
 
 	EQLIB_OBJECT int ProcessKeyboardEvents();
 	EQLIB_OBJECT int ProcessMouseEvents();
-	EQLIB_OBJECT int FlushDxKeyboard();
-
 
 /*0x00*/ IDirectInput8A*          pDI;
 /*0x04*/ IDirectInputDevice8A*    pDIKeyboard;

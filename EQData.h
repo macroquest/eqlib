@@ -1136,7 +1136,7 @@ struct MercenaryStanceInfo
 	ALT_MEMBER_GETTER(DWORD, stanceStringId, nDbStance);
 };
 
-namespace deprecated {
+inline namespace deprecated {
 	using MERCSTANCEDATA DEPRECATE("Use MercenaryStanceInfo instead of MERCSTANCEDATA") = MercenaryStanceInfo;
 }
 
@@ -1171,7 +1171,7 @@ struct [[offsetcomments]] MercenaryInfo
 	ALT_MEMBER_GETTER_ARRAY(char, EQ_MAX_NAME, name, Name);
 };
 
-namespace deprecated {
+inline namespace deprecated {
 	using MERCSINFO DEPRECATE("Use MercenaryInfo instead of MERCSINFO") = MercenaryInfo;
 }
 
@@ -1194,7 +1194,7 @@ public:
 /*0x04*/ eMercenaryState          suspendedState;
 /*0x08*/ __time32_t               restorationTime;
 /*0x0c*/ MercenaryInfo            mercenaryInfo;
-
+/*0xe0*/
 	inline int GetCurrentStanceId() const { return mercenaryInfo.stanceId; }
 };
 

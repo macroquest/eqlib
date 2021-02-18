@@ -18,10 +18,10 @@
 // EQGraphicsDX9.dll offsets
 //
 
-#define __eqgraphics_fopen_x                                       0x10147CD8
+#define __eqgraphics_fopen_x                                       0x1015F5BD
 
-#define CParticleSystem__Render_x                                  0x100710F0
+#define CParticleSystem__Render_x                                  0x1007B680
 
-#define CRender__RenderScene_x                                     0x10093240
-#define CRender__ResetDevice_x                                     0x10092AB0
-#define CRender__UpdateDisplay_x                                   0x100938D0
+#define CRender__RenderScene_x                                     0x100A0DF0
+#define CRender__ResetDevice_x                                     0x100A0650
+#define CRender__UpdateDisplay_x                                   0x100A14A0

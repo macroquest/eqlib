@@ -1253,7 +1253,7 @@ public:
 	EQLIB_OBJECT int GetItemValue(bool) const;
 	EQLIB_OBJECT bool IsKeyRingItem(KeyRingType type) const;
 	EQLIB_OBJECT bool CanGoInBag(const ItemPtr& pItem, int unused = 0, bool mustbefalse = false) const;
-	EQLIB_OBJECT int GetAugmentFitBySlot(const ItemPtr& Aug, int Slot, bool bCheckSlot = true, bool bCheckDup = true) const;
+	EQLIB_OBJECT int CanGemFitInSlot(const ItemPtr& Aug, int Slot, bool bCheckSlot = true, bool bCheckDup = true) const;
 	EQLIB_OBJECT int ValueSellMerchant(float, int) const;
 
 	inline bool IsSocketValid(int index)

@@ -1209,7 +1209,6 @@ public:
 
 	EQLIB_OBJECT bool CanGoBackward();
 	EQLIB_OBJECT CXSize AppendSTML(CXStr);
-	EQLIB_OBJECT CXStr GetSTMLText() const;
 	EQLIB_OBJECT CXStr GetVisibleText(CXStr, const CXRect&) const;
 	EQLIB_OBJECT static CXStr MakeStmlColorTag(unsigned long);
 	EQLIB_OBJECT static CXStr MakeWndNotificationTag(uint32_t, const CXStr&, const CXStr&);
@@ -1256,6 +1255,8 @@ public:
 	EQLIB_OBJECT void ResetTempVariablesForNewLine(SParseVariables*);
 	EQLIB_OBJECT void StripFirstSTMLLines(int);
 	EQLIB_OBJECT void UpdateHistoryString(int32_t, const CXStr&);
+
+	inline CXStr GetSTMLText() const { return STMLText; }
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -2150,7 +2151,7 @@ public:
 	EQLIB_OBJECT COLORREF GetRGBAFromIndex(int);
 	EQLIB_OBJECT int InitContextMenu(CChatWindow*);
 	EQLIB_OBJECT void FreeChatWindow(CChatWindow*);
-	EQLIB_OBJECT CChatWindow* GetLockedActiveChatWindow();   // might be returning CChatContainerWindow now
+	EQLIB_OBJECT CChatWindow* GetLockedActiveChatWindow() const;   // might be returning CChatContainerWindow now
 	EQLIB_OBJECT void SetLockedActiveChatWindow(CChatWindow*);
 	EQLIB_OBJECT void CreateChatWindow(CXWnd* pParentWnd, int ID, char* Name, int Language, int DefaultChannel,
 		int ChatChannel, char* szTellTarget, int FontStyle, bool bScrollbar, bool bHighLight, COLORREF HighlightColor);
@@ -2175,7 +2176,7 @@ public:
 /*0x000*/ CChatWindow* ChatWnd[MAX_CHAT_WINDOWS];
 
 	// this is likely a class as a member variable
-/*0x080*/ void* ChatContainerWindow_vfTable;
+/*0x080*/ void*              ChatContainerWindow_vfTable;
 /*0x084*/ DWORD              Unknown0x084;
 /*0x088*/ DWORD              Unknown0x088;
 /*0x08c*/ DWORD              Unknown0x08c;
@@ -2185,8 +2186,8 @@ public:
 /*0x114*/ DWORD              NumWindows;
 /*0x118*/ DWORD              LockedWindow;
 /*0x11c*/ DWORD              ActiveWindow;
-/*0x120*/ DWORD              Unknown0x120;                       // CurrentActive... CChat::GetActiveChatWindow
-/*0x124*/ DWORD              Unknown0x124;                       // LockedActive... CChatManager__GetLockedActiveChatWindow_x
+/*0x120*/ DWORD              CurrentActive;                      // CurrentActive... CChat::GetActiveChatWindow
+/*0x124*/ DWORD              LockedActive;                       // LockedActive... CChatManager__GetLockedActiveChatWindow_x
 /*0x128*/ CChatWindow*       ChannelMap[MAX_CHAT_FILTERS];       // channel map
 /*0x27c*/ CContextMenu*      pCM_MainMenu;
 /*0x280*/ int                ScrollbarIndex;
