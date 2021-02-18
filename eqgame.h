@@ -369,7 +369,7 @@
 #define __HandleMouseWheel_x                                       0x6DE190
 #define __HeadingDiff_x                                            0x9E1DA0
 #define __HelpPath_x                                               0xF8DCFC
-#define __LoadFrontEnd_x                                           0x6D9BE0
+#define __ExecuteFrontEnd_x                                        0x6D9BE0
 #define __NewUIINI_x                                               0x8514C0
 #define __ProcessGameEvents_x                                      0x642E00
 #define __ProcessKeyboardEvents_x                                  0x6DB350
@@ -631,7 +631,7 @@
 #define CKeyRingWnd__ExecuteRightClick_x                           0x52A8A0
 
 // CLabel
-#define CLabel__Draw_x                                             0x79E850
+#define CLabel__UpdateText_x                                       0x79E850
 
 // CListWnd
 #define CListWnd__CListWnd_x                                       0x9639F0
@@ -726,10 +726,11 @@
 #define CSidlManagerBase__CreateLabel_x                            0x841810
 #define CSidlManagerBase__CreateXWndFromTemplate_x                 0x9898A0
 #define CSidlManagerBase__CreateXWndFromTemplate1_x                0x989B30
-#define CSidlManagerBase__CreateXWnd_x                             0x841290
+#define CSidlManagerBase__CreateXWnd_x                             0x989B70
 
 // CSidlManager
 #define CSidlManager__CreateHotButtonWnd_x                         0x841C40
+#define CSidlManager__CreateXWnd_x                                 0x841290
 
 // CSidlScreenWnd
 #define CSidlScreenWnd__CalculateHSBRange_x                        0x981D60

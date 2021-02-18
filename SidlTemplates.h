@@ -391,6 +391,7 @@ public:
 
 	EQLIB_OBJECT void DeclareType(uint32_t type);
 	EQLIB_OBJECT bool IsType(uint32_t type) const;
+	EQLIB_OBJECT uint32_t GetUltimateType() const;
 
 /*0x04*/ ArrayClass2<uint32_t> arRuntimeTypes;
 /*0x1c*/ CXStr               strName;
