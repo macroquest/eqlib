@@ -366,8 +366,8 @@ public:
 	EQLIB_OBJECT void SetRadioLook();
 
 	// protected
-/*0x280*/ bool bOrgState;
-/*0x284*/
+/*0x278*/ bool bOrgState;
+/*0x27c*/
 };
 
 //============================================================================
@@ -652,33 +652,33 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x1e8*/ int                BarIndex;
-/*0x1ec*/ int                ButtonIndex;
-/*0x1f0*/ uint32_t           Timer;
-/*0x1f4*/ CTextureAnimation* DecalIcon;
-/*0x1f8*/ int                LastButtonType;
-/*0x1fc*/ int                LastButtonSlot;
-/*0x200*/ char               LastButtonPage;
-/*0x201*/ EqItemGuid         LastItemGuid;
-/*0x214*/ int          LastItemId;
-/*0x218*/ int          LastIconType;
-/*0x21c*/ int          LastIconSlot;
-/*0x220*/ CXStr        LastLabel;
-/*0x224*/ CXStr        DefaultLabel;
-/*0x228*/ bool         bForceUpdate;
-/*0x22c*/ CTextObjectInterface* pKeyMapText;
-/*0x230*/ int          Unknown0x228;
-/*0x234*/ CButtonWnd*  pButtonWnd;
-/*0x238*/ CInvSlotWnd* pInvSlotWnd;
-/*0x23c*/ CSpellGemWnd* pSpellGemWnd;
-/*0x240*/ CXSize       BaseSize;
-/*0x248*/ int          ButtonPercentSize;
-/*0x24c*/ CXSize       BaseButtonSize;
-/*0x254*/ CXSize       BaseDecalSize;
-/*0x25c*/ CXSize       BaseInvButtonSize;
-/*0x264*/ CXSize       BaseSpellButtonSize;
-/*0x26c*/ int          Unknown0x264;
-/*0x270*/
+/*0x1e0*/ int                BarIndex;
+/*0x1e4*/ int                ButtonIndex;
+/*0x1e8*/ uint32_t           Timer;
+/*0x1ec*/ CTextureAnimation* DecalIcon;
+/*0x1f0*/ int                LastButtonType;
+/*0x1f4*/ int                LastButtonSlot;
+/*0x1f8*/ char               LastButtonPage;
+/*0x1f9*/ EqItemGuid         LastItemGuid;
+/*0x20c*/ int          LastItemId;
+/*0x210*/ int          LastIconType;
+/*0x214*/ int          LastIconSlot;
+/*0x218*/ CXStr        LastLabel;
+/*0x21c*/ CXStr        DefaultLabel;
+/*0x220*/ bool         bForceUpdate;
+/*0x224*/ CTextObjectInterface* pKeyMapText;
+/*0x228*/ int          Unknown0x228;
+/*0x22c*/ CButtonWnd*  pButtonWnd;
+/*0x230*/ CInvSlotWnd* pInvSlotWnd;
+/*0x234*/ CSpellGemWnd* pSpellGemWnd;
+/*0x238*/ CXSize       BaseSize;
+/*0x240*/ int          ButtonPercentSize;
+/*0x244*/ CXSize       BaseButtonSize;
+/*0x24c*/ CXSize       BaseDecalSize;
+/*0x254*/ CXSize       BaseInvButtonSize;
+/*0x25c*/ CXSize       BaseSpellButtonSize;
+/*0x264*/ int          Unknown0x264;
+/*0x268*/
 };
 //============================================================================
 // CLabelWnd
@@ -702,17 +702,17 @@ public:
 	virtual void ResizeHeightToText();
 
 	// data members
-/*0x1e8*/ bool         bNoWrap;
-/*0x1e9*/ bool         bAlignRight;
-/*0x1ea*/ bool         bAlignCenter;
-/*0x1ec*/ int          xOffset;
-/*0x1f0*/ bool         bResizeHeightToText;
-/*0x1f4*/ int          Unknown0x204;
-/*0x1f8*/ CXStr        Text;
-/*0x1fc*/ int          Unknown0x20c;
-/*0x200*/ bool         Unknown0x210;
-/*0x204*/ int          Unknown0x214;
-/*0x208*/
+/*0x1e0*/ bool         bNoWrap;
+/*0x1e1*/ bool         bAlignRight;
+/*0x1e2*/ bool         bAlignCenter;
+/*0x1e4*/ int          xOffset;
+/*0x1e8*/ bool         bResizeHeightToText;
+/*0x1ec*/ int          Unknown0x1ec;
+/*0x1f0*/ CXStr        Text;
+/*0x1f4*/ int          Unknown0x1f4;
+/*0x1f8*/ bool         Unknown0x1f8;
+/*0x1fc*/ int          Unknown0x1fc;
+/*0x200*/
 };
 
 //============================================================================
@@ -732,9 +732,9 @@ public:
 	virtual void UpdateText() override;
 
 	// data members
-/*0x208*/ int          EQType;
-/*0x20c*/ int          Unknown0x20c;
-/*0x210*/
+/*0x200*/ int          EQType;
+/*0x204*/ int          Unknown0x204;
+/*0x208*/
 };
 
 inline namespace deprecated {
@@ -1557,18 +1557,18 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x238*/ uint8_t      Unknown0x0240[0x8c];      // ui controls
-/*0x2c4*/ AdvancedLootItemList* pCLootList;      // below ref to aAdlw_applyfilt
-/*0x2c8*/ AdvancedLootItemList* pPLootList;      // below ref to aAdlw_cllwnd
-/*0x2cc*/ DWORD        Unknown0x2d4;
-/*0x2d0*/ DWORD        Unknown0x2d8;
-/*0x2d4*/ DWORD        Unknown0x2dc;
-/*0x2d8*/ DWORD        TotalLootCount;
-/*0x2dc*/ DWORD        Unknown0x2e4;
-/*0x2e0*/ DWORD        ContextMenuId;
-/*0x2e4*/ DWORD        CLastStackSize;
-/*0x2e8*/ BYTE         Unknown0x2f0[0x18];
-/*0x300*/
+/*0x230*/ uint8_t      Unknown0x0240[0x8c];      // ui controls
+/*0x2bc*/ AdvancedLootItemList* pCLootList;      // below ref to aAdlw_applyfilt
+/*0x2c0*/ AdvancedLootItemList* pPLootList;      // below ref to aAdlw_cllwnd
+/*0x2c4*/ DWORD        Unknown0x2d4;
+/*0x2c8*/ DWORD        Unknown0x2d8;
+/*0x2cc*/ DWORD        Unknown0x2dc;
+/*0x2d0*/ DWORD        TotalLootCount;
+/*0x2d4*/ DWORD        Unknown0x2e4;
+/*0x2d8*/ DWORD        ContextMenuId;
+/*0x2dc*/ DWORD        CLastStackSize;
+/*0x2e0*/ BYTE         Unknown0x2f0[0x18];
+/*0x2f8*/
 };
 
 inline namespace deprecated {
@@ -1615,14 +1615,14 @@ public:
 	CBandolierWnd();
 	virtual ~CBandolierWnd();
 
-/*0x234*/ CButtonWnd*        pAddButton;
-/*0x238*/ CButtonWnd*        pDeleteButton;
-/*0x23c*/ CButtonWnd*        pUseButton;
-/*0x240*/ CButtonWnd*        pMkHotButton;
-/*0x244*/ CButtonWnd*        pAutoSwapButton;
-/*0x248*/ CButtonWnd*        pDisplayButtons[MAX_BANDOLIER_SLOTS];
-/*0x258*/ CListWnd*          pWeaponSetList;
-/*0x25c*/
+/*0x22c*/ CButtonWnd*        pAddButton;
+/*0x230*/ CButtonWnd*        pDeleteButton;
+/*0x234*/ CButtonWnd*        pUseButton;
+/*0x238*/ CButtonWnd*        pMkHotButton;
+/*0x23c*/ CButtonWnd*        pAutoSwapButton;
+/*0x240*/ CButtonWnd*        pDisplayButtons[MAX_BANDOLIER_SLOTS];
+/*0x250*/ CListWnd*          pWeaponSetList;
+/*0x254*/
 };
 
 //============================================================================
@@ -3609,10 +3609,10 @@ public:
 
 	// todo: check me
 
-/*0x23c*/ BYTE        Unknown0x0240[0x84];
-/*0x2c0*/ int64_t     VitalityCap;
-/*0x2c8*/ int         AAVitalityCap;
-/*0x2cc*/
+/*0x234*/ BYTE        Unknown0x0240[0x84];
+/*0x2b8*/ int64_t     VitalityCap;
+/*0x2c0*/ int         AAVitalityCap;
+/*0x2c4*/
 };
 
 inline namespace deprecated {
@@ -6033,12 +6033,12 @@ public:
 
 	virtual void UpdateCascadeMenuItems() {}
 
-/*0x230*/ CButtonWnd*       EQButtonWnd;
-/*0x234*/ CButtonWnd*       SCButtonWnd;
-/*0x238*/ CButtonWnd*       FlashSaleButtonWnd;
-/*0x23c*/ CascadeItemArray* CascadeMenuItems;
-/*0x240*/ int               MenuId;
-/*0x244*/
+/*0x228*/ CButtonWnd*       EQButtonWnd;
+/*0x22c*/ CButtonWnd*       SCButtonWnd;
+/*0x230*/ CButtonWnd*       FlashSaleButtonWnd;
+/*0x234*/ CascadeItemArray* CascadeMenuItems;
+/*0x238*/ int               MenuId;
+/*0x23c*/
 };
 
 //----------------------------------------------------------------------------
