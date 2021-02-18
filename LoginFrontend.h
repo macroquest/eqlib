@@ -56,7 +56,6 @@ public:
 class LoginServerAPI
 {
 public:
-	//see 100129F0 in eqmain.dll dated jul 13 2017 - eqmule
 	EQLIB_OBJECT unsigned int JoinServer(int serverID, void* userdata = 0, int timeoutseconds = 10);
 };
 
