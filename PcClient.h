@@ -345,7 +345,7 @@ public:
 	inline auto cend() { return std::cend(m_groupMembers); }
 
 	ALT_MEMBER_GETTER_ARRAY_DEPRECATED(CGroupMember*, MAX_GROUP_SIZE, m_groupMembers, pMember,
-		"CGroupBase: Use GetGroupMember instead of accessing pMembers");
+		"CGroupBase: Use Group->GetGroupMember instead of accessing pMembers");
 	ALT_MEMBER_GETTER(CGroupMember*, m_groupLeader, pLeader);
 
 protected:
