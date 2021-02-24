@@ -147,6 +147,7 @@ EQLIB_VAR DWORD __SocialChangedList;
 EQLIB_VAR DWORD __SubscriptionType;
 EQLIB_VAR DWORD __TargetAggroHolder;
 EQLIB_VAR DWORD __ThrottleFrameRate;
+EQLIB_VAR DWORD __ThrottleFrameRateEnd;
 EQLIB_VAR DWORD __UseTellWindows;
 EQLIB_VAR DWORD __ZoneType;
 EQLIB_VAR DWORD EQObject_Top;

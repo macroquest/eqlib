@@ -387,7 +387,8 @@
 #define __eq_delete_x                                              0x9EAC15
 #define __eq_new_x                                                 0x9EB184
 #define __CopyLayout_x                                             0x65EFE0
-#define __ThrottleFrameRate_x                                      0x0
+#define __ThrottleFrameRate_x                                      0x62BFD3
+#define __ThrottleFrameRateEnd_x                                   0x62C02F
 
 ////
 // Section 4: Function Offsets
