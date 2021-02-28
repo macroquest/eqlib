@@ -236,7 +236,7 @@ public:
 	{}
 
 	inline ItemGlobalIndex(ItemContainerInstance location, int slot1, int slot2 = -1, int slot3 = -1)
-		: Location(Location)
+		: Location(location)
 		, Index(slot1, slot2, slot3)
 	{}
 
