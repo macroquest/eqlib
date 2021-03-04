@@ -4074,7 +4074,6 @@ public:
 
 	inline ItemContainer& GetLootItems() { return LootItems; }
 	inline ItemPtr GetLootItem(int slot) { return LootItems.GetItem(slot); }
-	EQLIB_OBJECT ItemPtr GetLootItemByInvSlot(int invSlot) const;
 
 	INVENTORYARRAY* get_pInventoryArray() { return reinterpret_cast<INVENTORYARRAY*>(&LootItems.Items[0]); }
 	__declspec(property(get = get_pInventoryArray)) INVENTORYARRAY* pInventoryArray;
@@ -6076,14 +6075,21 @@ public:
 
 	EQLIB_OBJECT virtual int CreateWindowInstance();
 
-	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<CXWnd*>, m_windows, pWindows, "pWindows is deprecated. Use helper functions instead.");
-	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<int>, m_times, pTimes, "pTimes is deprecated. Use helper functions instead.");
+	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<CXWnd*>, m_windows, pWindows, "CWndDisplayManager: pWindows is deprecated. Use GetWindow instead.");
+	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<int>, m_times, pTimes, "CWndDisplayManager: pTimes is deprecated. Use GetLastUpdateTime instead.");
 
 	inline CXWnd* GetWindow(int index) const
 	{
 		if (index >= 0 && index < m_windows.GetLength())
 			return m_windows[index];
 		return nullptr;
+	}
+
+	inline int GetLastUpdateTime(int index) const
+	{
+		if (index >= 0 && index < m_times.GetLength())
+			return m_times[index];
+		return 0;
 	}
 
 	inline int GetCount() const { return m_windows.GetLength(); }

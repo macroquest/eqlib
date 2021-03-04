@@ -248,6 +248,7 @@ public:
 	inline const ItemIndex& GetIndex() const { return Index; }
 
 	inline short GetTopSlot() const { return GetIndex().GetTopSlot(); }
+	inline short GetSlot(int depth) const { return GetIndex().GetSlot(depth); }
 
 	inline ItemGlobalIndex GetParent() const
 	{

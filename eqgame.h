@@ -101,7 +101,7 @@
 #define __Inviter_x                                                0xE40A44
 #define __AttackOnAssist_x                                         0xDA30F4
 #define __UseTellWindows_x                                         0xDA342C
-#define __gfMaxZoomCameraDistance_x                                0xB3DDC8
+#define __gfMaxZoomCameraDistance_x                                0xB3DDC4
 #define __gfMaxCameraDistance_x                                    0xB66504
 #define __pulAutoRun_x                                             0xDA1E18
 #define __pulForward_x                                             0xDA3464

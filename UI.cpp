@@ -2020,19 +2020,6 @@ FUNCTION_AT_ADDRESS(void CLootWnd::RequestLootSlot(int, bool), CLootWnd__Request
 FUNCTION_AT_ADDRESS(void CLootWnd::SlotLooted(int), CLootWnd__SlotLooted);
 #endif
 
-ItemPtr CLootWnd::GetLootItemByInvSlot(int invSlot) const
-{
-	for (int i = 0; i < InvSlot_Max; ++i)
-	{
-		if (LootIndex[i] == invSlot)
-		{
-			return LootItems.GetItem(invSlot);
-		}
-	}
-
-	return nullptr;
-}
-
 //============================================================================
 // CMapViewWnd
 //============================================================================

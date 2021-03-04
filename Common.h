@@ -433,6 +433,11 @@ public:
 		return Delta.GetLengthSquared();
 	}
 
+	bool operator==(const CVector3& other)
+	{
+		return X == other.X && Y == other.Y && Z == other.Z;
+	}
+
 	float X = 0.f;
 	float Y = 0.f;
 	float Z = 0.f;
