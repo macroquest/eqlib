@@ -1052,7 +1052,6 @@ public:
 /*0x14f*/ bool                 NoPartialSave = false;
 /*0x150*/ bool                 NoResist = false;
 /*0x151*/ bool                 UsesPersistentParticles = false;
-/*0x152*/ bool                 SmallTargetsOnly = false;
 /*0x153*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
 /*0x154*/ bool                 Uninterruptable = false;
 /*0x155*/ bool                 NotStackableDot = false;
