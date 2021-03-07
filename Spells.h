@@ -1052,21 +1052,22 @@ public:
 /*0x14f*/ bool                 NoPartialSave = false;
 /*0x150*/ bool                 NoResist = false;
 /*0x151*/ bool                 UsesPersistentParticles = false;
-/*0x153*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
-/*0x154*/ bool                 Uninterruptable = false;
-/*0x155*/ bool                 NotStackableDot = false;
-/*0x156*/ bool                 Deletable = false;
-/*0x157*/ bool                 BypassRegenCheck = false;
-/*0x158*/ bool                 CanCastInCombat = false;
-/*0x159*/ bool                 CanCastOutOfCombat = false;
-/*0x15a*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
-/*0x15b*/ bool                 OnlyDuringFastRegen = false;
-/*0x15c*/ bool                 CastNotStanding = false;
-/*0x15d*/ bool                 CanMGB = false;
-/*0x15e*/ bool                 NoDisspell = false;
-/*0x15f*/ bool                 AffectInanimate = false;       // ldon trap spells etc
-/*0x160*/ bool                 IsSkill = false;
-/*0x161*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
+/*0x152*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
+/*0x153*/ bool                 Uninterruptable = false;
+/*0x154*/ bool                 NotStackableDot = false;
+/*0x155*/ bool                 Deletable = false;
+/*0x156*/ bool                 BypassRegenCheck = false;
+/*0x157*/ bool                 CanCastInCombat = false;
+/*0x158*/ bool                 CanCastOutOfCombat = false;
+/*0x159*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
+/*0x15a*/ bool                 OnlyDuringFastRegen = false;
+/*0x15b*/ bool                 CastNotStanding = false;
+/*0x15c*/ bool                 CanMGB = false;
+/*0x15d*/ bool                 NoDisspell = false;
+/*0x15e*/ bool                 AffectInanimate = false;       // ldon trap spells etc
+/*0x15f*/ bool                 IsSkill = false;
+/*0x160*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
+/*0x161*/ bool                 bShowDoTMessage = false;
 /*0x162*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
 /*0x186*/ uint8_t              LightType = 0;
 /*0x187*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only

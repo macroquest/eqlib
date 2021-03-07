@@ -4103,7 +4103,7 @@ struct [[offsetcomments]] MAPLABEL
 /*0x0c*/ CVector3      Location;
 /*0x18*/ ARGBCOLOR     Color;
 /*0x1c*/ int           Size;                     // 1-3;
-/*0x20*/ const char*   Label;
+/*0x20*/ char*         Label;
 /*0x24*/ int           Layer;                    // 0-3;
 /*0x28*/ int           Width;
 /*0x2c*/ int           Height;
