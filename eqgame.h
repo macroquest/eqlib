@@ -285,6 +285,7 @@
 #define pinstCNoteWnd_x                                            0xED41D0
 #define pinstCObjectPreviewWnd_x                                   0xED4134
 #define pinstCOptionsWnd_x                                         0xED4160
+#define pinstCOverseerWnd_x                                        0xED40C8
 #define pinstCPetInfoWnd_x                                         0xED4418
 #define pinstCPetitionQWnd_x                                       0xED4184
 #define pinstCPlayerNotesWnd_x                                     0xED4474
@@ -443,6 +444,13 @@
 // CBankWnd
 #define CBankWnd__GetNumBankSlots_x                                0x706E70
 #define CBankWnd__WndNotification_x                                0x706C10
+
+// CBarterWnd
+#define CBarterWnd__WndNotification_x                              0x711880
+
+// CBarterSearchWnd
+#define CBarterSearchWnd__WndNotification_x                        0x70C4F0
+#define CBarterSearchWnd__UpdateInventoryList_x                    0x70A4C0
 
 // CBazaarSearchWnd
 #define CBazaarSearchWnd__HandleBazaarMsg_x                        0x715EC0

@@ -1106,19 +1106,33 @@ struct [[offsetcomments]] AuraData
 inline namespace deprecated {
 	using AURAINFO DEPRECATE("Use AuraData instead of AURAINFO") = AuraData;
 	using PAURAINFO DEPRECATE("Use AuraData* instead of PAURAINFO") = AuraData*;
+
+	using AssociatedSOIData DEPRECATE("Use AuraData instead of AssociatedSOIData") = AuraData;
 }
 
-struct [[offsetcomments]] ClientAuraManager
+class [[offsetcomments]] ClientAuraManager
 {
 	FORCE_SYMBOLS;
 
+public:
 /*0x00*/ ArrayClass2<AuraData> Auras;
 /*0x18*/
+
+	static EQLIB_OBJECT ClientAuraManager* GetSingleton();
+
+	ALT_MEMBER_GETTER_DEPRECATED(AuraData**, Auras, pAuraInfo, "ClientAuraManager: Use Auras[num] instead of pAuraInfo[num]");
+
+	DEPRECATE("ClientAuraManager: Use Auras.GetLength() instead of NumAuras")
+	__declspec(property(get = get_NumAuras)) uint32_t NumAuras;
+private:
+	uint32_t get_NumAuras() const { return Auras.GetLength(); }
 };
 
 inline namespace deprecated {
 	using AURAMGR DEPRECATE("Use ClientAuraManager instead of AURAMGR") = ClientAuraManager;
 	using PAURAMGR DEPRECATE("Use ClientAuraManager& instead of PAURAMGR") = ClientAuraManager*;
+
+	using ClientSOIManager DEPRECATE("Use ClientAuraManager instead of ClientSOIManager") = ClientAuraManager;
 }
 
 //----------------------------------------------------------------------------

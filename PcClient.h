@@ -1489,7 +1489,7 @@ public:
 /*0x15f8*/ uint32_t                              LoginTime;
 /*0x1600*/ EqGuid                                GuildID;
 /*0x1608*/ EqGuid                                FellowshipID;
-/*0x1610*/ FELLOWSHIPINFO*                       pFellowship;
+/*0x1610*/ SFellowship*                          pFellowship;
 /*0x1614*/ bool                                  GuildShowSprite;
 /*0x1618*/ __time32_t                            CreationTime;
 /*0x161c*/ __time32_t                            AccountCreationTime;
@@ -1499,7 +1499,6 @@ public:
 /*0x1629*/ bool                                  bGM;
 /*0x162a*/ bool                                  bGMStealth;
 /*0x162c*/ uint32_t                              AAExp;
-/*0x1630*/ uint8_t                               NobilityRank;
 /*0x1631*/ uint8_t                               PercentEXPtoAA;
 /*0x1634*/ int                                   AirSupply;
 /*0x1638*/ uint32_t                              SerialNum;

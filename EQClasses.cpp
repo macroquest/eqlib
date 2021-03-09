@@ -798,7 +798,7 @@ FUNCTION_AT_ADDRESS(ChatManagerClient& ChatManagerClient::Instance(), ChatManage
 //============================================================================
 
 #ifdef ClientSOIManager__GetSingleton_x
-FUNCTION_AT_ADDRESS(ClientSOIManager* ClientSOIManager::GetSingleton(), ClientSOIManager__GetSingleton);
+FUNCTION_AT_ADDRESS(ClientAuraManager* ClientAuraManager::GetSingleton(), ClientSOIManager__GetSingleton);
 #endif
 
 //============================================================================

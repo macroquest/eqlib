@@ -344,10 +344,10 @@ int CXStr::Compare(const CXStr& other, ECompareMode mode /*= CaseSensitive*/) co
 	switch (mode)
 	{
 	case CaseInsensitive:
-		return _stricmp(m_data->utf8, other.m_data->utf8);
+		return _stricmp(c_str(), other.c_str());
 
 	case CaseSensitive:
-		return strcmp(m_data->utf8, other.m_data->utf8);
+		return strcmp(c_str(), other.c_str());
 	}
 
 	return -1;

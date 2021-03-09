@@ -505,6 +505,11 @@ union EqGuid
 	EqGuid() : GUID(0) {}
 };
 
+inline bool operator==(const EqGuid& a, const EqGuid& b)
+{
+	return a.GUID == b.GUID;
+}
+
 } // namespace eqlib
 
 #include "Constants.h"

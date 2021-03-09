@@ -967,6 +967,25 @@ public:
 	EQLIB_OBJECT bool Contains(const std::function<bool(const CXStr)>& predicate);
 
 	//----------------------------------------------------------------------------
+
+	// Sets the sorting column. If this is the current column it will flip its order.
+	inline void SetSortColumn(int column)
+	{
+		if (column < 0 || column >= Columns.GetCount())
+			return;
+
+		if (SortCol == column)
+			bSortAsc = !bSortAsc;
+		else
+		{
+			SortCol = column;
+			bSortAsc = true;
+		}
+
+		Sort();
+	}
+
+	//----------------------------------------------------------------------------
 	// data members
 
 /*0x1e0*/ int                 Unknown0x1f0;
@@ -1666,6 +1685,149 @@ public:
 };
 
 //============================================================================
+// CBarterWnd
+//============================================================================
+
+struct BarterInventoryItem
+{
+	int  ItemID;
+	int  Charges;
+	int  Qty;
+	int  ItemIcon;
+	char Name[EQ_MAX_NAME];
+};
+
+struct CompensationItem
+{
+	int  ItemID;
+	int  Quantity;
+	int  ItemIcon;
+	char ItemName[EQ_MAX_NAME];
+};
+
+struct BarterBuyLine
+{
+/*0x08*/ int      ItemSought;
+/*0x0c*/ char     ItemName[EQ_MAX_NAME];
+/*0x4c*/ int      ItemIcon;
+/*0x50*/ int      ItemQuantity;
+/*0x54*/ bool     Active;
+/*0x58*/ uint32_t CoinPrice;
+/*0x5c*/ ArrayClass<CompensationItem> ItemPrice;
+/*0x6c*/ uint32_t BuyerPlayerZoneID;
+/*0x70*/ uint32_t BuyerPlayerUniqueID;
+/*0x74*/ int      BuyerZoneID;
+/*0x78*/ char     BuyerName[EQ_MAX_NAME];
+/*0xb8*/
+};
+
+struct BarterSearchedItem
+{
+	char itemName[EQ_MAX_NAME];
+	int  itemID;
+	int  itemIcon;
+	int  searchIndex;
+};
+
+// sizeof(CBarterWnd) == 0x390 // live 2021-02-11
+class [[offsetcomments]] CBarterWnd : public CSidlScreenWnd
+{
+public:
+	enum BuyLineListColumns
+	{
+		Column_Active = 0,
+		Column_Icon,
+		Column_Name,
+		Column_Count,
+		Column_Offering,
+	};
+
+/*0x228*/ CStmlWnd*                    pstmlStatus;
+/*0x22c*/ CListWnd*                    plistItems;
+/*0x230*/ CListWnd*                    plistInventory;
+/*0x234*/ CListWnd*                    plistCompensation;
+/*0x238*/ CListWnd*                    plistBuyLines;
+/*0x23c*/ CEditWnd*                    peditSearch;
+/*0x240*/ CButtonWnd*                  pbtnSearch;
+/*0x244*/ CButtonWnd*                  pbtnAddItem;
+/*0x248*/ CButtonWnd*                  pbtnRemoveItem;
+/*0x24c*/ CButtonWnd*                  pbtnPlat;
+/*0x250*/ CButtonWnd*                  pbtnGold;
+/*0x254*/ CButtonWnd*                  pbtnSilver;
+/*0x258*/ CButtonWnd*                  pbtnCopper;
+/*0x25c*/ CButtonWnd*                  pbtnCreate;
+/*0x260*/ CEditWnd*                    peditCount;
+/*0x264*/ CButtonWnd*                  pbtnRemoveLine;
+/*0x268*/ CButtonWnd*                  pbtnUpdateLine;
+/*0x26c*/ CButtonWnd*                  pbtnActiveLine;
+/*0x270*/ CButtonWnd*                  pbtnActivateAllLines;
+/*0x274*/ CButtonWnd*                  pbtnListLines;
+/*0x278*/ CButtonWnd*                  pbtnClearStatus;
+/*0x27c*/ CButtonWnd*                  pbtnStartStop;
+/*0x280*/ CButtonWnd*                  pbtnOfflineMode;
+/*0x284*/ CEditWnd*                    peditWelcome;
+/*0x288*/ CButtonWnd*                  pbtnUpdateWelcome;
+/*0x28c*/ CButtonWnd*                  pbtnRefreshInventory;
+/*0x290*/ CLayoutWnd*                  pLayout;
+/*0x294*/ CLayoutWnd*                  pStatusLayout;
+/*0x298*/ uint32_t                     lastUpdateTime;
+/*0x29c*/ uint32_t                     lastSearchTime;
+/*0x2a0*/ uint32_t                     quantityRequest;
+/*0x2a4*/ ArrayClass<BarterInventoryItem> InventoryItems;
+/*0x2b4*/ ArrayClass2<BarterSearchedItem> SearchedItems;
+/*0x2cc*/ BarterBuyLine                CurrentBuyLine;
+/*0x37c*/
+};
+
+//============================================================================
+// CBarterSearchWnd
+//============================================================================
+
+struct [[offsetcomments]] BarterBuyerSearchData
+{
+/*0x00*/ int      ZoneID;
+/*0x04*/ uint32_t UniquePlayerID;
+/*0x08*/ uint32_t ZonePlayerID;
+/*0x0c*/ char     Name[EQ_MAX_NAME];
+/*0x4c*/ };
+
+class [[offsetcomments]] CBarterSearchWnd : public CSidlScreenWnd
+{
+public:
+	enum InventoryListColumns
+	{
+		Column_Icon = 0,
+		Column_Name,
+		Column_Count,
+
+		Column_Max,
+	};
+
+/*0x228*/ HashTable<BarterBuyerSearchData> Buyers;
+/*0x238*/ CListWnd*                    plistInventory;
+/*0x23c*/ CListWnd*                    plistBuyLines;
+/*0x240*/ CListWnd*                    plistDetails;
+/*0x244*/ CEditWnd*                    peditSearch;
+/*0x248*/ CButtonWnd*                  pbtnRefreshInventory;
+/*0x24c*/ CButtonWnd*                  pbtnSearch;
+/*0x250*/ CButtonWnd*                  pbtnWelcome;
+/*0x254*/ CButtonWnd*                  pbtnGreeting;
+/*0x258*/ CButtonWnd*                  pbtnFind;
+/*0x25c*/ CButtonWnd*                  pbtnHide;
+/*0x260*/ CButtonWnd*                  pbtnBuyLineInspectItem;
+/*0x264*/ CButtonWnd*                  pbtnCompensationInspectItem;
+/*0x268*/ CButtonWnd*                  pbtnCompensationPreviewItem;
+/*0x26c*/ CButtonWnd*                  pbtnSellButton;
+/*0x270*/ CComboWnd*                   pcomboPlayersCombo;
+/*0x274*/ CLayoutWnd*                  pLayout;
+/*0x278*/ CLayoutWnd*                  pMatchLayout;
+/*0x27c*/ bool                         NeedsUpdate;
+/*0x280*/ ArrayClass<BarterBuyLine>    BuyLines;
+/*0x290*/ ArrayClass2<BarterInventoryItem> InventoryItems;
+/*0x2a8*/ // more members
+};
+
+//============================================================================
 // CBazaarSearchWnd
 //============================================================================
 
@@ -2182,7 +2344,6 @@ public:
 /*0x08c*/ DWORD              Unknown0x08c;
 /*0x090*/ CChatContainerWindow* ChatContainerWindow[MAX_CHAT_WINDOWS];
 /*0x110*/ DWORD              Unknown0x110;
-
 /*0x114*/ DWORD              NumWindows;
 /*0x118*/ DWORD              LockedWindow;
 /*0x11c*/ DWORD              ActiveWindow;
@@ -4300,6 +4461,15 @@ inline namespace deprecated {
 }
 
 //============================================================================
+// CMarketplaceWnd
+//============================================================================
+
+class [[offsetcomments]] CMarketplaceWnd : public CSidlScreenWnd
+{
+public:
+};
+
+//============================================================================
 // CMerchantWnd
 //============================================================================
 
@@ -4588,6 +4758,14 @@ inline namespace deprecated {
 }
 
 //============================================================================
+// COverseerWnd
+//============================================================================
+
+class [[offsetcomments]] COverseerWnd : public CSidlScreenWnd
+{
+public:
+};
+//============================================================================
 // CPetInfoWnd
 //============================================================================
 
@@ -4771,6 +4949,15 @@ public:
 /*0x2dc*/ int                 SliderType;
 /*0x2e0*/ PointMerchantInterface* pHandler;
 /*0x2e4*/
+};
+
+//============================================================================
+// CPurchaseGroupWnd
+//============================================================================
+
+class [[offsetcomments]] CPurchaseGroupWnd : public CSidlScreenWnd
+{
+public:
 };
 
 //============================================================================

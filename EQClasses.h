@@ -108,26 +108,6 @@ public:
 	EQLIB_OBJECT ALTABILITY* GetAAById(int index, int level = -1);
 };
 
-// we call this _AURAINFO
-class [[offsetcomments]] AssociatedSOIData
-{
-public:
-/*0x00*/ char         Name[0x40];
-/*0x40*/ uint32_t     SpawnID;
-/*0x44*/ int          Cost;
-/*0x48*/ int          IconnID;
-/*0x4c*/
-};
-
-// we call this _AURAMGR
-class ClientSOIManager
-{
-public:
-	ArrayClass2<AssociatedSOIData> Auras;
-
-	static EQLIB_OBJECT ClientSOIManager* GetSingleton();
-};
-
 // actual size 0x80 20101012 - ieatacid
 class [[offsetcomments]] EQGroundItem
 {

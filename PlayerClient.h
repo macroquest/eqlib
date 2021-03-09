@@ -133,7 +133,7 @@ struct [[offsetcomments]] PhysicsEffect
 };
 
 // Mar 09 2020
-struct [[offsetcomments]] FELLOWSHIPMEMBER
+struct [[offsetcomments]] SFellowshipMember
 {
 /*0x00*/ EqGuid       UniqueEntityID;
 /*0x08*/ char         Name[EQ_MAX_NAME];
@@ -145,7 +145,8 @@ struct [[offsetcomments]] FELLOWSHIPMEMBER
 };
 
 inline namespace deprecated {
-	using PFELLOWSHIPMEMBER DEPRECATE("Use FELLOWSHIPMEMBER* instead of PFELLOWSHIPMEMBER") = FELLOWSHIPMEMBER*;
+	using FELLOWSHIPMEMBER DEPRECATE("Use SFellowshipMember instead of FELLOSWHIPMEMBER") = SFellowshipMember;
+	using PFELLOWSHIPMEMBER DEPRECATE("Use SFellowshipMember* instead of PFELLOWSHIPMEMBER") = SFellowshipMember*;
 }
 
 struct FSDATA
@@ -157,20 +158,20 @@ constexpr int MAX_FELLOWSHIP_MEMBERS = 12;
 constexpr int MAX_FELLOWSHIP_MOTD = 1024;
 
 // Mar 09 2020 - 0xa80 see 8CB990
-struct [[offsetcomments]] FELLOWSHIPINFO
+struct [[offsetcomments]] SFellowship
 {
-/*0x000*/ unsigned int     Version;
-/*0x004*/ unsigned int     Version2;
-/*0x008*/ unsigned int     Version3;
-/*0x00c*/ unsigned int     Version4;
-/*0x010*/ EqGuid           FellowshipGUID;
-/*0x018*/ char             MotD[MAX_FELLOWSHIP_MOTD];
-/*0x418*/ int              Members;
-/*0x420*/ FELLOWSHIPMEMBER FellowshipMember[MAX_FELLOWSHIP_MEMBERS];
-/*0x840*/ unsigned int     Sync;
-/*0x844*/ bool             bExpSharingEnabled[MAX_FELLOWSHIP_MEMBERS];
-/*0x850*/ bool             bSharedExpCapped[MAX_FELLOWSHIP_MEMBERS];
-/*0x85c*/ int              Unknown0x85C;
+/*0x000*/ unsigned int      Version;
+/*0x004*/ unsigned int      Version2;
+/*0x008*/ unsigned int      Version3;
+/*0x00c*/ unsigned int      Version4;
+/*0x010*/ EqGuid            FellowshipGUID;
+/*0x018*/ char              MotD[MAX_FELLOWSHIP_MOTD];
+/*0x418*/ int               Members;
+/*0x420*/ SFellowshipMember FellowshipMember[MAX_FELLOWSHIP_MEMBERS];
+/*0x840*/ unsigned int      Sync;
+/*0x844*/ bool              bExpSharingEnabled[MAX_FELLOWSHIP_MEMBERS];
+/*0x850*/ bool              bSharedExpCapped[MAX_FELLOWSHIP_MEMBERS];
+/*0x85c*/ int               Unknown0x85C;
 /*0x860*/
 
 	inline const char* get_Leader() { return Members > 0 ? FellowshipMember[0].Name : ""; }
@@ -181,7 +182,8 @@ struct [[offsetcomments]] FELLOWSHIPINFO
 };
 
 inline namespace deprecated {
-	using PFELLOWSHIPINFO DEPRECATE("Use FELLOWSHIPINFO* instead of PFELLOWSHIPINFO") = FELLOWSHIPINFO*;
+	using FELLOWSHIPINFO DEPRECATE("Use SFellowship instead of FELLOWSHIPINFO") = SFellowship;
+	using PFELLOWSHIPINFO DEPRECATE("Use SFellowship* instead of PFELLOWSHIPINFO") = SFellowship*;
 }
 
 // size 0x58 see 442783 in eqgame.exe 2017 04 11 test
@@ -586,7 +588,7 @@ struct [[offsetcomments]] SPAWNINFO
 /*0x1413*/ uint8_t           InteractiveObjectName[0x40];
 /*0x1454*/ CPhysicsInfo      PhysicsBeforeLastPort;        // size IS /*0x30*/ see 5E617B in feb 14 2019 test
 /*0x1484*/ unsigned int      notsure;                      // could be part of CPhysicsInfo?
-/*0x1488*/ FELLOWSHIPINFO    Fellowship;                   // IT IS AT 0x1498 see 63BEDD in feb 14 2019 test // size 0x9e8
+/*0x1488*/ SFellowship       Fellowship;                   // IT IS AT 0x1498 see 63BEDD in feb 14 2019 test // size 0x9e8
 /*0x1ce8*/ float             CampfireY;
 /*0x1cec*/ float             CampfireX;
 /*0x1cf0*/ float             CampfireZ;
@@ -1118,10 +1120,9 @@ public:
 /*0x1313*/ uint8_t           InteractiveObjectModelName[0x80];
 /*0x1393*/ uint8_t           InteractiveObjectOtherName[0x80];
 /*0x1413*/ uint8_t           InteractiveObjectName[0x40];
-/*0x1463*/
 /*0x1454*/ CPhysicsInfo      PhysicsBeforeLastPort;        // size IS /*0x30*/ see 5E617B in feb 14 2019 test
 /*0x1484*/ unsigned int      notsure;                      // could be part of CPhysicsInfo?
-/*0x1488*/ FELLOWSHIPINFO    Fellowship;                   // IT IS AT 0x1498 see 63BEDD in feb 14 2019 test // size 0x9e8
+/*0x1488*/ SFellowship       Fellowship;                   // IT IS AT 0x1498 see 63BEDD in feb 14 2019 test // size 0x9e8
 /*0x1ce8*/ float             CampfireY;
 /*0x1cec*/ float             CampfireX;
 /*0x1cf0*/ float             CampfireZ;
