@@ -896,7 +896,9 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// actual size: 0x215 Oct Oct 19 2020 @ 0x58A4FF
+// @sizeof(EQ_Spell) == 0x214 :: 2021-03-04 (live) @0x5A4609
+constexpr size_t EQ_Spell_size = 0x214;
+
 class [[offsetcomments]] EQ_Spell
 {
 public:
@@ -1138,16 +1140,16 @@ using PSPELL = EQ_Spell*;
 
 #pragma pack(pop) // EQ_Spell
 
+static_assert(sizeof(EQ_Spell) == EQ_Spell_size, "Size of EQ_Spell does not match EQ_Spell_size");
+
 constexpr int TOTAL_SPELL_COUNT          = 62000;    // # of spells allocated in memory (07/10/2019 test 4F1197)
 constexpr int TOTAL_SPELL_AFFECT_COUNT   = 230000;   // 69EAAA in eqgame 2020 Oct 19
 
 // CalcInfoSize is 3 * TOTAL_SPELL_COUNT
 
-// this is actually the size of the struct thats populated from aSpells_S_txt
-// SpellManager__SpellManager_x
-// size: 0x1966A8 2017-04-11 test (see 55DC54) - eqmule
-// size: 0x1AED40 2018-04-10 test (see 5D32E2) - eqmule
-// size: 0x1BC800 2019-07-10 test (see 5E36C2) - eqmule
+// @sizeof(SPELLMGR) == 0x1D3F00 :: 2021-03-04 (live) @ 0x627C64
+constexpr size_t SPELLMGR_size = 0x1D3F00;
+
 struct [[offsetcomments]] SPELLMGR
 {
 /*0x000000*/ void*            vfTable;                       // need this for some calls later
@@ -1167,6 +1169,7 @@ struct [[offsetcomments]] SPELLMGR
 // TODO: Merge with ClientSpellManager
 using PSPELLMGR = SPELLMGR*;
 
+static_assert(sizeof(SPELLMGR) == SPELLMGR_size, "SPELLMGR size does not match SPELLMGR_size");
 
 class [[offsetcomments]] FileStatMgr
 {
@@ -1361,6 +1364,9 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
+// @sizeof(ClientSpellManager) == 0x1D3F00 :: 2021-03-04 (live) @ 0x627C64
+constexpr size_t ClientSpellManager_size = 0x1D3F00;
+
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
 public:
@@ -1383,6 +1389,7 @@ public:
 /*0x1d3f00*/
 };
 
+static_assert(sizeof(ClientSpellManager) == ClientSpellManager_size, "ClientSpellManager size does not match ClientSpellManager_size");
 
 class [[offsetcomments]] MercenaryAbilityEffectsDefinition
 {

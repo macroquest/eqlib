@@ -948,6 +948,10 @@ public:
 // PcProfile
 //============================================================================
 
+
+// @sizeof(PcProfile) == 0xAE60 :: 2021-03-04 (live) @ 0x8EF785
+constexpr size_t PcProfile_size = 0xAE60;
+
 class [[offsetcomments]] PcProfile : public BaseProfile
 {
 	FORCE_SYMBOLS;
@@ -1009,6 +1013,8 @@ inline namespace deprecated {
 	using CHARINFO2 DEPRECATE("Use PcProfile instead of CHARINFO2") = PcProfile;
 	using PCHARINFO2 DEPRECATE("Use PcProfile* instead of PCHARINFO2") = PcProfile*;
 }
+
+static_assert(sizeof(PcProfile) == PcProfile_size, "Size of PcProfile does not match PcProfile_size");
 
 //============================================================================
 // CharacterBase
@@ -1499,7 +1505,7 @@ public:
 /*0x1629*/ bool                                  bGM;
 /*0x162a*/ bool                                  bGMStealth;
 /*0x162c*/ uint32_t                              AAExp;
-/*0x1631*/ uint8_t                               PercentEXPtoAA;
+/*0x1630*/ uint8_t                               PercentEXPtoAA;
 /*0x1634*/ int                                   AirSupply;
 /*0x1638*/ uint32_t                              SerialNum;
 /*0x163c*/ bool                                  bNewCharacter;
@@ -1700,6 +1706,9 @@ public:
 	EQLIB_OBJECT bool HasCombatAbility(int);
 };
 
+// @sizeof(PcClient) == 0x2BCC :: 2021-03-04 (live) @ 0x626472
+constexpr size_t PcClient_size = 0x2BCC;
+
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
 	// has a vftable but we get it from PcZoneClient
@@ -1719,8 +1728,7 @@ public:
 /*0x2898*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
 /*0x28a0*/ bool                                  bPickZoneFewest;
 /*0x28a4*/ int                                   Unknown0x28a4;                       // used in CContainerWnd::HandleCombine
-/*0x28a8*/ int                                   Unknown0x28a8;                       // either unused or doesn't exist (alignment)
-/*0x28ac*/
+/*0x28a8*/
 
 	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);
@@ -1729,6 +1737,9 @@ public:
 	// Verified
 	EQLIB_OBJECT unsigned long GetConLevel(const PlayerClient*);
 	EQLIB_OBJECT bool HasLoreItem(const ItemPtr&, bool, bool, bool, bool);
+
+	virtual int GetGameFeature(int) const { return 0; }
+	virtual int GetMembershipLevel() const { return 0; }
 
 	// Unverified
 	// TODO: Methods from EQ_PC: The ones we use need to be validated. Not all of them live in PcClient.
@@ -1807,5 +1818,14 @@ inline namespace deprecated {
 	using EQ_Character DEPRECATE("Use PcClient instead of EQ_Character") = PcClient;
 	using EQ_Character1 DEPRECATE("Use PcClient instead of EQ_Character1") = PcClient;
 }
+
+// The in-memory layout of this class hierarchy looks like this:
+// PcBase
+// CharacterZoneClient
+// PcZoneClient
+// PcClient
+// CharacterBase
+static_assert(sizeof(PcClient) == PcClient_size, "Size of PcClient does not match PcClient_size");
+
 
 } // namespace eqlib
