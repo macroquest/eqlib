@@ -891,9 +891,9 @@
 #define CXWnd__SetMouseOver_x                                      0x971780
 #define CXWnd__SetParent_x                                         0x973020
 #define CXWnd__StartFade_x                                         0x9731F0
-#define CXWnd__vftable_x                                           0x96DC40
+#define CXWnd__vftable_x                                           0xB7FB34
 #define CXWnd__CXWnd_x                                             0x96D560
-#define CXWnd__dCXWnd_x                                            0xB7FB34
+#define CXWnd__dCXWnd_x                                            0x96DC40
 
 // CScreenPieceTemplate
 #define CScreenPieceTemplate__IsType_x                             0x9AFEC0
