@@ -163,6 +163,10 @@ uint32_t CGroup::GetNumberOfMembers(bool includeOffline /*= true*/) const
 			count++;
 	}
 
+	// If you're by yourself, then return no members (no group).
+	if (count == 1)
+		return 0;
+
 	return count;
 }
 
