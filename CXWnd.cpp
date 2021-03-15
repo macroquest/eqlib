@@ -315,12 +315,10 @@ const char* EWndRuntimeTypeToString(EWndRuntimeType type)
 	case WRT_TREEWND: return "TREEWND";
 	case WRT_PAGEWND: return "PAGEWND";
 	case WRT_TABWND: return "TABWND";
-	case WRT_HTMLWND: return "HTMLWND";
 	case WRT_HOTKEYWND: return "HOTKEYWND";
 	case WRT_EDITHOTKEYWND: return "EDITHOTKEYWND";
 	case WRT_RANGESLIDERWND: return "RANGESLIDERWND";
 	case WRT_STMLWND: return "STMLWND";
-	case WRT_BROWSERWND: return "BROWSERWND";
 	case WRT_MODALMESSAGEWND: return "MODALMESSAGEWND";
 	case WRT_CHECKBOXWND: return "CHECKBOXWND";
 	case WRT_SIDLSCREENWND: return "SIDLSCREENWND";
