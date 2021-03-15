@@ -49,12 +49,13 @@ inline namespace deprecated {
 struct LaunchSpellData;
 struct chngForm;
 
-#if 0 // when we're ready
+#if SPAWNINFO_IS_PLAYERCLIENT // when we're ready
 using SPAWNINFO = PlayerClient;
 using PSPAWNINFO = PlayerClient *;
-#endif
-
+#else
 struct SPAWNINFO;
+using PSPAWNINFO = SPAWNINFO*;
+#endif
 
 //============================================================================
 // Misc
@@ -282,6 +283,8 @@ struct [[offsetcomments]] PZCPhysicsInfo
 
 // @sizeof(PlayerClient) == 0x1ea0 :: 2021-03-04 (live) @ 0x68F44B
 constexpr size_t PlayerClient_size = 0x1ea0;
+
+#if !SPAWNINFO_IS_PLAYERCLIENT
 
 //============================================================================
 // SPAWNINFO
@@ -669,10 +672,10 @@ public:
 	EQLIB_OBJECT int GetCurrentEndurance() const { return EnduranceCurrent; }
 	EQLIB_OBJECT int GetMaxEndurance() const { return EnduranceMax; }
 	EQLIB_OBJECT unsigned int GetSpellCooldownETA() const { return SpellCooldownETA; }
-
-	// TODO: Add a PlayerClient() constructor
 };
-using PSPAWNINFO /*[[deprecated]]*/ = SPAWNINFO*;
+
+inline PcClient* SPAWNINFO::GetPcClient() const { return ((PlayerClient*)this)->GetPcClient(); }
+#endif // !SPAWNINFO_IS_PLAYERCLIENT
 
 struct HASHENTRY
 {
@@ -726,7 +729,7 @@ inline namespace deprecated {
 // this is the size of EQPlayer__EQPlayer_x
 // actual size 0x2020 in Feb 20 2016 Live (see 64B6A0) - eqmule
 // A.k.a. SPAWNINFO
-class [[offsetcomments]] PlayerBase : public TListNode<PlayerBase>, public CActorApplicationData
+class [[offsetcomments]] PlayerBase : public TListNode<PlayerClient>, public CActorApplicationData
 {
 public:
 /*0x010*/ float             JumpStrength;
@@ -776,9 +779,9 @@ public:
 /*0x14c*/ int               Unknown0x014C;
 /*0x150*/ unsigned int      SpawnID;
 /*0x154*/ unsigned int      PlayerState;                  // 0=Idle 1=Open 2=WeaponSheathed 4=Aggressive 8=ForcedAggressive 0x10=InstrumentEquipped 0x20=Stunned 0x40=PrimaryWeaponEquipped 0x80=SecondaryWeaponEquipped
-/*0x158*/ PlayerBase*       Vehicle;                      // NULL until you collide with a vehicle (boat,airship etc)
-/*0x15c*/ PlayerBase*       Mount;                        // NULL if no mount present
-/*0x160*/ PlayerBase*       Rider;                        // SPAWNINFO of mount's rider
+/*0x158*/ PlayerClient*     Vehicle;                      // NULL until you collide with a vehicle (boat,airship etc)
+/*0x15c*/ PlayerClient*     Mount;                        // NULL if no mount present
+/*0x160*/ PlayerClient*     Rider;                        // SPAWNINFO of mount's rider
 /*0x164*/ unsigned int      Unknown0x0164;
 /*0x168*/ bool              Targetable;                   // true if mob is targetable
 /*0x169*/ bool              bTargetCyclable;
@@ -1179,6 +1182,16 @@ public:
 	void Initialize(PlayerClient*, unsigned char, unsigned int, unsigned char, char*);
 	~PlayerClient();
 
+private:
+	struct constructor_key_t {};
+
+public:
+	// not allowed to create this class, only use existing instances
+	SPAWNINFO() = delete;
+	SPAWNINFO(constructor_key_t) {} // define a custom constructor to prevent initialization
+	SPAWNINFO(const SPAWNINFO&) = delete;
+	SPAWNINFO& operator=(const SPAWNINFO&) = delete;
+
 	inline int GetClass() const { return mActorClient.Class; }
 	inline int GetRace() const { return mActorClient.Race; }
 	inline BYTE GetCharacterType() const { return Type; }
@@ -1189,7 +1202,7 @@ public:
 	inline int GetMaxMana() const { return ManaMax; }
 	inline int GetCurrentEndurance() const { return EnduranceCurrent; }
 	inline int GetMaxEndurance() const { return EnduranceMax; }
-	inline int GetSpellCooldownETA() const { return SpellCooldownETA; }
+	inline unsigned int GetSpellCooldownETA() const { return SpellCooldownETA; }
 	inline bool IsGm() const { return GM; }
 
 	EQLIB_OBJECT PcClient* GetPcClient() const;
@@ -1248,14 +1261,17 @@ public:
 	EQLIB_OBJECT bool SetNameSpriteTint();
 
 	EQLIB_OBJECT static PlayerClient* IsPlayerActor(CActorInterface*);
+
+	DEPRECATE("PlayerClient: Use GetNext() instead of pNext")
+	__declspec(property(get = GetNext)) PlayerClient* pNext;
+	DEPRECATE("PlayerClient: Use GetPrevious() instead of pPrev")
+	__declspec(property(get = GetPrevious)) PlayerClient* pPrev;
 };
 
 inline namespace deprecated {
 	// For compatibility with all the old stuff
 	using EQPlayer DEPRECATE("Use PlayerClient instead of EQPlayer") = PlayerClient;
 }
-
-inline PcClient* SPAWNINFO::GetPcClient() const { return ((PlayerClient*)this)->GetPcClient(); }
 
 static_assert(sizeof(PlayerClient) == sizeof(SPAWNINFO), "Size of PlayerClient does not match SPAWNINFO");
 static_assert(sizeof(PlayerClient) == PlayerClient_size, "Size of PlayerClient does not match PlayerClient_size");

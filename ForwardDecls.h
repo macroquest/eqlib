@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include "Common.h"
+
 #include <cstdint>
 
 namespace eqlib {
@@ -324,9 +326,6 @@ class MidiInstance;
 class monty;
 class Mp3Manager;
 class MusicManager;
-class PcClient;
-class PcZoneClient;
-class PlayerClient;
 class PlayerManagerClient;
 class PointMerchantWnd;
 class SAmpersandEntry;
@@ -368,7 +367,6 @@ struct SDragDropInfo;
 struct SharedTaskPlayerInfo;
 struct SoundControl;
 struct SParseVariables;
-struct SPAWNINFO;
 struct SpellLoadout;
 struct SPELLMGR;
 struct STable;
@@ -387,6 +385,19 @@ using CHARINFO = PcClient;
 using PCHARINFO /*[[deprecated]]*/ = PcClient*;
 using CHARINFONEW = PcClient;
 using CHARINFOOLD = PcClient;
+
+
+class PcClient;
+class PcZoneClient;
+class PlayerClient;
+
+#if SPAWNINFO_IS_PLAYERCLIENT
+using SPAWNINFO = PlayerClient;
+using PSPAWNINFO = PlayerClient*;
+#else
+struct SPAWNINFO;
+using PSPAWNINFO = SPAWNINFO*;
+#endif
 
 class ItemClient;
 using CONTENTS = ItemClient;

@@ -1280,8 +1280,6 @@ EQLIB_VAR ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 //----------------------------------------------------------------------------
 // Global Functions
 
-struct SPAWNINFO;
-
 /* OTHER IMPORTED FROM EQ */
 EQLIB_API int CastRay(SPAWNINFO*, float y, float x, float z);
 EQLIB_API int CastRayLoc(const CVector3& SourcePos, int Race, float DestX, float DestY, float DestZ);
