@@ -138,8 +138,8 @@
       <PreserveIdentifierCase Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</PreserveIdentifierCase>
       <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</MakeAllSymbolsPublic>
       <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</MakeAllSymbolsPublic>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(MQ2Root)tools\NASM\nasm.exe "%(FullPath)" -f win32 -o "$(IntDir)%(Filename).obj"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(MQ2Root)tools\NASM\nasm.exe "%(FullPath)" -f win32 -o "$(IntDir)%(Filename).obj"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(MQ2Root)tools\NASM\nasm.exe" "%(FullPath)" -f win32 -o "$(IntDir)%(Filename).obj"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(MQ2Root)tools\NASM\nasm.exe" "%(FullPath)" -f win32 -o "$(IntDir)%(Filename).obj"</Command>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
     </CustomBuild>
