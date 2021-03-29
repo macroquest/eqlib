@@ -114,6 +114,16 @@ struct ForeignPointer_StorageBase<T, U, Rest...> : public ForeignPointer_Storage
 		return this->coerced_get<U>();
 	}
 
+	bool operator==(U* other) const noexcept
+	{
+		return this->coerced_get<U>() == other;
+	}
+
+	bool operator!=(U* other) const noexcept
+	{
+		return this->coerced_get<U>() != other;
+	}
+
 	using ForeignPointer_StorageBase<T, Rest...>::set;
 
 	void set(U* value) noexcept
@@ -183,6 +193,20 @@ public:
 	bool operator!= (nullptr_t) const noexcept
 	{
 		return get() != nullptr;
+	}
+
+	// Compare with another type of ForeignPointer by comparing
+	// the underlying pointer types.
+	template <typename... T>
+	bool operator== (const ForeignPointer<T...>& other)
+	{
+		return get() == other.get();
+	}
+
+	template <typename... T>
+	bool operator!= (const ForeignPointer<T...>& other)
+	{
+		return get() != other.get();
 	}
 
 	T& operator*() const noexcept
