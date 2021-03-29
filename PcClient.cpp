@@ -279,7 +279,7 @@ FUNCTION_AT_ADDRESS(int CharacterBase::IsExpansionFlag(int), CharacterBase__IsEx
 //============================================================================
 
 #ifdef CharacterZoneClient__FindAffectSlot_x
-FUNCTION_AT_ADDRESS(EQ_Affect* CharacterZoneClient::FindAffectSlot(int, PSPAWNINFO, int*, bool, int, EQ_Affect*, int), CharacterZoneClient__FindAffectSlot);
+FUNCTION_AT_ADDRESS(EQ_Affect* CharacterZoneClient::FindAffectSlot(int, PlayerClient*, int*, bool, int, EQ_Affect*, int), CharacterZoneClient__FindAffectSlot);
 #endif
 #ifdef CharacterZoneClient__GetMaxEffects_x
 FUNCTION_AT_ADDRESS(unsigned char CharacterZoneClient::GetMaxEffects() const, CharacterZoneClient__GetMaxEffects);
@@ -336,7 +336,7 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::CalcAffectChangeGeneric(const EQ_Sp
 FUNCTION_AT_ADDRESS(const int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem), CharacterZoneClient__GetFocusReuseMod);
 #endif
 #ifdef CharacterZoneClient__IsStackBlocked_x
-FUNCTION_AT_ADDRESS(bool CharacterZoneClient::IsStackBlocked(const EQ_Spell*, PSPAWNINFO, EQ_Affect*, int, bool), CharacterZoneClient__IsStackBlocked);
+FUNCTION_AT_ADDRESS(bool CharacterZoneClient::IsStackBlocked(const EQ_Spell*, PlayerClient*, EQ_Affect*, int, bool), CharacterZoneClient__IsStackBlocked);
 #endif
 #ifdef CharacterZoneClient__CanUseMemorizedSpellSlot_x
 FUNCTION_AT_ADDRESS(bool CharacterZoneClient::CanUseMemorizedSpellSlot(int), CharacterZoneClient__CanUseMemorizedSpellSlot);

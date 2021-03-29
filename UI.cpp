@@ -1663,7 +1663,7 @@ FUNCTION_AT_ADDRESS(void CGroupWnd::SetInvited(bool), CGroupWnd__SetInvited);
 FUNCTION_AT_ADDRESS(void CGroupWnd::UpdateButtons(), CGroupWnd__UpdateButtons);
 #endif
 #ifdef CGroupWnd__UpdateDisplay_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::UpdateDisplay(int Index, PSPAWNINFO groupmember, COLORREF NameColor, UINT RoleBits), CGroupWnd__UpdateDisplay);
+FUNCTION_AT_ADDRESS(void CGroupWnd::UpdateDisplay(int Index, PlayerClient* groupmember, COLORREF NameColor, UINT RoleBits), CGroupWnd__UpdateDisplay);
 #endif
 #ifdef CGroupWnd__KeyMapUpdated_x
 FUNCTION_AT_ADDRESS(void CGroupWnd::KeyMapUpdated(), CGroupWnd__KeyMapUpdated);

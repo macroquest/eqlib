@@ -1062,17 +1062,17 @@ EQLIB_VAR SoeUtil::String*                           pExceptionSubmissionEndpoin
 EQLIB_VAR EQLogin*                                   pEQLogin;
 
 // Spawn/Char related
-EQLIB_VAR ForeignPointer<PcClient, CHARINFO>         pCharData;
-EQLIB_VAR ForeignPointer<PcClient, CHARINFO>         pPCData;
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pActiveBanker;
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pActiveCorpse;
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pActiveGMaster;
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pActiveMerchant;
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pCharSpawn;        // player that is being controlled
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pControlledPlayer;
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pLocalPlayer;      // the local player
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pTarget;
-EQLIB_VAR ForeignPointer<PlayerClient, SPAWNINFO>    pTradeTarget;
+EQLIB_VAR ForeignPointer<PcClient>                   pCharData;
+EQLIB_VAR ForeignPointer<PcClient>                   pPCData;
+EQLIB_VAR ForeignPointer<PlayerClient>               pActiveBanker;
+EQLIB_VAR ForeignPointer<PlayerClient>               pActiveCorpse;
+EQLIB_VAR ForeignPointer<PlayerClient>               pActiveGMaster;
+EQLIB_VAR ForeignPointer<PlayerClient>               pActiveMerchant;
+EQLIB_VAR ForeignPointer<PlayerClient>               pCharSpawn;        // player that is being controlled
+EQLIB_VAR ForeignPointer<PlayerClient>               pControlledPlayer;
+EQLIB_VAR ForeignPointer<PlayerClient>               pLocalPlayer;      // the local player
+EQLIB_VAR ForeignPointer<PlayerClient>               pTarget;
+EQLIB_VAR ForeignPointer<PlayerClient>               pTradeTarget;
 
 // Non-UI Foreign Pointers (pointer types in eq)
 EQLIB_VAR ComputedPointer<AggroMeterManagerClient>   pAggroInfo;
@@ -1105,7 +1105,7 @@ EQLIB_VAR ForeignPointer<CResolutionHandler>         pResolutionHandler;
 EQLIB_VAR ForeignPointer<CSidlManager>               pSidlMgr;
 EQLIB_VAR ForeignPointer<SkillManager>               pSkillMgr;
 EQLIB_VAR ForeignPointer<SkillManager>               pCSkillMgr DEPRECATE("Use pSkillMgr instead of pCSkillMgr");
-EQLIB_VAR ComputedPointer<SPAWNINFO>                 pSpawnList;
+EQLIB_VAR ComputedPointer<PlayerClient>              pSpawnList;
 EQLIB_VAR ForeignPointer<PlayerManagerClient>        pSpawnManager;
 EQLIB_VAR ForeignPointer<ClientSpellManager, SPELLMGR> pSpellMgr;
 EQLIB_VAR ForeignPointer<StringTable, EQSTRINGTABLE> pStringTable;
@@ -1281,7 +1281,7 @@ EQLIB_VAR ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 // Global Functions
 
 /* OTHER IMPORTED FROM EQ */
-EQLIB_API int CastRay(SPAWNINFO*, float y, float x, float z);
+EQLIB_API int CastRay(PlayerClient*, float y, float x, float z);
 EQLIB_API int CastRayLoc(const CVector3& SourcePos, int Race, float DestX, float DestY, float DestZ);
 EQLIB_OBJECT CXStr CleanItemTags(const CXStr& In, bool bFlag);
 EQLIB_API float HeadingDiff(float h1, float h2, float* DiffOut);

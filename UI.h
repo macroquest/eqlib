@@ -3317,7 +3317,7 @@ public:
 	EQLIB_OBJECT void UpdateContextMenu();
 
 	EQLIB_OBJECT void UpdateButtons();
-	EQLIB_OBJECT void UpdateDisplay(int Index, PSPAWNINFO groupmember, COLORREF NameColor, UINT RoleBits);
+	EQLIB_OBJECT void UpdateDisplay(int Index, PlayerClient* groupmember, COLORREF NameColor, UINT RoleBits);
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -4935,7 +4935,7 @@ public:
 /*0x2b4*/ CLabel*             PointsEverEarnedLabel;
 /*0x2b8*/ CLabel*             PointsAvailableLabel;
 /*0x2bc*/ unsigned int        NextRefreshTime;
-/*0x2c0*/ SPAWNINFO*          ActiveMerchant; // PlayerClient*
+/*0x2c0*/ PlayerClient*       ActiveMerchant;
 /*0x2c4*/ PointMerchantItem** Items;
 /*0x2c8*/ int                 MerchantThemeId;
 /*0x2cc*/ int                 CurrentSelection;

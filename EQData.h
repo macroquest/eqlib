@@ -415,7 +415,7 @@ struct [[offsetcomments]] CMDLIST
 /*0x00*/ DWORD LocalizedStringID;
 /*0x04*/ char* szName;
 /*0x08*/ char* szLocalized;
-/*0x0c*/ void  (*fAddress)(PSPAWNINFO, char*);
+/*0x0c*/ void  (*fAddress)(PlayerClient*, char*);
 /*0x10*/ DWORD Restriction;
 /*0x14*/ DWORD Category;
 /*0x18*/ DWORD Flags;
@@ -671,11 +671,11 @@ struct [[offsetcomments]] EQGROUP
 {
 	FORCE_SYMBOLS;
 
-/*0x000*/ BYTE         MemberExists[5];
-/*0x005*/ char         MemberName[5][EQ_MAX_NAME];
-/*0x145*/ BYTE         Unused[3];
-/*0x148*/ SPAWNINFO*   pMember[5];
-/*0x15c*/ char         LeaderName[EQ_MAX_NAME];
+/*0x000*/ BYTE          MemberExists[5];
+/*0x005*/ char          MemberName[5][EQ_MAX_NAME];
+/*0x145*/ BYTE          Unused[3];
+/*0x148*/ PlayerClient* pMember[5];
+/*0x15c*/ char          LeaderName[EQ_MAX_NAME];
 /*0x19c*/
 };
 using PEQGROUP = EQGROUP*;

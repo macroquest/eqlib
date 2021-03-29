@@ -306,7 +306,7 @@ public:
 	virtual CGroupMember* AsMemberClient() override { return this; }
 	PlayerClient* GetPlayer() { return pPlayer; }
 
-	ALT_MEMBER_GETTER(SPAWNINFO*, pPlayer, pSpawn);
+	ALT_MEMBER_GETTER(PlayerClient*, pPlayer, pSpawn);
 };
 
 
@@ -1241,7 +1241,7 @@ public:
 
 	EQLIB_OBJECT CharacterZoneClient();
 
-	ALT_MEMBER_GETTER(SPAWNINFO*, me, pSpawn);
+	ALT_MEMBER_GETTER(PlayerClient*, me, pSpawn);
 
 	// Verified
 	EQLIB_OBJECT /* virtual */ int CalculateInvisLevel(InvisibleTypes Type, bool bIncludeSoS = true);
@@ -1277,8 +1277,8 @@ public:
 	EQLIB_OBJECT int GetItemCountInInventory(int);
 	EQLIB_OBJECT int GetCursorItemCount(int);
 	EQLIB_OBJECT bool HasSkill(int);
-	EQLIB_OBJECT EQ_Affect* FindAffectSlot(int SpellID, SPAWNINFO* Caster, int* slindex, bool bJustTest, int CasterLevel = -1, EQ_Affect* BuffArray = nullptr, int BuffArraySize = 0);
-	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, SPAWNINFO* pCaster, EQ_Affect* pEffecs = NULL, int EffectsSize = 0, bool bMessageOn = false);
+	EQLIB_OBJECT EQ_Affect* FindAffectSlot(int SpellID, PlayerClient* Caster, int* slindex, bool bJustTest, int CasterLevel = -1, EQ_Affect* BuffArray = nullptr, int BuffArraySize = 0);
+	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, PlayerClient* pCaster, EQ_Affect* pEffecs = NULL, int EffectsSize = 0, bool bMessageOn = false);
 	EQLIB_OBJECT int BardCastBard(const EQ_Spell* pSpell, signed int caster_class) const;
 	EQLIB_OBJECT unsigned char GetMaxEffects() const;
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);

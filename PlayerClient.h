@@ -49,13 +49,8 @@ inline namespace deprecated {
 struct LaunchSpellData;
 struct chngForm;
 
-#if SPAWNINFO_IS_PLAYERCLIENT // when we're ready
 using SPAWNINFO = PlayerClient;
 using PSPAWNINFO = PlayerClient *;
-#else
-struct SPAWNINFO;
-using PSPAWNINFO = SPAWNINFO*;
-#endif
 
 //============================================================================
 // Misc
@@ -246,7 +241,7 @@ public:
 class [[offsetcomments]] PlayerPhysics : public PhysicsBase
 {
 public:
-/*0x08*/ SPAWNINFO*       pSpawn;              // PlayerBase
+/*0x08*/ PlayerClient*    pSpawn;
 /*0x0c*/ GravityBehavior  Levitate;
 // bobbing control
 /*0x10*/ int              UpDownIndex;
@@ -281,407 +276,11 @@ struct [[offsetcomments]] PZCPhysicsInfo
 // @end: PZCPhysicsInfo Members
 };
 
-// @sizeof(PlayerClient) == 0x1ea0 :: 2021-03-04 (live) @ 0x68F44B
-constexpr size_t PlayerClient_size = 0x1ea0;
-
-#if !SPAWNINFO_IS_PLAYERCLIENT
-
-//============================================================================
-// SPAWNINFO
-//============================================================================
-
-// this is the old structure. It is equivalent to PlayerClient.
-
-// actual size 0x2020 in Feb 20 2016 Live (see 64B6A0) - eqmule
-struct [[offsetcomments]] SPAWNINFO
-{
-	// this is the "SPAWNINFOHEADER"
-/*0x0000*/ void*             vtable;
-/*0x0004*/ SPAWNINFO*        pPrev;
-/*0x0008*/ SPAWNINFO*        pNext;
-/*0x000c*/ void*             List;
-
-/* ******************** PlayerBase Starts Here ***************** */
-/*0x0010*/ float             JumpStrength;
-/*0x0014*/ float             SwimStrength;
-/*0x0018*/ float             SpeedMultiplier;
-/*0x001c*/ float             AreaFriction;
-/*0x0020*/ float             AccelerationFriction;
-/*0x0024*/ EActorType        CollidingType;
-/*0x0028*/ float             FloorHeight;
-/*0x002c*/ bool              bSinksInWater;
-/*0x0030*/ unsigned int      PlayerTimeStamp;              // doesn't update when on a Vehicle (mounts/boats etc)
-/*0x0034*/ unsigned int      LastTimeIdle;
-/*0x0038*/ char              Lastname[0x20];
-/*0x0058*/ float             AreaHPRegenMod;               // from guild hall pools etc.
-/*0x005c*/ float             AreaEndRegenMod;
-/*0x0060*/ float             AreaManaRegenMod;
-/*0x0064*/ float             Y;
-/*0x0068*/ float             X;
-/*0x006c*/ float             Z;
-/*0x0070*/ float             SpeedY;
-/*0x0074*/ float             SpeedX;
-/*0x0078*/ float             SpeedZ;
-/*0x007c*/ float             SpeedRun;
-/*0x0080*/ float             Heading;
-/*0x0084*/ float             Angle;
-/*0x0088*/ float             AccelAngle;
-/*0x008c*/ float             SpeedHeading;
-/*0x0090*/ float             CameraAngle;
-/*0x0094*/ unsigned int      UnderWater;                   // LastHeadEnvironmentType
-/*0x0098*/ unsigned int      LastBodyEnvironmentType;
-/*0x009c*/ unsigned int      LastFeetEnvironmentType;
-/*0x00a0*/ uint8_t           HeadWet;                      // these really are environment related, like lava as well for example
-/*0x00a1*/ uint8_t           FeetWet;
-/*0x00a2*/ uint8_t           BodyWet;
-/*0x00a3*/ uint8_t           LastBodyWet;
-/*0x00a4*/ char              Name[0x40];                   // ie priest_of_discord00
-/*0x00e4*/ char              DisplayedName[0x40];          // ie Priest of Discord
-/*0x0124*/ uint8_t           PossiblyStuck;                // never seen this be 1 so maybe it was used a a point but not now...
-/*0x0125*/ uint8_t           Type;
-/*0x0128*/ unsigned int**    BodyType;                     // this really should be renamed to charprops or something its broken anyway
-/*0x012c*/ uint8_t           CharPropFiller[0xc];          // well since the above is a CharacterPropertyHash we have to pad here
-/*0x0138*/ float             AvatarHeight;                 // height of avatar from groundwhen standing for sure see 5C06A0 in Jun 10 2019 test
-/*0x013c*/ float             Height;
-/*0x0140*/ float             Width;
-/*0x0144*/ float             Length;
-/*0x0148*/ int               Unknown0x0148;
-/*0x014c*/ int               Unknown0x014C;
-/*0x0150*/ unsigned int      SpawnID;
-/*0x0154*/ unsigned int      PlayerState;                  // 0=Idle 1=Open 2=WeaponSheathed 4=Aggressive 8=ForcedAggressive 0x10=InstrumentEquipped 0x20=Stunned 0x40=PrimaryWeaponEquipped 0x80=SecondaryWeaponEquipped
-/*0x0158*/ SPAWNINFO*        Vehicle;                      // NULL until you collide with a vehicle (boat,airship etc)
-/*0x015c*/ SPAWNINFO*        Mount;                        // NULL if no mount present
-/*0x0160*/ SPAWNINFO*        Rider;                        // SPAWNINFO of mount's rider
-/*0x0164*/ unsigned int      Unknown0x0164;
-/*0x0168*/ bool              Targetable;                   // true if mob is targetable
-/*0x0169*/ bool              bTargetCyclable;
-/*0x016a*/ bool              bClickThrough;
-/*0x016b*/ bool              bBeingFlung;
-/*0x016c*/ unsigned int      FlingActiveTimer;
-/*0x0170*/ unsigned int      FlingTimerStart;
-/*0x0174*/ bool              bFlingSomething;
-/*0x0178*/ float             FlingY;
-/*0x017c*/ float             FlingX;
-/*0x0180*/ float             FlingZ;
-/*0x0184*/ bool              bFlingSnapToDest;
-/*0x0188*/ int               SplineID;
-/*0x018c*/ int               SplineRiderID;
-/* *********************** PlayerBase Ends Here ********************** */
-/* ******************** PlayerZoneClient Starts Here ***************** */
-/*0x0190*/ unsigned int      LastIntimidateUse;
-
-// @start: PlayerZoneClient Members
-/*0x0194*/ unsigned int             LastRefresh;                  // last 18 sec tick
-/*0x0198*/ int                      NpcTintIndex;
-/*0x019c*/ unsigned int             MinuteTimer;
-/*0x01a0*/ void*                    pTouchingSwitch;              // need to get that in here : struct _EQSWITCH
-/*0x01a4*/ int                      SomethingElse;
-/*0x01a8*/ unsigned int             Meditating;
-/*0x01ac*/ char                     Suffix[0x80];
-/*0x022c*/ int                      EnduranceCurrent;
-/*0x0230*/ int64_t                  GuildID;
-/*0x0238*/ bool                     bTempPet;
-/*0x023c*/ int                      ManaMax;
-/*0x0240*/ int                      CurrIOState;
-/*0x0244*/ float                    RunSpeed;                     // 0.70 on runspeed 5...
-/*0x0248*/ unsigned int             LastTick;
-/*0x024c*/ uint8_t                  Type2;
-/*0x024d*/ bool                     bBetaBuffed;
-/*0x024e*/ uint8_t                  FD;
-/*0x0250*/ int                      RealEstateItemId;
-/*0x0254*/ bool                     bOfflineMode;
-/*0x0255*/ char                     DragNames[0x2][0x40];
-/*0x02d5*/ bool                     bAlwaysShowAura;
-/*0x02d8*/ unsigned int             LastCastTime;
-/*0x02dc*/ bool                     bShowHelm;
-/*0x02e0*/ unsigned int             LastResendAddPlayerPacket;
-/*0x02e4*/ bool                     bBuffTimersOnHold;            // no you can't control this client side so unless you want to get banned leave it alone
-/*0x02e8*/ int                      LastCastNum;
-/*0x02ec*/ bool                     Linkdead;
-/*0x02ed*/ uint8_t                  StandState;
-/*0x02f0*/ float                    MissileRangeToTarget;
-/*0x02f4*/ unsigned int             LastMealTime;                 // last time we eat or drank
-/*0x02f8*/ int                      Stuff;
-/*0x02fc*/ uint8_t                  HoldingAnimation;             // todo: create enum for this byte. Holding: Nothing=0 A RightHand Weapon=1 A Shield=2 Dual Wielding Two Weapons=3 A Spear=4 A LeftHand Weapon=5 A Two Handed Weapon=6 A bow=7
-/*0x0300*/ int                      WarCry;
-/*0x0304*/ float                    ViewHeight;
-/*0x0308*/ int                      AltAttack;
-/*0x030c*/ float                    CameraOffset;
-/*0x0310*/ unsigned int**           ppUDP;                        // UdpLibrary::UdpConnection
-/*0x0314*/ unsigned int             TimeStamp;                    // updates all the time including when on a mount
-/*0x0318*/ int                      SomeData[0x2];
-/*0x0320*/ unsigned int             EnduranceMax;
-/*0x0324*/ unsigned int             Zone;
-/*0x0328*/ int                      DoSpecialMelee;
-/*0x032c*/ int                      AARank;                       // this really is the title id
-/*0x0330*/ uint8_t                  FishingEvent;
-/*0x0331*/ bool                     LFG;
-/*0x0334*/ CPhysicsInfo             LastCollision;
-/*0x0364*/ unsigned int             RespawnTimer;                 // its actually TimeOfDeath...TimeStamp of when RespawnWnd will close - 0 when you're alive
-/*0x0368*/ unsigned int             StunTimer;
-/*0x036c*/ unsigned int             LastTimeStoodStill;
-/*0x0370*/ bool                     Sneak;
-/*0x0371*/ uint8_t                  Light;
-/*0x0372*/ uint8_t                  Level;
-/*0x0373*/ char                     Handle[0x20];
-/*0x0393*/ uint8_t                  FindBits;
-/*0x0394*/ uint8_t                  TitleVisible;
-/*0x0398*/ unsigned int             CorpseDragCount;
-/*0x039c*/ char                     GM;
-/*0x039d*/ bool                     PvPFlag;
-/*0x03a0*/ LaunchSpellData          CastingData;                  // size: 0x58
-/*0x03f8*/ int                      AFK;
-/*0x03fc*/ unsigned int             NextSwim;
-/*0x0400*/ float                    BearingToTarget;
-/*0x0404*/ unsigned int             FishingETA;
-/*0x0408*/ int64_t                  HPMax;
-/*0x0410*/ int                      DontKnowYet;
-/*0x0414*/ int                      Trader;                       // found in CEverQuest__RightClickedOnPlayer_x
-/*0x0418*/ int                      Deity;
-/*0x041c*/ unsigned int             MasterID;
-/*0x0420*/ int                      HideMode;
-/*0x0424*/ unsigned int             LastSecondaryUseTime;
-/*0x0428*/ int                      IsAttacking;                  // need to investigate
-/*0x042c*/ float                    MerchantGreed;
-/*0x0430*/ unsigned int             SitStartTime;
-/*0x0434*/ bool                     bStationary;
-/*0x0438*/ int                      ManaCurrent;
-/*0x043c*/ int                      SecondaryTintIndex;
-/*0x0440*/ void*                    pRaceGenderInfo;              // todo this is not a void* so... map the CRaceGenderInfo class
-/*0x0444*/ uint8_t                  Blind;
-/*0x0448*/ int                      RealEstateID;
-/*0x044c*/ uint8_t                  HmmWhat;
-/*0x0450*/ int                      PetID;
-/*0x0454*/ CharacterZoneClient*     pCharacter;
-/*0x0458*/ int                      berserker;
-/*0x045c*/ uint8_t                  IsPassenger;                  // if u are on a boat or airship or whatever
-/*0x0460*/ float                    FallingStartZ;
-/*0x0464*/ unsigned int             LastRangedUsedTime;
-/*0x0468*/ unsigned int             SpellGemETA[0xf];             // InnateETA is now the last member in this array
-/*0x04a4*/ int                      Buyer;
-/*0x04a8*/ unsigned int             CombatSkillTicks[0x2];
-/*0x04b0*/ bool                     bAttackRelated;
-/*0x04b1*/ bool                     Mercenary;
-/*0x04b4*/ unsigned int             SpellCooldownETA;
-/*0x04b8*/ EqItemGuid               realEstateItemGuid;
-/*0x04ca*/ char                     LoginRelated[0x20];
-/*0x04ea*/ char                     Title[0x80];
-/*0x056c*/ unsigned int             CombatSkillUsed[0x2];
-/*0x0574*/ uint8_t                  InPvPArea;                    // are we in a PvP area?
-/*0x0578*/ unsigned int             NextIntimidateTime;
-/*0x057c*/ bool                     bSummoned;                    // by a PC or by anyone? need to investigate
-/*0x0580*/ float                    GetMeleeRangeVar1;            // used by GetMeleeRange (fScaleFactor)
-/*0x0584*/ float                    MyWalkSpeed;
-/*0x0588*/ bool                     bSwitchMoved;                 // true when a door moves near the spawn
-/*0x058c*/ int                      Dontknowyet2;
-/*0x0590*/ char                     DraggingPlayer[0x40];
-/*0x05d0*/ uint8_t                  CharClass;                    // Im pretty sure this isnt working
-/*0x05d4*/ float                    AnimationSpeedRelated;
-/*0x05d8*/ int                      PrimaryTintIndex;
-/*0x05e0*/ int64_t                  HPCurrent;
-/*0x05e8*/ unsigned int             LoginSerial;
-/*0x05ec*/ unsigned int             ACounter;                     // not sure what this one is for (m_uHibernatingCount)
-/*0x05f0*/ uint8_t                  GMRank;
-/*0x05f4*/ int                      Anon;                         // found in EQPlayer__SetNameSpriteTint_x
-/*0x05f8*/ unsigned int             LastTrapDamageTime;
-/*0x05fc*/ uint8_t                  IntimidateCount;
-/*0x0600*/ SPAWNINFO*               pViewPlayer;
-/*0x0604*/ bool                     bAnimationOnPop;
-/*0x0608*/ unsigned int             LastPrimaryUseTime;
-/*0x060c*/ uint8_t                  LastAttack;
-
-// @end: PlayerZoneClient Members
-
-/*0x0610*/ TCircularBuffer<SDoCollisionMovementStats, MAX_MOVEMENT_STATS> MovementStats; // size (0x74 * 0x14) +8 = 0x918
-/*0x0f28*/ SPAWNINFO*         WhoFollowing;                       // NULL if autofollow off
-/*0x0f2c*/ unsigned int       GroupAssistNPC[MAX_GROUP_ASSISTS];
-/*0x0f30*/ unsigned int       RaidAssistNPC[MAX_RAID_ASSISTS];
-/*0x0f3c*/ unsigned int       GroupMarkNPC[MAX_GROUP_MARK_TARGETS];
-/*0x0f48*/ unsigned int       RaidMarkNPC[MAX_RAID_MARK_TARGETS];
-/*0x0f54*/ unsigned int       TargetOfTarget;
-/*0x0f58*/ PZCPhysicsInfo     PZCLastPhysics;
-/*0x0f80*/ unsigned int       ParticleCastStartTime;
-/*0x0f84*/ unsigned int       ParticleCastDuration;
-/*0x0f88*/ int                ParticleVisualSpellNum;
-/*0x0f8c*/ ActorClient        mActorClient;
-/*0x1148*/ PlayerAnimationBase* pAnimation;
-/*0x114c*/ float              MeleeRadius;                        // used by GetMeleeRange
-/*0x1150*/ unsigned int       CollisionCounter;
-/*0x1154*/ float              CachedFloorLocationY;
-/*0x1158*/ float              CachedFloorLocationX;
-/*0x115c*/ float              CachedFloorLocationZ;
-/*0x1160*/ float              CachedFloorHeight;
-/*0x1164*/ float              CachedCeilingLocationY;
-/*0x1168*/ float              CachedCeilingLocationX;
-/*0x116c*/ float              CachedCeilingLocationZ;
-/*0x1170*/ float              CachedCeilingHeight;
-/*0x1174*/ CCapsule           StaticCollision;              // size 0x1c
-/*0x1190*/ ArrayClass_RO<PhysicsEffect> mPhysicsEffects;   // size is 0x10
-/*0x11a0*/ ArrayClass_RO<bool> PhysicsEffectsUpdated;     // size is 0x10
-/* ********************* PlayerZoneClient Ends Here ******************* */
-/* ********************** PlayerClient Starts Here ******************** */
-	__declspec(align(8)) // force alignment to 8 byte boundary as this is forced by inheritance
-/*0x11b0*/ int               Animation;                    // Current Animation Playing. see 5671F1 in feb 14 2019 test
-/*0x11b4*/ int               NextAnim;
-/*0x11b8*/ int               CurrLowerBodyAnim;
-/*0x11bc*/ int               NextLowerBodyAnim;
-/*0x11c0*/ int               CurrLowerAnimVariation;
-/*0x11c4*/ int               CurrAnimVariation;
-/*0x11c8*/ int               CurrAnimRndVariation;
-/* ********************sound ID's BEGIN ******************* */
-/*0x11cc*/ int               Loop3d_SoundID;               //see 567254 in feb 14 2019 test
-/*0x11d0*/ int               Step_SoundID;;
-/*0x11d4*/ int               CurLoop_SoundID;
-/*0x11d8*/ int               Idle3d1_SoundID;
-/*0x11dc*/ int               Idle3d2_SoundID;
-/*0x11e0*/ int               Jump_SoundID;
-/*0x11e4*/ int               Hit1_SoundID;
-/*0x11e8*/ int               Hit2_SoundID;
-/*0x11ec*/ int               Hit3_SoundID;
-/*0x11f0*/ int               Hit4_SoundID;
-/*0x11f4*/ int               Gasp1_SoundID;
-/*0x11f8*/ int               Gasp2_SoundID;
-/*0x11fc*/ int               Drown_SoundID;
-/*0x1200*/ int               Death_SoundID;
-/*0x1204*/ int               Attk1_SoundID;
-/*0x1208*/ int               Attk2_SoundID;
-/*0x120c*/ int               Attk3_SoundID;
-/*0x1210*/ int               Walk_SoundID;
-/*0x1214*/ int               Run_SoundID;
-/*0x1218*/ int               Crouch_SoundID;
-/*0x121c*/ int               Swim_SoundID;
-/*0x1220*/ int               TreadWater_SoundID;
-/*0x1224*/ int               Climb_SoundID;
-/*0x1228*/ int               Sit_SoundID;
-/*0x122c*/ int               Kick_SoundID;
-/*0x1230*/ int               Bash_SoundID;
-/*0x1234*/ int               FireBow_SoundID;
-/*0x1238*/ int               MonkAttack1_SoundID;
-/*0x123c*/ int               MonkAttack2_SoundID;
-/*0x1240*/ int               MonkSpecial_SoundID;
-/*0x1244*/ int               PrimaryBlunt_SoundID;
-/*0x1248*/ int               PrimarySlash_SoundID;
-/*0x124c*/ int               PrimaryStab_SoundID;
-/*0x1250*/ int               Punch_SoundID;
-/*0x1254*/ int               Roundhouse_SoundID;
-/*0x1258*/ int               SecondaryBlunt_SoundID;
-/*0x125c*/ int               SecondarySlash_SoundID;
-/*0x1260*/ int               SecondaryStab_SoundID;
-/*0x1264*/ int               SwimAttack_SoundID;
-/*0x1268*/ int               TwoHandedBlunt_SoundID;
-/*0x126c*/ int               TwoHandedSlash_SoundID;
-/*0x1270*/ int               TwoHandedStab_SoundID;
-/*0x1274*/ int               SecondaryPunch_SoundID;
-/*0x1278*/ int               JumpAcross_SoundID;
-/*0x127c*/ int               WalkBackwards_SoundID;
-/*0x1280*/ int               CrouchWalk_SoundID;
-/* ******************** sound ID's END ****************** */
-/*0x1284*/ unsigned int      LastHurtSound;                // see 5E96E0 in feb 14 2019 test
-/*0x1288*/ unsigned int      LastWalkTime;                 // used for animations
-/*0x128c*/ int               ShipRelated;                  // ID? look into.
-/*0x1290*/ int               RightHolding;                 // Nothing=0 Other/Weapon=1 shield=2
-/*0x1294*/ int               LeftHolding;                  // old Holding
-/*0x1298*/ unsigned int      DeathAnimationFinishTime;
-/*0x129c*/ bool              bRemoveCorpseAfterDeathAnim;  // 0x1274 for sure used by /hidecorpse
-/*0x12a0*/ unsigned int      LastBubblesTime;
-/*0x12a4*/ unsigned int      LastBubblesTime1;
-/*0x12a8*/ unsigned int      LastColdBreathTime;
-/*0x12ac*/ unsigned int      LastParticleUpdateTime;
-/*0x12b0*/ unsigned int      MercID;                       // IT IS 0x1288      //if the spawn is player and has a merc up this is it's spawn ID -eqmule 16 jul 2014
-/*0x12b4*/ unsigned int      ContractorID;                 // if the spawn is a merc this is its contractor's spawn ID -eqmule 16 jul 2014
-/*0x12b8*/ float             CeilingHeightAtCurrLocation;
-/*0x12bc*/ void*             MobileEmitter;                // todo: change and map to EqMobileEmitter*
-/*0x12c0*/ bool              bInstantHPGaugeChange;
-/*0x12c4*/ unsigned int      LastUpdateReceivedTime;
-/*0x12c8*/ float             MaxSpeakDistance;
-/*0x12cc*/ float             WalkSpeed;                    // how much we will slow down while sneaking
-/*0x12d0*/ bool              bHideCorpse;
-/*0x12d1*/ char              AssistName[0x40];
-/*0x1311*/ bool              InvitedToGroup;
-/*0x1314*/ int               GroupMemberTargeted;          // -1 if no target, else 1 through 5
-/*0x1318*/ bool              bRemovalPending;              // see 5E0763 in feb 14 2019 test
-/*0x131c*/ void*             pCorpse;
-/*0x1320*/ float             EmitterScalingRadius;
-/*0x1324*/ int               DefaultEmitterID;
-/*0x1328*/ bool              bDisplayNameSprite;
-/*0x1329*/ bool              bIdleAnimationOff;
-/*0x132a*/ bool              bIsInteractiveObject;
-/*0x132b*/ uint8_t           InteractiveObjectModelName[0x80];
-/*0x13ab*/ uint8_t           InteractiveObjectOtherName[0x80];
-/*0x142b*/ uint8_t           InteractiveObjectName[0x40];
-/*0x146c*/ CPhysicsInfo      PhysicsBeforeLastPort;        // size IS /*0x30*/ see 5E617B in feb 14 2019 test
-/*0x149c*/ unsigned int      notsure;                      // could be part of CPhysicsInfo?
-/*0x14a0*/ SFellowship       Fellowship;                   // IT IS AT 0x1498 see 63BEDD in feb 14 2019 test // size 0x9e8
-/*0x1d00*/ float             CampfireY;
-/*0x1d04*/ float             CampfireX;
-/*0x1d08*/ float             CampfireZ;
-/*0x1d0c*/ int               CampfireZoneID;               // zone ID where campfire is
-/*0x1d10*/ int               CampfireTimestamp;            // CampfireTimestamp-FastTime()=time left on campfire
-/*0x1d14*/ int               CampfireTimestamp2;
-/*0x1d18*/ int               FellowShipID;
-/*0x1d1c*/ int               FellowShipID2;
-/*0x1d20*/ int               CampType;
-/*0x1d24*/ bool              Campfire;
-/*0x1d28*/ TSafeArrayStatic<int, 3> SeeInvis;              // for sure see 63E23F or 63BD35 in feb 14 2019 test
-/*0x1d34*/ EQUIPMENT         Equipment;                    // size 0xb4 see 63BF44 in feb 14 2019 test
-/*0x1de8*/ bool              bIsPlacingItem;               // for sure see 543626 in feb 14 2019 test
-/*0x1de9*/ bool              bGMCreatedNPC;
-/*0x1dec*/ int               ObjectAnimationID;
-/*0x1df0*/ bool              bInteractiveObjectCollidable;
-/*0x1df4*/ int               InteractiveObjectType;
-/*0x1df8*/ int               SoundIDs[0xa];                // 0x28 bytes for sure see 648AB2 in feb 14 2019 test
-/*0x1e20*/ unsigned int      LastHistorySentTime;          // for sure see 648E7E in feb 14 2019 test
-/*0x1e24*/ ArrayClass2_RO<unsigned int> BardTwistSpells;      // size 0x18
-/*0x1e3c*/ int               CurrentBardTwistIndex;
-/*0x1e40*/ int               CurrentBardTwistIndex2;
-/*0x1e44*/ PlayerPhysicsClient mPlayerPhysicsClient;//size 0x28
-/*0x1e6c*/ int               SpawnStatus[6];               // todo: look closer at these i think they can show like status of mobs slowed, mezzed etc, but not sure
-/*0x1e84*/ int               BannerIndex0;                 // guild banners
-/*0x1e88*/ int               BannerIndex1;
-/*0x1e8c*/ ARGBCOLOR         BannerTint0;
-/*0x1e90*/ ARGBCOLOR         BannerTint1;
-/*0x1e94*/ int               MountAnimationRelated;
-/*0x1e98*/ bool              bGuildShowAnim;               // or sprite? need to check
-/*0x1e99*/ bool              bWaitingForPort;              // for sure see 5C5445 in feb 14 2019 test
-/*0x1e9c*/ int               Unknown0x201C;
-/*0x1ea0*/
-
-private:
-	struct key_t {};
-
-public:
-	// not allowed to create this class, only use existing instances
-	//SPAWNINFO() = delete;
-	//SPAWNINFO(key_t) {} // define a custom constructor to prevent initialization
-	//SPAWNINFO(const SPAWNINFO&) = delete;
-	//SPAWNINFO& operator=(const SPAWNINFO&) = delete;
-
-	int GetClass() const { return mActorClient.Class; }
-	int GetRace() const { return mActorClient.Race; }
-	uint8_t GetCharacterType() { return Type; }
-	unsigned int GetId() const { return SpawnID; }
-
-	// a.k.a. GetPcClient
-	DEPRECATE("Use GetPcClient instead of GetCharacter()")
-		EQLIB_OBJECT void* GetCharacter() const { return GetPcClient(); }
-	EQLIB_OBJECT PcClient* GetPcClient() const;
-
-	EQLIB_OBJECT unsigned int GetZoneID() const { return (int)Zone; }
-	EQLIB_OBJECT int GetCurrentMana() const { return ManaCurrent; }
-	EQLIB_OBJECT int GetMaxMana() const { return ManaMax; }
-	EQLIB_OBJECT int GetCurrentEndurance() const { return EnduranceCurrent; }
-	EQLIB_OBJECT int GetMaxEndurance() const { return EnduranceMax; }
-	EQLIB_OBJECT unsigned int GetSpellCooldownETA() const { return SpellCooldownETA; }
-};
-
-inline PcClient* SPAWNINFO::GetPcClient() const { return ((PlayerClient*)this)->GetPcClient(); }
-#endif // !SPAWNINFO_IS_PLAYERCLIENT
-
 struct HASHENTRY
 {
-	SPAWNINFO*  spawn;
-	DWORD       key;                             // same as SpawnID for spawns
-	HASHENTRY*  next;
+	PlayerClient* spawn;
+	DWORD         key;                             // same as SpawnID for spawns
+	HASHENTRY*    next;
 };
 using PHASHENTRY = HASHENTRY*;
 
@@ -697,11 +296,11 @@ class [[offsetcomments]] PlayerManagerBase
 public:
 	virtual ~PlayerManagerBase() {}
 
-/*0x04*/ DWORD        random;                   // rand() % 20000
-/*0x08*/ SPAWNINFO*   FirstSpawn;
-/*0x0c*/ SPAWNINFO*   LastSpawn;
-/*0x10*/ DWORD        unknown10;
-/*0x14*/ HASHTABLE*   SPHash;
+/*0x04*/ DWORD         random;                   // rand() % 20000
+/*0x08*/ PlayerClient* FirstSpawn;
+/*0x0c*/ PlayerClient* LastSpawn;
+/*0x10*/ DWORD         unknown10;
+/*0x14*/ HASHTABLE*    SPHash;
 /*0x18*/
 };
 
@@ -938,7 +537,7 @@ public:
 /*0x05f4*/ int                      Anon;                         // found in EQPlayer__SetNameSpriteTint_x
 /*0x05f8*/ unsigned int             LastTrapDamageTime;
 /*0x05fc*/ uint8_t                  IntimidateCount;
-/*0x0600*/ SPAWNINFO*               pViewPlayer;
+/*0x0600*/ PlayerClient*            pViewPlayer;
 /*0x0604*/ bool                     bAnimationOnPop;
 /*0x0608*/ unsigned int             LastPrimaryUseTime;
 /*0x060c*/ uint8_t                  LastAttack;
@@ -1049,6 +648,9 @@ public:
 //============================================================================
 // PlayerClient
 //============================================================================
+
+// @sizeof(PlayerClient) == 0x1ea0 :: 2021-03-04 (live) @ 0x68F44B
+constexpr size_t PlayerClient_size = 0x1ea0;
 
 class [[offsetcomments]] PlayerClient : public PlayerZoneClient
 {
@@ -1187,10 +789,10 @@ private:
 
 public:
 	// not allowed to create this class, only use existing instances
-	SPAWNINFO() = delete;
-	SPAWNINFO(constructor_key_t) {} // define a custom constructor to prevent initialization
-	SPAWNINFO(const SPAWNINFO&) = delete;
-	SPAWNINFO& operator=(const SPAWNINFO&) = delete;
+	PlayerClient() = delete;
+	PlayerClient(constructor_key_t) {} // define a custom constructor to prevent initialization
+	PlayerClient(const PlayerClient&) = delete;
+	PlayerClient& operator=(const PlayerClient&) = delete;
 
 	inline int GetClass() const { return mActorClient.Class; }
 	inline int GetRace() const { return mActorClient.Race; }
@@ -1273,7 +875,6 @@ inline namespace deprecated {
 	using EQPlayer DEPRECATE("Use PlayerClient instead of EQPlayer") = PlayerClient;
 }
 
-static_assert(sizeof(PlayerClient) == sizeof(SPAWNINFO), "Size of PlayerClient does not match SPAWNINFO");
 static_assert(sizeof(PlayerClient) == PlayerClient_size, "Size of PlayerClient does not match PlayerClient_size");
 
 } // namespace eqlib

@@ -22,8 +22,6 @@
 
 #pragma warning(disable : 5030) // Single pragma seems to suffice for the entire codebase
 
-#define SPAWNINFO_IS_PLAYERCLIENT 1
-
 #if !defined(NOMINMAX)
 #define NOMINMAX
 #endif
