@@ -816,7 +816,9 @@ struct PetObjectData;
 class PcClient;
 using CHARINFO = PcClient;
 using PCHARINFO = PcClient*;
-using CHARINFONEW = PcClient;
+
+// This type is DEPRECATED. Nothing should be using it. Use CHARINFO or PcClient
+using CHARINFONEW DEPRECATE("Use CHARINFO or PcClient instead of CHARINFONEW") = PcClient;
 
 inline namespace deprecated
 {

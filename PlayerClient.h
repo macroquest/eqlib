@@ -380,7 +380,7 @@ public:
 /*0x154*/ unsigned int      PlayerState;                  // 0=Idle 1=Open 2=WeaponSheathed 4=Aggressive 8=ForcedAggressive 0x10=InstrumentEquipped 0x20=Stunned 0x40=PrimaryWeaponEquipped 0x80=SecondaryWeaponEquipped
 /*0x158*/ PlayerClient*     Vehicle;                      // NULL until you collide with a vehicle (boat,airship etc)
 /*0x15c*/ PlayerClient*     Mount;                        // NULL if no mount present
-/*0x160*/ PlayerClient*     Rider;                        // SPAWNINFO of mount's rider
+/*0x160*/ PlayerClient*     Rider;                        // the mount's rider
 /*0x164*/ unsigned int      Unknown0x0164;
 /*0x168*/ bool              Targetable;                   // true if mob is targetable
 /*0x169*/ bool              bTargetCyclable;

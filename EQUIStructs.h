@@ -157,8 +157,8 @@ struct [[offsetcomments]] TARGETINDICATOR
 
 /*0x00*/ bool          bVisible;
 /*0x01*/ bool          bSettingsLoaded;
-/*0x04*/ SPAWNINFO*    lasttarget;
-/*0x08*/ SPAWNINFO*    MarkedTarget[4];          // Assist,FirstMarked,LastMarked
+/*0x04*/ PlayerClient* lasttarget;
+/*0x08*/ PlayerClient* MarkedTarget[4];          // Assist,FirstMarked,LastMarked
 /*0x18*/ BYTE          IndicatorHidden;          // if this is 1 our mouse is over another window and not on the main one - shouldnt cast when this is 1
 /*0x19*/ BYTE          CanActivate;              // if 0 the indicator is red if 1 its green, i.e. it can be activated.
 /*0x1a*/ BYTE          Unknown0x1a[0x2];
@@ -178,7 +178,7 @@ struct [[offsetcomments]] TARGETDATA
 {
 	FORCE_SYMBOLS;
 
-/*0x00*/ SPAWNINFO*    pPlayer;
+/*0x00*/ PlayerClient* pPlayer;
 /*0x04*/ float         Dist;
 /*0x08*/ bool          bUpdated;                 // not sure what this is for tbh
 /*0x0c*/

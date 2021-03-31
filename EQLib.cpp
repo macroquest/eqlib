@@ -57,7 +57,7 @@ void ShutdownEQLib()
 
 /* OTHER FUNCTIONS IMPORTED FROM EQ */
 #ifdef __CastRay_x
-FUNCTION_AT_ADDRESS(int CastRay(SPAWNINFO*, float y, float x, float z), __CastRay);
+FUNCTION_AT_ADDRESS(int CastRay(PlayerClient*, float y, float x, float z), __CastRay);
 #endif
 #ifdef __CastRay2_x
 FUNCTION_AT_ADDRESS(int CastRayLoc(const CVector3& SourcePos, int Race, float DestX, float DestY, float DestZ), __CastRay2);

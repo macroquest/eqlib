@@ -1035,7 +1035,7 @@ ForeignPointer<PlayerClient>                     pControlledPlayer;
 ForeignPointer<PlayerClient>                     pLocalPlayer;
 ForeignPointer<PlayerClient>                     pTarget;
 ForeignPointer<PlayerClient>                     pTradeTarget;
-ComputedPointer<PlayerClient>                    pSpawnList([] { return pSpawnManager->FirstSpawn; });
+ComputedPointer<PlayerClient>                    pSpawnList([] { return pSpawnManager ? pSpawnManager->FirstSpawn : nullptr; });
 
 ComputedPointer<AggroMeterManagerClient>         pAggroInfo([]{ return &AggroMeterManagerClient::Instance(); });
 ForeignPointer<AltAdvManager>                    pAltAdvManager;
