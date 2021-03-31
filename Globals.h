@@ -1289,9 +1289,6 @@ EQLIB_API float FixHeading(float Heading);
 EQLIB_API float get_bearing(float x1, float y1, float x2, float y2);
 EQLIB_API unsigned long GetFastTime();
 EQLIB_API void FlushDxKeyboard();
-
-// definitely not a __Stdcall -- ExtendedTargetList member
-EQLIB_API const char* __stdcall GetXtargetType(DWORD type);
 EQLIB_API DWORD EQGetTime();
 EQLIB_OBJECT CXStr STMLToText(const CXStr& In, bool bReplaceBrWithNewline = true);
 EQLIB_API class IconCache* __cdecl GetAnimationCache(int index);

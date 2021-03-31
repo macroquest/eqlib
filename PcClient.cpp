@@ -241,6 +241,32 @@ bool CGroup::IsGroupLeader(PlayerClient* pPlayer) const
 }
 
 //============================================================================
+// ExtendedTargetList
+//============================================================================
+
+ExtendedTargetSlot* ExtendedTargetList::GetSlot(int slot)
+{
+	if (slot >= 0 && slot < m_targetSlots.GetLength())
+	{
+		return &m_targetSlots[slot];
+	}
+
+	return nullptr;
+}
+
+#ifdef __GetXTargetType_x
+FUNCTION_AT_ADDRESS(const char* ExtendedTargetList::ExtendedTargetRoleName(uint32_t), __GetXTargetType);
+#endif
+
+// This was previously defined incorrectly, we keep it for compatibility.
+const char* GetXtargetType(DWORD type)
+{
+	if (!pCharData) return nullptr;
+
+	return pCharData->pExtendedTargetList->ExtendedTargetRoleName(type);
+}
+
+//============================================================================
 // BaseProfile
 //============================================================================
 

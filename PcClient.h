@@ -399,39 +399,57 @@ using CGroupClient = CGroup;
 //============================================================================
 
 // size 0x4c 12-25-09 - ieatacid
-struct [[offsetcomments]] XTARGETSLOT
+struct [[offsetcomments]] ExtendedTargetSlot
 {
-/*0x00*/ DWORD  xTargetType;
+/*0x00*/ DWORD          xTargetType;
 /*0x04*/ eXTSlotStatus  XTargetSlotStatus;
-/*0x08*/ uint32_t SpawnID;
-/*0x0c*/ char   Name[0x40];
+/*0x08*/ uint32_t       SpawnID;
+/*0x0c*/ char           Name[EQ_MAX_NAME];
 /*0x4c*/
 };
 
 inline namespace deprecated {
-	using PXTARGETSLOT DEPRECATE("Use XTARGETSLOT* instead of PXTARGETSLOT") = XTARGETSLOT*;
+	using XTARGETSLOT DEPRECATE("Use ExtendedTargetSlot instead of PXTARGETSLOT") = ExtendedTargetSlot;
+	using PXTARGETSLOT DEPRECATE("Use ExtendedTargetSlot* instead of XTARGETSLOT") = ExtendedTargetSlot*;
 }
 
-constexpr int MAX_EXTENDED_TARGETS = 23;
+DEPRECATE("The number of extended targets is not hard coded. Use GetNumSlots() to get the right value.")
+constexpr int MAX_EXTENDED_TARGETS  = 23;
 
 class [[offsetcomments]] ExtendedTargetList
 {
 public:
-/*0x00*/ void*                      vftable;
-/*0x04*/ ArrayClass<XTARGETSLOT>    XTargetSlots;     // max is 23
-/*0x14*/ bool                       bAutoAddHaters;
-/*0x18*/
-};
+	using TargetSlotArray = ArrayClass<ExtendedTargetSlot>;
 
-class [[offsetcomments]] ExtendedTargetListClient : public ExtendedTargetList
-{
-	FORCE_SYMBOLS;
+	int GetNumSlots() const { return m_targetSlots.GetLength(); }
 
-public:
+	// will return null if slot is out of bounds. If not performing a bounds check,
+	// its probably a good idea to do a null check on the response.
+	EQLIB_OBJECT ExtendedTargetSlot* GetSlot(int slot);
+
+	bool GetAutoAddHaters() const { return m_autoAddHaters; }
+
+	auto begin() { return m_targetSlots.begin(); }
+	auto cbegin() const { return m_targetSlots.cbegin(); }
+	auto end() { return m_targetSlots.end(); }
+	auto cend() const { return m_targetSlots.cend(); }
+
+	EQLIB_OBJECT const char* ExtendedTargetRoleName(uint32_t xTargetType);
+
+private:
+/*0x04*/ TargetSlotArray m_targetSlots;
+/*0x14*/ bool m_autoAddHaters;
 /*0x18*/ int CurrentSlot;
 /*0x1c*/ int ContextSlot;
 /*0x20*/
+
+public:
+	ALT_MEMBER_GETTER(TargetSlotArray, m_targetSlots, XTargetSlots);
+	ALT_MEMBER_GETTER(bool, m_autoAddHaters, bAutoAddHaters);
 };
+
+EQLIB_API DEPRECATE("GetXtargetType() is deprecated. Use pCharData->pExtendedTargetList->ExtendedTargetRoleName() instead")
+const char* GetXtargetType(DWORD type);
 
 struct [[offsetcomments]] MailItemData
 {
@@ -1717,7 +1735,7 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2868*/ ExtendedTargetList*                   pExtendedTargetList;
+/*0x2868*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
 /*0x286c*/ bool                                  InCombat;
 /*0x2870*/ uint32_t                              Downtime;
 /*0x2874*/ uint32_t                              DowntimeStart;
@@ -1729,10 +1747,10 @@ public:
 /*0x2894*/ int                                   SubscriptionDays;
 /*0x2898*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
 /*0x28a0*/ bool                                  bPickZoneFewest;
-/*0x28a4*/ int                                   Unknown0x28a4;                       // used in CContainerWnd::HandleCombine
+/*0x28a4*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
 /*0x28a8*/
 
-	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);
+	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);  // cannot be null
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);
 	ALT_MEMBER_GETTER(CGroup*, Group, pGroupInfo);
 
