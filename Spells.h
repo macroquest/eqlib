@@ -594,16 +594,6 @@ enum eEQSPA
 	SPA_CLEAR_NPC_TARGETLIST = SPA_NPC_WIPE_HATE_LIST,
 };
 
-// this is here to be able to strongly type the enum while still allowing easy integral values for eqgame functions
-struct SpellAffect
-{
-	eEQSPA Value;
-	bool Increase;
-	SpellAffect(eEQSPA value, bool increase) : Value(value), Increase(increase) {}
-	operator int() const { return Value; }
-	operator eEQSPA() const { return Value; }
-};
-
 enum eEQSPELLCAT
 {
 	SPELLCAT_AEGOLISM = 1,
@@ -782,34 +772,6 @@ enum eEQSPELLCAT
 	SPELLCAT_DRUNKENNESS = 174,
 	SPELLCAT_THROWING = 175,
 	SPELLCAT_MELEE_DAMAGE = 176
-};
-
-// both category and subcategory can take the same enumeration, so this allows us to separate the types
-struct SpellCategory
-{
-	eEQSPELLCAT Value;
-	SpellCategory(eEQSPELLCAT value) : Value(value) {}
-	operator int() const { return Value; }
-};
-
-struct SpellSubCat
-{
-	eEQSPELLCAT Value;
-	SpellSubCat(eEQSPELLCAT value) : Value(value) {}
-	operator int() const { return Value; }
-};
-
-struct SpellClassMask
-{
-	unsigned int Value;
-	template <typename... Classes>
-	SpellClassMask(Classes... classes) : Value(((1 << classes) + ...)) {}
-	operator int() const { return Value; }
-	SpellClassMask& operator! ()
-	{
-		Value = ~Value;
-		return *this;
-    }
 };
 
 inline bool IsSpellCountersSPA(int attrib)
