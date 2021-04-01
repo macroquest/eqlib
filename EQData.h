@@ -1124,7 +1124,6 @@ public:
 
 	DEPRECATE("ClientAuraManager: Use Auras.GetLength() instead of NumAuras")
 	__declspec(property(get = get_NumAuras)) uint32_t NumAuras;
-private:
 	uint32_t get_NumAuras() const { return Auras.GetLength(); }
 };
 

@@ -1688,8 +1688,8 @@ struct [[offsetcomments]] ZONEINFO
 /*0x220*/ int          DayMidi;
 /*0x224*/ int          NightMidi;
 /*0x228*/ float        ZoneExpModifier;    //This has been nerfed ..now reads 1.0 for all zones
-/*0x22c*/ float        SafeXLoc;
-/*0x230*/ float        SafeYLoc;
+/*0x22c*/ float        SafeYLoc;
+/*0x230*/ float        SafeXLoc;
 /*0x234*/ float        SafeZLoc;
 /*0x238*/ float        SafeHeading;
 /*0x23c*/ float        Ceiling;
@@ -1703,7 +1703,7 @@ struct [[offsetcomments]] ZONEINFO
 /*0x25c*/ int          FishingMedium;
 /*0x260*/ int          FishingHigh;
 /*0x264*/ int          SkyRelated; //0-24 i think
-/*0x268*/ UINT         GraveyardTimer; //minutes until corpse(s) pops to graveyard
+/*0x268*/ uint32_t     GraveyardTimer; //minutes until corpse(s) pops to graveyard
 /*0x26c*/ int          ScriptIDHour;
 /*0x270*/ int          ScriptIDMinute;
 /*0x274*/ int          ScriptIDTick;
