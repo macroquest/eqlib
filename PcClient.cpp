@@ -946,9 +946,6 @@ FUNCTION_AT_ADDRESS(int PcClient::CostToTrain(int, float, int), EQ_PC__CostToTra
 #ifdef EQ_PC__checkLang_x
 FUNCTION_AT_ADDRESS(int PcClient::checkLang(int), EQ_PC__checkLang);
 #endif
-#ifdef EQ_PC__BitchCanTrain_x
-FUNCTION_AT_ADDRESS(int PcClient::BitchCanTrain(int, int, int), EQ_PC__BitchCanTrain);
-#endif
 #ifdef EQ_PC__HandleMoney_x
 FUNCTION_AT_ADDRESS(int PcClient::HandleMoney(long), EQ_PC__HandleMoney);
 #endif
