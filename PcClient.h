@@ -428,6 +428,7 @@ public:
 	EQLIB_OBJECT ExtendedTargetSlot* GetSlot(int slot);
 
 	bool GetAutoAddHaters() const { return m_autoAddHaters; }
+	virtual void SetAutoAddHaters(bool autoAdd) { m_autoAddHaters = autoAdd; }
 
 	auto begin() { return m_targetSlots.begin(); }
 	auto cbegin() const { return m_targetSlots.cbegin(); }
