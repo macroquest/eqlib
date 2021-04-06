@@ -202,8 +202,6 @@ INITIALIZE_EQGAME_OFFSET(pinstCGroupWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCGuildBankWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCGuildMgmtWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCharacterCreation);
-INITIALIZE_EQGAME_OFFSET(pinstCharData);
-INITIALIZE_EQGAME_OFFSET(pinstCharSpawn);
 INITIALIZE_EQGAME_OFFSET(pinstCHotButtonWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCHotButtonWnd1);
 INITIALIZE_EQGAME_OFFSET(pinstCHotButtonWnd2);
@@ -284,11 +282,11 @@ INITIALIZE_EQGAME_OFFSET(pinstEverQuestInfo);
 INITIALIZE_EQGAME_OFFSET(pinstGroup);
 INITIALIZE_EQGAME_OFFSET(pinstImeManager);
 INITIALIZE_EQGAME_OFFSET(pinstItemIconCache);
+INITIALIZE_EQGAME_OFFSET(pinstLocalPC);
 INITIALIZE_EQGAME_OFFSET(pinstLocalPlayer);
 INITIALIZE_EQGAME_OFFSET(pinstMercenaryData);
 INITIALIZE_EQGAME_OFFSET(pinstMercenaryStats);
 INITIALIZE_EQGAME_OFFSET(pinstModelPlayer);
-INITIALIZE_EQGAME_OFFSET(pinstPCData);
 INITIALIZE_EQGAME_OFFSET(pinstPlayerPath);
 INITIALIZE_EQGAME_OFFSET(pinstRewardSelectionWnd);
 INITIALIZE_EQGAME_OFFSET(pinstSGraphicsEngine);
@@ -484,7 +482,7 @@ INITIALIZE_EQGAME_OFFSET(CEditWnd__PointFromPrintableChar);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__ReplaceSelection);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__SelectableCharFromPoint);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__SetEditable);
-INITIALIZE_EQGAME_OFFSET(CEditWnd__SetWindowTextA);
+INITIALIZE_EQGAME_OFFSET(CEditWnd__SetWindowText);
 INITIALIZE_EQGAME_OFFSET(CEQSuiteTextureLoader__CreateTexture);
 INITIALIZE_EQGAME_OFFSET(CEQSuiteTextureLoader__GetDefaultUIPath);
 INITIALIZE_EQGAME_OFFSET(CEQSuiteTextureLoader__GetTexture);
@@ -1024,13 +1022,14 @@ BYTE*                  pTributeActive            = nullptr;
 ZONEINFO*              pZoneInfo                 = nullptr;
 SoeUtil::String*       pExceptionSubmissionEndpoint = nullptr;
 
-ForeignPointer<PcClient>                         pCharData;
-ForeignPointer<PcClient>                         pPCData;
+ForeignPointer<PcClient>                         pCharData;          // deprecated
+ForeignPointer<PcClient>                         pPCData;            // deprecated
+ForeignPointer<PcClient>                         pLocalPC;
 ForeignPointer<PlayerClient>                     pActiveBanker;
 ForeignPointer<PlayerClient>                     pActiveCorpse;
 ForeignPointer<PlayerClient>                     pActiveGMaster;
 ForeignPointer<PlayerClient>                     pActiveMerchant;
-ForeignPointer<PlayerClient>                     pCharSpawn;
+ForeignPointer<PlayerClient>                     pCharSpawn;         // deprecated
 ForeignPointer<PlayerClient>                     pControlledPlayer;
 ForeignPointer<PlayerClient>                     pLocalPlayer;
 ForeignPointer<PlayerClient>                     pTarget;
@@ -1061,7 +1060,7 @@ ForeignPointer<LootFiltersManager>               pLootFiltersManager;
 ComputedPointer<EQMERCALTABILITIES>              pMercAltAbilities([]{ return (EQMERCALTABILITIES*)&MercenaryAlternateAdvancementManagerClient::Instance(); });
 ForeignPointer<CMercenaryManager>                pMercInfo;
 ForeignPointer<CMercenaryManager>                pMercManager;
-ComputedPointer<CPlayerPointManager>             pPlayerPointManager([]{ return pCharData ? (PlayerPointManager*)&pCharData->PointManager : nullptr; });
+ComputedPointer<CPlayerPointManager>             pPlayerPointManager([]{ return pLocalPC ? (PlayerPointManager*)&pLocalPC->PointManager : nullptr; });
 ForeignPointer<CResolutionHandler>               pResolutionHandler;
 ForeignPointer<CSidlManager>                     pSidlMgr;
 ForeignPointer<SkillManager>                     pSkillMgr;
@@ -1248,13 +1247,17 @@ void InitializeEQGameOffsets()
 	pZoneInfo                       = (ZONEINFO*)instEQZoneInfo;
 
 	// Spawn/Char pointers
-	pCharData                       = pinstCharData;
-	pPCData                         = pinstPCData;
+#pragma warning(suppress: 4996)
+	pCharData                       = pinstLocalPC;                    // deprecated
+#pragma warning(suppress: 4996)
+	pPCData                         = pinstLocalPC;                    // deprecated
+	pLocalPC                        = pinstLocalPC;
 	pActiveBanker                   = pinstActiveBanker;
 	pActiveCorpse                   = pinstActiveCorpse;
 	pActiveGMaster                  = pinstActiveGMaster;
 	pActiveMerchant                 = pinstActiveMerchant;
-	pCharSpawn                      = pinstCharSpawn;
+#pragma warning(suppress: 4996)
+	pCharSpawn                      = pinstControlledPlayer;           // deprecated
 	pControlledPlayer               = pinstControlledPlayer;
 	pLocalPlayer                    = pinstLocalPlayer;
 	pTarget                         = pinstTarget;

@@ -279,8 +279,8 @@ FUNCTION_AT_ADDRESS(void CEditWnd::SetEditable(bool), CEditWnd__SetEditable);
 #ifdef CEditWnd__GetSTMLSafeText_x
 FUNCTION_AT_ADDRESS(CXStr CEditWnd::GetSTMLSafeText(), CEditWnd__GetSTMLSafeText);
 #endif
-#ifdef CEditWnd__SetWindowTextA_x
-FUNCTION_AT_ADDRESS(void CEditWnd::SetWindowTextA(const CXStr& Str), CEditWnd__SetWindowTextA);
+#ifdef CEditWnd__SetWindowText_x
+FUNCTION_AT_ADDRESS(void CEditWnd::SetWindowText(const CXStr& Str), CEditWnd__SetWindowText);
 #endif
 #ifdef CEditWnd__ConvertIndexPrintableToTagged_x
 FUNCTION_AT_ADDRESS(int CEditWnd::ConvertIndexPrintableToTagged(int), CEditWnd__ConvertIndexPrintableToTagged);

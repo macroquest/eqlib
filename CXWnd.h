@@ -395,6 +395,7 @@ public:
 	EQLIB_OBJECT virtual int Move(const CXRect& rect, bool updateLayout = true, bool forceUpdateLayout = false,
 		bool completeMoveOrResize = false, bool moveAutoStretch = false);
 	EQLIB_OBJECT virtual void SetWindowText(const CXStr& text) { WindowText = text; }
+	DEPRECATE("Use SetWindowText instead of SetWindowTextA") inline void SetWindowTextA(const CXStr& text) { this->SetWindowText(text); }
 	EQLIB_OBJECT CXStr GetWindowText() const { return WindowText; }
 	EQLIB_OBJECT virtual CXWnd* GetChildWndAt(const CXPoint& pos, bool, bool) const;
 	EQLIB_OBJECT virtual CScreenPieceTemplate* GetSidlPiece(const CXStr& screenId, bool top = true) const;

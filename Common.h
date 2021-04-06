@@ -33,6 +33,7 @@
 #include <Windows.h>
 
 #undef GetWindowText
+#undef SetWindowText
 #undef FindWindow
 
 #include <cstdlib>

@@ -127,8 +127,6 @@
 #define pinstCDisplay_x                                            0xF850B4
 #define pinstCEverQuest_x                                          0xF94034
 #define pinstEverQuestInfo_x                                       0xDA0D10
-#define pinstCharData_x                                            0xF850A4
-#define pinstCharSpawn_x                                           0xF8798C
 #define pinstControlledMissile_x                                   0xF87998
 #define pinstControlledPlayer_x                                    0xF8798C
 #define pinstCResolutionHandler_x                                  0x1613A48
@@ -146,11 +144,11 @@
 #define pinstSGraphicsEngine_x                                     0x1613814
 #define pinstGroup_x                                               0xF87136
 #define pinstImeManager_x                                          0x16129E0
+#define pinstLocalPC_x                                             0xF850A4
 #define pinstLocalPlayer_x                                         0xF87934
 #define pinstMercenaryData_x                                       0xF8EB34
 #define pinstMercenaryStats_x                                      0xFA754C
 #define pinstModelPlayer_x                                         0xF8794C
-#define pinstPCData_x                                              0xF850A4
 #define pinstSkillMgr_x                                            0xF90C20
 #define pinstSpawnManager_x                                        0xF8F6F8
 #define pinstSpellManager_x                                        0xF90E60
@@ -553,7 +551,7 @@
 #define CEditWnd__ReplaceSelection_x                               0x997AD0
 #define CEditWnd__SelectableCharFromPoint_x                        0x998060
 #define CEditWnd__SetEditable_x                                    0x997350
-#define CEditWnd__SetWindowTextA_x                                 0x9969F0
+#define CEditWnd__SetWindowText_x                                  0x9969F0
 
 // CEverQuest
 #define CEverQuest__DoPercentConvert_x                             0x62EA70

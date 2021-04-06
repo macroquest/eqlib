@@ -227,8 +227,6 @@ EQLIB_VAR DWORD pinstCGroupWnd;
 EQLIB_VAR DWORD pinstCGuildBankWnd;
 EQLIB_VAR DWORD pinstCGuildMgmtWnd;
 EQLIB_VAR DWORD pinstCharacterCreation;
-EQLIB_VAR DWORD pinstCharData;
-EQLIB_VAR DWORD pinstCharSpawn;
 EQLIB_VAR DWORD pinstCHotButtonWnd;
 EQLIB_VAR DWORD pinstCHotButtonWnd1;
 EQLIB_VAR DWORD pinstCHotButtonWnd2;
@@ -310,11 +308,11 @@ EQLIB_VAR DWORD pinstEverQuestInfo;
 EQLIB_VAR DWORD pinstGroup;
 EQLIB_VAR DWORD pinstImeManager;
 EQLIB_VAR DWORD pinstItemIconCache;
+EQLIB_VAR DWORD pinstLocalPC;
 EQLIB_VAR DWORD pinstLocalPlayer;
 EQLIB_VAR DWORD pinstMercenaryData;
 EQLIB_VAR DWORD pinstMercenaryStats;
 EQLIB_VAR DWORD pinstModelPlayer;
-EQLIB_VAR DWORD pinstPCData;
 EQLIB_VAR DWORD pinstPlayerPath;
 EQLIB_VAR DWORD pinstRewardSelectionWnd;
 EQLIB_VAR DWORD pinstSGraphicsEngine;
@@ -512,7 +510,7 @@ EQLIB_VAR DWORD CEditWnd__PointFromPrintableChar;
 EQLIB_VAR DWORD CEditWnd__ReplaceSelection;
 EQLIB_VAR DWORD CEditWnd__SelectableCharFromPoint;
 EQLIB_VAR DWORD CEditWnd__SetEditable;
-EQLIB_VAR DWORD CEditWnd__SetWindowTextA;
+EQLIB_VAR DWORD CEditWnd__SetWindowText;
 EQLIB_VAR DWORD CEQSuiteTextureLoader__CreateTexture;
 EQLIB_VAR DWORD CEQSuiteTextureLoader__GetDefaultUIPath;
 EQLIB_VAR DWORD CEQSuiteTextureLoader__GetTexture;
@@ -1062,14 +1060,15 @@ EQLIB_VAR SoeUtil::String*                           pExceptionSubmissionEndpoin
 EQLIB_VAR EQLogin*                                   pEQLogin;
 
 // Spawn/Char related
-EQLIB_VAR ForeignPointer<PcClient>                   pCharData;
-EQLIB_VAR ForeignPointer<PcClient>                   pPCData;
+EQLIB_VAR ForeignPointer<PcClient>                   pCharData /*DEPRECATE("Use pLocalPC instead of pCharData")*/;
+EQLIB_VAR ForeignPointer<PcClient>                   pPCData /*DEPRECATE("Use pLocalPC instead of pPCData")*/;
+EQLIB_VAR ForeignPointer<PcClient>                   pLocalPC;
 EQLIB_VAR ForeignPointer<PlayerClient>               pActiveBanker;
 EQLIB_VAR ForeignPointer<PlayerClient>               pActiveCorpse;
 EQLIB_VAR ForeignPointer<PlayerClient>               pActiveGMaster;
 EQLIB_VAR ForeignPointer<PlayerClient>               pActiveMerchant;
-EQLIB_VAR ForeignPointer<PlayerClient>               pCharSpawn;        // player that is being controlled
-EQLIB_VAR ForeignPointer<PlayerClient>               pControlledPlayer;
+EQLIB_VAR ForeignPointer<PlayerClient>               pCharSpawn /*DEPRECATE("pCharSpawn is deprecated. Use either pLocalPlayer (for your own player) or pControlledPlayer (for the player that your movement controls)")*/;
+EQLIB_VAR ForeignPointer<PlayerClient>               pControlledPlayer; // the controlled player (mount, eye of zomm, etc)
 EQLIB_VAR ForeignPointer<PlayerClient>               pLocalPlayer;      // the local player
 EQLIB_VAR ForeignPointer<PlayerClient>               pTarget;
 EQLIB_VAR ForeignPointer<PlayerClient>               pTradeTarget;
