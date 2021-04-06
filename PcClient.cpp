@@ -261,9 +261,9 @@ FUNCTION_AT_ADDRESS(const char* ExtendedTargetList::ExtendedTargetRoleName(uint3
 // This was previously defined incorrectly, we keep it for compatibility.
 const char* GetXtargetType(DWORD type)
 {
-	if (!pCharData) return nullptr;
+	if (!pLocalPC) return nullptr;
 
-	return pCharData->pExtendedTargetList->ExtendedTargetRoleName(type);
+	return pLocalPC->pExtendedTargetList->ExtendedTargetRoleName(type);
 }
 
 //============================================================================

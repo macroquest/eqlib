@@ -448,7 +448,7 @@ public:
 	ALT_MEMBER_GETTER(bool, m_autoAddHaters, bAutoAddHaters);
 };
 
-EQLIB_API DEPRECATE("GetXtargetType() is deprecated. Use pCharData->pExtendedTargetList->ExtendedTargetRoleName() instead")
+EQLIB_API DEPRECATE("GetXtargetType() is deprecated. Use pLocalPC->pExtendedTargetList->ExtendedTargetRoleName() instead")
 const char* GetXtargetType(DWORD type);
 
 struct [[offsetcomments]] MailItemData
