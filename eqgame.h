@@ -30,22 +30,8 @@
 #define __MemChecker1_x                                            0x945260
 #define __MemChecker2_x                                            0x6DE110
 #define __MemChecker3_x                                            0x6DE080
-#define __MemChecker4_x                                            0x898690
+#define __MemChecker4_x                                            0x637310
 #define __EncryptPad0_x                                            0xE45F40
-#define __EncryptPad1_x                                            0xEA0740
-#define __EncryptPad2_x                                            0xE55158
-#define __EncryptPad3_x                                            0xE54D58
-#define __EncryptPad4_x                                            0xE91550
-#define __EncryptPad5_x                                            0xF94020
-#define __AC1_x                                                    0x853250
-#define __AC2_x                                                    0x618E9F
-#define __AC3_x                                                    0x620281
-#define __AC4_x                                                    0x6243F0
-#define __AC5_x                                                    0x62ACAF
-#define __AC6_x                                                    0x62F3F6
-#define __AC7_x                                                    0x618900
-#define __AC1_Data                                                 0x11111111
-#define __EP1_Data_x                                               0x243588
 
 // Direct Input
 #define DI8__Main_x                                                0xF940CC

@@ -84,7 +84,7 @@ enum eServerStatus : uint32_t
 
 struct [[offsetcomments]] EQClientServerData
 {
-/*0x00*/ int           ID;
+/*0x00*/ ServerID      ID;
 /*0x04*/ CXStr         ServerName;
 /*0x08*/ CXStr         HostName;
 /*0x0c*/ CXStr         ServerIP;
