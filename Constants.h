@@ -907,6 +907,34 @@ enum eParcelStatus
 	ePS_OverParcelsLimit = eParcelStatusOverfilled,
 };
 
+enum class ServerID : int {
+	Antonius = 100,
+	Bertox = 102,
+	Bristle = 104,
+	Cazic = 105,
+	Drinal = 106,
+	Erollisi = 109,
+	Firiona = 111,
+	Luclin = 116,
+	Povar = 123,
+	Rathe = 127,
+	Tunare = 140,
+	Xegony = 144,
+	Zek = 147,
+	Trakanon = 155,
+	Fippy = 156,
+	Vulak = 157,
+	Vox = 158,
+	Ragefire = 159,
+	Lockjaw = 160,
+	Brekt = 162,
+	Mayong = 163,
+	Rizlona = 169,
+
+	NumServers = 22,
+	Invalid = -1,
+};
+
 
 // zones
 constexpr int ZONE_COUNT = 843;

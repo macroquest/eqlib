@@ -15,6 +15,8 @@
 #include "pch.h"
 #include "EQLib.h"
 
+#include "Common/StringUtils.h"
+
 namespace eqlib {
 
 // These don't change during the execution of the program. They can be loaded
@@ -24,6 +26,8 @@ uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
 uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle("EQGraphicsDX9.dll");
 
 uintptr_t EQMainBaseAddress = (uintptr_t)GetModuleHandle("eqmain.dll");
+
+uintptr_t Kernel32BaseAddress = (uintptr_t)GetModuleHandle("kernel32.dll");
 
 //============================================================================
 // Data
@@ -66,6 +70,97 @@ DIKEYID gDiKeyID[] = {
 };
 
 const char* gDiKeyName[256];
+
+ServerID ServerIDArray[ServerID::NumServers] = {
+	ServerID::Rizlona,
+	ServerID::Lockjaw,
+	ServerID::Ragefire,
+	ServerID::Vox,
+	ServerID::Trakanon,
+	ServerID::Fippy,
+	ServerID::Vulak,
+	ServerID::Mayong,
+	ServerID::Antonius,
+	ServerID::Brekt,
+	ServerID::Bertox,
+	ServerID::Bristle,
+	ServerID::Cazic,
+	ServerID::Drinal,
+	ServerID::Erollisi,
+	ServerID::Firiona,
+	ServerID::Luclin,
+	ServerID::Povar,
+	ServerID::Rathe,
+	ServerID::Tunare,
+	ServerID::Xegony,
+	ServerID::Zek,
+};
+
+const char* GetServerNameFromServerID(ServerID id)
+{
+	switch (id)
+	{
+	case ServerID::Rizlona: return "rizlona";
+	case ServerID::Lockjaw: return "lockjaw";
+	case ServerID::Ragefire: return "ragefire";
+	case ServerID::Vox: return "vox";
+	case ServerID::Trakanon: return "trakanon";
+	case ServerID::Fippy: return "fippy";
+	case ServerID::Vulak: return "vulak";
+	case ServerID::Mayong: return "mayong";
+	case ServerID::Antonius: return "antonius";
+	case ServerID::Brekt: return "brekt";
+	case ServerID::Bertox: return "bertox";
+	case ServerID::Bristle: return "bristle";
+	case ServerID::Cazic: return "cazic";
+	case ServerID::Drinal: return "drinal";
+	case ServerID::Erollisi: return "erollisi";
+	case ServerID::Firiona: return "firiona";
+	case ServerID::Luclin: return "luclin";
+	case ServerID::Povar: return "povar";
+	case ServerID::Rathe: return "rathe";
+	case ServerID::Tunare: return "tunare";
+	case ServerID::Xegony: return "xegony";
+	case ServerID::Zek: return "zek";
+	}
+
+	return "unknown";
+}
+
+ServerID GetServerIDFromServerName(const char* serverName)
+{
+	static const mq::ci_unordered::map<std::string_view, ServerID> serverMapping{
+		{ "rizlona", ServerID::Rizlona },
+		{ "lockjaw", ServerID::Lockjaw },
+		{ "ragefire", ServerID::Ragefire },
+		{ "vox", ServerID::Vox },
+		{ "trakanon", ServerID::Trakanon },
+		{ "fippy", ServerID::Fippy },
+		{ "vulak", ServerID::Vulak },
+		{ "mayong", ServerID::Mayong },
+		{ "antonius", ServerID::Antonius },
+		{ "brekt", ServerID::Brekt },
+		{ "bertox", ServerID::Bertox },
+		{ "bristle", ServerID::Bristle },
+		{ "cazic", ServerID::Cazic },
+		{ "drinal", ServerID::Drinal },
+		{ "erollisi", ServerID::Erollisi },
+		{ "firiona", ServerID::Firiona },
+		{ "luclin", ServerID::Luclin },
+		{ "povar", ServerID::Povar },
+		{ "rathe", ServerID::Rathe },
+		{ "tunare", ServerID::Tunare },
+		{ "xegony", ServerID::Xegony },
+		{ "zek", ServerID::Zek },
+	};
+
+	auto iter = serverMapping.find(serverName);
+	if (iter != serverMapping.end())
+		return iter->second;
+
+	return ServerID::Invalid;
+}
+
 
 //============================================================================
 // Offset Definitions & Initialization
@@ -315,8 +410,6 @@ INITIALIZE_EQGAME_OFFSET(__EncryptPad0);
 INITIALIZE_EQGAME_OFFSET(__EncryptPad1);
 INITIALIZE_EQGAME_OFFSET(__EncryptPad2);
 INITIALIZE_EQGAME_OFFSET(__EncryptPad3);
-INITIALIZE_EQGAME_OFFSET(__EncryptPad4);
-INITIALIZE_EQGAME_OFFSET(__EncryptPad5);
 INITIALIZE_EQGAME_OFFSET(__AC1);
 INITIALIZE_EQGAME_OFFSET(__AC2);
 INITIALIZE_EQGAME_OFFSET(__AC3);
@@ -324,7 +417,6 @@ INITIALIZE_EQGAME_OFFSET(__AC4);
 INITIALIZE_EQGAME_OFFSET(__AC5);
 INITIALIZE_EQGAME_OFFSET(__AC6);
 INITIALIZE_EQGAME_OFFSET(__AC7);
-INITIALIZE_EQGAME_OFFSET(__EP1_Data);
 INITIALIZE_EQGAME_OFFSET(DI8__Main);
 INITIALIZE_EQGAME_OFFSET(DI8__Keyboard);
 INITIALIZE_EQGAME_OFFSET(DI8__Mouse);
@@ -963,20 +1055,10 @@ IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
 POINT*                 EQADDR_DIMOUSECHECK       = nullptr;
 POINT*                 EQADDR_DIMOUSECOPY        = nullptr;
 int*                   EQADDR_DOABILITYLIST      = nullptr;
-BYTE*                  EQADDR_ENCRYPTPAD0        = nullptr;
-BYTE*                  EQADDR_ENCRYPTPAD1        = nullptr;
-BYTE*                  EQADDR_ENCRYPTPAD2        = nullptr;
-BYTE*                  EQADDR_ENCRYPTPAD3        = nullptr;
-BYTE*                  EQADDR_ENCRYPTPAD4        = nullptr;
 DWORD                  EQADDR_GROUPAGGRO         = 0;
 void*                  EQADDR_GWORLD             = nullptr;
 char*                  EQADDR_LASTTELL           = nullptr;
 DWORD                  EQADDR_HWND               = 0;
-DWORD                  EQADDR_MEMCHECK0          = 0;
-DWORD                  EQADDR_MEMCHECK1          = 0;
-DWORD                  EQADDR_MEMCHECK2          = 0;
-DWORD                  EQADDR_MEMCHECK3          = 0;
-DWORD                  EQADDR_MEMCHECK4          = 0;
 MQMouseInfo*           EQADDR_MOUSE              = nullptr;
 MOUSECLICK*            EQADDR_MOUSECLICK         = nullptr;
 BYTE*                  EQADDR_NOTINCHATMODE      = nullptr;
@@ -1170,6 +1252,12 @@ ForeignPointer<DWORD>                            g_pDrawHandler;
 fEQNewUIINI            NewUIINI                  = nullptr;
 fEQProcGameEvts        ProcessGameEvents         = nullptr;
 fGetLabelFromEQ        GetLabelFromEQ            = nullptr;
+DWORD                  __ModuleList              = 0;
+
+void InitializeGlobalOffsets()
+{
+	__ModuleList = (DWORD)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcessModules");
+}
 
 void InitializeEQGameOffsets()
 {
@@ -1188,20 +1276,10 @@ void InitializeEQGameOffsets()
 	EQADDR_DIMOUSECHECK             = (PPOINT)DI8__Mouse_Check;
 	EQADDR_DIMOUSECOPY              = (PPOINT)DI8__Mouse_Copy;
 	EQADDR_DOABILITYLIST            = (int*)__DoAbilityList;
-	EQADDR_ENCRYPTPAD0              = (BYTE*)__EncryptPad0;
-	EQADDR_ENCRYPTPAD1              = (BYTE*)__EncryptPad1;
-	EQADDR_ENCRYPTPAD2              = (BYTE*)__EncryptPad2;
-	EQADDR_ENCRYPTPAD3              = (BYTE*)__EncryptPad3;
-	EQADDR_ENCRYPTPAD4              = (BYTE*)__EncryptPad4;
 	EQADDR_GROUPAGGRO               = (DWORD)__GroupAggro;
 	EQADDR_GWORLD                   = (void*)__gWorld;
 	EQADDR_HWND                     = __HWnd;
 	EQADDR_LASTTELL                 = (char*)__LastTell;
-	EQADDR_MEMCHECK0                = __MemChecker0;
-	EQADDR_MEMCHECK1                = __MemChecker1;
-	EQADDR_MEMCHECK2                = __MemChecker2;
-	EQADDR_MEMCHECK3                = __MemChecker3;
-	EQADDR_MEMCHECK4                = __MemChecker4;
 	EQADDR_MOUSE                    = (MQMouseInfo*)__Mouse;
 	EQADDR_MOUSECLICK               = (PMOUSECLICK)__Clicks;
 	EQADDR_NOTINCHATMODE            = (BYTE*)__InChatMode;
@@ -1554,6 +1632,7 @@ void InitializeGlobals()
 		gDiKeyName[gDiKeyID[i].Id] = gDiKeyID[i].szName;
 	}
 
+	InitializeGlobalOffsets();
 	InitializeEQGameOffsets();
 	InitializeEQGraphicsOffsets();
 }
