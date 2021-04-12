@@ -20,16 +20,14 @@ namespace eqlib {
 eqAllocFn eqAlloc = nullptr;
 eqFreeFn eqFree = nullptr;
 
-namespace SoeUtil {
-
-void* Alloc(int bytes, int align) { return 0; }
-void Free(void* p, int align) {}
-
+namespace SoeUtil
+{
+	void* Alloc(int bytes, int align) { return 0; }
+	void Free(void* p, int align) {}
 }
 
 FUNCTION_AT_VARIABLE_ADDRESS(void* eqAllocImpl(size_t), __eq_new);
 FUNCTION_AT_VARIABLE_ADDRESS(void eqFreeImpl(void*), __eq_delete);
-
 
 void InitializeEQLib()
 {
@@ -53,7 +51,6 @@ void ShutdownEQLib()
 {
 	ShutdownCXStr();
 }
-
 
 /* OTHER FUNCTIONS IMPORTED FROM EQ */
 #ifdef __CastRay_x

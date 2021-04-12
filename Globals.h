@@ -37,6 +37,9 @@ EQLIB_VAR uintptr_t EQGraphicsBaseAddress;
 // the base address of eqmain.dll
 EQLIB_VAR uintptr_t EQMainBaseAddress;
 
+// the base address of kernel32.dll
+EQLIB_VAR uintptr_t Kernel32BaseAddress;
+
 // These macros are used for statically building offsets. If using dynamic offset generation
 // with the pattern matching, don't use the macro.
 
@@ -78,6 +81,10 @@ inline namespace deprecated {
 	EQLIB_VAR size_t MAX_ITEMTYPES DEPRECATE("Use MAX_ITEMCLASSES instead of MAX_ITEMTYPES");
 	EQLIB_VAR const char** szItemTypes DEPRECATE("Use szItemClasses instead of szItemTypes");
 }
+
+EQLIB_VAR ServerID ServerIDArray[(uint32_t)ServerID::NumServers];
+EQLIB_API const char* GetServerNameFromServerID(ServerID id);
+EQLIB_API ServerID GetServerIDFromServerName(const char* serverName);
 
 struct ACTORDEFENTRY
 {
@@ -336,6 +343,7 @@ EQLIB_VAR DWORD __MemChecker0;
 EQLIB_VAR DWORD __MemChecker1;
 EQLIB_VAR DWORD __MemChecker2;
 EQLIB_VAR DWORD __MemChecker3;
+EQLIB_VAR DWORD __MemChecker4;
 EQLIB_VAR DWORD __EncryptPad0;
 EQLIB_VAR DWORD __EncryptPad1;
 EQLIB_VAR DWORD __EncryptPad2;
@@ -995,19 +1003,11 @@ EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIMOUSE;
 EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECHECK;
 EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECOPY;
 EQLIB_VAR int*                                       EQADDR_DOABILITYLIST;
-EQLIB_VAR BYTE*                                      EQADDR_ENCRYPTPAD0;
-EQLIB_VAR BYTE*                                      EQADDR_ENCRYPTPAD1;
-EQLIB_VAR BYTE*                                      EQADDR_ENCRYPTPAD2;
-EQLIB_VAR BYTE*                                      EQADDR_ENCRYPTPAD3;
 EQLIB_VAR DWORD                                      EQADDR_EQLABELS;
 EQLIB_VAR DWORD                                      EQADDR_GROUPAGGRO;
 EQLIB_VAR void*                                      EQADDR_GWORLD;
 EQLIB_VAR DWORD                                      EQADDR_HWND;
 EQLIB_VAR char*                                      EQADDR_LASTTELL;
-EQLIB_VAR DWORD                                      EQADDR_MEMCHECK0;
-EQLIB_VAR DWORD                                      EQADDR_MEMCHECK1;
-EQLIB_VAR DWORD                                      EQADDR_MEMCHECK2;
-EQLIB_VAR DWORD                                      EQADDR_MEMCHECK3;
 EQLIB_VAR MQMouseInfo*                               EQADDR_MOUSE;
 EQLIB_VAR MOUSECLICK*                                EQADDR_MOUSECLICK;
 EQLIB_VAR BYTE*                                      EQADDR_NOTINCHATMODE;
@@ -1232,6 +1232,8 @@ using fGetLabelFromEQ        = bool   (*)(int, CXStr*, bool*, COLORREF*);
 EQLIB_VAR fEQNewUIINI          NewUIINI;
 EQLIB_VAR fEQProcGameEvts      ProcessGameEvents;
 EQLIB_VAR fGetLabelFromEQ      GetLabelFromEQ;
+
+EQLIB_VAR DWORD __ModuleList;
 
 //============================================================================
 // EQGraphicsDX9.dll Offsets

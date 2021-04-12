@@ -30,6 +30,7 @@
 #define __MemChecker1_x                                            0x945260
 #define __MemChecker2_x                                            0x6DE110
 #define __MemChecker3_x                                            0x6DE080
+#define __MemChecker4_x                                            0x637310
 #define __EncryptPad0_x                                            0xE45F40
 #define __EncryptPad1_x                                            0xEA0740
 #define __EncryptPad2_x                                            0xE55158
