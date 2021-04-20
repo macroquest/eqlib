@@ -89,6 +89,7 @@
     <ClInclude Include="EQLib.h" />
     <ClInclude Include="eqmain.h" />
     <ClInclude Include="EQUIStructs.h" />
+    <ClInclude Include="EverQuest.h" />
     <ClInclude Include="ForwardDecls.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GraphicsEngine.h" />
@@ -113,6 +114,7 @@
     <ClCompile Include="CXWnd.cpp" />
     <ClCompile Include="EQClasses.cpp" />
     <ClCompile Include="EQLib.cpp" />
+    <ClCompile Include="EverQuest.cpp" />
     <ClCompile Include="ExceptionsDisabled.cpp">
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExceptionHandling>
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExceptionHandling>
