@@ -184,7 +184,6 @@ INITIALIZE_EQGAME_OFFSET(__CurrentMapLabel);
 INITIALIZE_EQGAME_OFFSET(__CurrentSocial);
 INITIALIZE_EQGAME_OFFSET(__do_loot);
 INITIALIZE_EQGAME_OFFSET(__DoAbilityList);
-INITIALIZE_EQGAME_OFFSET(__DrawHandler);
 INITIALIZE_EQGAME_OFFSET(__gpbCommandEvent);
 INITIALIZE_EQGAME_OFFSET(__GroupAggro);
 INITIALIZE_EQGAME_OFFSET(__Guilds);
@@ -382,6 +381,7 @@ INITIALIZE_EQGAME_OFFSET(pinstLocalPlayer);
 INITIALIZE_EQGAME_OFFSET(pinstMercenaryData);
 INITIALIZE_EQGAME_OFFSET(pinstMercenaryStats);
 INITIALIZE_EQGAME_OFFSET(pinstModelPlayer);
+INITIALIZE_EQGAME_OFFSET(pinstRenderInterface);
 INITIALIZE_EQGAME_OFFSET(pinstPlayerPath);
 INITIALIZE_EQGAME_OFFSET(pinstRewardSelectionWnd);
 INITIALIZE_EQGAME_OFFSET(pinstSGraphicsEngine);
@@ -1452,7 +1452,7 @@ void InitializeEQGameOffsets()
 	pVideoModesWnd                  = pinstCVideoModesWnd;
 	pZoneGuideWnd                   = pinstCZoneGuideWnd;
 
-	g_pDrawHandler                  = __DrawHandler;
+	g_pDrawHandler                  = pinstRenderInterface;
 
 	NewUIINI                        = (fEQNewUIINI)__NewUIINI;
 	ProcessGameEvents               = (fEQProcGameEvts)__ProcessGameEvents;

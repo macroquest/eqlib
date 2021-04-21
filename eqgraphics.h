@@ -18,7 +18,7 @@
 // EQGraphicsDX9.dll offsets
 //
 
-#define __eqgraphics_fopen_x                                       0x1015F5BD
+#define __eqgraphics_fopen_x                                       0x1015FC1D
 
 #define CParticleSystem__Render_x                                  0x1007B680
 

@@ -320,6 +320,7 @@ EQLIB_VAR DWORD pinstLocalPlayer;
 EQLIB_VAR DWORD pinstMercenaryData;
 EQLIB_VAR DWORD pinstMercenaryStats;
 EQLIB_VAR DWORD pinstModelPlayer;
+EQLIB_VAR DWORD pinstRenderInterface;
 EQLIB_VAR DWORD pinstPlayerPath;
 EQLIB_VAR DWORD pinstRewardSelectionWnd;
 EQLIB_VAR DWORD pinstSGraphicsEngine;

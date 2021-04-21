@@ -356,7 +356,6 @@ struct EQRAID;
 struct EQSOCIAL;
 struct EQSOCIALCHANGED;
 struct EQSTRINGTABLE;
-struct EVERQUEST;
 struct EVERQUESTINFO;
 struct GuildMember;
 struct GUILDS;
@@ -379,6 +378,7 @@ struct EQLogin;
 struct MercenaryInfo;
 
 using CChatService = UniversalChatProxy;
+using EVERQUEST = CEverQuest;
 
 class PcClient;
 using CHARINFO = PcClient;
