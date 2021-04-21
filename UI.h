@@ -866,7 +866,8 @@ public:
 	EQLIB_OBJECT virtual int DrawItem(int index, int, int) const;
 	EQLIB_OBJECT virtual void DeleteAll();
 	EQLIB_OBJECT virtual int Compare(const SListWndLine&, const SListWndLine&) const;
-	EQLIB_OBJECT virtual void Sort();
+	EQLIB_OBJECT virtual int Unknown0x188(int a, int b) const;
+	EQLIB_OBJECT virtual void Sort(bool unstable = true);
 
 	// overrides
 	EQLIB_OBJECT virtual int Draw() override;
@@ -1031,6 +1032,7 @@ public:
 	/*0x17c*/ void* DrawItem;
 	/*0x180*/ void* DeleteAll;
 	/*0x184*/ void* Compare;
+	/*0x188*/ void* Unknown0x188;
 	/*0x188*/ void* Sort;
 	/*0x18c*/
 	};
@@ -3958,8 +3960,9 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// CItemDisplayWindow__CItemDisplayWindow_x aItemdisplaywin
-// CItemDisplayWindow_size: 0x620 (see 76D012) in Dec 19 2019 Live
+// @sizeof(CItemDisplyWnd) == 0x630 :: 2021-04-19 (live) @ 0x798AF0
+constexpr size_t CItemDisplayWnd_size = 0x630;
+
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS
@@ -3993,68 +3996,68 @@ public:
 
 	// todo: verify
 /*0x240*/ CStmlWnd*         Description;
-/*0x244*/ CStmlWnd*         Name;
-/*0x248*/ CButtonWnd*       IconButton;
-/*0x24c*/ CStmlWnd*         ItemLore;
-/*0x250*/ CTabWnd*          ItemDescriptionTabBox;
-/*0x254*/ CPageWnd*         ItemDescriptionTab;
-/*0x258*/ CPageWnd*         ItemLoreTab;
-/*0x25c*/ CSidlScreenWnd*   pAppearanceSocketScreen;
-/*0x260*/ CButtonWnd*       pAppearanceSocketItem;
-/*0x264*/ CButtonWnd*       pAppearanceSocketBuyButton;
-/*0x268*/ CStmlWnd*         pAppearanceSocketDescription;
-/*0x26c*/ CSidlScreenWnd*   pItemSocketScreen[6];
-/*0x284*/ CButtonWnd*       pItemSocketItemButton[6];
-/*0x29c*/ CStmlWnd*         pItemSocketDescription[6];
-/*0x2b4*/ CXStr             ItemInfo;                 // this item is placable in yards, guild yards blah blah , This item can be used in tradeskills
-/*0x2b8*/ CXStr             WindowTitle;
-/*0x2bc*/ CXStr             ItemAdvancedLoreText;
-/*0x2c0*/ CXStr             ItemMadeByText;
-/*0x2c4*/ CXStr             BackupTabTitle;
-/*0x2c8*/ CXStr             SolventText;
-/*0x2cc*/ CXStr             ItemInformationText;      // Item Information: Placing this augment into blah blah, this armor can only be used in blah blah
-/*0x2d0*/ ItemPtr           pItem;
-/*0x2d4*/ bool              bActiveItem;
-/*0x2d5*/ bool              bItemTextSet;
-/*0x2d8*/ CTextureAnimation* BuffIcons;
-/*0x2dc*/ CTextureAnimation* DragIcons;
-/*0x2e0*/ bool              bTaggable;
-/*0x2e1*/ bool              bFailed;
-/*0x2e4*/ unsigned int      TabCount;
-/*0x2e8*/ CLabel*           ModButtonLabel;
-/*0x2ec*/ CLabel*           RewardButtonLabel;
-/*0x2f0*/ CStmlWnd*         ConvertStml;
-/*0x2f4*/ CLabel*           MadeByLabel;
-/*0x2f8*/ CLabel*           CollectedLabel;
-/*0x2fc*/ CLabel*           ScribedLabel;
-/*0x300*/ int               Row;
-/*0x304*/ bool              bAntiTwink;
-/*0x308*/ CButtonWnd*       ModButton;
-/*0x30c*/ CButtonWnd*       RewardButton;
-/*0x310*/ CButtonWnd*       PrintRealEstateItems;
-/*0x314*/ CButtonWnd*       ConvertButton;
-/*0x318*/ bool              bCollected;
-/*0x319*/ bool              bCollectedReceived;
-/*0x31c*/ int               Unknown0x031c;
-/*0x320*/ int               Unknown0x0320;
-/*0x324*/ bool              bScribed;
-/*0x325*/ bool              bScribedReceived;
-/*0x326*/ BYTE              Unknown0x30e[0x2f2];
-/*0x618*/ DWORD             Unknown0x600;
-/*0x61c*/ DWORD             Unknown0x604;
-/*0x620*/ DWORD             Unknown0x608;
-/*0x624*/ DWORD             Unknown0x60c;
-/*0x628*/ DWORD             Unknown0x610;
-/*0x62c*/ DWORD             Unknown0x614;
-/*0x630*/ DWORD             Unknown0x618;
-/*0x634*/ DWORD             ItemWndIndex;             // 0-5? you can have max 6 windows up I think before it starts overwriting the sixth.
-/*0x638*/
+/*0x244*/ CButtonWnd*       IconButton;
+/*0x248*/ CStmlWnd*         ItemLore;
+/*0x24c*/ CTabWnd*          ItemDescriptionTabBox;
+/*0x250*/ CPageWnd*         ItemDescriptionTab;
+/*0x254*/ CPageWnd*         ItemLoreTab;
+/*0x258*/ CSidlScreenWnd*   pAppearanceSocketScreen;
+/*0x25c*/ CButtonWnd*       pAppearanceSocketItem;
+/*0x260*/ CButtonWnd*       pAppearanceSocketBuyButton;
+/*0x264*/ CStmlWnd*         pAppearanceSocketDescription;
+/*0x268*/ CSidlScreenWnd*   pItemSocketScreen[6];
+/*0x280*/ CButtonWnd*       pItemSocketItemButton[6];
+/*0x298*/ CStmlWnd*         pItemSocketDescription[6];
+/*0x2b0*/ CXStr             ItemInfo;                 // this item is placable in yards, guild yards blah blah , This item can be used in tradeskills
+/*0x2b4*/ CXStr             WindowTitle;
+/*0x2b8*/ CXStr             ItemAdvancedLoreText;
+/*0x2bc*/ CXStr             ItemMadeByText;
+/*0x2c0*/ CXStr             SolventText;
+/*0x2c4*/ CXStr             ItemInformationText;      // Item Information: Placing this augment into blah blah, this armor can only be used in blah blah
+/*0x2c8*/ ItemPtr           pItem;
+/*0x2cc*/ bool              bActiveItem;
+/*0x2cd*/ bool              bItemTextSet;
+/*0x2d0*/ CTextureAnimation* DragIcons;
+/*0x2d4*/ bool              bTaggable;
+/*0x2d5*/ bool              bFailed;
+/*0x2d8*/ unsigned int      TabCount;
+/*0x2dc*/ CLabel*           ModButtonLabel;
+/*0x2e0*/ CLabel*           RewardButtonLabel;
+/*0x2e4*/ CStmlWnd*         ConvertStml;
+/*0x2e8*/ CLabel*           MadeByLabel;
+/*0x2ec*/ CLabel*           CollectedLabel;
+/*0x2f0*/ CLabel*           ScribedLabel;
+/*0x2f4*/ int               Row;
+/*0x2f8*/ bool              bAntiTwink;
+/*0x2fc*/ CButtonWnd*       ModButton;
+/*0x300*/ CButtonWnd*       RewardButton;
+/*0x304*/ CButtonWnd*       PrintRealEstateItems;
+/*0x308*/ CButtonWnd*       ConvertButton;
+/*0x30c*/ bool              bCollected;
+/*0x30d*/ bool              bCollectedReceived;
+/*0x310*/ int               Unknown0x031c;
+/*0x314*/ int               Unknown0x0320;
+/*0x318*/ bool              bScribed;
+/*0x319*/ bool              bScribedReceived;
+/*0x31a*/ BYTE              Unknown0x30e[0x2f2];
+/*0x60c*/ DWORD             Unknown0x600;
+/*0x610*/ DWORD             Unknown0x604;
+/*0x614*/ DWORD             Unknown0x608;
+/*0x618*/ DWORD             Unknown0x60c;
+/*0x61c*/ DWORD             Unknown0x610;
+/*0x620*/ DWORD             Unknown0x614;
+/*0x624*/ DWORD             Unknown0x618;
+/*0x628*/ DWORD             ItemWndIndex;             // 0-5? you can have max 6 windows up I think before it starts overwriting the sixth.
+/*0x62c*/ DWORD             Unknown0x62c;
+/*0x630*/
 };
 
 inline namespace deprecated {
 	using EQITEMWINDOW DEPRECATE("Use CItemDisplayWnd instead of EQITEMWINDOW") = CItemDisplayWnd;
 	using PEQITEMWINDOW DEPRECATE("Use CItemDisplayWnd* instead of PEQITEMWINDOW") = CItemDisplayWnd*;
 }
+
+static_assert(sizeof(CItemDisplayWnd) == CItemDisplayWnd_size, "Size of CItemDisplayWnd does not match CItemDisplayWnd_size");
 
 //============================================================================
 // CJournalWnd
