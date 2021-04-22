@@ -257,121 +257,122 @@ constexpr int LORE_NAME_LEN = 80;
 #define CONCOLOR_YELLOW                          0x0f
 #define CONCOLOR_RED                             0x0d
 
-#define USERCOLOR_SAY                            0xFF +   1 //  1  - Say
-#define USERCOLOR_TELL                           0xFF +   2 //  2  - Tell
-#define USERCOLOR_GROUP                          0xFF +   3 //  3  - Group
-#define USERCOLOR_GUILD                          0xFF +   4 //  4  - Guild
-#define USERCOLOR_OOC                            0xFF +   5 //  5  - OOC
-#define USERCOLOR_AUCTION                        0xFF +   6 //  6  - Auction
-#define USERCOLOR_SHOUT                          0xFF +   7 //  7  - Shout
-#define USERCOLOR_EMOTE                          0xFF +   8 //  8  - Emote
-#define USERCOLOR_SPELLS                         0xFF +   9 //  9  - Spells (meming, scribing, casting, etc.)
-#define USERCOLOR_YOU_HIT_OTHER                  0xFF +  10 //  10 - You hit other
-#define USERCOLOR_OTHER_HIT_YOU                  0xFF +  11 //  11 - Other hits you
-#define USERCOLOR_YOU_MISS_OTHER                 0xFF +  12 //  12 - You miss other
-#define USERCOLOR_OTHER_MISS_YOU                 0xFF +  13 //  13 - Other misses you
-#define USERCOLOR_DUELS                          0xFF +  14 //  14 - Some broadcasts (duels)
-#define USERCOLOR_SKILLS                         0xFF +  15 //  15 - Skills (ups, non-combat use, etc.)
-#define USERCOLOR_DISCIPLINES                    0xFF +  16 //  16 - Disciplines or special abilities
-#define USERCOLOR_UNUSED001                      0xFF +  17 //  17 - Unused at this time
-#define USERCOLOR_DEFAULT                        0xFF +  18 //  18 - Default text and stuff you type
-#define USERCOLOR_UNUSED002                      0xFF +  19 //  19 - Unused at this time
-#define USERCOLOR_MERCHANT_OFFER                 0xFF +  20 //  20 - Merchant Offer Price
-#define USERCOLOR_MERCHANT_EXCHANGE              0xFF +  21 //  21 - Merchant Buy/Sell
-#define USERCOLOR_YOUR_DEATH                     0xFF +  22 //  22 - Your death message
-#define USERCOLOR_OTHER_DEATH                    0xFF +  23 //  23 - Others death message
-#define USERCOLOR_OTHER_HIT_OTHER                0xFF +  24 //  24 - Other damage other
-#define USERCOLOR_OTHER_MISS_OTHER               0xFF +  25 //  25 - Other miss other
-#define USERCOLOR_WHO                            0xFF +  26 //  26 - /who command
-#define USERCOLOR_YELL                           0xFF +  27 //  27 - yell for help
-#define USERCOLOR_NON_MELEE                      0xFF +  28 //  28 - Hit for non-melee
-#define USERCOLOR_SPELL_WORN_OFF                 0xFF +  29 //  29 - Spell worn off
-#define USERCOLOR_MONEY_SPLIT                    0xFF +  30 //  30 - Money splits
-#define USERCOLOR_LOOT                           0xFF +  31 //  31 - Loot message
-#define USERCOLOR_RANDOM                         0xFF +  32 //  32 - Dice Roll (/random)
-#define USERCOLOR_OTHERS_SPELLS                  0xFF +  33 //  33 - Others spells
-#define USERCOLOR_SPELL_FAILURE                  0xFF +  34 //  34 - Spell Failures (resists, fizzles, missing component, bad target, etc.)
-#define USERCOLOR_CHAT_CHANNEL                   0xFF +  35 //  35 - Chat Channel Messages
-#define USERCOLOR_CHAT_1                         0xFF +  36 //  36 - Chat Channel 1
-#define USERCOLOR_CHAT_2                         0xFF +  37 //  37 - Chat Channel 2
-#define USERCOLOR_CHAT_3                         0xFF +  38 //  38 - Chat Channel 3
-#define USERCOLOR_CHAT_4                         0xFF +  39 //  39 - Chat Channel 4
-#define USERCOLOR_CHAT_5                         0xFF +  40 //  40 - Chat Channel 5
-#define USERCOLOR_CHAT_6                         0xFF +  41 //  41 - Chat Channel 6
-#define USERCOLOR_CHAT_7                         0xFF +  42 //  42 - Chat Channel 7
-#define USERCOLOR_CHAT_8                         0xFF +  43 //  43 - Chat Channel 8
-#define USERCOLOR_CHAT_9                         0xFF +  44 //  44 - Chat Channel 9
-#define USERCOLOR_CHAT_10                        0xFF +  45 //  45 - Chat Channel 10
-#define USERCOLOR_MELEE_CRIT                     0xFF +  46 //  46 - Melee Crits (Yours)
-#define USERCOLOR_SPELL_CRIT                     0xFF +  47 //  47 - Spell & Dot Crits (Yours)
-#define USERCOLOR_TOO_FAR_AWAY                   0xFF +  48 //  48 - Too far away (melee)
-#define USERCOLOR_NPC_RAMPAGE                    0xFF +  49 //  49 - NPC Rampage
-#define USERCOLOR_NPC_FLURRY                     0xFF +  50 //  50 - NPC Flurry
-#define USERCOLOR_NPC_ENRAGE                     0xFF +  51 //  51 - NPC Enrage
-#define USERCOLOR_ECHO_SAY                       0xFF +  52 //  52 - say echo
-#define USERCOLOR_ECHO_TELL                      0xFF +  53 //  53 - tell echo
-#define USERCOLOR_ECHO_GROUP                     0xFF +  54 //  54 - group echo
-#define USERCOLOR_ECHO_GUILD                     0xFF +  55 //  55 - guild echo
-#define USERCOLOR_ECHO_OOC                       0xFF +  56 //  56 - group echo
-#define USERCOLOR_ECHO_AUCTION                   0xFF +  57 //  57 - auction echo
-#define USERCOLOR_ECHO_SHOUT                     0xFF +  58 //  58 - shout echo
-#define USERCOLOR_ECHO_EMOTE                     0xFF +  59 //  59 - emote echo
-#define USERCOLOR_ECHO_CHAT_1                    0xFF +  60 //  60 - chat 1 echo
-#define USERCOLOR_ECHO_CHAT_2                    0xFF +  61 //  61 - chat 2 echo
-#define USERCOLOR_ECHO_CHAT_3                    0xFF +  62 //  62 - chat 3 echo
-#define USERCOLOR_ECHO_CHAT_4                    0xFF +  63 //  63 - chat 4 echo
-#define USERCOLOR_ECHO_CHAT_5                    0xFF +  64 //  64 - chat 5 echo
-#define USERCOLOR_ECHO_CHAT_6                    0xFF +  65 //  65 - chat 6 echo
-#define USERCOLOR_ECHO_CHAT_7                    0xFF +  66 //  66 - chat 7 echo
-#define USERCOLOR_ECHO_CHAT_8                    0xFF +  67 //  67 - chat 8 echo
-#define USERCOLOR_ECHO_CHAT_9                    0xFF +  68 //  68 - chat 9 echo
-#define USERCOLOR_ECHO_CHAT_10                   0xFF +  69 //  69 - chat 10 echo
-#define USERCOLOR_RESERVED                       0xFF +  70 //  70 - "unused at this time"
-#define USERCOLOR_LINK                           0xFF +  71 //  71 - item links
-#define USERCOLOR_RAID                           0xFF +  72 //  72 - raid
-#define USERCOLOR_PET                            0xFF +  73 //  73 - my pet
-#define USERCOLOR_DAMAGESHIELD                   0xFF +  74 //  74 - damage shield hits you
-#define USERCOLOR_LEADER                         0xFF +  75 //  75 - LAA-related messages
-#define USERCOLOR_PETRAMPFLURRY                  0xFF +  76 //  76 - pet rampage/flurry
-#define USERCOLOR_PETCRITS                       0xFF +  77 //  77 - pet's critical hits
-#define USERCOLOR_FOCUS                          0xFF +  78 //  78 - focus item activation
-#define USERCOLOR_XP                             0xFF +  79 //  79 - xp gain/loss
-#define USERCOLOR_SYSTEM                         0xFF +  80 //  80 - system broadcasts etc
-#define USERCOLOR_PET_SPELLS                     0xFF +  81 //  81 - pet spells
-#define USERCOLOR_PET_RESPONSES                  0xFF +  82 //  82 - pet responses
-#define USERCOLOR_ITEM_SPEECH                    0xFF +  83 //  83 - item speech
-#define USERCOLOR_STRIKETHROUGH                  0xFF +  84 //  84 - strikethrough messages
-#define USERCOLOR_STUN                           0XFF +  85 //  85 - stun messages
-#define USERCOLOR_RESERVED2                      0xFF +  86 //  86 - "unused at this time" (or unknown!?)
-#define USERCOLOR_FELLOWSHIP                     0xFF +  87 //  87 - fellowship messages
-#define USERCOLOR_NPC_SPEECH                     0xFF +  88 //  88 - npc dialogue
-#define USERCOLOR_NPC_SPEECH_TO_YOU              0xFF +  89 //  89 - npc dialogue to you
-#define USERCOLOR_GUILD_MSG                      0xFF +  90 //  90 - guild messages
-#define USERCOLOR_MERCENARY_GRP                  0xFF +  91 //  91 - mercenary tells group
-#define USERCOLOR_ACHIEVEMENT                    0xFF +  93 //  93 - Achievement - you and other
-#define USERCOLOR_ACHIEVEMENT_GUILD              0xFF +  94 //  94 - Achievement - Guildmate
-#define USERCOLOR_FLURRY                         0xFF +  101 //  101 - Flurry (Self)
-#define USERCOLOR_NPC_DEATH                      0xFF +  103 //  103 - NPC Death
-#define USERCOLOR_DICE_OTHER                     0xFF +  105 //  105 - Other rolls Dice
-#define USERCOLOR_FALL_DAMAGE_SELF               0xFF +  106 //  106 - Fall Damage Self
-#define USERCOLOR_FALL_DAMAGE_OTHER              0xFF +  107 //  107 - Fall Damage Other
-#define USERCOLOR_DAMAGESHIELD_SELF              0xFF +  108 //  108 - Damage Shield Self
-#define USERCOLOR_DAMAGESHIELD_OTHER             0xFF +  109 //  109 - Damage Shield Other hit Other
-#define USERCOLOR_OVERWRITTEN_DET                0xFF +  111 //  111 - has been overwritten - Detrimental
-#define USERCOLOR_OVERWRITTEN_BENE               0xFF +  112 //  112 - has been overwritten - Beneficial
-#define USERCOLOR_CANT_USE_COMMAND               0xFF +  113 //  113 - You cannot use that command right now
-#define USERCOLOR_ABILITY_COOLDOWN               0xFF +  114 //  114 - You can use [Ability Name] again in [Time till you can use it again]
-#define USERCOLOR_AA_REUSE_TIMER                 0xFF +  115 //  115 - AA Reuse Timer failed
-#define USERCOLOR_DESTROY_ITEM                   0xFF +  116 //  116 - Destroy Item Message
-#define USERCOLOR_HOT_OTHER                      0xFF +  118 //  118 - Heal over time on other
-#define USERCOLOR_HEAL_OTHER                     0xFF +  119 //  119 - You heal other
-#define USERCOLOR_OTHER_BUFF_OTHER               0xFF +  120 //  120 - Other buff other (same as other heal other)
-#define USERCOLOR_OTHER_HEAL_OTHER               0xFF +  120 //  120 - Other Heal other (same as other buff other)
-#define USERCOLOR_DOTS_YOURS                     0xFF +  121 //  121 - Your DoTs
-#define USERCOLOR_DOTS_OTHERS                    0xFF +  122 //  122 - Other DoTs
-#define USERCOLOR_SONG                           0xFF +  123 //  123 - Song message - Soandso beings to sing a song. <Selo's Sonata I>
-#define USERCOLOR_NON_MELEE_OTHER                0xFF +  124 //  124 - You cannot use that command right now
-#define USERCOLOR_SPELL_MESSAGES                 0xFF +  125 //  125 - Your spell messages
+// UserColor values start with the first value at 256. These can have colors assigned by the user and filtered as well.
+#define USERCOLOR_SAY                            256 // 1  - Say
+#define USERCOLOR_TELL                           257 // 2  - Tell
+#define USERCOLOR_GROUP                          258 // 3  - Group
+#define USERCOLOR_GUILD                          259 // 4  - Guild
+#define USERCOLOR_OOC                            260 // 5  - OOC
+#define USERCOLOR_AUCTION                        261 // 6  - Auction
+#define USERCOLOR_SHOUT                          262 // 7  - Shout
+#define USERCOLOR_EMOTE                          263 // 8  - Emote
+#define USERCOLOR_SPELLS                         264 // 9  - Spells (meming, scribing, casting, etc.)
+#define USERCOLOR_YOU_HIT_OTHER                  265 // 10 - You hit other
+#define USERCOLOR_OTHER_HIT_YOU                  266 // 11 - Other hits you
+#define USERCOLOR_YOU_MISS_OTHER                 267 // 12 - You miss other
+#define USERCOLOR_OTHER_MISS_YOU                 268 // 13 - Other misses you
+#define USERCOLOR_DUELS                          269 // 14 - Some broadcasts (duels)
+#define USERCOLOR_SKILLS                         270 // 15 - Skills (ups, non-combat use, etc.)
+#define USERCOLOR_DISCIPLINES                    271 // 16 - Disciplines or special abilities
+#define USERCOLOR_UNUSED001                      272 // 17 - Unused at this time
+#define USERCOLOR_DEFAULT                        273 // 18 - Default text and stuff you type
+#define USERCOLOR_UNUSED002                      274 // 19 - Unused at this time
+#define USERCOLOR_MERCHANT_OFFER                 275 // 20 - Merchant Offer Price
+#define USERCOLOR_MERCHANT_EXCHANGE              276 // 21 - Merchant Buy/Sell
+#define USERCOLOR_YOUR_DEATH                     277 // 22 - Your death message
+#define USERCOLOR_OTHER_DEATH                    278 // 23 - Others death message
+#define USERCOLOR_OTHER_HIT_OTHER                279 // 24 - Other damage other
+#define USERCOLOR_OTHER_MISS_OTHER               280 // 25 - Other miss other
+#define USERCOLOR_WHO                            281 // 26 - /who command
+#define USERCOLOR_YELL                           282 // 27 - yell for help
+#define USERCOLOR_NON_MELEE                      283 // 28 - Hit for non-melee
+#define USERCOLOR_SPELL_WORN_OFF                 284 // 29 - Spell worn off
+#define USERCOLOR_MONEY_SPLIT                    285 // 30 - Money splits
+#define USERCOLOR_LOOT                           286 // 31 - Loot message
+#define USERCOLOR_RANDOM                         287 // 32 - Dice Roll (/random)
+#define USERCOLOR_OTHERS_SPELLS                  288 // 33 - Others spells
+#define USERCOLOR_SPELL_FAILURE                  289 // 34 - Spell Failures (resists, fizzles, missing component, bad target, etc.)
+#define USERCOLOR_CHAT_CHANNEL                   290 // 35 - Chat Channel Messages
+#define USERCOLOR_CHAT_1                         291 // 36 - Chat Channel 1
+#define USERCOLOR_CHAT_2                         292 // 37 - Chat Channel 2
+#define USERCOLOR_CHAT_3                         293 // 38 - Chat Channel 3
+#define USERCOLOR_CHAT_4                         294 // 39 - Chat Channel 4
+#define USERCOLOR_CHAT_5                         295 // 40 - Chat Channel 5
+#define USERCOLOR_CHAT_6                         296 // 41 - Chat Channel 6
+#define USERCOLOR_CHAT_7                         297 // 42 - Chat Channel 7
+#define USERCOLOR_CHAT_8                         298 // 43 - Chat Channel 8
+#define USERCOLOR_CHAT_9                         299 // 44 - Chat Channel 9
+#define USERCOLOR_CHAT_10                        300 // 45 - Chat Channel 10
+#define USERCOLOR_MELEE_CRIT                     301 // 46 - Melee Crits (Yours)
+#define USERCOLOR_SPELL_CRIT                     302 // 47 - Spell & Dot Crits (Yours)
+#define USERCOLOR_TOO_FAR_AWAY                   303 // 48 - Too far away (melee)
+#define USERCOLOR_NPC_RAMPAGE                    304 // 49 - NPC Rampage
+#define USERCOLOR_NPC_FLURRY                     305 // 50 - NPC Flurry
+#define USERCOLOR_NPC_ENRAGE                     306 // 51 - NPC Enrage
+#define USERCOLOR_ECHO_SAY                       307 // 52 - say echo
+#define USERCOLOR_ECHO_TELL                      308 // 53 - tell echo
+#define USERCOLOR_ECHO_GROUP                     309 // 54 - group echo
+#define USERCOLOR_ECHO_GUILD                     310 // 55 - guild echo
+#define USERCOLOR_ECHO_OOC                       311 // 56 - group echo
+#define USERCOLOR_ECHO_AUCTION                   312 // 57 - auction echo
+#define USERCOLOR_ECHO_SHOUT                     313 // 58 - shout echo
+#define USERCOLOR_ECHO_EMOTE                     314 // 59 - emote echo
+#define USERCOLOR_ECHO_CHAT_1                    315 // 60 - chat 1 echo
+#define USERCOLOR_ECHO_CHAT_2                    316 // 61 - chat 2 echo
+#define USERCOLOR_ECHO_CHAT_3                    317 // 62 - chat 3 echo
+#define USERCOLOR_ECHO_CHAT_4                    318 // 63 - chat 4 echo
+#define USERCOLOR_ECHO_CHAT_5                    319 // 64 - chat 5 echo
+#define USERCOLOR_ECHO_CHAT_6                    320 // 65 - chat 6 echo
+#define USERCOLOR_ECHO_CHAT_7                    321 // 66 - chat 7 echo
+#define USERCOLOR_ECHO_CHAT_8                    322 // 67 - chat 8 echo
+#define USERCOLOR_ECHO_CHAT_9                    323 // 68 - chat 9 echo
+#define USERCOLOR_ECHO_CHAT_10                   324 // 69 - chat 10 echo
+#define USERCOLOR_RESERVED                       325 // 70 - "unused at this time"
+#define USERCOLOR_LINK                           326 // 71 - item links
+#define USERCOLOR_RAID                           327 // 72 - raid
+#define USERCOLOR_PET                            328 // 73 - my pet
+#define USERCOLOR_DAMAGESHIELD                   329 // 74 - damage shield hits you
+#define USERCOLOR_LEADER                         330 // 75 - LAA-related messages
+#define USERCOLOR_PETRAMPFLURRY                  331 // 76 - pet rampage/flurry
+#define USERCOLOR_PETCRITS                       332 // 77 - pet's critical hits
+#define USERCOLOR_FOCUS                          333 // 78 - focus item activation
+#define USERCOLOR_XP                             334 // 79 - xp gain/loss
+#define USERCOLOR_SYSTEM                         335 // 80 - system broadcasts etc
+#define USERCOLOR_PET_SPELLS                     336 // 81 - pet spells
+#define USERCOLOR_PET_RESPONSES                  337 // 82 - pet responses
+#define USERCOLOR_ITEM_SPEECH                    338 // 83 - item speech
+#define USERCOLOR_STRIKETHROUGH                  339 // 84 - strikethrough messages
+#define USERCOLOR_STUN                           340 // 85 - stun messages
+#define USERCOLOR_RESERVED2                      341 // 86 - "unused at this time" (or unknown!?)
+#define USERCOLOR_FELLOWSHIP                     342 // 87 - fellowship messages
+#define USERCOLOR_NPC_SPEECH                     343 // 88 - npc dialogue
+#define USERCOLOR_NPC_SPEECH_TO_YOU              344 // 89 - npc dialogue to you
+#define USERCOLOR_GUILD_MSG                      345 // 90 - guild messages
+#define USERCOLOR_MERCENARY_GRP                  346 // 91 - mercenary tells group
+#define USERCOLOR_ACHIEVEMENT                    347 // 93 - Achievement - you and other
+#define USERCOLOR_ACHIEVEMENT_GUILD              348 // 94 - Achievement - Guildmate
+#define USERCOLOR_FLURRY                         349 // 101 - Flurry (Self)
+#define USERCOLOR_NPC_DEATH                      350 // 103 - NPC Death
+#define USERCOLOR_DICE_OTHER                     351 // 105 - Other rolls Dice
+#define USERCOLOR_FALL_DAMAGE_SELF               352 // 106 - Fall Damage Self
+#define USERCOLOR_FALL_DAMAGE_OTHER              353 // 107 - Fall Damage Other
+#define USERCOLOR_DAMAGESHIELD_SELF              354 // 108 - Damage Shield Self
+#define USERCOLOR_DAMAGESHIELD_OTHER             355 // 109 - Damage Shield Other hit Other
+#define USERCOLOR_OVERWRITTEN_DET                356 // 111 - has been overwritten - Detrimental
+#define USERCOLOR_OVERWRITTEN_BENE               357 // 112 - has been overwritten - Beneficial
+#define USERCOLOR_CANT_USE_COMMAND               358 // 113 - You cannot use that command right now
+#define USERCOLOR_ABILITY_COOLDOWN               359 // 114 - You can use [Ability Name] again in [Time till you can use it again]
+#define USERCOLOR_AA_REUSE_TIMER                 360 // 115 - AA Reuse Timer failed
+#define USERCOLOR_DESTROY_ITEM                   361 // 116 - Destroy Item Message
+#define USERCOLOR_HOT_OTHER                      362 // 118 - Heal over time on other
+#define USERCOLOR_HEAL_OTHER                     363 // 119 - You heal other
+#define USERCOLOR_OTHER_BUFF_OTHER               364 // 120 - Other buff other (same as other heal other)
+#define USERCOLOR_OTHER_HEAL_OTHER               365 // 120 - Other Heal other (same as other buff other)
+#define USERCOLOR_DOTS_YOURS                     366 // 121 - Your DoTs
+#define USERCOLOR_DOTS_OTHERS                    367 // 122 - Other DoTs
+#define USERCOLOR_SONG                           368 // 123 - Song message - Soandso beings to sing a song. <Selo's Sonata I>
+#define USERCOLOR_NON_MELEE_OTHER                369 // 124 - You cannot use that command right now
+#define USERCOLOR_SPELL_MESSAGES                 370 // 125 - Your spell messages
 
 #define DEITY_Bertoxxulous                       201
 #define DEITY_BrellSerilis                       202
