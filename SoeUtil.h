@@ -668,7 +668,7 @@ private:
 	void construct(T* other)
 	{
 		m_ptr = other;
-		m_rep = new (SoeUtil::Alloc(sizeof(Internal::SharedData))) Internal::SharedData();
+		m_rep = eqNew<Internal::SharedData>();
 	}
 
 	template <typename U>
@@ -706,13 +706,11 @@ private:
 
 			if (m_rep->m_strongRefs == 0)
 			{
-				if (m_rep->is_inplace_constructed(m_ptr))
+				m_ptr->~T();
+
+				if (!m_rep->is_inplace_constructed(m_ptr))
 				{
-					m_ptr->~T();
-				}
-				else
-				{
-					eqDelete(m_ptr);
+					eqFree(m_ptr);
 					m_ptr = nullptr;
 				}
 			}
@@ -720,7 +718,7 @@ private:
 			if (m_rep->m_refs == 0)
 			{
 				m_rep->~SharedData();
-				SoeUtil::Free(m_rep);
+				eqFree(m_rep);
 
 				m_rep = nullptr;
 			}

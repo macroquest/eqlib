@@ -45,7 +45,7 @@ struct EQLIB_OBJECT CDynamicArrayException : public CExceptionApplication {
 class EQLIB_OBJECT CDynamicArrayBase
 {
 protected:
-	/*0x00*/    int m_length;
+	/*0x00*/    int m_length = 0;
 	/*0x04*/
 
 public:
@@ -53,7 +53,6 @@ public:
 	int GetLength() const { return m_length; }
 	bool IsEmpty() const { return m_length == 0; }
 
-	// a microsoft extension - lets us get away with changing the implementation
 	__declspec(property(get = GetLength)) int Count;
 
 protected:
@@ -65,19 +64,74 @@ protected:
 
 #pragma region ArrayClass2<T>
 
-// split into two types - one that is read-only and does not allocate or modify
-// memory, and one that can. Be careful using the ones that can modify memory,
-// as you can't memcpy, memset, etc on them.
+//----------------------------------------------------------------------------
+// ArrayClass2 is a dynamic array implementation that makes use of bins
+// to reduce the overhead of reallocation. This allows for faster resize
+// operations as existing bins do not need to be relocated, just the
+// list of bins. However, contiguous access is not possible.
 
 template <typename T>
-class ArrayClass2_RO : public CDynamicArrayBase
+class ArrayClass2 : public CDynamicArrayBase
 {
-#define GET_BIN_INDEX(x) (x >> static_cast<uint8_t>(m_binShift))
-#define GET_SLOT_INDEX(x) (m_slotMask & index)
+/*0x04*/ int m_maxPerBin;
+/*0x08*/ int m_slotMask;
+/*0x0c*/ int m_binShift;
+/*0x10*/ T** m_array;
+/*0x14*/ int m_binCount;
+/*0x18*/
 
 public:
+	// constructs the array
+	ArrayClass2()
+	{
+		m_maxPerBin = 1;
+		m_binShift = 0;
+
+		do {
+			m_maxPerBin <<= 1;
+			m_binShift++;
+		} while (m_maxPerBin < 32);
+
+		m_slotMask = m_maxPerBin - 1;
+		m_array = nullptr;
+		m_length = 0;
+		m_binCount = 0;
+	}
+
+	ArrayClass2(const ArrayClass2& rhs) : ArrayClass2()
+	{
+		this->operator=(rhs);
+	}
+
+	~ArrayClass2()
+	{
+		Reset();
+	}
+
+	ArrayClass2& operator=(const ArrayClass2& rhs)
+	{
+		if (this != &rhs)
+		{
+			if (m_array)
+				m_length = 0;
+			if (rhs.m_length)
+			{
+				InternalResize(rhs.m_length);
+
+				for (int i = 0; i < rhs.m_length; ++i)
+					Get(i) = rhs.Get(i);
+
+				m_length = rhs.m_length;
+			}
+		}
+		return *this;
+	}
+
 	T& operator[](int index) { return Get(index); }
 	const T& operator[](int index) const { return Get(index); }
+
+	inline constexpr int GET_BIN_INDEX(int x) const { return x >> static_cast<uint8_t>(m_binShift); }
+	inline constexpr int GET_SLOT_INDEX(int x) const { return m_slotMask & x; }
 
 	T& Get(int index) { return m_array[GET_BIN_INDEX(index)][GET_SLOT_INDEX(index)]; }
 	const T& Get(int index) const { return m_array[GET_BIN_INDEX(index)][GET_SLOT_INDEX(index)]; }
@@ -115,82 +169,18 @@ public:
 		return false;
 	}
 
-protected:
-/*0x04*/ int m_maxPerBin;
-/*0x08*/ int m_slotMask;
-/*0x0c*/ int m_binShift;
-/*0x10*/ T** m_array;
-/*0x14*/ int m_binCount;
-/*0x18*/
-};
-
-#undef GET_BIN_INDEX
-#undef GET_SLOT_INDEX
-
-//----------------------------------------------------------------------------
-
-// ArrayClass2 is a dynamic array implementation that makes use of bins
-// to reduce the overhead of reallocation. This allows for faster resize
-// operations as existing bins do not need to be relocated, just the
-// list of bins. See Assure() for more information.
-
-template <typename T>
-class ArrayClass2 : public ArrayClass2_RO<T>
-{
-public:
-	// constructs the array
-	ArrayClass2()
-	{
-		m_maxPerBin = 1;
-		m_binShift = 0;
-
-		do {
-			m_maxPerBin <<= 1;
-			m_binShift++;
-		} while (m_maxPerBin < 32);
-
-		m_slotMask = m_maxPerBin - 1;
-		m_array = nullptr;
-		m_length = 0;
-		m_binCount = 0;
-	}
-
-	ArrayClass2(const ArrayClass2& rhs) : ArrayClass2()
-	{
-		this->operator=(rhs);
-	}
-
-	~ArrayClass2()
-	{
-		Reset();
-	}
-
-	ArrayClass2& operator=(const ArrayClass2& rhs)
-	{
-		if (this != &rhs)
-		{
-			if (m_array)
-				m_length = 0;
-			if (rhs.m_length)
-			{
-				Assure(rhs.m_length);
-
-				for (int i = 0; i < rhs.m_length; ++i)
-					Get(i) = rhs.Get(i);
-
-				m_length = rhs.m_length;
-			}
-		}
-		return *this;
-	}
-
 	// clear the contents of the array and make it empty
 	void Reset()
 	{
 		for (int i = 0; i < m_binCount; ++i)
-			eqVecDelete(m_array[i]);
+		{
+			std::destroy_n(m_array[i], m_maxPerBin);
+			eqFree(m_array[i]);
+		}
 
-		eqVecDelete(m_array);
+		std::destroy_n(m_array, m_binCount);
+		eqFree(m_array);
+
 		m_array = nullptr;
 		m_binCount = 0;
 		m_length = 0;
@@ -207,7 +197,7 @@ public:
 		{
 			if (index < m_length)
 			{
-				Assure(m_length + 1);
+				InternalResize(m_length + 1);
 				for (int idx = m_length; idx > index; --idx)
 					Get(idx) = Get(idx - 1);
 				Get(index) = value;
@@ -226,7 +216,7 @@ public:
 		{
 			if (index >= m_length)
 			{
-				Assure(index + 1);
+				InternalResize(index + 1);
 				m_length = index + 1;
 			}
 
@@ -253,30 +243,30 @@ private:
 	// When the array needs to be resized, it only needs to reallocate the
 	// list of bins and create more bins. Existing bins do not need to be
 	// reallocated, they can just be copied to the new list of bins.
-	void Assure(int requestedSize)
+	void InternalResize(int requestedSize)
 	{
-		if (requestedSize > 0)
+		if (requestedSize <= 0)
+			return;
+
+		int newBinCount = ((requestedSize - 1) >> static_cast<int8_t>(m_binShift)) + 1;
+
+		if (newBinCount > m_binCount)
 		{
-			int newBinCount = ((requestedSize - 1) >> static_cast<int8_t>(m_binShift)) + 1;
+			T** newArray = (T**)eqAlloc(sizeof(T*) * newBinCount);
 
-			if (newBinCount > m_binCount)
+			for (int i = 0; i < m_binCount; ++i)
+				newArray[i] = m_array[i];
+			for (int curBin = m_binCount; curBin < newBinCount; ++curBin)
 			{
-				T** newArray = eqNew<T*[]>(newBinCount);
-				if (newArray)
-				{
-					for (int i = 0; i < m_binCount; ++i)
-						newArray[i] = m_array[i];
-					for (int curBin = m_binCount; curBin < newBinCount; ++curBin)
-					{
-						T* newBin = eqNew<T[]>(m_maxPerBin);
-						newArray[curBin] = newBin;
-					}
+				T* newBin = (T*)eqAlloc(sizeof(T) * m_maxPerBin);
+				std::uninitialized_default_construct_n(newBin, m_maxPerBin);
 
-					eqVecDelete(m_array);
-					m_array = newArray;
-					m_binCount = newBinCount;
-				}
+				newArray[curBin] = newBin;
 			}
+
+			eqFree(m_array);
+			m_array = newArray;
+			m_binCount = newBinCount;
 		}
 	}
 };
@@ -290,39 +280,13 @@ private:
 // copying objects into the new array.
 
 template <typename T>
-class ArrayClass_RO : public CDynamicArrayBase
+class ArrayClass : public CDynamicArrayBase
 {
-public:
-	T& Get(int index)
-	{
-		if (index >= m_length || index < 0 || m_array == nullptr)
-			ThrowArrayClassException();
-		return m_array[index];
-	}
+/*0x04*/ T* m_array = nullptr;
+/*0x08*/ int m_alloc = 0;
+/*0x0c*/ bool m_isValid = true;
+/*0x10*/
 
-	const T& Get(int index) const
-	{
-		if (index >= m_length || index < 0 || m_array == nullptr)
-			ThrowArrayClassException();
-		return m_array[index];
-	}
-
-	T& operator[](int index) { return Get(index); }
-	const T& operator[](int index) const { return Get(index); }
-
-	// const function that returns the element at the index *by value*
-	T GetElementIdx(int index) const { return Get(index); }
-
-protected:
-	/*0x04*/    T* m_array;
-	/*0x08*/    int m_alloc;
-	/*0x0c*/    bool m_isValid;
-	/*0x10*/
-};
-
-template <typename T>
-class ArrayClass : public ArrayClass_RO<T>
-{
 public:
 	ArrayClass()
 	{
@@ -334,7 +298,9 @@ public:
 
 	ArrayClass(int reserve) : ArrayClass()
 	{
-		m_array = eqNew<T[]>(reserve);
+		m_array = (T*)eqAlloc(sizeof(T) * reserve);
+		std::uninitialized_default_construct_n(m_array, reserve);
+
 		m_alloc = reserve;
 	}
 
@@ -342,14 +308,9 @@ public:
 	{
 		if (rhs.m_length)
 		{
-			AssureExact(rhs.m_length);
+			InternalResize(rhs.m_length, true);
 
-			if (m_array)
-			{
-				for (int i = 0; i < rhs.m_length; ++i)
-					m_array[i] = rhs.m_array[i];
-			}
-
+			std::copy_n(rhs.m_array, rhs.m_length, m_array);
 			m_length = rhs.m_length;
 		}
 	}
@@ -368,14 +329,9 @@ public:
 
 		if (rhs.m_length)
 		{
-			AssureExact(rhs.m_length);
+			InternalResize(rhs.m_length, true);
 
-			if (m_array)
-			{
-				for (int i = 0; i < rhs.m_length; ++i)
-					m_array[i] = rhs.m_array[i];
-			}
-
+			std::copy_n(rhs.m_array, rhs.m_length, m_array);
 			m_length = rhs.m_length;
 		}
 
@@ -386,7 +342,8 @@ public:
 	{
 		if (m_array)
 		{
-			eqVecDelete(m_array);
+			std::destroy_n(m_array, m_length);
+			eqFree(m_array);
 		}
 
 		m_array = nullptr;
@@ -405,18 +362,13 @@ public:
 		{
 			if (index >= m_length)
 			{
-				Assure(index + 1);
+				int oldLength = 0;
 
-				if (m_array)
-				{
-					m_length = index + 1;
-				}
+				InternalResize(index + 1, false);
+				m_length = index + 1;
 			}
 
-			if (m_array)
-			{
-				m_array[index] = element;
-			}
+			m_array[index] = element;
 		}
 	}
 
@@ -426,16 +378,13 @@ public:
 		{
 			if (index < m_length)
 			{
-				Assure(m_length + 1);
+				InternalResize(m_length + 1, false);
 
-				if (m_array)
-				{
-					for (int idx = m_length; idx > index; --idx)
-						m_array[idx] = m_array[idx - 1];
+				for (int idx = m_length; idx > index; --idx)
+					m_array[idx] = m_array[idx - 1];
 
-					m_array[index] = element;
-					m_length++;
-				}
+				m_array[index] = element;
+				m_length++;
 			}
 			else
 			{
@@ -456,15 +405,34 @@ public:
 	}
 	void SetLength(int size)
 	{
-		AssureExact(size);
-		if (this->m_array)
-			this->m_length = size;
+		InternalResize(size, true);
+		m_length = size;
 	}
 
 	int GetCount() const
 	{
 		return m_length;
 	}
+
+	T& Get(int index)
+	{
+		if (index >= m_length || index < 0 || m_array == nullptr)
+			ThrowArrayClassException();
+		return m_array[index];
+	}
+
+	const T& Get(int index) const
+	{
+		if (index >= m_length || index < 0 || m_array == nullptr)
+			ThrowArrayClassException();
+		return m_array[index];
+	}
+
+	T& operator[](int index) { return Get(index); }
+	const T& operator[](int index) const { return Get(index); }
+
+	// const function that returns the element at the index *by value*
+	T GetElementIdx(int index) const { return Get(index); }
 
 	T* begin() { return m_array; }
 	const T* begin() const { return m_array; }
@@ -480,59 +448,23 @@ private:
 	// everything over.
 	// this function will allocate 2x the amount of memory requested as an
 	// optimization aimed at reducing the number of allocations that occur.
-	void Assure(int requestedSize)
+	void InternalResize(int requestedSize, bool exact)
 	{
 		if (requestedSize && (requestedSize > m_alloc || !m_array))
 		{
-			int allocatedSize = (requestedSize + 4) << 1;
-			T* newArray = eqNew<T[]>(allocatedSize);
+			int allocatedSize = exact ? requestedSize : (requestedSize + 4) << 1;
+			T* newArray = (T*)eqAlloc(sizeof(T) * allocatedSize);
 
-			if (!newArray)
-			{
-				eqVecDelete(m_array);
-				m_array = nullptr;
-				m_alloc = 0;
-				m_isValid = false;
-				throw CExceptionMemoryAllocation{ allocatedSize };
-			}
+			// copy data into new buffer
+			std::uninitialized_move_n(m_array, m_length, newArray);
+			std::uninitialized_default_construct_n(m_array + m_length, allocatedSize - m_length);
 
-			if (m_array)
-			{
-				for (int i = 0; i < m_length; ++i)
-					newArray[i] = m_array[i];
-				eqVecDelete(m_array);
-			}
+			// clean up old buffer
+			std::destroy_n(m_array, m_length);
+			eqFree(m_array);
 
 			m_array = newArray;
 			m_alloc = allocatedSize;
-		}
-	}
-
-	// this behaves the same as Assure, except for its allocation of memory
-	// is exactly how much is requested.
-	void AssureExact(int requestedSize)
-	{
-		if (requestedSize && (requestedSize > m_alloc || !m_array))
-		{
-			T* newArray = eqNew<T[]>(requestedSize);
-			if (!newArray)
-			{
-				eqVecDelete(m_array);
-				m_array = nullptr;
-				m_alloc = 0;
-				m_isValid = false;
-				throw CExceptionMemoryAllocation(requestedSize);
-			}
-
-			if (m_array)
-			{
-				for (int i = 0; i < m_length; ++i)
-					newArray[i] = m_array[i];
-				eqVecDelete(m_array);
-			}
-
-			m_array = newArray;
-			m_alloc = requestedSize;
 		}
 	}
 };
@@ -634,8 +566,9 @@ void HashTable<T, Key, ResizePolicy>::Resize(int hashSize)
 
 	if (TableSize != oldSize)
 	{
-		Table = eqNew<HashEntry*[]>(TableSize);
+		Table = (HashEntry**)eqAlloc(sizeof(HashEntry*) * TableSize);
 		memset(Table, 0, sizeof(HashEntry*) * TableSize);
+
 		StatUsedSlots = 0;
 
 		if (EntryCount > 0)
@@ -664,7 +597,7 @@ void HashTable<T, Key, ResizePolicy>::Resize(int hashSize)
 			}
 		}
 
-		eqVecDelete(oldTable);
+		eqFree(oldTable);
 	}
 }
 
@@ -673,7 +606,7 @@ T* HashTable<T, Key, ResizePolicy>::WalkFirst() const
 {
 	for (int i = 0; i < TableSize; i++)
 	{
-		HashEntry *entry = Table[i];
+		HashEntry* entry = Table[i];
 		if (entry != nullptr)
 			return &entry->obj;
 	}
@@ -683,16 +616,16 @@ T* HashTable<T, Key, ResizePolicy>::WalkFirst() const
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::WalkNext(const T* prevRes) const
 {
-	HashEntry *entry = (HashEntry *)(((char *)prevRes) - offsetof(HashEntry, Obj));
-	int i = (HashValue<Key>(entry->key)) % TableSize;
+	HashEntry* entry = (HashEntry *)(((char *)prevRes) - offsetof(HashEntry, Obj));
+	int i = HashValue<Key>(entry->key) % TableSize;
 	entry = entry->NextEntry;
 	if (entry != nullptr)
-		return(&entry->obj);
+		return &entry->obj;
 
 	i++;
 	for (; i < TableSize; i++)
 	{
-		HashEntry *entry = Table[i];
+		HashEntry* entry = Table[i];
 		if (entry != nullptr)
 			return(&entry->obj);
 	}
@@ -727,14 +660,14 @@ T* HashTable<T, Key, ResizePolicy>::FindFirst(const Key& key) const
 template <typename T, typename Key, typename ResizePolicy>
 void HashTable<T, Key, ResizePolicy>::Insert(const T& obj, const Key& key)
 {
-	HashEntry *entry = new HashEntry;
+	HashEntry* entry = EQ_NEW(HashEntry);
 	entry->obj = obj;
 	entry->key = key;
 
 	int spot = HashValue<Key>(key) % TableSize;
-	if (Table[spot] == NULL)
+	if (Table[spot] == nullptr)
 	{
-		entry->NextEntry = NULL;
+		entry->NextEntry = nullptr;
 		Table[spot] = entry;
 		StatUsedSlots++;
 	}
@@ -818,7 +751,8 @@ public:
 	{
 		if (_InterlockedDecrement((volatile long*)&ReferenceCount) == 0)
 		{
-			eqDelete(this);
+			this->~VeBaseReferenceCount();
+			eqFree(this);
 		}
 	}
 
@@ -1092,9 +1026,9 @@ public:
 	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_capacity, Capacity, "VeArray: Capacity is deprecated, use capacity() instead.");
 
 private:
-/*0x00*/ T*       m_data;
-/*0x04*/ uint32_t m_size;
-/*0x08*/ uint32_t m_capacity;
+/*0x00*/ T*       m_data = nullptr;
+/*0x04*/ uint32_t m_size = 0;
+/*0x08*/ uint32_t m_capacity = 0;
 /*0x0c*/
 };
 
@@ -1159,7 +1093,7 @@ public:
 
 	void Add(T& obj)
 	{
-		Node* node = new Node(obj);
+		Node* node = eqNew<Node>(obj);
 
 		if (m_pHead != nullptr)
 		{
@@ -1186,7 +1120,7 @@ public:
 		{
 			Node* temp = current;
 			current = current->m_pNext;
-			delete temp;
+			eqDelete(temp);
 		}
 
 		m_pHead = m_pTail = nullptr;
@@ -1483,7 +1417,7 @@ struct CKeyUInt32ValueInt32
 class CHashCXStrInt32
 {
 public:
-	ArrayClass2_RO<ArrayClass2_RO<CKeyUInt32ValueInt32>> HashData;
+	ArrayClass2<ArrayClass2<CKeyUInt32ValueInt32>> HashData;
 
 	EQLIB_OBJECT ~CHashCXStrInt32();
 	EQLIB_OBJECT CHashCXStrInt32();

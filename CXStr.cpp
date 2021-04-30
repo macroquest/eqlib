@@ -283,7 +283,8 @@ CStrRep* CXStr::AllocRepNoLock(size_t size, EStringEncoding encoding)
 
 	// Calculate size of block. Size of the non-text data plus desired size.
 	size_t newSize = sizeof(CStrRep) - sizeof(CStrRep::utf8) + size;
-	CStrRep* rep = new (eqlib::eqAlloc(newSize)) CStrRep;
+	CStrRep* rep = (CStrRep*)eqlib::eqAlloc(newSize);
+	memset(rep, 0, newSize);
 
 	++internal::gStrRepAllocations;
 	++internal::gStrRepLiveObjects;
@@ -332,7 +333,7 @@ void CXStr::FreeRepNoLock(CStrRep* rep)
 
 	--internal::gStrRepLiveObjects;
 
-	eqDelete(rep);
+	eqFree(rep);
 }
 
 int CXStr::Compare(const CXStr& other, ECompareMode mode /*= CaseSensitive*/) const

@@ -25,13 +25,8 @@
 
 namespace eqlib {
 
-// allocate memory as if by using eq's malloc.
-using eqAllocFn = void* (*)(std::size_t amount);
-extern EQLIB_OBJECT eqAllocFn eqAlloc;
-
-// free memory as if by using eq's free.
-using eqFreeFn = void (*)(void*);
-extern EQLIB_OBJECT eqFreeFn eqFree;
+EQLIB_API void* eqAlloc(std::size_t sz);
+EQLIB_API void eqFree(void* ptr);
 
 // c++17 based custom allocator for creating objects on eq's heap
 template <typename T>
@@ -71,95 +66,66 @@ bool operator!=(const everquest_allocator<T>&, const everquest_allocator<T>&) no
 	return false;
 }
 
-// tag type used to enable the eq allocator overloads of operator new/delete
-// example:
-// int Foo = new(eqAllocator) int;
-constexpr struct EqAllocate {} eqAllocator;
+namespace detail
+{
+	// tag type used to enable the eq allocator overloads of operator new/delete
+	// example:
+	// int Foo = new(eqAllocator) int;
+	constexpr struct EqAllocate {} eqAllocator;
+}} // namespace eqlib
 
-} // namespace eqlib
-
-inline void* operator new (size_t bytes, eqlib::EqAllocate)
+inline void* operator new (size_t bytes, eqlib::detail::EqAllocate)
 {
 	return eqlib::eqAlloc(bytes);
 }
 
-inline void* operator new[](size_t bytes, eqlib::EqAllocate)
+inline void* operator new[](size_t bytes, eqlib::detail::EqAllocate)
 {
 	return eqlib::eqAlloc(bytes);
 }
 
-inline void operator delete(void* m, eqlib::EqAllocate)
+inline void operator delete(void* m, eqlib::detail::EqAllocate)
 {
 	eqlib::eqFree(m);
 }
 
-inline void operator delete[](void* m, eqlib::EqAllocate)
+inline void operator delete[](void* m, eqlib::detail::EqAllocate)
 {
 	eqlib::eqFree(m);
 }
 
 namespace eqlib {
 
-template <class T>
-struct DeleterT : public T
-{
-	void operator delete(void* ptr)
-	{
-		eqlib::eqFree(ptr);
-	}
-
-	void operator delete[](void* ptr)
-	{
-		eqlib::eqFree(ptr);
-	}
-};
-
-template <typename T, std::enable_if_t<!std::is_trivial_v<T>, int> = 0>
+template <typename T>
 inline void eqDelete(T* m)
 {
-	delete (DeleterT<T>*)m;
-}
-
-template <typename T, std::enable_if_t<!std::is_trivial_v<T>, int> = 0>
-inline void eqVecDelete(T* m)
-{
-	delete[](DeleterT<T>*)m;
-}
-
-template <typename T, std::enable_if_t<std::is_trivial_v<T>, int> = 0>
-inline void eqDelete(T* m)
-{
-	eqlib::eqFree(m);
-}
-
-template <typename T, std::enable_if_t<std::is_trivial_v<T>, int> = 0>
-inline void eqVecDelete(T* m)
-{
-	eqlib::eqFree(m);
+	if (m)
+	{
+		std::destroy_at(m);
+		eqFree(m);
+	}
 }
 
 template <typename T, typename... Types, std::enable_if_t<!std::is_array_v<T> && std::is_trivial_v<T>, int> = 0>
 [[nodiscard]] T* eqNew()
 {
-	return new (eqlib::eqAlloc(sizeof(T))) T;
+	return new (detail::eqAllocator) T;
 }
 
 template <typename T, typename... Types, std::enable_if_t<!std::is_array_v<T> && !std::is_trivial_v<T>, int> = 0>
 [[nodiscard]] T* eqNew(Types&&... args)
 {
-	return new (eqAllocator) T(std::forward<Types>(args)...);
+	return new (detail::eqAllocator) T(std::forward<Types>(args)...);
 }
-
 
 template <typename T, std::enable_if_t<std::is_array_v<T> && std::extent_v<T> == 0, int> = 0>
 [[nodiscard]] auto eqNew(size_t size)
 {
 	using Elem = std::remove_extent_t<T>;
-	return new (eqAllocator) Elem[size];
+	return new (detail::eqAllocator) Elem[size];
 }
 
 template <typename T, typename... Types, std::enable_if_t<std::extent_v<T> != 0, int> = 0>
 void eqNew(Types&&...) = delete;
 
-
-}
+} // namespace eqlib

@@ -732,6 +732,12 @@ public:
 	// points to the eq instance of the virtual function table for this class
 	static VirtualFunctionTable* sm_vftable;
 
+	// Always allocate using custom eq allocators
+	EQLIB_OBJECT static void* operator new(std::size_t sz);
+	EQLIB_OBJECT static void* operator new[](std::size_t sz);
+	EQLIB_OBJECT static void operator delete(void* ptr);
+	EQLIB_OBJECT static void operator delete[](void* ptr);
+
 // @start: CXWnd Members
 /*0x01c*/ bool        bCaptureTitle;
 /*0x020*/ CXRect      ClipRectScreen;

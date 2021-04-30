@@ -333,7 +333,25 @@ const char* EWndRuntimeTypeToString(EWndRuntimeType type)
 	}
 }
 
+void* CXWnd::operator new(std::size_t sz)
+{
+	return eqAlloc(sz);
+}
 
+void* CXWnd::operator new[](std::size_t sz)
+{
+	return eqAlloc(sz);
+}
+
+void CXWnd::operator delete(void* ptr)
+{
+	eqFree(ptr);
+}
+
+void CXWnd::operator delete[](void* ptr)
+{
+	eqFree(ptr);
+}
 
 #ifdef CXWnd__IsType_x
 FUNCTION_AT_ADDRESS(bool CXWnd::IsType(enum EWndRuntimeType) const, CXWnd__IsType);

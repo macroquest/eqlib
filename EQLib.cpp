@@ -17,13 +17,32 @@
 
 namespace eqlib {
 
-eqAllocFn eqAlloc = nullptr;
-eqFreeFn eqFree = nullptr;
+// allocate memory as if by using eq's malloc.
+using eqAllocFn = void* (*)(std::size_t amount);
+eqAllocFn eqAlloc_ = nullptr;
+
+void* eqAlloc(std::size_t sz)
+{
+	return eqAlloc_(sz);
+}
+
+// free memory as if by using eq's free.
+using eqFreeFn = void (*)(void*);
+eqFreeFn eqFree_ = nullptr;
+
+void eqFree(void* ptr)
+{
+	eqFree_(ptr);
+}
 
 namespace SoeUtil
 {
-	void* Alloc(int bytes, int align) { return 0; }
-	void Free(void* p, int align) {}
+	void* Alloc(int bytes, int align) {
+		return eqAlloc(bytes);
+	}
+	void Free(void* p, int align) {
+		return eqFree(p);
+	}
 }
 
 FUNCTION_AT_VARIABLE_ADDRESS(void* eqAllocImpl(size_t), __eq_new);
@@ -31,8 +50,8 @@ FUNCTION_AT_VARIABLE_ADDRESS(void eqFreeImpl(void*), __eq_delete);
 
 void InitializeEQLib()
 {
-	eqAlloc = eqAllocImpl;
-	eqFree = eqFreeImpl;
+	eqAlloc_ = eqAllocImpl;
+	eqFree_ = eqFreeImpl;
 
 	InitializeGlobals();
 
@@ -43,8 +62,8 @@ void InitializeEQLib()
 
 void InitializeEQLibForTesting()
 {
-	eqAlloc = malloc;
-	eqFree = free;
+	eqAlloc_ = malloc;
+	eqFree_ = free;
 }
 
 void ShutdownEQLib()
