@@ -3595,7 +3595,7 @@ public:
 		ServerGuildName data = { 0 };
 		return GetGuildName(guildId, data, 0, true);
 	}
-	EQLIB_OBJECT int64_t GetGuildIndex(char*);
+	EQLIB_OBJECT int64_t GetGuildIndex(const char*);
 	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
 	EQLIB_OBJECT void DeleteAllMembers();
 	EQLIB_OBJECT void DemoteMember(GuildMember*);

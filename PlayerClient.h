@@ -364,8 +364,8 @@ public:
 /*0x0a1*/ uint8_t           FeetWet;
 /*0x0a2*/ uint8_t           BodyWet;
 /*0x0a3*/ uint8_t           LastBodyWet;
-/*0x0a4*/ char              Name[0x40];                   // ie priest_of_discord00
-/*0x0e4*/ char              DisplayedName[0x40];          // ie Priest of Discord
+/*0x0a4*/ char              Name[EQ_MAX_NAME];            // ie priest_of_discord00
+/*0x0e4*/ char              DisplayedName[EQ_MAX_NAME];   // ie Priest of Discord
 /*0x124*/ uint8_t           PossiblyStuck;                // never seen this be 1 so maybe it was used a a point but not now...
 /*0x125*/ uint8_t           Type;
 /*0x128*/ unsigned int**    BodyType;                     // this really should be renamed to charprops or something its broken anyway

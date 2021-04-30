@@ -189,7 +189,7 @@ FUNCTION_AT_ADDRESS(char* CGuild::GetGuildMotdAuthor(), CGuild__GetGuildMotdAuth
 FUNCTION_AT_ADDRESS(const char* CGuild::GetGuildName(int64_t, ServerGuildName, int, bool) const, CGuild__GetGuildName);
 #endif
 #ifdef CGuild__GetGuildIndex_x
-FUNCTION_AT_ADDRESS(int64_t CGuild::GetGuildIndex(char*), CGuild__GetGuildIndex);
+FUNCTION_AT_ADDRESS(int64_t CGuild::GetGuildIndex(const char*), CGuild__GetGuildIndex);
 #endif
 #ifdef CGuild__ValidGuildName_x
 FUNCTION_AT_ADDRESS(bool CGuild::ValidGuildName(int), CGuild__ValidGuildName);

@@ -234,7 +234,7 @@ class CObjectGroupStage;
 class [[offsetcomments]] CObjectGroupStageInstance : public TListNode<CObjectGroupStageInstance>
 {
 public:
-	/*0x0c*/ CActorInterface * pActor1;
+	/*0x0c*/ CActorInterface* pActor1;
 	/*0x10*/ CActorInterface* pActor2;
 	/*0x14*/ CObjectGroupStage* pStage;
 	/*0x18*/
