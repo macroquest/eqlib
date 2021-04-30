@@ -93,6 +93,7 @@
     <ClInclude Include="ForwardDecls.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GraphicsEngine.h" />
+    <ClInclude Include="ItemLinks.h" />
     <ClInclude Include="Items.h" />
     <ClInclude Include="KeyCombo.h" />
     <ClInclude Include="LoginFrontend.h" />
@@ -131,6 +132,7 @@
     </ClCompile>
     <ClCompile Include="PlayerClient.cpp" />
     <ClCompile Include="SidlTemplates.cpp" />
+    <ClCompile Include="ItemLinks.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>

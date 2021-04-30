@@ -309,7 +309,7 @@ ItemBase::ItemBase()
 	ItemHash = 0;
 	bRealEstateItemPlaceable = false;
 	StackCount = 1;
-	OrnamentationIcon = -1;
+	OrnamentationIcon = 0;
 	MerchantQuantity = 1;
 	bItemNeedsUpdate = false;
 	Price = 0;

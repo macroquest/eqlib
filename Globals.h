@@ -987,7 +987,6 @@ EQLIB_VAR DWORD Window__getURI;
 // Raw pointers (value types in eq)
 EQLIB_VAR BYTE*                                      EQADDR_ATTACK;
 EQLIB_VAR CMDLIST*                                   EQADDR_CMDLIST;
-EQLIB_VAR DWORD                                      EQADDR_CONVERTITEMTAGS;
 EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIKEYBOARD;
 EQLIB_VAR DWORD                                      EQADDR_DIMAIN;
 EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIMOUSE;
@@ -1269,7 +1268,6 @@ EQLIB_VAR ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 /* OTHER IMPORTED FROM EQ */
 EQLIB_API int CastRay(PlayerClient*, float y, float x, float z);
 EQLIB_API int CastRayLoc(const CVector3& SourcePos, int Race, float DestX, float DestY, float DestZ);
-EQLIB_OBJECT CXStr CleanItemTags(const CXStr& In, bool bFlag);
 EQLIB_API float HeadingDiff(float h1, float h2, float* DiffOut);
 EQLIB_API float FixHeading(float Heading);
 EQLIB_API float get_bearing(float x1, float y1, float x2, float y2);

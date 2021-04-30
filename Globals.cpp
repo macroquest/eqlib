@@ -1038,7 +1038,6 @@ INITIALIZE_EQGAME_OFFSET(Util__FastTime);
 
 BYTE*                  EQADDR_ATTACK             = nullptr;
 CMDLIST*               EQADDR_CMDLIST            = nullptr;
-DWORD                  EQADDR_CONVERTITEMTAGS    = 0;
 IDirectInputDevice8A** EQADDR_DIKEYBOARD         = nullptr;
 DWORD                  EQADDR_DIMAIN             = 0;
 IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
@@ -1259,7 +1258,6 @@ void InitializeEQGameOffsets()
 	// Raw pointers (value types in eq)
 	EQADDR_ATTACK                   = (BYTE*)__Attack;
 	EQADDR_CMDLIST                  = (PCMDLIST)__CommandList;
-	EQADDR_CONVERTITEMTAGS          = __ConvertItemTags;
 	EQADDR_DIKEYBOARD               = (IDirectInputDevice8A**)DI8__Keyboard;
 	EQADDR_DIMAIN                   = DI8__Main;
 	EQADDR_DIMOUSE                  = (IDirectInputDevice8A**)DI8__Mouse;

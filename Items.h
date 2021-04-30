@@ -310,7 +310,9 @@ public:
 		: m_size(size)
 		, m_type(instance)
 		, m_bDynamic(dynamic)
-	{}
+	{
+		memset(m_slots, -1, sizeof(m_slots));
+	}
 
 	inline iterator begin() { return Items.begin(); }
 	inline const_iterator begin() const { return m_items.begin(); }
@@ -718,7 +720,7 @@ protected:
 /*0x00*/ uint32_t                m_size;
 /*0x04*/ ItemContainerInstance   m_type;
 /*0x08*/ ItemArray               m_items;
-/*0x0c*/ uint8_t                 m_atDepth;
+/*0x0c*/ uint8_t                 m_atDepth = 0;
 /*0x10*/ short                   m_slots[ItemIndex::MAX_INVENTORY_DEPTH - 1];
 /*0x14*/ bool                    m_bDynamic;
 /*0x18*/
@@ -1247,7 +1249,7 @@ public:
 	EQLIB_OBJECT bool IsLore(bool bIncludeSockets = false) const;
 	EQLIB_OBJECT bool IsLoreEquipped(bool bIncludeSockets = false) const;
 
-	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag = true); // SwiftyMUSE 11-09-2018
+	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag = true);
 	EQLIB_OBJECT ItemPtr CreateItemClient(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT bool CanDrop(bool bDisplayText = false, bool bIncludeContainedItems = true, bool bAllowOverrideNoDropCheck = false, bool bCantDropIfContainingRealEstate = true) const;
 	EQLIB_OBJECT int GetImageNum() const;
