@@ -1062,9 +1062,6 @@
 // EQSpellStrings
 #define EQSpellStrings__GetString_x                                0x4B11F0
 
-// EQ_Affect
-#define EQ_Affect__GetAffectData_x                                 0x9161D0
-
 // CTargetWnd
 #define CTargetWnd__GetBuffCaster_x                                0x85E0F0
 #define CTargetWnd__WndNotification_x                              0x85D880

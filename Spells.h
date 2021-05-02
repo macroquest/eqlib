@@ -1450,7 +1450,13 @@ class [[offsetcomments]] EQ_Affect
 {
 public:
 	EQLIB_OBJECT void Reset();
-	EQLIB_OBJECT int GetAffectData(int) const;
+
+	// Get/Set individual slot data
+	EQLIB_OBJECT int GetAffectData(int slot) const;
+	EQLIB_OBJECT void SetAffectData(int slot, int value);
+
+	// Populate all slot data from a specified spell.
+	EQLIB_OBJECT void PopulateFromSpell(const EQ_Spell* pSpell);
 
 /*0x00*/ EqGuid    CasterGuid;
 /*0x08*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)

@@ -636,17 +636,6 @@ FUNCTION_AT_ADDRESS(void EmitterManager::GetListenerLocation(float*, float*, flo
 FUNCTION_AT_ADDRESS(void EmitterManager::SetVolumeLevel(float), EmitterManager__SetVolumeLevel);
 #endif
 
-//============================================================================
-// EQ_Affect
-//============================================================================
-
-#ifdef EQ_Affect__Reset_x
-FUNCTION_AT_ADDRESS(void EQ_Affect::Reset(), EQ_Affect__Reset);
-#endif
-#ifdef EQ_Affect__GetAffectData_x
-FUNCTION_AT_ADDRESS(int EQ_Affect::GetAffectData(int) const, EQ_Affect__GetAffectData);
-#endif
-
 
 //============================================================================
 // EQ_Container

@@ -164,6 +164,9 @@
     <ClCompile Include="ItemLinks.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Spells.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssemblyFunctions.asm">

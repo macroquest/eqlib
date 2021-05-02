@@ -133,6 +133,7 @@
     <ClCompile Include="PlayerClient.cpp" />
     <ClCompile Include="SidlTemplates.cpp" />
     <ClCompile Include="ItemLinks.cpp" />
+    <ClCompile Include="Spells.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>

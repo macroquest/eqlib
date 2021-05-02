@@ -846,7 +846,6 @@ EQLIB_VAR DWORD CXWndManager__GetKeyboardFlags;
 EQLIB_VAR DWORD CXWndManager__HandleKeyboardMsg;
 EQLIB_VAR DWORD CXWndManager__RemoveWnd;
 EQLIB_VAR DWORD DrawNetStatus;
-EQLIB_VAR DWORD EQ_Affect__GetAffectData;
 EQLIB_VAR DWORD EQ_Item__CanDrop;
 EQLIB_VAR DWORD EQ_Item__CanGemFitInSlot;
 EQLIB_VAR DWORD EQ_Item__CanGoInBag;
