@@ -412,7 +412,7 @@ EQLIB_VAR DWORD CBankWnd__WndNotification;
 EQLIB_VAR DWORD CBarterWnd__WndNotification;
 EQLIB_VAR DWORD CBarterSearchWnd__WndNotification;
 EQLIB_VAR DWORD CBarterSearchWnd__UpdateInventoryList;
-EQLIB_VAR DWORD CBazaarSearchWnd__HandleBazaarMsg;
+EQLIB_VAR DWORD CBazaarSearchWnd__HandleSearchResults;
 EQLIB_VAR DWORD CBroadcast__Get;
 EQLIB_VAR DWORD CButtonWnd__CButtonWnd;
 EQLIB_VAR DWORD CButtonWnd__dCButtonWnd;

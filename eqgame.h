@@ -439,7 +439,7 @@
 #define CBarterSearchWnd__UpdateInventoryList_x                    0x70ADD0
 
 // CBazaarSearchWnd
-#define CBazaarSearchWnd__HandleBazaarMsg_x                        0x716890
+#define CBazaarSearchWnd__HandleSearchResults_x                    0x716890
 
 // CButtonWnd
 #define CButtonWnd__SetCheck_x                                     0x97F710

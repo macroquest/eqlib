@@ -471,7 +471,7 @@ INITIALIZE_EQGAME_OFFSET(CBankWnd__WndNotification);
 INITIALIZE_EQGAME_OFFSET(CBarterWnd__WndNotification);
 INITIALIZE_EQGAME_OFFSET(CBarterSearchWnd__WndNotification);
 INITIALIZE_EQGAME_OFFSET(CBarterSearchWnd__UpdateInventoryList);
-INITIALIZE_EQGAME_OFFSET(CBazaarSearchWnd__HandleBazaarMsg);
+INITIALIZE_EQGAME_OFFSET(CBazaarSearchWnd__HandleSearchResults);
 INITIALIZE_EQGAME_OFFSET(CBroadcast__Get);
 INITIALIZE_EQGAME_OFFSET(CButtonWnd__CButtonWnd);
 INITIALIZE_EQGAME_OFFSET(CButtonWnd__dCButtonWnd);
