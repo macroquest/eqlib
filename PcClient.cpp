@@ -143,10 +143,10 @@ CGroupMember* CGroup::GetNthGroupMember(int position) const
 
 		if (pMember)
 		{
-			if (index == 0)
+			if (position == 0)
 				return pMember;
 
-			index--;
+			position--;
 		}
 	}
 
