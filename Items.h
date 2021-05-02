@@ -1145,6 +1145,16 @@ public:
 		memset(guid, 0, sizeof(guid));
 	}
 
+	bool operator==(const EqItemGuid& other) const
+	{
+		return memcmp(guid, other.guid, GUID_LENGTH - 1) == 0;
+	}
+
+	bool operator!=(const EqItemGuid& other) const
+	{
+		return memcmp(guid, other.guid, GUID_LENGTH - 1) != 0;
+	}
+
 	char guid[GUID_LENGTH];
 
 	EQLIB_OBJECT void UnSerialize(CUnSerializeBuffer& buffer);

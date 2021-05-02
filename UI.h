@@ -986,6 +986,8 @@ public:
 		Sort();
 	}
 
+	inline int GetItemCount() const { return ItemsArray.GetLength(); }
+
 	//----------------------------------------------------------------------------
 	// data members
 
@@ -1848,18 +1850,19 @@ constexpr int MAX_BAZAAR_SEARCH_RESULTS = 200;
 struct [[offsetcomments]] BazaarSearchResults
 {
 	FORCE_SYMBOLS
-/*0x00*/ char     sellerName[EQ_MAX_NAME];
-/*0x40*/ char     itemName[EQ_MAX_NAME];
-/*0x80*/ uint32_t uniqueSellerID;
-/*0x84*/ uint32_t sellerID;
-/*0x88*/ int      zoneID = 0;
-/*0x8c*/ int      price = 0;
-/*0x90*/ int      position = -1;
-/*0x94*/ int      iconID = 0;
-/*0x98*/ int      itemID = 0;
-/*0x9c*/ int      count = 0;
-/*0xa0*/ int      statNum = 0;
-/*0xa4*/ float    statNumFloat = 0.f;
+
+/*0x00*/ char       sellerName[EQ_MAX_NAME];
+/*0x40*/ char       itemName[EQ_MAX_NAME];
+/*0x80*/ uint32_t   uniqueSellerID;
+/*0x84*/ uint32_t   sellerID;
+/*0x88*/ int        zoneID = 0;
+/*0x8c*/ int        price = 0;
+/*0x90*/ int        position = -1;
+/*0x94*/ int        iconID = 0;
+/*0x98*/ int        itemID = 0;
+/*0x9c*/ int        count = 0;
+/*0xa0*/ int        statNum = 0;
+/*0xa4*/ float      statNumFloat = 0.f;
 /*0xa8*/ EqItemGuid itemGuid;
 /*0xbc*/
 };
