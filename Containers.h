@@ -457,7 +457,7 @@ private:
 
 			// copy data into new buffer
 			std::uninitialized_move_n(m_array, m_length, newArray);
-			std::uninitialized_default_construct_n(m_array + m_length, allocatedSize - m_length);
+			std::uninitialized_default_construct_n(newArray + m_length, allocatedSize - m_length);
 
 			// clean up old buffer
 			std::destroy_n(m_array, m_length);
