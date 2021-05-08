@@ -1082,7 +1082,7 @@ public:
 /*0x2948*/ char                                  Title[128];
 /*0x29c8*/ char                                  VehicleName[64];
 /*0x2a08*/ eCharacterStatus                      Status;
-/*0x2a0c*/ EQZoneIndex                           zoneId;
+/*0x2a0c*/ EQZoneIndex                           currentZoneId;
 /*0x2a10*/ uint8_t                               standstate;
 /*0x2a14*/ RaidData                              raidData;
 /*0x2af0*/ int                                   ExpansionFlags;
@@ -1154,8 +1154,11 @@ public:
 
 	ALT_MEMBER_GETTER(int8_t, Status, Stunned);
 
-	uint16_t get_instance() const { return zoneId >> 16; }
+	uint16_t get_instance() const { return currentZoneId >> 16; }
 	__declspec(property(get = get_instance)) uint16_t instance;
+
+	uint16_t get_zoneId() const { return currentZoneId & 0x7FFF; }
+	__declspec(property(get = get_zoneId)) uint16_t zoneId;
 
 	// Verified
 	EQLIB_OBJECT int IsExpansionFlag(int);
