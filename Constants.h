@@ -965,4 +965,9 @@ enum class ServerID : int {
 // zones
 constexpr int ZONE_COUNT = 843;
 
+// Math
+
+// Ratio for converting from degrees to eq heading. EQ uses 512 unit headings.
+constexpr const float DEG_TO_HEADING_RATIO = 360.f / 512.f;
+
 } // namespace eqlib

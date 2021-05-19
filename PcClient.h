@@ -1157,7 +1157,7 @@ public:
 	uint16_t get_instance() const { return currentZoneId >> 16; }
 	__declspec(property(get = get_instance)) uint16_t instance;
 
-	uint16_t get_zoneId() const { return currentZoneId & 0x7FFF; }
+	uint16_t get_zoneId() const { return currentZoneId & 0x7fff; }
 	__declspec(property(get = get_zoneId)) uint16_t zoneId;
 
 	// Verified

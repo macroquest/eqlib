@@ -1316,6 +1316,6 @@ struct [[offsetcomments]] EQLogin
 /*0x6b4*/ char        station_name[32];
 };
 
-constexpr uint32_t EQ_ASSIST          = 0x7271;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+constexpr uint32_t EQ_ASSIST          = 0x6828;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
 } // namespace eqlib
