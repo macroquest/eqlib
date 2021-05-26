@@ -17,6 +17,7 @@
 
 #include "Globals.h"
 #include "Items.h"
+#include "UI.h" // for ExecuteItemLink
 
 namespace eqlib {
 
@@ -239,6 +240,50 @@ bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo)
 
 	// count number of items returned.
 	return ch == (2 * MAX_AUG_SOCKETS) + 7;
+}
+
+static int TagCodeToWndNotification(ETagCodes tagCode)
+{
+	switch (tagCode)
+	{
+	case ETAG_ACHIEVEMENT:
+		return XWM_ACHIEVEMENTLINK;
+	case ETAG_DIALOG_RESPONSE:
+		return XWM_DIALOGRESPONSELINK;
+	case ETAG_FACTION:
+		return XWM_FACTION_LINK;
+	case ETAG_ITEM:
+		return XWM_LINK;
+	case ETAG_SPELL:
+		return XWM_SPELL_LINK;
+	default: break;
+	}
+
+	return 0;
+}
+
+bool ExecuteTextLink(const TextTagInfo& link)
+{
+	int notif = TagCodeToWndNotification(link.tagCode);
+	if (notif == 0)
+		return false;
+
+	for (CChatWindow* pWnd : pChatManager->ChannelMap)
+	{
+		if (pWnd)
+		{
+			std::string_view linkCode = link.link.substr(2, link.text.data() - link.link.data() - 2);
+
+			// strip the \x12 and the text portion
+			char szTempLink[MAX_STRING];
+			sprintf_s(szTempLink, "%.*s", linkCode.size(), linkCode.data());
+
+			pWnd->WndNotification(pWnd->OutputWnd, notif, szTempLink);
+			return true;
+		}
+	}
+
+	return false;
 }
 
 } // namespace eqlib

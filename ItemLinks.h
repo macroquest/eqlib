@@ -110,5 +110,9 @@ struct ItemLinkInfo
 // is provided, then the item name will be absent.
 EQLIB_API bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo);
 
+// Executes a text link. This simulates what would happen if a user were to click the
+// link in the chat window. Returns false if the link was not activated.
+EQLIB_API bool ExecuteTextLink(const TextTagInfo& link);
+
 } // namespace eqlib
 
