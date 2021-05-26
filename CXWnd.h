@@ -68,7 +68,7 @@ class CTextureFont;
 #define XWM_TITLEBAR                     30
 #define XWM_ACHIEVEMENTLINK              31 // see 714959 in jan 09 2020 exe -eqmule
 #define XWM_NOTSURE32                    32
-#define XWN_DIALOGRESPONSELINK           33 // see 714B5A in jan 09 2020 exe -eqmule
+#define XWM_DIALOGRESPONSELINK           33 // see 714B5A in jan 09 2020 exe -eqmule
 #define XWM_SPELL_LINK                   34 // see 7148F9 in jan 09 2020 exe -eqmule
 #define XWM_FOCUS                        35
 #define XWM_LOSTFOCUS                    36
