@@ -266,17 +266,17 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_AUCTION                        261 // 6  - Auction
 #define USERCOLOR_SHOUT                          262 // 7  - Shout
 #define USERCOLOR_EMOTE                          263 // 8  - Emote
-#define USERCOLOR_SPELLS                         264 // 9  - Spells (meming, scribing, casting, etc.)
+#define USERCOLOR_SPELLS                         264 // 9  - Spells (memming, scribing, casting, etc.)
 #define USERCOLOR_YOU_HIT_OTHER                  265 // 10 - You hit other
 #define USERCOLOR_OTHER_HIT_YOU                  266 // 11 - Other hits you
 #define USERCOLOR_YOU_MISS_OTHER                 267 // 12 - You miss other
 #define USERCOLOR_OTHER_MISS_YOU                 268 // 13 - Other misses you
-#define USERCOLOR_DUELS                          269 // 14 - Some broadcasts (duels)
+#define USERCOLOR_DUELS                          269 // 14 - Broadcasts (duels, etc)
 #define USERCOLOR_SKILLS                         270 // 15 - Skills (ups, non-combat use, etc.)
 #define USERCOLOR_DISCIPLINES                    271 // 16 - Disciplines or special abilities
 #define USERCOLOR_UNUSED001                      272 // 17 - Unused at this time
 #define USERCOLOR_DEFAULT                        273 // 18 - Default text and stuff you type
-#define USERCOLOR_UNUSED002                      274 // 19 - Unused at this time
+#define USERCOLOR_FACTION                        274 // 19 - Faction Messages
 #define USERCOLOR_MERCHANT_OFFER                 275 // 20 - Merchant Offer Price
 #define USERCOLOR_MERCHANT_EXCHANGE              276 // 21 - Merchant Buy/Sell
 #define USERCOLOR_YOUR_DEATH                     277 // 22 - Your death message
@@ -285,7 +285,7 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_OTHER_MISS_OTHER               280 // 25 - Other miss other
 #define USERCOLOR_WHO                            281 // 26 - /who command
 #define USERCOLOR_YELL                           282 // 27 - yell for help
-#define USERCOLOR_NON_MELEE                      283 // 28 - Hit for non-melee
+#define USERCOLOR_NON_MELEE                      283 // 28 - Spell Damage
 #define USERCOLOR_SPELL_WORN_OFF                 284 // 29 - Spell worn off
 #define USERCOLOR_MONEY_SPLIT                    285 // 30 - Money splits
 #define USERCOLOR_LOOT                           286 // 31 - Loot message
@@ -327,12 +327,12 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_ECHO_CHAT_8                    322 // 67 - chat 8 echo
 #define USERCOLOR_ECHO_CHAT_9                    323 // 68 - chat 9 echo
 #define USERCOLOR_ECHO_CHAT_10                   324 // 69 - chat 10 echo
-#define USERCOLOR_RESERVED                       325 // 70 - "unused at this time"
-#define USERCOLOR_LINK                           326 // 71 - item links
-#define USERCOLOR_RAID                           327 // 72 - raid
-#define USERCOLOR_PET                            328 // 73 - my pet
+#define USERCOLOR_AVATAR_CMD                     325 // 70 - Avatar Command Output
+#define USERCOLOR_LINK                           326 // 71 - Item Links
+#define USERCOLOR_RAID                           327 // 72 - Raid Say
+#define USERCOLOR_PET                            328 // 73 - My Pet Melee
 #define USERCOLOR_DAMAGESHIELD                   329 // 74 - damage shield hits you
-#define USERCOLOR_LEADER                         330 // 75 - LAA-related messages
+#define USERCOLOR_LEADER                         330 // 75 - Group / Raid Role messages
 #define USERCOLOR_PETRAMPFLURRY                  331 // 76 - pet rampage/flurry
 #define USERCOLOR_PETCRITS                       332 // 77 - pet's critical hits
 #define USERCOLOR_FOCUS                          333 // 78 - focus item activation
@@ -343,36 +343,52 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_ITEM_SPEECH                    338 // 83 - item speech
 #define USERCOLOR_STRIKETHROUGH                  339 // 84 - strikethrough messages
 #define USERCOLOR_STUN                           340 // 85 - stun messages
-#define USERCOLOR_RESERVED2                      341 // 86 - "unused at this time" (or unknown!?)
+#define USERCOLOR_SWARM_PET_DEATH                341 // 86 - Swarm Pet Death
 #define USERCOLOR_FELLOWSHIP                     342 // 87 - fellowship messages
 #define USERCOLOR_NPC_SPEECH                     343 // 88 - npc dialogue
 #define USERCOLOR_NPC_SPEECH_TO_YOU              344 // 89 - npc dialogue to you
 #define USERCOLOR_GUILD_MSG                      345 // 90 - guild messages
 #define USERCOLOR_MERCENARY_GRP                  346 // 91 - mercenary tells group
-#define USERCOLOR_ACHIEVEMENT                    347 // 93 - Achievement - you and other
-#define USERCOLOR_ACHIEVEMENT_GUILD              348 // 94 - Achievement - Guildmate
-#define USERCOLOR_FLURRY                         349 // 101 - Flurry (Self)
-#define USERCOLOR_NPC_DEATH                      350 // 103 - NPC Death
-#define USERCOLOR_DICE_OTHER                     351 // 105 - Other rolls Dice
-#define USERCOLOR_FALL_DAMAGE_SELF               352 // 106 - Fall Damage Self
-#define USERCOLOR_FALL_DAMAGE_OTHER              353 // 107 - Fall Damage Other
-#define USERCOLOR_DAMAGESHIELD_SELF              354 // 108 - Damage Shield Self
-#define USERCOLOR_DAMAGESHIELD_OTHER             355 // 109 - Damage Shield Other hit Other
-#define USERCOLOR_OVERWRITTEN_DET                356 // 111 - has been overwritten - Detrimental
-#define USERCOLOR_OVERWRITTEN_BENE               357 // 112 - has been overwritten - Beneficial
-#define USERCOLOR_CANT_USE_COMMAND               358 // 113 - You cannot use that command right now
-#define USERCOLOR_ABILITY_COOLDOWN               359 // 114 - You can use [Ability Name] again in [Time till you can use it again]
-#define USERCOLOR_AA_REUSE_TIMER                 360 // 115 - AA Reuse Timer failed
-#define USERCOLOR_DESTROY_ITEM                   361 // 116 - Destroy Item Message
-#define USERCOLOR_HOT_OTHER                      362 // 118 - Heal over time on other
-#define USERCOLOR_HEAL_OTHER                     363 // 119 - You heal other
-#define USERCOLOR_OTHER_BUFF_OTHER               364 // 120 - Other buff other (same as other heal other)
-#define USERCOLOR_OTHER_HEAL_OTHER               365 // 120 - Other Heal other (same as other buff other)
-#define USERCOLOR_DOTS_YOURS                     366 // 121 - Your DoTs
-#define USERCOLOR_DOTS_OTHERS                    367 // 122 - Other DoTs
-#define USERCOLOR_SONG                           368 // 123 - Song message - Soandso beings to sing a song. <Selo's Sonata I>
-#define USERCOLOR_NON_MELEE_OTHER                369 // 124 - You cannot use that command right now
-#define USERCOLOR_SPELL_MESSAGES                 370 // 125 - Your spell messages
+#define USERCOLOR_ACHIEVEMENT                    347 // 92 - Achievement Links
+#define USERCOLOR_ACHIEVEMENT_EMOTE              348 // 93 - Emote achievement messages
+#define USERCOLOR_ACHIEVEMENT_GUILD              349 // 94 - Guild achievement messages
+#define USERCOLOR_PVP                            350 // 95 - PvP Messages
+#define USERCOLOR_HOTBUTTON_COOLDOWN             351 // 96 - Hotbutton Cooldown Overlay
+#define USERCOLOR_AGGRO_LOW                      352 // 97 - Aggro Labels - Low
+#define USERCOLOR_AGGRO_WARNING                  353 // 98 - Aggro Labels - Warning
+#define USERCOLOR_AGGRO_MOST                     354 // 99 - Aggro Labels - Most
+#define USERCOLOR_DIALOG_LINK                    355 // 100 - Dialog [Response] Links
+#define USERCOLOR_FLURRY                         356 // 101 - Flurry (Self)
+#define USERCOLOR_DEBUG                          357 // 102 - Debug Output
+#define USERCOLOR_NPC_DEATH                      358 // 103 - Death Notification - NPCs
+#define USERCOLOR_DICE_OTHER                     359 // 104 - Dice Roll (/random) - Others
+#define USERCOLOR_DICE_GROUP                     360 // 105 - Dice Roll (/random) - Group / Raid
+#define USERCOLOR_FALL_DAMAGE_SELF               361 // 106 - Environmental Damage (Yours)
+#define USERCOLOR_FALL_DAMAGE_OTHER              362 // 107 - Environmental Damage (Others)
+#define USERCOLOR_DAMAGESHIELD_SELF              363 // 108 - Damage Shield Self
+#define USERCOLOR_DAMAGESHIELD_OTHER             364 // 109 - Damage Shield Other hit Other
+#define USERCOLOR_EVENT                          365 // 110 - Event Messages
+#define USERCOLOR_OVERWRITTEN_DET                366 // 111 - Spell Overwritten (Detrimental)
+#define USERCOLOR_OVERWRITTEN_BENE               367 // 112 - Spell Overwritten (Beneficial)
+#define USERCOLOR_CANT_USE_COMMAND               368 // 113 - Can't Use Command Warning
+#define USERCOLOR_ABILITY_COOLDOWN               369 // 114 - Combat Ability Reuse - You can use [Ability Name] again in [Time till you can use it again]
+#define USERCOLOR_AA_REUSE_TIMER                 370 // 115 - AA Reuse Timer failed
+#define USERCOLOR_DESTROY_ITEM                   371 // 116 - Destroy Item Message
+#define USERCOLOR_AURAS_YOU                      372 // 117 - Auras (You)
+#define USERCOLOR_AURAS_OTHER                    373 // 118 - Auras (Others)
+#define USERCOLOR_HEALS_YOU                      374 // 119 - Heals (You)
+#define USERCOLOR_HEALS_OTHERS                   375 // 120 - Heals (Others)
+#define USERCOLOR_DOTS_YOURS                     376 // 121 - DoTs (Yours)
+#define USERCOLOR_DOTS_OTHERS                    377 // 122 - DoTs (Others)
+#define USERCOLOR_BARD_SONG_PETS                 378 // 123 - Bard Songs on Pets
+#define USERCOLOR_DIRECT_DAMAGE_OTHERS           379 // 124 - Direct Damage (Others)
+#define USERCOLOR_SPELL_MESSAGES                 380 // 125 - Spell Emotes
+#define USERCOLOR_FACTION_LINK                   381 // 126 - Faction Links
+#define USERCOLOR_TAUNT_MESSAGES                 382 // 127 - Taunt Messages
+#define USERCOLOR_DISCIPLINES_OTHER              383 // 128 - Combat Abilities / Disciplines (Others)
+#define USERCOLOR_ITEM_STAT_POSITIVE             384 // 129 - Item Stat Positive
+#define USERCOLOR_ITEM_STAT_NEGATIVE             385 // 130 - Item Stat Negative
+
 
 #define DEITY_Bertoxxulous                       201
 #define DEITY_BrellSerilis                       202
