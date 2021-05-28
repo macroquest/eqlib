@@ -36,6 +36,8 @@
 #undef SetWindowText
 #undef FindWindow
 
+#include <mq/base/Deprecation.h>
+
 #include <cstdlib>
 #include <cstdint>
 
@@ -138,16 +140,6 @@
     type getter_ ## name() { return (type)(orig); } \
     __declspec(property(get=getter_ ## name)) type name;
 
-#if defined(DEPRECATE)
-#undef (DEPRECATE)
-#endif
-
-#if defined(COMMENT_UPDATER)
-#define DEPRECATE(x)
-#else
-#define DEPRECATE(x) [[deprecated(x)]]
-#endif
-
 #define ALT_MEMBER_GETTER_DEPRECATED(type, orig, name, msg) \
     DEPRECATE(msg) \
     type& getter_ ## name() { return (*reinterpret_cast<type*>(&orig)); } \
@@ -162,6 +154,8 @@
     DEPRECATE(msg) \
     type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type (&name)[size];
+
+#include "base/Color.h"
 
 namespace eqlib {
 
@@ -443,42 +437,6 @@ public:
 	float Y = 0.f;
 	float Z = 0.f;
 };
-
-union RGB
-{
-	struct
-	{
-		unsigned char Blue;
-		unsigned char Green;
-		unsigned char Red;
-		unsigned char Alpha;
-	};
-	unsigned long ARGB;
-};
-
-struct EQRGB
-{
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
-};
-
-struct ARGBCOLOR
-{
-	union
-	{
-		struct
-		{
-			BYTE B;
-			BYTE G;
-			BYTE R;
-			BYTE A;
-		};
-
-		DWORD ARGB;
-	};
-};
-using PARGBCOLOR = ARGBCOLOR *;
 
 struct EQLOC
 {

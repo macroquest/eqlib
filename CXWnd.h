@@ -19,6 +19,8 @@
 #include "CXStr.h"
 #include "UIHelpers.h"
 
+#include <mq/base/Color.h>
+
 #ifdef IsMinimized
 #undef IsMinimized
 #endif
@@ -515,6 +517,7 @@ public:
 
 	EQLIB_OBJECT COLORREF GetBGColor() const { return BGColor; }
 	EQLIB_OBJECT void SetBGColor(COLORREF Value) { BGColor = Value; }
+	EQLIB_OBJECT void SetBGColor(mq::MQColor Value) { BGColor = Value.ToARGB(); }
 
 	EQLIB_OBJECT void SetDisabledBackground(COLORREF Value) { DisabledBackground = Value; }
 	EQLIB_OBJECT COLORREF GetDisabledBackground() const { return DisabledBackground; }
@@ -601,6 +604,7 @@ public:
 	EQLIB_OBJECT void SetXMLTooltip(const CXStr& Value) { XMLToolTip = Value; }
 	EQLIB_OBJECT CXStr GetXMLTooltip() const { return XMLToolTip; }
 
+	EQLIB_OBJECT void SetCRNormal(mq::MQColor Value) { CRNormal = Value.ToARGB(); }
 	EQLIB_OBJECT void SetCRNormal(COLORREF Value) { CRNormal = Value; }
 
 	EQLIB_OBJECT void SetBringToTopWhenClicked(bool bValue) { bBringToTopWhenClicked = bValue; }
