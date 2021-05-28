@@ -983,7 +983,7 @@ public:
 			bSortAsc = true;
 		}
 
-		Sort();
+		Sort(false);
 	}
 
 	inline int GetItemCount() const { return ItemsArray.GetLength(); }
