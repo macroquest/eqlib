@@ -25,3 +25,7 @@
 #define CRender__RenderScene_x                                     0x100A0DF0
 #define CRender__ResetDevice_x                                     0x100A0650
 #define CRender__UpdateDisplay_x                                   0x100A14A0
+
+#if __has_include("../private/eqgraphics-private.h")
+#include "../private/eqgraphics-private.h"
+#endif

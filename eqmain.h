@@ -32,3 +32,7 @@
 #define EQMain__pinstCSidlManager_x                                0x10377B5C
 #define EQMain__pinstLoginController_x                             0x101756F8
 #define EQMain__pinstLoginServerAPI_x                              0x101756E8
+
+#if __has_include("../private/eqmain-private.h")
+#include "../private/eqmain-private.h"
+#endif

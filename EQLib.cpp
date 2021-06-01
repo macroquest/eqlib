@@ -116,3 +116,7 @@ FUNCTION_AT_ADDRESS(bool CopyLayout(const CXStr& currlayout, const CXStr& newlay
 #endif
 
 } // namespace eqlib
+
+#if __has_include("../private/EQLib-private.cpp")
+#include "../private/EQLib-private.cpp"
+#endif

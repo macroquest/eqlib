@@ -18,6 +18,7 @@
 // eqgame.exe offsets
 //
 
+#define LIVE
 #define __ClientName                                              "eqgame"
 #define __ExpectedVersionDate                                     "May 14 2021"
 #define __ExpectedVersionTime                                     "14:19:57"
@@ -1240,3 +1241,7 @@
 
 // CUnSerializeBuffer
 #define CUnSerializeBuffer__GetString_x                            0x47D240
+
+#if __has_include("../private/eqgame-private.h")
+#include "../private/eqgame-private.h"
+#endif

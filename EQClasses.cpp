@@ -1646,3 +1646,7 @@ FUNCTION_AT_ADDRESS(Wave3dInstance::Wave3dInstance(SoundManager*), Wave3dInstanc
 #pragma warning(pop)
 
 } // namespace eqlib
+
+#if __has_include("../private/EQClasses-private.cpp")
+#include "../private/EQClasses-private.cpp"
+#endif

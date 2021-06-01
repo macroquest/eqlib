@@ -21,11 +21,6 @@
 #include "eqgraphics.h"
 #include "eqmain.h"
 
-// pull in private definitions if provided
-#if __has_include("eqgame-private.h")
-#include "eqgame-private.h"
-#endif
-
 // Common defines all the commonly used macros, tools, functions, etc
 // that are used by pretty much everything else.
 #include "Common.h"
@@ -65,3 +60,7 @@
 #include "GraphicsEngine.h"
 #include "LoginFrontend.h"
 #include "ItemLinks.h"
+
+#if __has_include("../private/EQLib-private.h")
+#include "../private/EQLib-private.h"
+#endif
