@@ -35,6 +35,7 @@
 #undef GetWindowText
 #undef SetWindowText
 #undef FindWindow
+#undef GetClassName
 
 #include <mq/base/Deprecation.h>
 
@@ -294,7 +295,23 @@ public:
 	}
 
 	int GetWidth() const { return right - left; }
+	void SetWidth(int width) { right = left + width; }
 	int GetHeight() const { return bottom - top; }
+	void SetHeight(int height) { bottom = top + height; }
+
+	void SetLeft(int newLeft)
+	{
+		int width = GetWidth();
+		left = newLeft;
+		right = newLeft + width;
+	}
+
+	void SetTop(int newTop)
+	{
+		int height = GetHeight();
+		top = newTop;
+		bottom = newTop + height;
+	}
 
 	CXSize GetSize() const { return CXSize{ GetWidth(), GetHeight() }; }
 

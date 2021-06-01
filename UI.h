@@ -22,8 +22,8 @@
 #include "CXWnd.h"
 #include "Containers.h"
 #include "Items.h"
-#include "SidlParams.h"
-#include "SidlTemplates.h"
+#include "XMLData.h"
+#include "UITemplates.h"
 #include "EQData.h"
 
 #include <list>
@@ -288,6 +288,10 @@ public:
 	EQLIB_OBJECT virtual int OnProcessFrame() override;
 	EQLIB_OBJECT virtual bool IsPointTransparent(const CXPoint& point) const override;
 	EQLIB_OBJECT virtual void SetAttributesFromSidl(CParamScreenPiece*) override;
+
+	//----------------------------------------------------------------------------
+	void SetDecalTint(COLORREF cr) { DecalTint = cr; }
+	void SetDecalTint(mq::MQColor color) { DecalTint = color.ToARGB(); }
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -1053,6 +1057,8 @@ public:
 	CPageWnd(CXWnd*, uint32_t, const CXRect&, const CXStr&, CPageTemplate*);
 	virtual ~CPageWnd();
 
+	CTextureAnimation* GetTabIcon() const { return pTATabIcon; }
+
 	EQLIB_OBJECT CXStr GetTabText(bool bShowFlashing = false) const;
 	EQLIB_OBJECT void SetTabText(CXStr&) const;
 	EQLIB_OBJECT void FlashTab(bool flash, int msTime) const;
@@ -1063,11 +1069,13 @@ public:
 /*0x244*/ COLORREF           CRTabTextActive;
 /*0x248*/ CTextureAnimation* pTATabIcon;
 /*0x24c*/ CTextureAnimation* pTATabIconActive;
-/*0x250*/ int64_t            LastFlashTime;
-/*0x258*/ COLORREF           CRHighlightFlashColor;
-/*0x25c*/ bool               bHighlightOnNewMessages;
-/*0x25d*/ bool               bFlashing;
-/*0x260*/
+/*0x250*/ int                Unknown0x250;
+/*0x254*/ int                Unknown0x254;
+/*0x258*/ int64_t            LastFlashTime;
+/*0x260*/ COLORREF           CRHighlightFlashColor;
+/*0x264*/ bool               bHighlightOnNewMessages;
+/*0x265*/ bool               bFlashing;
+/*0x268*/
 };
 
 //============================================================================
@@ -1307,7 +1315,7 @@ public:
 /*0x274*/ ESTMLParseState              CurrentParseState;
 /*0x278*/ ArrayClass2<SHistoryElement> HistoryArray;
 /*0x290*/ int32_t                      HistoryIndex;
-/*0x294*/ CStmlReport* pStmlReport;
+/*0x294*/ CStmlReport*                 pStmlReport;
 /*0x298*/ int                          MaxLines;
 /*0x29c*/ int                          PlayerContextMenuIndex;
 /*0x2a0*/ int                          Unknown0x2ac;
@@ -1329,24 +1337,28 @@ public:
 	// functions we have offsets for
 	EQLIB_OBJECT int DrawCurrentPage() const;
 	EQLIB_OBJECT int DrawTab(int) const;
-	EQLIB_OBJECT CPageWnd* GetCurrentPage() const;
-	EQLIB_OBJECT int GetCurrentTabIndex() const;
-	EQLIB_OBJECT CPageWnd* GetPageFromTabIndex(int) const;
 	EQLIB_OBJECT CXRect GetPageInnerRect() const;
 	EQLIB_OBJECT CXRect GetTabInnerRect(int) const;
 	EQLIB_OBJECT CXRect GetTabRect(int) const;
-	EQLIB_OBJECT void InsertPage(CPageWnd* pTabWnd, int position = -1); // defaults to the last tab
-	EQLIB_OBJECT void RemovePage(CPageWnd* pTabWnd);
-	EQLIB_OBJECT void SetPage(int index, bool bNotifyParent = true, bool bBringToTop = true, bool bSomething = true);
 	EQLIB_OBJECT void SetPageRect(const CXRect&);
 	EQLIB_OBJECT void UpdatePage();
 
 	// functions we don't have offsets for.
 	EQLIB_OBJECT CXRect GetPageClientRect() const;
-	EQLIB_OBJECT int GetNumTabs() const;
 	EQLIB_OBJECT bool SetPage(CPageWnd*, bool bNotifyParent = true, bool bBringToTop = true);
 	EQLIB_OBJECT bool IndexInBounds(int) const;
 	EQLIB_OBJECT CPageWnd* GetPageFromTabPoint(CXPoint) const;
+
+	int GetNumTabs() const { return PageArray.GetLength(); }
+	int GetCurrentTabIndex() const { return CurTabIndex; }
+
+	EQLIB_OBJECT CPageWnd* GetPageFromTabIndex(int tabIndex) const;
+	EQLIB_OBJECT CPageWnd* GetCurrentPage() const;
+
+	EQLIB_OBJECT void SetPage(int index, bool bNotifyParent = true, bool bBringToTop = true, bool bSomething = false);
+	EQLIB_OBJECT void InsertPage(CPageWnd* pPageWnd, int position = -1); // defaults to the last tab
+	EQLIB_OBJECT void RemovePage(CPageWnd* pPageWnd);
+
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -1364,14 +1376,14 @@ public:
 };
 
 //============================================================================
-// CTreeView
+// CTreeViewWnd
 //============================================================================
 
-class [[offsetcomments]] CTreeView : public CListWnd
+class [[offsetcomments]] CTreeViewWnd : public CListWnd
 {
 public:
-	CTreeView(CXWnd*, uint32_t, CXRect, int);
-	virtual ~CTreeView();
+	CTreeViewWnd(CXWnd*, uint32_t, CXRect, int);
+	virtual ~CTreeViewWnd();
 };
 
 //============================================================================
@@ -2961,7 +2973,7 @@ public:
 /*0x24c*/ SoeUtil::String  Unknown0x23c;
 /*0x25c*/ SoeUtil::String  Unknown0x24c;
 /*0x26c*/ CGaugeWnd*       StandingGaugeTemplate;
-/*0x270*/ CTreeView*       Categories;
+/*0x270*/ CTreeViewWnd*    Categories;
 /*0x274*/ CEditWnd*        SearchNameInput;
 /*0x278*/ CButtonWnd*      SearchButton;
 /*0x27c*/ CListWnd*        FactionList;
@@ -4078,7 +4090,7 @@ public:
 /*0x628*/ DWORD             Unknown0x628;
 /*0x62c*/ DWORD             Unknown0x62c;
 /*0x630*/ DWORD             Unknown0x630;
-/*0x634*/ DWORD             ItemWndIndex;
+/*0x634*/ uint32_t          ItemWndIndex;
 /*0x638*/
 };
 
@@ -5835,111 +5847,6 @@ public:
 };
 
 //============================================================================
-//============================================================================
-//============================================================================
-//============================================================================
-
-//============================================================================
-// CXMLParamManager
-//============================================================================
-
-
-template <class ElementType, int Cnt>
-class HashCXStrElement
-{
-public:
-	struct CKeyCXStrElementType
-	{
-		CXStr          key;
-		ElementType    value;
-	};
-
-	ArrayClass2<ArrayClass2<CKeyCXStrElementType>> HashData;
-};
-
-class [[offsetcomments]] CXMLSymbolItem
-{
-public:
-/*0x00*/ CXStr                              ItemString;
-/*0x04*/ bool                               bDeclared;
-/*0x05*/ bool                               bValid;
-/*0x08*/
-};
-
-class [[offsetcomments]] CXMLSymbolClass
-{
-public:
-/*0x00*/ CXStr                              Class;
-/*0x04*/ ArrayClass2<CXMLSymbolItem>     ItemsArray;
-/*0x1c*/ CHashCXStrInt32                    ItemsHashes;
-/*0x34*/ bool                               bValid;
-/*0x38*/
-};
-
-class [[offsetcomments]] CXMLSymbolTable
-{
-public:
-/*0x00*/ void* vfTable;
-/*0x04*/ ArrayClass2<CXMLSymbolClass> ClassesArray;
-/*0x1c*/ CHashCXStrInt32               ClassesHashes;
-/*0x34*/
-};
-
-class [[offsetcomments]] CXMLDataManager
-{
-public:
-/*0x00*/ void* vfTable;
-/*0x04*/ CHashCXStrInt32               EnumTypeHashes;
-/*0x1c*/ ArrayClass2<CXMLEnumInfo>  XMLEnumArray;
-/*0x34*/ HashCXStrElement<CXMLDataPtr, 16 * 1024> ClassItemHashes;
-/*0x4c*/ ArrayClass2<CXMLDataClass> XMLDataArray;
-/*0x64*/ CXMLSymbolTable               SymbolTable;
-/*0x98*/ CXStr                         ErrorString;
-/*0x9c*/
-
-	EQLIB_OBJECT CXMLDataManager();
-	EQLIB_OBJECT bool IsDerivedFrom(int, int);
-	EQLIB_OBJECT bool ReadFromXMLSOM(CXMLSOMDocument&);
-	EQLIB_OBJECT CXMLData* GetXMLData(CXStr className, CXStr itemName);
-	EQLIB_OBJECT CXMLData* GetXMLData(int classIndex, int itemIndex) const;
-	EQLIB_OBJECT CXMLData* GetXMLData(int xmlIndex) const
-	{
-		return GetXMLData(xmlIndex >> 16, xmlIndex & 0xffff);
-	}
-
-	EQLIB_OBJECT UIType GetWindowType(const CXWnd* wnd) const;
-
-	EQLIB_OBJECT int GetClassIdx(CXStr);
-	EQLIB_OBJECT int GetItemIdx(int, CXStr);
-	EQLIB_OBJECT int GetNumClass();
-	EQLIB_OBJECT int GetNumItem(int);
-
-	// virtual
-	EQLIB_OBJECT ~CXMLDataManager();
-	EQLIB_OBJECT bool DataValidate();
-	EQLIB_OBJECT bool ReadValidate(CMemoryStream&);
-	EQLIB_OBJECT bool WriteValidate(CMemoryStream&);
-	EQLIB_OBJECT int GetStreamSize();
-	EQLIB_OBJECT void IndexAll();
-	EQLIB_OBJECT void ReadFromStream(CMemoryStream&);
-	EQLIB_OBJECT void Set(CXMLDataManager&);
-	EQLIB_OBJECT void WriteToStream(CMemoryStream&);
-
-	// protected
-	EQLIB_OBJECT void AddToSuperType(CXStr, CXMLDataPtr);
-	EQLIB_OBJECT void SetEnumHash();
-};
-
-class CXMLParamManager : public CXMLDataManager
-{
-public:
-	// virtual
-	EQLIB_OBJECT ~CXMLParamManager();
-	EQLIB_OBJECT bool XMLDataCopy(CXMLData*, CXMLData*);
-	EQLIB_OBJECT CXMLData* AllocPtr(CXMLDataPtr&, int, const CXMLData*);
-};
-
-//============================================================================
 // CSidlManagerBase
 //============================================================================
 
@@ -5955,8 +5862,6 @@ enum EStaticScreenPieceClasses
 
 	StaticScreenPieceMax,
 };
-
-// this class helps translate xml into ui elements
 
 // size 0x1D4 2019-02-12 test see 53E3D3
 // size 0x200 see 53ED93 in 2019 01 11 eqgame.exe

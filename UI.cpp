@@ -79,45 +79,6 @@ FUNCTION_AT_ADDRESS(int CTextureFont::DrawWrappedText(const CXStr&, const CXRect
 FUNCTION_AT_ADDRESS(int CTextureFont::DrawWrappedText(CTextObjectInterface*, const CXStr&, const CXRect&, const CXRect&, COLORREF, uint16_t, int) const, CTextureFont__DrawWrappedText);
 #endif
 
-//============================================================================
-// CXMLDataManager
-//============================================================================
-
-#ifdef CXMLDataManager__GetXMLData_x
-FUNCTION_AT_ADDRESS(CXMLData* CXMLDataManager::GetXMLData(int, int) const, CXMLDataManager__GetXMLData);
-#endif
-#ifdef CXMLDataManager__GetXMLData1_x
-FUNCTION_AT_ADDRESS(CXMLData* CXMLDataManager::GetXMLData(CXStr, CXStr), CXMLDataManager__GetXMLData1);
-#endif
-#ifdef CXMLDataManager__GetNumClass_x
-FUNCTION_AT_ADDRESS(int CXMLDataManager::GetNumClass(), CXMLDataManager__GetNumClass);
-#endif
-#ifdef CXMLDataManager__GetNumItem_x
-FUNCTION_AT_ADDRESS(int CXMLDataManager::GetNumItem(int), CXMLDataManager__GetNumItem);
-#endif
-#ifdef CXMLDataManager__GetClassIdx_x
-FUNCTION_AT_ADDRESS(int CXMLDataManager::GetClassIdx(CXStr), CXMLDataManager__GetClassIdx);
-#endif
-#ifdef CXMLDataManager__GetItemIdx_x
-FUNCTION_AT_ADDRESS(int CXMLDataManager::GetItemIdx(int, CXStr), CXMLDataManager__GetItemIdx);
-#endif
-#ifdef CXMLDataManager__AddToSuperType_x
-//FUNCTION_AT_ADDRESS(void CXMLDataManager::AddToSuperType(CXStr, CXMLDataPtr), CXMLDataManager__AddToSuperType);
-#endif
-#ifdef CXMLDataManager__IsDerivedFrom_x
-FUNCTION_AT_ADDRESS(bool CXMLDataManager::IsDerivedFrom(int, int), CXMLDataManager__IsDerivedFrom);
-#endif
-#ifdef CXMLDataManager__SetEnumHash_x
-FUNCTION_AT_ADDRESS(void CXMLDataManager::SetEnumHash(), CXMLDataManager__SetEnumHash);
-#endif
-#ifdef CXMLDataManager__ReadFromXMLSOM_x
-FUNCTION_AT_ADDRESS(bool CXMLDataManager::ReadFromXMLSOM(CXMLSOMDocument&), CXMLDataManager__ReadFromXMLSOM);
-#endif
-
-#ifdef CXMLSOMDocumentBase__XMLRead_x
-FUNCTION_AT_ADDRESS(bool CXMLSOMDocumentBase::XMLRead(const CXStr&, const CXStr&, const CXStr&), CXMLSOMDocumentBase__XMLRead);
-#endif
-
 // MISC
 
 
@@ -793,10 +754,10 @@ FUNCTION_AT_ADDRESS(bool CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
 FUNCTION_AT_ADDRESS(CTabWnd::CTabWnd(CXWnd* pParent, UINT uId, RECT* rect, CTabBoxTemplate* pTabContents), CTabWnd__CTabWnd);
 #endif
 #ifdef CTabWnd__GetNumTabs_x
-FUNCTION_AT_ADDRESS(int CTabWnd::GetNumTabs() const, CTabWnd__GetNumTabs);
+//FUNCTION_AT_ADDRESS(int CTabWnd::GetNumTabs() const, CTabWnd__GetNumTabs);
 #endif
 #ifdef CTabWnd__GetCurrentPage_x
-FUNCTION_AT_ADDRESS(CPageWnd* CTabWnd::GetCurrentPage() const, CTabWnd__GetCurrentPage);
+//FUNCTION_AT_ADDRESS(CPageWnd* CTabWnd::GetCurrentPage() const, CTabWnd__GetCurrentPage);
 #endif
 #ifdef CTabWnd__GetTabRect_x
 FUNCTION_AT_ADDRESS(CXRect CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
@@ -826,10 +787,10 @@ FUNCTION_AT_ADDRESS(void CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageRe
 FUNCTION_AT_ADDRESS(void CTabWnd::UpdatePage(), CTabWnd__UpdatePage);
 #endif
 #ifdef CTabWnd__GetPageFromTabIndex_x
-FUNCTION_AT_ADDRESS(CPageWnd* CTabWnd::GetPageFromTabIndex(int) const, CTabWnd__GetPageFromTabIndex);
+//FUNCTION_AT_ADDRESS(CPageWnd* CTabWnd::GetPageFromTabIndex(int) const, CTabWnd__GetPageFromTabIndex);
 #endif
 #ifdef CTabWnd__GetCurrentTabIndex_x
-FUNCTION_AT_ADDRESS(int CTabWnd::GetCurrentTabIndex() const, CTabWnd__GetCurrentTabIndex);
+//FUNCTION_AT_ADDRESS(int CTabWnd::GetCurrentTabIndex() const, CTabWnd__GetCurrentTabIndex);
 #endif
 #ifdef CTabWnd__IndexInBounds_x
 FUNCTION_AT_ADDRESS(bool CTabWnd::IndexInBounds(int) const, CTabWnd__IndexInBounds);
@@ -843,6 +804,87 @@ FUNCTION_AT_ADDRESS(int CTabWnd::DrawTab(int) const, CTabWnd__DrawTab);
 #ifdef CTabWnd__DrawCurrentPage_x
 FUNCTION_AT_ADDRESS(int CTabWnd::DrawCurrentPage() const, CTabWnd__DrawCurrentPage);
 #endif
+
+//void CTabWnd::InsertPage(CPageWnd* pPageWnd, int position)
+//{
+//	if (!pPageWnd || pPageWnd->GetParent() != this)
+//		return;
+//
+//	for (int i = 0; i < PageArray.GetLength(); ++i)
+//	{
+//		if (PageArray[i] == pPageWnd)
+//			return;
+//	}
+//
+//	pPageWnd->RemoveStyle(WSF_TITLEBAR | WSF_SIZABLE | WSF_USEMYALPHA | WSF_NOHITTEST);
+//	pPageWnd->AddStyle(WSF_RELATIVERECT);
+//
+//	if (position < 0)
+//	{
+//		// append
+//		position = PageArray.GetLength();
+//		PageArray.Add(pPageWnd);
+//	}
+//	else
+//	{
+//		PageArray.InsertElement(position, pPageWnd);
+//	}
+//
+//	// Update height
+//	if (bShowTabs)
+//	{
+//		if (CTextureAnimation* pAnim = pPageWnd->GetTabIcon())
+//		{
+//			if (pAnim->GetSize().cy > TabHeight)
+//				TabHeight = pAnim->GetSize().cy + pTabBorder->GetAnimation(CTAFrameDraw::FrameDraw_Top)->GetSize().cy;
+//		}
+//	}
+//
+//	UpdatePage();
+//
+//	if (CurTabIndex == -1)
+//		SetPage(0, false, )
+//}
+
+void CTabWnd::RemovePage(CPageWnd* pPageWnd)
+{
+	int tabCount = GetNumTabs();
+
+	for (int i = 0; i < tabCount; ++i)
+	{
+		if (PageArray[i] == pPageWnd)
+		{
+			pPageWnd->AddStyle(WSF_NOHITTEST);
+			pPageWnd->Show(false);
+
+			if (pPageWnd == GetCurrentPage())
+			{
+				if (tabCount == 1)
+					CurTabIndex = -1;
+				else
+					SetPage(0);
+			}
+			else if (i < CurTabIndex)
+				CurTabIndex--;
+
+			PageArray.DeleteElement(i);
+			return;
+		}
+	}
+}
+
+CPageWnd* CTabWnd::GetPageFromTabIndex(int tabIndex) const
+{
+	if (tabIndex >= 0 && tabIndex < PageArray.GetLength())
+		return PageArray[tabIndex];
+
+	return nullptr;
+}
+
+CPageWnd* CTabWnd::GetCurrentPage() const
+{
+	return GetPageFromTabIndex(GetCurrentTabIndex());
+}
 
 //============================================================================
 // CAAWnd

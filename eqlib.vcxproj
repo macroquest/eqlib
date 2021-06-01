@@ -104,8 +104,9 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="PlayerClient.h" />
     <ClInclude Include="SerializeBuffer.h" />
-    <ClInclude Include="SidlParams.h" />
-    <ClInclude Include="SidlTemplates.h" />
+    <ClInclude Include="UITextures.h" />
+    <ClInclude Include="XMLData.h" />
+    <ClInclude Include="UITemplates.h" />
     <ClInclude Include="SoeUtil.h" />
     <ClInclude Include="Spells.h" />
     <ClInclude Include="UI.h" />
@@ -132,7 +133,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="PlayerClient.cpp" />
-    <ClCompile Include="SidlTemplates.cpp" />
+    <ClCompile Include="UITextures.cpp" />
+    <ClCompile Include="XMLData.cpp" />
+    <ClCompile Include="UITemplates.cpp" />
     <ClCompile Include="ItemLinks.cpp" />
     <ClCompile Include="Spells.cpp" />
     <ClCompile Include="UI.cpp" />

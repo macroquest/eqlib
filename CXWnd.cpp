@@ -148,17 +148,6 @@ UIType CXWnd::GetType() const
 	return mgr->GetWindowType(this);
 }
 
-UIType CXMLDataManager::GetWindowType(const CXWnd* wnd) const
-{
-	if (int xmlIndex = wnd->GetXMLIndex())
-	{
-		if (CXMLData* pXmlData = GetXMLData(xmlIndex))
-			return pXmlData->Type;
-	}
-
-	return UI_Unknown;
-}
-
 CXMLData* CXWnd::GetXMLData(CXMLDataManager* dataMgr) const
 {
 	if (int xmlIndex = GetXMLIndex())
@@ -249,7 +238,7 @@ const char* UITypeToString(UIType type)
 	case UI_Unknown: return "CXWnd";           // a dynamically created CXWnd can have this type
 	case UI_Class: return "Class";
 	case UI_RGB: return "RGB";
-	case UI_RGBText: return "RGBText";
+	case UI_TextRGB: return "TextRGB";
 	case UI_Point: return "Point";
 	case UI_Size: return "Size";
 	case UI_TextureInfo: return "TextureInfo";
@@ -281,10 +270,10 @@ const char* UITypeToString(UIType type)
 	case UI_Gauge: return "Gauge";
 	case UI_SpellGem: return "SpellGem";
 	case UI_InvSlot: return "InvSlot";
-	case UI_EditBox: return "EditBox";
+	case UI_EditBox: return "Editbox";
 	case UI_Slider: return "Slider";
 	case UI_Label: return "Label";
-	case UI_STMLBox: return "STMLBox";
+	case UI_STMLBox: return "STMLbox";
 	case UI_TreeView: return "TreeView";
 	case UI_Combobox: return "Combobox";
 	case UI_Page: return "Page";

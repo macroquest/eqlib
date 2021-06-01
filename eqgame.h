@@ -802,7 +802,6 @@
 #define CPageWnd__GetTabText_x                                     0x479340
 #define CPageWnd__SetTabText_x                                     0x9A6510
 
-
 // CTextOverlay
 #define CTextOverlay__DisplayText_x                                0x4AC8C0
 

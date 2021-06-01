@@ -51,8 +51,9 @@
 // ui components
 #include "CXWnd.h"
 #include "UI.h"
-#include "SidlParams.h"
-#include "SidlTemplates.h"
+#include "XMLData.h"
+#include "UITemplates.h"
+#include "UITextures.h"
 
 // game components
 #include "Items.h"

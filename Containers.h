@@ -81,6 +81,8 @@ class ArrayClass2 : public CDynamicArrayBase
 /*0x18*/
 
 public:
+	using value_type = T;
+
 	// constructs the array
 	ArrayClass2()
 	{
@@ -105,7 +107,7 @@ public:
 
 	~ArrayClass2()
 	{
-		Reset();
+		Clear();
 	}
 
 	ArrayClass2& operator=(const ArrayClass2& rhs)
@@ -135,6 +137,111 @@ public:
 
 	T& Get(int index) { return m_array[GET_BIN_INDEX(index)][GET_SLOT_INDEX(index)]; }
 	const T& Get(int index) const { return m_array[GET_BIN_INDEX(index)][GET_SLOT_INDEX(index)]; }
+
+	#pragma region ArrayClass2::Iterator
+	class ConstIterator
+	{
+	public:
+		using iterator_category = std::random_access_iterator_tag;
+
+		using value_type = ArrayClass2::value_type;
+		using difference_type = std::ptrdiff_t;
+		using pointer = const value_type*;
+		using reference = const value_type&;
+
+		ConstIterator(const ArrayClass2* container, uint32_t index) : m_container(container), m_index(index) {}
+
+		[[nodiscard]] reference operator*() const
+		{
+			return m_container->Get(m_index);
+		}
+
+		[[nodiscard]] pointer operator->() const
+		{
+			return &m_container->Get(m_index);
+		}
+
+		ConstIterator& operator++() { ++m_index; return *this; }
+		ConstIterator operator++(int) const { auto tmp = *this; ++(*this); return tmp; }
+		ConstIterator& operator--() { --m_index; return *this; }
+		ConstIterator operator--(int) const { auto tmp = *this; --(*this); return tmp; }
+		ConstIterator& operator+=(difference_type offset) { m_index += offset; return *this; }
+		[[nodiscard]] ConstIterator operator+(difference_type offset) const { auto tmp = *this; return tmp += offset; }
+		ConstIterator& operator-=(difference_type offset) { m_index -= offset; return *this; }
+		[[nodiscard]] ConstIterator operator-(difference_type offset) const { auto tmp = *this; return tmp -= offset; }
+		[[nodiscard]] ConstIterator operator-(const ConstIterator& other) const { return ConstIterator(m_container, m_index - other.m_index); }
+		[[nodiscard]] bool operator==(const ConstIterator& other) const { return m_container == other.m_container && m_index == other.m_index; }
+		[[nodiscard]] bool operator!=(const ConstIterator& other) const { return !(*this == other); }
+		[[nodiscard]] bool operator<(const ConstIterator& other) const { return m_index < other.m_index; }
+		[[nodiscard]] bool operator>(const ConstIterator& other) const { return other < *this; }
+		[[nodiscard]] bool operator<=(const ConstIterator& other) const { return !(other < *this); }
+		[[nodiscard]] bool operator>=(const ConstIterator& other) const { return !(*this < other); }
+
+	protected:
+		const ArrayClass2* m_container;
+		uint32_t m_index;
+	};
+
+	class Iterator : public ConstIterator
+	{
+	public:
+		using iterator_category = std::random_access_iterator_tag;
+
+		using value_type = ArrayClass2::value_type;
+		using difference_type = std::ptrdiff_t;
+		using pointer = value_type*;
+		using reference = value_type&;
+
+		Iterator(ArrayClass2* container, uint32_t index) : ConstIterator(container, index) {}
+
+		[[nodiscard]] reference operator*() const
+		{
+			return const_cast<ArrayClass2*>(m_container)->Get(m_index);
+		}
+
+		[[nodiscard]] pointer operator->() const
+		{
+			return std::addressof(const_cast<ArrayClass2*>(m_container)->Get(m_index));
+		}
+
+		Iterator& operator++() { ++m_index; return *this; }
+		Iterator operator++(int) const { auto tmp = *this; ++(*this); return tmp; }
+		Iterator& operator--() { --m_index; return *this; }
+		Iterator operator--(int) const { auto tmp = *this; --(*this); return tmp; }
+		Iterator& operator+=(difference_type offset) { m_index += offset; return *this; }
+		[[nodiscard]] Iterator operator+(difference_type offset) const { auto tmp = *this; return tmp += offset; }
+		Iterator& operator-=(difference_type offset) { m_index -= offset; return *this; }
+		[[nodiscard]] Iterator operator-(difference_type offset) const { auto tmp = *this; return tmp -= offset; }
+		[[nodiscard]] Iterator operator-(const Iterator& other) const { return Iterator(m_container, m_index - other.m_index); }
+		[[nodiscard]] bool operator==(const Iterator& other) const { return m_container == other.m_container && m_index == other.m_index; }
+		[[nodiscard]] bool operator!=(const Iterator& other) const { return !(*this == other); }
+		[[nodiscard]] bool operator<(const Iterator& other) const { return m_index < other.m_index; }
+		[[nodiscard]] bool operator>(const Iterator& other) const { return other < *this; }
+		[[nodiscard]] bool operator<=(const Iterator& other) const { return !(other < *this); }
+		[[nodiscard]] bool operator>=(const Iterator& other) const { return !(*this < other); }
+	};
+
+	using iterator = Iterator;
+	using const_iterator = ConstIterator;
+	using reverse_iterator = std::reverse_iterator<iterator>;
+	using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
+	iterator begin() { return iterator(this, 0); }
+	const_iterator begin() const { return const_iterator(this, 0); }
+	const_iterator cbegin() const { return const_iterator(this, 0); }
+
+	iterator end() { return iterator(this, m_length); }
+	const_iterator end() const { return const_iterator(this, m_length); }
+	const_iterator cend() const { return const_iterator(this, m_length); }
+
+	reverse_iterator rbegin() { return reverse_iterator{ end() }; }
+	const_reverse_iterator rbegin() const { return const_reverse_iterator{ end() }; }
+	const_reverse_iterator crbegin() { return const_reverse_iterator{ rend() }; }
+
+	reverse_iterator rend() { return reverse_iterator{ begin() }; }
+	const_reverse_iterator rend() const { return const_reverse_iterator{ begin() }; }
+	const_reverse_iterator crend() { return const_reverse_iterator{ cbegin() }; }
+	#pragma endregion
 
 	// try to get an element by index, returns pointer to the element.
 	// if the index is out of bounds, returns null.
@@ -170,7 +277,7 @@ public:
 	}
 
 	// clear the contents of the array and make it empty
-	void Reset()
+	void Clear()
 	{
 		for (int i = 0; i < m_binCount; ++i)
 		{
@@ -234,6 +341,19 @@ public:
 			--m_length;
 		}
 	}
+
+	void Resize(int length)
+	{
+		InternalResize(length);
+		if (m_array) m_length = length;
+	}
+
+	// std-style functions
+	size_t size() const { return static_cast<size_t>(GetLength()); }
+	void resize(size_t size) { Resize(static_cast<int>(size)); }
+	void reserve(size_t size) { InternalResize(static_cast<size_t>(size)); }
+	void clear() { Clear(); }
+	[[nodiscard]] bool empty() const { return IsEmpty(); }
 
 private:
 	// Assure() makes sure that there is enough allocated space for
@@ -1405,28 +1525,6 @@ public:
 	T       Type[_Len];
 	UINT    Len;
 	UINT    Index;
-};
-
-
-struct CKeyUInt32ValueInt32
-{
-	uint32_t key;
-	int      value;
-};
-
-class CHashCXStrInt32
-{
-public:
-	ArrayClass2<ArrayClass2<CKeyUInt32ValueInt32>> HashData;
-
-	EQLIB_OBJECT ~CHashCXStrInt32();
-	EQLIB_OBJECT CHashCXStrInt32();
-	EQLIB_OBJECT bool Insert(CXStr const&, int);
-	EQLIB_OBJECT bool LookUp(CXStr const&, int&) const;
-	EQLIB_OBJECT void Reset();
-
-	// private
-	EQLIB_OBJECT int KeyToBin(CXStr const&) const;
 };
 
 //----------------------------------------------------------------------------

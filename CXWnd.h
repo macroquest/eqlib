@@ -18,6 +18,7 @@
 #include "Containers.h"
 #include "CXStr.h"
 #include "UIHelpers.h"
+#include "XMLData.h"
 
 #include <mq/base/Color.h>
 
@@ -135,67 +136,6 @@ enum eKeyboardFlags {
 
 	KeyboardFlags_Alt   = KeyboardFlags_LAlt | KeyboardFlags_RAlt,
 };
-
-// Used to identify the type of XML CParam class objects
-enum UIType
-{
-	UI_Unknown                                   = -1,
-	UI_Class                                     = 0,
-	UI_RGB                                       = 1,
-	UI_RGBText                                   = 2,   // new since the patch on Jan 08 2018 Test see 0x90EC67
-	UI_Point                                     = 3,
-	UI_Size                                      = 4,
-	UI_TextureInfo                               = 5,
-	UI_Frame                                     = 6,
-	UI_Ui2DAnimation                             = 7,
-	UI_ButtonDrawTemplate                        = 8,
-	UI_GaugeDrawTemplate                         = 9,
-	UI_SpellGemDrawTemplate                      = 10,
-	UI_FrameTemplate                             = 11,
-	UI_ScrollbarDrawTemplate                     = 12,
-	UI_WindowDrawTemplate                        = 13,
-	UI_SliderDrawTemplate                        = 14,
-	UI_ScreenPiece                               = 15,
-	UI_StaticScreenPiece                         = 16,
-	UI_StaticAnimation                           = 17,
-	UI_StaticTintedBlendAnimation                = 18,
-	UI_StaticText                                = 19,
-	UI_StaticFrame                               = 20,
-	UI_StaticHeader                              = 21,
-	UI_LayoutStrategy                            = 22,
-	UI_LayoutVertical                            = 23,
-	UI_LayoutHorizontal                          = 24,
-	UI_Control                                   = 25,
-	UI_TemplateAssoc                             = 26,
-	UI_TemplateScreen                            = 27,
-	UI_ListboxColumn                             = 28,
-	UI_Listbox                                   = 29,
-	UI_Button                                    = 30,
-	UI_Gauge                                     = 31,
-	UI_SpellGem                                  = 32,
-	UI_InvSlot                                   = 33,
-	UI_EditBox                                   = 34,
-	UI_Slider                                    = 35,
-	UI_Label                                     = 36,
-	UI_STMLBox                                   = 37,
-	UI_TreeView                                  = 38,
-	UI_Combobox                                  = 39,
-	UI_Page                                      = 40,
-	UI_TabBox                                    = 41,
-	UI_LayoutBox                                 = 42,
-	UI_HorizontalLayoutBox                       = 43,
-	UI_VerticalLayoutBox                         = 44,
-	UI_FinderBox                                 = 45,
-	UI_TileLayoutBox                             = 46,
-	UI_NamedTemplatePiece                        = 47,
-	UI_TemplateContainer                         = 48,
-	UI_Screen                                    = 49,
-	UI_SuiteDefaults                             = 50,
-	UI_Screens                                   = 51,
-	UI_TopLevelWindowList                        = 52,
-	UI_HotButton                                 = 53,
-};
-EQLIB_API const char* UITypeToString(UIType type);
 
 enum EScrollCode
 {
@@ -1041,7 +981,7 @@ public:
 	EQLIB_OBJECT int HandleKeyboardMsg(uint32_t, bool);
 	EQLIB_OBJECT int RemoveWnd(CXWnd*);
 
-	EQLIB_OBJECT CTextureFont* GetFont(int FontIndex) const
+	CTextureFont* GetFont(int FontIndex) const
 	{
 		if (FontIndex < FontsArray.GetCount())
 		{
@@ -1049,6 +989,16 @@ public:
 		}
 
 		return nullptr;
+	}
+	int GetNumFonts() const { return FontsArray.GetCount(); }
+	int GetFontIndex(CTextureFont* pFont)
+	{
+		for (int i = 0; i < FontsArray.GetCount(); ++i)
+		{
+			if (pFont == FontsArray[i])
+				return i;
+		}
+		return -1;
 	}
 
 	inline const CursorClass* GetCursorClass() const { return &CC; }
