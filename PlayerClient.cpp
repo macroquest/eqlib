@@ -186,7 +186,7 @@ FUNCTION_AT_ADDRESS(void EQPlayer::DeleteMyMissiles(), EQPlayer__DeleteMyMissile
 FUNCTION_AT_ADDRESS(void EQPlayer::ChangePosition(unsigned char), EQPlayer__ChangePosition);
 #endif
 #ifdef EQPlayer__ChangeHeight_x
-FUNCTION_AT_ADDRESS(void EQPlayer::ChangeHeight(float), EQPlayer__ChangeHeight);
+FUNCTION_AT_ADDRESS(void PlayerZoneClient::ChangeHeight(float), EQPlayer__ChangeHeight);
 #endif
 #ifdef EQPlayer__PositionOnFloor_x
 FUNCTION_AT_ADDRESS(void EQPlayer::PositionOnFloor(), EQPlayer__PositionOnFloor);

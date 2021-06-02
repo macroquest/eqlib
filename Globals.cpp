@@ -1626,6 +1626,6 @@ void InitializeGlobals()
 
 } // namespace eqlib
 
-#if __has_include("globals-private.cpp")
-#include "globals-private.cpp"
+#if __has_include("../private/EQLib-globals-private.cpp")
+#include "../private/EQLib-globals-private.cpp"
 #endif

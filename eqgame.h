@@ -18,7 +18,6 @@
 // eqgame.exe offsets
 //
 
-#define LIVE
 #define __ClientName                                              "eqgame"
 #define __ExpectedVersionDate                                     "May 14 2021"
 #define __ExpectedVersionTime                                     "14:19:57"

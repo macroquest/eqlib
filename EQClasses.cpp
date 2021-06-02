@@ -1078,7 +1078,7 @@ FUNCTION_AT_ADDRESS(unsigned int EQSwitch::RepopFrequency(), EQSwitch__RepopFreq
 FUNCTION_AT_ADDRESS(int EQSwitch::GetSwitchDamage(), EQSwitch__GetSwitchDamage);
 #endif
 #ifdef EQSwitch__ChangeState_x
-FUNCTION_AT_ADDRESS(void EQSwitch::ChangeState(unsigned char, EQPlayer*, bool), EQSwitch__ChangeState);
+FUNCTION_AT_ADDRESS(void EQSwitch::ChangeState(unsigned char, PlayerClient*, bool), EQSwitch__ChangeState);
 #endif
 #ifdef EQSwitch__SwitchWasOpened_x
 FUNCTION_AT_ADDRESS(unsigned char EQSwitch::SwitchWasOpened(int, int, EQPlayer*, bool*), EQSwitch__SwitchWasOpened);

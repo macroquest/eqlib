@@ -15,6 +15,7 @@
 #pragma once
 
 // EQLib Configuration
+#include "BuildType.h"
 
 // pull in offsets first
 #include "eqgame.h"
