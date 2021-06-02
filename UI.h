@@ -2594,13 +2594,36 @@ public:
 // CCompassWnd
 //============================================================================
 
-// size 0x180 3-10-2004
+// Size: 0x30 @ 0x575119 2021-05-14 (live)
+struct [[offsetcomments]] CompassLineSource
+{
+/*0x00*/ uint32_t     Red;
+/*0x04*/ uint32_t     Green;
+/*0x08*/ uint32_t     Blue;
+/*0x0c*/ float        Y;
+/*0x10*/ float        X;
+/*0x14*/ float        Z;
+/*0x18*/ bool         ShowLine;
+/*0x1c*/ DWORD        Unknown0x1C;
+/*0x20*/ DWORD        Unknown0x20;
+/*0x24*/ DWORD        Unknown0x24;
+/*0x28*/ DWORD        Unknown0x28;
+/*0x2c*/ DWORD        Unknown0x2C;
+/*0x30*/
+};
+
+inline namespace deprecated {
+	using COMPASSDATA DEPRECATE("Use CompassLineSource instead of COMPASSDATA") = CompassLineSource;
+	using PCOMPASSDATAINFO DEPRECATE("Use CompassLineSource* instead of PCOMPASSDATAINFO") = CompassLineSource*;
+}
+
+// size 0x2a0 @ 0x56fda5 2021-05-14 (live)
 class [[offsetcomments]] CCompassWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
 
 public:
-	EQLIB_OBJECT CCompassWnd(CXWnd*);
+	CCompassWnd(CXWnd*);
 	virtual ~CCompassWnd();
 
 	virtual int Draw() override;
@@ -2613,15 +2636,16 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x23c*/ CStaticAnimationTemplate* pStrip1;
-/*0x240*/ CStaticAnimationTemplate* pStrip2;
-	// WIP
-/*0x244*/ BOOL         DrawLine;
-/*0x248*/ DWORD        Unknown0x170;
-/*0x24c*/ DWORD        LineRed;
-/*0x250*/ DWORD        LineGreen;
-/*0x254*/ DWORD        LineBlue;
-/*0x258*/
+/*0x23c*/ CStaticAnimationTemplate*     pStrip1;
+/*0x240*/ CStaticAnimationTemplate*     pStrip2;
+/*0x244*/ int                           Unknown0x244;
+/*0x248*/ int                           offset;
+/*0x24c*/ int                           timestamp;
+/*0x250*/ double                        speed;
+/*0x258*/ int                           timer;
+/*0x25c*/ CompassLineSource             lineAdventure;
+/*0x28c*/ ArrayClass<CompassLineSource*> lineData;
+/*0x29c*/
 };
 
 inline namespace deprecated {

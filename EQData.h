@@ -1318,4 +1318,7 @@ struct [[offsetcomments]] EQLogin
 
 constexpr uint32_t EQ_ASSIST          = 0x6828;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
+// FIXME: Find a place for this
+constexpr uint32_t EQ_LoadingS__ArraySize = 0x5a;      // EQ_LoadingS__SetProgressBar_x+76
+
 } // namespace eqlib
