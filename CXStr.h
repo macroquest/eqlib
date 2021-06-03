@@ -1544,6 +1544,11 @@ public:
 		return true;
 	}
 
+	// Compatibility shim for old code that used PCXSTR and .Ptr
+	CXStr* _get_ptr() { return this; }
+	DEPRECATE("CXStr: Using .Ptr is deprecated and no longer necessary to use CXStr")
+		__declspec(property(get = _get_ptr)) CXStr* Ptr;
+
 private:
 	mutable CStrRep* m_data = nullptr;
 

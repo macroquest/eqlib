@@ -910,7 +910,6 @@ public:
 	EQLIB_OBJECT CXRect GetItemRect(int, int) const;
 	EQLIB_OBJECT CXRect GetSeparatorRect(int) const;
 	EQLIB_OBJECT CXStr GetColumnLabel(int) const;
-	EQLIB_OBJECT CXStr GetItemText(int index, int subIndex = 0) const;
 	EQLIB_OBJECT int AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width, uint32_t Flags, CXStr Tooltip = "",
 		uint32_t Type = CellTypeTextIcon, CTextureAnimation* pTASelected = nullptr, CTextureAnimation* pTAMouseOver = nullptr,
 		bool bResizeable = false, CXSize TextureSize = {}, CXPoint TextureOffset = {});
@@ -970,6 +969,14 @@ public:
 
 	// True if the list contains a row the text in the first column matches predicate
 	EQLIB_OBJECT bool Contains(const std::function<bool(const CXStr)>& predicate);
+
+	EQLIB_OBJECT CXStr GetItemText(int index, int subIndex = 0) const;
+
+	DEPRECATE("GetItemText: Passing in a pointer to CXStr for GetItemText is deprecated. It should return CXStr instead.")
+	void GetItemText(CXStr* pStr, int index, int subIndex = 0) const
+	{
+		*pStr = GetItemText(index, subIndex);
+	}
 
 	//----------------------------------------------------------------------------
 

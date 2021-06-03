@@ -954,7 +954,7 @@ public:
 /*0x0c9*/ bool                bPoofOnDeath;
 /*0x0cc*/ int                 Weight;
 /*0x0d0*/ bool                NoRent;                            // 0=temp, 1=default
-/*0x0d1*/ bool                NoDrop;                            // 0=no drop, 1=can drop
+/*0x0d1*/ bool                IsDroppable;                       // 0=no drop, 1=can drop
 /*0x0d2*/ bool                Attuneable;
 /*0x0d3*/ bool                Heirloom;
 /*0x0d4*/ bool                Collectible;
@@ -1129,6 +1129,8 @@ public:
 
 	inline uint32_t get_SkillMask(int idx) { return SpellData.SkillMask[idx]; }
 	__declspec(property(get = get_SkillMask)) uint32_t SkillMask[];
+
+	ALT_MEMBER_GETTER_DEPRECATED(bool, IsDroppable, NoDrop, "ItemDefinition.NoDrop is deprecated. Use IsDroppable instead.");
 };
 
 using ITEMINFO = ItemDefinition;

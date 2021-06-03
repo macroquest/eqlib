@@ -1602,10 +1602,10 @@ class DatabaseStringTable
 public:
 	EQLIB_OBJECT const char* GetString(int id, eDatabaseStringType type, bool* found = nullptr);
 
-	DEPRECATE("DatabaseStringTable::GetString: Use eDatabaseStringType enum for the 2nd parameter")
-	const char* GetString(int id, int type)
+	DEPRECATE("DatabaseStringTable::GetString: Use eDatabaseStringType enum for the 2nd parameter. GetString now returns const char*")
+	char* GetString(int id, int type, bool* found = nullptr)
 	{
-		return GetString(id, static_cast<eDatabaseStringType>(type), nullptr);
+		return (char*)GetString(id, static_cast<eDatabaseStringType>(type), found);
 	}
 };
 using CDBStr = DatabaseStringTable;
