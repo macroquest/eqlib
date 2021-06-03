@@ -360,7 +360,8 @@ public:
 	bool IsClientRectDirty() const { return bClientRectChanged; }
 	bool IsClientClipRectDirty() const { return bClientClipRectChanged; }
 	bool IsScreenClipRectDirty() const { return bScreenClipRectChanged; }
-	DEPRECATE("Use GetWindowText() instead of CGetWindowText") CXStr CGetWindowText() const { return GetWindowText(); }
+	DEPRECATE("CGetWindowText: Use GetWindowText() instead") CXStr CGetWindowText() const { return GetWindowText(); }
+	DEPRECATE("CSetWindowText: Use SetWindowText() instead") void CSetWindowText(const CXStr& text) { SetWindowText(text); }
 
 public:
 	// functions we have offsets for

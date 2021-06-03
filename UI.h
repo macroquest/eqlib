@@ -298,7 +298,7 @@ public:
 /*0x1f0*/ int          MouseButtonState;
 /*0x1f4*/ bool         bPicture;
 /*0x1f8*/ CRadioGroup* pGroup;
-/*0x1fc*/ bool         bChecked;                 // Checked
+/*0x1fc*/ bool         Checked;                  // Checked
 /*0x1fd*/ bool         bMouseOverLastFrame;
 /*0x200*/ CXPoint      DecalOffset;
 /*0x208*/ CXSize       DecalSize;
@@ -321,6 +321,8 @@ public:
 /*0x283*/ bool         bIsDrawLasso;
 /*0x284*/ uint32_t     ButtonStyle;              // tbd
 /*0x288*/
+
+	ALT_MEMBER_GETTER(bool, Checked, bChecked);
 
 	struct VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
@@ -5647,6 +5649,9 @@ public:
 
 	inline ItemContainer& GetTradeItems() { return TradeItems; }
 	// TODO: Add aliases
+
+	ALT_MEMBER_GETTER(bool, bHisReadyTrade, HisTradeReady);
+	ALT_MEMBER_GETTER(bool, bMyReadyTrade, MyTradeReady);
 };
 
 inline namespace deprecated {

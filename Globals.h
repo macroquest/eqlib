@@ -43,9 +43,9 @@ EQLIB_VAR uintptr_t Kernel32BaseAddress;
 // These macros are used for statically building offsets. If using dynamic offset generation
 // with the pattern matching, don't use the macro.
 
-#define INITIALIZE_EQGAME_OFFSET(var) DWORD var = (((DWORD)var##_x - 0x400000) + EQGameBaseAddress)
-#define INITIALIZE_EQGRAPHICS_OFFSET(var) DWORD var = (EQGraphicsBaseAddress ? ((DWORD)var##_x - 0x10000000) + EQGraphicsBaseAddress : 0)
-#define INITIALIZE_EQMAIN_OFFSET(var) DWORD var = (EQMainBaseAddress ? ((DWORD)var##_x - 0x10000000) + EQMainBaseAddress : 0)
+#define INITIALIZE_EQGAME_OFFSET(var) DWORD var = (((DWORD)var##_x - 0x400000) + eqlib::EQGameBaseAddress)
+#define INITIALIZE_EQGRAPHICS_OFFSET(var) DWORD var = (eqlib::EQGraphicsBaseAddress ? ((DWORD)var##_x - 0x10000000) + eqlib::EQGraphicsBaseAddress : 0)
+#define INITIALIZE_EQMAIN_OFFSET(var) DWORD var = (eqlib::EQMainBaseAddress ? ((DWORD)var##_x - 0x10000000) + eqlib::EQMainBaseAddress : 0)
 
 // These functions are used for dynamically building offsets.
 

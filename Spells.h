@@ -842,6 +842,49 @@ enum eSpellRecourseType : int
 	SpellRecourseType_Once,                 // Recourse once, if spell hits
 };
 
+enum eSpellTargetType : uint8_t
+{
+	TargetType_None = 0,
+	TargetType_LineOfSight = 1,
+	TargetType_AEPC_v1 = 2,                 // players in area around caster
+	TargetType_Group_v1 = 3,                // group members around caster
+	TargetType_PBAE = 4,                    // area around caster
+	TargetType_Single = 5,                  // current target
+	TargetType_Self = 6,                    // targets self only
+	TargetType_TargetArea = 8,              // radius around target
+	TargetType_TargetAnimal = 9,
+	TargetType_TargetUndead = 10,
+	TargetType_TargetSummoned = 11,
+	TargetType_TargetDrain = 13,
+	TargetType_Pet = 14,                    // caster's pet
+	TargetType_TargetCorpse = 15,
+	TargetType_TargetPlant = 16,
+	TargetType_TargetGiants = 17,
+	TargetType_TargetDragons = 18,
+	TargetType_TargetColdain = 19,
+	TargetType_TargetAEDrain = 20,
+	TargetType_TargetAEUndead = 24,
+	TargetType_TargetAESummoned = 25,
+	TargetType_HateList = 32,               // all players on hatelist in range
+	TargetType_HateList_All = 33,           // all players on hatelist regardless of range
+	TargetType_TargetCursed = 34,
+	TargetType_TargetMuramite = 35,
+	TargetType_CasterAreaPC = 36,
+	TargetType_CasterAreaNPC = 37,
+	TargetType_Pet_v2 = 38,                 // targeted pet
+	TargetType_TargetPC = 39,               // targeted player
+	TargetType_AEPC_v2 = 40,                // area beneficial players
+	TargetType_Group_v2 = 41,               // area grouped players
+	TargetType_DirectionalCone = 42,        // projected cone in front of player
+	TargetType_SingleGrouped = 43,          // single target grouped
+	TargetType_Beam = 44,
+	TargetType_FreeTarget = 45,             // player picks a point in space
+	TargetType_TargetOfTarget = 46,
+	TargetType_PetOwner = 47,               // cast on pet's owner
+	TargetType_AreaDetrimental = 50,        // targets enemies of caster
+	TargetType_TargetBeneficial = 52,
+};
+
 constexpr int MAX_SPELL_REAGENTS = 4;
 
 struct [[offsetcomments]] SpellAffectData
@@ -1042,7 +1085,7 @@ public:
 /*0x186*/ uint8_t              LightType = 0;
 /*0x187*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
 /*0x188*/ uint8_t              Resist = 0;                    // see   4B0493 in apr 16 2018 exe        //0=un 1=mr 2=fr 3=cr 4=pr 5=dr 6=chromatic 7=prismatic 8=physical(skills,etc) 9=corruption
-/*0x189*/ uint8_t              TargetType = 0;                // 03=Group v1, 04=PB AE, 05=Single, 06=Self, 08=Targeted AE, 0e=Pet, 28=AE PC v2, 29=Group v2, 2a=Directional
+/*0x189*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
 /*0x18a*/ uint8_t              CastDifficulty = 0;
 /*0x18b*/ uint8_t              Skill = 0;
 /*0x18c*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any

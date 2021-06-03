@@ -1138,7 +1138,7 @@ public:
 
 	// Dynamic zones share the lower 0x7fff bits with the base zone. This is also
 	// called the geometry id but we'll just refer to it as the base zone id.
-	inline EQZoneIndex GetZoneBaseId(EQZoneIndex zoneId) const
+	static inline EQZoneIndex GetZoneBaseId(EQZoneIndex zoneId)
 	{
 		if (zoneId < MAX_ZONES)
 			return zoneId;

@@ -459,17 +459,16 @@ using PAAEFFECTDATA = AAEFFECTDATA*;
 class [[offsetcomments]] CAltAbilityData
 {
 public:
-/*0x00*/ DWORD         Index;
+/*0x00*/ int           Index;
 /*0x04*/ bool          bShowInAbilityWindow;               // [0] = enabled flag? everything 1
-/*0x05*/ BYTE          bShowInAbilityWindowdPadding[0x3];
-/*0x08*/ DWORD         nShortName;
-/*0x0c*/ DWORD         nShorterName;
-/*0x10*/ DWORD         nName;                              // now a database number
-/*0x14*/ DWORD         nDesc;                              // now a database number
-/*0x18*/ DWORD         MinLevel;                           // LevelNeeded
-/*0x1c*/ DWORD         Cost;                               // Initial Cost or cost the last time you bought a level of it
-/*0x20*/ DWORD         ID;                                 // ID of the AA group (/alt activate id)
-/*0x24*/ DWORD         CurrentRank;                        // GroupLevel the current rank of this AA first rank is 1 etc
+/*0x08*/ int           nShortName;
+/*0x0c*/ int           nShorterName;
+/*0x10*/ int           nName;                              // now a database number
+/*0x14*/ int           nDesc;                              // now a database number
+/*0x18*/ int           MinLevel;                           // LevelNeeded
+/*0x1c*/ int           Cost;                               // Initial Cost or cost the last time you bought a level of it
+/*0x20*/ int           ID;                                 // ID of the AA group (/alt activate id)
+/*0x24*/ int           CurrentRank;                        // GroupLevel the current rank of this AA first rank is 1 etc
 /*0x28*/ DWORD*        RequiredGroups;                     // array of required groups
 /*0x2c*/ DWORD*        RequiredGroupLevels;                // array of required group ID;
 /*0x30*/ DWORD         Unknown0x30[2];                     // ArrayClass stuff

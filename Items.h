@@ -1047,7 +1047,7 @@ public:
 /*0x5c0*/ int                 DmgBonusValue;              // MinDamageMod;
 /*0x5c4*/ int                 CharmFileID;
 /*0x5c8*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
-/*0x5cc*/ uint8_t             Combine;                    // ContainerType
+/*0x5cc*/ uint8_t             ContainerType;
 /*0x5cd*/ uint8_t             Slots;
 /*0x5ce*/ uint8_t             SizeCapacity;
 /*0x5cf*/ uint8_t             WeightReduction;
@@ -1131,6 +1131,7 @@ public:
 	__declspec(property(get = get_SkillMask)) uint32_t SkillMask[];
 
 	ALT_MEMBER_GETTER_DEPRECATED(bool, IsDroppable, NoDrop, "ItemDefinition.NoDrop is deprecated. Use IsDroppable instead.");
+	ALT_MEMBER_GETTER(uint8_t, ContainerType, Combine);
 };
 
 using ITEMINFO = ItemDefinition;

@@ -131,7 +131,7 @@ ItemDefinition::ItemDefinition()
 	bPoofOnDeath = false;
 	Weight = 0;
 	NoRent = false;
-	NoDrop = false;
+	IsDroppable = false;
 	Attuneable = false;
 	Heirloom = false;
 	Collectible = false;
@@ -230,7 +230,7 @@ ItemDefinition::ItemDefinition()
 	DmgBonusValue = 0;
 	CharmFileID = 0;
 	FoodDuration = 0;
-	Combine = 0;
+	ContainerType = 0;
 	Slots = 0;
 	SizeCapacity = 0;
 	WeightReduction = 0;
