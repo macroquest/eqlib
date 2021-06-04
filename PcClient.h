@@ -1834,6 +1834,16 @@ public:
 	DEPRECATE("NumSharedSlots is deprecated. Use SharedBankItems.GetSize() instead.")
 	inline int get_NumSharedSlots() const { return SharedBankItems.GetSize(); }
 	__declspec(property(get = get_NumSharedSlots)) int NumSharedSlots;
+
+	// This is used a lot, so its provided here for convenience. If you need more than this,
+	// use the Group object directly.
+	CGroupMember* GetGroupMember(int groupMember)
+	{
+		if (!Group)
+			return nullptr;
+
+		return Group->GetGroupMember(groupMember);
+	}
 };
 
 inline namespace deprecated {

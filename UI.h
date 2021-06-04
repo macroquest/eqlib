@@ -322,7 +322,7 @@ public:
 /*0x284*/ uint32_t     ButtonStyle;              // tbd
 /*0x288*/
 
-	ALT_MEMBER_GETTER(bool, Checked, bChecked);
+	ALT_MEMBER_ALIAS(bool, Checked, bChecked);
 
 	struct VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{

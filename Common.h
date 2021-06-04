@@ -133,6 +133,11 @@
     type& getter_ ## name() { return (*reinterpret_cast<type*>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type name;
 
+#define ALT_MEMBER_ALIAS(type, orig, name) \
+    type& getter_ ## name() { return orig; } \
+    void setter_ ## name(const type& v) { orig = v; } \
+    __declspec(property(get=getter_ ## name, put=setter_ ## name)) type name;
+
 #define ALT_MEMBER_GETTER_ARRAY(type, size, orig, name) \
     type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type (&name)[size];
