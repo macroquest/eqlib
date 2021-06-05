@@ -918,6 +918,10 @@ public:
 	EQLIB_OBJECT int AddColumn(const CXStr& Label, int Width, uint32_t Flags, uint32_t Type = CellTypeTextIcon);
 	EQLIB_OBJECT int AddLine(SListWndLine*);
 	EQLIB_OBJECT int AddString(const CXStr& Str, COLORREF Color, uint64_t Data = 0, const CTextureAnimation* pTa = nullptr, const char* TooltipStr = nullptr);
+	int AddString(const CXStr& str, mq::MQColor Color, uint64_t Data = 0, const CTextureAnimation* pTA = nullptr, const char* TooltipStr = nullptr)
+	{
+		return AddString(str, Color.ToARGB(), Data, pTA, TooltipStr);
+	}
 	EQLIB_OBJECT int AddString(const char* Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr = nullptr);
 	EQLIB_OBJECT int GetColumnJustification(int) const;
 	EQLIB_OBJECT int GetColumnMinWidth(int) const;
@@ -949,6 +953,7 @@ public:
 	EQLIB_OBJECT void SetColumnWidth(int, int);
 	EQLIB_OBJECT void SetCurSel(int);
 	EQLIB_OBJECT void SetItemColor(int, int, unsigned long);
+	void SetItemColor(int row, int col, mq::MQColor color) { SetItemColor(row, col, color.ToARGB()); }
 	EQLIB_OBJECT void SetItemData(int ID, uint64_t Data);
 	EQLIB_OBJECT void SetItemText(int ID, int SubID, const CXStr& Text);
 	EQLIB_OBJECT void ShiftColumnSeparator(int, int);
@@ -5408,7 +5413,7 @@ public:
 /*0x248*/ CTextureAnimation* pBuffBypassBackground;
 /*0x24c*/ CTextureAnimation* ptaBuffIcons[NUM_BUFF_SLOTS];
 /*0x3d0*/ CButtonWnd*        pTargetBuff[NUM_BUFF_SLOTS];
-/*0x554*/ int                BuffSpellID[NUM_BUFF_SLOTS]; // 0xffffffff if no buff
+/*0x554*/ int                BuffSpellID[NUM_BUFF_SLOTS]; // -1 if no buff
 /*0x6d8*/ int                BuffTimer[NUM_BUFF_SLOTS];
 /*0x85c*/ int                LastBuffReceivedTime;
 /*0x860*/ int                Timer;
