@@ -179,17 +179,31 @@ bool GetItemLink(ItemClient* pItem, char* Buffer, size_t BufferSize, bool Clicka
 	{
 		if (Clickable)
 		{
-			sprintf_s(Buffer, BufferSize, "%c%d%s%s%c", ITEM_TAG_CHAR, ETAG_ITEM, hash, pItem->GetName(), ITEM_TAG_CHAR);
+			snprintf(Buffer, BufferSize, "%c%d%s%s%c", ITEM_TAG_CHAR, ETAG_ITEM, hash, pItem->GetName(), ITEM_TAG_CHAR);
 		}
 		else
 		{
-			sprintf_s(Buffer, BufferSize, "%d%s%s", ETAG_ITEM, hash, pItem->GetName());
+			snprintf(Buffer, BufferSize, "%d%s%s", ETAG_ITEM, hash, pItem->GetName());
 		}
 
 		retVal = true;
 	}
 
 	return retVal;
+}
+
+void FormatItemLink(char* Buffer, size_t BufferSize, ItemClient* pItem)
+{
+	char itemTagString[512] = { 0 };
+	pItem->CreateItemTagString(itemTagString, 512, true);
+
+	snprintf(Buffer, BufferSize, "%c%d%s%s%c", ITEM_TAG_CHAR, ETAG_ITEM, itemTagString, pItem->GetName(), ITEM_TAG_CHAR);
+}
+
+void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const char* spellNameOverride /* = nullptr */)
+{
+	snprintf(Buffer, BufferSize, "%c%d3^%d^'%s%c", ITEM_TAG_CHAR, ETAG_SPELL, Spell->ID,
+		spellNameOverride && spellNameOverride[0] ? spellNameOverride : Spell->Name, ITEM_TAG_CHAR);
 }
 
 bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo)

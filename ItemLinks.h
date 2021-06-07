@@ -50,7 +50,8 @@ struct TextTagInfo
 };
 
 //----------------------------------------------------------------------------
-// ExtractLinks:
+// Link Parsing
+
 // Finds all linked tags in the provided message and returns them through the provided buffer.
 // These results are only valid for as long as the input string is valid. That is, the tags
 // returned are simply references into the source string.
@@ -67,14 +68,6 @@ constexpr const int MAX_EXTRACT_LINKS = 11;
 // is only valid for as long as the input string is valid.
 EQLIB_OBJECT TextTagInfo ExtractLink(std::string_view inputString);
 
-//----------------------------------------------------------------------------
-// Item Links
-
-// Create an item link from the given item.
-EQLIB_API bool GetItemLink(ItemClient* Item, char* Buffer, size_t BufferSize, bool Clickable = true);
-
-template <size_t Size>
-inline bool GetItemLink(ItemClient* Item, char(&Buffer)[Size], bool Clickable = true) { return GetItemLink(Item, Buffer, Size, Clickable); }
 
 struct ItemLinkInfo
 {
@@ -104,13 +97,25 @@ struct ItemLinkInfo
 // is provided, then the item name will be absent.
 EQLIB_API bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo);
 
+// Strips all links from the provided mutable text buffer. If you want to use this on a
+// immutable buffer, use CleanItemTags instead. Returns the same buffer back.
+EQLIB_API char* StripTextLinks(char* szText);
+
 // Executes a text link. This simulates what would happen if a user were to click the
 // link in the chat window. Returns false if the link was not activated.
 EQLIB_API bool ExecuteTextLink(const TextTagInfo& link);
 
-// Strips all links from the provided mutable text buffer. If you want to use this on a
-// immutable buffer, use CleanItemTags instead. Returns the same buffer back.
-EQLIB_API char* StripTextLinks(char* szText);
+
+//----------------------------------------------------------------------------
+// Link Formatting
+
+// Create an item link from the given item.
+EQLIB_API void FormatItemLink(char* Buffer, size_t BufferSize, ItemClient* Item);
+
+// Create a spell link for the given spell, with optional spell name override. Spells on items often have
+// spell name overrides that changes the display name of the spell.
+EQLIB_API void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const char* spellNameOverride = nullptr);
+
 
 //----------------------------------------------------------------------------
 // EQ Functions
@@ -123,6 +128,15 @@ EQLIB_OBJECT CXStr CleanItemTags(const CXStr& In, bool bKeepSpam = false);
 // Converts raw item links in the string into STML tags that can be displayed in an STML window.
 EQLIB_OBJECT void ConvertItemTags(CXStr& str, bool canDisplay = true);
 
+
+//----------------------------------------------------------------------------
+// Deprecated functions
+
+// Formats an item link into the provided buffer. Prefer using FormatItemLink instead.
+EQLIB_API bool GetItemLink(ItemClient* Item, char* Buffer, size_t BufferSize, bool Clickable = true);
+
+template <size_t Size>
+inline bool GetItemLink(ItemClient* Item, char(&Buffer)[Size], bool Clickable = true) { return GetItemLink(Item, Buffer, Size, Clickable); }
 
 
 } // namespace eqlib
