@@ -21,12 +21,6 @@ namespace eqlib {
 
 class ItemClient;
 
-// Strips raw item links from the input text. Returns new string with the links stripped.
-EQLIB_OBJECT CXStr CleanItemTags(const CXStr& In, bool bKeepSpam = false);
-
-// Converts raw item links in the string into STML tags that can be displayed in an STML window.
-EQLIB_OBJECT void ConvertItemTags(CXStr& str, bool canDisplay = true);
-
 // Enumeration of different types of item tags
 enum ETagCodes
 {
@@ -67,7 +61,7 @@ struct TextTagInfo
 EQLIB_OBJECT size_t ExtractLinks(std::string_view str, TextTagInfo* outTagInfo, size_t numTagInfos);
 
 // The max number of links that are possible to find in a single message.
-constexpr int MAX_EXTRACT_LINKS = 11;
+constexpr const int MAX_EXTRACT_LINKS = 11;
 
 // Returns the first link found in the given string. This information references the input string and
 // is only valid for as long as the input string is valid.
@@ -113,6 +107,23 @@ EQLIB_API bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo);
 // Executes a text link. This simulates what would happen if a user were to click the
 // link in the chat window. Returns false if the link was not activated.
 EQLIB_API bool ExecuteTextLink(const TextTagInfo& link);
+
+// Strips all links from the provided mutable text buffer. If you want to use this on a
+// immutable buffer, use CleanItemTags instead. Returns the same buffer back.
+EQLIB_API char* StripTextLinks(char* szText);
+
+//----------------------------------------------------------------------------
+// EQ Functions
+// These are the imported everquest functions that we use for manipulating item links in text.
+// It might be easier to use the functions above.
+
+// Strips raw item links from the input text. Returns new string with the links stripped.
+EQLIB_OBJECT CXStr CleanItemTags(const CXStr& In, bool bKeepSpam = false);
+
+// Converts raw item links in the string into STML tags that can be displayed in an STML window.
+EQLIB_OBJECT void ConvertItemTags(CXStr& str, bool canDisplay = true);
+
+
 
 } // namespace eqlib
 

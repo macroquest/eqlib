@@ -286,4 +286,58 @@ bool ExecuteTextLink(const TextTagInfo& link)
 	return false;
 }
 
+char* StripTextLinks(char* szText)
+{
+	TextTagInfo itemTags[MAX_EXTRACT_LINKS];
+	size_t linkCount = ExtractLinks(szText, itemTags, MAX_EXTRACT_LINKS);
+	if (linkCount == 0) // nothing to strip
+		return szText;
+
+	int stringLength = strlen(szText);
+	int pos = 0;                   // source copy position
+	int dest = 0;                  // dest copy position
+
+	// holds pointer to the end of the previous link.
+	const char* prevLinkEnd = szText;
+
+	// start at the first link and go from there
+	for (size_t i = 0; i < linkCount; ++i)
+	{
+		TextTagInfo& tagInfo = itemTags[i];
+
+		// position of the link
+		const char* erasePos = tagInfo.link.data();
+		size_t skipAmount = tagInfo.link.size();
+		prevLinkEnd = erasePos + skipAmount;
+
+		int forwardDistance = (erasePos - szText) - pos;
+
+		// if we have to move our cursor forward, do it now.
+		if (forwardDistance > 0)
+		{
+			// the cursor don't align, so copy bytes from source to dest.
+			if (pos != dest)
+			{
+				memcpy(szText + dest, szText + pos, forwardDistance);
+			}
+
+			dest += forwardDistance;
+			pos += forwardDistance;
+		}
+
+		size_t copySize = tagInfo.text.size();
+
+		// copy text from link.
+		memcpy(szText + dest, tagInfo.text.data(), copySize);
+
+		dest += copySize;
+		pos += skipAmount;
+	}
+
+	// Copy anything else after the last link. This will also null terminate.
+	strcpy_s(szText + dest, stringLength + 1, prevLinkEnd);
+
+	return szText;
+}
+
 } // namespace eqlib
