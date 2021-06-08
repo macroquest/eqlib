@@ -565,6 +565,12 @@ enum eEQSPA
 	SPA_ATTACK_ACCURACY_MAX                 = 518,
 	SPA_LUCK_AMT                            = 519,
 	SPA_LUCK_PCT                            = 520,
+	SPA_ENDURANCE_ABSORB_PCT_DMG            = 521,
+	SPA_INSTANT_MANA_PCT                    = 522,
+	SPA_INSTANT_ENDURANCE_PCT               = 523,
+	SPA_DURATION_HP_PCT                     = 524,
+	SPA_DURATION_MANA_PCT                   = 525,
+	SPA_DURATION_ENDURANCE_PCT              = 526,
 
 	// I renamed these, so these are here for backwards compatibility
 	SPA_MOVEMENTRATE DEPRECATE("Use SPA_MOVEMENT_RATE instead") = SPA_MOVEMENT_RATE,
