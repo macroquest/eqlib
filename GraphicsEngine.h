@@ -23,6 +23,7 @@
 
 namespace eqlib {
 
+struct ActorTagInfo;
 class ActorTagManager;
 
 class CDisplay;
@@ -352,6 +353,23 @@ public:
 /*0x1b4*/ bool        bNewArmorDisabled;
 /*0x1b8*/ CActorApplicationData* pAppData;
 /*0x1bc*/
+};
+
+//============================================================================
+// ActorTagManager
+//============================================================================
+
+struct ActorTagInfo
+{
+	uint32_t actorTagID;
+	uint32_t type;
+	int skill;
+};
+
+class ActorTagManager
+{
+public:
+	ActorTagInfo* GetInfo(uint32_t actorTagID);
 };
 
 //============================================================================

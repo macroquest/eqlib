@@ -1149,7 +1149,7 @@ public:
 	ALT_MEMBER_GETTER_DEPRECATED(DWORD, mercenarySpawnId, MercSpawnId,
 		"Use mercenarySpawnId instead of MercSpawnId");
 	ALT_VMEMBER_GETTER_DEPRECATED(int, mercenaryStanceList.GetLength(), NumStances,
-		"Use mercenaryStanceInfo.GetLength() instead of NumStances");
+		"Use mercenaryStanceList.GetLength() instead of NumStances");
 	ALT_VMEMBER_GETTER_DEPRECATED(MercenaryStanceInfo**, &mercenaryStanceList[0], pMercStanceData,
 		"Use mercenaryStanceList instead of pMercStanceData");
 };

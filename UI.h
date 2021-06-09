@@ -4533,7 +4533,6 @@ public:
 
 	ALT_MEMBER_GETTER_ARRAY(char, 0x80, szZoneName, shortzonename);
 
-private:
 	PMAPLINE getLines() { return MapView.pLines; }
 	PMAPLABEL getLabels() { return MapView.pLabels; }
 };
