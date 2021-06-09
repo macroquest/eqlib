@@ -250,8 +250,18 @@ struct [[offsetcomments]] ARMOR
 /*0x14*/
 };
 
+struct [[offsetcomments]] ArmorProperties
+{
+/*0x00*/ uint32_t type = 0;
+/*0x04*/ uint32_t variation = 0;
+/*0x08*/ uint32_t material = 0;
+/*0x0c*/ uint32_t newArmorID = 0;
+/*0x10*/ uint32_t newArmorType = 0;
+/*0x14*/
+};
+
 inline namespace deprecated {
-	using PARMOR DEPRECATE("Use ARMOR* instead of PARMOR") = ARMOR*;
+	using PARMOR DEPRECATE("Use ArmorProperties* instead of PARMOR") = ARMOR*;
 }
 
 struct [[offsetcomments]] EQUIPMENT
@@ -296,11 +306,11 @@ public:
 /*0x00d*/ uint8_t     HairStyle;
 /*0x00e*/ uint8_t     FacialHair;
 /*0x010*/ int         Race;
-/*0x014*/ int         Race2;
+/*0x014*/ int         RaceOverride;
 /*0x018*/ int         Class;
 /*0x01c*/ uint8_t     Gender;
 /*0x01d*/ char        ActorDef[0x40];
-/*0x060*/ unsigned intArmorColor[0x9];
+/*0x060*/ uint32_t    ArmorColor[9];
 /*0x084*/ bool        bShowHelm;
 /*0x088*/ int         Heritage;                 // drakkin only face setting
 /*0x08c*/ int         Tattoo;                   // drakkin only face setting

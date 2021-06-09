@@ -182,6 +182,58 @@ inline namespace deprecated {
 	using PFELLOWSHIPINFO DEPRECATE("Use SFellowship* instead of PFELLOWSHIPINFO") = SFellowship*;
 }
 
+// Size: 0x150, 0x69B040 @ 2021-05-14
+struct chngForm {
+/*0x000*/ int             spawnID;
+/*0x004*/ char            name[EQ_MAX_NAME];
+/*0x044*/ int             race;                // GetRace()
+/*0x048*/ char            gender;              // mActorClient.Gender
+/*0x049*/ char            textureType;         // mActorClient.TextureType
+/*0x04a*/ char            armorVariation;      // mActorClient.Variation
+/*0x04b*/ char            armorMaterial;       // mActorClient.Material
+/*0x04c*/ char            head;                // mActorClient.HeadType
+/*0x050*/ int             faceStyle;           // mActorClient.FaceStyle
+/*0x054*/ uint8_t         hairStyle;           // mActorClient.HairStyle
+/*0x055*/ uint8_t         hairColor;           // mActorClient.HairColor
+/*0x056*/ uint8_t         facialHair;          // mActorClient.FacialHair
+/*0x057*/ uint8_t         facialHairColor;     // mActorClient.FacialHairColor
+/*0x058*/ float           height;              // Height
+/*0x05c*/ uint32_t        npcTintIndex;        // NpcTintIndex
+/*0x060*/ bool            keepArmorProperties;
+/*0x064*/ ArmorProperties armorProperties[9];  // mActorClient.ActorEquipment
+/*0x118*/ int             armorTint[9];        // mActorClient.ArmorColor
+/*0x13c*/ int             Class;               // mActorClient.Class
+/*0x144*/ int             heritage;            // mActorClient.Heritage
+/*0x148*/ int             tattoo;              // mActorClient.Tattoo
+/*0x14c*/ int             facialAttachment;    // mActorClient.Details
+/*0x150*/
+
+	chngForm()
+		: spawnID(0)
+		, race(-1)
+		, gender(-1)
+		, textureType(-1)
+		, armorVariation(-1)
+		, armorMaterial(-1)
+		, head(-1)
+		, faceStyle(-1)
+		, hairStyle(255)
+		, hairColor(255)
+		, facialHair(255)
+		, facialHairColor(255)
+		, height(-1.0f)
+		, npcTintIndex(0)
+		, keepArmorProperties(false)
+		, Class(-1)
+		, heritage(0)
+		, tattoo(-1)
+		, facialAttachment(-1)
+	{
+		memset(armorTint, 0, sizeof(armorTint));
+		memset(name, 0, sizeof(name));
+	}
+};
+
 // size 0x58 see 442783 in eqgame.exe 2017 04 11 test
 struct [[offsetcomments]] LaunchSpellData
 {
@@ -795,7 +847,7 @@ public:
 	PlayerClient& operator=(const PlayerClient&) = delete;
 
 	inline int GetClass() const { return mActorClient.Class; }
-	inline int GetRace() const { return mActorClient.Race; }
+	inline int GetRace() const { return mActorClient.RaceOverride ? mActorClient.RaceOverride : mActorClient.Race; }
 	inline BYTE GetCharacterType() const { return Type; }
 	inline unsigned int GetId() const { return SpawnID; }
 	inline CharacterZoneClient* GetCharacter() const { return (CharacterZoneClient*)GetPcClient(); }
@@ -833,7 +885,7 @@ public:
 	EQLIB_OBJECT void CleanUpTarget();
 	EQLIB_OBJECT void Dismount();
 	EQLIB_OBJECT void DisplayWeaponsAndArmor();
-	EQLIB_OBJECT void do_change_form(chngForm*);
+	EQLIB_OBJECT void do_change_form(chngForm*, bool = false, bool = false);
 	EQLIB_OBJECT void DoCamAi();
 	EQLIB_OBJECT void DoClassRandomAnimation();
 	EQLIB_OBJECT void DoItemSlot(int);

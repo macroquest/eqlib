@@ -62,8 +62,8 @@ FUNCTION_AT_ADDRESS(PlayerClient::~PlayerClient(), EQPlayer__dEQPlayer);
 #ifdef EQPlayer__ResetVariables_x
 FUNCTION_AT_ADDRESS(void EQPlayer::ResetVariables(), EQPlayer__ResetVariables);
 #endif
-#ifdef EQPlayer__do_change_form_x
-FUNCTION_AT_ADDRESS(void EQPlayer::do_change_form(struct chngForm*), EQPlayer__do_change_form);
+#ifdef PlayerClient__do_change_form_x
+FUNCTION_AT_ADDRESS(void PlayerClient::do_change_form(chngForm*, bool, bool), PlayerClient__do_change_form);
 #endif
 #ifdef EQPlayer__DisplayWeaponsAndArmor_x
 FUNCTION_AT_ADDRESS(void EQPlayer::DisplayWeaponsAndArmor(), EQPlayer__DisplayWeaponsAndArmor);

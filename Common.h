@@ -37,6 +37,10 @@
 #undef FindWindow
 #undef GetClassName
 
+#ifdef IsMinimized
+#undef IsMinimized
+#endif
+
 #include <mq/base/Deprecation.h>
 
 #include <cstdlib>

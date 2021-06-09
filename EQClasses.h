@@ -107,7 +107,7 @@ class [[offsetcomments]] EQGroundItem
 public:
 /*0x00*/ EQGroundItem* pPrev;
 /*0x04*/ EQGroundItem* pNext;
-/*0x08*/ ItemPtr       pContents;
+/*0x08*/ ItemPtr       Item;
 /*0x0c*/ DWORD         DropID;                   // unique id
 /*0x10*/ DWORD         ZoneID;
 /*0x14*/ DWORD         DropSubID;                // well zonefile id, but yeah...
@@ -124,9 +124,10 @@ public:
 /*0x7c*/ int           Weight;                   // -1 means it can't be picked up
 /*0x80*/
 
-	DEPRECATE("Use pContents instead of ID") inline ItemPtr get_ID() const { return pContents; }
-	DEPRECATE("Use pContents instead of ID") inline void set_ID(ItemPtr ptr) { pContents = ptr; }
+	DEPRECATE("Use Item instead of ID/pContents") inline ItemPtr get_ID() const { return Item; }
+	DEPRECATE("Use Item instead of ID/pContents") inline void set_ID(ItemPtr ptr) { Item = ptr; }
 	__declspec(property(get = get_ID, put = set_ID)) ItemPtr ID;
+	__declspec(property(get = get_ID, put = set_ID)) ItemPtr pContents;
 };
 using GROUNDITEM = EQGroundItem;
 using PGROUNDITEM = EQGroundItem*;

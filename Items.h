@@ -17,6 +17,7 @@
 #include "Common.h"
 #include "Containers.h"
 #include "CXStr.h"
+#include "GraphicsEngine.h"
 #include "SoeUtil.h"
 
 #include "common/StringUtils.h"
@@ -895,17 +896,6 @@ public:
 
 //----------------------------------------------------------------------------
 
-class [[offsetcomments]] ArmorProperties
-{
-public:
-/*0x00*/ unsigned int Type;
-/*0x04*/ unsigned int Variation;
-/*0x08*/ unsigned int Material;
-/*0x0c*/ unsigned int NewArmorID;
-/*0x10*/ unsigned int NewArmorType;
-/*0x14*/
-};
-
 struct ItemAugmentationSocket
 {
 	int Type;
@@ -1108,6 +1098,8 @@ public:
 	// Type in ItemClient.
 	inline uint8_t get_ItemType() { return ItemClass; }
 	__declspec(property(get = get_ItemType)) uint8_t ItemType;
+
+	ItemSpellData::SpellData* GetSpellData(eItemSpellType type) { return SpellData.GetSpellData(type); }
 
 	// Moved ITEMSPELLS into ItemSpellData, this provides access to the original members
 #define ITEMSPELLS_ACCESSOR(Name) \

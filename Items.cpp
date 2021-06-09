@@ -206,11 +206,11 @@ ItemDefinition::ItemDefinition()
 	MaxLuck = 0;
 	Prestige = 0;
 	ItemClass = 0;
-	ArmorProps.Type = 0;
-	ArmorProps.Variation = 0;
-	ArmorProps.Material = 0;
-	ArmorProps.NewArmorID = 0;
-	ArmorProps.NewArmorType = 0;
+	ArmorProps.type = 0;
+	ArmorProps.variation = 0;
+	ArmorProps.material = 0;
+	ArmorProps.newArmorID = 0;
+	ArmorProps.newArmorType = 0;
 	AugData.Reset();
 	AugType = 0;
 	AugSkinTypeMask = -1;
