@@ -16,8 +16,8 @@ extern _ItemClient__dItemClient
 section .text
 
 ; public: __thiscall eqlib::CXWnd::CXWnd(class eqlib::CXWnd *,unsigned int,struct eqlib::CXRect)"
-global ??0CXWnd@eqlib@@QAE@PAV01@IUCXRect@1@@Z
-??0CXWnd@eqlib@@QAE@PAV01@IUCXRect@1@@Z:
+global ??0CXWnd@eqlib@@QAE@PAV01@IVCXRect@1@@Z
+??0CXWnd@eqlib@@QAE@PAV01@IVCXRect@1@@Z:
 	mov eax, [_CXWnd__CXWnd]
 	jmp eax
 

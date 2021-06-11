@@ -4851,6 +4851,8 @@ public:
 // CPetInfoWnd
 //============================================================================
 
+constexpr const int MAX_PET_BUTTONS = 14;
+
 // CPetInfoWindow__CPetInfoWindow aPetinfowindow
 // CPetInfoWindow_size: 0x8c0 (see 54FD91) in Dec 19 2019 Live
 class [[offsetcomments]] CPetInfoWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4869,7 +4871,7 @@ public:
 	// data members
 
 /*0x23c*/ uint8_t            Unknown0x23c[0x4];
-/*0x240*/ CButtonWnd*        pButton[0xe];             // there are 14 buttons on the petinfowin with text that can be set to attack,none,back and so on, these are those...
+/*0x240*/ CButtonWnd*        pButton[MAX_PET_BUTTONS];        // there are 14 buttons on the petinfowin with text that can be set to attack,none,back and so on, these are those...
 /*0x278*/ uint8_t            Unknown0x278[0x8];
 /*0x280*/ CButtonWnd*        pAttackButton;
 /*0x284*/ CButtonWnd*        pQAttackButton;
