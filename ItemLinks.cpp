@@ -278,6 +278,9 @@ static int TagCodeToWndNotification(ETagCodes tagCode)
 
 bool ExecuteTextLink(const TextTagInfo& link)
 {
+	if (!pChatManager)
+		return false;
+
 	int notif = TagCodeToWndNotification(link.tagCode);
 	if (notif == 0)
 		return false;

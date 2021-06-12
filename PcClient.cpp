@@ -845,7 +845,7 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetCachEQSPA(int), CharacterZoneCli
 FUNCTION_AT_ADDRESS(unsigned long PcClient::GetConLevel(const PlayerClient*), PcClient__GetConLevel);
 #endif
 #ifdef CharacterZoneClient__TotalEffect_x
-FUNCTION_AT_ADDRESS(int CharacterZoneClient::TotalEffect(int, bool, int, bool, bool), CharacterZoneClient__TotalEffect);
+FUNCTION_AT_ADDRESS(int CharacterZoneClient::TotalEffect(int, bool, int, bool, bool) const, CharacterZoneClient__TotalEffect);
 #endif
 #ifdef CharacterZoneClient__GetAdjustedSkill_x
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetAdjustedSkill(int), CharacterZoneClient__GetAdjustedSkill);
@@ -1045,14 +1045,6 @@ FUNCTION_AT_ADDRESS(void PcClient::SetArmorType(int, int), EQ_PC__SetArmorType);
 FUNCTION_AT_ADDRESS(void PcClient::InitializeNewPCVariables(int), EQ_PC__InitializeNewPCVariables);
 #endif
 
-//============================================================================
-// ProfileManager
-//============================================================================
-
-#ifdef ProfileManager__GetCurrentProfile_x
-FUNCTION_AT_ADDRESS(BaseProfile* ProfileManager::GetCurrentProfile(), ProfileManager__GetCurrentProfile);
-#endif
-
 //----------------------------------------------------------------------------
 
 ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
@@ -1067,6 +1059,24 @@ ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
 		return HeroForgeKeyRingItems;
 
 	return MountKeyRingItems;
+}
+
+int PcZoneClient::GetMaxAirSupply() const
+{
+	int race = GetRace();
+	if (race == EQR_IKSAR)
+		return 127;
+
+	if (race == EQR_FROGLOCK)
+		return 256;
+
+	int stam = GetStamina() - 30;
+	int bonus = TotalEffect(SPA_INCREASE_AIR_SUPPLY);
+	if (bonus <= 0)
+		bonus = 100;
+	int air = bonus * stam;
+
+	return std::clamp(air / 100, 10, bonus);
 }
 
 } // namespace eqlib
