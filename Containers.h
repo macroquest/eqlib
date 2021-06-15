@@ -23,6 +23,8 @@ namespace eqlib {
 
 //----------------------------------------------------------------------------
 
+#pragma region CDynamicArrayBase
+
 class CDynamicArrayBase;
 
 struct EQLIB_OBJECT CEQException {};
@@ -61,6 +63,8 @@ protected:
 		throw CDynamicArrayException(this);
 	}
 };
+
+#pragma endregion
 
 #pragma region ArrayClass2<T>
 
@@ -750,7 +754,7 @@ T* HashTable<T, Key, ResizePolicy>::WalkNext(const T* prevRes) const
 			return(&entry->obj);
 	}
 
-	return nullptrNULL;
+	return nullptr;
 }
 
 template <typename T, typename Key, typename ResizePolicy>
@@ -802,58 +806,6 @@ void HashTable<T, Key, ResizePolicy>::Insert(const T& obj, const Key& key)
 }
 
 #pragma endregion
-
-template <typename T, int _cnt>
-class EQList;
-
-template <typename T>
-class EQList<T, -1>
-{
-public:
-	struct Node
-	{
-		T Value;
-		Node* pNext;
-		Node* pPrev;
-	};
-
-/*0x00*/ void* vfTable;
-/*0x04*/ Node* pFirst;
-/*0x08*/ Node* pLast;
-/*0x0c*/ int Count;
-/*0x10*/
-};
-
-template <typename T, int _cnt = -1>
-class EQList : public EQList<T, -1>
-{};
-
-// strings
-template <typename T, unsigned int Size>
-class TSafeArrayStatic
-{
-public:
-	T& operator[](uint32_t index)
-	{
-		return Data[index];
-	}
-
-	const T& operator[](uint32_t index) const
-	{
-		return Data[index];
-	}
-
-	T Data[Size];
-};
-
-template <uint32_t _Len>
-class TString : public TSafeArrayStatic<char, _Len>
-{};
-
-template <uint32_t _Len>
-class TSafeString : public TString<_Len>
-{};
-
 
 //----------------------------------------------------------------------------
 
@@ -1156,6 +1108,8 @@ private:
 
 //----------------------------------------------------------------------------
 
+#pragma region LinkedList
+
 // LinkedLists
 template <class T>
 class LinkedListNode
@@ -1279,7 +1233,9 @@ private:
 /*0x20*/
 };
 
-//----------------------------------------------------------------------------
+#pragma endregion
+
+#pragma region HashList / HashListSet / HashListMap
 
 template <typename KeyT, typename T, int TableSize, int EmbeddedSize>
 class HashListMap;
@@ -1377,6 +1333,63 @@ class HashListSet<T, _Size, -2> : public HashListSet<T, _Size, -1>
 	void* MemPool;
 };
 
+#pragma endregion
+
+//----------------------------------------------------------------------------
+
+#pragma region Misc Containers (Needs Polish)
+
+template <typename T, int _cnt>
+class EQList;
+
+template <typename T>
+class EQList<T, -1>
+{
+public:
+	struct Node
+	{
+		T Value;
+		Node* pNext;
+		Node* pPrev;
+	};
+
+/*0x00*/ void* vfTable;
+/*0x04*/ Node* pFirst;
+/*0x08*/ Node* pLast;
+/*0x0c*/ int Count;
+/*0x10*/
+};
+
+template <typename T, int _cnt = -1>
+class EQList : public EQList<T, -1>
+{};
+
+// strings
+template <typename T, unsigned int Size>
+class TSafeArrayStatic
+{
+public:
+	T& operator[](uint32_t index)
+	{
+		return Data[index];
+	}
+
+	const T& operator[](uint32_t index) const
+	{
+		return Data[index];
+	}
+
+	T Data[Size];
+};
+
+template <uint32_t _Len>
+class TString : public TSafeArrayStatic<char, _Len>
+{};
+
+template <uint32_t _Len>
+class TSafeString : public TString<_Len>
+{};
+
 class AtomicInt
 {
 public:
@@ -1398,6 +1411,16 @@ public:
 /*0x24*/
 };
 
+// we dont need a fully implemented version. this does the job just fine
+template <typename T, uint32_t _Len>
+class TCircularBuffer
+{
+public:
+	T       Type[_Len];
+	UINT    Len;
+	UINT    Index;
+};
+
 template <typename TNumBitsType, typename TElementType>
 class DynamicBitField
 {
@@ -1408,6 +1431,8 @@ class DynamicBitField
 	ElementType Element;
 	ElementType* Elements;
 };
+
+#pragma endregion
 
 // Linked List classes
 
@@ -1516,16 +1541,6 @@ public:
 };
 
 #pragma endregion
-
-// we dont need a fully implemented version. this does the job just fine
-template <typename T, uint32_t _Len>
-class TCircularBuffer
-{
-public:
-	T       Type[_Len];
-	UINT    Len;
-	UINT    Index;
-};
 
 //----------------------------------------------------------------------------
 
