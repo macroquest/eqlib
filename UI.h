@@ -1401,6 +1401,61 @@ public:
 };
 
 //============================================================================
+
+class [[offsetcomments]] CLayoutWnd : public CSidlScreenWnd
+{
+public:
+	CLayoutWnd(CXWnd*, uint32_t, const CXRect&, const CXStr&);
+	virtual ~CLayoutWnd();
+
+/*0x238*/ uint32_t             spacing;
+/*0x23c*/ bool                 expandLast;
+/*0x240*/ int                  paddingLeft;
+/*0x244*/ int                  paddingRight;
+/*0x248*/ int                  paddingTop;
+/*0x24c*/ int                  paddingBottom;
+};
+
+// Horizontal and Vertical layouts are basically the same, but transposed.
+class [[offsetcomments]] CHorizontalLayoutWnd : public CLayoutWnd
+{
+public:
+/*0x250*/ ArrayClass<CXWnd*>         visibleChildren;
+/*0x260*/ ArrayClass<CXRect>         dividerRects;
+/*0x274*/ int                        activeDivider;
+/*0x278*/ bool                       dividerHover;
+/*0x279*/ bool                       dividerMoving;
+/*0x27c*/ int                        oldPosCoord;              // X for horizontal, Y for vertical
+/*0x27d*/ bool                       bStyle_Dividers;          // the Style_Dividers property from XML
+/*0x280*/
+};
+
+class [[offsetcomments]] CVerticalLayoutWnd : public CLayoutWnd
+{
+public:
+/*0x250*/ ArrayClass<CXWnd*>         visibleChildren;
+/*0x260*/ ArrayClass<CXRect>         dividerRects;
+/*0x264*/ int                        activeDivider;
+/*0x268*/ bool                       dividerHover;
+/*0x269*/ bool                       dividerMoving;
+/*0x26c*/ int                        oldPosCoord;              // X for horizontal, Y for vertical
+/*0x26d*/ bool                       bStyle_Dividers;          // the Style_Dividers property from XML
+/*0x280*/
+};
+
+class [[offsetcomments]] CTileLayoutWnd : public CLayoutWnd
+{
+public:
+/*0x250*/ bool                       horizontalFirst;
+/*0x251*/ bool                       anchorToTop;
+/*0x252*/ bool                       anchorToLeft;
+/*0x254*/ int                        secondarySpacing;
+/*0x258*/ bool                       firstPieceTemplate;
+/*0x259*/ bool                       snapToChildren;
+/*0x25c*/ CXWnd*                     autoStretchWindow;
+};
+
+//============================================================================
 //============================================================================
 //============================================================================
 //============================================================================
