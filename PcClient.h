@@ -972,7 +972,7 @@ public:
 /*0x2830*/ uint32_t                              LastHitEval;
 /*0x2834*/
 
-	EQLIB_OBJECT CharacterZoneClient();
+	//EQLIB_OBJECT CharacterZoneClient();
 
 	ALT_MEMBER_GETTER(PlayerClient*, me, pSpawn);
 

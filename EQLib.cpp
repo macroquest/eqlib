@@ -115,6 +115,14 @@ FUNCTION_AT_ADDRESS(void FlushDxKeyboard(), __FlushDxKeyboard);
 FUNCTION_AT_ADDRESS(bool CopyLayout(const CXStr& currlayout, const CXStr& newlayout, bool bHotbuttons, bool bLoadouts, bool bSocials, CXStr& ErrorOut, bool bForceReload), __CopyLayout);
 #endif
 
+FUNCTION_AT_ADDRESS(uint32_t GetBufferCRC(const char* szBuffer, size_t bufferLength, int baseValue), __MemChecker1);
+
+uint32_t GetStringCRC(std::string_view sv)
+{
+	return GetBufferCRC(sv.data(), sv.length());
+}
+
+
 } // namespace eqlib
 
 #if __has_include("../private/EQLib-private.cpp")

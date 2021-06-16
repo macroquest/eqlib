@@ -1032,6 +1032,9 @@ public:
 using DOOR = EQSwitch;
 using PDOOR = EQSwitch*;
 
+struct SwitchGroupEntry;
+
+// size: 0x840 @ 05-14-2021
 class [[offsetcomments]] EqSwitchManager
 {
 	FORCE_SYMBOLS;
@@ -1040,17 +1043,40 @@ public:
 	EQLIB_OBJECT EqSwitchManager();
 	EQLIB_OBJECT ~EqSwitchManager();
 
-	EQLIB_OBJECT EQSwitch* GetSwitch(int);
-	EQLIB_OBJECT EQSwitch* GetSwitchByActor(CActorInterface*);
-	EQLIB_OBJECT EQSwitch* GetSwitchById(int, bool);
-	EQLIB_OBJECT int GetCount();
-	EQLIB_OBJECT void AddSwitch(EQSwitch*);
-	EQLIB_OBJECT void DeleteAll();
+	int GetCount() const { return NumEntries; }
+
+	EQSwitch* GetSwitch(int index)
+	{
+		if (index >= 0 && index < NumEntries)
+			return Switches[index];
+
+		return nullptr;
+	}
+
+	EQSwitch* GetSwitchById(int id)
+	{
+		for (int i = 0; i < NumEntries; ++i)
+		{
+			if (Switches[i] && Switches[i]->ID == id)
+				return Switches[i];
+		}
+
+		return nullptr;
+	}
+
+	EQSwitch* GetSwitchByActor(CActorInterface* pActor)
+	{
+		for (int i = 0; i < NumEntries; ++i)
+		{
+			if (Switches[i] && (CActorInterface*)Switches[i]->pSwitch == pActor)
+				return Switches[i];
+		}
+
+		return nullptr;
+	}
 
 /*0x000*/ int          NumEntries;
-/*0x004*/ EQSwitch*    Switches[255];
-/*0x400*/
-	// There is more that has not been mapped yet ...
+/*0x004*/ EQSwitch*    Switches[512];
 
 	inline EQSwitch** get_pDoor() { return Switches; }
 	__declspec(property(get = get_pDoor)) EQSwitch** pDoor;

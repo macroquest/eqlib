@@ -1279,7 +1279,8 @@ EQLIB_API void SaveColors(int, int, int, int);
 EQLIB_API bool EQExecuteCmd(unsigned int command, bool keyDown, void* data, const KeyCombo* combo);
 EQLIB_API bool CopyLayout(const CXStr& currlayout, const CXStr& newlayout, bool bHotbuttons, bool bLoadouts,
 	bool bSocials, CXStr& ErrorOut, bool bForceReload = false);
-
+EQLIB_API uint32_t GetBufferCRC(const char* szBuffer, size_t bufferLength, int baseValue = 0);
+EQLIB_API uint32_t GetStringCRC(std::string_view);
 
 //----------------------------------------------------------------------------
 // FIXME: Remove these macros

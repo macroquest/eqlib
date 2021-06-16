@@ -3155,6 +3155,18 @@ public:
 // CFindLocationWnd
 //============================================================================
 
+enum FindLocationType {
+	FindLocation_Unknown,
+	FindLocation_Player,
+	FindLocation_POI,
+	FindLocation_RealEstateItem,
+	FindLocation_RealEstatePlot,
+	FindLocation_MapPoint,
+	FindLocation_Switch,
+	FindLocation_Location
+};
+
+// Size: 0x2c0
 class CFindLocationWnd : public CSidlScreenWnd
 {
 public:
@@ -3163,6 +3175,63 @@ public:
 	EQLIB_OBJECT void HandleFindEnd();
 	EQLIB_OBJECT void HandleRowClicked(int Index);
 	EQLIB_OBJECT void HandleFindableZoneConnectionsMessage(CUnSerializeBuffer& buf);
+
+public:
+	struct FindPlayerData
+	{
+		uint32_t spawnId;
+		CXStr    name;
+		CXStr    description;
+		int      race;
+		int      Class;
+	};
+	using PlayerDataArray = ArrayClass<FindPlayerData>;
+
+	struct FindPOIData
+	{
+		uint32_t id;
+		CXStr    name;
+		CXStr    description;
+	};
+	using POIDataArray = ArrayClass<FindPOIData>;
+
+	struct FindZoneConnectionData
+	{
+		FindLocationType type;
+		uint32_t         id;
+		uint32_t         subId;
+		EQZoneIndex      zoneId;
+		int              zoneIdentifier;
+		CVector3         location;
+	};
+	using ZoneConnectionDataArray = ArrayClass<FindZoneConnectionData>;
+
+	struct FindableReference
+	{
+		FindLocationType type;
+		uint32_t         index;
+	};
+	using FindableReferenceList = HashTable<FindableReference>;
+
+public:
+/*0x238*/ CListWnd*               findLocationList;        // FLW_FindLocationList
+/*0x23c*/ CCheckBoxWnd*           filterLocationsCheckBox; // FLW_FilterLocationsCheckbox
+/*0x240*/ CCheckBoxWnd*           filterGroupCheckBox;     // FLW_FilterGroupCheckbox
+/*0x244*/ CCheckBoxWnd*           filterRaidCheckBox;      // FLW_FilterRaidCheckbox
+/*0x248*/ CLabelWnd*              noneLabel;               // FLW_FoundNoneLabel
+/*0x24c*/ uint32_t                lastUpdateTime;
+/*0x250*/ uint32_t                lastFindRequestTime;
+/*0x254*/ bool                    didFindRequest;
+/*0x258*/ PlayerDataArray         unfilteredPlayerList;
+/*0x268*/ PlayerDataArray         filteredGroupPlayerList;
+/*0x278*/ PlayerDataArray         unfilteredRaidPlayerList;
+/*0x288*/ POIDataArray            unfilteredPOIDataList;
+/*0x298*/ ZoneConnectionDataArray unfilteredZoneConnectionList;
+/*0x2a8*/ FindableReferenceList   referenceList;
+/*0x2b8*/ uint32_t                lastId;
+/*0x2bc*/ bool                    dataRequested;
+/*0x2bd*/ bool                    playerListDirty;
+/*0x2be*/ bool                    zoneConnectionsRcvd;
 };
 
 //============================================================================
