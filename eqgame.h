@@ -340,7 +340,7 @@
 #define __CastRay2_x                                               0x5DE570
 #define __ConvertItemTags_x                                        0x5FB6E0
 #define __CleanItemTags_x                                          0x47DA80
-#define __CreateCascadeMenuItems_x                                 0x0
+#define __CreateCascadeMenuItems_x                                 0x572040
 #define __DoesFileExist_x                                          0x954110
 #define __EQGetTime_x                                              0x950DF0
 #define __ExecuteCmd_x                                             0x5D6710
@@ -391,7 +391,7 @@
 #define CAdvancedLootWnd__DoAdvLootAction_x                        0x49B520
 #define CAdvancedLootWnd__DoSharedAdvLootAction_x                  0x49B3A0
 #define CAdvancedLootWnd__AddPlayerToList_x                        0x4956A0
-#define CAdvancedLootWnd__UpdateMasterLooter_x                     0x0
+#define CAdvancedLootWnd__UpdateMasterLooter_x                     0x4948E0
 
 // AltAdvManager
 #define AltAdvManager__GetCalculatedTimer_x                        0x57AF40
@@ -1241,3 +1241,7 @@
 
 // CUnSerializeBuffer
 #define CUnSerializeBuffer__GetString_x                            0x47D240
+
+#if __has_include("../private/eqgame-private.h")
+#include "../private/eqgame-private.h"
+#endif
