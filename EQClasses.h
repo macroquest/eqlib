@@ -1077,7 +1077,7 @@ public:
 
 /*0x000*/ int          NumEntries;
 /*0x004*/ EQSwitch*    Switches[512];
-
+/*0x804*/
 	inline EQSwitch** get_pDoor() { return Switches; }
 	__declspec(property(get = get_pDoor)) EQSwitch** pDoor;
 };

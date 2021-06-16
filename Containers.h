@@ -640,7 +640,7 @@ public:
 	template <typename T, typename Key>
 	struct HashTableEntry : std::pair<T, const Key>
 	{
-		using pair::pair;
+		using std::pair<T, const Key>::pair;
 
 		inline const Key& key() const { return second; }
 		inline T& value() { return first; }
