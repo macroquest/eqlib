@@ -909,7 +909,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x214 :: 2021-03-04 (live) @0x5A4609
+// @sizeof(EQ_Spell) == 0x214 :: 2021-06-10 (live) @0x5A5489
 constexpr size_t EQ_Spell_size = 0x214;
 
 class [[offsetcomments]] EQ_Spell
