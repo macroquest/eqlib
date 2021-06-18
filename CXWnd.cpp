@@ -18,6 +18,8 @@
 #include "EQClasses.h"
 #include "Globals.h"
 
+#include "WindowOverride.h"
+
 namespace eqlib {
 
 // NOTE that using FUNCTION_AT_VIRTUAL_ADDRESS has a high risk of creating infinite
@@ -28,6 +30,11 @@ namespace eqlib {
 
 CXWnd::VirtualFunctionTable* CXWnd::sm_vftable = nullptr;
 CSidlScreenWnd::VirtualFunctionTable* CSidlScreenWnd::sm_vftable = nullptr;
+
+namespace detail {
+	CXWndTrampoline<CXWnd>::VirtualFunctionTable* s_baseCXWndTrampolineVTable = nullptr;
+	CSidlScreenWndTrampoline<CSidlScreenWnd>::VirtualFunctionTable* s_baseCSidlScreenWndTrampolineVFTable = nullptr;
+}
 
 //----------------------------------------------------------------------------
 
@@ -97,7 +104,7 @@ FORWARD_FUNCTION_TO_VTABLE(bool CXWnd::AboutToShow(), CXWnd, AboutToShow);
 FORWARD_FUNCTION_TO_VTABLE(bool CXWnd::AboutToHide(), CXWnd, AboutToHide);
 // RequestDockInfo
 // GetTooltip
-FORWARD_FUNCTION_TO_VTABLE(void CXWnd::Unknown0x0EC(), CXWnd, Unknown0x0ec);
+FORWARD_FUNCTION_TO_VTABLE(void CXWnd::Unknown0x0EC(), CXWnd, Unknown0x0EC);
 FORWARD_FUNCTION_TO_VTABLE(int CXWnd::HitTest(const CXPoint&, int*) const, CXWnd, HitTest);
 FORWARD_FUNCTION_TO_VTABLE(CXRect CXWnd::GetHitTestRect(int) const, CXWnd, GetHitTestRect);
 FORWARD_FUNCTION_TO_VTABLE(CXRect CXWnd::GetInnerRect() const, CXWnd, GetInnerRect);
@@ -106,8 +113,8 @@ FORWARD_FUNCTION_TO_VTABLE(CXRect CXWnd::GetClientClipRect() const, CXWnd, GetCl
 FORWARD_FUNCTION_TO_VTABLE(CXSize CXWnd::GetMinSize(bool) const, CXWnd, GetMinSize);
 FORWARD_FUNCTION_TO_VTABLE(CXSize CXWnd::GetMaxSize(bool) const, CXWnd, GetMaxSize);
 // GetUntileSize
-FORWARD_FUNCTION_TO_VTABLE(int CXWnd::Move(const CXRect&, bool, bool, bool, bool), CXWnd, Move_Rect);
-FORWARD_FUNCTION_TO_VTABLE(int CXWnd::Move(const CXPoint&), CXWnd, Move_Point);
+FORWARD_FUNCTION_TO_VTABLE(int CXWnd::UpdateGeometry(const CXRect&, bool, bool, bool, bool), CXWnd, UpdateGeometry);
+FORWARD_FUNCTION_TO_VTABLE(int CXWnd::Move(const CXPoint&), CXWnd, Move);
 // SetWindowText
 FORWARD_FUNCTION_TO_VTABLE(CXWnd* CXWnd::GetChildWndAt(const CXPoint&, bool, bool) const, CXWnd, GetChildWndAt);
 FORWARD_FUNCTION_TO_VTABLE(CScreenPieceTemplate* CXWnd::GetSidlPiece(const CXStr&, bool) const, CXWND, GetSidlPiece);
@@ -521,6 +528,16 @@ void InitializeCXWnd()
 {
 	CXWnd::sm_vftable = reinterpret_cast<CXWnd::VirtualFunctionTable*>(CXWnd__vftable);
 	CSidlScreenWnd::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(CSidlScreenWnd__vftable);
+
+	{
+		detail::CXWndTrampoline<CXWnd> d;
+		detail::s_baseCXWndTrampolineVTable = d.GetVFTable();
+	}
+
+	{
+		detail::CSidlScreenWndTrampoline<CSidlScreenWnd> d;
+		detail::s_baseCSidlScreenWndTrampolineVFTable = d.GetVFTable();
+	}
 }
 
 //----------------------------------------------------------------------------

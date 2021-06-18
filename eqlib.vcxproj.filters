@@ -129,6 +129,9 @@
     <ClInclude Include="PcProfile.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WindowOverride.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">

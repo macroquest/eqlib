@@ -252,7 +252,7 @@ class [[offsetcomments]] CXWnd
 	, public TList<CXWnd>       // list of children
 {
 public:
-	EQLIB_OBJECT CXWnd(CXWnd* parent, uint32_t id, CXRect rect);
+	EQLIB_OBJECT CXWnd(CXWnd* parent = nullptr, uint32_t id = 0, CXRect rect = {});
 
 	//----------------------------------------------------------------------------
 	EQLIB_OBJECT virtual bool IsValid() const { return ValidCXWnd; }
@@ -330,11 +330,11 @@ public:
 	EQLIB_OBJECT virtual CXSize GetMaxSize(bool withBorder = true) const;
 	EQLIB_OBJECT virtual CXSize GetUntileSize() const { return Location.GetSize(); }
 	EQLIB_OBJECT virtual bool IsPointTransparent(const CXPoint& point) const { return false; }
-	EQLIB_OBJECT virtual bool Unknown0x114() const { return IsVisible() && !IsMinimized(); }
-	EQLIB_OBJECT virtual bool ControllerShouldProcessFrame() const { return IsVisible() && !IsMinimized(); }
+	EQLIB_OBJECT virtual bool ShouldProcessChildrenFrames() const { return IsVisible() && !IsMinimized(); }
+	EQLIB_OBJECT virtual bool ShouldProcessControllerFrame() const { return IsVisible() && !IsMinimized(); }
 	EQLIB_OBJECT virtual void SetDrawTemplate(CXWndDrawTemplate* drawTemplate) { DrawTemplate = drawTemplate; }
 	EQLIB_OBJECT virtual int Move(const CXPoint& point);
-	EQLIB_OBJECT virtual int Move(const CXRect& rect, bool updateLayout = true, bool forceUpdateLayout = false,
+	EQLIB_OBJECT virtual int UpdateGeometry(const CXRect& rect, bool updateLayout = true, bool forceUpdateLayout = false,
 		bool completeMoveOrResize = false, bool moveAutoStretch = false);
 	EQLIB_OBJECT virtual void SetWindowText(const CXStr& text) { WindowText = text; }
 	DEPRECATE("Use SetWindowText instead of SetWindowTextA") inline void SetWindowTextA(const CXStr& text) { this->SetWindowText(text); }
@@ -353,7 +353,7 @@ public:
 	EQLIB_OBJECT virtual const CXSize& GetMinClientSize() const { return MinClientSize; }
 	EQLIB_OBJECT void SetMinClientSize(const CXSize& pt) { MinClientSize = pt; }
 	EQLIB_OBJECT virtual const CXSize& GetMaxClientSize() const { return MaxClientSize; }
-	EQLIB_OBJECT virtual void* Unknown0x160() const { return nullptr; }
+	EQLIB_OBJECT virtual CEditWnd* GetActiveEditWnd() const { return nullptr; }
 	EQLIB_OBJECT virtual void UpdateLayout(bool finish = false);
 
 	void SetClientRectDirty(bool dirty);
@@ -363,6 +363,12 @@ public:
 	DEPRECATE("CGetWindowText: Use GetWindowText() instead") CXStr CGetWindowText() const { return GetWindowText(); }
 	DEPRECATE("CSetWindowText: Use SetWindowText() instead") void CSetWindowText(const CXStr& text) { SetWindowText(text); }
 
+	// Renamed Move -> UpdateLayout to avoid having two virtuals with the same name. This just exists for backwards compatibility.
+	inline int Move(const CXRect& rect, bool updateLayout = true, bool forceUpdateLayout = false,
+		bool completeMoveOrResize = false, bool moveAutoStretch = false)
+	{
+		return UpdateGeometry(rect, updateLayout, forceUpdateLayout, completeMoveOrResize, moveAutoStretch);
+	}
 public:
 	// functions we have offsets for
 	EQLIB_OBJECT bool IsType(EWndRuntimeType eType) const;
@@ -579,7 +585,7 @@ public:
 	/*0x00c*/ void* Draw;
 	/*0x010*/ void* PostDraw;
 	/*0x014*/ void* DrawCursor;
-	/*0x018*/ void* DrawChildItems;
+	/*0x018*/ void* DrawChildItem;
 	/*0x01c*/ void* DrawCaret;
 	/*0x020*/ void* DrawBackground;
 	/*0x024*/ void* DrawTooltip;
@@ -632,7 +638,7 @@ public:
 	/*0x0e0*/ void* AboutToHide;
 	/*0x0e4*/ void* RequestDockInfo;
 	/*0x0e8*/ void* GetTooltip;
-	/*0x0ec*/ void* Unknown0x0ec;
+	/*0x0ec*/ void* Unknown0x0EC;
 	/*0x0f0*/ void* HitTest;
 	/*0x0f4*/ void* GetHitTestRect;
 	/*0x0f8*/ void* GetInnerRect;
@@ -642,11 +648,11 @@ public:
 	/*0x108*/ void* GetMaxSize;
 	/*0x10c*/ void* GetUntileSize;
 	/*0x110*/ void* IsPointTransparent;
-	/*0x114*/ void* Unknown0x114;
-	/*0x118*/ void* ControllerShouldProcessFrame;
+	/*0x114*/ void* ShouldProcessChildrenFrames;
+	/*0x118*/ void* ShouldProcessControllerFrame;
 	/*0x11c*/ void* SetDrawTemplate;
-	/*0x120*/ void* Move_Rect;                       // CXWnd__Move1_x
-	/*0x124*/ void* Move_Point;                      // CXWnd__Move_x
+	/*0x120*/ void* Move;
+	/*0x124*/ void* UpdateGeometry;
 	/*0x128*/ void* SetWindowText;
 	/*0x12c*/ void* GetChildWndAt;
 	/*0x130*/ void* GetSidlPiece;
@@ -661,7 +667,7 @@ public:
 	/*0x154*/ void* SetHasActivatedFirstTimeAlert;
 	/*0x158*/ void* GetMinClientSize;
 	/*0x15c*/ void* GetMaxClientSize;
-	/*0x160*/ void* Unknown0x160;
+	/*0x160*/ void* GetActiveEditWnd;
 	/*0x164*/ void* UpdateLayout;
 	/*0x168*/
 	};
@@ -827,7 +833,7 @@ class [[offsetcomments]] CSidlScreenWnd : public CXWnd
 public:
 	//EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent, uint32_t id, const CXRect& rect, const CXStr& Screen);                           // CSidlScreenWnd__CSidlScreenWnd
 	EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent, const CXStr& Screen, int IniFlags, int IniVersion = 1, char* BlockName = nullptr); // CSidlScreenWnd__CSidlScreenWnd1
-	EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent, const CXStr& Screen);                                                              // CSidlScreenWnd__CSidlScreenWnd2
+	EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent = nullptr, const CXStr& Screen = CXStr());                                          // CSidlScreenWnd__CSidlScreenWnd2
 	EQLIB_OBJECT virtual ~CSidlScreenWnd();
 
 	//----------------------------------------------------------------------------

@@ -82,6 +82,7 @@
     <ClInclude Include="Containers.h" />
     <ClInclude Include="CXStr.h" />
     <ClInclude Include="CXWnd.h" />
+    <ClInclude Include="WindowOverride.h" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="EQClasses.h" />
     <ClInclude Include="EQData.h" />

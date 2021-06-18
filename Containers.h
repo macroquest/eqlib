@@ -634,7 +634,7 @@ template <typename T, typename Key = int, typename ResizePolicy = ResizePolicyNo
 class HashTable
 {
 public:
-	HashTable(int size);
+	HashTable(int size = 100);
 	~HashTable();
 
 	template <typename T, typename Key>
