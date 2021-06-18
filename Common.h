@@ -454,6 +454,11 @@ public:
 		return Delta.GetLengthSquared();
 	}
 
+	float GetDistance(const CVector3& vec) const
+	{
+		return sqrtf((*this - vec).GetLengthSquared());
+	}
+
 	bool operator==(const CVector3& other)
 	{
 		return X == other.X && Y == other.Y && Z == other.Z;

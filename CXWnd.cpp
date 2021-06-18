@@ -523,4 +523,34 @@ void InitializeCXWnd()
 	CSidlScreenWnd::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(CSidlScreenWnd__vftable);
 }
 
+//----------------------------------------------------------------------------
+
+void CXWndControllerHook::Hook(CXWnd* pWnd)
+{
+	if (m_pWnd == pWnd) return;
+	if (m_pWnd && m_pWnd != pWnd) Unhook();
+
+	m_pWnd = pWnd;
+	m_pOriginalController = m_pWnd->pController;
+	m_pWnd->pController = this;
+
+	OnHooked();
+}
+
+bool CXWndControllerHook::Unhook()
+{
+	if (m_pWnd)
+	{
+		OnAboutToUnhook();
+
+		m_pWnd->pController = m_pOriginalController;
+
+		m_pWnd = nullptr;
+		m_pOriginalController = nullptr;
+		return true;
+	}
+
+	return false;
+}
+
 } // namespace eqlib

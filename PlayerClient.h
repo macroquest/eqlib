@@ -241,7 +241,7 @@ struct [[offsetcomments]] LaunchSpellData
 /*0x04*/ int            SpellID;                 // -1 = not casting a spell
 /*0x08*/ uint8_t        SpellSlot;               // 0xFF if not casting, otherwise it's the spell gem number (0 - 8)
 /*0x09*/ uint8_t        SpellLevel;
-/*0x0c*/ ITEMLOCATION   ItemLocation;
+/*0x0c*/ ItemGlobalIndex ItemLocation;
 /*0x18*/ ItemSpellTypes ItemCastType;
 /*0x1c*/ int            ItemID;
 /*0x20*/ float          CastingY;
