@@ -528,16 +528,6 @@ void InitializeCXWnd()
 {
 	CXWnd::sm_vftable = reinterpret_cast<CXWnd::VirtualFunctionTable*>(CXWnd__vftable);
 	CSidlScreenWnd::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(CSidlScreenWnd__vftable);
-
-	{
-		detail::CXWndTrampoline<CXWnd> d;
-		detail::s_baseCXWndTrampolineVTable = d.GetVFTable();
-	}
-
-	{
-		detail::CSidlScreenWndTrampoline<CSidlScreenWnd> d;
-		detail::s_baseCSidlScreenWndTrampolineVFTable = d.GetVFTable();
-	}
 }
 
 //----------------------------------------------------------------------------

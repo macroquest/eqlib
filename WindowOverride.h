@@ -131,8 +131,6 @@ public:
 	virtual const CXSize& GetMaxClientSize() const override;
 	virtual CEditWnd* GetActiveEditWnd() const override;
 	virtual void UpdateLayout(bool finish = false) override;
-
-	static typename Target::VirtualFunctionTable* GetBaseTable();
 };
 
 #define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature) \
@@ -247,8 +245,6 @@ public:
 	virtual void StoreIniInfo();
 	virtual CSidlScreenWnd* AsSidlScreenWnd();
 	virtual bool GetScreenWndType();
-
-	static typename Target::VirtualFunctionTable* GetBaseTable();
 };
 
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, int, OnZone, ());
@@ -259,20 +255,6 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, CSidlScree
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, bool, GetScreenWndType, ());
 
 #undef IMPLEMENT_VTABLE_TRAMPOLINE
-
-extern EQLIB_OBJECT CXWndTrampoline<CXWnd>::VirtualFunctionTable* s_baseCXWndTrampolineFVTable;
-template <typename Target>
-typename Target::VirtualFunctionTable* CXWndTrampoline<Target>::GetBaseTable()
-{
-	return s_baseCXWndTrampolineFVTable;
-}
-
-extern EQLIB_OBJECT CSidlScreenWndTrampoline<CSidlScreenWnd>::VirtualFunctionTable* s_baseCSidlScreenWndTrampolineVFTable;
-template <typename Target>
-typename Target::VirtualFunctionTable* CSidlScreenWndTrampoline<Target>::GetBaseTable()
-{
-	return s_baseCSidlScreenWndTrampolineVFTable;
-}
 
 template <typename T>
 using TrampolineSelectorT = std::conditional_t<std::is_base_of_v<eqlib::CSidlScreenWnd, T>,
