@@ -1617,6 +1617,7 @@ enum eDatabaseStringType
 	eAltAbilityDescription = 4,
 	eSpellCategory = 5,
 	eSpellDescription = 6,
+	eItemLoreGroup = 7,
 
 	eMercenarySubCategoryDescription = 23,
 	eMercenaryStanceName = 24,
