@@ -406,6 +406,29 @@ enum EnvironmentType
 	ENVIRONMENT_COUNT                   // total number of environments
 };
 
+
+//----------------------------------------------------------------------------
+
+class [[offsetcomments]] ScreenWndManager
+{
+public:
+	using Callback = bool(*)(CSidlScreenWnd*);
+
+	struct ScreenHolder
+	{
+		CSidlScreenWnd** pWnd = nullptr;
+		Callback activate;
+		Callback deactivate;
+		Callback clean;
+	};
+
+	ArrayClass<ScreenHolder> screens;
+	HashTable<int, CXStr> screensHash;
+	ArrayClass<CSidlScreenWnd*> createdScreens;
+	HashTable<CSidlScreenWnd*, CXStr> createdScreensHash;
+};
+
+
 // @size: CDisplay = 0x2E04 @ 0x5F4F15 (05-21-2020 live)
 class [[offsetcomments]] CDisplay
 {
@@ -577,6 +600,9 @@ public:
 /*0x2d77*/ bool                   bWindowedIncreasedGamma;
 /*0x2d78*/ int                    ActorClipPlane;
 /*0x2d7c*/ int                    ShadowClipPlane;
+/*0x2d80*/ int                    Unknown2d80;
+/*0x2d84*/ ScreenWndManager       gameScreens;
+/*0x2d88*/ ScreenWndManager       charselectScreens;
 /*0x2d80*/
 };
 

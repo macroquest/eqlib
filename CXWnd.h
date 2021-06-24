@@ -333,9 +333,9 @@ public:
 	EQLIB_OBJECT virtual bool ShouldProcessChildrenFrames() const { return IsVisible() && !IsMinimized(); }
 	EQLIB_OBJECT virtual bool ShouldProcessControllerFrame() const { return IsVisible() && !IsMinimized(); }
 	EQLIB_OBJECT virtual void SetDrawTemplate(CXWndDrawTemplate* drawTemplate) { DrawTemplate = drawTemplate; }
-	EQLIB_OBJECT virtual int Move(const CXPoint& point);
 	EQLIB_OBJECT virtual int UpdateGeometry(const CXRect& rect, bool updateLayout = true, bool forceUpdateLayout = false,
 		bool completeMoveOrResize = false, bool moveAutoStretch = false);
+	EQLIB_OBJECT virtual int Move(const CXPoint& point);
 	EQLIB_OBJECT virtual void SetWindowText(const CXStr& text) { WindowText = text; }
 	DEPRECATE("Use SetWindowText instead of SetWindowTextA") inline void SetWindowTextA(const CXStr& text) { this->SetWindowText(text); }
 	EQLIB_OBJECT CXStr GetWindowText() const { return WindowText; }
@@ -651,8 +651,8 @@ public:
 	/*0x114*/ void* ShouldProcessChildrenFrames;
 	/*0x118*/ void* ShouldProcessControllerFrame;
 	/*0x11c*/ void* SetDrawTemplate;
-	/*0x120*/ void* Move;
-	/*0x124*/ void* UpdateGeometry;
+	/*0x120*/ void* UpdateGeometry;
+	/*0x124*/ void* Move;
 	/*0x128*/ void* SetWindowText;
 	/*0x12c*/ void* GetChildWndAt;
 	/*0x130*/ void* GetSidlPiece;
