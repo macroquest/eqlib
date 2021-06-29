@@ -72,26 +72,27 @@ DIKEYID gDiKeyID[] = {
 const char* gDiKeyName[256];
 
 ServerID ServerIDArray[ServerID::NumServers] = {
-	ServerID::Rizlona,
-	ServerID::Lockjaw,
-	ServerID::Ragefire,
-	ServerID::Vox,
-	ServerID::Trakanon,
-	ServerID::Fippy,
-	ServerID::Vulak,
-	ServerID::Mayong,
 	ServerID::Antonius,
-	ServerID::Brekt,
 	ServerID::Bertox,
+	ServerID::Brekt,
 	ServerID::Bristle,
 	ServerID::Cazic,
 	ServerID::Drinal,
 	ServerID::Erollisi,
+	ServerID::Fippy,
 	ServerID::Firiona,
+	ServerID::Lockjaw,
 	ServerID::Luclin,
+	ServerID::Mayong,
+	ServerID::Phinigel,
 	ServerID::Povar,
+	ServerID::Ragefire,
 	ServerID::Rathe,
+	ServerID::Rizlona,
+	ServerID::Trakanon,
 	ServerID::Tunare,
+	ServerID::Vox,
+	ServerID::Vulak,
 	ServerID::Xegony,
 	ServerID::Zek,
 };
@@ -100,26 +101,27 @@ const char* GetServerNameFromServerID(ServerID id)
 {
 	switch (id)
 	{
-	case ServerID::Rizlona: return "rizlona";
-	case ServerID::Lockjaw: return "lockjaw";
-	case ServerID::Ragefire: return "ragefire";
-	case ServerID::Vox: return "vox";
-	case ServerID::Trakanon: return "trakanon";
-	case ServerID::Fippy: return "fippy";
-	case ServerID::Vulak: return "vulak";
-	case ServerID::Mayong: return "mayong";
 	case ServerID::Antonius: return "antonius";
-	case ServerID::Brekt: return "brekt";
 	case ServerID::Bertox: return "bertox";
+	case ServerID::Brekt: return "brekt";
 	case ServerID::Bristle: return "bristle";
 	case ServerID::Cazic: return "cazic";
 	case ServerID::Drinal: return "drinal";
 	case ServerID::Erollisi: return "erollisi";
+	case ServerID::Fippy: return "fippy";
 	case ServerID::Firiona: return "firiona";
+	case ServerID::Lockjaw: return "lockjaw";
 	case ServerID::Luclin: return "luclin";
+	case ServerID::Mayong: return "mayong";
+	case ServerID::Phinigel: return "phinigel";
 	case ServerID::Povar: return "povar";
+	case ServerID::Ragefire: return "ragefire";
 	case ServerID::Rathe: return "rathe";
+	case ServerID::Rizlona: return "rizlona";
+	case ServerID::Trakanon: return "trakanon";
 	case ServerID::Tunare: return "tunare";
+	case ServerID::Vox: return "vox";
+	case ServerID::Vulak: return "vulak";
 	case ServerID::Xegony: return "xegony";
 	case ServerID::Zek: return "zek";
 	}
@@ -130,26 +132,27 @@ const char* GetServerNameFromServerID(ServerID id)
 ServerID GetServerIDFromServerName(const char* serverName)
 {
 	static const mq::ci_unordered::map<std::string_view, ServerID> serverMapping{
-		{ "rizlona", ServerID::Rizlona },
-		{ "lockjaw", ServerID::Lockjaw },
-		{ "ragefire", ServerID::Ragefire },
-		{ "vox", ServerID::Vox },
-		{ "trakanon", ServerID::Trakanon },
-		{ "fippy", ServerID::Fippy },
-		{ "vulak", ServerID::Vulak },
-		{ "mayong", ServerID::Mayong },
 		{ "antonius", ServerID::Antonius },
-		{ "brekt", ServerID::Brekt },
 		{ "bertox", ServerID::Bertox },
+		{ "brekt", ServerID::Brekt },
 		{ "bristle", ServerID::Bristle },
 		{ "cazic", ServerID::Cazic },
 		{ "drinal", ServerID::Drinal },
 		{ "erollisi", ServerID::Erollisi },
+		{ "fippy", ServerID::Fippy },
 		{ "firiona", ServerID::Firiona },
+		{ "lockjaw", ServerID::Lockjaw },
 		{ "luclin", ServerID::Luclin },
+		{ "mayong", ServerID::Mayong },
+		{ "phinigel", ServerID::Phinigel },
 		{ "povar", ServerID::Povar },
+		{ "ragefire", ServerID::Ragefire },
 		{ "rathe", ServerID::Rathe },
+		{ "rizlona", ServerID::Rizlona },
+		{ "trakanon", ServerID::Trakanon },
 		{ "tunare", ServerID::Tunare },
+		{ "vox", ServerID::Vox },
+		{ "vulak", ServerID::Vulak },
 		{ "xegony", ServerID::Xegony },
 		{ "zek", ServerID::Zek },
 	};

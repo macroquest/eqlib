@@ -969,11 +969,12 @@ enum class ServerID : int {
 	Vox = 158,
 	Ragefire = 159,
 	Lockjaw = 160,
+	Phinigel = 161,
 	Brekt = 162,
 	Mayong = 163,
 	Rizlona = 169,
 
-	NumServers = 22,
+	NumServers = 23,
 	Invalid = -1,
 };
 

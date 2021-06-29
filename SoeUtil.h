@@ -137,8 +137,8 @@ Array<T>& Array<T>::operator=(Array<T>&& other)
 template <typename T>
 T& Array<T>::at(int index)
 {
-	assert(index >= 0 && i < m_size);
-	return m_array[i];
+	assert(index >= 0 && index < m_size);
+	return m_array[index];
 }
 
 template <typename T>
@@ -403,7 +403,7 @@ private:
 
 	void copy(const T* other, size_t length)
 	{
-		if (len == 0)
+		if (length == 0)
 			clear();
 		else
 		{
