@@ -767,7 +767,7 @@ enum eDyanicZonePlayerStatus
 
 struct [[offsetcomments]] DynamicZonePlayerInfo
 {
-/*0x00*/ char                     Name[0x40];                // The usual name length
+/*0x00*/ char                     Name[EQ_MAX_NAME];
 /*0x40*/ eDyanicZonePlayerStatus  Status;
 /*0x44*/ DynamicZonePlayerInfo*   pNext;
 /*0x48*/ bool                     bFlagged;                  // Do we meet the requirements?
@@ -853,16 +853,16 @@ inline namespace deprecated {
 // CDynamicZone size: 0x128
 struct [[offsetcomments]] CDynamicZone : public PopDialogHandler
 {
-	/*0x004*/ uint32_t     NewMemberDZID;
-	/*0x008*/ char         NewMemberName[0x40];
-	/*0x048*/ bool         bNewSwap;
-	/*0x049*/ bool         bNewAssignedToDZ;
-	/*0x04a*/ char         LeaderName[0x40];
-	/*0x08a*/ char         DZName[0x80];
-	/*0x10c*/ int          MaxPlayers;
-	/*0x110*/ DynamicZonePlayerInfo* pFirstMember;
-	/*0x114*/ DynamicZoneClientTimerData* pFirstTimer;
-	/*0x118*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
+/*0x004*/ uint32_t     NewMemberDZID;
+/*0x008*/ char         NewMemberName[0x40];
+/*0x048*/ bool         bNewSwap;
+/*0x049*/ bool         bNewAssignedToDZ;
+/*0x04a*/ char         LeaderName[0x40];
+/*0x08a*/ char         DZName[0x80];
+/*0x10c*/ int          MaxPlayers;
+/*0x110*/ DynamicZonePlayerInfo* pFirstMember;
+/*0x114*/ DynamicZoneClientTimerData* pFirstTimer;
+/*0x118*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
 /*0x128*/
 	ALT_MEMBER_GETTER_ARRAY(char, 0x40, LeaderName, Name);
 	ALT_MEMBER_GETTER_ARRAY(char, 0x80, DZName, ExpeditionName);

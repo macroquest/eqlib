@@ -708,6 +708,7 @@ public:
 #pragma region HashTable::Iterator
 	class ConstIterator
 	{
+		friend class HashTable<T, Key, ResizePolicy>;
 	public:
 		using iterator_category = std::forward_iterator_tag;
 
@@ -894,9 +895,9 @@ template <typename T, typename Key, typename ResizePolicy>
 T& HashTable<T, Key, ResizePolicy>::Insert(const Key& key)
 {
 	HashEntry* entry = eqNew<HashEntry>();
-	entry->key() = key;
+	*((Key*)&entry->second) = key;
 
-	Insert(element);
+	Insert(entry);
 
 	return entry->value();
 }

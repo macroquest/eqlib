@@ -371,6 +371,8 @@ private:
 
 		// put the original table back
 		pThis->ReplaceVFTable(Trampoline::s_originalVTable );
+
+		s_hooked = false;
 	}
 };
 

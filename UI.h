@@ -3210,6 +3210,8 @@ public:
 	{
 		FindLocationType type;
 		uint32_t         index;
+
+		bool operator==(const FindableReference& other) const { return type == other.type && index == other.index; }
 	};
 	using FindableReferenceList = HashTable<FindableReference>;
 
