@@ -20,7 +20,7 @@
 
 #define __eqgraphics_fopen_x                                       0x10160A6D
 
-#define CParticleSystem__Render_x                                  0x100041F0
+#define CParticleSystem__Render_x                                  0x1007BE60
 
 #define CRender__RenderScene_x                                     0x100A1770
 #define CRender__ResetDevice_x                                     0x100A0FD0
