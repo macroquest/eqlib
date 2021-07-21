@@ -909,8 +909,8 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x214 :: 2021-06-10 (live) @0x5A5489
-constexpr size_t EQ_Spell_size = 0x214;
+// @sizeof(EQ_Spell) == 0x20c :: 2021-07-19 (live) @0x5A5429
+constexpr size_t EQ_Spell_size = 0x20c;
 
 class [[offsetcomments]] EQ_Spell
 {
@@ -1010,8 +1010,6 @@ public:
 /*0x050*/ int                  NoExpendReagent[MAX_SPELL_REAGENTS];
 /*0x060*/ int                  CalcIndex = 0;
 /*0x064*/ int                  NumEffects = 0;
-/*0x068*/ int                  BookIcon = 0;
-/*0x06c*/ int                  GemIcon = 0;
 /*0x070*/ int                  DescriptionIndex = 0;
 /*0x074*/ int                  ResistAdj = 0;
 /*0x078*/ int                  Diety = 0;
@@ -1160,7 +1158,7 @@ constexpr int TOTAL_SPELL_AFFECT_COUNT   = 230000;   // 69EAAA in eqgame 2020 Oc
 
 // CalcInfoSize is 3 * TOTAL_SPELL_COUNT
 
-// @sizeof(SPELLMGR) == 0x1D3F00 :: 2021-03-04 (live) @ 0x627C64
+// @sizeof(SPELLMGR) == 0x1D3F00 :: 2021-07-19 (live) @ 0x629824
 constexpr size_t SPELLMGR_size = 0x1D3F00;
 
 struct [[offsetcomments]] SPELLMGR
