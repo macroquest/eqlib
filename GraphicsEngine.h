@@ -422,10 +422,11 @@ public:
 		Callback clean;
 	};
 
-	ArrayClass<ScreenHolder> screens;
-	HashTable<int, CXStr> screensHash;
-	ArrayClass<CSidlScreenWnd*> createdScreens;
-	HashTable<CSidlScreenWnd*, CXStr> createdScreensHash;
+/*0x00*/ ArrayClass<ScreenHolder> screens;
+/*0x10*/ HashTable<int, CXStr> screensHash;
+/*0x20*/ ArrayClass<CSidlScreenWnd*> createdScreens;
+/*0x30*/ HashTable<CSidlScreenWnd*, CXStr> createdScreensHash;
+/*0x40*/
 };
 
 
@@ -602,8 +603,8 @@ public:
 /*0x2d7c*/ int                    ShadowClipPlane;
 /*0x2d80*/ int                    Unknown2d80;
 /*0x2d84*/ ScreenWndManager       gameScreens;
-/*0x2d88*/ ScreenWndManager       charselectScreens;
-/*0x2d80*/
+/*0x2dc4*/ ScreenWndManager       charselectScreens;
+/*0x2e04*/
 };
 
 inline namespace deprecated {
