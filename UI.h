@@ -3197,9 +3197,9 @@ public:
 
 	struct FindZoneConnectionData
 	{
-		FindLocationType type;
-		uint32_t         id;
-		uint32_t         subId;
+		FindLocationType type = FindLocation_Location;
+		uint32_t         id = 0;
+		int32_t          subId = -1;
 		EQZoneIndex      zoneId;
 		int              zoneIdentifier;
 		CVector3         location;
