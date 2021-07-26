@@ -706,20 +706,20 @@ private:
 
 			if (m_rep->m_strongRefs == 0)
 			{
-				m_ptr->~T();
-
 				if (!m_rep->is_inplace_constructed(m_ptr))
 				{
-					eqFree(m_ptr);
+					eqDelete(m_ptr);
 					m_ptr = nullptr;
+				}
+				else
+				{
+					m_ptr->~T();
 				}
 			}
 
 			if (m_rep->m_refs == 0)
 			{
-				m_rep->~SharedData();
-				eqFree(m_rep);
-
+				eqDelete(m_rep);
 				m_rep = nullptr;
 			}
 		}

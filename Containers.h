@@ -285,13 +285,10 @@ public:
 	{
 		for (int i = 0; i < m_binCount; ++i)
 		{
-			std::destroy_n(m_array[i], m_maxPerBin);
-			eqFree(m_array[i]);
+			eqVecDelete(m_array[i]);
 		}
 
-		std::destroy_n(m_array, m_binCount);
-		eqFree(m_array);
-
+		eqVecDelete(m_array);
 		m_array = nullptr;
 		m_binCount = 0;
 		m_length = 0;
@@ -376,19 +373,17 @@ private:
 
 		if (newBinCount > m_binCount)
 		{
-			T** newArray = (T**)eqAlloc(sizeof(T*) * newBinCount);
+			T** newArray = eqVecNew<T*>(newBinCount);
 
 			for (int i = 0; i < m_binCount; ++i)
 				newArray[i] = m_array[i];
 			for (int curBin = m_binCount; curBin < newBinCount; ++curBin)
 			{
-				T* newBin = (T*)eqAlloc(sizeof(T) * m_maxPerBin);
-				std::uninitialized_default_construct_n(newBin, m_maxPerBin);
-
+				T* newBin = eqVecNew<T>(m_maxPerBin);
 				newArray[curBin] = newBin;
 			}
 
-			eqFree(m_array);
+			eqVecDelete(m_array);
 			m_array = newArray;
 			m_binCount = newBinCount;
 		}
@@ -420,11 +415,9 @@ public:
 		m_isValid = true;
 	}
 
-	ArrayClass(int reserve) : ArrayClass()
+	ArrayClass(int amt) : ArrayClass()
 	{
-		m_array = (T*)eqAlloc(sizeof(T) * reserve);
-		std::uninitialized_default_construct_n(m_array, reserve);
-
+		m_array = eqVecNew<T>(amt);
 		m_alloc = reserve;
 	}
 
@@ -464,12 +457,7 @@ public:
 
 	void Reset()
 	{
-		if (m_array)
-		{
-			std::destroy_n(m_array, m_length);
-			eqFree(m_array);
-		}
-
+		eqVecDelete(m_array);
 		m_array = nullptr;
 		m_alloc = 0;
 		m_length = 0;
@@ -565,6 +553,11 @@ public:
 	const T* end() const { return m_array + m_length; }
 	const T* cend() const { return m_array + m_length; }
 
+	void reserve(size_t amt) { InternalResize(amt, true); }
+	size_t size() const noexcept { return (size_t)m_length; }
+	T* data() noexcept { return m_array; }
+	const T* data() const noexcept { return m_array; }
+
 private:
 	// this function will ensure that there is enough space allocated for the
 	// requested size. the underlying array is one contiguous block of memory.
@@ -577,15 +570,14 @@ private:
 		if (requestedSize && (requestedSize > m_alloc || !m_array))
 		{
 			int allocatedSize = exact ? requestedSize : (requestedSize + 4) << 1;
-			T* newArray = (T*)eqAlloc(sizeof(T) * allocatedSize);
+			T* newArray = eqVecNew<T>(allocatedSize);
 
 			// copy data into new buffer
-			std::uninitialized_move_n(m_array, m_length, newArray);
-			std::uninitialized_default_construct_n(newArray + m_length, allocatedSize - m_length);
+			for (int i = 0; i < m_alloc; ++i)
+				newArray[i] = std::move(m_array[i]);
 
 			// clean up old buffer
-			std::destroy_n(m_array, m_length);
-			eqFree(m_array);
+			eqVecDelete(m_array);
 
 			m_array = newArray;
 			m_alloc = allocatedSize;
@@ -803,7 +795,7 @@ public:
 	template <class... Args>
 	iterator emplace(Args&&... args)
 	{
-		HashEntry* entry = new HashEntry(std::forward<Args>(args)...);
+		HashEntry* entry = eqNew<HashEntry>(std::forward<Args>(args)...);
 
 		Insert(entry);
 
@@ -880,7 +872,7 @@ template <typename T, typename Key, typename ResizePolicy>
 HashTable<T, Key, ResizePolicy>::~HashTable()
 {
 	Reset();
-	eqFree(m_table);
+	eqVecDelete(m_table);
 }
 
 template <typename T, typename Key, typename ResizePolicy>
@@ -1030,7 +1022,7 @@ bool HashTable<T, Key, ResizePolicy>::Remove(const Key& key)
 		if (entry->key() == key)
 		{
 			*link = entry->next;
-			eqFree(entry);
+			eqDelete(entry);
 			--m_entryCount;
 
 			if (m_table[slot] == nullptr)
@@ -1060,7 +1052,7 @@ bool HashTable<T, Key, ResizePolicy>::Remove(const Key& key, const T& value)
 		if (entry->key() == key && entry->value() == value)
 		{
 			*link = entry->next;
-			eqFree(entry);
+			eqDelete(entry);
 			--m_entryCount;
 
 			if (m_table[slot] == nullptr)
@@ -1080,7 +1072,7 @@ bool HashTable<T, Key, ResizePolicy>::Remove(const Key& key, const T& value)
 template <typename T, typename Key, typename ResizePolicy>
 bool HashTable<T, Key, ResizePolicy>::Remove(const HashTable<T, Key, ResizePolicy>::HashEntry* entry)
 {
-	Remove(entry->key(), entry->value());
+	return Remove(entry->key(), entry->value());
 }
 
 template <typename T, typename Key, typename ResizePolicy>
@@ -1118,7 +1110,7 @@ void HashTable<T, Key, ResizePolicy>::Resize(int hashSize)
 	m_tableSize = NextPrime(hashSize);
 	if (m_tableSize != oldSize)
 	{
-		m_table = eqNew<HashEntry*[]>(m_tableSize);
+		m_table = eqVecNew<HashEntry*>(m_tableSize);
 		memset(m_table, 0, sizeof(HashEntry*) * m_tableSize);
 		m_statUsedSlots = 0;
 
@@ -1139,7 +1131,7 @@ void HashTable<T, Key, ResizePolicy>::Resize(int hashSize)
 			}
 		}
 
-		eqFree(oldTable);
+		eqVecDelete(oldTable);
 	}
 }
 
@@ -1183,6 +1175,7 @@ public:
 	{
 		if (_InterlockedDecrement((volatile long*)&ReferenceCount) == 0)
 		{
+			// VeBaseReferenceCount is protected, so cannot use eqDelete.
 			this->~VeBaseReferenceCount();
 			eqFree(this);
 		}

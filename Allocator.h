@@ -96,6 +96,7 @@ inline void operator delete[](void* m, eqlib::detail::EqAllocate)
 
 namespace eqlib {
 
+// custom replacement for delete m;
 template <typename T>
 inline void eqDelete(T* m)
 {
@@ -106,26 +107,76 @@ inline void eqDelete(T* m)
 	}
 }
 
-template <typename T, typename... Types, std::enable_if_t<!std::is_array_v<T> && std::is_trivial_v<T>, int> = 0>
+// custom replacement for new T;
+template <typename T>
 [[nodiscard]] T* eqNew()
 {
 	return new (detail::eqAllocator) T;
 }
 
-template <typename T, typename... Types, std::enable_if_t<!std::is_array_v<T> && !std::is_trivial_v<T>, int> = 0>
+// custom replacement for new T(...)
+template <typename T, typename... Types>
 [[nodiscard]] T* eqNew(Types&&... args)
 {
 	return new (detail::eqAllocator) T(std::forward<Types>(args)...);
 }
 
-template <typename T, std::enable_if_t<std::is_array_v<T> && std::extent_v<T> == 0, int> = 0>
-[[nodiscard]] auto eqNew(size_t size)
+// custom delete[]
+template <typename T>
+inline void eqVecDelete(T* m)
 {
-	using Elem = std::remove_extent_t<T>;
-	return new (detail::eqAllocator) Elem[size];
+	if (m)
+	{
+		if constexpr (std::is_trivially_destructible_v<T>)
+		{
+			eqFree(m);
+		}
+		else
+		{
+			size_t* ptr = (size_t*)m;
+			--ptr;
+
+			std::destroy_n(m, *ptr);
+			eqFree(ptr);
+		}
+	}
 }
 
-template <typename T, typename... Types, std::enable_if_t<std::extent_v<T> != 0, int> = 0>
-void eqNew(Types&&...) = delete;
+// custom new[]
+template <typename T>
+[[nodiscard]] T* eqVecNew(size_t count)
+{
+	if constexpr (std::is_trivially_destructible_v<T>)
+	{
+		size_t sizeBytes = sizeof(T) * count;
+		T* ptr = (T*)eqAlloc(sizeBytes);
+		if (ptr)
+		{
+			if constexpr (!std::is_trivially_default_constructible_v<T>)
+			{
+				std::uninitialized_default_construct_n(ptr, count);
+			}
+			return ptr;
+		}
+	}
+	else
+	{
+		size_t sizeBytes = 4 + (sizeof(T) * count);
+		size_t* ptr = (size_t*)eqAlloc(sizeBytes);
+		if (ptr)
+		{
+			*ptr = count;
+			T* result = (T*)(ptr + 1);
+
+			if constexpr (!std::is_trivially_default_constructible_v<T>)
+			{
+				std::uninitialized_default_construct_n(result, count);
+			}
+			return result;
+		}
+	}
+
+	return nullptr;
+}
 
 } // namespace eqlib

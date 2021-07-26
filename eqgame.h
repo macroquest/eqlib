@@ -371,7 +371,7 @@
 #define Teleport_Table_Size_x                                      0xF980F0
 #define Teleport_Table_x                                           0xF95CC8
 #define Util__FastTime_x                                           0x950920
-#define __eq_delete_x                                              0x9F8A05
+#define __eq_delete_x                                              0x9F8A00
 #define __eq_new_x                                                 0x9F8F74
 #define __CopyLayout_x                                             0x661170
 #define __ThrottleFrameRate_x                                      0x62DF13
