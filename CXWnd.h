@@ -700,7 +700,7 @@ public:
 /*0x039*/ bool        bFullyScreenClipped;
 /*0x03c*/ int         managerArrayIndex;
 /*0x040*/ COLORREF    CRNormal;                            // found in OnProcessFrame
-/*0x044*/ COLORREF    BGColor;                             // DO NOT CHNAGE THIS TO AN ARGBCOLOR, it will break the padding since its a union that has bytes in it.
+/*0x044*/ COLORREF    BGColor;                             // DO NOT CHANGE THIS TO AN ARGBCOLOR, it will break the padding since its a union that has bytes in it.
 /*0x048*/ int64_t     Data;
 /*0x050*/ CLayoutStrategy* pLayoutStrategy;
 /*0x054*/ bool        Enabled;
