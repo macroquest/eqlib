@@ -3129,4 +3129,23 @@ void InitializeUI()
 	MapViewMap::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(MapViewMap__vftable);
 }
 
+//----------------------------------------------------------------------------
+
+const char* FindLocationTypeToString(FindLocationType type)
+{
+	switch (type)
+	{
+	case FindLocation_Player: return "Player";
+	case FindLocation_POI: return "POI";
+	case FindLocation_RealEstateItem: return "RealEstateItem";
+	case FindLocation_RealEstatePlot: return "RealEstatePlot";
+	case FindLocation_MapPoint: return "MapPoint";
+	case FindLocation_Switch: return "Switch";
+	case FindLocation_Location: return "Location";
+	case FindLocation_Unknown:
+	default:
+		return "Unknown";
+	}
+}
+
 } // namespace eqlib
