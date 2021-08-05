@@ -415,10 +415,10 @@ public:
 		m_isValid = true;
 	}
 
-	ArrayClass(int amt) : ArrayClass()
+	ArrayClass(int reserved) : ArrayClass()
 	{
-		m_array = eqVecNew<T>(amt);
-		m_alloc = reserve;
+		m_array = eqVecNew<T>(reserved);
+		m_alloc = reserved;
 	}
 
 	ArrayClass(const ArrayClass& rhs) : ArrayClass()
@@ -430,6 +430,14 @@ public:
 			std::copy_n(rhs.m_array, rhs.m_length, m_array);
 			m_length = rhs.m_length;
 		}
+	}
+
+	ArrayClass(ArrayClass&& other)
+	{
+		m_length = std::exchange(other.m_length, 0);
+		m_array = std::exchange(other.m_array, nullptr);
+		m_alloc = std::exchange(other.m_alloc, 0);
+		m_isValid = std::exchange(other.m_isValid, true);
 	}
 
 	~ArrayClass()
@@ -452,6 +460,20 @@ public:
 			m_length = rhs.m_length;
 		}
 
+		return *this;
+	}
+
+	ArrayClass& operator=(ArrayClass&& other)
+	{
+		if (&other == this)
+			return *this;
+
+		Reset();
+
+		m_length = std::exchange(other.m_length, 0);
+		m_array = std::exchange(other.m_array, nullptr);
+		m_alloc = std::exchange(other.m_alloc, 0);
+		m_isValid = std::exchange(other.m_isValid, true);
 		return *this;
 	}
 
@@ -676,10 +698,24 @@ public:
 
 private:
 	template <typename T>
-	static uint32_t hash_value(const T& key) { return static_cast<uint32_t>(key); }
+	static uint32_t hash_value(const T& key)
+	{
+		if constexpr (std::conjunction_v<
+			std::is_convertible<const T&, std::string_view>,
+			std::negation<std::is_convertible<const T&, const char*>>>)
+		{
+			return GetStringCRC(key);
+		}
+		else if constexpr (std::is_integral_v<T>)
+		{
+			return (uint32_t)key;
+		}
+		else
+		{
+			static_assert(false, "Unexpected key type");
+		}
+	}
 
-	template <>
-	static uint32_t hash_value<std::string_view>(const std::string_view& sv) { return GetStringCRC(sv); }
 
 	//template <>
 	//uint32_t hash_value<EqItemGuid>(const EqItemGuid& guid) { return GetStringCRC(guid.guid); }
@@ -1774,15 +1810,42 @@ public:
 	UINT    Index;
 };
 
-template <typename TNumBitsType, typename TElementType>
+template <typename NumBitsType, typename ElementType>
 class DynamicBitField
 {
-	using NumBitsType = TNumBitsType;
-	using ElementType = TElementType;
+public:
+	static inline constexpr size_t BITS_PER_ELEMENT = sizeof(ElementType) * 8;
 
-	NumBitsType NumBits;
-	ElementType Element;
-	ElementType* Elements;
+	DynamicBitField() = default;
+
+	NumBitsType GetNumBits() const { return m_numBits; }
+
+	bool IsBitSet(NumBitsType bit) const
+	{
+		if (bit >= 0 && bit < m_numBits)
+		{
+			int index = GetIndex(bit);
+			if (index)
+			{
+				return (m_elements[index - 1] & (1 << GetOffset(bit))) != 0;
+			}
+			else
+			{
+				return (m_element & (1 << GetOffset(bit))) != 0;
+			}
+		}
+
+		return false;
+	}
+
+private:
+	int GetIndex(int bit) const { return bit / BITS_PER_ELEMENT; }
+	int GetOffset(int bit) const { return bit % BITS_PER_ELEMENT; }
+
+private:
+	NumBitsType m_numBits = 0;
+	ElementType m_element = 0;
+	ElementType* m_elements = nullptr;
 };
 
 #pragma endregion
