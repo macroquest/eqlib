@@ -279,6 +279,7 @@ class CXWnd;
 class CXWndDrawTemplate;
 class CXWndManager;
 class CZoneGuideWnd;
+class CZonePathWnd;
 class DatabaseStringTable;
 class EmitterManager;
 class engineInterface;

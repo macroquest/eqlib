@@ -1032,6 +1032,7 @@ INITIALIZE_EQGAME_OFFSET(StringTable__getString);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table_Size);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table);
 INITIALIZE_EQGAME_OFFSET(Util__FastTime);
+INITIALIZE_EQGAME_OFFSET(ZoneGuideManagerClient__Instance);
 
 //----------------------------------------------------------------------------
 // Instance Pointers
@@ -1236,6 +1237,7 @@ ForeignPointer<CTradeWnd>                        pTradeWnd;
 ForeignPointer<CTrainWnd>                        pTrainWnd;
 ForeignPointer<CVideoModesWnd>                   pVideoModesWnd;
 ForeignPointer<CZoneGuideWnd>                    pZoneGuideWnd;
+ForeignPointer<CZonePathWnd>                     pZonePathWnd;
 
 ForeignPointer<DWORD>                            g_pDrawHandler;
 

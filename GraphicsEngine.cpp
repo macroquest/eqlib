@@ -393,4 +393,15 @@ FUNCTION_AT_ADDRESS(void CDisplay::SetupEQPlayers(), CDisplay__SetupEQPlayers);
 FUNCTION_AT_ADDRESS(void CDisplay::MoveLight(struct T3D_POINTLIGHT*, struct _physicsinfo*), CDisplay__MoveLight);
 #endif
 
+const ScreenWndManager::ScreenRecord* ScreenWndManager::FindScreenRecordByScreenName(const CXStr& name)
+{
+	int* value = screensHash.FindFirst(name);
+	if (value)
+	{
+		return &screens[*value];
+	}
+
+	return nullptr;
+}
+
 } // namespace eqlib

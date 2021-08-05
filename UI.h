@@ -5848,10 +5848,10 @@ class [[offsetcomments]] ZoneGuideConnection
 	FORCE_SYMBOLS;
 
 public:
-/*0x00*/ EQZoneIndex        DestZone;
-/*0x04*/ int                TransferTypeIndex;
-/*0x08*/ int                RequiredExpansions;       // EQExpansionOwned
-/*0x0c*/ bool               bDisabled;
+/*0x00*/ EQZoneIndex        destZoneId;
+/*0x04*/ int                transferTypeIndex;
+/*0x08*/ int                requiredExpansions;       // EQExpansionOwned
+/*0x0c*/ bool               disabled;
 /*0x10*/
 };
 
@@ -5860,9 +5860,9 @@ class [[offsetcomments]] ZoneGuideContinent
 	FORCE_SYMBOLS;
 
 public:
-/*0x00*/ int                ID;
-/*0x04*/ int                DisplaySequence;
-/*0x08*/ CXStr              Name;
+/*0x00*/ int                id;
+/*0x04*/ int                displaySequence;
+/*0x08*/ CXStr              name;
 /*0x0c*/
 };
 
@@ -5871,9 +5871,9 @@ class [[offsetcomments]] ZoneGuideZoneType
 	FORCE_SYMBOLS;
 
 public:
-/*0x00*/ int                ID;
-/*0x04*/ int                DisplaySequence;
-/*0x08*/ CXStr              Name;
+/*0x00*/ int                id;
+/*0x04*/ int                displaySequence;
+/*0x08*/ CXStr              name;
 /*0x0c*/
 };
 
@@ -5882,8 +5882,8 @@ class [[offsetcomments]] ZoneGuideTransferType
 	FORCE_SYMBOLS;
 
 public:
-/*0x00*/ int                ID;
-/*0x04*/ CXStr              Description;
+/*0x00*/ int                id;
+/*0x04*/ CXStr              description;
 /*0x08*/
 };
 
@@ -5893,13 +5893,13 @@ class [[offsetcomments]] ZoneGuideZone
 	FORCE_SYMBOLS;
 
 public:
-/*0x00*/ EQZoneIndex   ID;
-/*0x04*/ CXStr         Name;
-/*0x08*/ int           ContinentIndex;
-/*0x0c*/ int           MinLevel;
-/*0x10*/ int           MaxLevel;
-/*0x14*/ DynamicBitField<unsigned short, short> Types;
-/*0x1c*/ ArrayClass<ZoneGuideConnection> ZoneConnections;
+/*0x00*/ EQZoneIndex   zoneId;
+/*0x04*/ CXStr         name;
+/*0x08*/ int           continentIndex;
+/*0x0c*/ int           minLevel;
+/*0x10*/ int           maxLevel;
+/*0x14*/ DynamicBitField<unsigned short, short> types;
+/*0x1c*/ ArrayClass<ZoneGuideConnection> zoneConnections;
 /*0x2c*/
 };
 
@@ -5907,9 +5907,14 @@ struct [[offsetcomments]] ZonePathData
 {
 	FORCE_SYMBOLS;
 
-/*0x00*/ EQZoneIndex        ZoneID;
-/*0x04*/ int                TransferTypeIndex;
+/*0x00*/ EQZoneIndex        zoneId;
+/*0x04*/ int                transferTypeIndex;
 /*0x08*/
+
+	ZonePathData(EQZoneIndex zoneId, int transferTypeIndex)
+		: zoneId(zoneId), transferTypeIndex(transferTypeIndex) {}
+	ZonePathData()
+		: zoneId(0), transferTypeIndex(-1) {}
 };
 
 class [[offsetcomments]] ZoneGuideManagerBase
@@ -5924,12 +5929,40 @@ public:
 	//virtual void Serialize(CSerializeBuffer&);
 	//virtual void Unserialize(CUnserializeBuffer&);
 
-/*0x0004*/ ZoneGuideZone Zones[ZONE_COUNT];
-/*0x90e8*/ ArrayClass<ZoneGuideContinent> Continents;
-/*0x90f8*/ ArrayClass<ZoneGuideZoneType> ZoneTypes;
-/*0x9108*/ ArrayClass<ZoneGuideTransferType> TransferTypes;
+/*0x0004*/ ZoneGuideZone                     zones[ZONE_COUNT];
+/*0x90e8*/ ArrayClass<ZoneGuideContinent>    continents;
+/*0x90f8*/ ArrayClass<ZoneGuideZoneType>     zoneTypes;
+/*0x9108*/ ArrayClass<ZoneGuideTransferType> transferTypes;
 /*0x9118*/
+
+	ZoneGuideZone* GetZone(EQZoneIndex zi)
+	{
+		if (zi > 0 && zi < ZONE_COUNT)
+		{
+			if (zones[zi].zoneId != 0)
+				return &zones[zi];
+		}
+
+		return nullptr;
+	}
+
+	CXStr GetContinentNameByIndex(int continentIndex)
+	{
+		return continentIndex >= 0 && continentIndex < (int)continents.size() ? continents[continentIndex].name : CXStr();
+	}
+
+	CXStr GetZoneTypeNameByIndex(int zoneTypeIndex)
+	{
+		return zoneTypeIndex >= 0 && zoneTypeIndex < (int)zoneTypes.size() ? zoneTypes[zoneTypeIndex].name : CXStr();
+	}
+
+	CXStr GetZoneTransferTypeNameByIndex(int transferTypeIndex) const
+	{
+		return transferTypeIndex >= 0 && transferTypeIndex < (int)transferTypes.size() ? transferTypes[transferTypeIndex].description.c_str() : CXStr();
+	}
 };
+
+using ZonePathArray = ArrayClass<ZonePathData>;
 
 // size: 0x9010 see 6AB098 in Apr 15 2019 exe
 class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
@@ -5937,17 +5970,17 @@ class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
 	FORCE_SYMBOLS;
 
 public:
-/*0x9118*/ ArrayClass<ZonePathData> ActivePath;
-/*0x9128*/ ArrayClass<ZonePathData> PreviewPath;
-/*0x9138*/ EQZoneIndex CurrZone;
-/*0x913c*/ int         HerosJourneyIndex;
-/*0x9140*/ bool        bZoneGuideDataSet;
-/*0x9141*/ bool        bIncludeBindZoneInPath;
-/*0x9142*/ bool        bAutoFindActivePath;
-/*0x9143*/ bool        bFindActivePath;
+/*0x9118*/ ZonePathArray     activePath;
+/*0x9128*/ ZonePathArray     previewPath;
+/*0x9138*/ EQZoneIndex       currentZone;
+/*0x913c*/ int               heroesJourneyIndex;
+/*0x9140*/ bool              zoneGuideDataSet;
+/*0x9141*/ bool              includeBindZoneInPath;
+/*0x9142*/ bool              autoFindActivePath;
+/*0x9143*/ bool              findActivePath;
 /*0x9144*/
 
-	static ZoneGuideManagerClient& Instance();
+	EQLIB_OBJECT static ZoneGuideManagerClient& Instance();
 };
 
 class [[offsetcomments]] CZoneGuideWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5955,64 +5988,73 @@ class [[offsetcomments]] CZoneGuideWnd : public CSidlScreenWnd, public WndEventH
 	FORCE_SYMBOLS
 
 public:
-/*0x23c*/ CVerticalLayoutWnd* VerticalLayout;
-/*0x240*/ CButtonWnd*        FilterMyLevelButton;
-/*0x244*/ CButtonWnd*        FilterAllLevelsButton;
-/*0x248*/ CButtonWnd*        FilterZonesActiveButton;
-/*0x24c*/ CButtonWnd*        FilterZonesInactiveButton;
-/*0x250*/ CButtonWnd*        ZoneRunSearchButton;
-/*0x254*/ CButtonWnd*        ZoneClearSearchButton;
-/*0x258*/ CButtonWnd*        SelectCurrentZoneButton;
-/*0x25c*/ CEditWnd*          LevelFilterEdit;
-/*0x260*/ CEditWnd*          ZoneSearchEdit;
-/*0x264*/ CComboWnd*         TypeFilterCombo;
-/*0x268*/ CComboWnd*         ContinentFilterCombo;
-/*0x26c*/ CListWnd*          ZonesList;
-/*0x270*/ CLabelWnd*         ViewZoneConnectionsSelectedZoneLabel;
-/*0x274*/ CLabelWnd*         ViewZoneConnectionsPreviewPathLabel;
-/*0x278*/ CLabelWnd*         ViewZoneConnectionsActivePathLabel;
-/*0x27c*/ CLabelWnd*         ViewZoneConnectionsDisabledLabel;
-/*0x280*/ CButtonWnd*        ViewZoneConnectionsSelectedZoneButton;
-/*0x284*/ CButtonWnd*        ViewZoneConnectionsPreviewPathButton;
-/*0x288*/ CButtonWnd*        ViewZoneConnectionsActivePathButton;
-/*0x28c*/ CButtonWnd*        ViewZoneConnectionsDisabledButton;
-/*0x290*/ CButtonWnd*        DisableConnectionTemplateButton;
-/*0x294*/ CListWnd*          ZoneConnectionsList;
-/*0x298*/ CButtonWnd*        ResetPathStartZoneButton;
-/*0x29c*/ CButtonWnd*        SetPathStartZoneButton;
-/*0x2a0*/ CButtonWnd*        SetPathEndZoneButton;
-/*0x2a4*/ CButtonWnd*        ShowPathWndButton;
-/*0x2a8*/ CButtonWnd*        HidePathWndButton;
-/*0x2ac*/ CButtonWnd*        FindPathButton;
-/*0x2b0*/ CButtonWnd*        EndFindButton;
-/*0x2b4*/ CButtonWnd*        ClearPathWndButton;
-/*0x2b8*/ CButtonWnd*        ActivatePathButton;
-/*0x2bc*/ CButtonWnd*        IncludeBindZoneInPathGenerationButton;
-/*0x2c0*/ CButtonWnd*        ShowPathWndOnPathActivationButton;
-/*0x2c4*/ CButtonWnd*        AutoFindActivePathButton;
-/*0x2c8*/ CEditWnd*          PathStartZoneEdit;
-/*0x2cc*/ CEditWnd*          PathEndZoneEdit;
-/*0x2d0*/ UINT               NextButtonRefreshTime;
-/*0x2d4*/ EQZoneIndex        eCurrentZone;
-/*0x2d8*/ bool               bFilterActive;
-/*0x2dc*/ int                FilterLevel;
-/*0x2e0*/ int                FilterContinentIndex;
-/*0x2e4*/ int                FilterZoneTypeIndex;
-/*0x2e8*/ bool               bSelectCurrentZone;
-/*0x2ec*/ CXStr              ZoneSearchString;
+/*0x23c*/ CVerticalLayoutWnd*     VerticalLayout;
+/*0x240*/ CButtonWnd*             FilterMyLevelButton;
+/*0x244*/ CButtonWnd*             FilterAllLevelsButton;
+/*0x248*/ CButtonWnd*             FilterZonesActiveButton;
+/*0x24c*/ CButtonWnd*             FilterZonesInactiveButton;
+/*0x250*/ CButtonWnd*             ZoneRunSearchButton;
+/*0x254*/ CButtonWnd*             ZoneClearSearchButton;
+/*0x258*/ CButtonWnd*             SelectCurrentZoneButton;
+/*0x25c*/ CEditWnd*               LevelFilterEdit;
+/*0x260*/ CEditWnd*               ZoneSearchEdit;
+/*0x264*/ CComboWnd*              TypeFilterCombo;
+/*0x268*/ CComboWnd*              ContinentFilterCombo;
+/*0x26c*/ CListWnd*               ZonesList;
+/*0x270*/ CLabelWnd*              ViewZoneConnectionsSelectedZoneLabel;
+/*0x274*/ CLabelWnd*              ViewZoneConnectionsPreviewPathLabel;
+/*0x278*/ CLabelWnd*              ViewZoneConnectionsActivePathLabel;
+/*0x27c*/ CLabelWnd*              ViewZoneConnectionsDisabledLabel;
+/*0x280*/ CButtonWnd*             ViewZoneConnectionsSelectedZoneButton;
+/*0x284*/ CButtonWnd*             ViewZoneConnectionsPreviewPathButton;
+/*0x288*/ CButtonWnd*             ViewZoneConnectionsActivePathButton;
+/*0x28c*/ CButtonWnd*             ViewZoneConnectionsDisabledButton;
+/*0x290*/ CButtonWnd*             DisableConnectionTemplateButton;
+/*0x294*/ CListWnd*               ZoneConnectionsList;
+/*0x298*/ CButtonWnd*             ResetPathStartZoneButton;
+/*0x29c*/ CButtonWnd*             SetPathStartZoneButton;
+/*0x2a0*/ CButtonWnd*             SetPathEndZoneButton;
+/*0x2a4*/ CButtonWnd*             ShowPathWndButton;
+/*0x2a8*/ CButtonWnd*             HidePathWndButton;
+/*0x2ac*/ CButtonWnd*             FindPathButton;
+/*0x2b0*/ CButtonWnd*             EndFindButton;
+/*0x2b4*/ CButtonWnd*             ClearPathWndButton;
+/*0x2b8*/ CButtonWnd*             ActivatePathButton;
+/*0x2bc*/ CButtonWnd*             IncludeBindZoneInPathGenerationButton;
+/*0x2c0*/ CButtonWnd*             ShowPathWndOnPathActivationButton;
+/*0x2c4*/ CButtonWnd*             AutoFindActivePathButton;
+/*0x2c8*/ CEditWnd*               PathStartZoneEdit;
+/*0x2cc*/ CEditWnd*               PathEndZoneEdit;
+/*0x2d0*/ uint32_t                NextButtonRefreshTime;
+/*0x2d4*/ EQZoneIndex             CurrentZone;
+/*0x2d8*/ bool                    bFilterActive;
+/*0x2dc*/ int                     FilterLevel;
+/*0x2e0*/ int                     FilterContinentIndex;
+/*0x2e4*/ int                     FilterZoneTypeIndex;
+/*0x2e8*/ bool                    bSelectCurrentZone;
+/*0x2ec*/ CXStr                   ZoneSearchString;
 /*0x2f0*/ eZoneGuideConnectionsView eCurrConnectionsView;
-/*0x2f4*/ EQZoneIndex        CurrConnectionsViewSelectedZone;
-/*0x2f8*/ bool               bCurrentConnectionsViewPreviewPathChanged;
-/*0x2f9*/ bool               bCurrentConnectionsViewActivePathChanged;
-/*0x2fa*/ bool               bSetPathStartZoneToCurrentZone;
-/*0x2fc*/ EQZoneIndex        StartZone;
-/*0x300*/ EQZoneIndex        EndZone;
-/*0x304*/ bool               bZoneGuideDataChanged;
-/*0x305*/ bool               bZoneListChanged;
-/*0x306*/ bool               bZoneConnectionsListChanged;
-/*0x307*/ bool               bPathStartZoneChanged;
-/*0x308*/ int                RightClickMenuID;
+/*0x2f4*/ EQZoneIndex             CurrConnectionsViewSelectedZone;
+/*0x2f8*/ bool                    bCurrentConnectionsViewPreviewPathChanged;
+/*0x2f9*/ bool                    bCurrentConnectionsViewActivePathChanged;
+/*0x2fa*/ bool                    bSetPathStartZoneToCurrentZone;
+/*0x2fc*/ EQZoneIndex             StartZone;
+/*0x300*/ EQZoneIndex             EndZone;
+/*0x304*/ bool                    bZoneGuideDataChanged;
+/*0x305*/ bool                    bZoneListChanged;
+/*0x306*/ bool                    bZoneConnectionsListChanged;
+/*0x307*/ bool                    bPathStartZoneChanged;
+/*0x308*/ int                     RightClickMenuID;
 /*0x30c*/
+};
+
+class [[offsetcomments]] CZonePathWnd : public CSidlScreenWnd, public WndEventHandler
+{
+public:
+/*0x23c*/ EQZoneIndex             currentZone;
+/*0x240*/ bool                    zonePathDirty;
+/*0x244*/ CListWnd*               listZones;
+/*0x248*/
 };
 
 //============================================================================
@@ -6408,5 +6450,7 @@ public:
 //----------------------------------------------------------------------------
 
 void InitializeUI();
+
+EQLIB_OBJECT void InitializeInGameUI();
 
 } // namespace eqlib

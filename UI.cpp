@@ -3085,16 +3085,10 @@ void CascadeItemCommand::ExecuteCommand()
 //============================================================================
 
 // CWndDisplayManager
-#ifdef CWndDisplayManager__FindWindowA_x
 FUNCTION_AT_ADDRESS(int CWndDisplayManager::FindWindow(bool bNewWnd), CWndDisplayManager__FindWindowA);
-#endif
-
 
 // CItemDisplayManager
-
-#ifdef CItemDisplayManager__CreateWindowInstance_x
 FUNCTION_AT_ADDRESS(int CItemDisplayManager::CreateWindowInstance(), CItemDisplayManager__CreateWindowInstance);
-#endif
 
 void CItemDisplayManager::ShowItem(const ItemPtr& pItem)
 {
@@ -3120,6 +3114,8 @@ void CItemDisplayManager::ShowItem(const ItemPtr& pItem)
 	}
 }
 
+FUNCTION_AT_ADDRESS(ZoneGuideManagerClient& ZoneGuideManagerClient::Instance(), ZoneGuideManagerClient__Instance);
+
 //----------------------------------------------------------------------------
 
 void InitializeUI()
@@ -3127,6 +3123,37 @@ void InitializeUI()
 	CButtonWnd::sm_vftable = reinterpret_cast<CButtonWnd::VirtualFunctionTable*>(CButtonWnd__vftable);
 	CListWnd::sm_vftable = reinterpret_cast<CListWnd::VirtualFunctionTable*>(CListWnd__vftable);
 	MapViewMap::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(MapViewMap__vftable);
+}
+
+template <typename T>
+static void UpdateScreenPtr(ForeignPointer<T>& ptr, const char* name)
+{
+	ScreenWndManager& wndMgr = pDisplay->gameScreens;
+
+	// if pointer always has a value, double check that its value matches.
+	const ScreenWndManager::ScreenRecord* record = wndMgr.FindScreenRecordByScreenName(name);
+	if (record)
+	{
+		if (record->pWnd)
+		{
+			ptr.set_offset((T**)record->pWnd);
+		}
+		else
+		{
+			//DebugSpewAlways("Failed to find window pointer for %s: record existed but has no value!", name);
+			ptr.set_offset(nullptr);
+		}
+	}
+	else
+	{
+		//DebugSpewAlways("Failed to find window pointer for %s: name not found!", name);
+		ptr.set_offset(nullptr);
+	}
+}
+
+void InitializeInGameUI()
+{
+	UpdateScreenPtr(pZonePathWnd, "ZonePathWnd");
 }
 
 //----------------------------------------------------------------------------

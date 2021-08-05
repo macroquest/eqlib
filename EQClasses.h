@@ -1090,8 +1090,6 @@ public:
 	EQLIB_OBJECT static char* FormatCharName(char*, char*, int);
 };
 
-extern char* szZoneExpansionName[];
-
 constexpr int MAX_ZONES = 1000; // 0x3e8
 constexpr int MAX_ZONE_SHORTNAME = 128;
 constexpr int MAX_ZONE_LONGNAME = 256;

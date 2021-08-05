@@ -414,7 +414,7 @@ class [[offsetcomments]] ScreenWndManager
 public:
 	using Callback = bool(*)(CSidlScreenWnd*);
 
-	struct ScreenHolder
+	struct ScreenRecord
 	{
 		CSidlScreenWnd** pWnd = nullptr;
 		Callback activate;
@@ -422,7 +422,9 @@ public:
 		Callback clean;
 	};
 
-/*0x00*/ ArrayClass<ScreenHolder> screens;
+	EQLIB_OBJECT const ScreenRecord* FindScreenRecordByScreenName(const CXStr& name);
+
+/*0x00*/ ArrayClass<ScreenRecord> screens;
 /*0x10*/ HashTable<int, CXStr> screensHash;
 /*0x20*/ ArrayClass<CSidlScreenWnd*> createdScreens;
 /*0x30*/ HashTable<CSidlScreenWnd*, CXStr> createdScreensHash;

@@ -237,6 +237,7 @@ public:
 
 	uintptr_t get_offset() const noexcept { return reinterpret_cast<uintptr_t>(m_ptr); }
 	void set_offset(uintptr_t offset) noexcept { m_ptr = reinterpret_cast<T**>(offset); }
+	void set_offset(T** offset) noexcept { m_ptr = offset; }
 
 	void reset() { m_ptr = nullptr; }
 };

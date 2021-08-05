@@ -977,6 +977,7 @@ EQLIB_VAR DWORD Util__FastTime;
 EQLIB_VAR DWORD Window__getProgress;
 EQLIB_VAR DWORD Window__getStatus;
 EQLIB_VAR DWORD Window__getURI;
+EQLIB_VAR DWORD ZoneGuideManagerClient__Instance;
 
 //----------------------------------------------------------------------------
 // Instance Pointers
@@ -1189,6 +1190,7 @@ EQLIB_VAR ForeignPointer<CTradeWnd>                  pTradeWnd;
 EQLIB_VAR ForeignPointer<CTrainWnd>                  pTrainWnd;
 EQLIB_VAR ForeignPointer<CVideoModesWnd>             pVideoModesWnd;
 EQLIB_VAR ForeignPointer<CZoneGuideWnd>              pZoneGuideWnd;
+EQLIB_VAR ForeignPointer<CZonePathWnd>               pZonePathWnd;
 
 // TODO: Map out
 EQLIB_VAR ForeignPointer<DWORD>                      g_pDrawHandler;
