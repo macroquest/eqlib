@@ -259,8 +259,11 @@ public:
 	EQLIB_OBJECT uint32_t GetNumberOfPlayerMembers(bool includeOffline = true) const;
 	EQLIB_OBJECT uint32_t GetNumberOfMembersExcludingSelf(bool includeOffline = true) const;
 
-	// What is the index of this group member? Returns -1 if not found.
+	// What is the index of this group member? Returns -1 if not found. Returns ARRAY INDEX. (counts blank slots)
 	EQLIB_OBJECT int GetGroupMemberIndex(CGroupMember* pMember) const;
+
+	// Returns the VISUAL INDEX of the group member. That is, what position they are in the list, ignoring blank slots.
+	EQLIB_OBJECT int GetGroupMemberVisualIndex(CGroupMember* pMember) const;
 
 	EQLIB_OBJECT bool IsGroupMember(PlayerClient* pPlayer) const;
 	EQLIB_OBJECT bool IsGroupLeader(PlayerClient* pPlayer) const;

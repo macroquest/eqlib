@@ -215,6 +215,25 @@ int CGroup::GetGroupMemberIndex(CGroupMember* pMember) const
 	return -1;
 }
 
+int CGroup::GetGroupMemberVisualIndex(CGroupMember* pMember) const
+{
+	if (!pMember) return -1;
+
+	int slot = -1;
+
+	for (int index = 0; index < MAX_GROUP_SIZE; ++index)
+	{
+		if (m_groupMembers[index])
+		{
+			++slot;
+			if (m_groupMembers[index] == pMember)
+				return slot;
+		}
+	}
+
+	return -1;
+}
+
 bool CGroup::IsGroupMember(PlayerClient* pPlayer) const
 {
 	if (!pPlayer) return false;
