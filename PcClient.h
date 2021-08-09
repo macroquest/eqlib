@@ -17,6 +17,7 @@
 #include "Common.h"
 #include "Containers.h"
 #include "CXStr.h"
+#include "Achievements.h"
 #include "Items.h"
 #include "PlayerClient.h"
 #include "Spells.h"
@@ -669,34 +670,6 @@ public:
 /*0x00*/ int Index;
 /*0x04*/ int Cost;
 /*0x08*/
-};
-
-struct [[offsetcomments]] CompletedAchievementData
-{
-/*0x00*/ int AchievementID;
-/*0x04*/ UINT CompletedTimestamp;
-/*0x08*/ int CompletedVersion;
-/*0x0c*/
-};
-
-enum eAchievementSubReqType
-{
-	eASCRT_Invalid,
-	eASCRT_Requirement,
-	eASCRT_KillNpcRaceMat,
-	eASCRT_RightClickItem,
-	eASCRT_KillNpc,
-	eASCRT_Count,
-};
-
-struct [[offsetcomments]] AchievementSubComponentCountData
-{
-/*0x00*/ int AchievementID;
-/*0x04*/ int ComponentID;
-/*0x08*/ int RequirementID;
-/*0x0c*/ eAchievementSubReqType SubReqType;
-/*0x10*/ int Count;
-/*0x14*/
 };
 
 //============================================================================

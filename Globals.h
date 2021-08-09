@@ -386,8 +386,7 @@ EQLIB_VAR DWORD __SaveColors;
 EQLIB_VAR DWORD __STMLToText;
 EQLIB_VAR DWORD __WndProc;
 
-EQLIB_VAR DWORD ActorClient__GetPosition;
-EQLIB_VAR DWORD ActorClient__GetPosition1;
+EQLIB_VAR DWORD AchievementManager__Instance;
 EQLIB_VAR DWORD AggroMeterManagerClient__Instance;
 EQLIB_VAR DWORD AltAdvManager__CanSeeAbility;
 EQLIB_VAR DWORD AltAdvManager__CanTrainAbility;

@@ -52,6 +52,7 @@
 #include "UITextures.h"
 
 // game components
+#include "Achievements.h"
 #include "Items.h"
 #include "PlayerClient.h"
 #include "PcClient.h"

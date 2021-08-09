@@ -851,7 +851,7 @@ public:
 	inline BYTE GetCharacterType() const { return Type; }
 	inline unsigned int GetId() const { return SpawnID; }
 	inline CharacterZoneClient* GetCharacter() const { return (CharacterZoneClient*)GetPcClient(); }
-	inline int GetZoneID() const { return Zone; }
+	inline EQZoneIndex GetZoneID() const { return Zone; }
 	inline int GetCurrentMana() const { return ManaCurrent; }
 	inline int GetMaxMana() const { return ManaMax; }
 	inline int GetCurrentEndurance() const { return EnduranceCurrent; }

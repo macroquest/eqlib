@@ -55,6 +55,9 @@ public:
 	int GetLength() const { return m_length; }
 	bool IsEmpty() const { return m_length == 0; }
 
+	[[nodiscard]] bool empty() const { return IsEmpty(); }
+	size_t size() const { return static_cast<size_t>(m_length);  }
+
 	__declspec(property(get = GetLength)) int Count;
 
 protected:
@@ -354,7 +357,6 @@ public:
 	void resize(size_t size) { Resize(static_cast<int>(size)); }
 	void reserve(size_t size) { InternalResize(static_cast<size_t>(size)); }
 	void clear() { Clear(); }
-	[[nodiscard]] bool empty() const { return IsEmpty(); }
 
 private:
 	// Assure() makes sure that there is enough allocated space for
@@ -878,7 +880,7 @@ public:
 		}
 		return cnt;
 	}
-	bool contains() const { return FindFirst(key) != nullptr; }
+	bool contains(const key_type& key) const { return FindFirst(key) != nullptr; }
 
 	void swap(HashTable& other)
 	{
@@ -1810,6 +1812,7 @@ public:
 	UINT    Index;
 };
 
+// size: sizeof(NumBitsType) + sizeof(ElementType) + sizeof(void*)
 template <typename NumBitsType, typename ElementType>
 class DynamicBitField
 {

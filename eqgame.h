@@ -1244,6 +1244,9 @@
 // ZoneGuideManagerClient
 #define ZoneGuideManagerClient__Instance_x                         0x6E0A20
 
+// AchievementManager
+#define AchievementManager__Instance_x                             0x47E350
+
 #if __has_include("../private/eqgame-private.h")
 #include "../private/eqgame-private.h"
 #endif

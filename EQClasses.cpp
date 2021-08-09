@@ -33,6 +33,12 @@ FUNCTION_AT_ADDRESS(bool IsResEffectSpell(int), __IsResEffectSpell);
 #endif
 
 //============================================================================
+// AchievementManager
+//============================================================================
+
+FUNCTION_AT_ADDRESS(AchievementManager& AchievementManager::Instance(), AchievementManager__Instance);
+
+//============================================================================
 // AggroMeterManagerClient
 //============================================================================
 

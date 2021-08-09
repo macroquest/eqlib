@@ -75,6 +75,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Achievements.h" />
     <ClInclude Include="Allocator.h" />
     <ClInclude Include="base\Color.h" />
     <ClInclude Include="Common.h" />
