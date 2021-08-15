@@ -60,6 +60,7 @@
     <Link>
       <BaseAddress>0x03400000</BaseAddress>
       <ModuleDefinitionFile>AssemblyFunctions.def</ModuleDefinitionFile>
+      <AdditionalDependencies>fmt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -72,6 +73,7 @@
     <Link>
       <BaseAddress>0x03400000</BaseAddress>
       <ModuleDefinitionFile>AssemblyFunctions.def</ModuleDefinitionFile>
+      <AdditionalDependencies>fmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

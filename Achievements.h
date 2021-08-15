@@ -167,6 +167,9 @@ class [[offsetcomments]] Achievement
 public:
 	const AchievementComponent* GetComponentById(AchievementComponentType type, int id) const
 	{
+		if (id < 0)
+			return nullptr;
+
 		if (type >= AchievementComponentUnlock && type < AchievementComponentCount)
 		{
 			for (int index = 0; index < componentsByType[type].GetCount(); ++index)
@@ -177,6 +180,23 @@ public:
 		}
 
 		return nullptr;
+	}
+
+	int GetComponentIndexById(AchievementComponentType type, int id) const
+	{
+		if (id < 0)
+			return -1;
+
+		if (type >= AchievementComponentUnlock && type < AchievementComponentCount)
+		{
+			for (int index = 0; index < componentsByType[type].GetCount(); ++index)
+			{
+				if (componentsByType[type][index].id == id)
+					return index;
+			}
+		}
+
+		return -1;
 	}
 
 	const AchievementComponent* GetComponentByIndex(AchievementComponentType type, int index) const
@@ -209,10 +229,8 @@ struct [[offsetcomments]] SingleAchievementAndComponentsInfo
 	virtual void SetComponentLengths(int completed, int indirect, int unlocked) {}
 	virtual void SerializeCXStr(CXStr&) const {}
 	virtual void UnSerializeCXStr(CXStr&) {}
-	virtual void Serialize(CSerializeBuffer&) const;
-	virtual void UnSerialize(CUnSerializeBuffer&);
-
-	EQLIB_OBJECT void CreateAchievementTagString(CXStr& str, CXStr& playerName, int id);
+	virtual void Serialize(CSerializeBuffer&) const {}
+	virtual void UnSerialize(CUnSerializeBuffer&) {}
 
 	EQLIB_OBJECT bool IsComponentComplete(AchievementComponentType componentType, int index) const
 	{
@@ -243,17 +261,17 @@ struct [[offsetcomments]] SingleAchievementAndComponentsInfoWithCounts : public 
 {
 	EQLIB_OBJECT int GetComponentCount(AchievementComponentType type, int index);
 
-	/*0x24*/ ArrayClass<int>          completionComponentCounts;
-	/*0x34*/ ArrayClass<int>          indirectComponentCounts;
-	/*0x44*/ ArrayClass<int>          unlockedComponentCounts;
-	/*0x54*/
+/*0x24*/ ArrayClass<int>          completionComponentCounts;
+/*0x34*/ ArrayClass<int>          indirectComponentCounts;
+/*0x44*/ ArrayClass<int>          unlockedComponentCounts;
+/*0x54*/
 };
 
 //----------------------------------------------------------------------------
 struct [[offsetcomments]] SingleAchievementIdAndInfo
 {
-	/*0x00*/ int                      achievementId;
-	/*0x04*/ SingleAchievementAndComponentsInfo achievementInfo;
+/*0x00*/ int                      achievementId;
+/*0x04*/ SingleAchievementAndComponentsInfo achievementInfo;
 };
 using AchievementStateInfoArray = ArrayClass<SingleAchievementIdAndInfo>;
 
@@ -268,14 +286,38 @@ public:
 
 	virtual void Reset() {}
 
+	//----------------------------------------------------------------------------
+	// Achievement Category Access
+
 	const AchievementCategory* GetAchievementCategoryById(int id) const
 	{
+		if (id < 0)
+			return nullptr;
+
 		for (const AchievementCategory& cat : categories)
 		{
 			if (cat.id == id)
 				return &cat;
 		}
 		return nullptr;
+	}
+
+	EQLIB_OBJECT int GetAchievementCategoryIndexByName(std::string_view name) const;
+
+	int GetAchievementCategoryIndexById(int id) const
+	{
+		if (id < 0)
+			return -1;
+
+		for (int index = 0; index < categories.GetLength(); ++index)
+		{
+			const AchievementCategory& category = categories[index];
+
+			if (category.id == id)
+				return index;
+		}
+
+		return -1;
 	}
 
 	const AchievementCategory* GetAchievementCategoryByIndex(int index) const
@@ -287,8 +329,14 @@ public:
 
 	int GetAchievementCategoryCount() const { return categories.GetLength(); }
 
+	//----------------------------------------------------------------------------
+	// Achievement Access
+
 	const Achievement* GetAchievementById(int id) const
 	{
+		if (id < 0)
+			return nullptr;
+
 		for (const Achievement& achieve : achievements)
 		{
 			if (achieve.id == id)
@@ -297,8 +345,13 @@ public:
 		return nullptr;
 	}
 
+	EQLIB_OBJECT int GetAchievementIndexByName(std::string_view name) const;
+
 	int GetAchievementIndexById(int id) const
 	{
+		if (id < 0)
+			return -1;
+
 		for (int index = 0; index < achievements.GetLength(); ++index)
 		{
 			const Achievement& achieve = achievements[index];
@@ -318,6 +371,9 @@ public:
 
 	int GetAchievementCount() const { return achievements.GetLength(); }
 
+	//----------------------------------------------------------------------------
+	// Client info access
+
 	const SingleAchievementAndComponentsInfo* GetAchievementClientInfoByIndex(int index) const
 	{
 		if (index >= 0 && index < achievementClientInfoArray.GetLength())
@@ -331,6 +387,13 @@ public:
 			return achievementClientInfoArray[index].achievementState;
 		return AchievementNotVisible;
 	}
+
+	//----------------------------------------------------------------------------
+	// Helpers
+
+	EQLIB_OBJECT bool FillAchievementComponentInfoWithCounts(
+		SingleAchievementAndComponentsInfoWithCounts& outInfo,
+		int achievementIndex) const;
 
 	//----------------------------------------------------------------------------
 	// AchievementManager
@@ -355,7 +418,5 @@ public:
 /*0x70*/ uint32_t                           comparisonLockedAchievementCount;
 /*0x74*/ uint32_t                           comparisonOpenAchievementCount;
 };
-
-
 
 } // namespace eqlib

@@ -34,17 +34,8 @@ namespace eqlib {
 class CMemoryStream;
 class CVector3;
 
-struct TargetBuff
-{
-	int slot;
-	int spellId;
-	int duration;            // in ticks...
-	int count;
-	char casterName[64];
-};
-inline namespace deprecated {
-	using PTargetBuff DEPRECATE("Use TargetBuff* Instead of PTargetBuff") = TargetBuff*;
-}
+//============================================================================
+// Aggro Meter 
 
 struct AggroMeterListEntry
 {
@@ -66,7 +57,6 @@ public:
 /*0xf8*/ DWORD AggroSecondaryID;                // this is id of whoever the npc is fighting
 /*0xfc*/
 };
-
 
 class AltAdvManager
 {

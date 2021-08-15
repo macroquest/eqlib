@@ -16,6 +16,7 @@
 #include "ItemLinks.h"
 
 #include "Globals.h"
+#include "Achievements.h"
 #include "Items.h"
 #include "UI.h" // for ExecuteItemLink
 
@@ -204,6 +205,40 @@ void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const cha
 {
 	snprintf(Buffer, BufferSize, "%c%d3^%d^'%s%c", ITEM_TAG_CHAR, ETAG_SPELL, Spell->ID,
 		spellNameOverride && spellNameOverride[0] ? spellNameOverride : Spell->Name, ITEM_TAG_CHAR);
+}
+
+
+void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* achievement, std::string_view playerName)
+{
+	//std::string_view line = "You say to your guild, '\x12" "3TestToon^500010200^1^0^0^0^0^0^'Welcome to Crescent Reach (1+)\x12'";
+
+	SingleAchievementAndComponentsInfoWithCounts achievementInfo;
+	if (AchievementManager::Instance().FillAchievementComponentInfoWithCounts(achievementInfo,
+		AchievementManager::Instance().GetAchievementIndexById(achievement->id)))
+	{
+		fmt::memory_buffer mbuf;
+		fmt::format_to(std::back_inserter(mbuf), "{}^{}^{}", playerName, achievement->id, achievementInfo.achievementState);
+
+		for (int index = 0; index < achievementInfo.completionComponentStatusBitField.GetNumElements(); ++index)
+			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.completionComponentStatusBitField.GetElement(index));
+		for (int index = 0; index < achievementInfo.indirectComponentStatusBitField.GetNumElements(); ++index)
+			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.indirectComponentStatusBitField.GetElement(index));
+		for (int index = 0; index < achievementInfo.unlockedComponentStatusBitField.GetNumElements(); ++index)
+			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.unlockedComponentStatusBitField.GetElement(index));
+
+		if (achievementInfo.achievementState == AchievementComplete)
+			fmt::format_to(std::back_inserter(mbuf), "{:d}^", achievementInfo.completionTimestamp);
+
+		for (int index = 0; index < achievementInfo.completionComponentCounts.GetLength(); ++index)
+			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.completionComponentCounts[index]);
+		for (int index = 0; index < achievementInfo.indirectComponentCounts.GetLength(); ++index)
+			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.indirectComponentCounts[index]);
+		for (int index = 0; index < achievementInfo.unlockedComponentCounts.GetLength(); ++index)
+			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.unlockedComponentCounts[index]);
+
+		snprintf(Buffer, BufferSize, "%c%d%.*s'%s%c", ITEM_TAG_CHAR, ETAG_ACHIEVEMENT, mbuf.size(), mbuf.data(),
+			achievement->name.c_str(), ITEM_TAG_CHAR);
+	}
 }
 
 bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo)

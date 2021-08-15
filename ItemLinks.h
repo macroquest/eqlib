@@ -20,6 +20,7 @@
 namespace eqlib {
 
 class ItemClient;
+class Achievement;
 
 // Enumeration of different types of item tags
 enum ETagCodes
@@ -116,6 +117,8 @@ EQLIB_API void FormatItemLink(char* Buffer, size_t BufferSize, ItemClient* Item)
 // spell name overrides that changes the display name of the spell.
 EQLIB_API void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const char* spellNameOverride = nullptr);
 
+// Create an achievement link for the given achievement.
+EQLIB_API void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* achievement, std::string_view playerName);
 
 //----------------------------------------------------------------------------
 // EQ Functions

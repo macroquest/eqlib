@@ -1841,6 +1841,28 @@ public:
 		return false;
 	}
 
+	int GetNumElements() const
+	{
+		if (GetOffset(m_numBits) > 0)
+			return GetIndex(m_numBits) + 1;
+		return GetIndex(m_numBits);
+	}
+
+	ElementType GetElement(int element) const
+	{
+		if (element > 0 && element < GetNumElements())
+		{
+			if (m_elements)
+				return m_elements[element];
+		}
+		else if (element == 0)
+		{
+			return m_element;
+		}
+
+		return 0;
+	}
+
 private:
 	int GetIndex(int bit) const { return bit / BITS_PER_ELEMENT; }
 	int GetOffset(int bit) const { return bit % BITS_PER_ELEMENT; }

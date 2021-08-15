@@ -38,6 +38,79 @@ FUNCTION_AT_ADDRESS(bool IsResEffectSpell(int), __IsResEffectSpell);
 
 FUNCTION_AT_ADDRESS(AchievementManager& AchievementManager::Instance(), AchievementManager__Instance);
 
+int AchievementManager::GetAchievementCategoryIndexByName(std::string_view name) const
+{
+	if (name.empty())
+		return -1;
+
+	for (int index = 0; index < categories.GetLength(); ++index)
+	{
+		const AchievementCategory& category = categories[index];
+
+		if (category.parentId == -1 && mq::ci_equals(category.name, name))
+			return index;
+	}
+
+	return -1;
+}
+
+int AchievementManager::GetAchievementIndexByName(std::string_view name) const
+{
+	if (name.empty())
+		return -1;
+
+	for (int index = 0; index < achievements.GetLength(); ++index)
+	{
+		const Achievement& achievement = achievements[index];
+
+		if (mq::ci_equals(achievement.name, name))
+			return index;
+	}
+
+	return -1;
+}
+
+bool AchievementManager::FillAchievementComponentInfoWithCounts(
+	SingleAchievementAndComponentsInfoWithCounts& outInfo, int achievementIndex) const
+{
+	const SingleAchievementAndComponentsInfo* clientInfo = GetAchievementClientInfoByIndex(achievementIndex);
+	if (!clientInfo)
+		return false;
+
+	const Achievement* achievement = GetAchievementByIndex(achievementIndex);
+	if (!achievement)
+		return false;
+
+	outInfo.achievementState = clientInfo->achievementState;
+	outInfo.completionTimestamp = clientInfo->completionTimestamp;
+
+	outInfo.completionComponentStatusBitField = clientInfo->completionComponentStatusBitField;
+	outInfo.completionComponentCounts.SetLength(outInfo.completionComponentStatusBitField.GetNumBits());
+	for (int index = 0; index < achievement->componentsByType[AchievementComponentCompletion].GetLength(); ++index)
+	{
+		const AchievementComponent& component = achievement->componentsByType[AchievementComponentCompletion][index];
+		outInfo.completionComponentCounts[index] = component.count;
+	}
+
+	outInfo.indirectComponentStatusBitField = clientInfo->indirectComponentStatusBitField;
+	outInfo.indirectComponentCounts.SetLength(outInfo.indirectComponentStatusBitField.GetNumBits());
+	for (int index = 0; index < achievement->componentsByType[AchievementComponentIndirect].GetLength(); ++index)
+	{
+		const AchievementComponent& component = achievement->componentsByType[AchievementComponentIndirect][index];
+		outInfo.indirectComponentCounts[index] = component.count;
+	}
+
+	outInfo.unlockedComponentStatusBitField = clientInfo->unlockedComponentStatusBitField;
+	outInfo.unlockedComponentCounts.SetLength(outInfo.unlockedComponentStatusBitField.GetNumBits());
+	for (int index = 0; index < achievement->componentsByType[AchievementComponentUnlock].GetLength(); ++index)
+	{
+		const AchievementComponent& component = achievement->componentsByType[AchievementComponentUnlock][index];
+		outInfo.unlockedComponentCounts[index] = component.count;
+	}
+
+	return true;
+}
+
 //============================================================================
 // AggroMeterManagerClient
 //============================================================================
