@@ -84,7 +84,7 @@ struct [[offsetcomments]] AchievementInfo
 {
 /*0x00*/ int       achievementId;
 /*0x04*/ CXStr     description;
-/*0x0c*/
+/*0x08*/
 };
 using AchievementInfoArray = ArrayClass<AchievementInfo>;
 
@@ -143,6 +143,7 @@ public:
 /*0x50*/ int                      comparisonCompletedAchievementCount;
 /*0x54*/ int                      comparisonOpenAchievementCount;
 /*0x58*/ int                      comparisonLockedAchievementCount;
+/*0x5c*/
 };
 
 //----------------------------------------------------------------------------
@@ -158,6 +159,7 @@ public:
 /*0x10*/ int                      requiredCount = 0;
 /*0x14*/ CXStr                    description;
 /*0x18*/ int                      count = 0;
+/*0x1c*/
 };
 using AchievementComponentArray = ArrayClass<AchievementComponent>;
 
@@ -247,12 +249,12 @@ struct [[offsetcomments]] SingleAchievementAndComponentsInfo
 		}
 	}
 
-	/*0x04*/ AchievementState         achievementState;
-	/*0x08*/ DynamicBitField<uint16_t, int16_t> completionComponentStatusBitField;
-	/*0x10*/ DynamicBitField<uint16_t, int16_t> indirectComponentStatusBitField;
-	/*0x18*/ DynamicBitField<uint16_t, int16_t> unlockedComponentStatusBitField;
-	/*0x20*/ __time32_t               completionTimestamp;
-	/*0x24*/
+/*0x04*/ AchievementState         achievementState;
+/*0x08*/ DynamicBitField<uint16_t, int16_t> completionComponentStatusBitField;
+/*0x10*/ DynamicBitField<uint16_t, int16_t> indirectComponentStatusBitField;
+/*0x18*/ DynamicBitField<uint16_t, int16_t> unlockedComponentStatusBitField;
+/*0x20*/ __time32_t               completionTimestamp;
+/*0x24*/
 };
 using AchievementsAndComponentsInfoArray = ArrayClass<SingleAchievementAndComponentsInfo>;
 

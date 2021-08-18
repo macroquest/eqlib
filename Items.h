@@ -1174,47 +1174,47 @@ class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildIt
 {
 public:
 // @start: ItemBase Members
-/*0x0c*/ int                   RealEstateID;
-/*0x10*/ int                   NoDropFlag;
-/*0x14*/ int                   ScriptIndex;
-/*0x18*/ CXStr                 ConvertItemName;
-/*0x1c*/ unsigned int          RespawnTime;
-/*0x20*/ ITEMINFO*             Item1;
-/*0x24*/ int                   AugFlag;
-/*0x28*/ int                   Open;
-/*0x2c*/ CXStr                 ActorTag1;
-/*0x30*/ bool                  bDisableAugTexture;
-/*0x31*/ bool                  bCopied;
-/*0x34*/ CXStr                 SaveString;
-/*0x38*/ bool                  bRealEstateItemPlaceable;
-/*0x3c*/ unsigned int          ItemHash;
-/*0x40*/ int64_t               MerchantSlot;
-/*0x48*/ int                   ID;
-/*0x4c*/ int                   Charges;
-/*0x50*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x58*/ bool                  bRankDisabled;
-/*0x5c*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x6c*/ int                   StackCount;
-/*0x70*/ int64_t               DontKnow;
-/*0x78*/ int                   OrnamentationIcon;
-/*0x7c*/ unsigned int          LastCastTime;
-/*0x80*/ EqItemGuid            ItemGUID;
-/*0x94*/ int                   Power;
-/*0x98*/ unsigned int          Tint;
-/*0x9c*/ int                   ArmorType;
-/*0xa0*/ ItemGlobalIndex       GlobalIndex;
-/*0xac*/ ItemContainer         Contents;
-/*0xc8*/ int                   ConvertItemID;
-/*0xcc*/ bool                  bCollected;
-/*0xd0*/ int64_t               Price;
-/*0xd8*/ unsigned int          NewArmorID;
-/*0xdc*/ int                   MerchantQuantity;
-/*0xe0*/ bool                  bConvertable;
-/*0xe4*/ int                   NoteStatus;
-/*0xe8*/ CXStr                 ActorTag2;
-/*0xec*/ bool                  bItemNeedsUpdate;
-/*0xf0*/ int                   Luck;
-/*0xf4*/
+/*0x0c*/ ItemContainer         Contents;
+/*0x28*/ int                   AugFlag;
+/*0x2c*/ bool                  bRealEstateItemPlaceable;
+/*0x30*/ int                   MerchantQuantity;
+/*0x34*/ CXStr                 ActorTag2;
+/*0x38*/ int                   ID;
+/*0x40*/ int64_t               Price;
+/*0x48*/ bool                  bConvertable;
+/*0x4c*/ CXStr                 SaveString;
+/*0x50*/ int                   Open;
+/*0x54*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0x64*/ int                   Luck;
+/*0x68*/ unsigned int          Tint;
+/*0x6c*/ ItemGlobalIndex       GlobalIndex;
+/*0x78*/ int                   ConvertItemID;
+/*0x7c*/ int                   StackCount;
+/*0x80*/ bool                  bCopied;
+/*0x84*/ unsigned int          RespawnTime;
+/*0x88*/ CXStr                 ActorTag1;
+/*0x8c*/ ITEMINFO*             Item1;
+/*0x90*/ int                   ArmorType;
+/*0x94*/ int                   Charges;
+/*0x98*/ unsigned int          ItemHash;
+/*0x9c*/ EqItemGuid            ItemGUID;
+/*0xb0*/ int                   ScriptIndex;
+/*0xb4*/ unsigned int          NewArmorID;
+/*0xb8*/ int64_t               DontKnow;
+/*0xc0*/ int64_t               MerchantSlot;
+/*0xc8*/ bool                  bCollected;
+/*0xc9*/ bool                  bItemNeedsUpdate;
+/*0xcc*/ int                   Power;
+/*0xd0*/ unsigned int          LastCastTime;
+/*0xd4*/ int                   NoDropFlag;
+/*0xd8*/ CXStr                 ConvertItemName;
+/*0xdc*/ int                   NoteStatus;
+/*0xe0*/ bool                  bRankDisabled;
+/*0xe4*/ ItemEvolutionDataPtr  pEvolutionData;
+/*0xec*/ int                   OrnamentationIcon;
+/*0xf0*/ bool                  bDisableAugTexture;
+/*0xf4*/ int                   RealEstateID;
+/*0xf8*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT ItemBase();
