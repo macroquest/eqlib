@@ -1021,7 +1021,7 @@ EQLIB_VAR DWORD*                                     gpShowNames;
 EQLIB_VAR CDynamicZone*                              pDynamicZone;
 EQLIB_VAR EQMisc*                                    pEQMisc;
 EQLIB_VAR CEQSuiteTextureLoader*                     pEQSuiteTextureLoader;
-EQLIB_VAR EVERQUESTINFO*                             pEverQuestInfo;
+EQLIB_VAR EverQuestinfo*                             pEverQuestInfo;
 EQLIB_VAR INT*                                       pgCurrentSocial;
 EQLIB_VAR CGuild*                                    pGuild;
 EQLIB_VAR GUILDS*                                    pGuildList;

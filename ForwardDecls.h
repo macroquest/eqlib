@@ -311,6 +311,7 @@ class EqSwitchManager;
 class EQUtil;
 class EQWorldData;
 class EQZoneInfo;
+struct EverQuestinfo;
 class IconCache;
 class ItemBase;
 class ItemContainer;
@@ -355,7 +356,6 @@ struct EQRAID;
 struct EQSOCIAL;
 struct EQSOCIALCHANGED;
 struct EQSTRINGTABLE;
-struct EVERQUESTINFO;
 struct GuildMember;
 struct GUILDS;
 struct MAPLABEL;
@@ -372,10 +372,11 @@ struct STableCell;
 struct STempTable;
 struct STempTableCell;
 struct STempTableRow;
-struct ZONEINFO;
+struct zoneHeader;
 struct EQLogin;
 struct MercenaryInfo;
 
+using ZONEINFO = zoneHeader;
 using CChatService = UniversalChatProxy;
 using EVERQUEST = CEverQuest;
 

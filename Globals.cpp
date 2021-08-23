@@ -1077,7 +1077,7 @@ CDynamicZone*          pDynamicZone              = nullptr;
 EQLogin*               pEQLogin                  = nullptr;
 EQMisc*                pEQMisc                   = nullptr;
 CEQSuiteTextureLoader* pEQSuiteTextureLoader     = nullptr;
-EVERQUESTINFO*         pEverQuestInfo            = nullptr;
+EverQuestinfo*         pEverQuestInfo            = nullptr;
 INT*                   pgCurrentSocial           = nullptr;
 CGuild*                pGuild                    = nullptr;
 GUILDS*                pGuildList                = nullptr;
@@ -1298,7 +1298,7 @@ void InitializeEQGameOffsets()
 	pEQLogin                        = (EQLogin*)pinstEqLogin;
 	pEQMisc                         = (EQMisc*)instEQMisc;
 	pEQSuiteTextureLoader           = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
-	pEverQuestInfo                  = (EVERQUESTINFO*)pinstEverQuestInfo;
+	pEverQuestInfo                  = (EverQuestinfo*)pinstEverQuestInfo;
 	pgCurrentSocial                 = (INT*)__CurrentSocial;
 	pGuild                          = (CGuild*)__Guilds;
 	pGuildList                      = (GUILDS*)__Guilds;
