@@ -79,12 +79,14 @@
   <ItemGroup>
     <ClInclude Include="Achievements.h" />
     <ClInclude Include="Allocator.h" />
+    <ClInclude Include="AltAbilities.h" />
     <ClInclude Include="base\Color.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Containers.h" />
     <ClInclude Include="CXStr.h" />
     <ClInclude Include="CXWnd.h" />
+    <ClInclude Include="Requirements.h" />
     <ClInclude Include="WindowOverride.h" />
     <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="EQClasses.h" />

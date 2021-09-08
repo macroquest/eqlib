@@ -1080,6 +1080,17 @@ ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
 	return MountKeyRingItems;
 }
 
+const MercenaryAbilityInfo* PcBase::GetMercenaryAbilityInfo(int abilityId) const
+{
+	for (const MercenaryAbilityInfo* info : MercenaryAbilities)
+	{
+		if (info->Index == abilityId)
+			return info;
+	}
+
+	return nullptr;
+}
+
 int PcZoneClient::GetMaxAirSupply() const
 {
 	int race = GetRace();

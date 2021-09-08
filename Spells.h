@@ -18,6 +18,7 @@
 #include "Containers.h"
 #include "CXStr.h"
 #include "Items.h"
+#include "Requirements.h"
 
 namespace eqlib {
 
@@ -1182,51 +1183,12 @@ using PSPELLMGR = SPELLMGR*;
 
 static_assert(sizeof(SPELLMGR) == SPELLMGR_size, "SPELLMGR size does not match SPELLMGR_size");
 
-class [[offsetcomments]] FileStatMgr
-{
-public:
-	struct FileStat
-	{
-		struct _stat32 Stats;
-		CXStr          Filename;
-		CXStr          Key;
-	};
-
-/*0x00*/ HashTable<FileStat*> FileStats;
-/*0x10*/
-};
-
-enum ReqType
-{
-	RT_None,
-	RT_Sex,
-	RT_MinLevel,
-	RT_MaxLevel,
-	RT_LevelRange,
-	RT_Class,
-	RT_Race,
-	// there are like 72 more of these I dont have time to add them all now.
-};
-
-class [[offsetcomments]] RequirementAssociationManager : public FileStatMgr
-{
-public:
-	/*0x010*/ void* vfTable;
-	/*0x014*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
-	/*0x024*/ char               AssocFilename[512];
-	/*0x224*/ ReqType            LastFailReason;
-	/*0x228*/ int                LastFailGroupID;
-	/*0x22c*/ int                LastFailReqID;
-	/*0x230*/
-};
-
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
 public:
 /*0x0230*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
 /*0x11e0*/
 };
-
 
 enum EEffectActor
 {

@@ -1093,7 +1093,6 @@
 // CAltAbilityData
 #define CAltAbilityData__GetMercCurrentRank_x                      0x5844D0
 #define CAltAbilityData__GetMercMaxRank_x                          0x584460
-#define CAltAbilityData__GetMaxRank_x                              0x578810
 
 // CTargetRing
 #define CTargetRing__Cast_x                                        0x651C50

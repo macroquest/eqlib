@@ -537,7 +537,7 @@ class CEverQuest
 public:
 	EQLIB_OBJECT ~CEverQuest();
 	EQLIB_OBJECT CEverQuest(HWND);
-	EQLIB_OBJECT void CreateTargetIndicator(int Slot, PSPELL pSpell, const ItemGlobalIndex& ItemLoc, ItemSpellTypes spelltype);
+	EQLIB_OBJECT void CreateTargetIndicator(int Slot, EQ_Spell* pSpell, const ItemGlobalIndex& ItemLoc, ItemSpellTypes spelltype);
 	EQLIB_OBJECT int DeleteTargetIndicator();
 	EQLIB_OBJECT bool IsInTypingMode();
 	EQLIB_OBJECT bool IsOkToTransact();
@@ -775,6 +775,5 @@ inline namespace deprecated {
 	using PEVERQUEST DEPRECATE("Use EVERQUEST* instead of PEVERQUEST") = CEverQuest*;
 }
 using EVERQUEST = CEverQuest;
-
 
 } // namespace eqlib

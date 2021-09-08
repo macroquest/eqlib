@@ -403,7 +403,6 @@ EQLIB_VAR DWORD CAdvancedLootWnd__CAdvancedLootWnd;
 EQLIB_VAR DWORD CAdvancedLootWnd__DoAdvLootAction;
 EQLIB_VAR DWORD CAdvancedLootWnd__DoSharedAdvLootAction;
 EQLIB_VAR DWORD CAdvancedLootWnd__UpdateMasterLooter;
-EQLIB_VAR DWORD CAltAbilityData__GetMaxRank;
 EQLIB_VAR DWORD CAltAbilityData__GetMercCurrentRank;
 EQLIB_VAR DWORD CAltAbilityData__GetMercMaxRank;
 EQLIB_VAR DWORD CBankWnd__GetNumBankSlots;

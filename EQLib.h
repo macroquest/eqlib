@@ -52,7 +52,9 @@
 #include "UITextures.h"
 
 // game components
+#include "EverQuest.h"
 #include "Achievements.h"
+#include "AltAbilities.h"
 #include "Items.h"
 #include "PlayerClient.h"
 #include "PcClient.h"

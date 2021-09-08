@@ -35,7 +35,7 @@ class CMemoryStream;
 class CVector3;
 
 //============================================================================
-// Aggro Meter 
+// Aggro Meter
 
 struct AggroMeterListEntry
 {
@@ -56,39 +56,6 @@ public:
 /*0xf4*/ DWORD AggroTargetID;                   // this is id of whoever we are fighting
 /*0xf8*/ DWORD AggroSecondaryID;                // this is id of whoever the npc is fighting
 /*0xfc*/
-};
-
-class AltAdvManager
-{
-public:
-	EQLIB_OBJECT AltAdvManager();
-
-	// IsAbilityReady was checked on apr 29 2016, it looks like it has 5 arguments in IDA, but it doesnt. (it has 4)
-	EQLIB_OBJECT bool IsAbilityReady(PcZoneClient*, ALTABILITY*, int* Refresh/*out*/, int* Timer/*out*/ = nullptr);
-	EQLIB_OBJECT int AbilitiesByClass(int, int);
-	EQLIB_OBJECT int AltSkillReqs(PcZoneClient*, int);
-	EQLIB_OBJECT int CalculateDoubleAttackChance(PcZoneClient*, int, unsigned char);
-	EQLIB_OBJECT int CalculateFleetOfFoot(PcZoneClient*);
-	EQLIB_OBJECT int CalculateHideTimeReduce(PcZoneClient*);
-	EQLIB_OBJECT int CalculateInstrumentMasteryMod(PcZoneClient*);
-	EQLIB_OBJECT int CalculateLoHHarmTouchReuseTimer(PcZoneClient*, int);
-	EQLIB_OBJECT int CalculateMaxHPAA(PcZoneClient*, int);
-	EQLIB_OBJECT int CalculateMaxStatAA(PcZoneClient*, int);
-	EQLIB_OBJECT int CalculateMitigationBoost(PcZoneClient*, int);
-	EQLIB_OBJECT int CalculateNimbleEvasionChance(PcZoneClient*);
-	EQLIB_OBJECT int CalculateSingingMasteryMod(PcZoneClient*, int);
-	EQLIB_OBJECT int CalculateSpellCastingMastery(PcZoneClient*);
-	EQLIB_OBJECT int CalculateStalwartEnduranceChance(PcZoneClient*);
-	EQLIB_OBJECT bool CanTrainAbility(PcZoneClient* pWho, CAltAbilityData* pAbility, bool = false, bool = false, bool = false);
-	EQLIB_OBJECT bool CanSeeAbility(PcZoneClient*, CAltAbilityData*);
-	EQLIB_OBJECT int GetAALevelNeeded(PcZoneClient*, int);
-	EQLIB_OBJECT int GetAbilityTitle(PcZoneClient*);
-	EQLIB_OBJECT int GetNextAbilityCost(int, int);
-	EQLIB_OBJECT int MeetsPoPLevelReqs(PcZoneClient*, int, int);
-	EQLIB_OBJECT int TotalPointsInSkill(int, int);
-	EQLIB_OBJECT unsigned long GetCalculatedTimer(PcZoneClient*, ALTABILITY*);
-	EQLIB_OBJECT void GetAbilityReqs(char*, int);
-	EQLIB_OBJECT ALTABILITY* GetAAById(int index, int level = -1);
 };
 
 // actual size 0x80 20101012 - ieatacid
@@ -1271,45 +1238,6 @@ public:
 	EQLIB_OBJECT bool SetItemLootFilter(int ItemID, int IconID, const char* ItemName, int FilterTypes, bool bKeepRndSetting, bool bScrollToIt);
 };
 
-class [[offsetcomments]] MercenaryAbilityReq
-{
-public:
-/*0x00*/ int           ReqGroupID;
-/*0x04*/ int           ReqGroupRank;
-/*0x08*/
-};
-
-class [[offsetcomments]] MercenaryAbilitiesData
-{
-public:
-/*0x00*/ int           AbilityID;
-/*0x04*/ int           nName;
-/*0x08*/ int           nDesc;
-/*0x0c*/ int           Cost;
-/*0x10*/ int           GroupID;
-/*0x14*/ int           GroupRank;
-/*0x18*/ int           Type;
-/*0x1c*/ int           MinPlayerLevel;           // min level to purchase...
-/*0x20*/ int           RequirementAssociationID;
-/*0x24*/ int           Refund;
-/*0x28*/ int           BetaOnly;
-/*0x2c*/ int           QuestAbility;
-/*0x30*/ ArrayClass<MercenaryAbilityReq> AbilityReqs;
-/*0x40*/
-};
-
-class [[offsetcomments]] MercenaryAlternateAdvancementManagerClient
-{
-public:
-	EQLIB_OBJECT static MercenaryAlternateAdvancementManagerClient& Instance();
-
-/*0x000*/ HashList<int, 5>                             MercenaryTypes;
-/*0x02c*/ HashList<MercenaryAbilitiesData, 0x40>       MercenaryAbilities;
-/*0x144*/ HashList<int, 0x40>                          MercenaryAbilitiesByGroupID;
-/*0x25c*/ HashList<int, 0x40>                          MercenaryAbilitiesOwnedByGroupID;
-/*0x374*/ HashList<HashList<int, 0x10>, 0x40>          MercenaryAbilityGroups;
-/*0x48c*/
-};
 
 enum eSpellStringType
 {
@@ -1607,10 +1535,16 @@ enum eDatabaseStringType
 	eSpellDescription = 6,
 	eItemLoreGroup = 7,
 
+	eAltAbilityCategory = 19,
+	eExpansionName = 20,
+	eMercenaryCategory = 21,
+	eMercenarySubCategory = 22,
 	eMercenarySubCategoryDescription = 23,
 	eMercenaryStanceName = 24,
 
+	eMercenaryAbilityType = 36,
 	eMercenaryAbilityName = 37,
+	eMercenaryAbilityDescription = 38,
 };
 
 class DatabaseStringTable

@@ -974,7 +974,7 @@ T* HashTable<T, Key, ResizePolicy>::WalkFirst() const
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::WalkNext(const T* previousResult) const
 {
-	HashEntry* entry = WalkNextEntry(HashEntry::GetEntry(previousResult));
+	HashEntry* entry = WalkNextEntry(HashEntry::GetEntry((T*)previousResult));
 	return entry ? &entry->value() : nullptr;
 }
 
@@ -1628,7 +1628,47 @@ private:
 
 #pragma region HashList / HashListSet / HashListMap
 
-template <typename KeyT, typename T, int TableSize, int EmbeddedSize>
+inline int StringHash(const char* s)
+{
+	int hash = 0;
+	while (*s != 0) {
+		hash += *s++;
+		hash += hash << 10;
+		hash ^= hash >> 6;
+	}
+	hash += hash << 3;
+	hash ^= hash >> 11;
+	hash += hash << 15;
+	return hash;
+}
+
+inline int StringHash(const char* s, int length)
+{
+	int hash = 0;
+	for (int i = 0; i < length && s[i]; ++i) {
+		hash += s[i];
+		hash += hash << 10;
+		hash ^= hash >> 6;
+	}
+	hash += hash << 3;
+	hash ^= hash >> 11;
+	hash += hash << 15;
+	return hash;
+}
+
+inline int HashType(const char* s) { return StringHash(s); }
+inline int HashType(int64_t value) { return (int)(value ^ (value >> 32)); }
+inline int HashType(uint64_t value) { return (int)(value ^ (value >> 32)); }
+inline int HashType(int32_t value) { return value; }
+inline int HashType(uint32_t value) { return (int)value; }
+inline int HashType(float value) { return *(int*)&value; }
+inline int HashType(double value) { return HashType(*(uint64_t*)&value); }
+
+template <typename T1, typename T2> inline int HashType(T1 value1, T2 value2) { return HashType(value1) ^ HashType(value2); }
+template <typename T1, typename T2, typename... Rest> inline int HashType(T1 value1, T2 value2, Rest... params) { return HashType(value1) ^ HashType(value2, params...); }
+
+
+template <typename KeyT, typename T, int TableSize, int EmbeddedSize = -1>
 class HashListMap;
 
 template <typename KeyT, typename T, int TableSize>
@@ -1637,50 +1677,154 @@ class HashListMap<KeyT, T, TableSize, -1>
 public:
 	using KeyType = KeyT;
 	using ValueType = T;
-	enum { StorageSize = ((TableSize == 0) ? 1 : TableSize) };
-
-	HashListMap();
-	HashListMap(const HashListMap& other);
-	virtual ~HashListMap();
-
-	HashListMap& operator=(const HashListMap& other);
-
-	template <int OtherTableSize>
-	HashListMap& operator=(const HashListMap<KeyT, T, OtherTableSize, -1>& other);
 
 	struct Node
 	{
-		T Value;
-		Node* pNext;
-		Node* pPrev;
-		KeyType Key;
-		Node* pHashNext;
+		T& value() { return Value; }
+		const T& value() const { return Value; }
+
+		KeyType& key() { return Key; }
+		const KeyType& key() const { return Key; }
+
+		Node* next() const { return pNext; }
+		Node* prev() const { return pPrev; }
+		Node* hashNext() const { return pHashNext; }
+
+	private:
+		friend class Iterator;
+
+		KeyType   Key;
+		T         Value;
+		Node*     pNext;
+		Node*     pPrev;
+		Node*     pHashPrev;
+		Node*     pHashNext;
 	};
+
+/*0x04*/ int    m_count = 0;
+/*0x08*/ Node*  m_pHead = nullptr;
+/*0x0c*/ Node*  m_pTail = nullptr;
+/*0x10*/ Node*  m_table[TableSize];
+
+	HashListMap()
+	{
+		memset(m_table, 0, sizeof(m_table));
+	}
+
+	virtual ~HashListMap()
+	{
+	}
+
+	class Iterator
+	{
+		Node* m_node;
+
+	public:
+		Iterator(Node* node = nullptr)
+			: m_node(node) {}
+
+		Iterator& operator++() {
+			m_node = m_node->pNext;
+			return *this;
+		}
+
+		Node* node() const { return m_node; }
+
+		Node& operator*() const { return *m_node; }
+		Node* operator->() const { return m_node; }
+
+		bool operator==(Iterator other) const { return m_node == other.m_node; }
+		bool operator!=(Iterator other) const { return m_node != other.m_node; }
+	};
+
+	Iterator begin() { return Iterator(m_pHead); }
+	Iterator end() { return Iterator(); }
+
+	size_t size() const { return (size_t)m_count; }
+	[[nodiscard]] bool empty() const { return m_count == 0; }
+
+	//----------------------------------------------------------------------------
 
 	Node* NodeGet(const T* cur) const
 	{
-		return (Node*)((byte*)cur - (size_t)((byte*)(&((Node*)1)->Value) - (byte*)1));
+		return (Node*)((byte*)cur - (size_t)((byte*)(&((Node*)1)->value()) - (byte*)1));
 	}
 
-/*0x04*/ int   Count;
-/*0x08*/ Node* pHead;
-/*0x0c*/ Node* pTail;
-	union
+	T* GetFirst() const
 	{
-	/*0x10*/ Node* Table[StorageSize];
-	/*0x10*/ Node** DynTable;
-	};
+		if (m_pHead != nullptr)
+			return &m_pHead->value();
+		return nullptr;
+	}
+
+	T* GetLast() const
+	{
+		if (m_pTail != nullptr)
+			return &m_pTail->value();
+		return nullptr;
+	}
+
+	T* GetNext(const T* current) const
+	{
+		Node* n = NodeGet(current);
+		if (Node* n2 = n->next())
+			return &n2->value();
+		return nullptr;
+	}
+
+	T* GetPrevious(const T* current) const
+	{
+		Node* n = NodeGet(current);
+		if (Node* n2 = n->prev())
+			return &n2->value();
+		return nullptr;
+	}
+
+	T* FindFirst(const KeyType& key) const
+	{
+		uint32_t hashValue = (uint32_t)HashType(key);
+		int slot = hashValue % TableSize;
+		int slot2 = hashValue & (TableSize - 1);
+		Node* entry = m_table[slot];
+
+		while (entry != nullptr)
+		{
+			if (entry->key() == key)
+				return &entry->value();
+
+			entry = entry->hashNext();
+		}
+
+		return nullptr;
+	}
+
+	T* FindNext(const T* previousResult) const
+	{
+		Node* entry = NodeGet(previousResult);
+		KeyType& prevKey = entry->key();
+
+		entry = entry->hashNext();
+		while (entry != nullptr)
+		{
+			if (entry->key() == prevKey)
+				return &entry->value();
+
+			entry = entry->hashNext();
+		}
+
+		return nullptr;
+	}
+
+	const KeyType& GetKey(const T* object) const
+	{
+		return NodeGet(object)->key();
+	}
 };
 
-template <typename T_KEY, typename T, int _Size, int _Cnt = -1>
-class HashListMap : public HashListMap<T_KEY, T, _Size, -1>
-{
-};
+template <typename ValueType, int TableSize, int EmbeddedSize = -1>
+using HashList = HashListMap<int, ValueType, TableSize, EmbeddedSize>;
 
-template <typename T, int _Size, int _Cnt = -1>
-class HashList : public HashListMap<int, T, _Size, _Cnt>
-{
-};
+
 
 template <typename T, int _Size, int _Cnt>
 class HashListSet;
@@ -1726,34 +1870,58 @@ class HashListSet<T, _Size, -2> : public HashListSet<T, _Size, -1>
 
 #pragma endregion
 
-//----------------------------------------------------------------------------
-
-#pragma region Misc Containers (Needs Polish)
-
-template <typename T, int _cnt>
-class EQList;
+#pragma region EQList
 
 template <typename T>
-class EQList<T, -1>
+class EQList
 {
 public:
 	struct Node
 	{
-		T Value;
-		Node* pNext;
-		Node* pPrev;
+		T* Item;
+		Node* Prev;
+		Node* Next;
 	};
 
-/*0x00*/ void* vfTable;
-/*0x04*/ Node* pFirst;
-/*0x08*/ Node* pLast;
-/*0x0c*/ int Count;
-/*0x10*/
+	bool empty() const { return m_numItems == 0; }
+	size_t size() const { return (size_t)m_numItems; }
+
+	class Iterator
+	{
+		Node* m_node;
+
+	public:
+		Iterator(Node* node = nullptr)
+			: m_node(node) {}
+
+		Iterator& operator++() {
+			m_node = m_node->Next;
+			return *this;
+		}
+
+		Node* node() const { return m_node; }
+
+		T& operator*() const { return *node()->Item; }
+		T* operator->() const { return node()->Item; }
+
+		bool operator==(Iterator other) const { return m_node == other.m_node; }
+		bool operator!=(Iterator other) const { return m_node != other.m_node; }
+	};
+
+	Iterator begin() { return Iterator(m_pHead); }
+	Iterator end() { return Iterator(); }
+
+private:
+	int m_numItems = 0;
+	Node* m_pHead = nullptr;
+	Node* m_pTail = nullptr;
+	Node* m_pCurrent = nullptr;
 };
 
-template <typename T, int _cnt = -1>
-class EQList : public EQList<T, -1>
-{};
+#pragma endregion
+//----------------------------------------------------------------------------
+
+#pragma region Misc Containers (Needs Polish)
 
 // strings
 template <typename T, unsigned int Size>

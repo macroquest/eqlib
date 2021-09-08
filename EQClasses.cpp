@@ -16,6 +16,8 @@
 #include "EQClasses.h"
 #include "Globals.h"
 
+#include "AltAbilities.h"
+
 // Nothing apart from FUNCTION_AT_ADDRESS call should go into this file!
 
 #pragma warning(push)
@@ -123,98 +125,74 @@ FUNCTION_AT_ADDRESS(AggroMeterManagerClient& AggroMeterManagerClient::Instance()
 // AltAdvManager
 //============================================================================
 
-#ifdef AltAdvManager__AltAdvManager_x
-FUNCTION_AT_ADDRESS(AltAdvManager::AltAdvManager(), AltAdvManager__AltAdvManager);
-#endif
 #ifdef AltAdvManager__GetAAById_x
-FUNCTION_AT_ADDRESS(ALTABILITY* AltAdvManager::GetAAById(int, int), AltAdvManager__GetAAById);
+FUNCTION_AT_ADDRESS(CAltAbilityData* AltAdvManager::GetAAById(int, int), AltAdvManager__GetAAById);
 #endif
 #ifdef AltAdvManager__IsAbilityReady_x
-FUNCTION_AT_ADDRESS(bool AltAdvManager::IsAbilityReady(PcZoneClient*, ALTABILITY*, int*, int*), AltAdvManager__IsAbilityReady);
-#endif
-#ifdef AltAdvManager__CalculateHideTimeReduce_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateHideTimeReduce(EQ_PC*), AltAdvManager__CalculateHideTimeReduce);
+FUNCTION_AT_ADDRESS(bool AltAdvManager::IsAbilityReady(PcClient*, CAltAbilityData*, int*, int*), AltAdvManager__IsAbilityReady);
 #endif
 #ifdef AltAdvManager__GetCalculatedTimer_x
-FUNCTION_AT_ADDRESS(unsigned long AltAdvManager::GetCalculatedTimer(PcZoneClient*, ALTABILITY*), AltAdvManager__GetCalculatedTimer);
-#endif
-#ifdef AltAdvManager__GetNextAbilityCost_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::GetNextAbilityCost(int, int), AltAdvManager__GetNextAbilityCost);
-#endif
-#ifdef AltAdvManager__TotalPointsInSkill_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::TotalPointsInSkill(int, int), AltAdvManager__TotalPointsInSkill);
-#endif
-#ifdef AltAdvManager__CalculateStalwartEnduranceChance_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateStalwartEnduranceChance(EQ_PC*), AltAdvManager__CalculateStalwartEnduranceChance);
-#endif
-#ifdef AltAdvManager__CalculateLoHHarmTouchReuseTimer_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateLoHHarmTouchReuseTimer(EQ_PC*, int), AltAdvManager__CalculateLoHHarmTouchReuseTimer);
-#endif
-#ifdef AltAdvManager__CalculateSingingMasteryMod_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateSingingMasteryMod(EQ_PC*, int), AltAdvManager__CalculateSingingMasteryMod);
-#endif
-#ifdef AltAdvManager__CalculateInstrumentMasteryMod_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateInstrumentMasteryMod(EQ_PC*), AltAdvManager__CalculateInstrumentMasteryMod);
-#endif
-#ifdef AltAdvManager__CalculateFleetOfFoot_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateFleetOfFoot(EQ_PC*), AltAdvManager__CalculateFleetOfFoot);
-#endif
-#ifdef AltAdvManager__CalculateNimbleEvasionChance_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateNimbleEvasionChance(EQ_PC*), AltAdvManager__CalculateNimbleEvasionChance);
-#endif
-#ifdef AltAdvManager__CalculateDoubleAttackChance_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateDoubleAttackChance(EQ_PC*, int, unsigned char), AltAdvManager__CalculateDoubleAttackChance);
-#endif
-#ifdef AltAdvManager__CalculateMitigationBoost_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateMitigationBoost(EQ_PC*, int), AltAdvManager__CalculateMitigationBoost);
-#endif
-#ifdef AltAdvManager__CalculateSpellCastingMastery_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateSpellCastingMastery(EQ_PC*), AltAdvManager__CalculateSpellCastingMastery);
-#endif
-#ifdef AltAdvManager__CalculateMaxHPAA_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateMaxHPAA(EQ_PC*, int), AltAdvManager__CalculateMaxHPAA);
-#endif
-#ifdef AltAdvManager__CalculateMaxStatAA_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::CalculateMaxStatAA(EQ_PC*, int), AltAdvManager__CalculateMaxStatAA);
-#endif
-#ifdef AltAdvManager__GetAbilityTitle_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::GetAbilityTitle(EQPlayer*), AltAdvManager__GetAbilityTitle);
-#endif
-#ifdef AltAdvManager__AltSkillReqs_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::AltSkillReqs(EQ_PC*, int), AltAdvManager__AltSkillReqs);
-#endif
-#ifdef AltAdvManager__GetAALevelNeeded_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::GetAALevelNeeded(EQ_PC*, int), AltAdvManager__GetAALevelNeeded);
-#endif
-#ifdef AltAdvManager__MeetsPoPLevelReqs_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::MeetsPoPLevelReqs(EQ_PC*, int, int), AltAdvManager__MeetsPoPLevelReqs);
+FUNCTION_AT_ADDRESS(uint32_t AltAdvManager::GetCalculatedTimer(PcClient*, CAltAbilityData*), AltAdvManager__GetCalculatedTimer);
 #endif
 #ifdef AltAdvManager__CanTrainAbility_x
-FUNCTION_AT_ADDRESS(bool AltAdvManager::CanTrainAbility(PcZoneClient*, CAltAbilityData*, bool, bool, bool), AltAdvManager__CanTrainAbility);
+FUNCTION_AT_ADDRESS(bool AltAdvManager::CanTrainAbility(PcClient*, CAltAbilityData*, bool, bool, bool), AltAdvManager__CanTrainAbility);
 #endif
 #ifdef AltAdvManager__CanSeeAbility_x
-FUNCTION_AT_ADDRESS(bool AltAdvManager::CanSeeAbility(PcZoneClient*, CAltAbilityData*), AltAdvManager__CanSeeAbility);
-#endif
-#ifdef AltAdvManager__AbilitiesByClass_x
-FUNCTION_AT_ADDRESS(int AltAdvManager::AbilitiesByClass(int, int), AltAdvManager__AbilitiesByClass);
-#endif
-#ifdef AltAdvManager__GetAbilityReqs_x
-FUNCTION_AT_ADDRESS(void AltAdvManager::GetAbilityReqs(char*, int), AltAdvManager__GetAbilityReqs);
+FUNCTION_AT_ADDRESS(bool AltAdvManager::CanSeeAbility(PcClient*, CAltAbilityData*, bool), AltAdvManager__CanSeeAbility);
 #endif
 
 //============================================================================
 // CAltAbilityData
 //============================================================================
 
+// These two are MercenaryAlternateAdvancementManagerClient
 #ifdef CAltAbilityData__GetMercCurrentRank_x
-FUNCTION_AT_ADDRESS(int CAltAbilityData::GetMercCurrentRank(int), CAltAbilityData__GetMercCurrentRank);
+//FUNCTION_AT_ADDRESS(int CAltAbilityData::GetMercCurrentRank(int), CAltAbilityData__GetMercCurrentRank);
 #endif
 #ifdef CAltAbilityData__GetMercMaxRank_x
-FUNCTION_AT_ADDRESS(int CAltAbilityData::GetMercMaxRank(int), CAltAbilityData__GetMercMaxRank);
+//FUNCTION_AT_ADDRESS(int CAltAbilityData::GetMercMaxRank(int), CAltAbilityData__GetMercMaxRank);
 #endif
-#ifdef CAltAbilityData__GetMaxRank_x
-FUNCTION_AT_ADDRESS(int CAltAbilityData::GetMaxRank(), CAltAbilityData__GetMaxRank);
-#endif
+
+const char* CAltAbilityData::GetNameString() const
+{
+	return pDBStr->GetString(nName, eAltAbilityName);
+}
+
+const char* CAltAbilityData::GetDescriptionString() const
+{
+	return pDBStr->GetString(nDesc, eAltAbilityDescription);
+}
+
+const char* CAltAbilityData::GetCategoryString() const
+{
+	if (DisplayCategory != -1)
+	{
+		return pDBStr->GetString(DisplayCategory, eAltAbilityCategory);
+	}
+
+	return pDBStr->GetString(Expansion, eExpansionName);
+}
+
+const char* CAltAbilityData::GetExpansionString() const
+{
+	return pDBStr->GetString(Expansion, eExpansionName);
+}
+
+const char* CAltAbilityData::GetShortName1() const
+{
+	if (nShortName == -1)
+		return "";
+
+	return pDBStr->GetString(nShortName, eAltAbilityButton1);
+}
+
+const char* CAltAbilityData::GetShortName2() const
+{
+	if (nShortName2 == -1)
+		return "";
+
+	return pDBStr->GetString(nShortName2, eAltAbilityButton2);
+}
 
 //============================================================================
 // CBroadcast
@@ -1454,6 +1432,189 @@ FUNCTION_AT_ADDRESS(bool LootFiltersManager::SetItemLootFilter(int, int, const c
 //============================================================================
 // MercenaryAlternateAdvancementManagerClient
 //============================================================================
+
+const char* MercenaryAbilitiesData::GetNameString() const
+{
+	return pDBStr->GetString(nName, eMercenaryAbilityName);
+}
+
+const char* MercenaryAbilitiesData::GetDescriptionString() const
+{
+	return pDBStr->GetString(nDesc, eMercenaryAbilityDescription);
+}
+
+const char* MercenaryAbilitiesData::GetTypeString() const
+{
+	return pDBStr->GetString(Type, eMercenaryAbilityType);
+}
+
+bool MercenaryAbilitiesData::IsRequirementsMet() const
+{
+	if (!pLocalPC)
+		return false;
+
+	auto& mgr = MercenaryAlternateAdvancementManagerClient::Instance();
+
+	for (int i = 0; i < AbilityReqs.GetCount(); ++i)
+	{
+		const MercenaryAbilityReq& req = AbilityReqs[i];
+		bool reqSatisfied = false;
+
+		const int* entry = mgr.GetFirstMercenaryAbilityIdByGroupId(req.ReqGroupID);
+		while (entry)
+		{
+			const MercenaryAbilitiesData* mercAbility = mgr.GetMercenaryAbility(*entry);
+			// is this an ability that satisfies the requirement?
+			if (mercAbility && mercAbility->GroupRank >= req.ReqGroupRank)
+			{
+				// do we own this ability?
+				if (pLocalPC->GetMercenaryAbilityInfo(mercAbility->AbilityID) != nullptr)
+				{
+					reqSatisfied = true;
+					break;
+				}
+			}
+
+			entry = mgr.GetNextMercenaryAbilityIdByGroupId(entry);
+		}
+
+		// if we didn't find anything then the requirements aren't met.
+		if (!reqSatisfied)
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
+
+//----------------------------------------------------------------------------
+const MercenaryAbilitiesData* MercenaryAlternateAdvancementManagerClient::GetMercenaryAbility(int abilityId) const
+{
+	return MercenaryAbilities.FindFirst(abilityId);
+}
+
+const int* MercenaryAlternateAdvancementManagerClient::GetFirstMercenaryAbilityIdByGroupId(int groupId) const
+{
+	return MercenaryAbilitiesByGroupID.FindFirst(groupId);
+}
+
+const int* MercenaryAlternateAdvancementManagerClient::GetNextMercenaryAbilityIdByGroupId(const int* abilityId) const
+{
+	return MercenaryAbilitiesByGroupID.FindNext(abilityId);
+}
+
+int MercenaryAlternateAdvancementManagerClient::GetMercenaryMaxGroupRank(int abilityId) const
+{
+	if (MercenaryAbilitiesData* data = MercenaryAbilities.FindFirst(abilityId))
+	{
+		if (MercenaryAbilityGroup* group = MercenaryAbilityGroups.FindFirst(data->GroupID))
+		{
+			return (int)group->size();
+		}
+	}
+
+	return 0;
+}
+
+int MercenaryAlternateAdvancementManagerClient::GetMercenaryMaxOwnedGroupRank(int abilityId) const
+{
+	if (MercenaryAbilitiesData* data = MercenaryAbilities.FindFirst(abilityId))
+	{
+		if (int* ownedAbilityId = MercenaryAbilitiesOwnedByGroupID.FindFirst(data->GroupID))
+		{
+			if (MercenaryAbilitiesData* ownedData = MercenaryAbilities.FindFirst(*ownedAbilityId))
+			{
+				return ownedData->GroupRank;
+			}
+		}
+	}
+
+	return 0;
+}
+
+int MercenaryAlternateAdvancementManagerClient::GetMercenaryNextGroupAbility(int abilityId) const
+{
+	if (MercenaryAbilitiesData* ability = MercenaryAbilities.FindFirst(abilityId))
+	{
+		if (MercenaryAbilityGroup* group = MercenaryAbilityGroups.FindFirst(ability->GroupID))
+		{
+			if (int* nextAbility = group->FindFirst(ability->GroupRank + 1))
+				return *nextAbility;
+		}
+	}
+
+	return 0;
+}
+
+const MercenaryAbilitiesData* MercenaryAlternateAdvancementManagerClient::GetFirstUnownedAbilityByGroupId(int groupId) const
+{
+	MercenaryAbilityGroup* group = MercenaryAbilityGroups.FindFirst(groupId);
+	if (!group)
+		return nullptr;
+
+	const MercenaryAbilitiesData* ownedAbility = nullptr;
+	const MercenaryAbilitiesData* unOwnedAbility = nullptr;
+
+	int maxRanks = (int)group->size();
+	int curRank = 0;
+
+	if (int* ownedAbilityId = MercenaryAbilitiesOwnedByGroupID.FindFirst(groupId))
+	{
+		if (ownedAbility = GetMercenaryAbility(*ownedAbilityId))
+			curRank = ownedAbility->GroupRank;
+	}
+
+	if (!ownedAbility)
+	{
+		// no owned ability. Need to find the first one.
+		const int* pAbilityId = group->GetFirst();
+		while (pAbilityId)
+		{
+			if (const MercenaryAbilitiesData* pAbility = GetMercenaryAbility(*pAbilityId))
+			{
+				if (pAbility->GroupRank == 1)
+				{
+					unOwnedAbility = pAbility;
+					break;
+				}
+			}
+
+			pAbilityId = group->GetNext(pAbilityId);
+		}
+	}
+	else if (curRank < maxRanks)
+	{
+		// we own an ability. the next one is unowned.
+		if (int unownedAbilityId = GetMercenaryNextGroupAbility(ownedAbility->AbilityID))
+			unOwnedAbility = GetMercenaryAbility(unownedAbilityId);
+	}
+
+	return unOwnedAbility;
+}
+
+bool MercenaryAlternateAdvancementManagerClient::CanTrainAbility(int abilityId) const
+{
+	if (pLocalPC == nullptr)
+		return false;
+	// already purchased?
+	if (pLocalPC->GetMercenaryAbilityInfo(abilityId) != nullptr)
+		return false;
+
+	if (const MercenaryAbilitiesData* pAbility = GetMercenaryAbility(abilityId))
+	{
+		// Player requirements met?
+		if (pLocalPC->MercAAPoints >= pAbility->Cost
+			&& pLocalPC->GetCurrentPcProfile()->Level >= pAbility->MinPlayerLevel)
+		{
+			// Ability requirements met?
+			if (pAbility->IsRequirementsMet())
+				return true;
+		}
+	}
+
+	return false;
+}
 
 #ifdef MercenaryAlternateAdvancementManagerClient__Instance_x
 FUNCTION_AT_ADDRESS(MercenaryAlternateAdvancementManagerClient& MercenaryAlternateAdvancementManagerClient::Instance(), MercenaryAlternateAdvancementManagerClient__Instance);

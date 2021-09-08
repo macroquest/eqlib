@@ -1373,6 +1373,9 @@ public:
 
 	EQLIB_OBJECT ItemContainer& GetKeyRingItems(KeyRingType type);
 
+	// Stores information about purchased Mercenary Abilities
+	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
+
 	int GetAirSupply() const { return AirSupply; }
 
 	ALT_MEMBER_GETTER(int, GoodPointsAvailable, RadiantCrystals);

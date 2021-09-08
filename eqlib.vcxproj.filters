@@ -135,6 +135,12 @@
     <ClInclude Include="Achievements.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AltAbilities.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Requirements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">
