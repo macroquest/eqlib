@@ -1218,6 +1218,7 @@
 
 // MercenaryAlternateAdvancementManagerClient
 #define MercenaryAlternateAdvancementManagerClient__Instance_x     0x583680
+#define MercenaryAlternateAdvancementManagerClient__BuyAbility_x   0x5840D0
 
 // CTargetManager
 #define CTargetManager__Get_x                                      0x6CF570

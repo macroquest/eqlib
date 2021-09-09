@@ -127,6 +127,7 @@ public:
 	EQLIB_OBJECT const char* GetTypeString() const;
 
 	EQLIB_OBJECT bool IsRequirementsMet() const;
+	EQLIB_OBJECT bool IsRequirementMet(const MercenaryAbilityReq& req) const;
 
 /*0x00*/ int           AbilityID;
 /*0x04*/ int           nName;                    // eMercenaryAbilityName
@@ -156,7 +157,7 @@ public:
 	EQLIB_OBJECT static MercenaryAlternateAdvancementManagerClient& Instance();
 
 	EQLIB_OBJECT bool CanTrainAbility(int abilityId) const;
-	EQLIB_OBJECT void BuyAbility(int abilityId);
+	EQLIB_OBJECT void BuyAbility(int abilityId, bool trainAll = false, bool unk = false);
 
 	// Look up an ability by its id
 	EQLIB_OBJECT const MercenaryAbilitiesData* GetMercenaryAbility(int abilityId) const;

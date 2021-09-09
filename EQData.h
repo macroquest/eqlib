@@ -453,38 +453,6 @@ struct [[offsetcomments]] AAEFFECTDATA
 };
 using PAAEFFECTDATA = AAEFFECTDATA*;
 
-
-
-struct [[offsetcomments]] MERCAADATA
-{
-/*0x00*/ DWORD nName;                            // I would guess we can find aapoints spent on the ability in this struct as well
-/*0x04*/
-};
-using PMERCAADATA = MERCAADATA*;
-
-struct [[offsetcomments]] MERCAA
-{
-/*0x00*/ DWORD         Unknown0x00;
-/*0x04*/ DWORD         Unknown0x04;
-/*0x08*/ MERCAADATA*   Ptr;
-/*0x0c*/ DWORD         Unknown0x00c;
-/*0x10*/ DWORD         Max;                      // how many AA can be spent on this ability
-/*0x14*/
-};
-using PMERCAA = MERCAA*;
-
-// pinstMercAltAbilities_x
-// MercAltAbilities__MercAltAbilities
-// Actual Size: 0x478 in eqgame dated oct 04 2013 (see 4A96D4) - eqmule
-struct [[offsetcomments]] EQMERCALTABILITIES
-{
-/*0x000*/ BYTE    Unknown0x000[0x408];
-/*0x408*/ PMERCAA MercAAInfo[MERC_ALT_ABILITY_COUNT];  // 12 pointers since there are currently only 12 mercenary aa's
-/*0x438*/ BYTE    Unknown0x438[0x40];
-/*0x478*/
-};
-using PEQMERCALTABILITIES = EQMERCALTABILITIES*;
-
 // size 0x98 (3-12-2014)
 // size 0x9c 3-18-2015 test see (49A077)
 struct [[offsetcomments]] RaidPlayer

@@ -1473,6 +1473,12 @@ public:
 	virtual int OnProcessFrame() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
+	// When confirmation for AA purchase is displayed, two message types are used
+	// to identify which button was pressed
+	// 100 = "Train" button
+	// 101 = "Buy All" button
+	virtual void DialogResponse(int msg, int, void*) {}
+
 	EQLIB_OBJECT void CancelAASpend();
 	EQLIB_OBJECT void ConfirmAASpend();
 	EQLIB_OBJECT void SendNewPercent();

@@ -1458,34 +1458,38 @@ bool MercenaryAbilitiesData::IsRequirementsMet() const
 	for (int i = 0; i < AbilityReqs.GetCount(); ++i)
 	{
 		const MercenaryAbilityReq& req = AbilityReqs[i];
-		bool reqSatisfied = false;
 
-		const int* entry = mgr.GetFirstMercenaryAbilityIdByGroupId(req.ReqGroupID);
-		while (entry)
-		{
-			const MercenaryAbilitiesData* mercAbility = mgr.GetMercenaryAbility(*entry);
-			// is this an ability that satisfies the requirement?
-			if (mercAbility && mercAbility->GroupRank >= req.ReqGroupRank)
-			{
-				// do we own this ability?
-				if (pLocalPC->GetMercenaryAbilityInfo(mercAbility->AbilityID) != nullptr)
-				{
-					reqSatisfied = true;
-					break;
-				}
-			}
-
-			entry = mgr.GetNextMercenaryAbilityIdByGroupId(entry);
-		}
-
-		// if we didn't find anything then the requirements aren't met.
-		if (!reqSatisfied)
-		{
+		if (!IsRequirementMet(req))
 			return false;
-		}
 	}
 
 	return true;
+}
+
+bool MercenaryAbilitiesData::IsRequirementMet(const MercenaryAbilityReq& req) const
+{
+	if (!pLocalPC)
+		return false;
+
+	auto& mgr = MercenaryAlternateAdvancementManagerClient::Instance();
+
+	const int* entry = mgr.GetFirstMercenaryAbilityIdByGroupId(req.ReqGroupID);
+	while (entry)
+	{
+		const MercenaryAbilitiesData* mercAbility = mgr.GetMercenaryAbility(*entry);
+		// is this an ability that satisfies the requirement?
+		if (mercAbility && mercAbility->GroupRank >= req.ReqGroupRank)
+		{
+			// do we own this ability?
+			if (pLocalPC->GetMercenaryAbilityInfo(mercAbility->AbilityID) != nullptr)
+				return true;
+		}
+
+		entry = mgr.GetNextMercenaryAbilityIdByGroupId(entry);
+	}
+
+	// if we didn't find anything then the requirements aren't met.
+	return false;
 }
 
 //----------------------------------------------------------------------------
@@ -1616,9 +1620,8 @@ bool MercenaryAlternateAdvancementManagerClient::CanTrainAbility(int abilityId) 
 	return false;
 }
 
-#ifdef MercenaryAlternateAdvancementManagerClient__Instance_x
 FUNCTION_AT_ADDRESS(MercenaryAlternateAdvancementManagerClient& MercenaryAlternateAdvancementManagerClient::Instance(), MercenaryAlternateAdvancementManagerClient__Instance);
-#endif
+FUNCTION_AT_ADDRESS(void MercenaryAlternateAdvancementManagerClient::BuyAbility(int abilityId, bool trainAll, bool unk), MercenaryAlternateAdvancementManagerClient__BuyAbility);
 
 //============================================================================
 // Mp3Manager
