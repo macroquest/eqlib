@@ -652,6 +652,7 @@ enum eInventorySlot
 	InvSlot_Bag8,
 	InvSlot_Bag9,
 	InvSlot_Bag10,
+	InvSlot_Bag11,
 	InvSlot_Held,
 
 	InvSlot_Max,
@@ -660,6 +661,7 @@ enum eInventorySlot
 	InvSlot_LastWornItem = InvSlot_Ammo,
 	InvSlot_FirstBagSlot = InvSlot_Bag1,
 	InvSlot_LastBagSlot = InvSlot_Bag10,
+	InvSlot_LastBonusBagSlot = InvSlot_Bag11,
 	InvSlot_Cursor = InvSlot_Held,
 	InvSlot_NumInvSlots = InvSlot_Held,      // held is not technically an item in the inventory (its the cursor)
 
