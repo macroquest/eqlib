@@ -4169,8 +4169,8 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplyWnd) == 0x630 :: 2021-08-17 (live) @ 0x7A3BC0
-constexpr size_t CItemDisplayWnd_size = 0x630;
+// @sizeof(CItemDisplyWnd) == 0x638 :: 2021-09-07 (test) @ 0x7A0DC0
+constexpr size_t CItemDisplayWnd_size = 0x638;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
 {

@@ -910,7 +910,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x20c :: 2021-07-19 (live) @0x5A5429
+// @sizeof(EQ_Spell) == 0x20c :: 2021-09-07 (test) @ 0x5A2C39
 constexpr size_t EQ_Spell_size = 0x20c;
 
 class [[offsetcomments]] EQ_Spell
@@ -1152,37 +1152,6 @@ using PSPELL = EQ_Spell*;
 
 #pragma pack(pop) // EQ_Spell
 
-static_assert(sizeof(EQ_Spell) == EQ_Spell_size, "Size of EQ_Spell does not match EQ_Spell_size");
-
-constexpr int TOTAL_SPELL_COUNT          = 62000;    // # of spells allocated in memory (07/10/2019 test 4F1197)
-constexpr int TOTAL_SPELL_AFFECT_COUNT   = 230000;   // 69EAAA in eqgame 2020 Oct 19
-
-// CalcInfoSize is 3 * TOTAL_SPELL_COUNT
-
-// @sizeof(SPELLMGR) == 0x1D3F00 :: 2021-07-19 (live) @ 0x629824
-constexpr size_t SPELLMGR_size = 0x1D3F00;
-
-struct [[offsetcomments]] SPELLMGR
-{
-/*0x000000*/ void*            vfTable;                       // need this for some calls later
-/*0x000004*/ BYTE             Unknown0x00004[0x3DAE0];       // this includes the spell CRC data
-/*0x03dae4*/ EQ_Spell*        Spells[TOTAL_SPELL_COUNT];
-/*0x07a3a4*/ EQ_Spell*        PtrToUnknownSpell;             // default bailout pointer...
-/*0x07a3a8*/ SpellAffectData* CalcInfo[TOTAL_SPELL_AFFECT_COUNT];
-/*0x15ad68*/ SpellAffectData* PtrToUnknownSpellAffect;
-/*0x15ad6c*/ SpellAffectData* PtrToUnknownSpellAffectAC;
-/*0x15ad70*/ int              UnknownSpellCRC;
-/*0x15ad74*/ int              SpellFileCRC;
-/*0x15ad78*/ int              SpellAssocFileCRC;
-/*0x15ad7c*/ int              SpellStackingFileCRC;
-/*0x15ad80*/ DWORD            What2[0x1E460];                // 124000
-/*0x1d3f00*/
-};
-// TODO: Merge with ClientSpellManager
-using PSPELLMGR = SPELLMGR*;
-
-static_assert(sizeof(SPELLMGR) == SPELLMGR_size, "SPELLMGR size does not match SPELLMGR_size");
-
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
 public:
@@ -1315,21 +1284,26 @@ struct [[offsetcomments]] StackingGroupData
 /*0x0c*/
 };
 
+static_assert(sizeof(EQ_Spell) == EQ_Spell_size, "Size of EQ_Spell does not match EQ_Spell_size");
+
+constexpr int TOTAL_SPELL_COUNT = 66000;           // # of spells allocated in memory (09/07/2021 test 6C944E)
+constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocated in mem (09/07/2021 test 6C948E)
+
 // really would like to get this to work and align but its kinda complicated, maybe another day.
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
-/*0x00014*/ int            SpellsCrc32[TOTAL_SPELL_COUNT + 1];
-/*0x3c8d8*/ SPELL*         MissingSpell;
-/*0x3c8dc*/ SPELLCALCINFO* MissingSpellAffect;
-/*0x3c8e0*/ SPELLCALCINFO* MissingSpellAffectAC;
-/*0x3c8e4*/ int            MissingSpellCrc32;
-/*0x3c8e8*/ int            SpellFileCRC;
-/*0x3c8ec*/ int            SpellAssocFileCRC;
-/*0x3c8f0*/ int            SpellStackingFileCRC;
-/*0x3c8f4*/ SpellRequirementAssociationManager ReqAssocManager;
-/*0x3dad4*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;
-/*0x3dae4*/
+/*0x00014*/ int            SpellsCrc32[TOTAL_SPELL_COUNT];
+/*0x3c8d8*/ EQ_Spell*      MissingSpell;                                 // 0x40754
+/*0x3c8dc*/ SPELLCALCINFO* MissingSpellAffect;                           // 0x40758
+/*0x3c8e0*/ SPELLCALCINFO* MissingSpellAffectAC;                         // 0x4075c
+/*0x3c8e4*/ int            MissingSpellCrc32;                            // 0x40760
+/*0x3c8e8*/ int            SpellFileCRC;                                 // 0x40764
+/*0x3c8ec*/ int            SpellAssocFileCRC;                            // 0x40768
+/*0x3c8f0*/ int            SpellStackingFileCRC;                         // 0x4076c
+/*0x3c8f4*/ SpellRequirementAssociationManager ReqAssocManager;          // 0x40770
+/*0x3dad4*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;       // 0x41950
+/*0x3dae4*/ // 41960
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1337,8 +1311,8 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x1D3F00 :: 2021-03-04 (live) @ 0x627C64
-constexpr size_t ClientSpellManager_size = 0x1D3F00;
+// @sizeof(ClientSpellManager) == 0x1EF470 :: 2021-09-07 (test) @ 0x626A24
+constexpr size_t ClientSpellManager_size = 0x1EF470;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
@@ -1355,12 +1329,17 @@ public:
 	EQLIB_OBJECT SPELLCALCINFO* GetSpellAffect(int index);
 	EQLIB_OBJECT bool GetSpellAffectEmpty(bool);
 
-/*0x03dae4*/ SPELL* Spells[TOTAL_SPELL_COUNT + 1];         // 60001 last one is the unknown spell...
-/*0x07a3a8*/ SPELLCALCINFO* CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 175000
-/*0x15ad68*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT + 1];
-/*0x1d3ef0*/ HashTable<StackingGroupData> StackingData;
+/*0x03dae4*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
+/*0x07a3a8*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
+/*0x15ad68*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
+/*0x1d3ef0*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
 /*0x1d3f00*/
 };
+
+inline namespace deprecated {
+	using SPELLMGR DEPRECATE("Use ClientSpellManager instead of SPELLMGR") = ClientSpellManager;
+	using PSPELLMGR DEPRECATE("Use ClientSpellManager* instead of PSPELLMGR") = ClientSpellManager*;
+}
 
 static_assert(sizeof(ClientSpellManager) == ClientSpellManager_size, "ClientSpellManager size does not match ClientSpellManager_size");
 

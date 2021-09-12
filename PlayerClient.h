@@ -701,7 +701,7 @@ public:
 // PlayerClient
 //============================================================================
 
-// @sizeof(PlayerClient) == 0x1ea8 :: 2021-08-17 (live) @ 0x69188B
+// @sizeof(PlayerClient) == 0x1ea8 :: 2021-09-07 (test) @ 0x69DB10
 constexpr size_t PlayerClient_size = 0x1ea8;
 
 class [[offsetcomments]] PlayerClient : public PlayerZoneClient

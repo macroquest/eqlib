@@ -243,8 +243,8 @@ public:
 // CXWnd
 //============================================================================
 
-// @sizeof(CXWnd) == 0x1e8 :: 2021-08-17 (live) @ 0x97659A
-constexpr size_t CXWnd_size = 0x1e8;
+// @sizeof(CXWnd) == 0x1f0 :: 2021-09-07 (test) @ 0x9739DA
+constexpr size_t CXWnd_size = 0x1f0;
 constexpr size_t CXWnd_vftable_size = 0x168;
 
 class [[offsetcomments]] CXWnd

@@ -1955,9 +1955,6 @@ CONSTRUCTOR_AT_ADDRESS(CInvSlotWnd::CInvSlotWnd(CXWnd* pParent, uint32_t ID, CXR
 #ifdef CInvSlotWnd__SetInvSlot_x
 FUNCTION_AT_ADDRESS(void CInvSlotWnd::SetInvSlot(CInvSlot*), CInvSlotWnd__SetInvSlot);
 #endif
-#ifdef CInvSlotWnd__DrawTooltip_x
-FUNCTION_AT_ADDRESS(int CInvSlotWnd::DrawTooltip(const CXWnd*) const, CInvSlotWnd__DrawTooltip);
-#endif
 
 //============================================================================
 // CItemDisplayWnd

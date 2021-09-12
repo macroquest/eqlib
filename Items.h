@@ -1309,7 +1309,7 @@ public:
 	__declspec(property(get = get_Item2)) ItemDefinition* Item2;
 };
 
-// @sizeof(ItemClient) == 0x108 :: 2021-07-19 (live) @ 0x65A83C
+// @sizeof(ItemClient) == 0x108 :: 2021-09-07 (test) @ 0x6577AC
 constexpr size_t ItemClient_size = 0x108;
 
 class [[offsetcomments]] ItemClient : public ItemBase

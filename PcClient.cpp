@@ -312,9 +312,6 @@ FUNCTION_AT_ADDRESS(ItemPtr CharacterBase::GetItemByGlobalIndex(const ItemGlobal
 #ifdef CharacterBase__GetItemByGlobalIndex1_x
 FUNCTION_AT_ADDRESS(ItemPtr CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex, ItemContainer::CheckDepthOptions Option) const, CharacterBase__GetItemByGlobalIndex1);
 #endif
-//#ifdef CharacterBase__GetItemPossession_x
-//FUNCTION_AT_ADDRESS(ItemPtr CharacterBase::GetItemPossession(const ItemIndex& lIndex) const, CharacterBase__GetItemPossession);
-//#endif
 #ifdef CharacterBase__IsExpansionFlag_x
 FUNCTION_AT_ADDRESS(int CharacterBase::IsExpansionFlag(int), CharacterBase__IsExpansionFlag);
 #endif
@@ -341,15 +338,6 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetFirstEffectSlot(bool, bool), Cha
 #ifdef CharacterZoneClient__GetLastEffectSlot_x
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetLastEffectSlot(bool, bool, bool), CharacterZoneClient__GetLastEffectSlot);
 #endif
-#ifdef CharacterZoneClient__FindItemByGuid_x
-FUNCTION_AT_ADDRESS(bool CharacterZoneClient::FindItemByGuid(const EqItemGuid& ItemGuid, int* pos_slot, int* con_slot), CharacterZoneClient__FindItemByGuid);
-#endif
-#ifdef CharacterZoneClient__FindItemByRecord_x
-FUNCTION_AT_ADDRESS(BYTE CharacterZoneClient::FindItemByRecord(int ItemNumber /*recordnum*/, int* pos_slot, int* con_slot, bool bReverseLookup), CharacterZoneClient__FindItemByRecord);
-#endif
-#ifdef CharacterZoneClient__CharacterZoneClient_x
-//FUNCTION_AT_ADDRESS(CharacterZoneClient::CharacterZoneClient(), CharacterZoneClient__CharacterZoneClient);
-#endif
 #ifdef CharacterZoneClient__HasSkill_x
 FUNCTION_AT_ADDRESS(bool CharacterZoneClient::HasSkill(int), CharacterZoneClient__HasSkill);
 #endif
@@ -360,7 +348,7 @@ FUNCTION_AT_ADDRESS(void CharacterZoneClient::MakeMeVisible(int, bool), Characte
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetItemCountWorn(int), CharacterZoneClient__GetItemCountWorn);
 #endif
 #ifdef CharacterZoneClient__GetItemCountInInventory_x
-FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetItemCountInInventory(int), CharacterZoneClient__GetItemCountInInventory);
+FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetItemCountInInventory(int, bool skipCheck), CharacterZoneClient__GetItemCountInInventory);
 #endif
 #ifdef CharacterZoneClient__GetCursorItemCount_x
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetCursorItemCount(int), CharacterZoneClient__GetCursorItemCount);
@@ -378,7 +366,7 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::CalcAffectChange(const EQ_Spell* sp
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::CalcAffectChangeGeneric(const EQ_Spell* spell, BYTE, BYTE, const EQ_Affect*, int, bool), CharacterZoneClient__CalcAffectChangeGeneric);
 #endif
 #ifdef CharacterZoneClient__GetFocusReuseMod_x
-FUNCTION_AT_ADDRESS(const int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem), CharacterZoneClient__GetFocusReuseMod);
+FUNCTION_AT_ADDRESS(const int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem, bool evalOnly), CharacterZoneClient__GetFocusReuseMod);
 #endif
 #ifdef CharacterZoneClient__IsStackBlocked_x
 FUNCTION_AT_ADDRESS(bool CharacterZoneClient::IsStackBlocked(const EQ_Spell*, PlayerClient*, EQ_Affect*, int, bool), CharacterZoneClient__IsStackBlocked);
@@ -914,10 +902,7 @@ FUNCTION_AT_ADDRESS(void PcZoneClient::RemovePetEffect(int), PcZoneClient__Remov
 FUNCTION_AT_ADDRESS(bool PcZoneClient::HasAlternateAbility(int aaindex, int*, bool, bool), PcZoneClient__HasAlternateAbility);
 #endif
 #ifdef PcZoneClient__GetItemByID_x
-FUNCTION_AT_ADDRESS(ItemPtr PcZoneClient::GetItemByID(int itemid, ItemIndex*), PcZoneClient__GetItemByID);
-#endif
-#ifdef PcZoneClient__GetItemByItemClass_x
-FUNCTION_AT_ADDRESS(ItemPtr PcZoneClient::GetItemByItemClass(int itemclass, ItemIndex*), PcZoneClient__GetItemByItemClass);
+FUNCTION_AT_ADDRESS(ItemPtr PcZoneClient::GetItemByID(int itemid, ItemIndex*, bool allSlots), PcZoneClient__GetItemByID);
 #endif
 #ifdef PcZoneClient__CanEquipItem_x
 FUNCTION_AT_ADDRESS(bool PcZoneClient::CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel), PcZoneClient__CanEquipItem);
@@ -937,6 +922,19 @@ FUNCTION_AT_ADDRESS(bool PcZoneClient::DoCombatAbility(int spellID, bool allowLo
 #ifdef PcZoneClient__DestroyHeldItemOrMoney_x
 FUNCTION_AT_ADDRESS(void PcZoneClient::DestroyHeldItemOrMoney(), PcZoneClient__DestroyHeldItemOrMoney);
 #endif
+
+// TODO: Handle new range checks
+ItemPtr PcZoneClient::GetItemByItemClass(int itemClass, ItemIndex* index)
+{
+	ItemIndex itemIndex = GetItemPosessions().FindItem(
+		[&](const ItemPtr& item, const ItemIndex& index) { return item->GetItemClass() == itemClass; });
+	if (itemIndex.IsValid() && index)
+	{
+		*index = itemIndex;
+		return GetItemPossession(itemIndex);
+	}
+	return ItemPtr();
+}
 
 
 // TODO: Rename defines

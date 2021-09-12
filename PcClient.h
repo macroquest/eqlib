@@ -846,13 +846,15 @@ public:
 	inline ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemIndex(slot0, slot1, slot2); }
 	inline ItemGlobalIndex CreateItemGlobalIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemGlobalIndex(slot0, slot1, slot2); }
 	inline ItemPtr GetItemPossession(const ItemIndex& lIndex) { return GetCurrentBaseProfile().GetItemPossession(lIndex); }
-	inline ItemContainer& GetItemPosessions() { return GetCurrentBaseProfile().GetItemPosessions(); }
+	inline ItemContainer& GetItemPossessions() { return GetCurrentBaseProfile().GetItemPosessions(); }
 
 	inline ItemPtr GetInventorySlot(int lIndex) { return GetCurrentBaseProfile().GetInventorySlot(lIndex); }
 
-
 	inline BaseProfile& GetCurrentBaseProfile() { return *ProfileManager.GetCurrentProfile(); }
 	inline const BaseProfile& GetCurrentBaseProfile() const { return *ProfileManager.GetCurrentProfile(); }
+
+	// Fix Typo
+	inline ItemContainer& GetItemPosessions() { return GetItemPossessions(); }
 
 	// Accessors
 	int GetRace() const { return GetCurrentBaseProfile().GetRace(); }
@@ -983,7 +985,7 @@ public:
 	EQLIB_OBJECT int CalcAffectChangeGeneric(const EQ_Spell* spell, BYTE casterLevel, BYTE affextIndex, const EQ_Affect* theAffect, int EffectIndex, bool bCap = true);
 	EQLIB_OBJECT void MakeMeVisible(int, bool);
 	EQLIB_OBJECT int GetItemCountWorn(int);
-	EQLIB_OBJECT int GetItemCountInInventory(int);
+	EQLIB_OBJECT int GetItemCountInInventory(int, bool skipCheck = false);
 	EQLIB_OBJECT int GetCursorItemCount(int);
 	EQLIB_OBJECT bool HasSkill(int);
 	EQLIB_OBJECT EQ_Affect* FindAffectSlot(int SpellID, PlayerClient* Caster, int* slindex, bool bJustTest, int CasterLevel = -1, EQ_Affect* BuffArray = nullptr, int BuffArraySize = 0);
@@ -993,9 +995,9 @@ public:
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
 	EQLIB_OBJECT int GetFirstEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill);
 	EQLIB_OBJECT int GetLastEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, bool bIsDisplay = false);
-	EQLIB_OBJECT const int GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem);
-	EQLIB_OBJECT bool FindItemByGuid(const EqItemGuid& ItemGuid, int* pos_slot, int* con_slot);
-	EQLIB_OBJECT BYTE FindItemByRecord(int ItemNumber, int* pos_slot, int* con_slot, bool bReverseLookup);
+	EQLIB_OBJECT const int GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem, bool evalOnly = false);
+	//EQLIB_OBJECT bool FindItemByGuid(const EqItemGuid& ItemGuid, int* pos_slot, int* con_slot);
+	//EQLIB_OBJECT BYTE FindItemByRecord(int ItemNumber, int* pos_slot, int* con_slot, bool bReverseLookup);
 
 	// From EQ_Character1
 	// int const GetFocusCastingTimeModifier(class EQ_Spell const*, class EQ_Equipment**, int);
@@ -1409,7 +1411,8 @@ public:
 	EQLIB_OBJECT void RemovePetEffect(int);
 	EQLIB_OBJECT bool HasAlternateAbility(int aaindex, int* pIndex = nullptr, bool bProfile = false, bool bMerc = false);
 	EQLIB_OBJECT bool CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel = false);
-	EQLIB_OBJECT ItemPtr GetItemByID(int itemid, ItemIndex* itemindex = nullptr);
+	// If allSlots is false, only checks slots the user has perks for.
+	EQLIB_OBJECT ItemPtr GetItemByID(int itemid, ItemIndex* itemindex = nullptr, bool allSlots = false);
 	EQLIB_OBJECT ItemPtr GetItemByItemClass(int itemclass, ItemIndex* itemindex = nullptr);
 	EQLIB_OBJECT void RemoveBuffEffect(int Index, int SpawnID);
 	EQLIB_OBJECT void BandolierSwap(int index);
@@ -1422,7 +1425,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x2BCC :: 2021-06-10 (live) @ 0x627e92
+// @sizeof(PcClient) == 0x2BCC :: 2021-09-07 (test) @ 0x625232
 constexpr size_t PcClient_size = 0x2BCC;
 
 class [[offsetcomments]] PcClient : public PcZoneClient

@@ -366,7 +366,6 @@ struct SharedTaskPlayerInfo;
 struct SoundControl;
 struct SParseVariables;
 struct SpellLoadout;
-struct SPELLMGR;
 struct STable;
 struct STableCell;
 struct STempTable;
