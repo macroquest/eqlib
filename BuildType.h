@@ -14,4 +14,4 @@
 
 #pragma once
 
-#define LIVE
+#define TEST
