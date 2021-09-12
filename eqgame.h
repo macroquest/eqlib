@@ -31,7 +31,7 @@
 #define __MemChecker2_x                                            0x6DD8E0
 #define __MemChecker3_x                                            0x6DD850
 #define __MemChecker4_x                                            0x636210
-#define __EncryptPad0_x                                            0xE52B68
+#define __EncryptPad0_x                                            0xE52B68 // check
 
 // EverQuestInfo
 #define pinstEverQuestInfo_x                                       0xDADD40
@@ -82,7 +82,7 @@
 #define __ScreenMode_x                                             0xEE00B4
 #define __GroupCount_x                                             0xF93DEA
 #define __gWorld_x                                                 0xF93FFC
-#define __gpbCommandEvent_x                                        0x0
+#define __gpbCommandEvent_x                                        0xF94108
 #define __ServerHost_x                                             0xF942D3
 #define __Guilds_x                                                 0xF98250
 #define __MouseEventTime_x                                         0xF99C7C
@@ -240,7 +240,7 @@
 #define pinstCInventoryWnd_x                                       0xEE006C
 #define pinstCInvSlotMgr_x                                         0xEE00F8
 #define pinstCItemDisplayManager_x                                 0xFB0C48
-#define pinstCItemExpTransferWnd_x                                 0x0
+#define pinstCItemExpTransferWnd_x                                 0xFB0D7C
 #define pinstCItemOverflowWnd_x                                    0xEDFD44
 #define pinstCJournalCatWnd_x                                      0xEE0130
 #define pinstCJournalNPCWnd_x                                      0xEE0124
@@ -407,15 +407,13 @@
 #define CharacterZoneClient__CanUseMemorizedSpellSlot_x            0x4C1280
 #define CharacterZoneClient__CharacterZoneClient_x                 0x4D1680
 #define CharacterZoneClient__FindAffectSlot_x                      0x4CAD00
-#define CharacterZoneClient__FindItemByGuid_x                      0x0
-#define CharacterZoneClient__FindItemByRecord_x                    0x0
 #define CharacterZoneClient__GetCurrentMod_x                       0x4EBC60
 #define CharacterZoneClient__GetCursorItemCount_x                  0x4DFC50
 #define CharacterZoneClient__GetEffect_x                           0x4C11C0
 #define CharacterZoneClient__GetFirstEffectSlot_x                  0x4CC3C0
 #define CharacterZoneClient__GetFocusDurationMod_x                 0x4B6D60
-#define CharacterZoneClient__GetFocusReuseMod_x                    0x0
-#define CharacterZoneClient__GetItemCountInInventory_x             0x0
+#define CharacterZoneClient__GetFocusReuseMod_x                    0x4B8A80
+#define CharacterZoneClient__GetItemCountInInventory_x             0x4DFB10 
 #define CharacterZoneClient__GetItemCountWorn_x                    0x4DFA10
 #define CharacterZoneClient__GetLastEffectSlot_x                   0x4CC460
 #define CharacterZoneClient__GetMaxEffects_x                       0x4C51C0
@@ -502,7 +500,7 @@
 // CContainerWnd
 #define CContainerWnd__HandleCombine_x                             0x7421C0
 #define CContainerWnd__vftable_x                                   0xB5A3BC
-#define CContainerWnd__SetContainer_x                              0x0
+#define CContainerWnd__SetContainer_x                              0x743A10
 
 // CDisplay
 #define CDisplay__cameraType_x                                     0xEDFE50
@@ -600,7 +598,6 @@
 #define CInvSlot__UpdateItem_x                                     0x77A370
 
 // CInvSlotWnd
-#define CInvSlotWnd__DrawTooltip_x                                 0x0
 #define CInvSlotWnd__CInvSlotWnd_x                                 0x780FB0
 #define CInvSlotWnd__HandleLButtonUp_x                             0x7819C0
 
@@ -850,7 +847,7 @@
 #define CXWnd__DrawColoredRect_x                                   0x97BFA0
 #define CXWnd__DrawTooltip_x                                       0x979F70
 #define CXWnd__DrawTooltipAtPoint_x                                0x97A030
-#define CXWnd__GetBorderFrame_x                                    0x0
+#define CXWnd__GetBorderFrame_x                                    0x97BC40
 #define CXWnd__GetChildItem_x                                      0x980050
 #define CXWnd__GetChildWndAt_x                                     0x97FED0
 #define CXWnd__GetClientClipRect_x                                 0x97DFC0
@@ -1020,8 +1017,7 @@
 #define PcZoneClient__RemovePetEffect_x                            0x687D30
 #define PcZoneClient__HasAlternateAbility_x                        0x680CE0
 #define PcZoneClient__CanEquipItem_x                               0x6813A0
-#define PcZoneClient__GetItemByID_x                                0x0
-#define PcZoneClient__GetItemByItemClass_x                         0x0
+#define PcZoneClient__GetItemByID_x                                0x684740
 #define PcZoneClient__RemoveBuffEffect_x                           0x687DE0
 #define PcZoneClient__BandolierSwap_x                              0x682380
 #define PcZoneClient__GetLinkedSpellReuseTimer_x                   0x6841B0
@@ -1101,7 +1097,6 @@
 #define CharacterBase__CreateItemGlobalIndex_x                     0x644E50
 #define CharacterBase__GetItemByGlobalIndex_x                      0x926A60
 #define CharacterBase__GetItemByGlobalIndex1_x                     0x926AB0
-#define CharacterBase__GetItemPossession_x                         0x0
 #define CharacterBase__GetMemorizedSpell_x                         0x6575E0
 #define CharacterBase__IsExpansionFlag_x                           0x5D2590
 
