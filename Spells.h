@@ -1294,16 +1294,16 @@ class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
 /*0x00014*/ int            SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x3c8d8*/ EQ_Spell*      MissingSpell;                                 // 0x40754
-/*0x3c8dc*/ SPELLCALCINFO* MissingSpellAffect;                           // 0x40758
-/*0x3c8e0*/ SPELLCALCINFO* MissingSpellAffectAC;                         // 0x4075c
-/*0x3c8e4*/ int            MissingSpellCrc32;                            // 0x40760
-/*0x3c8e8*/ int            SpellFileCRC;                                 // 0x40764
-/*0x3c8ec*/ int            SpellAssocFileCRC;                            // 0x40768
-/*0x3c8f0*/ int            SpellStackingFileCRC;                         // 0x4076c
-/*0x3c8f4*/ SpellRequirementAssociationManager ReqAssocManager;          // 0x40770
-/*0x3dad4*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;       // 0x41950
-/*0x3dae4*/ // 41960
+/*0x40754*/ EQ_Spell*      MissingSpell;                                 // 0x40754
+/*0x40758*/ SPELLCALCINFO* MissingSpellAffect;                           // 0x40758
+/*0x4075c*/ SPELLCALCINFO* MissingSpellAffectAC;                         // 0x4075c
+/*0x40760*/ int            MissingSpellCrc32;                            // 0x40760
+/*0x40764*/ int            SpellFileCRC;                                 // 0x40764
+/*0x40768*/ int            SpellAssocFileCRC;                            // 0x40768
+/*0x4076c*/ int            SpellStackingFileCRC;                         // 0x4076c
+/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;          // 0x40770
+/*0x41950*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;       // 0x41950
+/*0x41960*/ // 41960
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1329,11 +1329,11 @@ public:
 	EQLIB_OBJECT SPELLCALCINFO* GetSpellAffect(int index);
 	EQLIB_OBJECT bool GetSpellAffectEmpty(bool);
 
-/*0x03dae4*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
-/*0x07a3a8*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
-/*0x15ad68*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
-/*0x1d3ef0*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
-/*0x1d3f00*/
+/*0x041960*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
+/*0x0820a0*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
+/*0x16e5e0*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
+/*0x1ef460*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
+/*0x1ef470*/
 };
 
 inline namespace deprecated {
