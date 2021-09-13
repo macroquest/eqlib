@@ -3123,38 +3123,36 @@ public:
 	EQLIB_OBJECT void Update();
 	EQLIB_OBJECT void PickupSelectedItem();
 
-/*0x23c*/ CComboWnd*   SearchCombo0;
-/*0x240*/ CComboWnd*   SearchCombo1;
-/*0x244*/ int          SelIndex;
-/*0x248*/ VeArray<ItemGlobalIndex*> gi;
-/*0x254*/ int          Unknown0x24c;
-/*0x258*/ int          Unknown0x250;
-/*0x25c*/ int          Unknown0x254;
-/*0x260*/ int          Unknown0x258;
-/*0x264*/ int          Unknown0x25c;
-/*0x268*/ int          FIW_ClassAnim;
-/*0x26c*/ CSidlScreenWnd* FIW_CharacterView;
-/*0x270*/ CListWnd*    FIW_ItemList;
-/*0x274*/ CButtonWnd*  FIW_QueryButton;
-/*0x278*/ CButtonWnd*  FIW_RequestItemButton;
-/*0x27c*/ CButtonWnd*  FIW_RequestPreviewButton;
-/*0x280*/ CButtonWnd*  FIW_Default;
-/*0x284*/ CButtonWnd*  FIW_GrabButton;
-/*0x288*/ CButtonWnd*  FIW_HighlightButton;
-/*0x28c*/ CButtonWnd*  FIW_DestroyItem;
-/*0x290*/ CComboWnd*   FIW_ItemLocationCombobox;
-/*0x294*/ CComboWnd*   FIW_ItemSlotCombobox;
-/*0x298*/ CComboWnd*   FIW_StatSlotCombobox;
-/*0x29c*/ CComboWnd*   FIW_RaceSlotCombobox;
-/*0x2a0*/ CComboWnd*   FIW_ClassSlotCombobox;
-/*0x2a4*/ CComboWnd*   FIW_ItemTypeCombobox;
-/*0x2a8*/ CComboWnd*   FIW_ItemPrestigeCombobox;
-/*0x2ac*/ CComboWnd*   FIW_ItemAugmentCombobox;
-/*0x2b0*/ CEditWnd*    FIW_ItemNameInput;
-/*0x2b4*/ CEditWnd*    FIW_MaxLevelInput;
-/*0x2b8*/ CEditWnd*    FIW_MinLevelInput;
-/*0x2bc*/ CEditWnd*    Unknown0x2b4;
-/*0x2c0*/
+/*0x23c*/ bool                Unknown0;
+/*0x23d*/ bool                Unknown1;
+/*0x240*/ uint32_t            Unknown2;
+/*0x244*/ uint32_t            Timestamp;
+/*0x248*/ uint32_t            Counter;
+/*0x24C*/ HashTable<ItemGlobalIndex, int> Items;
+/*0x25C*/ HashTable<SoeUtil::String, int> ItemNames;
+/*0x26C*/ CStaticAnimationTemplate* FIW_ClassAnim;
+/*0x270*/ CSidlScreenWnd*     FIW_CharacterView;
+/*0x274*/ CListWnd*           FIW_ItemList;
+/*0x278*/ CButtonWnd*         FIW_QueryButton;
+/*0x27C*/ CButtonWnd*         FIW_RequestItemButton;
+/*0x280*/ CButtonWnd*         FIW_RequestPreviewButton;
+/*0x284*/ CButtonWnd*         FIW_Default;
+/*0x288*/ CButtonWnd*         FIW_GrabButton;
+/*0x28C*/ CButtonWnd*         FIW_HighlightButton;
+/*0x290*/ CButtonWnd*         FIW_DestroyItem;
+/*0x294*/ CComboWnd*          FIW_ItemLocationCombobox;
+/*0x298*/ CComboWnd*          FIW_ItemSlotCombobox;
+/*0x29C*/ CComboWnd*          FIW_StatSlotCombobox;
+/*0x2A0*/ CComboWnd*          FIW_RaceSlotCombobox;
+/*0x2A4*/ CComboWnd*          FIW_ClassSlotCombobox;
+/*0x2A8*/ CComboWnd*          FIW_ItemTypeCombobox;
+/*0x2AC*/ CComboWnd*          FIW_ItemPrestigeCombobox;
+/*0x2B0*/ CComboWnd*          FIW_ItemAugmentCombobox;
+/*0x2B4*/ CEditWnd*           FIW_ItemNameInput;
+/*0x2B8*/ CEditWnd*           FIW_MaxLevelInput;
+/*0x2BC*/ CEditWnd*           FIW_MinLevelInput;
+/*0x2C0*/ CLabelWnd*          FIW_DragonHoardLabel;
+/*0x2C4*/
 };
 
 //============================================================================
