@@ -72,6 +72,7 @@ DIKEYID gDiKeyID[] = {
 const char* gDiKeyName[256];
 
 ServerID ServerIDArray[ServerID::NumServers] = {
+	ServerID::Test,
 	ServerID::Antonius,
 	ServerID::Bertox,
 	ServerID::Brekt,
@@ -101,6 +102,7 @@ const char* GetServerNameFromServerID(ServerID id)
 {
 	switch (id)
 	{
+	case ServerID::Test: return "test";
 	case ServerID::Antonius: return "antonius";
 	case ServerID::Bertox: return "bertox";
 	case ServerID::Brekt: return "brekt";
@@ -132,6 +134,9 @@ const char* GetServerNameFromServerID(ServerID id)
 ServerID GetServerIDFromServerName(const char* serverName)
 {
 	static const mq::ci_unordered::map<std::string_view, ServerID> serverMapping{
+#if defined(TEST)
+		{ "test", ServerID::Test },
+#elif defined(LIVE)
 		{ "antonius", ServerID::Antonius },
 		{ "bertox", ServerID::Bertox },
 		{ "brekt", ServerID::Brekt },
@@ -155,6 +160,7 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "vulak", ServerID::Vulak },
 		{ "xegony", ServerID::Xegony },
 		{ "zek", ServerID::Zek },
+#endif
 	};
 
 	auto iter = serverMapping.find(serverName);

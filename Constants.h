@@ -952,6 +952,7 @@ enum eParcelStatus
 };
 
 enum class ServerID : int {
+	Test = 1,
 	Antonius = 100,
 	Bertox = 102,
 	Bristle = 104,
@@ -976,7 +977,7 @@ enum class ServerID : int {
 	Mayong = 163,
 	Rizlona = 169,
 
-	NumServers = 23,
+	NumServers = 24,
 	Invalid = -1,
 };
 
