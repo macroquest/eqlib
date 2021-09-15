@@ -3123,6 +3123,18 @@ public:
 	EQLIB_OBJECT void Update();
 	EQLIB_OBJECT void PickupSelectedItem();
 
+	ItemGlobalIndex GetItemGlobalIndex(int index)
+	{
+		if (index >= 0 && index < (int)gi.size())
+		{
+			ItemGlobalIndex* idx = gi[index];
+			if (idx)
+				return *idx;
+		}
+
+		return ItemGlobalIndex();
+	}
+
 /*0x234*/ CComboWnd*   SearchCombo0;
 /*0x238*/ CComboWnd*   SearchCombo1;
 /*0x23c*/ int          SelIndex;
