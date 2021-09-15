@@ -165,6 +165,17 @@
     type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type (&name)[size];
 
+#if defined(COMMENT_UPDATER) || !defined(_DEBUG)
+#define SIZE_CHECK(type, expectedSize)
+#else
+#define SIZE_CHECK(type, expectedSize)                                                                   \
+	template <typename TypeToCheck, std::size_t ExpectedSize, std::size_t RealSize = sizeof(TypeToCheck)> \
+	void CheckSizeOf##type##__() {                                                                       \
+		static_assert(ExpectedSize == RealSize, "Size of " #type " does not match expected size.");      \
+	}                                                                                                    \
+	inline void CheckSizeHelper##type##__() { CheckSizeOf##type##__<type, expectedSize>(); }
+#endif
+
 #include "base/Color.h"
 
 namespace eqlib {

@@ -816,9 +816,7 @@ enum eItemSpellType
 	ItemSpellType_Focus,
 	ItemSpellType_Scroll,
 	ItemSpellType_Focus2,
-	ItemSpellType_Mount,
-	ItemSpellType_Illusion,
-	ItemSpellType_Familiar,
+	ItemSpellType_Keyring,
 
 	ItemSpellType_Max,
 };
@@ -849,22 +847,23 @@ inline namespace deprecated
 
 //----------------------------------------------------------------------------
 
-class ItemSpellData
+class [[offsetcomments]] ItemSpellData
 {
 public:
 	struct SpellData
 	{
-		int                   SpellID;
-		uint8_t               RequiredLevel;
-		eItemEffectType       EffectType;
-		int                   EffectiveCasterLevel;
-		int                   MaxCharges;
-		int                   CastTime;
-		int                   RecastTime;
-		int                   RecastType;
-		int                   ProcRate;
-		char                  OverrideName[64];            // name override
-		int                   OverrideDesc;                // override description id
+	/*0x00*/ int                   SpellID;
+	/*0x04*/ uint8_t               RequiredLevel;
+	/*0x08*/ eItemEffectType       EffectType;
+	/*0x0c*/ int                   EffectiveCasterLevel;
+	/*0x10*/ int                   MaxCharges;
+	/*0x14*/ int                   CastTime;
+	/*0x18*/ int                   RecastTime;
+	/*0x1c*/ int                   RecastType;
+	/*0x20*/ int                   ProcRate;
+	/*0x24*/ char                  OverrideName[64];            // name override
+	/*0x64*/ int                   OverrideDesc;                // override description id
+	/*0x68*/
 
 		EQLIB_OBJECT SpellData();
 		EQLIB_OBJECT void Reset();
@@ -873,8 +872,9 @@ public:
 		__declspec(property(get = get_TimerID)) int TimerID;
 	};
 
-	SpellData Spells[ItemSpellType_Max];
-	uint32_t  SkillMask[5];               // bit field for each skill required to use
+/*0x000*/ SpellData Spells[ItemSpellType_Max];
+/*0x2bc*/ uint32_t  SkillMask[5];               // bit field for each skill required to use
+/*0x2d0*/
 
 	// Convenience accessors
 	inline int GetSpellId(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].SpellID : 0; }
@@ -924,10 +924,9 @@ public:
 	}
 };
 
-// ItemDefinition class
-// to check this look at ItemBase__ResetItemInstance_x
-// actual size: 0x704 Nov  6 2018 Test (see 63F00F)
-// actual size: 0x70c Oct 31 2018 Beta (see 7291CC)
+// @sizeof(ItemDefinition) == 0x610 :: 2021-09-07 (test) @ 0x5C642D
+constexpr size_t ItemDefinition_size = 0x610;
+
 class [[offsetcomments]] ItemDefinition
 {
 public:
@@ -1033,64 +1032,64 @@ public:
 /*0x200*/ char                CharmFile[32];
 /*0x220*/ float               MerchantGreedMod;
 /*0x224*/ ItemSpellData       SpellData;
-/*0x5bc*/ int                 DmgBonusSkill;              // SkillMinDamageMod;
-/*0x5c0*/ int                 DmgBonusValue;              // MinDamageMod;
-/*0x5c4*/ int                 CharmFileID;
-/*0x5c8*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
-/*0x5cc*/ uint8_t             ContainerType;
-/*0x5cd*/ uint8_t             Slots;
-/*0x5ce*/ uint8_t             SizeCapacity;
-/*0x5cf*/ uint8_t             WeightReduction;
-/*0x5d0*/ uint8_t             BookType;                   // 0=note, !0=book 884CF5 jun 11 2018 test
-/*0x5d1*/ int8_t              BookLang;
-/*0x5d2*/ char                BookFile[30];
-/*0x5f0*/ int                 Favor;                      // Tribute Value
-/*0x5f4*/ int                 GuildFavor;
-/*0x5f8*/ bool                bIsFVNoDrop;
-/*0x5fc*/ int                 Endurance;
-/*0x600*/ int                 Attack;
-/*0x604*/ int                 HPRegen;
-/*0x608*/ int                 ManaRegen;
-/*0x60c*/ int                 EnduranceRegen;
-/*0x610*/ int                 Haste;
-/*0x614*/ int                 AnimationOverride;
-/*0x618*/ int                 PaletteTintIndex;
-/*0x61c*/ bool                bNoPetGive;
-/*0x61d*/ bool                bSomeProfile;
-/*0x620*/ int                 SomeIDFlag;
-/*0x624*/ int                 StackSize;
-/*0x628*/ bool                bNoStorage;
-/*0x62c*/ int                 MaxPower;
-/*0x630*/ int                 Purity;
-/*0x634*/ bool                bIsEpic;
-/*0x638*/ int                 RightClickScriptID;
-/*0x63c*/ int                 ItemLaunchScriptID;
-/*0x640*/ bool                QuestItem;
-/*0x641*/ bool                Expendable;
-/*0x644*/ int                 Clairvoyance;
-/*0x648*/ int                 SubClass;
-/*0x64c*/ bool                bLoginRegReqItem;
-/*0x650*/ int                 Placeable;
-/*0x654*/ bool                bPlaceableIgnoreCollisions;
-/*0x658*/ int                 PlacementType;              // todo: this is an enum need to figure out.
-/*0x65c*/ int                 RealEstateDefID;
-/*0x660*/ float               PlaceableScaleRangeMin;
-/*0x664*/ float               PlaceableScaleRangeMax;
-/*0x668*/ int                 RealEstateUpkeepID;
-/*0x66c*/ int                 MaxPerRealEstate;
-/*0x670*/ char                HousepetFileName[32];
-/*0x690*/ int                 TrophyBenefitID;
-/*0x694*/ bool                bDisablePlacementRotation;
-/*0x695*/ bool                bDisableFreePlacement;
-/*0x698*/ int                 NpcRespawnInterval;
-/*0x69c*/ float               PlaceableDefScale;
-/*0x6a0*/ float               PlaceableDefHeading;
-/*0x6a4*/ float               PlaceableDefPitch;
-/*0x6a8*/ float               PlaceableDefRoll;
-/*0x6ac*/ bool                bInteractiveObject;
-/*0x6ad*/ uint8_t             SocketSubClassCount;
-/*0x6b0*/ int                 SocketSubClass[10];
-/*0x6d8*/
+/*0x4f4*/ int                 DmgBonusSkill;              // SkillMinDamageMod;
+/*0x4f8*/ int                 DmgBonusValue;              // MinDamageMod;
+/*0x4fc*/ int                 CharmFileID;
+/*0x500*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
+/*0x504*/ uint8_t             ContainerType;
+/*0x505*/ uint8_t             Slots;
+/*0x506*/ uint8_t             SizeCapacity;
+/*0x507*/ uint8_t             WeightReduction;
+/*0x508*/ uint8_t             BookType;                   // 0=note, !0=book 884CF5 jun 11 2018 test
+/*0x509*/ int8_t              BookLang;
+/*0x50a*/ char                BookFile[30];
+/*0x528*/ int                 Favor;                      // Tribute Value
+/*0x52c*/ int                 GuildFavor;
+/*0x530*/ bool                bIsFVNoDrop;
+/*0x534*/ int                 Endurance;
+/*0x538*/ int                 Attack;
+/*0x53c*/ int                 HPRegen;
+/*0x540*/ int                 ManaRegen;
+/*0x544*/ int                 EnduranceRegen;
+/*0x548*/ int                 Haste;
+/*0x54c*/ int                 AnimationOverride;
+/*0x550*/ int                 PaletteTintIndex;
+/*0x554*/ bool                bNoPetGive;
+/*0x555*/ bool                bSomeProfile;
+/*0x558*/ int                 SomeIDFlag;
+/*0x55c*/ int                 StackSize;
+/*0x560*/ bool                bNoStorage;
+/*0x564*/ int                 MaxPower;
+/*0x568*/ int                 Purity;
+/*0x56c*/ bool                bIsEpic;
+/*0x570*/ int                 RightClickScriptID;
+/*0x574*/ int                 ItemLaunchScriptID;
+/*0x578*/ bool                QuestItem;
+/*0x579*/ bool                Expendable;
+/*0x57c*/ int                 Clairvoyance;
+/*0x580*/ int                 SubClass;
+/*0x584*/ bool                bLoginRegReqItem;
+/*0x588*/ int                 Placeable;
+/*0x58c*/ bool                bPlaceableIgnoreCollisions;
+/*0x590*/ int                 PlacementType;              // todo: this is an enum need to figure out.
+/*0x594*/ int                 RealEstateDefID;
+/*0x598*/ float               PlaceableScaleRangeMin;
+/*0x59c*/ float               PlaceableScaleRangeMax;
+/*0x5a0*/ int                 RealEstateUpkeepID;
+/*0x5a4*/ int                 MaxPerRealEstate;
+/*0x5a8*/ char                HousepetFileName[32];
+/*0x5c8*/ int                 TrophyBenefitID;
+/*0x5cc*/ bool                bDisablePlacementRotation;
+/*0x5cd*/ bool                bDisableFreePlacement;
+/*0x5d0*/ int                 NpcRespawnInterval;
+/*0x5d4*/ float               PlaceableDefScale;
+/*0x5d8*/ float               PlaceableDefHeading;
+/*0x5dc*/ float               PlaceableDefPitch;
+/*0x5e0*/ float               PlaceableDefRoll;
+/*0x5e4*/ bool                bInteractiveObject;
+/*0x5e5*/ uint8_t             SocketSubClassCount;
+/*0x5e8*/ int                 SocketSubClass[10];
+/*0x610*/
 
 	EQLIB_OBJECT ItemDefinition();
 
@@ -1113,11 +1112,17 @@ public:
 	ITEMSPELLS_ACCESSOR(Focus);
 	ITEMSPELLS_ACCESSOR(Scroll);
 	ITEMSPELLS_ACCESSOR(Focus2);
-	ITEMSPELLS_ACCESSOR(Mount);
-	ITEMSPELLS_ACCESSOR(Illusion);
-	ITEMSPELLS_ACCESSOR(Familiar);
+	ITEMSPELLS_ACCESSOR(Keyring);
 
 #undef ITEMSPELLS_ACCESSOR
+
+	// No longer have individual keyring effects. But we have code that expects it so just map Keyring to the three old slots.
+	inline ITEMSPELLS& get_Mount() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Keyring)); }
+		__declspec(property(get = get_Mount)) ITEMSPELLS Mount;
+	inline ITEMSPELLS& get_Illusion() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Keyring)); }
+		__declspec(property(get = get_Illusion)) ITEMSPELLS Illusion;
+	inline ITEMSPELLS& get_Familiar() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Keyring)); }
+		__declspec(property(get = get_Familiar)) ITEMSPELLS Familiar;
 
 	inline uint32_t get_SkillMask(int idx) { return SpellData.SkillMask[idx]; }
 	__declspec(property(get = get_SkillMask)) uint32_t SkillMask[];
@@ -1125,6 +1130,8 @@ public:
 	ALT_MEMBER_GETTER_DEPRECATED(bool, IsDroppable, NoDrop, "ItemDefinition.NoDrop is deprecated. Use IsDroppable instead.");
 	ALT_MEMBER_GETTER(uint8_t, ContainerType, Combine);
 };
+
+SIZE_CHECK(ItemDefinition, ItemDefinition_size);
 
 using ITEMINFO = ItemDefinition;
 using PITEMINFO = ItemDefinition*;
