@@ -3125,11 +3125,10 @@ public:
 
 	ItemGlobalIndex GetItemGlobalIndex(int index)
 	{
-		if (index >= 0 && index < (int)gi.size())
+		ItemGlobalIndex* itemIndex = Items.FindFirst(index);
+		if (itemIndex)
 		{
-			ItemGlobalIndex* idx = gi[index];
-			if (idx)
-				return *idx;
+			return *itemIndex;
 		}
 
 		return ItemGlobalIndex();
@@ -3141,7 +3140,7 @@ public:
 /*0x244*/ uint32_t            Timestamp;
 /*0x248*/ uint32_t            Counter;
 /*0x24c*/ HashTable<ItemGlobalIndex, int> Items;
-/*0x25c*/ HashTable<SoeUtil::String, int> ItemNames;
+/*0x25c*/ HashTable<SoeUtil::String, int> ItemNames;     // just a guess, likely inaccurate.
 /*0x26c*/ CStaticAnimationTemplate* FIW_ClassAnim;
 /*0x270*/ CSidlScreenWnd*     FIW_CharacterView;
 /*0x274*/ CListWnd*           FIW_ItemList;
