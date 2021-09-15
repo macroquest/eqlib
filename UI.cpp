@@ -160,7 +160,7 @@ FUNCTION_AT_ADDRESS(CXRect CComboWnd::GetListRect(bool) const, CComboWnd__GetLis
 FUNCTION_AT_ADDRESS(void CComboWnd::SetColors(COLORREF, COLORREF, COLORREF), CComboWnd__SetColors);
 #endif
 #ifdef CComboWnd__InsertChoice_x
-FUNCTION_AT_ADDRESS(void CComboWnd::InsertChoice(const CXStr&, uint32_t), CComboWnd__InsertChoice);
+FUNCTION_AT_ADDRESS(int CComboWnd::InsertChoice(const CXStr&, uint32_t), CComboWnd__InsertChoice);
 #endif
 #ifdef CComboWnd__SetChoice_x
 FUNCTION_AT_ADDRESS(void CComboWnd::SetChoice(int), CComboWnd__SetChoice);

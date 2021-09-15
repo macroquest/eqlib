@@ -406,7 +406,7 @@ public:
 
 	EQLIB_OBJECT CXRect GetListRect(bool) const;
 	EQLIB_OBJECT void SetColors(COLORREF norm, COLORREF highlight, COLORREF selected);
-	EQLIB_OBJECT void InsertChoice(const CXStr& text, uint32_t data = 0);
+	EQLIB_OBJECT int InsertChoice(const CXStr& text, uint32_t data = 0);
 	EQLIB_OBJECT void SetChoice(int index);
 	EQLIB_OBJECT int GetItemCount();
 	EQLIB_OBJECT int GetCurChoice() const;
