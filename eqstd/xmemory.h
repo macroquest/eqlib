@@ -113,7 +113,7 @@ namespace eqstd
 
 		template <class _Other1, class... _Other2>
 		constexpr _Compressed_pair(_One_then_variadic_args_t, _Other1&& _Val1, _Other2&&... _Val2) noexcept(
-			conjunction_v<is_nothrow_constructible<_Ty1, _Other1>, is_nothrow_constructible<_Ty2, _Other2...>>)
+			std::conjunction_v<std::is_nothrow_constructible<_Ty1, _Other1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Myval1(_STD forward<_Other1>(_Val1)), _Myval2(_STD forward<_Other2>(_Val2)...) {}
 
 		constexpr _Ty1& _Get_first() noexcept {
@@ -124,6 +124,15 @@ namespace eqstd
 			return _Myval1;
 		}
 	};
+
+	// VARIABLE TEMPLATE _Nothrow_compare
+	template <class _Keycmp, class _Lhs, class _Rhs>
+	_INLINE_VAR constexpr bool _Nothrow_compare = noexcept(
+		static_cast<bool>(std::declval<const _Keycmp&>()(std::declval<const _Lhs&>(), std::declval<const _Rhs&>())));
+
+	template <class _Alloc>
+	using _Choose_pocma = std::conditional_t<std::allocator_traits<_Alloc>::is_always_equal::value, _Equal_allocators,
+		typename std::allocator_traits<_Alloc>::propagate_on_container_move_assignment::type>;
 
 	// CLASSES _Container_base*, _Iterator_base*
 	struct _Fake_allocator {};
