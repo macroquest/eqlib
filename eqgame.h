@@ -1191,7 +1191,6 @@
 
 // RealEstateManagerClient
 #define RealEstateManagerClient__Instance_x                        0x6B6580
-#define RealEstateManagerClient__GetItemByRealEstateAndItemIds_x   0x6BAE70
 
 // CFactionWnd
 #define CFactionWnd__CFactionWnd_x                                 0x51A570

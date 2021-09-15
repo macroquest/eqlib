@@ -964,7 +964,6 @@ EQLIB_VAR DWORD PlayerZoneClient__GetLevel;
 EQLIB_VAR DWORD PlayerZoneClient__IsValidTeleport;
 EQLIB_VAR DWORD PlayerZoneClient__LegalPlayerRace;
 EQLIB_VAR DWORD ProfileManager__GetCurrentProfile;
-EQLIB_VAR DWORD RealEstateManagerClient__GetItemByRealEstateAndItemIds;
 EQLIB_VAR DWORD RealEstateManagerClient__Instance;
 EQLIB_VAR DWORD SpellManager__GetSpellByGroupAndRank;
 EQLIB_VAR DWORD Spellmanager__LoadTextSpells;
