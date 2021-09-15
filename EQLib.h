@@ -58,6 +58,7 @@
 #include "Items.h"
 #include "PlayerClient.h"
 #include "PcClient.h"
+#include "RealEstate.h"
 #include "Spells.h"
 
 // misc components

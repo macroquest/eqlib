@@ -3659,18 +3659,16 @@ enum GuildRankType
 	GRT_JuniorMember,
 	GRT_Initiate,
 	GRT_Recruit,
+
+	NumGuildRanks,
 };
 
 struct [[offsetcomments]] GuildRank
 {
-	/*0x00*/ GuildRankType Type;
-	/*0x04*/ CXStr         Name;
+/*0x00*/ GuildRankType Type;
+/*0x04*/ CXStr         Name;
 /*0x08*/ };
 
-template <typename AccessGroupType>
-class AccessGroupList
-{
-};
 
 template <typename Group>
 class GuildRankPermissions : public AccessGroupList<Group>
@@ -3710,14 +3708,11 @@ enum GuildPermissionType
 	GPT_GuildPlotSell,
 	GPT_ModifyTrophies,
 	GPT_DemoteSelf,
+
+	NumGuildPermissionTypes,
 };
 
-template <typename Groups, int NumGroups, int EveryoneGroup, typename Caps, int Count>
-struct [[offsetcomments]] AccessGroup
-{
-	Groups Grp;
-	BitField<Count> Capabilities;
-};
+using GuildRankPermission = AccessGroup<GuildRankType, NumGuildRanks, GRT_None, GuildPermissionType, NumGuildPermissionTypes>;
 
 class [[offsetcomments]] GuildBase
 {
@@ -3750,7 +3745,7 @@ public:
 /*0x934*/ char              GuildURL[0x200];
 /*0xb34*/ char              GuildChannel[0x80];
 /*0xbb4*/ ArrayClass<GuildRank*> Ranks;
-/*0xbc4*/ GuildRankPermissions<AccessGroup<GuildRankType, 9, 0, GuildPermissionType, 31>>* RankPermissions;
+/*0xbc4*/ GuildRankPermissions<GuildRankPermission>* RankPermissions;
 /*0xbc8*/
 };
 

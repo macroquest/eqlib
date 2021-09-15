@@ -1082,6 +1082,7 @@ EQLIB_VAR ComputedPointer<MercenaryAlternateAdvancementManagerClient> pMercAltAb
 EQLIB_VAR ForeignPointer<CMercenaryManager>          pMercInfo DEPRECATE("Use pMercManager instead of pMercInfo");
 EQLIB_VAR ForeignPointer<CMercenaryManager>          pMercManager;
 EQLIB_VAR ComputedPointer<CPlayerPointManager>       pPlayerPointManager;
+EQLIB_VAR ComputedPointer<RealEstateManagerClient>   pRealEstate;
 EQLIB_VAR ForeignPointer<CResolutionHandler>         pResolutionHandler;
 EQLIB_VAR ForeignPointer<CSidlManager>               pSidlMgr;
 EQLIB_VAR ForeignPointer<SkillManager>               pSkillMgr;

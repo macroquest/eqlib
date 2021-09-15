@@ -17,6 +17,7 @@
 #include "Globals.h"
 
 #include "AltAbilities.h"
+#include "RealEstate.h"
 
 // Nothing apart from FUNCTION_AT_ADDRESS call should go into this file!
 
@@ -1741,12 +1742,29 @@ FUNCTION_AT_ADDRESS(unsigned long CPlayerPointManager::GetAltCurrency(unsigned l
 // RealEstateManagerClient
 //============================================================================
 
-#ifdef RealEstateManagerClient__Instance_x
+const char* RealEstateTypeToString(RealEstateType type)
+{
+	switch (type)
+	{
+	case RealEstateType_None: return "None";
+	case RealEstateType_Zone: return "Zone";
+	case RealEstateType_GuildHall: return "GuildHall";
+	case RealEstateType_PlayerHousing: return "PlayerHousing";
+	case RealEstateType_PlayerPlot: return "PlayerPlot";
+	case RealEstateType_Neighborhood: return "Neighborhood";
+	case RealEstateType_Town: return "Town";
+	case RealEstateType_MovingCrate: return "MovingCrate";
+	case RealEstateType_GuildPlot: return "GuildPlot";
+	case RealEstateType_Any: return "Any";
+
+	case RealEstateType_Unknown:
+	default:
+		return "Unknown";
+	}
+}
+
 FUNCTION_AT_ADDRESS(RealEstateManagerClient& RealEstateManagerClient::Instance(), RealEstateManagerClient__Instance)
-#endif
-#ifdef RealEstateManagerClient__GetItemByRealEstateAndItemIds_x
 FUNCTION_AT_ADDRESS(const RealEstateItemClient* RealEstateManagerClient::GetItemByRealEstateAndItemIds(int realEstateID, int realEstateItemID) const, RealEstateManagerClient__GetItemByRealEstateAndItemIds)
-#endif
 
 //============================================================================
 // SoundManager

@@ -25,6 +25,73 @@
 
 namespace eqlib {
 
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
+// need to find a better home for this
+
+
+template <typename Groups, int NumGroups, int EveryoneGroup, typename Caps, int NumCaps>
+class [[offsetcomments]] AccessGroup
+{
+public:
+	Groups            group = {};
+	BitField<NumCaps> capabilities;
+
+	using GroupEnum = Groups;
+	enum { eNumGroups = NumGroups };
+	enum { eEveryoneGroup = EveryoneGroup };
+	using CapabilityEnum = Caps;
+	enum { eNumCaps = NumCaps };
+
+	bool HasAccess(Caps capability) const { return capabilities.IsBitSet(capability); }
+	Groups GetGroup() const { return group; }
+};
+
+template <typename AccessGroupType>
+class [[offsetcomments]] AccessGroupList
+{
+public:
+	AccessGroupType accessGroups[AccessGroupType::NumGroups];
+
+	using PlayerToGroupMap = HashTable<typename AccessGroupType::GroupEnum, CXStr>;
+	PlayerToGroupMap playersToGroups;
+
+	typename AccessGroupType::GroupEnum GetPlayerAccessGroup(const char* playerName)
+	{
+		AccessGroupType::GroupEnum* currentGroup = playersToGroups.FindFirst(playerName);
+		if (currentGroup != nullptr)
+		{
+			return *currentGroup;
+		}
+
+		return (AccessGroupType::GroupEnum)AccessGroupType::eEveryoneGroup;
+	}
+
+	bool HasAccess(const char* playerName, typename AccessGroupType::CapabilityEnum capability) const
+	{
+		AccessGroupType::GroupEnum group = GetPlayerAccessGroup(playerName);
+		if (group < AccessGroupType::eNumGroups)
+		{
+			return HasAccess(group, capability);
+		}
+
+		return false;
+	}
+
+	bool InAnyAccessGroup(const char* playerName) const
+	{
+		return playersToGroups.FindFirst(playerName) != nullptr;
+	}
+
+	bool HasAccess(typename AccessGroupType::GroupEnum group, typename AccessGroupType::CapabilityEnum capability) const
+	{
+		return accessGroups[group].HasAccess(capability);
+	}
+};
+
+
 struct SClassInfo
 {
 	bool CanCast;

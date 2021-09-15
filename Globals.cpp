@@ -1135,6 +1135,7 @@ ComputedPointer<MercenaryAlternateAdvancementManagerClient> pMercAltAbilities([]
 ForeignPointer<CMercenaryManager>                pMercInfo;
 ForeignPointer<CMercenaryManager>                pMercManager;
 ComputedPointer<CPlayerPointManager>             pPlayerPointManager([]{ return pLocalPC ? (PlayerPointManager*)&pLocalPC->PointManager : nullptr; });
+ComputedPointer<RealEstateManagerClient>         pRealEstate([] { return &RealEstateManagerClient::Instance(); });
 ForeignPointer<CResolutionHandler>               pResolutionHandler;
 ForeignPointer<CSidlManager>                     pSidlMgr;
 ForeignPointer<SkillManager>                     pSkillMgr;

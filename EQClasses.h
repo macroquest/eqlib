@@ -647,42 +647,41 @@ enum ePlacementType
 	PLACEMENT_TYPE_CEILING,
 };
 
-class [[offsetcomments]] EQPlacedItem
+class [[offsetcomments]] EQPlacedItem : public CActorApplicationData
 {
 public:
-/*0x00*/ void*         vftable;
-/*0x04*/ EQPlacedItem* pPrev;
-/*0x08*/ EQPlacedItem* pNext;
-/*0x0c*/ int           RecordNum;
-/*0x10*/ EqItemGuid    ItemGuid;
-/*0x24*/ int           RealEstateID;
-/*0x28*/ int           RealEstateItemID;
-/*0x2c*/ bool          bIsNPC;
-/*0x30*/ unsigned int  PlacingItemNpcID;
+/*0x04*/ EQPlacedItem*    pPrev;
+/*0x08*/ EQPlacedItem*    pNext;
+/*0x0c*/ int              RecordNum;
+/*0x10*/ EqItemGuid       ItemGuid;
+/*0x24*/ int              RealEstateID;
+/*0x28*/ int              RealEstateItemID;
+/*0x2c*/ bool             bIsNPC;
+/*0x30*/ unsigned int     PlacingItemNpcID;
 /*0x34*/ CLightInterface* pLight;
 /*0x38*/ CActorInterface* pActor;
-/*0x3c*/ char          Name[0x40];
-/*0x7c*/ int           Unknown0x7c;
-/*0x80*/ int           Unknown0x80;
-/*0x84*/ float         Scale;
-/*0x88*/ float         Heading;
-/*0x8c*/ float         Angle;
-/*0x90*/ float         Roll;
-/*0x94*/ float         Y;
-/*0x98*/ float         X;
-/*0x9c*/ float         Z;
-/*0xa0*/ bool          bIgnoreCollisions;
-/*0xa1*/ bool          bDisablePlacementRotation;
-/*0xa2*/ bool          bDisableFreePlacement;
-/*0xa4*/ ePlacementType PlacementType;
-/*0xa8*/ float         ScaleRangeMin;
-/*0xac*/ float         ScaleRangeMax;
-/*0xb0*/ float         DefaultScale;
-/*0xb4*/ float         DefaultHeading;
-/*0xb8*/ float         DefaultAngle;
-/*0xbc*/ float         DefaultRoll;
-/*0xc0*/ int           LightType;
-/*0xc4*/ float         NPCHeight;
+/*0x3c*/ char             Name[EQ_ACTOR_TAG];
+/*0x7c*/ int              Unknown0x7c;
+/*0x80*/ int              Unknown0x80;
+/*0x84*/ float            Scale;
+/*0x88*/ float            Heading;
+/*0x8c*/ float            Angle;
+/*0x90*/ float            Roll;
+/*0x94*/ float            Y;
+/*0x98*/ float            X;
+/*0x9c*/ float            Z;
+/*0xa0*/ bool             bIgnoreCollisions;
+/*0xa1*/ bool             bDisablePlacementRotation;
+/*0xa2*/ bool             bDisableFreePlacement;
+/*0xa4*/ ePlacementType   PlacementType;
+/*0xa8*/ float            ScaleRangeMin;
+/*0xac*/ float            ScaleRangeMax;
+/*0xb0*/ float            DefaultScale;
+/*0xb4*/ float            DefaultHeading;
+/*0xb8*/ float            DefaultAngle;
+/*0xbc*/ float            DefaultRoll;
+/*0xc0*/ int              LightType;
+/*0xc4*/ float            NPCHeight;
 /*0xc8*/
 };
 
@@ -696,104 +695,7 @@ public:
 	EQPlacedItem*      Top;
 };
 
-class [[offsetcomments]] RealEstateItemIds
-{
-public:
-/*0x00*/ int                RealEstateID;
-/*0x04*/ int                RealEstateItemID;
-/*0x08*/
-};
-
-class [[offsetcomments]] RealEstateItemState
-{
-public:
-/*0x00*/ bool               bPlaced;
-/*0x04*/ __time32_t         UpkeepExpiredTime;
-/*0x08*/
-};
-
-class [[offsetcomments]] RealEstateItemPosition
-{
-public:
-/*0x00*/ float              Heading;
-/*0x04*/ float              Pitch;
-/*0x08*/ float              Roll;
-/*0x0c*/ float              Scale;
-/*0x10*/ float              X;
-/*0x14*/ float              Y;
-/*0x18*/ float              Z;
-/*0x1c*/
-};
-
-class [[offsetcomments]] RealEstateItemOwnerInfo
-{
-public:
-/*0x00*/ CXStr              OwnerName;
-/*0x04*/ CXStr              OwnerHandle;
-/*0x08*/ int                OwnerNameHashKey;
-/*0x0c*/
-};
-
-class [[offsetcomments]] RealEstateItemObject
-{
-public:
-/*0x00*/ ItemPtr pItemBase;
-/*0x04*/
-};
-
-class [[offsetcomments]] RealEstateItem
-{
-public:
-/*0x00*/ RealEstateItemState                State;
-/*0x08*/ RealEstateItemPosition             Position;
-/*0x24*/ RealEstateItemOwnerInfo            OwnerInfo;
-/*0x30*/ RealEstateItemObject               Object;
-/*0x34*/
-};
-
-class [[offsetcomments]] RealEstateItemClient : public RealEstateItem
-{
-public:
-/*0x34*/ RealEstateItemIds IDs;
-/*0x3c*/
-};
-
-enum eRealEstateType
-{
-	RET_None = 0,
-	RET_Zone,
-	RET_GuildHall,
-	RET_PlayerHousing,
-	RET_PlayerPlot,
-	RET_Neighborhood,
-	RET_Town,
-	RET_MovingCrate,
-	RET_GuildPlot,
-	RET_Count,
-	RET_Unknown,
-	RET_Any
-};
-
-class [[offsetcomments]] RealEstateManagerClient
-{
-public:
-/*0x00*/ void*         vftable;
-/*0x04*/ BYTE          Stuff[0xb4];
-/*0xb8*/ UINT          lastRefreshTime;
-/*0xbc*/ int           ZoneRealEstateId;
-/*0xc0*/ eRealEstateType ZoneRealEstateType;
-/*0xc4*/ int           CurrentRealEstateID;
-/*0xc8*/ int           CurrentYardID;
-/*0xcc*/ int           CurrentHouseID;
-/*0xd0*/ int           CurrentMovingCrateID;
-/*0xd4*/ bool          bRequestPending;
-/*0xd8*/ UINT          RequestTime;
-/*0xdc*/ bool          bPrintRequestTimes;
-/*0xe0*/
-
-	EQLIB_OBJECT static RealEstateManagerClient& Instance();
-	EQLIB_OBJECT const RealEstateItemClient* GetItemByRealEstateAndItemIds(int RealEstateID, int RealEstateItemID) const;
-};
+//============================================================================
 
 class [[offsetcomments]] FactionManagerClient
 {
