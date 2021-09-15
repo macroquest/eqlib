@@ -762,7 +762,6 @@ public:
 /*0x1280*/ int               JumpAcross_SoundID;
 /*0x1284*/ int               WalkBackwards_SoundID;
 /*0x1288*/ int               CrouchWalk_SoundID;
-
 /*0x128c*/ unsigned int      LastHurtSound;                // see 5E96E0 in feb 14 2019 test
 /*0x1290*/ unsigned int      LastWalkTime;                 // used for animations
 /*0x1294*/ int               ShipRelated;                  // ID? look into.
@@ -927,6 +926,6 @@ inline namespace deprecated {
 	using EQPlayer DEPRECATE("Use PlayerClient instead of EQPlayer") = PlayerClient;
 }
 
-static_assert(sizeof(PlayerClient) == PlayerClient_size, "Size of PlayerClient does not match PlayerClient_size");
+SIZE_CHECK(PlayerClient, PlayerClient_size);
 
 } // namespace eqlib

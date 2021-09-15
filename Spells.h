@@ -1152,6 +1152,8 @@ using PSPELL = EQ_Spell*;
 
 #pragma pack(pop) // EQ_Spell
 
+SIZE_CHECK(EQ_Spell, EQ_Spell_size);
+
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
 public:
@@ -1284,8 +1286,6 @@ struct [[offsetcomments]] StackingGroupData
 /*0x0c*/
 };
 
-static_assert(sizeof(EQ_Spell) == EQ_Spell_size, "Size of EQ_Spell does not match EQ_Spell_size");
-
 constexpr int TOTAL_SPELL_COUNT = 66000;           // # of spells allocated in memory (09/07/2021 test 6C944E)
 constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocated in mem (09/07/2021 test 6C948E)
 
@@ -1341,7 +1341,7 @@ inline namespace deprecated {
 	using PSPELLMGR DEPRECATE("Use ClientSpellManager* instead of PSPELLMGR") = ClientSpellManager*;
 }
 
-static_assert(sizeof(ClientSpellManager) == ClientSpellManager_size, "ClientSpellManager size does not match ClientSpellManager_size");
+SIZE_CHECK(ClientSpellManager, ClientSpellManager_size);
 
 class [[offsetcomments]] MercenaryAbilityEffectsDefinition
 {

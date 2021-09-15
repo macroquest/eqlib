@@ -804,8 +804,8 @@ inline namespace deprecated {
 	using PCXWND DEPRECATE("Use CXWnd* instead of PCXWND") = CXWnd*;
 }
 
-static_assert(sizeof(CXWnd) == CXWnd_size, "Size of CXWnd does not match CXWnd_size");
-static_assert(sizeof(CXWnd::VirtualFunctionTable) == CXWnd_vftable_size, "Size of CXWnd::VirtualFunctionTable does not match CXWnd_vftable_size");
+SIZE_CHECK(CXWnd, CXWnd_size);
+SIZE_CHECK2(CXWnd_vftable, CXWnd::VirtualFunctionTable, CXWnd_vftable_size);
 
 //============================================================================
 // CSidlScreenWnd

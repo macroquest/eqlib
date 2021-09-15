@@ -145,7 +145,7 @@ struct [[offsetcomments]] zoneHeader
 using ZONEINFO = zoneHeader;
 using PZONEINFO = ZONEINFO*;
 
-static_assert(sizeof(zoneHeader) == zoneHeader_size, "Size of zoneHeader does not match zoneHeader_size");
+SIZE_CHECK(zoneHeader, zoneHeader_size);
 
 class _EverQuestinfo
 {

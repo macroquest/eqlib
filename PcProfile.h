@@ -340,6 +340,6 @@ inline namespace deprecated {
 	using PCHARINFO2 DEPRECATE("Use PcProfile* instead of PCHARINFO2") = PcProfile*;
 }
 
-static_assert(sizeof(PcProfile) == PcProfile_size, "Size of PcProfile does not match PcProfile_size");
+SIZE_CHECK(PcProfile, PcProfile_size);
 
 } // namespace eqlib

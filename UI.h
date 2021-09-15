@@ -4268,7 +4268,7 @@ inline namespace deprecated {
 	using PEQITEMWINDOW DEPRECATE("Use CItemDisplayWnd* instead of PEQITEMWINDOW") = CItemDisplayWnd*;
 }
 
-static_assert(sizeof(CItemDisplayWnd) == CItemDisplayWnd_size, "Size of CItemDisplayWnd does not match CItemDisplayWnd_size");
+SIZE_CHECK(CItemDisplayWnd, CItemDisplayWnd_size);
 
 //============================================================================
 // CJournalWnd

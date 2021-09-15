@@ -1553,7 +1553,6 @@ inline namespace deprecated {
 // PcZoneClient
 // PcClient
 // CharacterBase
-static_assert(sizeof(PcClient) == PcClient_size, "Size of PcClient does not match PcClient_size");
-
+SIZE_CHECK(PcClient, PcClient_size);
 
 } // namespace eqlib

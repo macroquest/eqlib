@@ -1335,7 +1335,7 @@ public:
 /*0x108*/
 };
 
-static_assert(sizeof(ItemClient) == ItemClient_size, "Size of ItemClient does not match ItemClient_size");
+SIZE_CHECK(ItemClient, ItemClient_size);
 
 //----------------------------------------------------------------------------
 
