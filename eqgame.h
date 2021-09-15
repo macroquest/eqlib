@@ -725,7 +725,7 @@
 #define CSidlManager__CreateXWnd_x                                 0x8494B0
 
 // CSidlScreenWnd
-#define CSidlScreenWnd__CalculateHSBRange_x                        0x0
+#define CSidlScreenWnd__CalculateHSBRange_x                        0x98C330
 #define CSidlScreenWnd__CalculateVSBRange_x                        0x98C230
 #define CSidlScreenWnd__ConvertToRes_x                             0x9B9D90
 #define CSidlScreenWnd__CreateChildrenFromSidl_x                   0x98BBB0
@@ -842,7 +842,7 @@
 #define CXWnd__BringToTop_x                                        0x97EF50
 #define CXWnd__ClrFocus_x                                          0x97E8D0
 #define CXWnd__Destroy_x                                           0x97E980
-#define CXWnd__DoAllDrawing_x                                      0x0
+#define CXWnd__DoAllDrawing_x                                      0x97AAE0
 #define CXWnd__DrawChildren_x                                      0x97AAB0
 #define CXWnd__DrawColoredRect_x                                   0x97B070
 #define CXWnd__DrawTooltip_x                                       0x979000
@@ -864,7 +864,7 @@
 #define CXWnd__Move_x                                              0x97DE80
 #define CXWnd__Move1_x                                             0x97DF80
 #define CXWnd__ProcessTransition_x                                 0x97EA60
-#define CXWnd__Refade_x                                            0x0
+#define CXWnd__Refade_x                                            0x97E260
 #define CXWnd__Resize_x                                            0x97E4F0
 #define CXWnd__Right_x                                             0x97ED40
 #define CXWnd__SetFocus_x                                          0x97E890
