@@ -451,6 +451,7 @@ constexpr int CHAT_CHAT                        = 0x0100;
 constexpr int EQ_MAX_NAME                      = 64;
 constexpr int EQ_MAX_LASTNAME                  = 32;
 constexpr int EQ_MAX_STATION_ID                = 32;
+constexpr int EQ_ACTOR_TAG                     = 64;
 
 // KeypressHandler__HandleKeyUp_x has this one
 constexpr int nEQMappableCommands = 546;

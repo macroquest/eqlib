@@ -1026,7 +1026,6 @@ INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__GetLevel);
 INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__IsValidTeleport);
 INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__LegalPlayerRace);
 INITIALIZE_EQGAME_OFFSET(ProfileManager__GetCurrentProfile);
-INITIALIZE_EQGAME_OFFSET(RealEstateManagerClient__GetItemByRealEstateAndItemIds);
 INITIALIZE_EQGAME_OFFSET(RealEstateManagerClient__Instance);
 INITIALIZE_EQGAME_OFFSET(SpellManager__GetSpellByGroupAndRank);
 INITIALIZE_EQGAME_OFFSET(Spellmanager__LoadTextSpells);
@@ -1137,6 +1136,7 @@ ComputedPointer<MercenaryAlternateAdvancementManagerClient> pMercAltAbilities([]
 ForeignPointer<CMercenaryManager>                pMercInfo;
 ForeignPointer<CMercenaryManager>                pMercManager;
 ComputedPointer<CPlayerPointManager>             pPlayerPointManager([]{ return pLocalPC ? (PlayerPointManager*)&pLocalPC->PointManager : nullptr; });
+ComputedPointer<RealEstateManagerClient>         pRealEstate([] { return &RealEstateManagerClient::Instance(); });
 ForeignPointer<CResolutionHandler>               pResolutionHandler;
 ForeignPointer<CSidlManager>                     pSidlMgr;
 ForeignPointer<SkillManager>                     pSkillMgr;

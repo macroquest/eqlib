@@ -960,7 +960,6 @@ EQLIB_VAR DWORD PlayerZoneClient__GetLevel;
 EQLIB_VAR DWORD PlayerZoneClient__IsValidTeleport;
 EQLIB_VAR DWORD PlayerZoneClient__LegalPlayerRace;
 EQLIB_VAR DWORD ProfileManager__GetCurrentProfile;
-EQLIB_VAR DWORD RealEstateManagerClient__GetItemByRealEstateAndItemIds;
 EQLIB_VAR DWORD RealEstateManagerClient__Instance;
 EQLIB_VAR DWORD SpellManager__GetSpellByGroupAndRank;
 EQLIB_VAR DWORD Spellmanager__LoadTextSpells;
@@ -1078,6 +1077,7 @@ EQLIB_VAR ComputedPointer<MercenaryAlternateAdvancementManagerClient> pMercAltAb
 EQLIB_VAR ForeignPointer<CMercenaryManager>          pMercInfo DEPRECATE("Use pMercManager instead of pMercInfo");
 EQLIB_VAR ForeignPointer<CMercenaryManager>          pMercManager;
 EQLIB_VAR ComputedPointer<CPlayerPointManager>       pPlayerPointManager;
+EQLIB_VAR ComputedPointer<RealEstateManagerClient>   pRealEstate;
 EQLIB_VAR ForeignPointer<CResolutionHandler>         pResolutionHandler;
 EQLIB_VAR ForeignPointer<CSidlManager>               pSidlMgr;
 EQLIB_VAR ForeignPointer<SkillManager>               pSkillMgr;

@@ -25,6 +25,8 @@
 
 namespace eqlib {
 
+//----------------------------------------------------------------------------
+
 struct SClassInfo
 {
 	bool CanCast;
@@ -100,6 +102,82 @@ class PopDialogHandler
 {
 public:
 	virtual void DialogResponse(int, int, void*);
+};
+
+template <typename Groups, int NumGroups, int EveryoneGroup, typename Caps, int NumCaps>
+class [[offsetcomments]] AccessGroup
+{
+public:
+	using GroupEnum = Groups;
+	using CapabilityEnum = Caps;
+
+	enum {
+		eNumGroups = NumGroups,
+		eEveryoneGroup = EveryoneGroup,
+		eNumCaps = NumCaps
+	};
+
+	bool HasAccess(Caps capability) const { return capabilities.IsBitSet(capability); }
+	Groups GetGroup() const { return group; }
+
+	Groups            group = {};
+	BitField<NumCaps> capabilities;
+};
+
+template <typename AccessGroupType>
+class [[offsetcomments]] AccessGroupList
+{
+public:
+	AccessGroupType accessGroups[AccessGroupType::eNumGroups];
+
+	using PlayerToGroupMap = HashTable<typename AccessGroupType::GroupEnum, CXStr>;
+	PlayerToGroupMap playersToGroups;
+
+	typename AccessGroupType::GroupEnum GetPlayerAccessGroup(const char* playerName)
+	{
+		AccessGroupType::GroupEnum* currentGroup = playersToGroups.FindFirst(playerName);
+		if (currentGroup != nullptr)
+		{
+			return *currentGroup;
+		}
+
+		return (AccessGroupType::GroupEnum)AccessGroupType::eEveryoneGroup;
+	}
+
+	bool HasAccess(const char* playerName, typename AccessGroupType::CapabilityEnum capability) const
+	{
+		AccessGroupType::GroupEnum group = GetPlayerAccessGroup(playerName);
+		if (group < AccessGroupType::eNumGroups)
+		{
+			return HasAccess(group, capability);
+		}
+
+		return false;
+	}
+
+	bool InAnyAccessGroup(const char* playerName) const
+	{
+		return playersToGroups.FindFirst(playerName) != nullptr;
+	}
+
+	bool HasAccess(typename AccessGroupType::GroupEnum group, typename AccessGroupType::CapabilityEnum capability) const
+	{
+		return accessGroups[group].HasAccess(capability);
+	}
+};
+
+class IUniqueIdCheck
+{
+public:
+	virtual bool IdInUse(int id, int) const = 0;
+};
+
+template <typename T>
+class UniqueIdGen
+{
+public:
+	T a, b, c;
+	IUniqueIdCheck* check;
 };
 
 struct MOUSESPOOF

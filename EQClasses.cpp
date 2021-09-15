@@ -17,6 +17,7 @@
 #include "Globals.h"
 
 #include "AltAbilities.h"
+#include "RealEstate.h"
 
 // Nothing apart from FUNCTION_AT_ADDRESS call should go into this file!
 
@@ -1741,12 +1742,184 @@ FUNCTION_AT_ADDRESS(unsigned long CPlayerPointManager::GetAltCurrency(unsigned l
 // RealEstateManagerClient
 //============================================================================
 
-#ifdef RealEstateManagerClient__Instance_x
 FUNCTION_AT_ADDRESS(RealEstateManagerClient& RealEstateManagerClient::Instance(), RealEstateManagerClient__Instance)
-#endif
-#ifdef RealEstateManagerClient__GetItemByRealEstateAndItemIds_x
-FUNCTION_AT_ADDRESS(const RealEstateItemClient* RealEstateManagerClient::GetItemByRealEstateAndItemIds(int realEstateID, int realEstateItemID) const, RealEstateManagerClient__GetItemByRealEstateAndItemIds)
-#endif
+
+const char* RealEstateTypeToString(RealEstateType type)
+{
+	switch (type)
+	{
+	case RealEstateType_None: return "None";
+	case RealEstateType_Zone: return "Zone";
+	case RealEstateType_GuildHall: return "GuildHall";
+	case RealEstateType_PlayerHousing: return "PlayerHousing";
+	case RealEstateType_PlayerPlot: return "PlayerPlot";
+	case RealEstateType_Neighborhood: return "Neighborhood";
+	case RealEstateType_Town: return "Town";
+	case RealEstateType_MovingCrate: return "MovingCrate";
+	case RealEstateType_GuildPlot: return "GuildPlot";
+	case RealEstateType_Any: return "Any";
+
+	case RealEstateType_Unknown:
+	default:
+		return "Unknown";
+	}
+}
+
+const char* RealEstateSuperTypeToString(RealEstateSuperType type)
+{
+	switch (type)
+	{
+	case RealEstateSuperType_None: return "None";
+	case RealEstateSuperType_Zone: return "Zone";
+	case RealEstateSuperType_House: return "House";
+	case RealEstateSuperType_Plot: return "Plot";
+	case RealEstateSuperType_Neighborhood: return "Neighborhood";
+	case RealEstateSuperType_Town: return "Town";
+	case RealEstateSuperType_MovingCrate: return "MovingCrate";
+	case RealEstateSuperType_Any: return "Any";
+
+	case RealEstateSuperType_Unknown:
+	default:
+		return "Unknown";
+	}
+}
+
+RealEstateSuperType RealEstateTypeToSuperType(RealEstateType type)
+{
+	switch (type)
+	{
+	case RealEstateType_GuildHall:
+	case RealEstateType_PlayerHousing:
+		return RealEstateSuperType_House;
+
+	case RealEstateType_PlayerPlot:
+	case RealEstateType_GuildPlot:
+		return RealEstateSuperType_Plot;
+
+	case RealEstateType_Zone: return RealEstateSuperType_Zone;
+	case RealEstateType_Neighborhood: return RealEstateSuperType_Neighborhood;
+	case RealEstateType_Town: return RealEstateSuperType_Town;
+	case RealEstateType_MovingCrate: return RealEstateSuperType_MovingCrate;
+	case RealEstateType_Unknown: return RealEstateSuperType_Unknown;
+	case RealEstateType_Any: return RealEstateSuperType_Any;
+	default: return RealEstateSuperType_None;
+	}
+}
+
+RealEstateTypeFlag RealEstateTypeToFlags(RealEstateType type)
+{
+	switch (type)
+	{
+	case RealEstateType_None: return RealEstateTypeFlag_None;
+	case RealEstateType_Zone: return RealEstateTypeFlag_Zone;
+	case RealEstateType_GuildHall: return RealEstateTypeFlag_GuildHall;
+	case RealEstateType_PlayerHousing: return RealEstateTypeFlag_PlayerHousing;
+	case RealEstateType_PlayerPlot: return RealEstateTypeFlag_PlayerPlot;
+	case RealEstateType_Neighborhood: return RealEstateTypeFlag_Neighborhood;
+	case RealEstateType_Town: return RealEstateTypeFlag_Town;
+	case RealEstateType_MovingCrate: return RealEstateTypeFlag_MovingCrate;
+	case RealEstateType_GuildPlot: return RealEstateTypeFlag_GuildPlot;
+	case RealEstateType_Unknown: return RealEstateTypeFlag_Unknown;
+	case RealEstateType_Any: return RealEstateTypeFlag_Any;
+	default: return RealEstateTypeFlag_None;
+	}
+}
+
+RealEstateTypeFlag RealEstateSuperTypeToFlags(RealEstateSuperType type)
+{
+	switch (type)
+	{
+	case RealEstateSuperType_None: return RealEstateTypeFlag_None;
+	case RealEstateSuperType_Zone: return RealEstateTypeFlag_Zone;
+	case RealEstateSuperType_House: return static_cast<RealEstateTypeFlag>(RealEstateTypeFlag_GuildHall | RealEstateTypeFlag_PlayerHousing);
+	case RealEstateSuperType_Plot: return static_cast<RealEstateTypeFlag>(RealEstateTypeFlag_PlayerPlot | RealEstateTypeFlag_GuildPlot);
+	case RealEstateSuperType_Neighborhood: return RealEstateTypeFlag_Neighborhood;
+	case RealEstateSuperType_Town: return RealEstateTypeFlag_Town;
+	case RealEstateSuperType_MovingCrate: return RealEstateTypeFlag_MovingCrate;
+	case RealEstateSuperType_Unknown: return RealEstateTypeFlag_Unknown;
+	case RealEstateSuperType_Any: return RealEstateTypeFlag_Any;
+	default: return RealEstateTypeFlag_None;
+	}
+}
+
+const char* RealEstateAccessCategoryToString(RealEstateAccessCategories category)
+{
+	switch (category)
+	{
+	case RealEstateAccessCategory_All: return "All";
+	case RealEstateAccessCategory_Individuals: return "Individuals";
+	case RealEstateAccessCategory_Groups: return "Groups";
+	case RealEstateAccessCategory_PermissionsGroupTotals: return "PermissionsGroupTotals";
+	case RealEstateAccessCategory_PermissionsGroup: return "PermissionsGroup";
+	default: return "Unknown";
+	}
+}
+
+const char* RealEstateAccessGroupToString(RealEstateAccessGroups group)
+{
+	switch (group)
+	{
+	case RealEstateAccess_Everyone: return "Everyone";
+	case RealEstateAccess_Visitor: return "Visitor";
+	case RealEstateAccess_Acquaintance: return "Acquaintance";
+	case RealEstateAccess_Friend: return "Friend";
+	case RealEstateAccess_Trustee: return "Trustee";
+	case RealEstateAccess_CoOwner: return "Co-Owner";
+	case RealEstateAccess_Owner: return "Owner";
+	default: return "Unknown";
+	}
+}
+
+const char* RealEstateCapabilityToString(RealEstateCapabilities capability)
+{
+	switch (capability)
+	{
+	case RealEstateCapability_ReceiveBuffs: return "ReceiveBuffs";
+	case RealEstateCapability_Enter: return "Enter";
+	case RealEstateCapability_WithdrawUpkeep: return "WithdrawUpkeep";
+	case RealEstateCapability_RemoveCrate: return "RemoveCrate";
+	case RealEstateCapability_AddCrate: return "AddCrate";
+	case RealEstateCapability_RemoveHouse: return "RemoveHouse";
+	case RealEstateCapability_AddHouse: return "AddHouse";
+	case RealEstateCapability_MailItem: return "MailItem";
+	case RealEstateCapability_RemoveItem: return "RemoveItem";
+	case RealEstateCapability_AddItem: return "AddItem";
+	case RealEstateCapability_MoveItem: return "MoveItem";
+	case RealEstateCapability_InteractItem: return "InteractItem";
+	case RealEstateCapability_Manage: return "Manage";
+	default: return "Unknown";
+	}
+}
+
+//----------------------------------------------------------------------------
+
+const RealEstate* RealEstateManager::GetRealEstate(int realEstateId) const
+{
+	RealEstate** realEstate = realEstates.FindFirst(realEstateId);
+	return realEstate ? *realEstate : nullptr;
+}
+
+const RealEstateAccess* RealEstateManager::GetRealEstateAccess(int realEstateId) const
+{
+	RealEstateAccess** access = accessLists.FindFirst(realEstateId);
+	return access ? *access : nullptr;
+}
+
+const RealEstateItems* RealEstateManager::GetRealEstateItems(int realEstateId) const
+{
+	RealEstateItems** items = itemLists.FindFirst(realEstateId);
+	return items ? *items : nullptr;
+}
+
+const RealEstateItem* RealEstateManagerClient::GetItemByRealEstateAndItemIds(int realEstateID, int realEstateItemID) const
+{
+	if (const RealEstateItems* items = GetRealEstateItems(realEstateID))
+	{
+		return items->GetItem(realEstateItemID);
+	}
+
+	return nullptr;
+}
 
 //============================================================================
 // SoundManager

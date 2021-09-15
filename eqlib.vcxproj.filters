@@ -16,6 +16,9 @@
     <Filter Include="Header Files\base">
       <UniqueIdentifier>{fe5fc331-9102-44f3-85a0-a9b3993d6a86}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\eqstd">
+      <UniqueIdentifier>{07e78fd2-2adc-450b-8432-d639c46d1e04}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -140,6 +143,18 @@
     </ClInclude>
     <ClInclude Include="Requirements.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RealEstate.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\map.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\xtree.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\xmemory.h">
+      <Filter>Header Files\eqstd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

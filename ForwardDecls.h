@@ -328,6 +328,7 @@ class Mp3Manager;
 class MusicManager;
 class PlayerManagerClient;
 class PointMerchantWnd;
+class RealEstateManagerClient;
 class SAmpersandEntry;
 class SkillManager;
 class SListWndSortInfo;

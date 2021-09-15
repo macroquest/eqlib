@@ -960,7 +960,7 @@ T* HashTable<T, Key, ResizePolicy>::FindFirst(const Key& key) const
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::FindNext(const T* previousResult) const
 {
-HashEntry* entry = FindNextEntry(HashEntry::GetEntry(previousResult));
+HashEntry* entry = FindNextEntry(HashEntry::GetEntry((T*)previousResult));
 return entry ? &entry->value() : nullptr;
 }
 
@@ -998,11 +998,11 @@ template <typename T, typename Key, typename ResizePolicy>
 typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePolicy>::FindNextEntry(
 	typename HashTable<T, Key, ResizePolicy>::HashEntry* previousResult) const
 {
-	const HashEntry* entry = previousResult;
-	const HashEntry* nextEntry = entry->next;
+	HashEntry* entry = previousResult;
+	HashEntry* nextEntry = entry->next;
 	while (nextEntry != nullptr)
 	{
-		if (nextEntry->key() == entry->key)
+		if (nextEntry->key() == entry->key())
 			return nextEntry;
 
 		nextEntry = nextEntry->next;
@@ -2158,12 +2158,42 @@ class BitField
 {
 public:
 	enum {
-		ElementBits = sizeof(uint32_t) * 8
-	};
-	enum {
-		ElementCount = (NumBits / ElementBits) + 1
+		ElementBits = sizeof(uint32_t) * 8,
+		ElementCount = (NumBits / ElementBits) + 1,
 	};
 
+	int GetNumBits() const { return NumBits; }
+	int GetNumElements() const { return ElementCount; }
+
+	bool IsBitSet(int bit) const
+	{
+		if (bit >= 0 && bit < GetNumBits())
+		{
+			int index = GetIndex(bit);
+			if (index >= 0)
+			{
+				return (Bits[index] & (1 << GetOffset(bit))) != 0;
+			}
+		}
+
+		return false;
+	}
+
+	int GetElement(int element) const
+	{
+		if (element >= 0 && element < GetNumElements())
+		{
+			return Bits[element];
+		}
+
+		return 0;
+	}
+
+private:
+	int GetIndex(int bit) const { return bit / ElementBits; }
+	int GetOffset(int bit) const { return bit % ElementBits; }
+
+public:
 	uint32_t Bits[ElementCount];
 };
 
