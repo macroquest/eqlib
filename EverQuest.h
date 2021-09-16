@@ -41,7 +41,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x3a8 :: 2021-09-13 (live) @ 0x5AFDEF
+// @sizeof(zoneHeader) == 0x3a8 :: 2021-08-17 (live) @ 0x5B2881
 constexpr size_t zoneHeader_size = 0x3a8;
 
 struct [[offsetcomments]] zoneHeader

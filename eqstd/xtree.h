@@ -2,7 +2,7 @@
 // copy of <xtree> with iterator checks and debug macros removed
 // so that it is always binary compatible with release build
 
-#include "eqlib/eqstd/xmemory.h"
+#include "eqstd/xmemory.h"
 
 #pragma once
 
@@ -908,7 +908,7 @@ namespace eqstd
 		}
 
 	private:
-		void _Move_assign(_Tree& _Right, _Equal_allocators) noexcept(std::is_nothrow_move_assignable_v<key_compare>) {
+		void _Move_assign(_Tree& _Right, _Equal_allocators) noexcept(is_nothrow_move_assignable_v<key_compare>) {
 			clear();
 			_Getcomp() = _Right._Getcomp(); // intentionally copy comparator, see LWG-2227
 			_Pocma(_Getal(), _Right._Getal());
@@ -1413,7 +1413,7 @@ namespace eqstd
 			return { const_iterator(_Result.first, _Scary), const_iterator(_Result.second, _Scary) };
 		}
 
-		void swap(_Tree& _Right) noexcept(std::_Is_nothrow_swappable<key_compare>::value) /* strengthened */ {
+		void swap(_Tree& _Right) noexcept(_Is_nothrow_swappable<key_compare>::value) /* strengthened */ {
 			if (this != std::addressof(_Right)) {
 				_Pocs(_Getal(), _Right._Getal());
 				_Swap_val_excluding_comp(_Right);
