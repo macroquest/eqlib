@@ -3,8 +3,8 @@
 
 #include "eqlib/Allocator.h"
 
-#include "eqstd/xmemory.h"
-#include "eqstd/xtree.h"
+#include "eqlib/eqstd/xmemory.h"
+#include "eqlib/eqstd/xtree.h"
 
 #include <type_traits>
 
@@ -113,7 +113,7 @@ namespace eqstd
 
 		map(map&& _Right, const allocator_type& _Al) : _Mybase(std::move(_Right), _Al) {}
 
-		map& operator=(map&& _Right) noexcept(_Alnode_traits::is_always_equal::value&& is_nothrow_move_assignable_v<_Pr>) {
+		map& operator=(map&& _Right) noexcept(_Alnode_traits::is_always_equal::value && std::is_nothrow_move_assignable_v<_Pr>) {
 			_Mybase::operator=(std::move(_Right));
 			return *this;
 		}

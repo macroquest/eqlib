@@ -654,6 +654,7 @@ enum eInventorySlot
 	InvSlot_Bag9,
 	InvSlot_Bag10,
 	InvSlot_Bag11,
+	InvSlot_Bag12,
 	InvSlot_Held,
 
 	InvSlot_Max,
@@ -662,7 +663,7 @@ enum eInventorySlot
 	InvSlot_LastWornItem = InvSlot_Ammo,
 	InvSlot_FirstBagSlot = InvSlot_Bag1,
 	InvSlot_LastBagSlot = InvSlot_Bag10,
-	InvSlot_LastBonusBagSlot = InvSlot_Bag11,
+	InvSlot_LastBonusBagSlot = InvSlot_Bag12,
 	InvSlot_Cursor = InvSlot_Held,
 	InvSlot_NumInvSlots = InvSlot_Held,      // held is not technically an item in the inventory (its the cursor)
 
@@ -673,7 +674,7 @@ enum eInventorySlot
 constexpr int NUM_INV_SLOTS = InvSlot_NumInvSlots;
 constexpr int BAG_SLOT_START = InvSlot_Bag1;
 
-constexpr int NUM_BAG_SLOTS = InvSlot_LastBagSlot - InvSlot_FirstBagSlot + 1;
+constexpr int NUM_BAG_SLOTS = InvSlot_LastBonusBagSlot - InvSlot_FirstBagSlot + 1;
 constexpr int NUM_WORN_ITEMS = InvSlot_LastWornItem - InvSlot_FirstWornItem + 1;
 
 static_assert(InvSlot_LastWornItem < 32,

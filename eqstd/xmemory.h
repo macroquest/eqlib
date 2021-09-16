@@ -113,7 +113,7 @@ namespace eqstd
 
 		template <class _Other1, class... _Other2>
 		constexpr _Compressed_pair(_One_then_variadic_args_t, _Other1&& _Val1, _Other2&&... _Val2) noexcept(
-			conjunction_v<is_nothrow_constructible<_Ty1, _Other1>, is_nothrow_constructible<_Ty2, _Other2...>>)
+			std::conjunction_v<std::is_nothrow_constructible<_Ty1, _Other1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Myval1(_STD forward<_Other1>(_Val1)), _Myval2(_STD forward<_Other2>(_Val2)...) {}
 
 		constexpr _Ty1& _Get_first() noexcept {
@@ -125,20 +125,29 @@ namespace eqstd
 		}
 	};
 
+	// VARIABLE TEMPLATE _Nothrow_compare
+	template <class _Keycmp, class _Lhs, class _Rhs>
+	_INLINE_VAR constexpr bool _Nothrow_compare = noexcept(
+		static_cast<bool>(std::declval<const _Keycmp&>()(std::declval<const _Lhs&>(), std::declval<const _Rhs&>())));
+
+	template <class _Alloc>
+	using _Choose_pocma = std::conditional_t<std::allocator_traits<_Alloc>::is_always_equal::value, _Equal_allocators,
+		typename std::allocator_traits<_Alloc>::propagate_on_container_move_assignment::type>;
+
 	// CLASSES _Container_base*, _Iterator_base*
 	struct _Fake_allocator {};
 	inline constexpr _Fake_allocator _Fake_alloc{};
 
 	struct _Container_base0 {
-		_CONSTEXPR20_CONTAINER void _Orphan_all() noexcept {}
-		_CONSTEXPR20_CONTAINER void _Swap_proxy_and_iterators(_Container_base0&) noexcept {}
-		_CONSTEXPR20_CONTAINER void _Alloc_proxy(const _Fake_allocator&) noexcept {}
-		_CONSTEXPR20_CONTAINER void _Reload_proxy(const _Fake_allocator&, const _Fake_allocator&) noexcept {}
+		inline void _Orphan_all() noexcept {}
+		inline void _Swap_proxy_and_iterators(_Container_base0&) noexcept {}
+		inline void _Alloc_proxy(const _Fake_allocator&) noexcept {}
+		inline void _Reload_proxy(const _Fake_allocator&, const _Fake_allocator&) noexcept {}
 	};
 
 	struct _Iterator_base0 {
-		_CONSTEXPR20_CONTAINER void _Adopt(const void*) noexcept {}
-		_CONSTEXPR20_CONTAINER const _Container_base0* _Getcont() const noexcept {
+		inline void _Adopt(const void*) noexcept {}
+		inline const _Container_base0* _Getcont() const noexcept {
 			return nullptr;
 		}
 
@@ -156,11 +165,11 @@ namespace eqstd
 	struct _Fake_proxy_ptr_impl { // fake replacement for a container proxy smart pointer when no container proxy is in use
 		_Fake_proxy_ptr_impl(const _Fake_proxy_ptr_impl&) = delete;
 		_Fake_proxy_ptr_impl& operator=(const _Fake_proxy_ptr_impl&) = delete;
-		_CONSTEXPR20_CONTAINER _Fake_proxy_ptr_impl(const _Fake_allocator&, _Leave_proxy_unbound) noexcept {}
-		_CONSTEXPR20_CONTAINER _Fake_proxy_ptr_impl(const _Fake_allocator&, const _Container_base0&) noexcept {}
+		inline _Fake_proxy_ptr_impl(const _Fake_allocator&, _Leave_proxy_unbound) noexcept {}
+		inline _Fake_proxy_ptr_impl(const _Fake_allocator&, const _Container_base0&) noexcept {}
 
-		_CONSTEXPR20_CONTAINER void _Bind(const _Fake_allocator&, _Container_base0*) noexcept {}
-		_CONSTEXPR20_CONTAINER void _Release() noexcept {}
+		inline void _Bind(const _Fake_allocator&, _Container_base0*) noexcept {}
+		inline void _Release() noexcept {}
 	};
 
 	template <class _Alloc>
