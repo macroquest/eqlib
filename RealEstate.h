@@ -20,7 +20,6 @@
 
 #include "eqstd/map.h"
 
-#include <glm/vec3.hpp>
 #include <map>
 
 namespace eqlib {
@@ -156,7 +155,7 @@ struct [[offsetcomments]] RealEstateItemPosition
 /*0x04*/ float          pitch;
 /*0x08*/ float          roll;
 /*0x0c*/ float          scale;
-/*0x10*/ glm::vec3      pos;
+/*0x10*/ CVector3       pos;
 /*0x1c*/
 };
 
@@ -192,13 +191,13 @@ public:
 	__time32_t GetUpkeepExpiredTime() const { return state.upkeepExpiredTime; }
 
 	// Position
-	const glm::vec3& GetPos() const { return position.pos; }
+	const CVector3& GetPos() const { return position.pos; }
 	float GetHeading() const { return position.heading; }
 	float GetPitch() const { return position.pitch; }
 	float GetRoll() const { return position.roll; }
-	float GetX() const { return position.pos.x; }
-	float GetY() const { return position.pos.y; }
-	float GetZ() const { return position.pos.z; }
+	float GetX() const { return position.pos.X; }
+	float GetY() const { return position.pos.Y; }
+	float GetZ() const { return position.pos.Z; }
 
 	// Owner Info
 	const CXStr& GetOwnerName() const { return ownerInfo.ownerName; }
@@ -332,7 +331,7 @@ struct [[offsetcomments]] RealEstateDefinition
 /*0x04*/ CXStr                name;
 /*0x08*/ CXStr                description;
 /*0x0c*/ CXStr                address;
-/*0x10*/ glm::vec3            zoneInCoords;
+/*0x10*/ CVector3             zoneInCoords;
 /*0x1c*/ uint32_t             areaId;
 /*0x20*/ uint32_t             costDefinition;
 /*0x24*/ uint32_t             upkeepDefinition;
@@ -345,7 +344,7 @@ struct [[offsetcomments]] RealEstateDefinition
 /*0x40*/ int                  groupId;
 /*0x44*/ uint32_t             icon;
 /*0x48*/ int                  maxNpcItems;
-/*0x4c*/ glm::vec3            switchCoords;
+/*0x4c*/ CVector3             switchCoords;
 /*0x58*/ float                switchHeading;
 /*0x5c*/ ArrayClass<uint32_t> childDefinitions;
 /*0x6c*/
