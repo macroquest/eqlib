@@ -23,6 +23,7 @@
 #define CParticleSystem__Render_x                                  0x1007BE60
 
 #define CRender__RenderScene_x                                     0x100A17A0
+#define CRender__RenderBlind_x                                     0x100A2200
 #define CRender__ResetDevice_x                                     0x100A1000
 #define CRender__UpdateDisplay_x                                   0x100A2350
 

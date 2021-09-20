@@ -1227,6 +1227,7 @@ EQLIB_VAR DWORD __ModuleList;
 EQLIB_VAR DWORD __eqgraphics_fopen;
 EQLIB_VAR DWORD CParticleSystem__Render;
 EQLIB_VAR DWORD CRender__RenderScene;
+EQLIB_VAR DWORD CRender__RenderBlind;
 EQLIB_VAR DWORD CRender__UpdateDisplay;
 EQLIB_VAR DWORD CRender__ResetDevice;
 
