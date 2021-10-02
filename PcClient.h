@@ -1374,6 +1374,9 @@ public:
 	}
 
 	EQLIB_OBJECT ItemContainer& GetKeyRingItems(KeyRingType type);
+	inline ItemPtr GetKeyRingItem(KeyRingType type, int index) { GetKeyRingItems(type).GetItem(index); }
+	inline ItemPtr GetKeyRingItem(KeyRingType type, const ItemIndex& index) { GetKeyRingItems(type).GetItem(index); }
+	inline const ItemIndex& GetStatKeyRingItemIndex(KeyRingType type) const { return StatKeyRingItemIndex[type]; }
 
 	// Stores information about purchased Mercenary Abilities
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
