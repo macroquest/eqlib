@@ -205,6 +205,12 @@ public:
 	inline ItemPtr GetItemPossession(const ItemIndex& index) const { return InventoryContainer.GetItem(index); }
 	inline ItemContainer& GetItemPosessions() { return InventoryContainer; }
 
+	const EQ_Affect& GetEffect(int index) const { return Buff[index]; }
+	EQ_Affect& GetEffect(int index) { return Buff[index]; }
+
+	const EQ_Affect& GetTempEffect(int index) const { return ShortBuff[index]; }
+	EQ_Affect& GetTempEffect(int index) { return ShortBuff[index]; }
+
 	INVENTORYARRAY* getter_pInventoryArray() { return reinterpret_cast<INVENTORYARRAY*>(&InventoryContainer.Items[0]); }
 	__declspec(property(get = getter_pInventoryArray)) INVENTORYARRAY* pInventoryArray;
 

@@ -2126,12 +2126,9 @@ enum BuffWindowType
 {
 	BuffWindowStandard,
 	BuffWindowShortDuration,
-	BuffWindowMelee
 };
 
-// CBuffWindow__CBuffWindow aBuffwindow
-// this is used for both long and shortbuffs...
-// CBuffWindow_size: 0x710 (see 5504D9) in Dec 19 2019 Live
+// Size: 0x730
 class [[offsetcomments]] CBuffWindow : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -2145,26 +2142,42 @@ public:
 	virtual int PostDraw() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
-	EQLIB_OBJECT void SetBuffIcon(CButtonWnd*, int, int, bool);
-	EQLIB_OBJECT void HandleSpellInfoDisplay(CXWnd*);
-	EQLIB_OBJECT void RefreshBuffDisplay();
-	EQLIB_OBJECT void RefreshIconArrangement();
+
 
 	//----------------------------------------------------------------------------
 	// data members
 
-	// todo: check me
-/*0x24c*/ uint8_t     Unknown0x0240[0xb8];
-/*0x304*/ CButtonWnd* pBuff[0x24];
-/*0x394*/ uint8_t     Unknown0x038c[0x210];
-/*0x5a4*/ int         BuffId[NUM_LONG_BUFFS];
-/*0x64c*/ int         BuffTimer[NUM_LONG_BUFFS];
-/*0x6f4*/ HashTable<CXStr> WhoCast;
-/*0x704*/ uint8_t     Unknown0x06ec[0x18];
-/*0x71c*/ int         MaxLongBuffs;             // 0x2a (NUM_LONG_BUFFS)
-/*0x720*/ int         MaxShortBuffs;            // 0x37 (NUM_SHORT_BUFFS)
-/*0x724*/ uint8_t     Unknown0x071c[0xc];
+/*0x24c*/ bool                  bOldIconArrangement;
+/*0x250*/ CTextureAnimation*    ptaBlueIconBackground;
+/*0x254*/ CTextureAnimation*    ptaRedIconBackground;
+/*0x258*/ CTextureAnimation*    ptaYellowIconBackground;
+/*0x25c*/ CTextureAnimation*    ptaBuffIcons[MAX_BUFF_ICONS];
+/*0x304*/ CButtonWnd*           pBuffButtons[MAX_BUFF_ICONS];    // was: pBuff
+/*0x3ac*/ CTextObjectInterface* pTimeRemainingTexts[MAX_BUFF_ICONS];
+/*0x454*/ CTextObjectInterface* pCounterTexts[MAX_BUFF_ICONS];
+/*0x4fc*/ CTextObjectInterface* pLimitedUseTexts[MAX_BUFF_ICONS];
+/*0x5a4*/ int                   spellIds[MAX_BUFF_ICONS];        // was: BuffId
+/*0x64c*/ int                   buffTimers[MAX_BUFF_ICONS];      // was: BuffTimer
+/*0x6f4*/ HashTable<CXStr>      whoCastHash;                     // was: WhoCast
+/*0x704*/ uint32_t              nextRefreshTime;
+/*0x708*/ int                   initWindowWidth;
+/*0x70c*/ int                   initWindowHeight;
+/*0x710*/ BuffWindowType        buffWindowType;
+/*0x714*/ int                   firstEffectSlot;
+/*0x718*/ int                   lastEffectSlot;                  // was: MaxLongBuffs 0x2a (NUM_LONG_BUFFS)
+/*0x71c*/ int                   maxBuffButtons;                  // was: MaxShortBuffs 0x37 (NUM_SHORT_BUFFS)
+/*0x720*/ int                   contextMenuId;
+/*0x724*/ CXWnd*                selectedButtonWnd;               // this field doesn't alwayws appear to be initialize
+/*0x728*/ bool                  updatedMenuItems;
+/*0x72c*/ int                   lastBuffRefreshTime;
 /*0x730*/
+
+	ALT_MEMBER_GETTER_ARRAY(CButtonWnd*, MAX_BUFF_ICONS, pBuffButtons, pBuff);
+	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, spellIds, BuffId);
+	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, buffTimers, BuffTimer);
+	ALT_MEMBER_ALIAS(HashTable<CXStr>, whoCastHash, WhoCast);
+	ALT_VMEMBER_GETTER_DEPRECATED(int, lastEffectSlot, MaxLongBuffs, "CBuffWindow: Use lastEffectSlot instead of MaxLongBuffs");
+	ALT_VMEMBER_GETTER_DEPRECATED(int, maxBuffButtons, MaxShortBuffs, "CBuffWindow: Use maxBuffButtons instead of MaxShortBuffs");
 };
 
 inline namespace deprecated {
@@ -5008,7 +5021,7 @@ public:
 	// data members
 
 /*0x24c*/ uint8_t            Unknown0x23c[0x4];
-/*0x250*/ CButtonWnd*        pButton[MAX_PET_BUTTONS];        // there are 14 buttons on the petinfowin with text that can be set to attack,none,back and so on, these are those...
+/*0x250*/ CButtonWnd*        pButton[MAX_PET_BUTTONS];          // there are 14 buttons on the petinfowin with text that can be set to attack,none,back and so on, these are those...
 /*0x288*/ uint8_t            Unknown0x278[0x8];
 /*0x290*/ CButtonWnd*        pAttackButton;
 /*0x294*/ CButtonWnd*        pQAttackButton;
@@ -5017,11 +5030,11 @@ public:
 /*0x2a0*/ CButtonWnd*        pSitButton;
 /*0x2a4*/ CButtonWnd*        pStopButton;
 /*0x2a8*/ uint8_t            Unknown0x298[0x174];
-/*0x41c*/ CButtonWnd*        pWnd[NUM_BUFF_SLOTS];     // buff buttons
-/*0x5a0*/ int                Buff[NUM_BUFF_SLOTS];     // Spell ID# of each buff -- 97 total
+/*0x41c*/ CButtonWnd*        pWnd[MAX_TOTAL_BUFFS];             // buff buttons
+/*0x5a0*/ int                Buff[MAX_TOTAL_BUFFS];             // Spell ID# of each buff -- 97 total
 /*0x724*/ HashTable<CXStr>   WhoCast;
 /*0x734*/ uint8_t            Unknown0x724[0x10];
-/*0x744*/ unsigned int       PetBuffTimer[NUM_BUFF_SLOTS]; // duration until buff fades, in thousands of a second
+/*0x744*/ unsigned int       PetBuffTimer[MAX_TOTAL_BUFFS];     // duration until buff fades, in thousands of a second
 /*0x8c8*/ uint8_t            Unknown0x8b8[0xc];
 /*0x8d4*/ bool               bPetButtonsDirty;
 /*0x8d5*/ bool               Sit;
@@ -5549,10 +5562,10 @@ public:
 /*0x250*/ CTextureAnimation* pBuffGoodBackground;
 /*0x254*/ CTextureAnimation* pBuffBadBackground;
 /*0x258*/ CTextureAnimation* pBuffBypassBackground;
-/*0x25c*/ CTextureAnimation* ptaBuffIcons[NUM_BUFF_SLOTS];
-/*0x3e0*/ CButtonWnd*        pTargetBuff[NUM_BUFF_SLOTS];
-/*0x564*/ int                BuffSpellID[NUM_BUFF_SLOTS]; // -1 if no buff
-/*0x6e8*/ int                BuffTimer[NUM_BUFF_SLOTS];
+/*0x25c*/ CTextureAnimation* ptaBuffIcons[MAX_TOTAL_BUFFS];
+/*0x3e0*/ CButtonWnd*        pTargetBuff[MAX_TOTAL_BUFFS];
+/*0x564*/ int                BuffSpellID[MAX_TOTAL_BUFFS]; // -1 if no buff
+/*0x6e8*/ int                BuffTimer[MAX_TOTAL_BUFFS];
 /*0x86c*/ int                LastBuffReceivedTime;
 /*0x870*/ int                Timer;
 /*0x874*/ HashTable<CXStr>   Casters;

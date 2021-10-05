@@ -464,11 +464,32 @@ constexpr int MAX_NPC_LEVEL = 200;
 constexpr int MAX_SPELL_LEVEL = 255;
 constexpr int NUM_SPELL_GEMS = 14;
 constexpr int NUM_SPELL_SETS = 30;
-constexpr int NUM_BUFF_SLOTS = 97;
-constexpr int NUM_LONG_BUFFS = 42;
-constexpr int NUM_SHORT_BUFFS = 55;
+
 constexpr int NUM_RACES = 17;
 constexpr int NUM_BLOCKED_BUFFS = 40;
+
+// The number of lbuffs that are displayable in the buffs window. Also used to
+// hold these buffs in the profile.
+constexpr int NUM_LONG_BUFFS = 42;
+// ideally this is the number of short buffs but that name is already taken...
+// This represents the number of short duration buffs that can display in the
+// short duration buff window.
+constexpr int NUM_SONG_BUFFS = 30;
+
+// The maximum number of buff icons supported.
+constexpr int MAX_BUFF_ICONS = 42;
+
+// Number of temporary buffs stored in the profile.
+constexpr int NUM_TEMP_BUFFS = 55;
+// this is misnamed, the "Short buffs" in the profile is simply just all temporary buffs
+// not necessary the short buffs window. You'll also note that its 55 instead of 30...
+constexpr int NUM_SHORT_BUFFS = NUM_TEMP_BUFFS;
+
+// This holds the total number of buffs stored in the profile, NOT the number of buffs
+// displayable on the screen in the buffs+shortbuffs ui. NPCs can have more buffs/debuffs
+// that players, that is where this total value comes from.
+constexpr int MAX_TOTAL_BUFFS = NUM_LONG_BUFFS + NUM_TEMP_BUFFS;
+constexpr int NUM_BUFF_SLOTS = MAX_TOTAL_BUFFS;
 
 constexpr int MAX_MEMORIZED_SPELLS = 18;
 

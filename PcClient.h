@@ -15,6 +15,7 @@
 #pragma once
 
 #include "Common.h"
+#include "Constants.h"
 #include "Containers.h"
 #include "CXStr.h"
 #include "Achievements.h"
@@ -869,6 +870,27 @@ public:
 	int GetWisdom() const { return WIS; }
 	int GetLuck() const { return LCK; }
 
+	EQ_Affect& GetEffect(int nBuffSlot)
+	{
+		if (nBuffSlot >= 0 && nBuffSlot < NUM_LONG_BUFFS)
+			return GetCurrentBaseProfile().GetEffect(nBuffSlot);
+		if (nBuffSlot >= NUM_LONG_BUFFS && NUM_LONG_BUFFS + NUM_TEMP_BUFFS)
+			return GetCurrentBaseProfile().GetTempEffect(nBuffSlot - NUM_LONG_BUFFS);
+		// ??
+		return GetEffect(0);
+	}
+
+	int GetEffectSlot(EQ_Affect* effect)
+	{
+		for (int nBuffSlot = 0; nBuffSlot < MAX_TOTAL_BUFFS; ++nBuffSlot)
+		{
+			if (effect == &GetEffect(nBuffSlot))
+				return nBuffSlot;
+		}
+
+		return -1;
+	}
+
 	// Unverified
 	EQLIB_OBJECT BYTE GetLanguageSkill(int) const;
 };
@@ -1015,7 +1037,7 @@ public:
 	EQLIB_OBJECT char* Class(int);
 	EQLIB_OBJECT char* KunarkClass(int, int, int, bool);
 	EQLIB_OBJECT char* Race(int);
-	EQLIB_OBJECT EQ_Affect& GetEffect(int) const;
+	//EQLIB_OBJECT EQ_Affect& GetEffect(int) const; // removeme
 	EQLIB_OBJECT EQ_Equipment* GetFocusItem(EQ_Spell const*, int);
 	EQLIB_OBJECT EQ_Spell* GetFocusEffect(EQ_Spell const*, int);
 	EQLIB_OBJECT PlayerClient* FindClosest(int, int, int, int, int);
