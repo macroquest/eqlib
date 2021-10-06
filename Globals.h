@@ -1230,6 +1230,7 @@ EQLIB_VAR DWORD CRender__RenderScene;
 EQLIB_VAR DWORD CRender__RenderBlind;
 EQLIB_VAR DWORD CRender__UpdateDisplay;
 EQLIB_VAR DWORD CRender__ResetDevice;
+EQLIB_VAR BOOL* g_bRenderSceneCalled;
 
 //============================================================================
 // eqmain.dll Offsets

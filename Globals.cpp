@@ -1477,6 +1477,9 @@ INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderBlind);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__UpdateDisplay);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__ResetDevice);
 
+INITIALIZE_EQGRAPHICS_OFFSET(__bRenderSceneCalled);
+BOOL* g_bRenderSceneCalled = (BOOL*)__bRenderSceneCalled;
+
 void InitializeEQGraphicsOffsets()
 {
 	if (!EQGraphicsBaseAddress)
@@ -1491,6 +1494,7 @@ void InitializeEQGraphicsOffsets()
 		CRender__RenderBlind = FixEQGraphicsOffset(CRender__RenderBlind_x);
 		CRender__UpdateDisplay = FixEQGraphicsOffset(CRender__UpdateDisplay_x);
 		CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
+		g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
 	}
 }
 
