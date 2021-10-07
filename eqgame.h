@@ -510,7 +510,6 @@
 #define CDisplay__GetClickedActor_x                                0x561BF0
 #define CDisplay__GetUserDefinedColor_x                            0x559950
 #define CDisplay__GetWorldFilePath_x                               0x563700
-#define CDisplay__is3dON_x                                         0x55E480
 #define CDisplay__ReloadUI_x                                       0x569140
 #define CDisplay__WriteTextHD2_x                                   0x55E270
 #define CDisplay__TrueDistance_x                                   0x5656E0

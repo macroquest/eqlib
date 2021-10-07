@@ -477,7 +477,6 @@ EQLIB_VAR DWORD CDisplay__GetClickedActor;
 EQLIB_VAR DWORD CDisplay__GetFloorHeight;
 EQLIB_VAR DWORD CDisplay__GetUserDefinedColor;
 EQLIB_VAR DWORD CDisplay__GetWorldFilePath;
-EQLIB_VAR DWORD CDisplay__is3dON;
 EQLIB_VAR DWORD CDisplay__PreZoneMainUI;
 EQLIB_VAR DWORD CDisplay__RealRender_World;
 EQLIB_VAR DWORD CDisplay__ReloadUI;
