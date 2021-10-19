@@ -2125,7 +2125,7 @@ public:
 			if (!pNode) return nullptr;
 
 			pNode = GetNodePtr(pNode)->GetNext();
-			count++;
+			pos++;
 		}
 
 		return pNode;
