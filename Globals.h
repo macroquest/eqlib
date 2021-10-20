@@ -927,7 +927,6 @@ EQLIB_VAR DWORD MapViewMap__Clear;
 EQLIB_VAR DWORD MapViewMap__dMapViewMap;
 EQLIB_VAR DWORD MapViewMap__GetWorldCoordinates;
 EQLIB_VAR DWORD MapViewMap__MapViewMap;
-EQLIB_VAR DWORD MapViewMap__SaveEx;
 EQLIB_VAR DWORD MapViewMap__SetZoom;
 EQLIB_VAR DWORD MapViewMap__vftable;
 EQLIB_VAR DWORD MercenaryAlternateAdvancementManagerClient__Instance;

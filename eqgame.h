@@ -75,7 +75,7 @@
 #define __do_loot_x                                                0x5DFEF0
 #define __gfMaxZoomCameraDistance_x                                0xB4800C
 #define __gfMaxCameraDistance_x                                    0xB709E8
-#define __CurrentSocial_x                                          0x0
+#define __CurrentSocial_x                                          0xC5B460
 #define __BindList_x                                               0xDA0478
 #define g_eqCommandStates_x                                        0xDA11E0
 #define __CommandList_x                                            0xDA1D68
@@ -240,7 +240,7 @@
 #define pinstCInventoryWnd_x                                       0xEDD074
 #define pinstCInvSlotMgr_x                                         0xEDD100
 #define pinstCItemDisplayManager_x                                 0xFADC38
-#define pinstCItemExpTransferWnd_x                                 0x0
+#define pinstCItemExpTransferWnd_x                                 0xFADD68
 #define pinstCItemOverflowWnd_x                                    0xEDCD4C
 #define pinstCJournalCatWnd_x                                      0xEDCCFC
 #define pinstCJournalNPCWnd_x                                      0xEDD128
@@ -302,7 +302,7 @@
 #define pinstCSocialEditWnd_x                                      0xEDCD8C
 #define pinstCSocialWnd_x                                          0xEDD120
 #define pinstCSpellBookWnd_x                                       0xEDCE48
-#define pinstCStoryWnd_x                                           0x0
+#define pinstCStoryWnd_x                                           0xEDCD04
 #define pinstCTargetOfTargetWnd_x                                  0xFB11E8
 #define pinstCTargetWnd_x                                          0xEDCD84
 #define pinstCTaskOverlayWnd_x                                     0xEDCD00
@@ -688,7 +688,6 @@
 #define MapViewMap__dMapViewMap_x                                  0x7B9CD0
 #define MapViewMap__vftable_x                                      0xB60858
 #define MapViewMap__Clear_x                                        0x7BA5E0
-#define MapViewMap__SaveEx_x                                       0x7BDB1F
 #define MapViewMap__SetZoom_x                                      0x7C3800
 #define MapViewMap__HandleLButtonDown_x                            0x7B9DE0
 #define MapViewMap__GetWorldCoordinates_x                          0x7BCF50
@@ -724,7 +723,7 @@
 #define CSidlManager__CreateXWnd_x                                 0x84A400
 
 // CSidlScreenWnd
-#define CSidlScreenWnd__CalculateHSBRange_x                        0x0
+#define CSidlScreenWnd__CalculateHSBRange_x                        0x98CF60
 #define CSidlScreenWnd__CalculateVSBRange_x                        0x98CE60
 #define CSidlScreenWnd__ConvertToRes_x                             0x9BAA80
 #define CSidlScreenWnd__CreateChildrenFromSidl_x                   0x98C7E0
@@ -763,7 +762,7 @@
 
 // CStmlWnd
 #define CStmlWnd__AppendSTML_x                                     0x9A9100
-#define CStmlWnd__CalculateHSBRange_x                              0x0
+#define CStmlWnd__CalculateHSBRange_x                              0x9AA080
 #define CStmlWnd__CalculateVSBRange_x                              0x9A9FF0
 #define CStmlWnd__CanBreakAtCharacter_x                            0x9AEEE0
 #define CStmlWnd__FastForwardToEndOfTag_x                          0x9AFB80
@@ -846,7 +845,7 @@
 #define CXWnd__DrawColoredRect_x                                   0x97BF40
 #define CXWnd__DrawTooltip_x                                       0x979FD0
 #define CXWnd__DrawTooltipAtPoint_x                                0x97A090
-#define CXWnd__GetBorderFrame_x                                    0x0
+#define CXWnd__GetBorderFrame_x                                    0x97BC00
 #define CXWnd__GetChildItem_x                                      0x97FEF0
 #define CXWnd__GetChildWndAt_x                                     0x97FD80
 #define CXWnd__GetClientClipRect_x                                 0x97DEF0
@@ -863,7 +862,7 @@
 #define CXWnd__Move_x                                              0x97EC60
 #define CXWnd__Move1_x                                             0x97ED50
 #define CXWnd__ProcessTransition_x                                 0x97F7F0
-#define CXWnd__Refade_x                                            0x0
+#define CXWnd__Refade_x                                            0x97F000
 #define CXWnd__Resize_x                                            0x97F290
 #define CXWnd__Right_x                                             0x97FAD0
 #define CXWnd__SetFocus_x                                          0x97F620
@@ -871,7 +870,7 @@
 #define CXWnd__SetKeyTooltip_x                                     0x9802B0
 #define CXWnd__SetMouseOver_x                                      0x97D060
 #define CXWnd__SetParent_x                                         0x97E900
-#define CXWnd__StartFade_x                                         0x0
+#define CXWnd__StartFade_x                                         0x97EAC0
 #define CXWnd__vftable_x                                           0xB8B208
 #define CXWnd__CXWnd_x                                             0x978EC0
 #define CXWnd__dCXWnd_x                                            0x9795C0
@@ -1048,8 +1047,8 @@
 #define EQ_Spell__SpellAffectBase_x                                0x5A3840
 #define EQ_Spell__GetSpellAffectBySlot_x                           0x4D1120
 #define EQ_Spell__GetSpellAffectByIndex_x                          0x4D10D0
-#define EQ_Spell__IsSPAStacking_x                                  0x0
-#define EQ_Spell__IsSPAIgnoredByStacking_x                         0x5A3D30
+#define EQ_Spell__IsSPAStacking_x                                  0x5A4AA0
+#define EQ_Spell__IsSPAIgnoredByStacking_x                         0x5A3B90
 #define EQ_Spell__IsDegeneratingLevelMod_x                         0x5A4AD0
 #define __IsResEffectSpell_x                                       0x4D08D0
 

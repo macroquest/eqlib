@@ -2149,9 +2149,9 @@ FUNCTION_AT_ADDRESS(bool MapViewMap::DrawClippedLine(struct T3D_XYZ*, struct T3D
 #ifdef MapViewMap__Save_x
 FUNCTION_AT_ADDRESS(void MapViewMap::Save(char*), MapViewMap__Save);
 #endif
-#ifdef MapViewMap__SaveEx_x
-FUNCTION_AT_ADDRESS(void MapViewMap::SaveEx(char*, int), MapViewMap__SaveEx);
-#endif
+//#ifdef MapViewMap__SaveEx_x
+//FUNCTION_AT_ADDRESS(void MapViewMap::SaveEx(char*, int), MapViewMap__SaveEx);
+//#endif
 #ifdef MapViewMap__Load_x
 FUNCTION_AT_ADDRESS(void MapViewMap::Load(char*), MapViewMap__Load);
 #endif

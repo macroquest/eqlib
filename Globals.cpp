@@ -994,7 +994,6 @@ INITIALIZE_EQGAME_OFFSET(MapViewMap__Clear);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__dMapViewMap);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__GetWorldCoordinates);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__MapViewMap);
-INITIALIZE_EQGAME_OFFSET(MapViewMap__SaveEx);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__SetZoom);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__vftable);
 INITIALIZE_EQGAME_OFFSET(MercenaryAlternateAdvancementManagerClient__Instance);

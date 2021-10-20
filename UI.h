@@ -4541,7 +4541,7 @@ public:
 
 	// methods
 	EQLIB_OBJECT void Clear();
-	EQLIB_OBJECT void SaveEx(char*, int);
+	//EQLIB_OBJECT void SaveEx(char*, int);
 	EQLIB_OBJECT void SetZoom(float);
 	EQLIB_OBJECT void GetWorldCoordinates(CVector3&);
 
