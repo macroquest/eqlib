@@ -531,6 +531,8 @@ inline namespace deprecated {
 
 //============================================================================
 
+// @sizeof(CEverQuest) == 0x39640 :: 2021-10-14 (live) @ 0x6DA14F
+constexpr size_t CEverQuest_size = 0x39640;
 
 class CEverQuest
 {
@@ -750,24 +752,27 @@ public:
 /*0x005f8*/ bool             bUnknown0x5f0;
 /*0x005fc*/ int              TotalCharacterSlots;
 /*0x00600*/ int              MarketplaceCharacterSlots;
-/*0x00604*/ int              Unknown0x5fc;
-/*0x00608*/ void*            CampDialog;                   // CPopDialogWnd
-/*0x0060c*/ PickZoneTimerHandler pickZoneTimerHandler;     // size 0x10?
-/*0x0061c*/ USINGSKILL       UsingSkill;                   // size 0x8
-/*0x00624*/ PetitionStatus   PetitionStatus[0x200];        // size 0xb8 * 0x200 = 0x17000
-/*0x17624*/ int              TotalQ;                       // see 760EE8 in Sep 18 2017
+/*0x00604*/ bool             Unknown0x604;
+/*0x00608*/ int              Unknown0x608;
+/*0x0060c*/ bool             Unknown0x60c;
+/*0x00610*/ CPopDialogWnd*   CampDialog;
+/*0x0060c*/ PickZoneTimerHandler pickZoneTimerHandler;
+/*0x0061c*/ USINGSKILL       UsingSkill;
+/*0x0062C*/ PetitionStatus   PetitionStatus[0x200];
+/*0x1762C*/ int              TotalQ;
 /*0x17628*/ int              TotalClientPetitions;
 /*0x1762c*/ char             ChatText[0x840];
-/*0x17e6c*/ int              TrimIdx;                      // correct
-/*0x17e70*/ char             ChatChanged;                  // 1 or 0?
-/*0x17e71*/ char             Trim[0x40][0x840];            // correct. size 0x40*0x840= 0x21000
-/*0x38e74*/ BOOL             bChat;
-/*0x38e78*/ int              Unknown0x38E70;
-/*0x38e7c*/ int              Red;                          // for sure see 564105 in spe 18 2017 exe
-/*0x38e80*/ int              Green;
-/*0x38e84*/ int              Blue;
-/*0x38e88*/ ArrayClass<CSINFO> pCharSelectPlayerArray;
-/*0x38e98*/ // more data
+/*0x17e6c*/ int              TrimIdx;
+/*0x17e70*/ char             ChatChanged;
+/*0x17e71*/ char             Trim[0x40][0x840];
+/*0x38e74*/ BOOL             chat;
+/*0x38e78*/ BOOL             disconnected;
+/*0x38E84*/ int              Red;
+/*0x38e88*/ int              Green;
+/*0x38e8c*/ int              Blue;
+/*0x38e90*/ ArrayClass<CSINFO> pCharSelectPlayerArray;
+/*0x38ea0*/ char             Filler[0x7a0]; // more data
+/*0x39640*/
 };
 
 inline namespace deprecated {
@@ -775,5 +780,7 @@ inline namespace deprecated {
 	using PEVERQUEST DEPRECATE("Use EVERQUEST* instead of PEVERQUEST") = CEverQuest*;
 }
 using EVERQUEST = CEverQuest;
+
+SIZE_CHECK(CEverQuest, CEverQuest_size);
 
 } // namespace eqlib

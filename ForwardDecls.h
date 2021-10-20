@@ -379,6 +379,7 @@ struct MercenaryInfo;
 using ZONEINFO = zoneHeader;
 using CChatService = UniversalChatProxy;
 using EVERQUEST = CEverQuest;
+using CPopDialogWnd = CConfirmationDialog;
 
 class PcClient;
 using CHARINFO = PcClient;
