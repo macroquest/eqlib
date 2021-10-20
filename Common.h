@@ -326,6 +326,12 @@ public:
 	int GetHeight() const { return bottom - top; }
 	void SetHeight(int height) { bottom = top + height; }
 
+	void SetSize(const CXSize& size)
+	{
+		right = left + size.cx;
+		bottom = top + size.cy;
+	}
+
 	void SetLeft(int newLeft)
 	{
 		int width = GetWidth();

@@ -220,6 +220,7 @@ class CSliderTemplate;
 class CSliderWnd;
 class CSocialEditWnd;
 class CSpellBookWnd;
+class CSpellDisplayManager;
 class CSpellGemDrawTemplate;
 class CSpellGemTemplate;
 class CSpellGemWnd;

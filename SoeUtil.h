@@ -357,7 +357,7 @@ public:
 		SoeUtil::Free(data);
 	}
 
-	EQLIB_OBJECT void Append(char* c);
+	EQLIB_OBJECT void Append(const char* c);
 
 	void clear()
 	{

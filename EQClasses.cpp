@@ -1237,7 +1237,7 @@ FUNCTION_AT_ADDRESS(CTextureAnimation* IconCache::GetIcon(int), IconCache__GetIc
 //============================================================================
 
 #ifdef IString__Append_x
-FUNCTION_AT_ADDRESS(void SoeUtil::IString<char>::Append(char* c), IString__Append);
+FUNCTION_AT_ADDRESS(void SoeUtil::IString<char>::Append(const char* c), IString__Append);
 #endif
 
 //============================================================================

@@ -808,7 +808,7 @@ enum eItemEffectType : uint8_t
 	ItemEffectFamiliar
 };
 
-enum eItemSpellType
+enum ItemSpellTypes
 {
 	ItemSpellType_Clicky = 0,
 	ItemSpellType_Proc,
@@ -816,10 +816,25 @@ enum eItemSpellType
 	ItemSpellType_Focus,
 	ItemSpellType_Scroll,
 	ItemSpellType_Focus2,
-	ItemSpellType_Keyring,
+	ItemSpellType_Blessing,
 
 	ItemSpellType_Max,
+
+	// Renamed to Blessing.
+	ItemSpellType_Keyring DEPRECATE("Use ItemSpellType_Blessing instead of ItemSpellType_Keyring") = ItemSpellType_Blessing,
+
+	// Two names for the same thing...
+	eActivatableSpell = 0,
+	eProcSpell = 1,
+	eWornSpell = 2,
+	eFocusSpell = 3,
+	eScrollSpell = 4,
+	eFocus2Spell = 5,
+	eMountSpell = 6,
+	eIllusionSpell = 7,
+	eFamiliarSpell = 8,
 };
+using eItemSpellType = ItemSpellTypes;
 
 inline namespace deprecated
 {
@@ -877,18 +892,18 @@ public:
 /*0x2d0*/
 
 	// Convenience accessors
-	inline int GetSpellId(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].SpellID : 0; }
-	inline uint8_t GetSpelllRequiredLevel(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].RequiredLevel : 0; }
-	inline eItemEffectType GetSpellEffectType(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].EffectType : ItemEffectProc; }
-	inline int GetSpellEffectiveCasterLevel(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].EffectiveCasterLevel : 0; }
-	inline int GetSpellMaxCharges(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].MaxCharges : 0; }
-	inline int GetSpellCastTime(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].CastTime : 0; }
-	inline int GetSpellRecastTime(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].RecastTime : 0; }
-	inline int GetSpellRecastType(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].RecastType : 0; }
-	inline int GetSpellChanceProc(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].ProcRate : 0; }
-	inline const char* GetOverrideName(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].OverrideName : ""; }
-	inline int GetOverrideDesc(eItemSpellType type) const { return type < ItemSpellType_Max ? Spells[type].OverrideDesc : 0; }
-	inline SpellData* GetSpellData(eItemSpellType type) { return type < ItemSpellType_Max ? &Spells[type] : nullptr; }
+	inline int GetSpellId(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].SpellID : 0; }
+	inline uint8_t GetSpelllRequiredLevel(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].RequiredLevel : 0; }
+	inline eItemEffectType GetSpellEffectType(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].EffectType : ItemEffectProc; }
+	inline int GetSpellEffectiveCasterLevel(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].EffectiveCasterLevel : 0; }
+	inline int GetSpellMaxCharges(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].MaxCharges : 0; }
+	inline int GetSpellCastTime(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].CastTime : 0; }
+	inline int GetSpellRecastTime(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].RecastTime : 0; }
+	inline int GetSpellRecastType(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].RecastType : 0; }
+	inline int GetSpellChanceProc(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].ProcRate : 0; }
+	inline const char* GetOverrideName(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].OverrideName : ""; }
+	inline int GetOverrideDesc(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].OverrideDesc : 0; }
+	inline SpellData* GetSpellData(ItemSpellTypes type) { return type < ItemSpellType_Max ? &Spells[type] : nullptr; }
 
 	EQLIB_OBJECT ItemSpellData();
 	EQLIB_OBJECT void Reset();
@@ -1017,7 +1032,7 @@ public:
 /*0x188*/ int                 MinLuck;
 /*0x18c*/ int                 MaxLuck;
 /*0x190*/ int                 Prestige;                   // 884816 jun 11 2018 test
-/*0x194*/ uint8_t             ItemClass;
+/*0x194*/ uint8_t             ItemClass;                  // eItemClass
 /*0x198*/ ArmorProperties     ArmorProps;                 // size is 0x14
 /*0x1ac*/ ItemSocketData      AugData;
 /*0x1dc*/ int                 AugType;
@@ -1098,7 +1113,7 @@ public:
 	inline uint8_t get_ItemType() { return ItemClass; }
 	__declspec(property(get = get_ItemType)) uint8_t ItemType;
 
-	ItemSpellData::SpellData* GetSpellData(eItemSpellType type) { return SpellData.GetSpellData(type); }
+	ItemSpellData::SpellData* GetSpellData(ItemSpellTypes type) { return SpellData.GetSpellData(type); }
 
 	// Moved ITEMSPELLS into ItemSpellData, this provides access to the original members
 #define ITEMSPELLS_ACCESSOR(Name) \
@@ -1112,17 +1127,19 @@ public:
 	ITEMSPELLS_ACCESSOR(Focus);
 	ITEMSPELLS_ACCESSOR(Scroll);
 	ITEMSPELLS_ACCESSOR(Focus2);
-	ITEMSPELLS_ACCESSOR(Keyring);
+	ITEMSPELLS_ACCESSOR(Blessing);
 
 #undef ITEMSPELLS_ACCESSOR
 
 	// No longer have individual keyring effects. But we have code that expects it so just map Keyring to the three old slots.
-	inline ITEMSPELLS& get_Mount() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Keyring)); }
+	inline ITEMSPELLS& get_Mount() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Blessing)); }
 		__declspec(property(get = get_Mount)) ITEMSPELLS Mount;
-	inline ITEMSPELLS& get_Illusion() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Keyring)); }
+	inline ITEMSPELLS& get_Illusion() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Blessing)); }
 		__declspec(property(get = get_Illusion)) ITEMSPELLS Illusion;
-	inline ITEMSPELLS& get_Familiar() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Keyring)); }
+	inline ITEMSPELLS& get_Familiar() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Blessing)); }
 		__declspec(property(get = get_Familiar)) ITEMSPELLS Familiar;
+	inline ITEMSPELLS& get_Keyring() { return *reinterpret_cast<ITEMSPELLS*>(SpellData.GetSpellData(ItemSpellType_Blessing)); }
+		__declspec(property(get = get_Familiar)) ITEMSPELLS Keyring;
 
 	inline uint32_t get_SkillMask(int idx) { return SpellData.SkillMask[idx]; }
 	__declspec(property(get = get_SkillMask)) uint32_t SkillMask[];
@@ -1244,6 +1261,7 @@ public:
 	inline uint8_t GetItemClass() const { return GetItemDefinition()->ItemClass; }
 	inline const char* GetName() const { return GetItemDefinition()->Name; }
 	inline bool IsContainer() const { return GetType() == ITEMTYPE_PACK; }
+	inline int GetIconID() const { return GetItemDefinition()->IconNumber; }
 
 	// current and max item counts (number in the stack)
 	inline int GetMaxItemCount() const { return GetItemDefinition()->StackSize; }
@@ -1261,6 +1279,18 @@ public:
 	EQLIB_OBJECT bool IsLore(bool bIncludeSockets = false) const;
 	EQLIB_OBJECT bool IsLoreEquipped(bool bIncludeSockets = false) const;
 	inline int GetLoreGroup() const { return GetItemDefinition()->Lore; }
+
+	inline int GetMoneyValue() const { return GetItemDefinition()->Cost; }
+	inline int GetTributeValue() const { return GetItemDefinition()->Favor; }
+	inline int GetGuildTributeValue() const { return GetItemDefinition()->GuildFavor; }
+	inline int GetPointTheme() const { return GetItemDefinition()->LDTheme; }
+	inline int GetPointCost() const { return GetItemDefinition()->LDCost; }
+	inline int GetPointType() const { return GetItemDefinition()->LDType; }
+
+	inline int GetDelay() const { return GetItemDefinition()->Delay; }
+	inline int GetDamage() const { return GetItemDefinition()->Damage; }
+	inline bool CanWear(int slot) const { return (GetItemDefinition()->EquipSlots & (1 << slot)) != 0; }
+	inline bool IsWearable() const { return GetItemDefinition()->EquipSlots != 0; }
 
 	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag = true);
 	EQLIB_OBJECT ItemPtr CreateItemClient(CUnSerializeBuffer& buffer);
@@ -1281,6 +1311,11 @@ public:
 
 		return false;
 	}
+
+	// Helpers for item spells
+	ItemSpellData::SpellData* GetSpellData(ItemSpellTypes spellType) { return GetItemDefinition()->GetSpellData(spellType); }
+	int GetSpellID(ItemSpellTypes spellType) const { return GetItemDefinition()->GetSpellData(spellType)->SpellID; }
+	int GetSpellRecastTime(ItemSpellTypes spellType) const { return GetItemDefinition()->GetSpellData(spellType)->RecastTime;  }
 
 	void UpdateItemDefinition();
 

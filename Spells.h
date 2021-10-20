@@ -28,19 +28,6 @@ class PlayerZoneClient;
 // Spell Cache
 //============================================================================
 
-enum ItemSpellTypes
-{
-	eActivatableSpell = 0,
-	eProcSpell = 1,
-	eWornSpell = 2,
-	eFocusSpell = 3,
-	eScrollSpell = 4,
-	eFocus2Spell = 5,
-	eMountSpell = 6,
-	eIllusionSpell = 7,
-	eFamiliarSpell = 8,
-};
-
 // EQ Spell "Affect"
 // http://everquest.fanra.info/wiki/SPA_list
 enum eEQSPA
@@ -1089,7 +1076,7 @@ public:
 /*0x15a*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
 /*0x17e*/ uint8_t              LightType = 0;
 /*0x17f*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x180*/ uint8_t              Resist = 0;                    // see   4B0493 in apr 16 2018 exe        //0=un 1=mr 2=fr 3=cr 4=pr 5=dr 6=chromatic 7=prismatic 8=physical(skills,etc) 9=corruption
+/*0x180*/ uint8_t              Resist = 0;                    // enum eResistType
 /*0x181*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
 /*0x182*/ uint8_t              CastDifficulty = 0;
 /*0x183*/ uint8_t              Skill = 0;
@@ -1289,21 +1276,20 @@ struct [[offsetcomments]] StackingGroupData
 constexpr int TOTAL_SPELL_COUNT = 66000;           // # of spells allocated in memory (09/07/2021 test 6C944E)
 constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocated in mem (09/07/2021 test 6C948E)
 
-// really would like to get this to work and align but its kinda complicated, maybe another day.
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
 /*0x00014*/ int            SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x40754*/ EQ_Spell*      MissingSpell;                                 // 0x40754
-/*0x40758*/ SPELLCALCINFO* MissingSpellAffect;                           // 0x40758
-/*0x4075c*/ SPELLCALCINFO* MissingSpellAffectAC;                         // 0x4075c
-/*0x40760*/ int            MissingSpellCrc32;                            // 0x40760
-/*0x40764*/ int            SpellFileCRC;                                 // 0x40764
-/*0x40768*/ int            SpellAssocFileCRC;                            // 0x40768
-/*0x4076c*/ int            SpellStackingFileCRC;                         // 0x4076c
-/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;          // 0x40770
-/*0x41950*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;       // 0x41950
-/*0x41960*/ // 41960
+/*0x40754*/ EQ_Spell*      MissingSpell;
+/*0x40758*/ SPELLCALCINFO* MissingSpellAffect;
+/*0x4075c*/ SPELLCALCINFO* MissingSpellAffectAC;
+/*0x40760*/ int            MissingSpellCrc32;
+/*0x40764*/ int            SpellFileCRC;
+/*0x40768*/ int            SpellAssocFileCRC;
+/*0x4076c*/ int            SpellStackingFileCRC;
+/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;
+/*0x41950*/ HashTable<int, int> SpellGroups;
+/*0x41960*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}

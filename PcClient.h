@@ -1390,10 +1390,8 @@ public:
 /*0x23f8*/ int                                   FreeToPlayUnlocks[30];
 /*0x2470*/ // end PcBase / start CharacterZoneClient
 
-	PcProfile* GetCurrentPcProfile()
-	{
-		return (PcProfile*)&GetCurrentBaseProfile();
-	}
+	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
+	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
 
 	EQLIB_OBJECT ItemContainer& GetKeyRingItems(KeyRingType type);
 	inline ItemPtr GetKeyRingItem(KeyRingType type, int index) { GetKeyRingItems(type).GetItem(index); }
@@ -1404,6 +1402,7 @@ public:
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
 
 	int GetAirSupply() const { return AirSupply; }
+	int GetLevel() const { return GetCurrentPcProfile()->Level; }
 
 	ALT_MEMBER_GETTER(int, GoodPointsAvailable, RadiantCrystals);
 	ALT_MEMBER_GETTER(int, EvilPointsAvailable, EbonCrystals);

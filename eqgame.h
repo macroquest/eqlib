@@ -302,6 +302,7 @@
 #define pinstCSocialEditWnd_x                                      0xEDCD8C
 #define pinstCSocialWnd_x                                          0xEDD120
 #define pinstCSpellBookWnd_x                                       0xEDCE48
+#define pinstCSpellDisplayMgr_x                                    0xFB0360
 #define pinstCStoryWnd_x                                           0xEDCD04
 #define pinstCTargetOfTargetWnd_x                                  0xFB11E8
 #define pinstCTargetWnd_x                                          0xEDCD84
@@ -601,19 +602,18 @@
 #define CInvSlotWnd__HandleLButtonUp_x                             0x781550
 
 // CItemDisplayWnd
-#define CItemDisplayWnd__SetSpell_x                                0x854C20
+#define CItemDisplayWnd__SetItem_x                                 0x799AE0
 #define CItemDisplayWnd__UpdateStrings_x                           0x7993D0
 #define CItemDisplayWnd__InsertAugmentRequest_x                    0x78E380
 #define CItemDisplayWnd__RemoveAugmentRequest_x                    0x78E8D0
-#define CItemDisplayWnd__SetItem_x                                 0x799AE0
-#define CItemDisplayWnd__AboutToShow_x                             0x798FD0
-#define CItemDisplayWnd__WndNotification_x                         0x79B270
 #define CItemDisplayWnd__RequestConvertItem_x                      0x79A910
-#define CItemDisplayWnd__CItemDisplayWnd_x                         0x797EA0
-#define CItemDisplayWnd__dCItemDisplayWnd_x                        0x798DC0
+
+// CSpellDisplayWnd
+#define CSpellDisplayWnd__SetSpell_x                               0x854C20
+#define CSpellDisplayWnd__UpdateStrings_x                          0x854B90
 
 // CWndDisplayManager
-#define CWndDisplayManager__FindWindowA_x                          0x88A220
+#define CWndDisplayManager__FindWindow_x                           0x88A220
 
 // CItemDisplayManager
 #define CItemDisplayManager__CreateWindowInstance_x                0x7A09B0

@@ -298,7 +298,7 @@ public:
 /*0x1f0*/ int          MouseButtonState;
 /*0x1f4*/ bool         bPicture;
 /*0x1f8*/ CRadioGroup* pGroup;
-/*0x1fc*/ bool         Checked;                  // Checked
+/*0x1fc*/ bool         Checked;
 /*0x1fd*/ bool         bMouseOverLastFrame;
 /*0x200*/ CXPoint      DecalOffset;
 /*0x208*/ CXSize       DecalSize;
@@ -4194,18 +4194,14 @@ class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
 	FORCE_SYMBOLS
 
 public:
-	EQLIB_OBJECT CItemDisplayWnd(CXWnd*);
-	EQLIB_OBJECT virtual ~CItemDisplayWnd();
-
-	EQLIB_OBJECT virtual int HandleKeyboardMsg(uint32_t, uint32_t, bool) override;
-	EQLIB_OBJECT virtual int OnProcessFrame() override;
-	EQLIB_OBJECT virtual int WndNotification(CXWnd* pWnd, uint32_t Message, void* pData) override;
-	EQLIB_OBJECT virtual bool AboutToShow() override;
+	//EQLIB_OBJECT virtual int HandleKeyboardMsg(uint32_t, uint32_t, bool) override;
+	//EQLIB_OBJECT virtual int OnProcessFrame() override;
+	//EQLIB_OBJECT virtual int WndNotification(CXWnd* pWnd, uint32_t Message, void* pData) override;
+	//EQLIB_OBJECT virtual bool AboutToShow() override;
 
 	EQLIB_OBJECT CXStr CreateEquipmentStatusString(const ItemPtr&);
 	EQLIB_OBJECT void SetItem(const ItemPtr& pItem, int flags);
 	EQLIB_OBJECT void SetItemText(char*);
-	EQLIB_OBJECT void SetSpell(int SpellID, bool HasSpellDescr, int);
 	EQLIB_OBJECT void UpdateStrings();
 
 	EQLIB_OBJECT CXStr CreateClassString(EQ_Equipment*);
@@ -4424,8 +4420,7 @@ public:
 // CLootWnd
 //============================================================================
 
-// CLootWnd__CLootWnd aLootwnd
-// CLootWnd_size: 0x398 (see 55B1D6) in Dec 5 2020 Live
+// @sizeof(CLootWnd) == 0x3c0 :: 2021-09-13 (live) @ 0x56D17A
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -4464,7 +4459,10 @@ public:
 /*0x398*/ CButtonWnd*       BroadcastButton;
 /*0x39c*/ CButtonWnd*       LootAllButton;
 /*0x3a0*/ bool              bPopupPending;
-/*0x3a4*/
+/*0x3a4*/ uint32_t          Unknown1;
+/*0x3a8*/ uint32_t          Unknown2;
+/*0x3ac*/ uint32_t          Unknown3;
+/*0x3b0*/
 
 	inline ItemContainer& GetLootItems() { return LootItems; }
 	inline ItemPtr GetLootItem(int slot) { return LootItems.GetItem(slot); }
@@ -5452,8 +5450,6 @@ enum ESpellDisplayType
 	SpellDisplayType_TargetBuff,
 };
 
-// aSpelldisplaywi
-// Actual size 0x278 Nov 02 2017 Beta see 7AE2DF
 class [[offsetcomments]] CSpellDisplayWnd : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS
@@ -5461,6 +5457,9 @@ class [[offsetcomments]] CSpellDisplayWnd : public CSidlScreenWnd
 public:
 	CSpellDisplayWnd(CXWnd* parent, ESpellDisplayType displayType);
 	virtual ~CSpellDisplayWnd();
+
+	EQLIB_OBJECT void SetSpell(int SpellID, bool HasSpellDescr, int);
+	EQLIB_OBJECT void UpdateStrings();
 
 /*0x238*/ int                WindowID;
 /*0x23c*/ CLabelWnd*         pDuration;
@@ -6435,6 +6434,9 @@ public:
 
 //----------------------------------------------------------------------------
 
+constexpr int MAX_ITEMDISPLAY_WINDOWS = 6;
+constexpr int MAX_SPELLDISPLAY_WINDOWS = 4;
+
 class CWndDisplayManager
 {
 public:
@@ -6479,6 +6481,11 @@ public:
 	inline CItemDisplayWnd* GetWindow(int index) const { return static_cast<CItemDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
 };
 
+class CSpellDisplayManager : public CWndDisplayManager
+{
+public:
+	inline CSpellDisplayWnd* GetWindow(int index) const { return static_cast<CSpellDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
+};
 
 //----------------------------------------------------------------------------
 

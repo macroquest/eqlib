@@ -43,6 +43,7 @@ public:
 	using Super = CXWndTrampoline<Target>;
 
 	virtual bool IsValid() const override;
+	virtual ~CXWndTrampoline() {}
 	virtual int DrawNC() const override;
 	virtual int Draw() override;
 	virtual int PostDraw() override;
@@ -287,12 +288,25 @@ public:
 
 	static void RemoveHooks(Target* pWnd)
 	{
-		UnhookVFTable(pWnd);
+		UnhookVFTable(pWnd, false);
 	}
 
 	// These statics can be overridden in the derived class.
 	static void OnHooked(Derived*) {}
 	static void OnAboutToUnhook(Derived*) {}
+
+	static bool IsHooked() { return s_hooked; }
+
+	// Duplicates the hook to a new window. Expects initial hook to be instantiated.
+	static void InstallAdditionalHook(Target* pWnd)
+	{
+		HookVFTableExisting(pWnd);
+	}
+
+	static void RestoreVFTable(Target* pWnd)
+	{
+		UnhookVFTable(pWnd, true);
+	}
 
 private:
 	using VirtualFunctionTable = typename Target::VirtualFunctionTable;
@@ -341,6 +355,22 @@ private:
 		return reinterpret_cast<VirtualFunctionTable*>(tableBytes.get());
 	}
 
+	static void HookVFTableExisting(Target* pThis)
+	{
+		if (!s_hooked || !pThis || s_patchingVFTable)
+			return;
+		if (pThis->GetVFTable() == s_virtualTablePatched)
+			return;
+
+		s_patchingVFTable = true;
+
+		pThis->ReplaceVFTable(s_virtualTablePatched);
+
+		s_patchingVFTable = false;
+
+		Derived::OnHooked(static_cast<Derived*>(pThis));
+	}
+
 	static void HookVFTable(Target* pThis)
 	{
 		if (s_patchingVFTable || s_hooked || !pThis)
@@ -363,7 +393,7 @@ private:
 		Derived::OnHooked(static_cast<Derived*>(pThis));
 	}
 
-	static void UnhookVFTable(Target* pThis)
+	static void UnhookVFTable(Target* pThis, bool hooked = false)
 	{
 		if (!s_hooked || !pThis) return;
 
@@ -372,7 +402,7 @@ private:
 		// put the original table back
 		pThis->ReplaceVFTable(Trampoline::s_originalVTable );
 
-		s_hooked = false;
+		s_hooked = hooked;
 	}
 };
 
