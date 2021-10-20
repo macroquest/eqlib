@@ -4522,6 +4522,10 @@ using PMAPLINE = MAPLINE *;
 
 // pLines address = 0x254 + 0x035c = 0x05b0 (address of pMapViewMapVfTable)
 // MapViewMap_size: 0x628 - 0x358 = 0x2d0 (see 543ADA) in Aug 15 2019 Live
+
+// @sizeof(MapViewMap) == 0x2e8 :: 2021-10-14 (live) @ 0x7BE997
+constexpr size_t MapViewMap_size = 0x2e8;
+
 class [[offsetcomments]] MapViewMap : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS
@@ -4599,8 +4603,11 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// CMapViewWnd__CMapViewWnd_x
-// CMapViewWnd_size: 0x638 (see 55033A) in Dec 19 2019 Live
+SIZE_CHECK(MapViewMap, MapViewMap_size);
+
+// @sizeof(CMapViewWnd) == 0x660 :: 2021-10-14 (live) @ 0x56C9A0
+constexpr size_t CMapViewWnd_size = 0x660;
+
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -4639,44 +4646,45 @@ public:
 /*0x258*/ CButtonWnd* btnZoomIn;
 /*0x25c*/ CButtonWnd* btnZoomOut;
 /*0x260*/ CButtonWnd* btnShowGroup;
-/*0x264*/ CButtonWnd* btnFind;
-/*0x268*/ CButtonWnd* btnEndFind;
-/*0x26c*/ CButtonWnd* btnFindAutoZoom;
-/*0x270*/ CButtonWnd* btnMapZoneGuide;
-/*0x274*/ CButtonWnd* btnToolbar;
-/*0x278*/ char        szZoneName[0x80];
-/*0x2f8*/ CButtonWnd* btntoggleLabels;
-/*0x2fc*/ CEditWnd*   editMinZ;
-/*0x300*/ CEditWnd*   editMaxZ;
-/*0x304*/ CButtonWnd* btnZFilter;
-/*0x308*/ CButtonWnd* btnLayer0;
-/*0x30c*/ CButtonWnd* btnLayer1;
-/*0x310*/ CButtonWnd* btnLayer2;
-/*0x314*/ CButtonWnd* btnLayer3;
-/*0x318*/ CButtonWnd* btnLayer1Active;
-/*0x31c*/ CButtonWnd* btnLayer2Active;
-/*0x320*/ CButtonWnd* btnLayer3Active;
-/*0x324*/ CButtonWnd* btnLoadCurrent;
-/*0x328*/ CPageWnd*   pageAtlas;
-/*0x32c*/ CPageWnd*   pageMap;
-/*0x330*/ CTabWnd*    tabWnd;
-/*0x334*/ CXWnd*      MapRenderArea;
-/*0x338*/ CComboWnd*  MapsDirSelect;
-/*0x33c*/ CXWnd*      AtlasRenderArea;
-/*0x340*/ CAtlas*     AtlasWnd;
-/*0x344*/ CComboWnd*  AtlasDirSelect;
-/*0x348*/ CButtonWnd* btnAtlasZoneGuide;
-/*0x34c*/ CButtonWnd* btnMapIcon;
-/*0x350*/ CEditWnd*   editSearchBox;
-/*0x354*/ CButtonWnd* btnSearch;
-/*0x358*/ CButtonWnd* btnSearchClear;
-/*0x35c*/ CListWnd*   listSearch;
-/*0x360*/ CXWnd*      wndSearchLayout;
-/*0x364*/ CButtonWnd* btnSearchHide;
-/*0x368*/ CXWnd*      wndSpacer;
-/*0x36c*/ bool        bEditing;
-/*0x370*/ MapViewMap  MapView;                            // a window component owned by CMapViewWnd.
-/*0x658*/
+/*0x264*/ CButtonWnd* btnShowNames;
+/*0x268*/ CButtonWnd* btnFind;
+/*0x26c*/ CButtonWnd* btnEndFind;
+/*0x270*/ CButtonWnd* btnFindAutoZoom;
+/*0x274*/ CButtonWnd* btnMapZoneGuide;
+/*0x278*/ CButtonWnd* btnToolbar;
+/*0x27c*/ char        szZoneName[0x80];
+/*0x2fc*/ CButtonWnd* btntoggleLabels;
+/*0x300*/ CEditWnd*   editMinZ;
+/*0x304*/ CEditWnd*   editMaxZ;
+/*0x308*/ CButtonWnd* btnZFilter;
+/*0x30c*/ CButtonWnd* btnLayer0;
+/*0x310*/ CButtonWnd* btnLayer1;
+/*0x314*/ CButtonWnd* btnLayer2;
+/*0x318*/ CButtonWnd* btnLayer3;
+/*0x31c*/ CButtonWnd* btnLayer1Active;
+/*0x320*/ CButtonWnd* btnLayer2Active;
+/*0x324*/ CButtonWnd* btnLayer3Active;
+/*0x328*/ CButtonWnd* btnLoadCurrent;
+/*0x32c*/ CPageWnd*   pageAtlas;
+/*0x330*/ CPageWnd*   pageMap;
+/*0x334*/ CTabWnd*    tabWnd;
+/*0x338*/ CXWnd*      MapRenderArea;
+/*0x33c*/ CComboWnd*  MapsDirSelect;
+/*0x340*/ CXWnd*      AtlasRenderArea;
+/*0x344*/ CAtlas*     AtlasWnd;
+/*0x348*/ CComboWnd*  AtlasDirSelect;
+/*0x34c*/ CButtonWnd* btnAtlasZoneGuide;
+/*0x350*/ CButtonWnd* btnMapIcon;
+/*0x354*/ CEditWnd*   editSearchBox;
+/*0x358*/ CButtonWnd* btnSearch;
+/*0x35c*/ CButtonWnd* btnSearchClear;
+/*0x360*/ CListWnd*   listSearch;
+/*0x364*/ CXWnd*      wndSearchLayout;
+/*0x368*/ CButtonWnd* btnSearchHide;
+/*0x36c*/ CXWnd*      wndSpacer;
+/*0x370*/ bool        bEditing;
+/*0x378*/ MapViewMap  MapView;                            // a window component owned by CMapViewWnd
+/*0x660*/
 	// alias the stupid
 	__declspec(property(get = getLines)) PMAPLINE pLines;
 	__declspec(property(get = getLabels)) PMAPLABEL pLabels;
@@ -4691,6 +4699,8 @@ inline namespace deprecated {
 	using EQMAPWINDOW DEPRECATE("Use CMapViewWnd instead of EQMAPWINDOW") = CMapViewWnd;
 	using PEQMAPWINDOW DEPRECATE("Use CMapViewWnd* instead of PEQMAPWINDOW") = CMapViewWnd*;
 }
+
+SIZE_CHECK(CMapViewWnd, CMapViewWnd_size);
 
 //============================================================================
 // CMarketplaceWnd
