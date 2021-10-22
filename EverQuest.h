@@ -41,7 +41,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x3a8 :: 2021-10-14 (live) @ 0x5AFB2C
+// @sizeof(zoneHeader) == 0x3a8 :: 2021-10-21 (live) @ 0x5AFB2C
 constexpr size_t zoneHeader_size = 0x3a8;
 
 struct [[offsetcomments]] zoneHeader
@@ -531,7 +531,7 @@ inline namespace deprecated {
 
 //============================================================================
 
-// @sizeof(CEverQuest) == 0x39640 :: 2021-10-14 (live) @ 0x6DA14F
+// @sizeof(CEverQuest) == 0x39640 :: 2021-10-21 (live) @ 0x6D9ECF
 constexpr size_t CEverQuest_size = 0x39640;
 
 class CEverQuest

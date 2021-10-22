@@ -243,7 +243,7 @@ public:
 // CXWnd
 //============================================================================
 
-// @sizeof(CXWnd) == 0x1F0 :: 2021-10-14 (live) @ 0x973A6A
+// @sizeof(CXWnd) == 0x1F0 :: 2021-10-21 (live) @ 0x973F6A
 constexpr size_t CXWnd_size = 0x1F0;
 constexpr size_t CXWnd_vftable_size = 0x168;
 
