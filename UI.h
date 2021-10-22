@@ -4186,7 +4186,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplyWnd) == 0x638 :: 2021-10-21 (live) @ 0x7A0760
+// @sizeof(CItemDisplyWnd) == 0x638 :: 2021-10-22 (live) @ 0x7A09D0
 constexpr size_t CItemDisplayWnd_size = 0x638;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4523,7 +4523,7 @@ using PMAPLINE = MAPLINE *;
 // pLines address = 0x254 + 0x035c = 0x05b0 (address of pMapViewMapVfTable)
 // MapViewMap_size: 0x628 - 0x358 = 0x2d0 (see 543ADA) in Aug 15 2019 Live
 
-// @sizeof(MapViewMap) == 0x2e8 :: 2021-10-21 (live) @ 0x7BE727
+// @sizeof(MapViewMap) == 0x2e8 :: 2021-10-22 (live) @ 0x7BE997
 constexpr size_t MapViewMap_size = 0x2e8;
 
 class [[offsetcomments]] MapViewMap : public CSidlScreenWnd
@@ -4605,7 +4605,7 @@ public:
 
 SIZE_CHECK(MapViewMap, MapViewMap_size);
 
-// @sizeof(CMapViewWnd) == 0x660 :: 2021-10-21 (live) @ 0x56C9A0
+// @sizeof(CMapViewWnd) == 0x660 :: 2021-10-22 (live) @ 0x56C9A0
 constexpr size_t CMapViewWnd_size = 0x660;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
