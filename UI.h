@@ -3136,12 +3136,19 @@ public:
 	EQLIB_OBJECT void Update();
 	EQLIB_OBJECT void PickupSelectedItem();
 
+	struct ItemRecord
+	{
+		ItemGlobalIndex       itemIndex;
+		EqItemGuid            guid;
+		uint32_t              unknown;
+	};
+
 	ItemGlobalIndex GetItemGlobalIndex(int index)
 	{
-		ItemGlobalIndex* itemIndex = Items.FindFirst(index);
-		if (itemIndex)
+		ItemRecord* itemRecord = Items.FindFirst(index);
+		if (itemRecord)
 		{
-			return *itemIndex;
+			return itemRecord->itemIndex;
 		}
 
 		return ItemGlobalIndex();
@@ -3152,7 +3159,7 @@ public:
 /*0x240*/ uint32_t            Unknown2;
 /*0x244*/ uint32_t            Timestamp;
 /*0x248*/ uint32_t            Counter;
-/*0x24c*/ HashTable<ItemGlobalIndex, int> Items;
+/*0x24c*/ HashTable<ItemRecord, int> Items;
 /*0x25c*/ HashTable<SoeUtil::String, int> ItemNames;     // just a guess, likely inaccurate.
 /*0x26c*/ CStaticAnimationTemplate* FIW_ClassAnim;
 /*0x270*/ CSidlScreenWnd*     FIW_CharacterView;
