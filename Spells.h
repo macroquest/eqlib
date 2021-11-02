@@ -917,7 +917,7 @@ public:
 	EQLIB_OBJECT static bool IsSPAStacking(int Spa);
 	EQLIB_OBJECT static bool IsSPAIgnoredByStacking(int Spa);
 
-	EQLIB_OBJECT bool IsNoDispell() const { return NoDisspell; }
+	EQLIB_OBJECT bool IsNoDispell() const { return NoDispell; }
 	EQLIB_OBJECT bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
 	EQLIB_OBJECT int GetNoOverwrite() const { return NoOverwrite; }
 	EQLIB_OBJECT bool IsShortEffectDuration() const { return DurationWindow; }
@@ -1000,7 +1000,7 @@ public:
 /*0x064*/ int                  NumEffects = 0;
 /*0x068*/ int                  DescriptionIndex = 0;
 /*0x06c*/ int                  ResistAdj = 0;
-/*0x070*/ int                  Diety = 0;
+/*0x070*/ int                  Deity = 0;
 /*0x074*/ int                  spaindex = 0;
 /*0x078*/ int                  SpellAnim = 0;
 /*0x07c*/ int                  SpellIcon = 0;
@@ -1008,8 +1008,8 @@ public:
 /*0x084*/ int                  NPCUsefulness = 0;
 /*0x088*/ int                  ID = 0;
 /*0x08c*/ int                  Autocast = 0;                  // SpellID of spell to instacast on caster when current spell lands on target
-/*0x090*/ int                  Category = 0;                  // Unknown144 from lucy
-/*0x094*/ int                  Subcategory = 0;               // Subcat to Category. Unknown145 from lucy
+/*0x090*/ int                  Category = 0;
+/*0x094*/ int                  Subcategory = 0;
 /*0x098*/ int                  Subcategory2 = 0;
 /*0x09c*/ int                  HateMod = 0;                   // Additional hate
 /*0x0a0*/ int                  ResistPerLevel = 0;
@@ -1017,7 +1017,7 @@ public:
 /*0x0a8*/ int                  EnduranceCost = 0;             // CA Endurance Cost
 /*0x0ac*/ int                  EnduranceValue = 0;            // Unsure
 /*0x0b0*/ int                  ReuseTimerIndex = 0;           // ID of combat timer, i think.
-/*0x0b4*/ int                  EndurUpkeep = 0;
+/*0x0b4*/ int                  EnduranceUpkeep = 0;
 /*0x0b8*/ int                  HateGenerated = 0;             // Hate override
 /*0x0bc*/ int                  HitCountType = 0;
 /*0x0c0*/ int                  HitCount = 0;
@@ -1027,14 +1027,14 @@ public:
 /*0x0d0*/ int                  PvPCalc = 0;
 /*0x0d4*/ int                  PvPResistCap = 0;
 /*0x0d8*/ uint32_t             PvPDuration = 0;               // DurationType for PVP
-/*0x0dc*/ uint32_t             PvPDurationValue1 = 0;         // DurationValue1 for PVP
-/*0x0e0*/ int                  PCNPCOnlyFlag = 0;             // no idea
+/*0x0dc*/ uint32_t             PvPDurationCap = 0;
+/*0x0e0*/ int                  PCNPCOnlyFlag = 0;
 /*0x0e4*/ int                  NPCMemCategory = 0;
 /*0x0e8*/ int                  SpellGroup = 0;
-/*0x0ec*/ int                  SpellSubGroup = 0;             // unknown237 on Lucy it is checked at 0x76FE18 in jun 11 2014 and if 0 will ask if we want to replace our spell with a rk. x version
-/*0x0f0*/ int                  SpellRank = 0;                 // Unknown209 on Lucy jun 11 2014 0x76FEE0 Original = 1 , Rk. II = 5 , Rk. III = 10 , I suppose if they add Rk. IV it will be 15 and so on
-/*0x0f4*/ int                  SpellClass = 0;                // Unknown222 from Lucy
-/*0x0f8*/ int                  SpellSubClass = 0;             // Unknown223 from Lucy
+/*0x0ec*/ int                  SpellSubGroup = 0;
+/*0x0f0*/ int                  SpellRank = 0;
+/*0x0f4*/ int                  SpellClass = 0;
+/*0x0f8*/ int                  SpellSubClass = 0;
 /*0x0fc*/ int                  SpellReqAssociationID = 0;
 /*0x100*/ int                  CasterRequirementID = 0;
 /*0x104*/ int                  MaxResist = 0;
@@ -1052,7 +1052,7 @@ public:
 /*0x138*/ CVector2             DistanceModEnd = { 0, 0 };
 /*0x140*/ float                MinRange = 0.0f;
 /*0x144*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
-/*0x145*/ bool                 Feedbackable = false;          // nothing uses this
+/*0x145*/ bool                 Feedbackable = false;
 /*0x146*/ bool                 Reflectable = false;
 /*0x147*/ bool                 NoPartialSave = false;
 /*0x148*/ bool                 NoResist = false;
@@ -1068,7 +1068,7 @@ public:
 /*0x152*/ bool                 OnlyDuringFastRegen = false;
 /*0x153*/ bool                 CastNotStanding = false;
 /*0x154*/ bool                 CanMGB = false;
-/*0x155*/ bool                 NoDisspell = false;
+/*0x155*/ bool                 NoDispell = false;
 /*0x156*/ bool                 AffectInanimate = false;       // ldon trap spells etc
 /*0x157*/ bool                 IsSkill = false;
 /*0x158*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
@@ -1108,6 +1108,11 @@ public:
 /*0x207*/ uint8_t              CRC32Marker = 0;
 /*0x208*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
 /*0x20c*/
+
+	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")
+	ALT_MEMBER_ALIAS_DEPRECATED(int, EnduranceUpkeep, EndurUpkeep, "EndurUpkeep has been replaced with EnduranceUpkeep.")
+	ALT_MEMBER_ALIAS_DEPRECATED(uint32_t, PvPDurationCap, PvPDurationValue1, "PvPDurationValue1 has been replaced with PvPDurationCap")
+	ALT_MEMBER_ALIAS_DEPRECATED(bool, NoDispell, NoDisspell, "NoDisspell is misspelled, use IsNoDispell() instead")
 
 	// Currently necessary because of MQ2DataTypes
 	EQLIB_OBJECT EQ_Spell()
