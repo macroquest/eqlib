@@ -183,7 +183,7 @@ ItemDefinition::ItemDefinition()
 	InstrumentMod = 0;
 	Classes = 0;
 	Races = 0;
-	Diety = 0;
+	Deity = 0;
 	MaterialTintIndex = 0;
 	Magic = false;
 	Light = 0;

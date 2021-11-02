@@ -1010,7 +1010,7 @@ public:
 /*0x140*/ int                 InstrumentMod;
 /*0x144*/ int                 Classes;
 /*0x148*/ int                 Races;
-/*0x14c*/ int                 Diety;
+/*0x14c*/ int                 Deity;
 /*0x150*/ uint32_t            MaterialTintIndex;
 /*0x154*/ bool                Magic;
 /*0x155*/ uint8_t             Light;                      // 884045 jun 11 2018 test
@@ -1146,6 +1146,8 @@ public:
 
 	ALT_MEMBER_GETTER_DEPRECATED(bool, IsDroppable, NoDrop, "ItemDefinition.NoDrop is deprecated. Use IsDroppable instead.");
 	ALT_MEMBER_GETTER(uint8_t, ContainerType, Combine);
+
+	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")
 };
 
 SIZE_CHECK(ItemDefinition, ItemDefinition_size);
