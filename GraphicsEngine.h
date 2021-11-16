@@ -18,8 +18,13 @@
 #include "Containers.h"
 #include "CXStr.h"
 #include "ForwardDecls.h"
+#include "base/Color.h"
 
 #include <d3d9.h>
+#include <glm/glm.hpp>
+#include <guiddef.h>
+
+struct ID3DXBuffer;
 
 namespace eqlib {
 
@@ -39,7 +44,6 @@ class PlayerZoneClient;
 
 struct SWadFile;
 
-
 // The graphics engine holds pointers to all the components
 struct SGraphicsEngine
 {
@@ -57,18 +61,206 @@ public:
 	CTerrainSystemInterface*   pTerrainSystem;
 };
 
-class CRenderInterface
+//============================================================================
+
+struct SEQGraphicsDisplayMode;
+struct SDeviceInfo;
+class CBufferSet;
+class CEffect;
+class CRenderEffect;
+
+struct [[offsetcomments]] SModeInfo
+{
+/*0x00*/ bool display;
+/*0x01*/ bool depth16;
+/*0x02*/ bool depth24;
+/*0x03*/ bool depth32;
+/*0x04*/ bool windowed;
+/*0x08*/
+};
+
+struct [[offsetcomments]] SDevice
+{
+/*0x00*/ uint32_t            unk1;
+/*0x04*/ uint32_t            unk2;
+/*0x08*/ uint32_t            index;
+/*0x0c*/ char                name[128];
+/*0x8c*/ int                 product;
+/*0x90*/ int                 version;
+/*0x94*/ int                 subversion;
+/*0x98*/ int                 build;
+/*0x9c*/ int                 vendorID;
+/*0xa0*/ int                 deviceID;
+/*0xa4*/ GUID                deviceGUID;
+/*0xb4*/ GUID                driverGUID;
+/*0xc4*/ bool                supportsLargeTextures;
+/*0xc5*/ bool                supportsHardwareTnL;
+/*0xc6*/ bool                supportsIndexedVertexBlending;
+/*0xc7*/ bool                useFixedFunctionVertexBlending;
+/*0xc8*/ int                 vsyncInterval;
+/*0xcc*/ uint32_t            num16BitVideoModes;
+/*0xd0*/ uint32_t            num32BitVideoModes;
+/*0xd4*/ SModeInfo           mode32;
+/*0xd9*/ SModeInfo           mode16A;
+/*0xde*/ SModeInfo           mode16B;
+/*0xe4*/
+};
+
+// size: 0x818
+struct SItemPlacementStatsDisplay
+{
+	char unknown[0x818];
+};
+
+template <typename T>
+class TNodePool
 {
 public:
-	// Give us a vftable
-	virtual void Placeholder() {}
+/*0x00*/ TList<T> freeList;
+/*0x08*/ uint32_t allocCount;
+/*0x0c*/ uint32_t freeNodeCount;
+/*0x10*/ uint32_t totalAllocCount;
 };
+
+class CBatchNode;
+class CSubsetNode;
+class CLitBatchNode;
+class CTerrainBatchNode;
+class CRenderNode;
+class CLightNode;
+struct BMI;
+
+class CMemoryPoolManager;
+
+using RenderCallbackPtr = void(*)();
+
+class [[offsetcomments]] CRenderInterface
+{
+public:
+/*0x000*/ virtual void SetDebugShaderPath(const char* debugShaderPath) = 0;
+/*0x004*/ virtual void SetReleaseShaderPath(const char* releaseShaderPath) = 0;
+/*0x008*/ virtual int GetDesktopWidth() = 0;
+/*0x00C*/ virtual int GetDesktopHeight() = 0;
+/*0x010*/ virtual int GetDesktopDepth() = 0;
+/*0x014*/ virtual int GetDesktopRefreshRate() = 0;
+/*0x018*/ virtual int GetDisplayWidth() = 0;
+/*0x01C*/ virtual int GetDisplayHeight() = 0;
+/*0x020*/ virtual int GetDisplayDepth() = 0;
+/*0x024*/ virtual int GetDisplayRefreshRate() = 0;
+/*0x028*/ virtual bool IsDisplayRgb565() = 0;
+/*0x02C*/ virtual int GetNumberOfModes() = 0;
+/*0x030*/ virtual HWND GetHWND() = 0;
+/*0x034*/ virtual int GetModeInfo(int index, SEQGraphicsDisplayMode* mode) = 0;
+/*0x038*/ virtual int GetMaxTextureWidth() const = 0;
+/*0x03C*/ virtual int GetMaxTextureHeight() const = 0;
+/*0x040*/ virtual bool SupportsDXT1Textures() = 0;
+/*0x044*/ virtual bool SupportsDXT3Textures() = 0;
+/*0x048*/ virtual bool Supports4444Textures() = 0;
+/*0x04C*/ virtual bool SupportsLargeTextures() = 0;
+/*0x050*/ virtual int GetTotalTextureMemory() = 0;
+/*0x054*/ virtual bool GetFullScreen() = 0;
+/*0x058*/ virtual int EnumerateDevices(SDeviceInfo* deviceInfo, int* numDevices, HINSTANCE hInstance) = 0;
+/*0x05C*/ virtual bool InitDevice(int device, HWND hWnd, bool min) = 0;
+/*0x060*/ virtual void ReleaseDevice(bool) = 0;
+/*0x064*/ virtual void SetResolutionBasedOnDesktop() = 0;
+/*0x068*/ virtual void SetResolution(int index) = 0;
+/*0x06C*/ virtual void SetResolution(int width, int height, int depth, int refreshRate) = 0;
+/*0x070*/ virtual void Unknown0x70() = 0;
+/*0x074*/ virtual void SetFullscreen(bool fullscreen) = 0;
+/*0x078*/ virtual void SetFog(bool enable, int zmin, int zmax, float density, RGB color) = 0;
+/*0x07C*/ virtual void SetGammaLevel(float gamma) = 0;
+/*0x080*/ virtual void RestoreDesktopGammaRamp() = 0;
+/*0x084*/ virtual void SetDesktopGammaRampForWindowedMode() = 0;
+/*0x088*/ virtual void DrawLine2D(const glm::vec3& point1, const glm::vec3& point2, RGB color) = 0;
+/*0x08C*/ virtual void DrawLine3D(const glm::vec3& point1, const glm::vec3& point2, RGB color) = 0;
+/*0x090*/ virtual int DrawWrappedText(int font, const char* text, const CXRect& rect, const CXRect& clip,
+	COLORREF color, uint16_t flags, int offset) = 0;
+/*0x094*/ virtual int DrawWrappedText(CTextObjectInterface* textObj) = 0;
+/*0x098*/ virtual int DrawTexturedQuad(glm::vec3* points, glm::vec2* texCoords, RGB color, BMI* bmi) = 0;
+/*0x09C*/ virtual void DrawTintedBlendTexturedQuad(glm::vec3* points, glm::vec2* texCoords, int tint1, int tint2,
+	BMI* bmi1, BMI* bmi2, bool border) = 0;
+/*0x0A0*/ virtual void DrawQuad(glm::vec3* points, RGB color) = 0;
+/*0x0A4*/ virtual void ClearDeferred2D() = 0;
+/*0x0A8*/ virtual void ClearBackBufferToBlack() = 0;
+/*0x0AC*/ virtual void RenderScene() = 0;
+/*0x0B0*/ virtual void RenderBlind() = 0;
+/*0x0B4*/ virtual void UpdateDisplay() = 0;
+/*0x0B8*/ virtual void SetCensorship(bool) = 0;
+/*0x0BC*/ virtual void SetCurrentLanguage(int) = 0;
+/*0x0C0*/ virtual void ClearDisplayBuffers() = 0;
+/*0x0C4*/ virtual void ScreenCapture(const char* filename) = 0;
+/*0x0C8*/ virtual void ScreenCaptureToBMI(BMI** ppBMI) = 0;
+/*0x0CC*/ virtual RenderCallbackPtr SetRenderCallback(RenderCallbackPtr callback) = 0;
+/*0x0D0*/ virtual void RotateStats() = 0;
+/*0x0D4*/ virtual void SetItemPlacementStats(const SItemPlacementStatsDisplay* stats, bool) = 0;
+/*0x0D8*/ virtual void ShowItemPlacementStats(bool) = 0;
+/*0x0DC*/ virtual void TransformWorldToCamera(const glm::vec3& world, glm::vec3& camera) = 0;
+/*0x0E0*/ virtual void GetEyeOffset(glm::vec3& pos) = 0;
+/*0x0E4*/ virtual uint32_t SetDebugFlags(uint32_t flags) = 0;
+/*0x0E8*/ virtual const char* GetCurrentDeviceName() = 0;
+/*0x0EC*/ virtual void ParsePatchLighting(uint32_t patch, const char* filename) = 0;
+/*0x0F0*/ virtual void EnableAutoMipMapping(bool, bool) = 0;
+/*0x0F4*/ virtual void SetRenderOption(int option, int value) = 0;
+/*0x0F8*/ virtual float GetFogEnd() = 0;
+/*0x0FC*/ virtual float GetFogStart() = 0;
+/*0x100*/ virtual uint32_t GetFogColor() = 0;
+/*0x104*/ virtual int GetDeviceFeature(int feature) = 0;
+/*0x108*/ virtual void DisplayStats(int stats) = 0;
+/*0x10C*/ virtual void EnableObjectPreview(bool, int) = 0;
+/*0x110*/ virtual void IsObjectPreviewEnabled(int) = 0;
+/*0x114*/ virtual void SetObjectPreviewActor(CActorInterface* actor, int) = 0;
+/*0x118*/ virtual void DrawObjectPreview(const CXRect& rect, COLORREF color, int) = 0;
+/*0x11C*/ virtual void ResizeObjectPreview(int width, int height, int) = 0;
+/*0x120*/ virtual void SetObjectPreviewMode(int) = 0;
+/*0x124*/ virtual void SetPostEffect(int type, int state, float intensity, uint32_t fade, COLOR* color) = 0;
+/*0x128*/ virtual void SetPersistentPostEffect(int type, bool on) = 0;
+/*0x12C*/ virtual void SetPersistentIntensity(int type, float value) = 0;
+/*0x130*/ virtual ID3DXBuffer* GetScreenCapData() = 0;
+/*0x134*/ virtual void ClearScreenCapData() = 0;
+};
+
+constexpr int NUM_BLEND_MATRICES = 8;
+constexpr int MAX_BUFFER_SET = 34;
+constexpr int MAX_EFFECTS = 148;
+constexpr int MAX_RENDER_EFFECTS = 217;
+constexpr int MAX_VERTEX_DECLARATIONS = 20;
+constexpr int MAX_EFFECT_PASS_COUNT = 6;
 
 class [[offsetcomments]] CRender : public CRenderInterface
 {
 public:
 /*0x0000*/ //vftable
-/*0x0004*/ uint8_t                   Unknown0x04[0xEBC];
+/*0x0004*/ SDevice                   aDevices[16];
+/*0x0e44*/ int                       nDeviceCount;
+/*0x0e48*/ SDevice*                  pCurrentDevice;
+/*0x0e4c*/ bool                      bDeviceInitialized;
+/*0x0e50*/ D3DFORMAT                 adapterFormat;
+/*0x0e54*/ int                       nDisplayWidth;
+/*0x0e58*/ int                       nDisplayHeight;
+/*0x0e5c*/ int                       nDisplayDepth;
+/*0x0e60*/ int                       nDisplayRefreshRate;
+/*0x0e64*/ bool                      bFullscreen;
+/*0x0e65*/ bool                      bWindowedModeAvailable;
+/*0x0e68*/ D3DPRESENT_PARAMETERS     d3dpp;
+/*0x0ea0*/ uint32_t                  frameId;
+/*0x0ea4*/ bool                      bSupportsMipMaps;
+/*0x0ea5*/ bool                      bSupportsTrilinearMipMaps;
+/*0x0ea6*/ bool                      bAutoMipMapping;
+/*0x0ea8*/ uint32_t                  uMaxVertexBlendMatrices;
+/*0x0eac*/ bool                      bSupportsDXT1Textures;
+/*0x0ead*/ bool                      bSupportsDXT3Textures;
+/*0x0eae*/ bool                      bSupports4444Textures;
+/*0x0eaf*/ bool                      bSupportsDotProduct3;
+/*0x0eb0*/ bool                      bRGB565Mode;
+/*0x0eb1*/ bool                      bUseMode16A;
+/*0x0eb2*/ bool                      bUseSoftwareVertexProcessing;
+/*0x0eb3*/ bool                      bUseMixedVertexProcessing;
+/*0x0eb4*/ bool                      bUseHardwareVertexProcessing;
+/*0x0eb5*/ bool                      bUseHardwareVertexShaders;
+/*0x0eb6*/ bool                      bUseHardwareIndexedVertexBlending;
+/*0x0eb7*/ bool                      bUse1PassTechniques;
+/*0x0eb8*/ uint32_t                  uTotalTextureMemory;
+/*0x0ebc*/ int                       nTextureQuality;
 /*0x0ec0*/ HWND                      hWnd;
 /*0x0ec4*/ IDirect3D9*               pDirect3D;             // "CRender::InitDevice: Direct3DCreate9 failed.\n"
 /*0x0ec8*/ IDirect3DDevice9*         pD3DDevice;            // "Failed to create device with error %X.\n"
@@ -77,8 +269,59 @@ public:
 /*0x0ee8*/ D3DCAPS9                  D3DDeviceCaps;
 /*0x1018*/ float                     GammaLevel;
 /*0x101c*/ IDirect3DSwapChain9*      pD3DSwapChain;
-/*0x1020*/
-// ... much more
+/*0x1020*/ bool                      bWindowedGamma;
+/*0x1021*/ bool                      bWindowedGammaEverToggled;
+/*0x1022*/ bool                      bLinearGammaContent;
+/*0x1024*/ ID3DXBuffer*              screenCapFileData;
+/*0x1030*/ __declspec(align(16)) glm::mat4x4 matrixIdentity;
+/*0x1070*/ __declspec(align(16)) glm::mat4x4 aMatrixWorldCurrent[NUM_BLEND_MATRICES];
+/*0x1270*/ __declspec(align(16)) glm::mat4x4 aMatrixWorldInverse[NUM_BLEND_MATRICES];
+/*0x1470*/ __declspec(align(16)) glm::mat4x4 aMatrixWorldInverseTransposed[NUM_BLEND_MATRICES];
+/*0x1670*/ glm::mat4x4*              apMatrixWorld[NUM_BLEND_MATRICES];
+/*0x1690*/ glm::mat4x4               matrixViewProj;
+/*0x16d0*/ glm::mat4x4               matrixView;
+/*0x1710*/ IDirect3DIndexBuffer9*    pIndexBufferLitData;
+/*0x1714*/ CBufferSet*               apBufferSets[MAX_BUFFER_SET];
+/*0x179c*/ CEffect*                  apEffects[MAX_EFFECTS];
+/*0x19ec*/ CRenderEffect*            apRenderEffects[MAX_RENDER_EFFECTS];
+/*0x1d50*/ IDirect3DVertexDeclaration9* apVertexDeclarations[MAX_VERTEX_DECLARATIONS];
+/*0x1da0*/ IDirect3DTexture9*        pAttenuationLookupTexture;
+/*0x1da4*/ IDirect3DTexture9*        pSpecularPower68LookupTexture;
+/*0x1da8*/ IDirect3DCubeTexture9*    pNormalizationLookupCubeTexture;
+/*0x1dac*/ TNodePool<CBatchNode>*    pBatchNodePool;
+/*0x1db0*/ TNodePool<CSubsetNode>*   pSubsetNodePool;
+/*0x1db4*/ TNodePool<CLitBatchNode>* pLitBatchNodePool;
+/*0x1db8*/ TNodePool<CTerrainBatchNode>* pTerrainBatchNodePool;
+/*0x1dbc*/ TList<CRenderNode>        renderNodeListSinglePass[MAX_EFFECT_PASS_COUNT];
+/*0x1dec*/ TList<CRenderNode>        renderNodeListZPass[MAX_EFFECT_PASS_COUNT];
+/*0x1e1c*/ TList<CRenderNode>        renderNodeListTexturePass[MAX_EFFECT_PASS_COUNT];
+/*0x1e4c*/ TNodePool<CRenderNode>*   pRenderNodePool;
+/*0x1e50*/ TList<CLightNode>         activeLightList;
+/*0x1e58*/ TNodePool<CLightNode>*    pLightNodePool;
+/*0x1e5c*/ int                       renderedTextureCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x2c3c*/ int                       renderedTerrainBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x3a1c*/ int                       renderedTerrainBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x47fc*/ int                       renderedBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x55dc*/ int                       renderedBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x63bc*/ int                       renderedSubsetCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x719c*/ int                       renderedSubsetTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x7f7c*/ int                       nStatsType;
+/*0x7f80*/ bool                      bShowItemPlacementStats;
+/*0x7f81*/ SItemPlacementStatsDisplay itemPlacementStats;
+/*0x879c*/ float                     fColorIntensityLookup[256];
+/*0x8b9c*/ float                     fLookup[2048];
+/*0xab9c*/ glm::vec3                 eyeOffset;
+/*0xaba8*/ uint32_t                  uRegionCount;
+/*0xabac*/ bool                      bFogEnabled;
+/*0xabb0*/ RGB                       rgbFogColor;
+/*0xabb4*/ float                     fFogStart;
+/*0xabb8*/ float                     fFogEnd;
+/*0xabbc*/ float                     fFogDensity;
+/*0xabc0*/ RenderCallbackPtr         pfnRenderCallback;
+/*0xabc4*/ bool                      bCensorship;
+/*0xabc8*/ CMemoryPoolManager*       pLitTriangleMemoryPoolManager;
+/*0xabcc*/ CMemoryPoolManager*       pLitBatchMemoryPoolManager;
+/*0xabd0*/ // ... much more
 };
 
 //----------------------------------------------------------------------------

@@ -28,6 +28,8 @@
 #define CRender__UpdateDisplay_x                                   0x100A2310
 #define __bRenderSceneCalled_x                                     0x101DC4E4
 
+#define C2DPrimitiveManager__AddCachedText_x                       0x100BDDA0
+
 #if __has_include("../private/eqgraphics-private.h")
 #include "../private/eqgraphics-private.h"
 #endif

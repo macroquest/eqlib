@@ -55,6 +55,13 @@ struct ARGBCOLOR
 };
 using PARGBCOLOR DEPRECATE("Use ARGBCOLOR* instead of PARGBCOLOR") = ARGBCOLOR *;
 
+struct COLOR
+{
+	float red;
+	float green;
+	float blue;
+};
+
 } // namespace eqlib
 
 // Actually a windef.h type, but we use it nontheless. Needs to match the windows definition.

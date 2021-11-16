@@ -1474,6 +1474,7 @@ INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderScene);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderBlind);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__UpdateDisplay);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__ResetDevice);
+INITIALIZE_EQGRAPHICS_OFFSET(C2DPrimitiveManager__AddCachedText);
 
 INITIALIZE_EQGRAPHICS_OFFSET(__bRenderSceneCalled);
 BOOL* g_bRenderSceneCalled = (BOOL*)__bRenderSceneCalled;
@@ -1493,6 +1494,7 @@ void InitializeEQGraphicsOffsets()
 		CRender__UpdateDisplay = FixEQGraphicsOffset(CRender__UpdateDisplay_x);
 		CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
 		g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
+		C2DPrimitiveManager__AddCachedText = FixEQGraphicsOffset(C2DPrimitiveManager__AddCachedText_x);
 	}
 }
 
