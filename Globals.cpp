@@ -75,14 +75,11 @@ ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Test,
 	ServerID::Antonius,
 	ServerID::Bertox,
-	ServerID::Brekt,
 	ServerID::Bristle,
 	ServerID::Cazic,
 	ServerID::Drinal,
 	ServerID::Erollisi,
-	ServerID::Fippy,
 	ServerID::Firiona,
-	ServerID::Lockjaw,
 	ServerID::Luclin,
 	ServerID::Mayong,
 	ServerID::Phinigel,
@@ -90,10 +87,8 @@ ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Ragefire,
 	ServerID::Rathe,
 	ServerID::Rizlona,
-	ServerID::Trakanon,
 	ServerID::Tunare,
 	ServerID::Vox,
-	ServerID::Vulak,
 	ServerID::Xegony,
 	ServerID::Zek,
 };
@@ -105,14 +100,11 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Test: return "test";
 	case ServerID::Antonius: return "antonius";
 	case ServerID::Bertox: return "bertox";
-	case ServerID::Brekt: return "brekt";
 	case ServerID::Bristle: return "bristle";
 	case ServerID::Cazic: return "cazic";
 	case ServerID::Drinal: return "drinal";
 	case ServerID::Erollisi: return "erollisi";
-	case ServerID::Fippy: return "fippy";
 	case ServerID::Firiona: return "firiona";
-	case ServerID::Lockjaw: return "lockjaw";
 	case ServerID::Luclin: return "luclin";
 	case ServerID::Mayong: return "mayong";
 	case ServerID::Phinigel: return "phinigel";
@@ -120,10 +112,8 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Ragefire: return "ragefire";
 	case ServerID::Rathe: return "rathe";
 	case ServerID::Rizlona: return "rizlona";
-	case ServerID::Trakanon: return "trakanon";
 	case ServerID::Tunare: return "tunare";
 	case ServerID::Vox: return "vox";
-	case ServerID::Vulak: return "vulak";
 	case ServerID::Xegony: return "xegony";
 	case ServerID::Zek: return "zek";
 	}
@@ -139,14 +129,11 @@ ServerID GetServerIDFromServerName(const char* serverName)
 #elif defined(LIVE)
 		{ "antonius", ServerID::Antonius },
 		{ "bertox", ServerID::Bertox },
-		{ "brekt", ServerID::Brekt },
 		{ "bristle", ServerID::Bristle },
 		{ "cazic", ServerID::Cazic },
 		{ "drinal", ServerID::Drinal },
 		{ "erollisi", ServerID::Erollisi },
-		{ "fippy", ServerID::Fippy },
 		{ "firiona", ServerID::Firiona },
-		{ "lockjaw", ServerID::Lockjaw },
 		{ "luclin", ServerID::Luclin },
 		{ "mayong", ServerID::Mayong },
 		{ "phinigel", ServerID::Phinigel },
@@ -154,10 +141,8 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "ragefire", ServerID::Ragefire },
 		{ "rathe", ServerID::Rathe },
 		{ "rizlona", ServerID::Rizlona },
-		{ "trakanon", ServerID::Trakanon },
 		{ "tunare", ServerID::Tunare },
 		{ "vox", ServerID::Vox },
-		{ "vulak", ServerID::Vulak },
 		{ "xegony", ServerID::Xegony },
 		{ "zek", ServerID::Zek },
 #endif

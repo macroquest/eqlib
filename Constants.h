@@ -989,18 +989,13 @@ enum class ServerID : int {
 	Tunare = 140,
 	Xegony = 144,
 	Zek = 147,
-	Trakanon = 155,
-	Fippy = 156,
-	Vulak = 157,
 	Vox = 158,
 	Ragefire = 159,
-	Lockjaw = 160,
 	Phinigel = 161,
-	Brekt = 162,
 	Mayong = 163,
 	Rizlona = 169,
 
-	NumServers = 24,
+	NumServers = 19,
 	Invalid = -1,
 };
 
