@@ -75,14 +75,11 @@ ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Test,
 	ServerID::Antonius,
 	ServerID::Bertox,
-	ServerID::Brekt,
 	ServerID::Bristle,
 	ServerID::Cazic,
 	ServerID::Drinal,
 	ServerID::Erollisi,
-	ServerID::Fippy,
 	ServerID::Firiona,
-	ServerID::Lockjaw,
 	ServerID::Luclin,
 	ServerID::Mayong,
 	ServerID::Phinigel,
@@ -90,10 +87,8 @@ ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Ragefire,
 	ServerID::Rathe,
 	ServerID::Rizlona,
-	ServerID::Trakanon,
 	ServerID::Tunare,
 	ServerID::Vox,
-	ServerID::Vulak,
 	ServerID::Xegony,
 	ServerID::Zek,
 };
@@ -105,14 +100,11 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Test: return "test";
 	case ServerID::Antonius: return "antonius";
 	case ServerID::Bertox: return "bertox";
-	case ServerID::Brekt: return "brekt";
 	case ServerID::Bristle: return "bristle";
 	case ServerID::Cazic: return "cazic";
 	case ServerID::Drinal: return "drinal";
 	case ServerID::Erollisi: return "erollisi";
-	case ServerID::Fippy: return "fippy";
 	case ServerID::Firiona: return "firiona";
-	case ServerID::Lockjaw: return "lockjaw";
 	case ServerID::Luclin: return "luclin";
 	case ServerID::Mayong: return "mayong";
 	case ServerID::Phinigel: return "phinigel";
@@ -120,10 +112,8 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Ragefire: return "ragefire";
 	case ServerID::Rathe: return "rathe";
 	case ServerID::Rizlona: return "rizlona";
-	case ServerID::Trakanon: return "trakanon";
 	case ServerID::Tunare: return "tunare";
 	case ServerID::Vox: return "vox";
-	case ServerID::Vulak: return "vulak";
 	case ServerID::Xegony: return "xegony";
 	case ServerID::Zek: return "zek";
 	}
@@ -139,14 +129,11 @@ ServerID GetServerIDFromServerName(const char* serverName)
 #elif defined(LIVE)
 		{ "antonius", ServerID::Antonius },
 		{ "bertox", ServerID::Bertox },
-		{ "brekt", ServerID::Brekt },
 		{ "bristle", ServerID::Bristle },
 		{ "cazic", ServerID::Cazic },
 		{ "drinal", ServerID::Drinal },
 		{ "erollisi", ServerID::Erollisi },
-		{ "fippy", ServerID::Fippy },
 		{ "firiona", ServerID::Firiona },
-		{ "lockjaw", ServerID::Lockjaw },
 		{ "luclin", ServerID::Luclin },
 		{ "mayong", ServerID::Mayong },
 		{ "phinigel", ServerID::Phinigel },
@@ -154,10 +141,8 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "ragefire", ServerID::Ragefire },
 		{ "rathe", ServerID::Rathe },
 		{ "rizlona", ServerID::Rizlona },
-		{ "trakanon", ServerID::Trakanon },
 		{ "tunare", ServerID::Tunare },
 		{ "vox", ServerID::Vox },
-		{ "vulak", ServerID::Vulak },
 		{ "xegony", ServerID::Xegony },
 		{ "zek", ServerID::Zek },
 #endif
@@ -358,6 +343,7 @@ INITIALIZE_EQGAME_OFFSET(pinstCSkillsSelectWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCSkillsWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCSocialEditWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCSpellBookWnd);
+INITIALIZE_EQGAME_OFFSET(pinstCSpellDisplayMgr);
 INITIALIZE_EQGAME_OFFSET(pinstCStoryWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCTargetWnd);
 INITIALIZE_EQGAME_OFFSET(pinstCTaskManager);
@@ -547,7 +533,6 @@ INITIALIZE_EQGAME_OFFSET(CDisplay__GetClickedActor);
 INITIALIZE_EQGAME_OFFSET(CDisplay__GetFloorHeight);
 INITIALIZE_EQGAME_OFFSET(CDisplay__GetUserDefinedColor);
 INITIALIZE_EQGAME_OFFSET(CDisplay__GetWorldFilePath);
-INITIALIZE_EQGAME_OFFSET(CDisplay__is3dON);
 INITIALIZE_EQGAME_OFFSET(CDisplay__PreZoneMainUI);
 INITIALIZE_EQGAME_OFFSET(CDisplay__RealRender_World);
 INITIALIZE_EQGAME_OFFSET(CDisplay__ReloadUI);
@@ -677,16 +662,11 @@ INITIALIZE_EQGAME_OFFSET(CInvSlotMgr__SelectSlot);
 INITIALIZE_EQGAME_OFFSET(CInvSlotWnd__CInvSlotWnd);
 INITIALIZE_EQGAME_OFFSET(CInvSlotWnd__HandleLButtonUp);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayManager__CreateWindowInstance);
-INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__AboutToShow);
-INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__CItemDisplayWnd);
-INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__dCItemDisplayWnd);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__InsertAugmentRequest);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__RemoveAugmentRequest);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__RequestConvertItem);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__SetItem);
-INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__SetSpell);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__UpdateStrings);
-INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__WndNotification);
 INITIALIZE_EQGAME_OFFSET(CKeyRingWnd__ExecuteRightClick);
 INITIALIZE_EQGAME_OFFSET(CLabel__UpdateText);
 INITIALIZE_EQGAME_OFFSET(CLargeDialogWnd__Open);
@@ -799,6 +779,8 @@ INITIALIZE_EQGAME_OFFSET(CSliderWnd__GetValue);
 INITIALIZE_EQGAME_OFFSET(CSliderWnd__SetNumTicks);
 INITIALIZE_EQGAME_OFFSET(CSliderWnd__SetValue);
 INITIALIZE_EQGAME_OFFSET(CSpellBookWnd__MemorizeSet);
+INITIALIZE_EQGAME_OFFSET(CSpellDisplayWnd__SetSpell);
+INITIALIZE_EQGAME_OFFSET(CSpellDisplayWnd__UpdateStrings);
 INITIALIZE_EQGAME_OFFSET(CStmlWnd__AppendSTML);
 INITIALIZE_EQGAME_OFFSET(CStmlWnd__CalculateHSBRange);
 INITIALIZE_EQGAME_OFFSET(CStmlWnd__CalculateVSBRange);
@@ -846,7 +828,7 @@ INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText1);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText2);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__GetTextExtent);
 INITIALIZE_EQGAME_OFFSET(CUnSerializeBuffer__GetString);
-INITIALIZE_EQGAME_OFFSET(CWndDisplayManager__FindWindowA);
+INITIALIZE_EQGAME_OFFSET(CWndDisplayManager__FindWindow);
 INITIALIZE_EQGAME_OFFSET(CXMLDataManager__GetXMLData);
 INITIALIZE_EQGAME_OFFSET(CXMLSOMDocumentBase__XMLRead);
 INITIALIZE_EQGAME_OFFSET(CXStr__CXStr);
@@ -995,7 +977,6 @@ INITIALIZE_EQGAME_OFFSET(MapViewMap__Clear);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__dMapViewMap);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__GetWorldCoordinates);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__MapViewMap);
-INITIALIZE_EQGAME_OFFSET(MapViewMap__SaveEx);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__SetZoom);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__vftable);
 INITIALIZE_EQGAME_OFFSET(MercenaryAlternateAdvancementManagerClient__Instance);
@@ -1129,6 +1110,7 @@ ForeignPointer<EQSpellStrings>                   pEQSpellStrings;
 ForeignPointer<CEverQuest, EVERQUEST>            pEverQuest;
 ForeignPointer<SGraphicsEngine>                  pGraphicsEngine;
 ForeignPointer<CItemDisplayManager>              pItemDisplayManager;
+ForeignPointer<CSpellDisplayManager>             pSpellDisplayManager;
 ComputedPointer<EQGroundItemListManager>         pItemList([]{ return &EQGroundItemListManager::Instance(); });
 ComputedPointer<KeypressHandler>                 pKeypressHandler([]{ return &KeypressHandler::Get(); });
 ForeignPointer<LootFiltersManager>               pLootFiltersManager;
@@ -1363,6 +1345,7 @@ void InitializeEQGameOffsets()
 	pCSkillMgr                      = pinstSkillMgr;                   // deprecated
 	pSpawnManager                   = pinstSpawnManager;
 	pSpellMgr                       = pinstSpellManager;
+	pSpellDisplayManager            = pinstCSpellDisplayMgr;
 	pStringTable                    = pinstStringTable;
 	pSwitchMgr                      = pinstSwitchManager;
 	pTaskMember                     = pinstTaskMember;
@@ -1476,6 +1459,10 @@ INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderScene);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderBlind);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__UpdateDisplay);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__ResetDevice);
+INITIALIZE_EQGRAPHICS_OFFSET(C2DPrimitiveManager__AddCachedText);
+
+INITIALIZE_EQGRAPHICS_OFFSET(__bRenderSceneCalled);
+BOOL* g_bRenderSceneCalled = (BOOL*)__bRenderSceneCalled;
 
 void InitializeEQGraphicsOffsets()
 {
@@ -1491,6 +1478,8 @@ void InitializeEQGraphicsOffsets()
 		CRender__RenderBlind = FixEQGraphicsOffset(CRender__RenderBlind_x);
 		CRender__UpdateDisplay = FixEQGraphicsOffset(CRender__UpdateDisplay_x);
 		CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
+		g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
+		C2DPrimitiveManager__AddCachedText = FixEQGraphicsOffset(C2DPrimitiveManager__AddCachedText_x);
 	}
 }
 

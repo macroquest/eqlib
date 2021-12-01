@@ -15,6 +15,7 @@
 #pragma once
 
 #include "Common.h"
+#include "Constants.h"
 #include "Containers.h"
 #include "CXStr.h"
 #include "Achievements.h"
@@ -869,6 +870,27 @@ public:
 	int GetWisdom() const { return WIS; }
 	int GetLuck() const { return LCK; }
 
+	EQ_Affect& GetEffect(int nBuffSlot)
+	{
+		if (nBuffSlot >= 0 && nBuffSlot < NUM_LONG_BUFFS)
+			return GetCurrentBaseProfile().GetEffect(nBuffSlot);
+		if (nBuffSlot >= NUM_LONG_BUFFS && NUM_LONG_BUFFS + NUM_TEMP_BUFFS)
+			return GetCurrentBaseProfile().GetTempEffect(nBuffSlot - NUM_LONG_BUFFS);
+		// ??
+		return GetEffect(0);
+	}
+
+	int GetEffectSlot(EQ_Affect* effect)
+	{
+		for (int nBuffSlot = 0; nBuffSlot < MAX_TOTAL_BUFFS; ++nBuffSlot)
+		{
+			if (effect == &GetEffect(nBuffSlot))
+				return nBuffSlot;
+		}
+
+		return -1;
+	}
+
 	// Unverified
 	EQLIB_OBJECT BYTE GetLanguageSkill(int) const;
 };
@@ -1015,7 +1037,7 @@ public:
 	EQLIB_OBJECT char* Class(int);
 	EQLIB_OBJECT char* KunarkClass(int, int, int, bool);
 	EQLIB_OBJECT char* Race(int);
-	EQLIB_OBJECT EQ_Affect& GetEffect(int) const;
+	//EQLIB_OBJECT EQ_Affect& GetEffect(int) const; // removeme
 	EQLIB_OBJECT EQ_Equipment* GetFocusItem(EQ_Spell const*, int);
 	EQLIB_OBJECT EQ_Spell* GetFocusEffect(EQ_Spell const*, int);
 	EQLIB_OBJECT PlayerClient* FindClosest(int, int, int, int, int);
@@ -1368,22 +1390,24 @@ public:
 /*0x23f8*/ int                                   FreeToPlayUnlocks[30];
 /*0x2470*/ // end PcBase / start CharacterZoneClient
 
-	PcProfile* GetCurrentPcProfile()
-	{
-		return (PcProfile*)&GetCurrentBaseProfile();
-	}
+	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
+	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
 
 	EQLIB_OBJECT ItemContainer& GetKeyRingItems(KeyRingType type);
+	inline ItemPtr GetKeyRingItem(KeyRingType type, int index) { GetKeyRingItems(type).GetItem(index); }
+	inline ItemPtr GetKeyRingItem(KeyRingType type, const ItemIndex& index) { GetKeyRingItems(type).GetItem(index); }
+	inline const ItemIndex& GetStatKeyRingItemIndex(KeyRingType type) const { return StatKeyRingItemIndex[type]; }
 
 	// Stores information about purchased Mercenary Abilities
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
 
 	int GetAirSupply() const { return AirSupply; }
+	int GetLevel() const { return GetCurrentPcProfile()->Level; }
 
 	ALT_MEMBER_GETTER(int, GoodPointsAvailable, RadiantCrystals);
 	ALT_MEMBER_GETTER(int, EvilPointsAvailable, EbonCrystals);
 	ALT_MEMBER_GETTER(__time32_t, CreationTime, CharCreationTime);
-	ALT_MEMBER_GETTER(int, TrophyBenefitTimer, TributeTimer);
+	ALT_MEMBER_GETTER(int, BenefitTimer, TributeTimer);
 };
 
 class DebugText
@@ -1425,7 +1449,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x2BCC :: 2021-09-07 (test) @ 0x625232
+// @sizeof(PcClient) == 0x2BCC :: 2021-11-12 (live) @ 0x6246F2
 constexpr size_t PcClient_size = 0x2BCC;
 
 class [[offsetcomments]] PcClient : public PcZoneClient

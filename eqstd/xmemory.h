@@ -139,15 +139,15 @@ namespace eqstd
 	inline constexpr _Fake_allocator _Fake_alloc{};
 
 	struct _Container_base0 {
-		_CONSTEXPR20_CONTAINER void _Orphan_all() noexcept {}
-		_CONSTEXPR20_CONTAINER void _Swap_proxy_and_iterators(_Container_base0&) noexcept {}
-		_CONSTEXPR20_CONTAINER void _Alloc_proxy(const _Fake_allocator&) noexcept {}
-		_CONSTEXPR20_CONTAINER void _Reload_proxy(const _Fake_allocator&, const _Fake_allocator&) noexcept {}
+		inline void _Orphan_all() noexcept {}
+		inline void _Swap_proxy_and_iterators(_Container_base0&) noexcept {}
+		inline void _Alloc_proxy(const _Fake_allocator&) noexcept {}
+		inline void _Reload_proxy(const _Fake_allocator&, const _Fake_allocator&) noexcept {}
 	};
 
 	struct _Iterator_base0 {
-		_CONSTEXPR20_CONTAINER void _Adopt(const void*) noexcept {}
-		_CONSTEXPR20_CONTAINER const _Container_base0* _Getcont() const noexcept {
+		inline void _Adopt(const void*) noexcept {}
+		inline const _Container_base0* _Getcont() const noexcept {
 			return nullptr;
 		}
 
@@ -165,11 +165,11 @@ namespace eqstd
 	struct _Fake_proxy_ptr_impl { // fake replacement for a container proxy smart pointer when no container proxy is in use
 		_Fake_proxy_ptr_impl(const _Fake_proxy_ptr_impl&) = delete;
 		_Fake_proxy_ptr_impl& operator=(const _Fake_proxy_ptr_impl&) = delete;
-		_CONSTEXPR20_CONTAINER _Fake_proxy_ptr_impl(const _Fake_allocator&, _Leave_proxy_unbound) noexcept {}
-		_CONSTEXPR20_CONTAINER _Fake_proxy_ptr_impl(const _Fake_allocator&, const _Container_base0&) noexcept {}
+		inline _Fake_proxy_ptr_impl(const _Fake_allocator&, _Leave_proxy_unbound) noexcept {}
+		inline _Fake_proxy_ptr_impl(const _Fake_allocator&, const _Container_base0&) noexcept {}
 
-		_CONSTEXPR20_CONTAINER void _Bind(const _Fake_allocator&, _Container_base0*) noexcept {}
-		_CONSTEXPR20_CONTAINER void _Release() noexcept {}
+		inline void _Bind(const _Fake_allocator&, _Container_base0*) noexcept {}
+		inline void _Release() noexcept {}
 	};
 
 	template <class _Alloc>

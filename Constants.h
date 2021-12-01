@@ -464,11 +464,32 @@ constexpr int MAX_NPC_LEVEL = 200;
 constexpr int MAX_SPELL_LEVEL = 255;
 constexpr int NUM_SPELL_GEMS = 14;
 constexpr int NUM_SPELL_SETS = 30;
-constexpr int NUM_BUFF_SLOTS = 97;
-constexpr int NUM_LONG_BUFFS = 42;
-constexpr int NUM_SHORT_BUFFS = 55;
+
 constexpr int NUM_RACES = 17;
 constexpr int NUM_BLOCKED_BUFFS = 40;
+
+// The number of lbuffs that are displayable in the buffs window. Also used to
+// hold these buffs in the profile.
+constexpr int NUM_LONG_BUFFS = 42;
+// ideally this is the number of short buffs but that name is already taken...
+// This represents the number of short duration buffs that can display in the
+// short duration buff window.
+constexpr int NUM_SONG_BUFFS = 30;
+
+// The maximum number of buff icons supported.
+constexpr int MAX_BUFF_ICONS = 42;
+
+// Number of temporary buffs stored in the profile.
+constexpr int NUM_TEMP_BUFFS = 55;
+// this is misnamed, the "Short buffs" in the profile is simply just all temporary buffs
+// not necessary the short buffs window. You'll also note that its 55 instead of 30...
+constexpr int NUM_SHORT_BUFFS = NUM_TEMP_BUFFS;
+
+// This holds the total number of buffs stored in the profile, NOT the number of buffs
+// displayable on the screen in the buffs+shortbuffs ui. NPCs can have more buffs/debuffs
+// that players, that is where this total value comes from.
+constexpr int MAX_TOTAL_BUFFS = NUM_LONG_BUFFS + NUM_TEMP_BUFFS;
+constexpr int NUM_BUFF_SLOTS = MAX_TOTAL_BUFFS;
 
 constexpr int MAX_MEMORIZED_SPELLS = 18;
 
@@ -654,6 +675,7 @@ enum eInventorySlot
 	InvSlot_Bag9,
 	InvSlot_Bag10,
 	InvSlot_Bag11,
+	InvSlot_Bag12,
 	InvSlot_Held,
 
 	InvSlot_Max,
@@ -662,7 +684,7 @@ enum eInventorySlot
 	InvSlot_LastWornItem = InvSlot_Ammo,
 	InvSlot_FirstBagSlot = InvSlot_Bag1,
 	InvSlot_LastBagSlot = InvSlot_Bag10,
-	InvSlot_LastBonusBagSlot = InvSlot_Bag11,
+	InvSlot_LastBonusBagSlot = InvSlot_Bag12,
 	InvSlot_Cursor = InvSlot_Held,
 	InvSlot_NumInvSlots = InvSlot_Held,      // held is not technically an item in the inventory (its the cursor)
 
@@ -673,7 +695,7 @@ enum eInventorySlot
 constexpr int NUM_INV_SLOTS = InvSlot_NumInvSlots;
 constexpr int BAG_SLOT_START = InvSlot_Bag1;
 
-constexpr int NUM_BAG_SLOTS = InvSlot_LastBagSlot - InvSlot_FirstBagSlot + 1;
+constexpr int NUM_BAG_SLOTS = InvSlot_LastBonusBagSlot - InvSlot_FirstBagSlot + 1;
 constexpr int NUM_WORN_ITEMS = InvSlot_LastWornItem - InvSlot_FirstWornItem + 1;
 
 static_assert(InvSlot_LastWornItem < 32,
@@ -829,6 +851,8 @@ enum ALTCURRENCY
 	ALTCURRENCY_OVERSEERTETRADRACHM = 50, // Overseer
 	ALTCURRENCY_RESTLESSMARK = 51, // CoV
 	ALTCURRENCY_WARFORGEDEMBLEM = 52, // CoV
+	ALTCURRENCY_SCARLETMARKS = 53, // ToL
+	ALTCURRENCY_MEDALSOFCONFLICT = 54, // ToL
 };
 
 enum ETargetRelationship
@@ -967,18 +991,13 @@ enum class ServerID : int {
 	Tunare = 140,
 	Xegony = 144,
 	Zek = 147,
-	Trakanon = 155,
-	Fippy = 156,
-	Vulak = 157,
 	Vox = 158,
 	Ragefire = 159,
-	Lockjaw = 160,
 	Phinigel = 161,
-	Brekt = 162,
 	Mayong = 163,
 	Rizlona = 169,
 
-	NumServers = 24,
+	NumServers = 19,
 	Invalid = -1,
 };
 

@@ -122,6 +122,10 @@
     <ClInclude Include="Spells.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="UIHelpers.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="eqlib.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp" />

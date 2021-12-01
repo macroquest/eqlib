@@ -1122,12 +1122,32 @@ public:
 /*0x1334*/
 };
 
+enum LootFilterOp
+{
+	LootFilterOp_Load = 0,
+	LootFilterOp_Merge = 1,
+	LootFilterOp_Replace = 2,
+};
+
+enum LootFilterType
+{
+	LootFilterType_AutoRoll = 0,
+	LootFilterType_AlwaysNeed,
+	LootFilterType_AlwaysGreed,
+	LootFilterType_NeverLoot,
+
+	LootFilterType_Max,
+};
+
+inline int LootFilterBit(LootFilterType type) { return 1 << type; }
+
+
 struct [[offsetcomments]] ItemFilterData
 {
 /*0x00*/ int           Types;
 /*0x04*/ int           ID;
 /*0x08*/ int           Icon;
-/*0x0c*/ char          Name[0x40];
+/*0x0c*/ char          Name[ITEM_NAME_LEN];
 /*0x4c*/
 };
 
@@ -1136,8 +1156,8 @@ class LootFiltersManager
 public:
 	EQLIB_OBJECT bool AddItemLootFilter(int ItemID, int IconID, const char* ItemName, int FilterTypes, bool bFromFile = false);
 	EQLIB_OBJECT const ItemFilterData* GetItemFilterData(int ItemID);
-	EQLIB_OBJECT bool RemoveItemLootFilter(int ItemID, int FilterTypes);
-	EQLIB_OBJECT bool SetItemLootFilter(int ItemID, int IconID, const char* ItemName, int FilterTypes, bool bKeepRndSetting, bool bScrollToIt);
+	EQLIB_OBJECT bool RemoveItemLootFilter(int ItemID, int FilterTypes = 0);
+	EQLIB_OBJECT bool SetItemLootFilter(int ItemID, int IconID, const char* ItemName, int FilterTypes, bool bKeepRndSetting = false, bool bScrollToIt = false);
 };
 
 

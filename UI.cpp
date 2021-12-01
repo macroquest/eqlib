@@ -1972,20 +1972,8 @@ FUNCTION_AT_ADDRESS(void CItemDisplayWnd::RemoveAugmentRequest(int AugSlot), CIt
 #ifdef CItemDisplayWnd__RequestConvertItem_x
 FUNCTION_AT_ADDRESS(void CItemDisplayWnd::RequestConvertItem(), CItemDisplayWnd__RequestConvertItem);
 #endif
-#ifdef CItemDisplayWnd__CItemDisplayWnd_x
-//CONSTRUCTOR_AT_ADDRESS(CItemDisplayWnd::CItemDisplayWnd(CXWnd*), CItemDisplayWnd__CItemDisplayWnd);
-#endif
-#ifdef CItemDisplayWnd__dCItemDisplayWnd_x
-//FUNCTION_AT_ADDRESS(CItemDisplayWnd::~CItemDisplayWnd(), CItemDisplayWnd__dCItemDisplayWnd);
-#endif
 #ifdef CItemDisplayWnd__SetItem_x
 FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetItem(const ItemPtr& pItem, int flags), CItemDisplayWnd__SetItem);
-#endif
-#ifdef CItemDisplayWnd__AboutToShow_x
-FUNCTION_AT_ADDRESS(bool CItemDisplayWnd::AboutToShow(), CItemDisplayWnd__AboutToShow);
-#endif
-#ifdef CItemDisplayWnd__WndNotification_x
-FUNCTION_AT_ADDRESS(int CItemDisplayWnd::WndNotification(CXWnd*, uint32_t, void*), CItemDisplayWnd__WndNotification);
 #endif
 #ifdef CItemDisplayWnd__SetItemText_x
 FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetItemText(char*), CItemDisplayWnd__SetItemText);
@@ -2008,9 +1996,9 @@ FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateModString(EQ_Equipment*, int, i
 #ifdef CItemDisplayWnd__CreateEquipmentStatusString_x
 FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateEquipmentStatusString(const ItemPtr&), CItemDisplayWnd__CreateEquipmentStatusString);
 #endif
-#ifdef CItemDisplayWnd__SetSpell_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetSpell(int SpellID, bool HasSpellDescr, int), CItemDisplayWnd__SetSpell);
-#endif
+
+FUNCTION_AT_ADDRESS(void CSpellDisplayWnd::SetSpell(int SpellID, bool HasSpellDescr, int), CSpellDisplayWnd__SetSpell);
+FUNCTION_AT_ADDRESS(void CSpellDisplayWnd::UpdateStrings(), CSpellDisplayWnd__UpdateStrings);
 
 //============================================================================
 // CKeyRingWnd
@@ -2149,9 +2137,9 @@ FUNCTION_AT_ADDRESS(bool MapViewMap::DrawClippedLine(struct T3D_XYZ*, struct T3D
 #ifdef MapViewMap__Save_x
 FUNCTION_AT_ADDRESS(void MapViewMap::Save(char*), MapViewMap__Save);
 #endif
-#ifdef MapViewMap__SaveEx_x
-FUNCTION_AT_ADDRESS(void MapViewMap::SaveEx(char*, int), MapViewMap__SaveEx);
-#endif
+//#ifdef MapViewMap__SaveEx_x
+//FUNCTION_AT_ADDRESS(void MapViewMap::SaveEx(char*, int), MapViewMap__SaveEx);
+//#endif
 #ifdef MapViewMap__Load_x
 FUNCTION_AT_ADDRESS(void MapViewMap::Load(char*), MapViewMap__Load);
 #endif
@@ -3082,7 +3070,7 @@ void CascadeItemCommand::ExecuteCommand()
 //============================================================================
 
 // CWndDisplayManager
-FUNCTION_AT_ADDRESS(int CWndDisplayManager::FindWindow(bool bNewWnd), CWndDisplayManager__FindWindowA);
+FUNCTION_AT_ADDRESS(int CWndDisplayManager::FindWindow(bool bNewWnd), CWndDisplayManager__FindWindow);
 
 // CItemDisplayManager
 FUNCTION_AT_ADDRESS(int CItemDisplayManager::CreateWindowInstance(), CItemDisplayManager__CreateWindowInstance);

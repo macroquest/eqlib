@@ -1164,7 +1164,9 @@ enum XTargetTypes
 	XTARGET_MY_PET,
 	XTARGET_MY_PET_TARGET,
 	XTARGET_MY_MERCENARY,
-	XTARGET_MY_MERCENTARY_TARGET
+	XTARGET_MY_MERCENARY_TARGET,
+
+	XTARGET_MY_MERCENTARY_TARGET DEPRECATE("XTARGET_MY_MERCENTARY_TARGET has a typo, use XTARGET_MY_MERCENARY_TARGET instead.") = XTARGET_MY_MERCENARY_TARGET,
 };
 
 inline namespace deprecated {
@@ -1260,7 +1262,7 @@ struct [[offsetcomments]] EQLogin
 /*0x6b4*/ char        station_name[32];
 };
 
-constexpr uint32_t EQ_ASSIST          = 0x5842;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+constexpr uint32_t EQ_ASSIST          = 0x591A;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
 
 // FIXME: Find a place for this
 constexpr uint32_t EQ_LoadingS__ArraySize = 0x5a;      // EQ_LoadingS__SetProgressBar_x+76

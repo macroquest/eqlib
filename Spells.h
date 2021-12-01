@@ -28,19 +28,6 @@ class PlayerZoneClient;
 // Spell Cache
 //============================================================================
 
-enum ItemSpellTypes
-{
-	eActivatableSpell = 0,
-	eProcSpell = 1,
-	eWornSpell = 2,
-	eFocusSpell = 3,
-	eScrollSpell = 4,
-	eFocus2Spell = 5,
-	eMountSpell = 6,
-	eIllusionSpell = 7,
-	eFamiliarSpell = 8,
-};
-
 // EQ Spell "Affect"
 // http://everquest.fanra.info/wiki/SPA_list
 enum eEQSPA
@@ -910,7 +897,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x20c :: 2021-09-07 (test) @ 0x5A2C39
+// @sizeof(EQ_Spell) == 0x20c :: 2021-11-12 (live) @ 0x5A2899
 constexpr size_t EQ_Spell_size = 0x20c;
 
 class [[offsetcomments]] EQ_Spell
@@ -930,7 +917,7 @@ public:
 	EQLIB_OBJECT static bool IsSPAStacking(int Spa);
 	EQLIB_OBJECT static bool IsSPAIgnoredByStacking(int Spa);
 
-	EQLIB_OBJECT bool IsNoDispell() const { return NoDisspell; }
+	EQLIB_OBJECT bool IsNoDispell() const { return NoDispell; }
 	EQLIB_OBJECT bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
 	EQLIB_OBJECT int GetNoOverwrite() const { return NoOverwrite; }
 	EQLIB_OBJECT bool IsShortEffectDuration() const { return DurationWindow; }
@@ -1013,7 +1000,7 @@ public:
 /*0x064*/ int                  NumEffects = 0;
 /*0x068*/ int                  DescriptionIndex = 0;
 /*0x06c*/ int                  ResistAdj = 0;
-/*0x070*/ int                  Diety = 0;
+/*0x070*/ int                  Deity = 0;
 /*0x074*/ int                  spaindex = 0;
 /*0x078*/ int                  SpellAnim = 0;
 /*0x07c*/ int                  SpellIcon = 0;
@@ -1021,8 +1008,8 @@ public:
 /*0x084*/ int                  NPCUsefulness = 0;
 /*0x088*/ int                  ID = 0;
 /*0x08c*/ int                  Autocast = 0;                  // SpellID of spell to instacast on caster when current spell lands on target
-/*0x090*/ int                  Category = 0;                  // Unknown144 from lucy
-/*0x094*/ int                  Subcategory = 0;               // Subcat to Category. Unknown145 from lucy
+/*0x090*/ int                  Category = 0;
+/*0x094*/ int                  Subcategory = 0;
 /*0x098*/ int                  Subcategory2 = 0;
 /*0x09c*/ int                  HateMod = 0;                   // Additional hate
 /*0x0a0*/ int                  ResistPerLevel = 0;
@@ -1030,7 +1017,7 @@ public:
 /*0x0a8*/ int                  EnduranceCost = 0;             // CA Endurance Cost
 /*0x0ac*/ int                  EnduranceValue = 0;            // Unsure
 /*0x0b0*/ int                  ReuseTimerIndex = 0;           // ID of combat timer, i think.
-/*0x0b4*/ int                  EndurUpkeep = 0;
+/*0x0b4*/ int                  EnduranceUpkeep = 0;
 /*0x0b8*/ int                  HateGenerated = 0;             // Hate override
 /*0x0bc*/ int                  HitCountType = 0;
 /*0x0c0*/ int                  HitCount = 0;
@@ -1040,14 +1027,14 @@ public:
 /*0x0d0*/ int                  PvPCalc = 0;
 /*0x0d4*/ int                  PvPResistCap = 0;
 /*0x0d8*/ uint32_t             PvPDuration = 0;               // DurationType for PVP
-/*0x0dc*/ uint32_t             PvPDurationValue1 = 0;         // DurationValue1 for PVP
-/*0x0e0*/ int                  PCNPCOnlyFlag = 0;             // no idea
+/*0x0dc*/ uint32_t             PvPDurationCap = 0;
+/*0x0e0*/ int                  PCNPCOnlyFlag = 0;
 /*0x0e4*/ int                  NPCMemCategory = 0;
 /*0x0e8*/ int                  SpellGroup = 0;
-/*0x0ec*/ int                  SpellSubGroup = 0;             // unknown237 on Lucy it is checked at 0x76FE18 in jun 11 2014 and if 0 will ask if we want to replace our spell with a rk. x version
-/*0x0f0*/ int                  SpellRank = 0;                 // Unknown209 on Lucy jun 11 2014 0x76FEE0 Original = 1 , Rk. II = 5 , Rk. III = 10 , I suppose if they add Rk. IV it will be 15 and so on
-/*0x0f4*/ int                  SpellClass = 0;                // Unknown222 from Lucy
-/*0x0f8*/ int                  SpellSubClass = 0;             // Unknown223 from Lucy
+/*0x0ec*/ int                  SpellSubGroup = 0;
+/*0x0f0*/ int                  SpellRank = 0;
+/*0x0f4*/ int                  SpellClass = 0;
+/*0x0f8*/ int                  SpellSubClass = 0;
 /*0x0fc*/ int                  SpellReqAssociationID = 0;
 /*0x100*/ int                  CasterRequirementID = 0;
 /*0x104*/ int                  MaxResist = 0;
@@ -1065,7 +1052,7 @@ public:
 /*0x138*/ CVector2             DistanceModEnd = { 0, 0 };
 /*0x140*/ float                MinRange = 0.0f;
 /*0x144*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
-/*0x145*/ bool                 Feedbackable = false;          // nothing uses this
+/*0x145*/ bool                 Feedbackable = false;
 /*0x146*/ bool                 Reflectable = false;
 /*0x147*/ bool                 NoPartialSave = false;
 /*0x148*/ bool                 NoResist = false;
@@ -1081,7 +1068,7 @@ public:
 /*0x152*/ bool                 OnlyDuringFastRegen = false;
 /*0x153*/ bool                 CastNotStanding = false;
 /*0x154*/ bool                 CanMGB = false;
-/*0x155*/ bool                 NoDisspell = false;
+/*0x155*/ bool                 NoDispell = false;
 /*0x156*/ bool                 AffectInanimate = false;       // ldon trap spells etc
 /*0x157*/ bool                 IsSkill = false;
 /*0x158*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
@@ -1089,7 +1076,7 @@ public:
 /*0x15a*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
 /*0x17e*/ uint8_t              LightType = 0;
 /*0x17f*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x180*/ uint8_t              Resist = 0;                    // see   4B0493 in apr 16 2018 exe        //0=un 1=mr 2=fr 3=cr 4=pr 5=dr 6=chromatic 7=prismatic 8=physical(skills,etc) 9=corruption
+/*0x180*/ uint8_t              Resist = 0;                    // enum eResistType
 /*0x181*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
 /*0x182*/ uint8_t              CastDifficulty = 0;
 /*0x183*/ uint8_t              Skill = 0;
@@ -1121,6 +1108,11 @@ public:
 /*0x207*/ uint8_t              CRC32Marker = 0;
 /*0x208*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
 /*0x20c*/
+
+	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")
+	ALT_MEMBER_ALIAS_DEPRECATED(int, EnduranceUpkeep, EndurUpkeep, "EndurUpkeep has been replaced with EnduranceUpkeep.")
+	ALT_MEMBER_ALIAS_DEPRECATED(uint32_t, PvPDurationCap, PvPDurationValue1, "PvPDurationValue1 has been replaced with PvPDurationCap")
+	ALT_MEMBER_ALIAS_DEPRECATED(bool, NoDispell, NoDisspell, "NoDisspell is misspelled, use IsNoDispell() instead")
 
 	// Currently necessary because of MQ2DataTypes
 	EQLIB_OBJECT EQ_Spell()
@@ -1289,21 +1281,20 @@ struct [[offsetcomments]] StackingGroupData
 constexpr int TOTAL_SPELL_COUNT = 66000;           // # of spells allocated in memory (09/07/2021 test 6C944E)
 constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocated in mem (09/07/2021 test 6C948E)
 
-// really would like to get this to work and align but its kinda complicated, maybe another day.
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
 /*0x00014*/ int            SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x40754*/ EQ_Spell*      MissingSpell;                                 // 0x40754
-/*0x40758*/ SPELLCALCINFO* MissingSpellAffect;                           // 0x40758
-/*0x4075c*/ SPELLCALCINFO* MissingSpellAffectAC;                         // 0x4075c
-/*0x40760*/ int            MissingSpellCrc32;                            // 0x40760
-/*0x40764*/ int            SpellFileCRC;                                 // 0x40764
-/*0x40768*/ int            SpellAssocFileCRC;                            // 0x40768
-/*0x4076c*/ int            SpellStackingFileCRC;                         // 0x4076c
-/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;          // 0x40770
-/*0x41950*/ HashTable<int, int, ResizePolicyNoShrink> SpellGroups;       // 0x41950
-/*0x41960*/ // 41960
+/*0x40754*/ EQ_Spell*      MissingSpell;
+/*0x40758*/ SPELLCALCINFO* MissingSpellAffect;
+/*0x4075c*/ SPELLCALCINFO* MissingSpellAffectAC;
+/*0x40760*/ int            MissingSpellCrc32;
+/*0x40764*/ int            SpellFileCRC;
+/*0x40768*/ int            SpellAssocFileCRC;
+/*0x4076c*/ int            SpellStackingFileCRC;
+/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;
+/*0x41950*/ HashTable<int, int> SpellGroups;
+/*0x41960*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1311,7 +1302,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x1EF470 :: 2021-09-07 (test) @ 0x626A24
+// @sizeof(ClientSpellManager) == 0x1EF470 :: 2021-10-22 (live) @ 0x625EE4
 constexpr size_t ClientSpellManager_size = 0x1EF470;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager

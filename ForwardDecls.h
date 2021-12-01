@@ -220,6 +220,7 @@ class CSliderTemplate;
 class CSliderWnd;
 class CSocialEditWnd;
 class CSpellBookWnd;
+class CSpellDisplayManager;
 class CSpellGemDrawTemplate;
 class CSpellGemTemplate;
 class CSpellGemWnd;
@@ -379,6 +380,7 @@ struct MercenaryInfo;
 using ZONEINFO = zoneHeader;
 using CChatService = UniversalChatProxy;
 using EVERQUEST = CEverQuest;
+using CPopDialogWnd = CConfirmationDialog;
 
 class PcClient;
 using CHARINFO = PcClient;
