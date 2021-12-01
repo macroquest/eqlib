@@ -1407,7 +1407,7 @@ public:
 	ALT_MEMBER_GETTER(int, GoodPointsAvailable, RadiantCrystals);
 	ALT_MEMBER_GETTER(int, EvilPointsAvailable, EbonCrystals);
 	ALT_MEMBER_GETTER(__time32_t, CreationTime, CharCreationTime);
-	ALT_MEMBER_GETTER(int, TrophyBenefitTimer, TributeTimer);
+	ALT_MEMBER_GETTER(int, BenefitTimer, TributeTimer);
 };
 
 class DebugText
