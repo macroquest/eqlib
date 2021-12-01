@@ -1074,6 +1074,8 @@ ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
 		return FamiliarKeyRingItems;
 	if (type == eHeroForge)
 		return HeroForgeKeyRingItems;
+	if (type == eTeleportation)
+		return TeleportationKeyRingItems;
 
 	return MountKeyRingItems;
 }

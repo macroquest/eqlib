@@ -414,10 +414,11 @@ enum KeyRingType
 	eIllusion = 1,
 	eFamiliar = 2,
 	eHeroForge = 3,
+	eTeleportation = 4,
 
-	eKeyRingTypeCount = 4,
+	eKeyRingTypeCount = 5,
 	eKeyRingTypeFirst = eMount,
-	eKeyRingTypeLast = eHeroForge,
+	eKeyRingTypeLast = eTeleportation,
 };
 enum UIType;
 
