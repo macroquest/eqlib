@@ -1390,8 +1390,8 @@ public:
 /*0x2400*/ int                                   LastFellowshipJoin;
 /*0x2408*/ int64_t                               Vitality;
 /*0x2410*/ int64_t                               AAVitality;
-/*0x2418*/ int                                   FreeToPlayUnlocks[30];
-/*0x2490*/ // end PcBase / start CharacterZoneClient
+/*0x2418*/ int                                   FreeToPlayUnlocks[31];
+/*0x2494*/ // end PcBase / start CharacterZoneClient
 
 	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
@@ -1423,14 +1423,14 @@ class [[offsetcomments]] PcZoneClient : public PcBase, public CharacterZoneClien
 {
 /*0x285c*/ // vftable
 public:
-/*0x2858*/ uint32_t                              Flags[3]; // 0x2860
-/*0x2864*/ uint32_t                              TransfersReceived;
-/*0x2868*/ int                                   LastLanguageSpoken;
-/*0x286c*/ int                                   CurPowerSourceDrain;
-/*0x2870*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
-/*0x2880*/ uint32_t                              MomentumBalance;
-/*0x2884*/ uint32_t                              LoyaltyRewardBalance;
-/*0x2888*/
+/*0x2860*/ uint32_t                              Flags[3];
+/*0x286c*/ uint32_t                              TransfersReceived;
+/*0x2870*/ int                                   LastLanguageSpoken;
+/*0x2874*/ int                                   CurPowerSourceDrain;
+/*0x2878*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
+/*0x2888*/ uint32_t                              MomentumBalance;
+/*0x288c*/ uint32_t                              LoyaltyRewardBalance;
+/*0x2890*/
 
 	// Verified
 	EQLIB_OBJECT void DestroyHeldItemOrMoney();
@@ -1462,21 +1462,20 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2888*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
-/*0x288c*/ bool                                  InCombat;
-/*0x2890*/ uint32_t                              Downtime;
-/*0x2894*/ uint32_t                              DowntimeStart;
-/*0x2898*/ bool                                  bOverrideAvatarProximity;
-/*0x289c*/ CGroup*                               Group;
-/*0x28a0*/ bool                                  bIAmCreatingGroup;
-/*0x28a4*/ ItemArray                             ItemsPendingID;
-/*0x28b0*/ eParcelStatus                         ParcelStatus;
-/*0x28b4*/ int                                   SubscriptionDays;
-/*0x28b8*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
-/*0x28c2*/ bool                                  bPickZoneFewest;
-/*0x28c4*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
-/*0x28c8*/ int                                   Unknown0x28E0;
-/*0x28cc*/
+/*0x2890*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
+/*0x2894*/ bool                                  InCombat;
+/*0x2898*/ uint32_t                              Downtime;
+/*0x289c*/ uint32_t                              DowntimeStart;
+/*0x28a0*/ bool                                  bOverrideAvatarProximity;
+/*0x28a4*/ CGroup*                               Group;
+/*0x28a8*/ bool                                  bIAmCreatingGroup;
+/*0x28ac*/ ItemArray                             ItemsPendingID;
+/*0x28b8*/ eParcelStatus                         ParcelStatus;
+/*0x28bc*/ int                                   SubscriptionDays;
+/*0x28c0*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
+/*0x28ca*/ bool                                  bPickZoneFewest;
+/*0x28cc*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
+/*0x28d0*/
 
 	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);  // cannot be null
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);

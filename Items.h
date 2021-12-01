@@ -1409,8 +1409,8 @@ struct [[offsetcomments]] INVENTORY
 /*0x54*/ ItemClient* PowerSource;
 /*0x58*/ ItemClient* Ammo;
 /*0x5c*/ ItemClient* Pack[NUM_BAG_SLOTS];
-/*0x84*/ ItemClient* Cursor;
-/*0x88*/
+/*0x8c*/ ItemClient* Cursor;
+/*0x90*/
 };
 
 using PINVENTORY DEPRECATE("Use INVENTORY* instead of PINVENTORY") = INVENTORY*;
