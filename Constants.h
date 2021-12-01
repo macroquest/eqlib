@@ -547,6 +547,7 @@ enum EQExpansion
 	EQExpansionTBL = 25,
 	EQExpansionTOV = 26,
 	EQExpansionCOV = 27,
+	EQExpansionTOL = 28,
 };
 
 enum EQExpansionOwned
@@ -579,6 +580,7 @@ enum EQExpansionOwned
 	EQExpansionTBLOwned             = 0x01000000,
 	EQExpansionTOVOwned             = 0x02000000,
 	EQExpansionCOVOwned             = 0x04000000,
+	EQExpansionTOLOwned             = 0x08000000,
 
 	EQExpansionAllOwned             = 0x01ffffff,
 };
@@ -611,6 +613,7 @@ enum EQExpansionOwned
 #define EXPANSION_TBL                            EQ_EXPANSION(25)
 #define EXPANSION_TOV                            EQ_EXPANSION(26)
 #define EXPANSION_COV                            EQ_EXPANSION(27)
+#define EXPANSION_TOL                            EQ_EXPANSION(28)
 constexpr int NUM_EXPANSIONS = 27;
 
 // LDON Dungeon themes. This is a bitmask.
