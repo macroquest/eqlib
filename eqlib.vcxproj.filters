@@ -159,6 +159,9 @@
     <ClInclude Include="eqstd\xmemory.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
+    <ClInclude Include="Expansions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">
