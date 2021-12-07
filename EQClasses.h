@@ -1530,9 +1530,9 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// see SkillManager__IsValidSkillIndex_x (5C87C0) in eqgame dated 20140611
-// SkillManager__SkillManager
-// Actual Size: 0x2E9B2C see 571E37 in eqgame dated 20170411 test
+// @sizeof(SkillManager) == 0x35344C :: 2021-12-01 (live) @ 0x6133C2
+constexpr size_t SkillManager_size = 0x35344C;
+
 class [[offsetcomments]] SkillManager
 {
 public:
@@ -1547,21 +1547,23 @@ public:
 
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;
 /*0x000190*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x197e90*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x32fb90*/ char      SkillCapsFilename[MAX_PATH];
-/*0x32fc94*/ uint32_t  Unknown0x32FC94[0x4];
-/*0x32fca4*/ EQ_Skill* pSkill2[NUM_SKILLS]; // I'm absolutely not sure tha these are skills, but the struct fits here so... -eqmule
-/*0x32fe34*/ UINT      SkillLastUsed[NUM_SKILLS];
-/*0x32ffc4*/ UINT      SkillTimerDuration[NUM_SKILLS];
-/*0x330154*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
-/*0x33015c*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
-/*0x330164*/ bool      bSkillCanUse[NUM_SKILLS];
-/*0x3301c8*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
-/*0x3301cc*/
+/*0x1a97d0*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
+/*0x352e10*/ char      SkillCapsFilename[MAX_PATH];
+/*0x352f14*/ uint32_t  Unknown0x32FC94[0x4];
+/*0x352f24*/ EQ_Skill* pSkill2[NUM_SKILLS]; // I'm absolutely not sure tha these are skills, but the struct fits here so... -eqmule
+/*0x3530b4*/ UINT      SkillLastUsed[NUM_SKILLS];
+/*0x353244*/ UINT      SkillTimerDuration[NUM_SKILLS];
+/*0x3533d4*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
+/*0x3533dc*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
+/*0x3533e4*/ bool      bSkillCanUse[NUM_SKILLS];
+/*0x353448*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
+/*0x35344c*/
 };
 using CSkillMgr = SkillManager;
 using SKILLMGR = SkillManager;
 using PSKILLMGR = SkillManager*;
+
+SIZE_CHECK(SkillManager, SkillManager_size);
 
 // size 0x20 -- brainiac 11/14/2016
 struct [[offsetcomments]] tp_coords

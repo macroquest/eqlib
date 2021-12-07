@@ -4193,7 +4193,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0x638 :: 2021-11-30 (test) @ 0x7A11C0
+// @sizeof(CItemDisplayWnd) == 0x638 :: 2021-12-01 (live) @ 0x7A19E0
 constexpr size_t CItemDisplayWnd_size = 0x638;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4224,66 +4224,66 @@ public:
 	// data members
 
 	// todo: verify
-/*0x228*/ CStmlWnd*         Description;
-/*0x22c*/ CButtonWnd*       IconButton;
-/*0x230*/ CStmlWnd*         ItemLore;
-/*0x234*/ CTabWnd*          ItemDescriptionTabBox;
-/*0x238*/ CPageWnd*         ItemDescriptionTab;
-/*0x23c*/ CPageWnd*         ItemLoreTab;
-/*0x240*/ CSidlScreenWnd*   pAppearanceSocketScreen;
-/*0x244*/ CButtonWnd*       pAppearanceSocketItem;
-/*0x248*/ CButtonWnd*       pAppearanceSocketBuyButton;
-/*0x24c*/ CStmlWnd*         pAppearanceSocketDescription;
-/*0x250*/ CSidlScreenWnd*   pItemSocketScreen[6];
-/*0x268*/ CButtonWnd*       pItemSocketItemButton[6];
-/*0x280*/ CStmlWnd*         pItemSocketDescription[6];
-/*0x298*/ CXStr             ItemInfo;                 // this item is placable in yards, guild yards blah blah , This item can be used in tradeskills
-/*0x29c*/ CXStr             Unknown0x2ac;
-/*0x2a0*/ CXStr             Unknown0x2b0;
-/*0x2a4*/ CXStr             WindowTitle;
-/*0x2a8*/ CXStr             ItemAdvancedLoreText;
-/*0x2ac*/ CXStr             ItemMadeByText;
-/*0x2b0*/ CXStr             SolventText;
-/*0x2b4*/ CXStr             ItemInformationText;      // Item Information: Placing this augment into blah blah, this armor can only be used in blah blah
-/*0x2b8*/ ItemPtr           pItem;
-/*0x2bc*/ bool              bActiveItem;
-/*0x2bd*/ bool              bItemTextSet;
-/*0x2c0*/ CTextureAnimation* DragIcons;
-/*0x2c4*/ bool              bTaggable;
-/*0x2c5*/ bool              bFailed;
-/*0x2c8*/ unsigned int      TabCount;
-/*0x2cc*/ CLabel*           ModButtonLabel;
-/*0x2d0*/ CLabel*           RewardButtonLabel;
-/*0x2d4*/ CStmlWnd*         ConvertStml;
-/*0x2d8*/ CLabel*           MadeByLabel;
-/*0x2dc*/ CLabel*           CollectedLabel;
-/*0x2e0*/ CLabel*           ScribedLabel;
-/*0x2e4*/ int               Row;
-/*0x2e8*/ bool              bAntiTwink;
-/*0x2ec*/ CButtonWnd*       ModButton;
-/*0x2f0*/ CButtonWnd*       RewardButton;
-/*0x2f4*/ CButtonWnd*       PrintRealEstateItems;
-/*0x2f8*/ CButtonWnd*       ConvertButton;
-/*0x2fc*/ CButtonWnd*       FuseButton;
-/*0x300*/ bool              bCollected;
-/*0x301*/ bool              bCollectedReceived;
-/*0x304*/ int               Unknown0x0314;
-/*0x308*/ CXStr             ItemName;
-/*0x30c*/ bool              bScribed;
-/*0x30d*/ bool              bScribedReceived;
-/*0x30e*/ BYTE              Unknown0x31a[0x2ee];
-/*0x5fc*/ DWORD             Unknown0x60c;
-/*0x600*/ DWORD             Unknown0x610;
-/*0x604*/ DWORD             Unknown0x614;
-/*0x608*/ DWORD             Unknown0x618;
-/*0x60c*/ DWORD             Unknown0x61c;
-/*0x610*/ DWORD             Unknown0x620;
-/*0x614*/ DWORD             Unknown0x624;
-/*0x618*/ DWORD             Unknown0x628;
-/*0x61c*/ DWORD             Unknown0x62c;
-/*0x620*/ DWORD             Unknown0x630;
-/*0x624*/ uint32_t          ItemWndIndex;
-/*0x628*/
+/*0x238*/ CStmlWnd*         Description;
+/*0x23c*/ CButtonWnd*       IconButton;
+/*0x240*/ CStmlWnd*         ItemLore;
+/*0x244*/ CTabWnd*          ItemDescriptionTabBox;
+/*0x248*/ CPageWnd*         ItemDescriptionTab;
+/*0x24c*/ CPageWnd*         ItemLoreTab;
+/*0x250*/ CSidlScreenWnd*   pAppearanceSocketScreen;
+/*0x254*/ CButtonWnd*       pAppearanceSocketItem;
+/*0x258*/ CButtonWnd*       pAppearanceSocketBuyButton;
+/*0x25c*/ CStmlWnd*         pAppearanceSocketDescription;
+/*0x260*/ CSidlScreenWnd*   pItemSocketScreen[6];
+/*0x278*/ CButtonWnd*       pItemSocketItemButton[6];
+/*0x290*/ CStmlWnd*         pItemSocketDescription[6];
+/*0x2a8*/ CXStr             ItemInfo;                 // this item is placable in yards, guild yards blah blah , This item can be used in tradeskills
+/*0x2ac*/ CXStr             Unknown0x2ac;
+/*0x2b0*/ CXStr             Unknown0x2b0;
+/*0x2b4*/ CXStr             WindowTitle;
+/*0x2b8*/ CXStr             ItemAdvancedLoreText;
+/*0x2bc*/ CXStr             ItemMadeByText;
+/*0x2c0*/ CXStr             SolventText;
+/*0x2c4*/ CXStr             ItemInformationText;      // Item Information: Placing this augment into blah blah, this armor can only be used in blah blah
+/*0x2c8*/ ItemPtr           pItem;
+/*0x2cc*/ bool              bActiveItem;
+/*0x2cd*/ bool              bItemTextSet;
+/*0x2d0*/ CTextureAnimation* DragIcons;
+/*0x2d4*/ bool              bTaggable;
+/*0x2d5*/ bool              bFailed;
+/*0x2d8*/ unsigned int      TabCount;
+/*0x2dc*/ CLabel*           ModButtonLabel;
+/*0x2e0*/ CLabel*           RewardButtonLabel;
+/*0x2e4*/ CStmlWnd*         ConvertStml;
+/*0x2e8*/ CLabel*           MadeByLabel;
+/*0x2ec*/ CLabel*           CollectedLabel;
+/*0x2f0*/ CLabel*           ScribedLabel;
+/*0x2f4*/ int               Row;
+/*0x2f8*/ bool              bAntiTwink;
+/*0x2fc*/ CButtonWnd*       ModButton;
+/*0x300*/ CButtonWnd*       RewardButton;
+/*0x304*/ CButtonWnd*       PrintRealEstateItems;
+/*0x308*/ CButtonWnd*       ConvertButton;
+/*0x30c*/ CButtonWnd*       FuseButton;
+/*0x310*/ bool              bCollected;
+/*0x311*/ bool              bCollectedReceived;
+/*0x314*/ int               Unknown0x0314;
+/*0x318*/ CXStr             ItemName;
+/*0x31c*/ bool              bScribed;
+/*0x31d*/ bool              bScribedReceived;
+/*0x31e*/ BYTE              Unknown0x31a[0x2ee];
+/*0x60c*/ DWORD             Unknown0x60c;
+/*0x610*/ DWORD             Unknown0x610;
+/*0x614*/ DWORD             Unknown0x614;
+/*0x618*/ DWORD             Unknown0x618;
+/*0x61c*/ DWORD             Unknown0x61c;
+/*0x620*/ DWORD             Unknown0x620;
+/*0x624*/ DWORD             Unknown0x624;
+/*0x628*/ DWORD             Unknown0x628;
+/*0x62c*/ DWORD             Unknown0x62c;
+/*0x630*/ DWORD             Unknown0x630;
+/*0x634*/ uint32_t          ItemWndIndex;
+/*0x638*/
 };
 
 inline namespace deprecated {
@@ -4368,7 +4368,9 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x300 :: 2021-11-30 (test) @0 x56D20D
+// @sizeof(CKeyRingWnd) == 0x300 :: 2021-12-01 (live) @ 0x56D34C
+constexpr size_t CKeyRingWnd_size = 0x300;
+
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
@@ -4415,6 +4417,8 @@ public:
 /*0x2fc*/
 };
 
+SIZE_CHECK(CKeyRingWnd, CKeyRingWnd_size);
+
 //============================================================================
 // CLargeDialogWnd
 //============================================================================
@@ -4430,7 +4434,9 @@ public:
 // CLootWnd
 //============================================================================
 
-// @sizeof(CLootWnd) == 0x3b0 :: 2021-11-12 (live) @ 0x56D46A
+// @sizeof(CLootWnd) == 0x3b0 :: 2021-12-01 (live) @ 0x56D58A
+constexpr size_t CLootWnd_size = 0x3b0;
+
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -4492,6 +4498,8 @@ inline namespace deprecated {
 	using PEQLOOTWINDOW DEPRECATE("Use CLootWnd* instead of PEQLOOTWINDOW") = CLootWnd*;
 }
 
+SIZE_CHECK(CLootWnd, CLootWnd_size);
+
 //============================================================================
 // CMapViewWnd
 //============================================================================
@@ -4531,7 +4539,7 @@ using PMAPLINE = MAPLINE *;
 // pLines address = 0x254 + 0x035c = 0x05b0 (address of pMapViewMapVfTable)
 // MapViewMap_size: 0x660 - 0x378 = 0x2e8
 
-// @sizeof(MapViewMap) == 0x2e8 :: 2021-11-30 (test) @ 0x7BF1A7
+// @sizeof(MapViewMap) == 0x2e8 :: 2021-12-01 (live) @ 0x7BF9F7
 constexpr size_t MapViewMap_size = 0x2e8;
 
 class [[offsetcomments]] MapViewMap : public CSidlScreenWnd
@@ -4613,7 +4621,7 @@ public:
 
 SIZE_CHECK(MapViewMap, MapViewMap_size);
 
-// @sizeof(CMapViewWnd) == 0x660 :: 2021-11-30 (test) @ 0x56CC00
+// @sizeof(CMapViewWnd) == 0x660 :: 2021-12-01 (live) @ 0x56CD20
 constexpr size_t CMapViewWnd_size = 0x660;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
