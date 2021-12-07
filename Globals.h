@@ -1217,6 +1217,8 @@ EQLIB_VAR fGetLabelFromEQ      GetLabelFromEQ;
 
 EQLIB_VAR DWORD __ModuleList;
 
+EQLIB_VAR const char* szExpansions[NUM_EXPANSIONS + 1];
+
 //============================================================================
 // EQGraphicsDX9.dll Offsets
 //============================================================================

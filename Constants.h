@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include "BuildType.h"
 #include "Common.h"
 
 namespace eqlib {
@@ -518,99 +519,110 @@ constexpr int NUM_ITEM_SKILL_DMG_MOD = 9;  // the number of skill weapon mods
 
 enum EQExpansion
 {
-	EQExpansionNone = 0,
-	EQExpansionKunark = 1,
-	EQExpansionVelious = 2,
-	EQExpansionLuclin = 3,
-	EQExpansionPOP = 4,
-	EQExpansionYkesha = 5,
-	EQExpansionLDON = 6,
-	EQExpansionGates = 7,
-	EQExpansionOOW = 8,
-	EQExpansionDON = 9,
-	EQExpansionDODH = 10,
-	EQExpansionPOR = 11,
-	EQExpansionTSS = 12,
-	EQExpansionTBS = 13,
-	EQExpansionSOF = 14,
-	EQExpansionSOD = 15,
-	EQExpansionUF = 16,
-	EQExpansionHOT = 17,
-	EQExpansionVOA = 18,
-	EQExpansionROF = 19,
-	EQExpansionCOTF = 20,
-	EQExpansionTDS = 21,
-	EQExpansionTBM = 22,
-	EQExpansionEOK = 23,
-	EQExpansionROS = 24,
-	EQExpansionTBL = 25,
-	EQExpansionTOV = 26,
-	EQExpansionCOV = 27,
+	EQExpansionNone                 = EXPANSION_LEVEL_CLASSIC,
+	EQExpansionKunark               = EXPANSION_LEVEL_ROK,
+	EQExpansionVelious              = EXPANSION_LEVEL_SOV,
+	EQExpansionLuclin               = EXPANSION_LEVEL_SOL,
+	EQExpansionPOP                  = EXPANSION_LEVEL_POP,
+	EQExpansionYkesha               = EXPANSION_LEVEL_LOY,
+	EQExpansionLDON                 = EXPANSION_LEVEL_LDON,
+	EQExpansionGates                = EXPANSION_LEVEL_GOD,
+	EQExpansionOOW                  = EXPANSION_LEVEL_OOW,
+	EQExpansionDON                  = EXPANSION_LEVEL_DON,
+	EQExpansionDODH                 = EXPANSION_LEVEL_DODH,
+	EQExpansionPOR                  = EXPANSION_LEVEL_POR,
+	EQExpansionTSS                  = EXPANSION_LEVEL_TSS,
+	EQExpansionTBS                  = EXPANSION_LEVEL_TBS,
+	EQExpansionSOF                  = EXPANSION_LEVEL_SOF,
+	EQExpansionSOD                  = EXPANSION_LEVEL_SOD,
+	EQExpansionUF                   = EXPANSION_LEVEL_UF,
+	EQExpansionHOT                  = EXPANSION_LEVEL_HOT,
+	EQExpansionVOA                  = EXPANSION_LEVEL_VOA,
+	EQExpansionROF                  = EXPANSION_LEVEL_ROF,
+	EQExpansionCOTF                 = EXPANSION_LEVEL_COTF,
+	EQExpansionTDS                  = EXPANSION_LEVEL_TDS,
+	EQExpansionTBM                  = EXPANSION_LEVEL_TBM,
+	EQExpansionEOK                  = EXPANSION_LEVEL_EOK,
+	EQExpansionROS                  = EXPANSION_LEVEL_ROS,
+	EQExpansionTBL                  = EXPANSION_LEVEL_TBL,
+	EQExpansionTOV                  = EXPANSION_LEVEL_TOV,
+	EQExpansionCOV                  = EXPANSION_LEVEL_COV,
+	EQExpansionTOL                  = EXPANSION_LEVEL_TOL,
 };
 
+#define EQ_EXPANSION(x)             (1 << (x - 1))
+
+// These macros define the bit mask representing expansion flags, often used to determine
+// expansion ownership or requirements
+#define EXPANSION_RoK               EQ_EXPANSION(EXPANSION_LEVEL_ROK)
+#define EXPANSION_SoV               EQ_EXPANSION(EXPANSION_LEVEL_SOV)
+#define EXPANSION_SoL               EQ_EXPANSION(EXPANSION_LEVEL_SOL)
+#define EXPANSION_PoP               EQ_EXPANSION(EXPANSION_LEVEL_POP)
+#define EXPANSION_LoY               EQ_EXPANSION(EXPANSION_LEVEL_LOY)
+#define EXPANSION_LDoN              EQ_EXPANSION(EXPANSION_LEVEL_LDON)
+#define EXPANSION_GoD               EQ_EXPANSION(EXPANSION_LEVEL_GOD)
+#define EXPANSION_OoW               EQ_EXPANSION(EXPANSION_LEVEL_OOW)
+#define EXPANSION_DoN               EQ_EXPANSION(EXPANSION_LEVEL_DON)
+#define EXPANSION_DoD               EQ_EXPANSION(EXPANSION_LEVEL_DODH)
+#define EXPANSION_PoR               EQ_EXPANSION(EXPANSION_LEVEL_POR)
+#define EXPANSION_TSS               EQ_EXPANSION(EXPANSION_LEVEL_TSS)
+#define EXPANSION_TBS               EQ_EXPANSION(EXPANSION_LEVEL_TBS)
+#define EXPANSION_SoF               EQ_EXPANSION(EXPANSION_LEVEL_SOF)
+#define EXPANSION_SoD               EQ_EXPANSION(EXPANSION_LEVEL_SOD)
+#define EXPANSION_UFT               EQ_EXPANSION(EXPANSION_LEVEL_UF)
+#define EXPANSION_HoT               EQ_EXPANSION(EXPANSION_LEVEL_HOT)
+#define EXPANSION_VoA               EQ_EXPANSION(EXPANSION_LEVEL_VOA)
+#define EXPANSION_RoF               EQ_EXPANSION(EXPANSION_LEVEL_ROF)
+#define EXPANSION_CotF              EQ_EXPANSION(EXPANSION_LEVEL_COTF)
+#define EXPANSION_TDS               EQ_EXPANSION(EXPANSION_LEVEL_TDS)
+#define EXPANSION_TBM               EQ_EXPANSION(EXPANSION_LEVEL_TBM)
+#define EXPANSION_EoK               EQ_EXPANSION(EXPANSION_LEVEL_EOK)
+#define EXPANSION_RoS               EQ_EXPANSION(EXPANSION_LEVEL_ROS)
+#define EXPANSION_TBL               EQ_EXPANSION(EXPANSION_LEVEL_TBL)
+#define EXPANSION_TOV               EQ_EXPANSION(EXPANSION_LEVEL_TOV)
+#define EXPANSION_COV               EQ_EXPANSION(EXPANSION_LEVEL_COV)
+#define EXPANSION_TOL               EQ_EXPANSION(EXPANSION_LEVEL_TOL)
+
+// Enumeration defining expansion bit mask representing expansion flags. Often used to
+// determine expansion ownership or requirements.
 enum EQExpansionOwned
 {
-	EQExpansionNoneOwned            = 0x00000000,
-	EQExpansionKunarkOwned          = 0x00000001,
-	EQExpansionVeliousOwned         = 0x00000002,
-	EQExpansionLuclinOwned          = 0x00000004,
-	EQExpansionPOPOwned             = 0x00000008,
-	EQExpansionYkeshaOwned          = 0x00000010,
-	EQExpansionLDONOwned            = 0x00000020,
-	EQExpansionGatesOwned           = 0x00000040,
-	EQExpansionOOWOwned             = 0x00000080,
-	EQExpansionDONOwned             = 0x00000100,
-	EQExpansionDODHOwned            = 0x00000200,
-	EQExpansionPOROwned             = 0x00000400,
-	EQExpansionTSSOwned             = 0x00000800,
-	EQExpansionTBSOwned             = 0x00001000,
-	EQExpansionSOFOwned             = 0x00002000,
-	EQExpansionSODOwned             = 0x00004000,
-	EQExpansionUFOwned              = 0x00008000,
-	EQExpansionHOTOwned             = 0x00010000,
-	EQExpansionVOAOwned             = 0x00020000,
-	EQExpansionROFOwned             = 0x00040000,
-	EQExpansionCOTFOwned            = 0x00080000,
-	EQExpansionTDSOwned             = 0x00100000,
-	EQExpansionTBMOwned             = 0x00200000,
-	EQExpansionEOKOwned             = 0x00400000,
-	EQExpansionROSOwned             = 0x00800000,
-	EQExpansionTBLOwned             = 0x01000000,
-	EQExpansionTOVOwned             = 0x02000000,
-	EQExpansionCOVOwned             = 0x04000000,
+	EQExpansionNoneOwned            = 0,
+	EQExpansionKunarkOwned          = EXPANSION_RoK,
+	EQExpansionVeliousOwned         = EXPANSION_SoV,
+	EQExpansionLuclinOwned          = EXPANSION_SoL,
+	EQExpansionPOPOwned             = EXPANSION_PoP,
+	EQExpansionYkeshaOwned          = EXPANSION_LoY,
+	EQExpansionLDONOwned            = EXPANSION_LDoN,
+	EQExpansionGatesOwned           = EXPANSION_GoD,
+	EQExpansionOOWOwned             = EXPANSION_OoW,
+	EQExpansionDONOwned             = EXPANSION_DoN,
+	EQExpansionDODHOwned            = EXPANSION_DoD,
+	EQExpansionPOROwned             = EXPANSION_PoR,
+	EQExpansionTSSOwned             = EXPANSION_TBS,
+	EQExpansionTBSOwned             = EXPANSION_TBS,
+	EQExpansionSOFOwned             = EXPANSION_SoF,
+	EQExpansionSODOwned             = EXPANSION_SoD,
+	EQExpansionUFOwned              = EXPANSION_UFT,
+	EQExpansionHOTOwned             = EXPANSION_HoT,
+	EQExpansionVOAOwned             = EXPANSION_VoA,
+	EQExpansionROFOwned             = EXPANSION_RoF,
+	EQExpansionCOTFOwned            = EXPANSION_CotF,
+	EQExpansionTDSOwned             = EXPANSION_TDS,
+	EQExpansionTBMOwned             = EXPANSION_TBM,
+	EQExpansionEOKOwned             = EXPANSION_EoK,
+	EQExpansionROSOwned             = EXPANSION_RoS,
+	EQExpansionTBLOwned             = EXPANSION_TBL,
+	EQExpansionTOVOwned             = EXPANSION_TOV,
+	EQExpansionCOVOwned             = EXPANSION_COV,
+	EQExpansionTOLOwned             = EXPANSION_TOL,
 
-	EQExpansionAllOwned             = 0x01ffffff,
+	// Mask representing all expansions
+	EQExpansionHighestOwnedPlusOne_,
+	EQExpansionAllOwned             = ((EQExpansionHighestOwnedPlusOne_ - 1) << 1) - 1,
 };
 
-#define EQ_EXPANSION(x)                          (1 << (x - 1))
-#define EXPANSION_RoK                            EQ_EXPANSION(1)
-#define EXPANSION_SoV                            EQ_EXPANSION(2)
-#define EXPANSION_SoL                            EQ_EXPANSION(3)
-#define EXPANSION_PoP                            EQ_EXPANSION(4)
-#define EXPANSION_LoY                            EQ_EXPANSION(5)
-#define EXPANSION_LDoN                           EQ_EXPANSION(6)
-#define EXPANSION_GoD                            EQ_EXPANSION(7)
-#define EXPANSION_OoW                            EQ_EXPANSION(8)
-#define EXPANSION_DoN                            EQ_EXPANSION(9)
-#define EXPANSION_DoD                            EQ_EXPANSION(10)
-#define EXPANSION_PoR                            EQ_EXPANSION(11)
-#define EXPANSION_TSS                            EQ_EXPANSION(12)
-#define EXPANSION_TBS                            EQ_EXPANSION(13)
-#define EXPANSION_SoF                            EQ_EXPANSION(14)
-#define EXPANSION_SoD                            EQ_EXPANSION(15)
-#define EXPANSION_UFT                            EQ_EXPANSION(16)
-#define EXPANSION_HoT                            EQ_EXPANSION(17)
-#define EXPANSION_VoA                            EQ_EXPANSION(18)
-#define EXPANSION_RoF                            EQ_EXPANSION(19)
-#define EXPANSION_CotF                           EQ_EXPANSION(20)
-#define EXPANSION_TDS                            EQ_EXPANSION(21)
-#define EXPANSION_TBM                            EQ_EXPANSION(22)
-#define EXPANSION_EoK                            EQ_EXPANSION(23)
-#define EXPANSION_RoS                            EQ_EXPANSION(24)
-#define EXPANSION_TBL                            EQ_EXPANSION(25)
-#define EXPANSION_TOV                            EQ_EXPANSION(26)
-#define EXPANSION_COV                            EQ_EXPANSION(27)
-constexpr int NUM_EXPANSIONS = 27;
+constexpr int NUM_EXPANSIONS = MQ_EXPANSION_LEVEL;
 
 // LDON Dungeon themes. This is a bitmask.
 constexpr int LDON_None = 0;

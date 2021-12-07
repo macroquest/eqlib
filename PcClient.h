@@ -651,18 +651,31 @@ public:
 /*0x1a0*/
 };
 
+// User owns the "Merchant" Perk which grants 2 additional inventory slots.
+constexpr int EQFeature_MerchantPerk = 2012274;
+
 struct [[offsetcomments]] ClaimData
 {
-/*0x00*/ int FeatureID;
-/*0x04*/ int Count;
+/*0x00*/ int featureId;
+/*0x04*/ int count;
 /*0x08*/
 };
 
 class [[offsetcomments]] ClaimDataCollection
 {
 public:
-/*0x00*/ ArrayClass<ClaimData> ClaimData;
+/*0x00*/ ArrayClass<ClaimData> claimData;
 /*0x10*/
+
+	bool CanConsumeFeature(int featureId)
+	{
+		for (int i = 0; i < claimData.GetCount(); ++i)
+		{
+			if (claimData[i].featureId == featureId)
+				return claimData[i].count > 0;
+		}
+		return false;
+	}
 };
 
 class [[offsetcomments]] MercenaryAbilityInfo
@@ -716,13 +729,50 @@ struct [[offsetcomments]] ItemContainingRealEstate
 
 enum GameFeatures
 {
-	eSpellRankFeature = 3
+	GameFeature_AA = 0,
+	GameFeature_Level = 1,
+	GameFeature_CharacterSlot = 2,
+	GameFeature_SpellRank = 3,
+	GameFeature_InventorySlots = 4,
+	GameFeature_Platinum = 5,
+	GameFeature_Mail = 6,
+	GameFeature_Parcel = 7,
+	GameFeature_Loyalty = 8,
+	GameFeature_Mercenary = 9,
+	GameFeature_Housing = 10,
+	GameFeature_SharedBank = 11,
+	GameFeature_Quests = 12,
+	GameFeature_CreateGuild = 13,
+	GameFeature_Bazaar = 14,
+	GameFeature_Barter = 15,
+	GameFeature_Chat = 16,
+	GameFeature_Petition = 17,
+	GameFeature_Advertising = 18,
+	GameFeature_UseItem = 19,
+	GameFeature_StartingCity = 20,
+	GameFeature_Ornament = 21,
+	GameFeature_HeroicCharacter = 22,
+	GameFeature_AutoGrantAA = 23,
+	GameFeature_MountKeyRingSlots = 24,
+	GameFeature_IllusionKeyRingSlots = 25,
+	GameFeature_FamiliarKeyRingSlots = 26,
+	GameFeature_FamiliarAutoLeave = 27,
+	GameFeature_HeroForgeKeyRingSlots = 28,
+	GameFeature_DragonHoardSlots = 29,
+#if IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
+	GameFeature_TeleportKeyRingSlots = 30,
+#endif
+
+	GameFeature_Max,
+	GameFeature_Invalid = -1,
+
+	eSpellRankFeature DEPRECATE("Use GameFeature_SpellRank instead of eSpellRankFeature") = GameFeature_SpellRank,
 };
 
 class IFreeToPlayInfo
 {
 public:
-	virtual int GetGameFeature(int feature) const = 0;
+	virtual int GetGameFeature(GameFeatures feature) const = 0;
 	virtual int GetMembershipLevel() const = 0;
 };
 

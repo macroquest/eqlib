@@ -14,4 +14,16 @@
 
 #pragma once
 
+#include "Expansions.h"
+
+// Defines the EverQuest build type (LIVE, TEST, etc)
 #define LIVE
+
+// Defines the expansion level of the build.
+#if defined(LIVE)
+#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_COV
+#elif defined(TEST)
+#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_TOL
+#endif
+
+#define IS_EXPANSION_LEVEL(x) (MQ_EXPANSION_LEVEL >= x)

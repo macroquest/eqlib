@@ -89,6 +89,7 @@
     <ClInclude Include="eqstd\map.h" />
     <ClInclude Include="eqstd\xmemory.h" />
     <ClInclude Include="eqstd\xtree.h" />
+    <ClInclude Include="Expansions.h" />
     <ClInclude Include="RealEstate.h" />
     <ClInclude Include="Requirements.h" />
     <ClInclude Include="WindowOverride.h" />
