@@ -4367,7 +4367,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// size 0x2E0 see 0x556DD3 in 2020-05-21 live
+// @sizeof(CKeyRingWnd) == 0x300 :: 2021-11-30 (test) @0 x56D20D
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
@@ -4384,32 +4384,34 @@ public:
 		ePageIllusionKeyRing = 1,
 		ePageFamiliarKeyRing = 2,
 		ePageHeroForgeKeyRing = 3,
+		ePageTeleportationItemsKeyRing = 4,
 
-		eNumPages = 4,
+		eNumPages,
 		ePageFirst = ePageMountKeyRing,
-		ePageLast = ePageHeroForgeKeyRing,
+		ePageLast = ePageTeleportationItemsKeyRing,
 	};
 
 /*0x23c*/ CListWnd*     pList[eNumPages];        // KRW_Mounts_List, KRW_Illusions_List, KRW_Familiars_List, KRW_HeroForge_List
-/*0x24c*/ CLabel*       pStatLabel[eNumPages];   // KRW_Mounts_StatsNameLabel, KRW_Illusions_StatNameLabel, KRW_Familiars_StatNameLabel,
-/*0x25c*/ CLabel*       pCountLabel[eNumPages];  // KRW_Mounts_CountLabel, KRW_Illusions_CountLabel, KRW_Familiars_CountLabel, KRW_HeroForge_CountLabel
-/*0x26c*/ CButtonWnd*   pBtnStat[eNumPages];     // KRW_Mounts_Selected, KRW_Illusions_Selected, KRW_Familiars_Selected, KRW_HeroForge_SlotButton
-/*0x27c*/ CButtonWnd*   pBtnSlot[eNumPages];     // KRW_Mounts_SlotButton, KRW_Illusions_SlotButton, KRW_Familiars_SlotButton
-/*0x28c*/ uint8_t       Unknown0x28c[0x18];
-/*0x2a4*/ CButtonWnd*   pItemBtnTemplate;                // KRW_ItemBtnTemplate
-/*0x2a8*/ CButtonWnd*   pBtnFamiliarLeave;               // KRW_Familiars_LeaveButton
-/*0x2ac*/ CButtonWnd*   pBtnFamiliarAutoLeave;           // KRW_Familiars_AutoLeaveButton
-/*0x2b0*/ CListWnd*     pKeysList;                       // KRW_Keys_List
-/*0x2b4*/ uint8_t       Unknown0x2b4[0x8];
-/*0x2bc*/ int           LastUpdateTime;                  // timestamp of when the current tab was last updated.
-/*0x2c0*/ CPageWnd*     pPageMounts;                     // KRW_Mounts_Page
-/*0x2c4*/ CPageWnd*     pPageIllusions;                  // KRW_Illusions_Page
-/*0x2c8*/ CPageWnd*     pPageFamiliars;                  // KRW_Familiars_Page
-/*0x2cc*/ CPageWnd*     pPageKeys;                       // KRW_Keys_Page
-/*0x2d0*/ CPageWnd*     pPageHeroForge;                  // KRW_HeroForge_Page
-/*0x2d4*/ CTabWnd*      pTabBox;                         // KRW_Subwindows
-/*0x2d8*/ KeyRingPages  CurrentPage;
-/*0x2dc*/
+/*0x250*/ CLabel*       pStatLabel[eNumPages];   // KRW_Mounts_StatsNameLabel, KRW_Illusions_StatNameLabel, KRW_Familiars_StatNameLabel,
+/*0x264*/ CLabel*       pCountLabel[eNumPages];  // KRW_Mounts_CountLabel, KRW_Illusions_CountLabel, KRW_Familiars_CountLabel, KRW_HeroForge_CountLabel
+/*0x278*/ CButtonWnd*   pBtnStat[eNumPages];     // KRW_Mounts_Selected, KRW_Illusions_Selected, KRW_Familiars_Selected, KRW_HeroForge_SlotButton
+/*0x28c*/ CButtonWnd*   pBtnSlot[eNumPages];     // KRW_Mounts_SlotButton, KRW_Illusions_SlotButton, KRW_Familiars_SlotButton
+/*0x2a0*/ uint8_t       Unknown0x28c[0x20];
+/*0x2c0*/ CButtonWnd*   pItemBtnTemplate;                // KRW_ItemBtnTemplate
+/*0x2c4*/ CButtonWnd*   pBtnFamiliarLeave;               // KRW_Familiars_LeaveButton
+/*0x2c8*/ CButtonWnd*   pBtnFamiliarAutoLeave;           // KRW_Familiars_AutoLeaveButton
+/*0x2cc*/ CListWnd*     pKeysList;                       // KRW_Keys_List
+/*0x2d0*/ uint8_t       Unknown0x2b4[0x8];
+/*0x2d8*/ int           LastUpdateTime;                  // timestamp of when the current tab was last updated.
+/*0x2dc*/ CPageWnd*     pPageMounts;                     // KRW_Mounts_Page
+/*0x2e0*/ CPageWnd*     pPageIllusions;                  // KRW_Illusions_Page
+/*0x2e4*/ CPageWnd*     pPageFamiliars;                  // KRW_Familiars_Page
+/*0x2e8*/ CPageWnd*     pPageKeys;                       // KRW_Keys_Page
+/*0x2ec*/ CPageWnd*     pPageHeroForge;                  // KRW_HeroForge_Page
+/*0x2f0*/ CPageWnd*     pPageTeleportation;              // KRW_TeleportationItems_Page
+/*0x2f4*/ CTabWnd*      pTabBox;                         // KRW_Subwindows
+/*0x2f8*/ KeyRingPages  CurrentPage;
+/*0x2fc*/
 };
 
 //============================================================================

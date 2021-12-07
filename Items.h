@@ -265,7 +265,8 @@ public:
 	{
 		return Location == eItemContainerMountKeyRingItems
 			|| Location == eItemContainerIllusionKeyRingItems
-			|| Location == eItemContainerFamiliarKeyRingItems;
+			|| Location == eItemContainerFamiliarKeyRingItems
+			|| Location == eItemContainerTeleportationKeyRingItems;
 	}
 
 	inline bool IsEquippedLocation() const
