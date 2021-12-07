@@ -1262,7 +1262,7 @@ struct [[offsetcomments]] EQLogin
 /*0x6b4*/ char        station_name[32];
 };
 
-constexpr uint32_t EQ_ASSIST          = 0x10F7;        // do_assist(PlayerClient *,char const *)+399 20160212 live (see 52C319)
+constexpr uint32_t EQ_ASSIST          = 0x7439;        // do_assist+37Ah 0x5E15DF @ 2021-11-30 (test)
 
 // FIXME: Find a place for this
 constexpr uint32_t EQ_LoadingS__ArraySize = 0x5a;      // EQ_LoadingS__SetProgressBar_x+76

@@ -857,7 +857,6 @@ EQLIB_VAR DWORD EQ_PC__GetCombatAbility;
 EQLIB_VAR DWORD EQ_PC__GetCombatAbilityTimer;
 EQLIB_VAR DWORD EQ_PC__GetItemContainedRealEstateIds;
 EQLIB_VAR DWORD EQ_PC__GetItemRecastTimer;
-EQLIB_VAR DWORD EQ_PC__GetKeyRingItems;
 EQLIB_VAR DWORD EQ_PC__GetNonArchivedOwnedRealEstates;
 EQLIB_VAR DWORD EQ_PC__GetPcZoneClient;
 EQLIB_VAR DWORD EQ_PC__HasLoreItem;
