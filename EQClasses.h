@@ -1530,7 +1530,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x35344C :: 2021-12-01 (live) @ 0x6133C2
+// @sizeof(SkillManager) == 0x35344C :: 2021-12-14 (test) @ 0x612C22
 constexpr size_t SkillManager_size = 0x35344C;
 
 class [[offsetcomments]] SkillManager
