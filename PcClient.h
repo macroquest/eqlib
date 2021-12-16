@@ -1535,8 +1535,8 @@ public:
 	EQLIB_OBJECT unsigned long GetConLevel(const PlayerClient*);
 	EQLIB_OBJECT bool HasLoreItem(const ItemPtr&, bool, bool, bool, bool);
 
-	virtual int GetGameFeature(int) const { return 0; }
-	virtual int GetMembershipLevel() const { return 0; }
+	virtual int GetGameFeature(GameFeatures) const override { return 0; }
+	virtual int GetMembershipLevel() const override { return 0; }
 
 	// Unverified
 	// TODO: Methods from EQ_PC: The ones we use need to be validated. Not all of them live in PcClient.
