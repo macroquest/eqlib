@@ -21,7 +21,7 @@
 
 // Defines the expansion level of the build.
 #if defined(LIVE)
-#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_COV
+#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_TOL
 #elif defined(TEST)
 #define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_TOL
 #endif

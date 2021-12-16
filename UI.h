@@ -4193,7 +4193,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0x638 :: 2021-11-30 (test) @ 0x7A11C0
+// @sizeof(CItemDisplayWnd) == 0x638 :: 2021-12-01 (live) @ 0x7A19E0
 constexpr size_t CItemDisplayWnd_size = 0x638;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4264,13 +4264,14 @@ public:
 /*0x300*/ CButtonWnd*       RewardButton;
 /*0x304*/ CButtonWnd*       PrintRealEstateItems;
 /*0x308*/ CButtonWnd*       ConvertButton;
-/*0x30c*/ bool              bCollected;
-/*0x30d*/ bool              bCollectedReceived;
-/*0x310*/ int               Unknown0x0310;
+/*0x30c*/ CButtonWnd*       FuseButton;
+/*0x310*/ bool              bCollected;
+/*0x311*/ bool              bCollectedReceived;
 /*0x314*/ int               Unknown0x0314;
-/*0x318*/ bool              bScribed;
-/*0x319*/ bool              bScribedReceived;
-/*0x31a*/ BYTE              Unknown0x31a[0x2f2];
+/*0x318*/ CXStr             ItemName;
+/*0x31c*/ bool              bScribed;
+/*0x31d*/ bool              bScribedReceived;
+/*0x31e*/ BYTE              Unknown0x31a[0x2ee];
 /*0x60c*/ DWORD             Unknown0x60c;
 /*0x610*/ DWORD             Unknown0x610;
 /*0x614*/ DWORD             Unknown0x614;
@@ -4367,7 +4368,9 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x300 :: 2021-11-30 (test) @0 x56D20D
+// @sizeof(CKeyRingWnd) == 0x300 :: 2021-12-01 (live) @ 0x56D34C
+constexpr size_t CKeyRingWnd_size = 0x300;
+
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
@@ -4414,6 +4417,8 @@ public:
 /*0x2fc*/
 };
 
+SIZE_CHECK(CKeyRingWnd, CKeyRingWnd_size);
+
 //============================================================================
 // CLargeDialogWnd
 //============================================================================
@@ -4429,7 +4434,9 @@ public:
 // CLootWnd
 //============================================================================
 
-// @sizeof(CLootWnd) == 0x3b0 :: 2021-11-12 (live) @ 0x56D46A
+// @sizeof(CLootWnd) == 0x3b0 :: 2021-12-01 (live) @ 0x56D58A
+constexpr size_t CLootWnd_size = 0x3b0;
+
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -4491,6 +4498,8 @@ inline namespace deprecated {
 	using PEQLOOTWINDOW DEPRECATE("Use CLootWnd* instead of PEQLOOTWINDOW") = CLootWnd*;
 }
 
+SIZE_CHECK(CLootWnd, CLootWnd_size);
+
 //============================================================================
 // CMapViewWnd
 //============================================================================
@@ -4530,7 +4539,7 @@ using PMAPLINE = MAPLINE *;
 // pLines address = 0x254 + 0x035c = 0x05b0 (address of pMapViewMapVfTable)
 // MapViewMap_size: 0x660 - 0x378 = 0x2e8
 
-// @sizeof(MapViewMap) == 0x2e8 :: 2021-11-30 (test) @ 0x7BF1A7
+// @sizeof(MapViewMap) == 0x2e8 :: 2021-12-01 (live) @ 0x7BF9F7
 constexpr size_t MapViewMap_size = 0x2e8;
 
 class [[offsetcomments]] MapViewMap : public CSidlScreenWnd
@@ -4612,7 +4621,7 @@ public:
 
 SIZE_CHECK(MapViewMap, MapViewMap_size);
 
-// @sizeof(CMapViewWnd) == 0x660 :: 2021-11-30 (test) @ 0x56CC00
+// @sizeof(CMapViewWnd) == 0x660 :: 2021-12-01 (live) @ 0x56CD20
 constexpr size_t CMapViewWnd_size = 0x660;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
