@@ -813,14 +813,9 @@ public:
 /*0xff8*/ // more here but i only need volume for now so...
 };
 
-// Size is 0xe0 see 54933E in dec 13 2016 live - eqmule
-// This is actually EQSwitch
 class [[offsetcomments]] EQSwitch
 {
 public:
-	//EQLIB_OBJECT EQSwitch(char*, bool);
-	//EQLIB_OBJECT ~EQSwitch();
-
 	EQLIB_OBJECT float GetCustomMoveDistance();
 	EQLIB_OBJECT float TopSpeed(float*);
 	EQLIB_OBJECT int GetSwitchDamage();
