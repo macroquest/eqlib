@@ -346,32 +346,32 @@ void ItemBase::UpdateItemDefinition()
 	Contents.SetSize(containerSlots);
 }
 
-#ifdef EQ_Item__CreateItemTagString_x
-FUNCTION_AT_ADDRESS(char* ItemBase::CreateItemTagString(char*, int, bool), EQ_Item__CreateItemTagString);
+#ifdef ItemBase__CreateItemTagString_x
+FUNCTION_AT_ADDRESS(char* ItemBase::CreateItemTagString(char*, int, bool), ItemBase__CreateItemTagString);
 #endif
-#ifdef EQ_Item__GetImageNum_x
-FUNCTION_AT_ADDRESS(int ItemBase::GetImageNum() const, EQ_Item__GetImageNum);
+#ifdef ItemBase__GetImageNum_x
+FUNCTION_AT_ADDRESS(int ItemBase::GetImageNum() const, ItemBase__GetImageNum);
 #endif
-#ifdef EQ_Item__CreateItemClient_x
-FUNCTION_AT_ADDRESS(ItemPtr ItemBase::CreateItemClient(CUnSerializeBuffer& buffer), EQ_Item__CreateItemClient);
+#ifdef ItemClient__CreateItemClient_x
+FUNCTION_AT_ADDRESS(ItemPtr ItemBase::CreateItemClient(CUnSerializeBuffer& buffer), ItemClient__CreateItemClient);
 #endif
-#ifdef EQ_Item__CanDrop_x
-FUNCTION_AT_ADDRESS(bool ItemBase::CanDrop(bool, bool, bool, bool) const, EQ_Item__CanDrop);
+#ifdef ItemClient__CanDrop_x
+FUNCTION_AT_ADDRESS(bool ItemBase::CanDrop(bool, bool, bool, bool) const, ItemClient__CanDrop);
 #endif
-#ifdef EQ_Item__GetItemValue_x
-FUNCTION_AT_ADDRESS(int ItemBase::GetItemValue(bool) const, EQ_Item__GetItemValue);
+#ifdef ItemBase__GetItemValue_x
+FUNCTION_AT_ADDRESS(int ItemBase::GetItemValue(bool) const, ItemBase__GetItemValue);
 #endif
-#ifdef EQ_Item__IsKeyRingItem_x
-FUNCTION_AT_ADDRESS(bool ItemBase::IsKeyRingItem(KeyRingType) const, EQ_Item__IsKeyRingItem);
+#ifdef ItemBase__IsKeyRingItem_x
+FUNCTION_AT_ADDRESS(bool ItemBase::IsKeyRingItem(KeyRingType) const, ItemBase__IsKeyRingItem);
 #endif
-#ifdef EQ_Item__CanGoInBag_x
-FUNCTION_AT_ADDRESS(bool ItemBase::CanGoInBag(const ItemPtr& pItem, int unused, bool mustbefalse) const, EQ_Item__CanGoInBag);
+#ifdef ItemClient__CanGoInBag_x
+FUNCTION_AT_ADDRESS(bool ItemBase::CanGoInBag(const ItemPtr& pItem, int unused, bool mustbefalse) const, ItemClient__CanGoInBag);
 #endif
-#ifdef EQ_Item__ValueSellMerchant_x
-FUNCTION_AT_ADDRESS(int ItemBase::ValueSellMerchant(float, int) const, EQ_Item__ValueSellMerchant);
+#ifdef ItemBase__ValueSellMerchant_x
+FUNCTION_AT_ADDRESS(int ItemBase::ValueSellMerchant(float, int) const, ItemBase__ValueSellMerchant);
 #endif
-#ifdef EQ_Item__CanGemFitInSlot_x
-FUNCTION_AT_ADDRESS(int ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, EQ_Item__CanGemFitInSlot);
+#ifdef ItemBase__CanGemFitInSlot_x
+FUNCTION_AT_ADDRESS(int ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, ItemBase__CanGemFitInSlot);
 #endif
 
 //----------------------------------------------------------------------------

@@ -1157,7 +1157,6 @@ public:
 	EQLIB_OBJECT int Wis();
 	EQLIB_OBJECT int const GetFocusConserveRegChance(const EQ_Spell*, EQ_Equipment**);
 	EQLIB_OBJECT long TotalOnPerson();
-	EQLIB_OBJECT static int normal_to_special(int);
 	EQLIB_OBJECT unsigned char BarbarianCanWorship(unsigned char, unsigned char);
 	EQLIB_OBJECT unsigned char BaseAttr(int, unsigned char);
 	EQLIB_OBJECT unsigned char CanDoubleAttack(PlayerZoneClient*, unsigned char);

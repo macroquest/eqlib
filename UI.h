@@ -238,8 +238,6 @@ public:
 // CButtonWnd
 //============================================================================
 
-// CButtonWnd__CButtonWnd_x
-// size is 0x278 see 91829A in eqgame.exe dated 18 Sep 2018 Live
 class [[offsetcomments]] CButtonWnd : public CXWnd
 {
 public:
@@ -1637,8 +1635,6 @@ class RefreshCorpseItemChoices;
 class CGroupMemberBase;
 struct RaidMember;
 
-// CAdvancedLootWnd__CAdvancedLootWnd_x
-// size 0x2f8 see 4CEDDD in Nov 02 2017 Beta
 class [[offsetcomments]] CAdvancedLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
 public:
@@ -1756,8 +1752,8 @@ public:
 /*0x2d4*/ CButtonWnd*  AutoButton;
 /*0x2d8*/ CButtonWnd*  AltStorageButton;
 /*0x2dc*/ CButtonWnd*  FindItemButton;
-/*0x2e0*/ int          BankSize;
-/*0x2e4*/ int          Unknown0x2F4;
+/*0x2e0*/ CButtonWnd*  DragonHoardButton;
+/*0x2e4*/ int          BankSize;
 /*0x2e8*/
 
 	CBankWnd(CXWnd*, CXStr);
@@ -1767,7 +1763,7 @@ public:
 	virtual int PostDraw() override;
 	virtual int WndNotification(CXWnd* pWnd, unsigned int uiMessage, void* pData) override;
 
-	EQLIB_OBJECT int GetNumBankSlots() const;
+	int GetNumBankSlots() const { return BankSize; }
 
 	// private
 	EQLIB_OBJECT long GetBankQtyFromCoinType(int);
@@ -3065,8 +3061,6 @@ public:
 // CFactionWnd
 //============================================================================
 
-// CFactionWnd__CFactionWnd_x aFactionwnd
-// CFactionWnd__size: 0x270 (see 550F54) in Dec 19 2019 Live
 class [[offsetcomments]] CFactionWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -5657,17 +5651,6 @@ inline namespace deprecated {
 	using CTEXTENTRYWND DEPRECATE("Use CTextEntryWnd instead of CTEXTENTRYWND") = CTextEntryWnd;
 	using PCTEXTENTRYWND DEPRECATE("Use CTextEntryWnd* instead of PCTEXTENTRYWND") = CTextEntryWnd*;
 }
-
-//============================================================================
-// CTimeLeftWnd
-//============================================================================
-
-class CTimeLeftWnd : public CLabel, public WndEventHandler
-{
-public:
-	CTimeLeftWnd(int timeLeft);
-	virtual ~CTimeLeftWnd();
-};
 
 //============================================================================
 // CTipWnd

@@ -357,7 +357,15 @@ public:
 		SoeUtil::Free(data);
 	}
 
-	EQLIB_OBJECT void Append(const char* c);
+	void Append(const char* c)
+	{
+		size_t clen = strlen(c);
+		size_t newSize = size() + clen;
+
+		ensure_writable(newSize + 1);
+		std::memcpy(m_data + size(), c, clen + 1);
+		m_length = newSize;
+	}
 
 	void clear()
 	{

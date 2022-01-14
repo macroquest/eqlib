@@ -289,9 +289,6 @@ const char* GetXtargetType(DWORD type)
 // BaseProfile
 //============================================================================
 
-//#ifdef BaseProfile__GetItemPossession_x
-//FUNCTION_AT_ADDRESS(ItemPtr BaseProfile::GetItemPossession(const ItemIndex& lIndex) const, BaseProfile__GetItemPossession);
-//#endif
 
 //============================================================================
 // CharacterBase
@@ -325,9 +322,6 @@ FUNCTION_AT_ADDRESS(EQ_Affect* CharacterZoneClient::FindAffectSlot(int, PlayerCl
 #endif
 #ifdef CharacterZoneClient__GetMaxEffects_x
 FUNCTION_AT_ADDRESS(unsigned char CharacterZoneClient::GetMaxEffects() const, CharacterZoneClient__GetMaxEffects);
-#endif
-#ifdef CharacterZoneClient__GetEffect_x
-//FUNCTION_AT_ADDRESS(EQ_Affect& CharacterZoneClient::GetEffect(int) const, CharacterZoneClient__GetEffect);
 #endif
 #ifdef CharacterZoneClient__GetOpenEffectSlot_x
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetOpenEffectSlot(bool, bool, int), CharacterZoneClient__GetOpenEffectSlot);
@@ -383,17 +377,11 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::Max_Mana(bool), CharacterZoneClient
 #ifdef CharacterZoneClient__Max_HP_x
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::Max_HP(int, bool), CharacterZoneClient__Max_HP);
 #endif
-#ifdef CharacterZoneClient__dCharacterZoneClient_x
-FUNCTION_AT_ADDRESS(CharacterZoneClient::~CharacterZoneClient(), CharacterZoneClient__dCharacterZoneClient);
-#endif
 #ifdef CharacterZoneClient__CharacterZoneClientResetAllMembers_x
 FUNCTION_AT_ADDRESS(void CharacterZoneClient::CharacterZoneClientResetAllMembers(), CharacterZoneClient__CharacterZoneClientResetAllMembers);
 #endif
 #ifdef CharacterZoneClient__ModifyCurHP_x
 FUNCTION_AT_ADDRESS(void CharacterZoneClient::ModifyCurHP(int32_t modification, PlayerZoneClient* resposibleplayer, int skilltype), CharacterZoneClient__ModifyCurHP);
-#endif
-#ifdef CharacterZoneClient__normal_to_special_x
-FUNCTION_AT_ADDRESS(int __cdecl CharacterZoneClient::normal_to_special(int), CharacterZoneClient__normal_to_special);
 #endif
 #ifdef CharacterZoneClient__IsSpellcaster_x
 FUNCTION_AT_ADDRESS(int CharacterZoneClient::IsSpellcaster(), CharacterZoneClient__IsSpellcaster);
@@ -869,21 +857,11 @@ FUNCTION_AT_ADDRESS(int CharacterZoneClient::GetModCap(int index, bool bToggle),
 
 FUNCTION_AT_VIRTUAL_ADDRESS(int CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x20);
 
-//============================================================================
-// EQ_CharacterData
-//============================================================================
-
-#ifdef EQ_CharacterData__EQ_CharacterDataResetAllMembers_x
-FUNCTION_AT_ADDRESS(void EQ_CharacterData::EQ_CharacterDataResetAllMembers(), EQ_CharacterData__EQ_CharacterDataResetAllMembers);
-#endif
 
 //============================================================================
 // PcClient
 //============================================================================
 
-#ifdef PcClient__PcClient_x
-//FUNCTION_AT_ADDRESS(PcClient::PcClient(), PcClient__PcClient);
-#endif
 
 //============================================================================
 // PcZoneClient
@@ -956,8 +934,8 @@ FUNCTION_AT_ADDRESS(void PcClient::CheckForGroupChanges(), EQ_PC__CheckForGroupC
 #ifdef EQ_PC__UnpackMyNetPC_x
 FUNCTION_AT_ADDRESS(void PcClient::UnpackMyNetPC(char*, int), EQ_PC__UnpackMyNetPC);
 #endif
-#ifdef EQ_PC__AlertInventoryChanged_x
-FUNCTION_AT_ADDRESS(void PcClient::AlertInventoryChanged(), EQ_PC__AlertInventoryChanged);
+#ifdef PcClient__AlertInventoryChanged_x
+FUNCTION_AT_ADDRESS(void PcClient::AlertInventoryChanged(), PcClient__AlertInventoryChanged);
 #endif
 #ifdef EQ_PC__InitPlayerStart_x
 FUNCTION_AT_ADDRESS(void PcClient::InitPlayerStart(unsigned int, unsigned char, int), EQ_PC__InitPlayerStart);
@@ -974,8 +952,8 @@ FUNCTION_AT_ADDRESS(void PcClient::PrepareForRepop(int), EQ_PC__PrepareForRepop)
 #ifdef EQ_PC__RefitNewbieEQ_x
 FUNCTION_AT_ADDRESS(void PcClient::RefitNewbieEQ(), EQ_PC__RefitNewbieEQ);
 #endif
-#ifdef EQ_PC__RemoveMyAffect_x
-FUNCTION_AT_ADDRESS(unsigned char PcClient::RemoveMyAffect(int), EQ_PC__RemoveMyAffect);
+#ifdef PcZoneClient__RemoveMyAffect_x
+FUNCTION_AT_ADDRESS(unsigned char PcClient::RemoveMyAffect(int), PcZoneClient__RemoveMyAffect);
 #endif
 #ifdef EQ_PC__ProcessFatigue_x
 FUNCTION_AT_ADDRESS(void PcClient::ProcessFatigue(), EQ_PC__ProcessFatigue);
@@ -1010,29 +988,26 @@ FUNCTION_AT_ADDRESS(int PcClient::numInParty(), EQ_PC__numInParty);
 #ifdef EQ_PC__AtSkillLimit_x
 FUNCTION_AT_ADDRESS(unsigned char PcClient::AtSkillLimit(int), EQ_PC__AtSkillLimit);
 #endif
-#ifdef EQ_PC__GetItemRecastTimer_x
-FUNCTION_AT_ADDRESS(uint32_t PcZoneClient::GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype), EQ_PC__GetItemRecastTimer);
+#ifdef PcZoneClient__GetItemRecastTimer_x
+FUNCTION_AT_ADDRESS(uint32_t PcZoneClient::GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype), PcZoneClient__GetItemRecastTimer);
 #endif
-#ifdef EQ_PC__GetAlternateAbilityId_x
-FUNCTION_AT_ADDRESS(int PcClient::GetAlternateAbilityId(int), EQ_PC__GetAlternateAbilityId);
+#ifdef PcBase__GetAlternateAbilityId_x
+FUNCTION_AT_ADDRESS(int PcClient::GetAlternateAbilityId(int), PcBase__GetAlternateAbilityId);
 #endif
-#ifdef EQ_PC__GetCombatAbility_x
-FUNCTION_AT_ADDRESS(int PcClient::GetCombatAbility(int), EQ_PC__GetCombatAbility);
+#ifdef PcBase__GetCombatAbility_x
+FUNCTION_AT_ADDRESS(int PcClient::GetCombatAbility(int), PcBase__GetCombatAbility);
 #endif
-#ifdef EQ_PC__GetPcZoneClient_x
-FUNCTION_AT_ADDRESS(PcZoneClient* PcClient::GetPcZoneClient() const, EQ_PC__GetPcZoneClient);
+#ifdef PcBase__GetCombatAbilityTimer_x
+FUNCTION_AT_ADDRESS(unsigned long PcClient::GetCombatAbilityTimer(int, int), PcBase__GetCombatAbilityTimer);
 #endif
-#ifdef EQ_PC__GetCombatAbilityTimer_x
-FUNCTION_AT_ADDRESS(unsigned long PcClient::GetCombatAbilityTimer(int, int), EQ_PC__GetCombatAbilityTimer);
+#ifdef PcClient__HasLoreItem_x
+FUNCTION_AT_ADDRESS(bool PcClient::HasLoreItem(const ItemPtr&, bool, bool, bool, bool), PcClient__HasLoreItem);
 #endif
-#ifdef EQ_PC__HasLoreItem_x
-FUNCTION_AT_ADDRESS(bool PcClient::HasLoreItem(const ItemPtr&, bool, bool, bool, bool), EQ_PC__HasLoreItem);
+#ifdef PcBase__GetItemContainedRealEstateIds_x
+FUNCTION_AT_ADDRESS(void PcClient::GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>&, bool, bool, bool), PcBase__GetItemContainedRealEstateIds);
 #endif
-#ifdef EQ_PC__GetItemContainedRealEstateIds_x
-FUNCTION_AT_ADDRESS(void PcClient::GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>&, bool, bool, bool), EQ_PC__GetItemContainedRealEstateIds);
-#endif
-#ifdef EQ_PC__GetNonArchivedOwnedRealEstates_x
-FUNCTION_AT_ADDRESS(void PcClient::GetNonArchivedOwnedRealEstates(ArrayClass<int>&), EQ_PC__GetNonArchivedOwnedRealEstates);
+#ifdef PcBase__GetNonArchivedOwnedRealEstates_x
+FUNCTION_AT_ADDRESS(void PcClient::GetNonArchivedOwnedRealEstates(ArrayClass<int>&), PcBase__GetNonArchivedOwnedRealEstates);
 #endif
 #ifdef EQ_PC__CheckForLanguageImprovement_x
 FUNCTION_AT_ADDRESS(void PcClient::CheckForLanguageImprovement(unsigned char, unsigned char), EQ_PC__CheckForLanguageImprovement);

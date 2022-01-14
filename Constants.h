@@ -504,7 +504,7 @@ constexpr int NUM_ALT_ABILITIES = 49999;
 // these two will merge when i get a chance - ieatacid wrote this?
 constexpr int AA_CHAR_MAX = 245;
 
-// EQ_PC__GetAlternateAbilityId_x
+// PcBase__GetAlternateAbilityId_x
 // size is at 7EE7F8 in eqgame dated jun 13 2014
 constexpr int AA_CHAR_MAX_REAL = 300;
 

@@ -377,9 +377,6 @@ inline namespace deprecated {
 // PlayerBase
 //============================================================================
 
-// this is the size of EQPlayer__EQPlayer_x
-// actual size 0x2020 in Feb 20 2016 Live (see 64B6A0) - eqmule
-// A.k.a. SPAWNINFO
 class [[offsetcomments]] PlayerBase : public TListNode<PlayerClient>, public CActorApplicationData
 {
 public:
