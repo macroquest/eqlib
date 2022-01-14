@@ -17,6 +17,8 @@
 #include "EQClasses.h"
 #include "Globals.h"
 
+#include <spdlog/spdlog.h>
+
 namespace eqlib {
 
 //============================================================================
@@ -3110,35 +3112,232 @@ void InitializeUI()
 	MapViewMap::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(MapViewMap__vftable);
 }
 
-template <typename T>
-static void UpdateScreenPtr(ForeignPointer<T>& ptr, const char* name)
-{
-	ScreenWndManager& wndMgr = pDisplay->gameScreens;
 
-	// if pointer always has a value, double check that its value matches.
-	const ScreenWndManager::ScreenRecord* record = wndMgr.FindScreenRecordByScreenName(name);
-	if (record)
+static std::unordered_multimap<std::string_view, ForeignPointer<CSidlScreenWnd>&> s_windowInitMap = {
+	{ "AAWindow",                               pAAWnd },
+	{ "AchievementsWnd",                        pAchievementsWnd },
+	{ "ActionsWindow",                          pActionsWnd },
+	{ "AdvancedDisplayOptionsWindow",           pAdvancedDisplayOptionsWnd },
+	{ "AdvancedLootWnd",                        pAdvancedLootWnd },
+	{ "AdventureLeaderboardWnd",                pAdventureLeaderboardWnd },
+	{ "AdventureRequestWnd",                    pAdventureRequestWnd },
+	{ "AdventureStatsWnd",                      pAdventureStatsWnd },
+	{ "AggroMeterWnd",                          pAggroMeterWnd },
+	{ "AlarmWnd",                               pAlarmWnd },
+	{ "AlertHistoryWnd",                        pAlertHistoryWnd },
+	{ "AlertStackWnd",                          pAlertStackWnd },
+	{ "AlertWnd",                               pAlertWnd },
+	{ "AltStorageWnd",                          pAltStorageWnd },
+	{ "AudioTriggersWindow",                    pAudioTriggersWnd },
+	{ "AuraWindow",                             pAuraWnd },
+	{ "BandolierWnd",                           pBandolierWnd },
+	{ "BankWnd",                                pBankWnd },
+	{ "BarterMerchantWnd",                      pBarterMerchantWnd },
+	{ "BarterSearchWnd",                        pBarterSearchWnd },
+	{ "BarterWnd",                              pBarterWnd },
+	{ "BazaarConfirmationWnd",                  pBazaarConfirmationWnd },
+	{ "BazaarSearchWnd",                        pBazaarSearchWnd },
+	{ "BazaarWnd",                              pBazaarWnd },
+	{ "BigBankWnd",                             pBankWnd },
+	{ "BlockedBuffWnd",                         pBlockedBuffWnd },
+	{ "BlockedPetBuffWnd",                      pBlockedBuffWnd },
+	{ "BodyTintWnd",                            pBodyTintWnd },
+	{ "BookWindow",                             pBookWnd },
+	{ "BreathWindow",                           pBreathWnd },
+	{ "BuffWindow",                             pBuffWnd },
+	{ "BugReportWindow",                        pBugReportWnd },
+	{ "CastingWindow",                          pCastingWnd },
+	{ "CastSpellWnd",                           pCastSpellWnd },
+	{ "CharacterCreation",                      pCharacterCreation },
+	{ "CharacterListWnd",                       pCharacterListWnd },
+	{ "ClaimWnd",                               pClaimWnd },
+	{ "ColorPickerWnd",                         pColorPickerWnd },
+	{ "CombatAbilityWnd",                       pCombatAbilityWnd },
+	{ "CombatSkillSelectWnd",                   pCombatSkillsSelectWnd },
+	{ "CompassWindow",                          pCompassWnd },
+	{ "CursorAttachment",                       pCursorAttachment },
+	{ "DragonHoardWnd",                         pDragonHoardWnd },
+	{ "DynamicZoneWnd",                         pDynamicZoneWnd },
+	{ "EditLabelWnd",                           pEditLabelWnd },
+	{ "EQMainWnd",                              pEQMainWnd },
+	{ "EventCalendarWnd",                       pEventCalendarWnd },
+	{ "ExtendedTargetWnd",                      pExtendedTargetWnd },
+	{ "FactionWnd",                             pFactionWnd },
+	{ "FeedbackWindow",                         pFeedbackWnd },                // No longer exists in Live
+	{ "FellowshipWnd",                          pFellowshipWnd },
+	{ "FileSelectionWnd",                       pFileSelectionWnd },
+	{ "FindItemWnd",                            pFindItemWnd },
+	{ "FindLocationWnd",                        pFindLocationWnd },
+	{ "FriendsWindow",                          pFriendsWnd },
+	{ "GemsGameWnd",                            pGemsGameWnd },
+	{ "GiveWnd",                                pGiveWnd },
+	{ "GroupSearchFiltersWnd",                  pGroupSearchFiltersWnd },
+	{ "GroupSearchWnd",                         pGroupSearchWnd },
+	{ "GroupWindow",                            pGroupWnd },
+	{ "GuildBankWnd",                           pGuildBankWnd },
+	{ "GuildCreationWnd",                       pGuildCreationWnd },
+	{ "GuildManagementWnd",                     pGuildMgmtWnd },
+	{ "HelpWindow",                             pHelpWnd },
+	{ "HeritageSelectionWnd",                   pHeritageSelectionWnd },
+	{ "IconSelectionWnd",                       pIconSelectionWnd },
+	{ "InspectWnd",                             pInspectWnd },
+	{ "InventoryWindow",                        pInventoryWnd },
+	{ "ItemExpTransferWnd",                     pItemExpTransferWnd },
+	{ "ItemFuseWnd",                            pItemFuseWnd },
+	{ "ItemOverflowWnd",                        pItemOverflowWnd },
+	{ "JournalCatWnd",                          pJournalCatWnd },
+	{ "JournalNPCWnd",                          pJournalTextWnd },
+	{ "KeyRingWnd",                             pKeyRingWnd },
+	{ "LargeDialogWindow",                      pLargeDialog },
+	{ "LayoutCopyWindow",                       pLayoutCopyWnd },
+	{ "LFGuildWnd",                             pLFGuildWnd },
+	{ "LoadskinWnd",                            pLoadskinWnd },
+	{ "LootFiltersCopyWnd",                     pLootFiltersCopyWnd },
+	{ "LootFiltersWnd",                         pLootFiltersWnd },
+	{ "LootSettingsWnd",                        pLootSettingsWnd },
+	{ "LootWnd",                                pLootWnd },
+	{ "MailAddressBookWindow",                  pMailAddressBookWnd },
+	{ "MailCompositionWindow",                  pMailCompositionWnd },
+	{ "MailIgnoreListWindow",                   pMailIgnoreListWindow },
+	{ "MailWindow",                             pMailWnd },
+	{ "ManageLootWnd",                          pManageLootWnd },
+	{ "MapToolbarWnd",                          pMapToolbarWnd },
+	{ "MapViewWnd",                             pMapViewWnd },
+	{ "MarketplaceWnd",                         pMarketplaceWnd },
+	{ "MerchantWnd",                            pMerchantWnd },
+	{ "MIZoneSelectWnd",                        pMIZoneSelectWnd },
+	{ "MusicPlayerWnd",                         pMusicPlayerWnd },
+	{ "NameChangeMercWnd",                      pNameChangeMercWnd },
+	{ "NameChangePetWnd",                       pNameChangePetWnd },
+	{ "NameChangeWnd",                          pNameChangeWnd },
+	{ "NoteWindow",                             pNoteWnd },
+	{ "ObjectPreviewWnd",                       pObjectPreviewWnd },
+	{ "OptionsWindow",                          pOptionsWnd },
+	{ "OverseerWnd",                            pOverseerWnd },
+	{ "PetInfoWindow",                          pPetInfoWnd },
+	{ "PlayerCustomizationWnd",                 pPlayerCustomizationWnd },
+	{ "PlayerNotesWindow",                      pPlayerNotesWnd },
+	{ "PlayerWindow",                           pPlayerWnd },
+	{ "ProgressionSelectionWnd",                pProgressionSelectionWnd },
+	{ "PurchaseGroupWnd",                       pPurchaseGroupWnd },
+	{ "PurchaseWnd",                            pPurchaseWnd },
+	{ "PvpLeaderboardWnd",                      pPvPLeaderboardWnd },
+	{ "PvPStatsWnd",                            pPvPStatsWnd },
+	{ "QuantityWnd",                            pQuantityWnd },
+	{ "RaceChangeWnd",                          pRaceChangeWnd },
+	{ "RaidOptionsWindow",                      pRaidOptionsWnd },
+	{ "RaidWindow",                             pRaidWnd },
+	{ "RealEstateItemsWnd",                     pRealEstateItemsWnd },
+	{ "RealEstateLayoutDetailsWnd",             pRealEstateLayoutDetailsWnd },
+	{ "RealEstateManageWnd",                    pRealEstateManageWnd },
+	{ "RealEstateNeighborhoodWnd",              pRealEstateNeighborhoodWnd },
+	{ "RealEstatePlotSearchWnd",                pRealEstatePlotSearchWnd },
+	{ "RealEstatePurchaseWnd",                  pRealEstatePurchaseWnd },
+	{ "RespawnWnd",                             pRespawnWnd },
+	{ "RewardSelectionWnd",                     pRewardSelectionWnd },
+	{ "SelectorWindow",                         pSelectorWnd },
+	{ "SendMoneyWnd",                           pSendMoneyWnd },
+	{ "ServerListWnd",                          pServerListWnd },
+	{ "ShortDurationBuffWindow",                pSongWnd },
+	{ "SkillsSelectWindow",                     pSkillsSelectWnd },
+	{ "SkillsWindow",                           pSkillsWnd },
+	{ "SocialEditWnd",                          pSocialEditWnd },
+	{ "SocialWnd",                              pSocialWnd },
+	{ "SpellBookWnd",                           pSpellBookWnd },
+	{ "StoryWnd",                               pStoryWnd },
+	{ "TargetOfTargetWindow",                   pTargetOfTargetWnd },
+	{ "TargetWindow",                           pTargetWnd },
+	{ "TaskOverlayWnd",                         pTaskOverlayWnd },
+	{ "TaskSelectWnd",                          pTaskSelectWnd },
+	{ "TaskTemplateSelectWnd",                  pTaskTemplateSelectWnd },
+	{ "TaskWnd",                                pTaskWnd },
+	{ "TextEntryWnd",                           pTextEntryWnd },
+	{ "TipWindow",                              pTipOfDayWnd },
+	{ "TipWindow",                              pContextTipWnd },
+	{ "TitleWnd",                               pTitleWnd },
+	{ "TrackingWnd",                            pTrackingWnd },
+	{ "TradeskillWnd",                          pTradeskillWnd },
+	{ "TradeWnd",                               pTradeWnd },
+	{ "TrainWindow",                            pTrainWnd },
+	{ "TributeBenefitWnd",                      pTributeBenefitWnd },
+	{ "TributeMasterWnd",                       pTributeMasterWnd },
+	{ "TributeTrophyWnd",                       pTributeTrophyWnd },
+	{ "VideoModesWindow",                       pVideoModesWnd },
+	{ "VoiceMacroWnd",                          pVoiceMacroWnd },
+	{ "VoteResultsWnd",                         pVoteResultsWnd },
+	{ "VoteWnd",                                pVoteWnd },
+	{ "ZoneGuideWnd",                           pZoneGuideWnd },
+	{ "ZonePathWnd",                            pZonePathWnd },
+};
+
+static void InitializeWindowsFromScreenManager(ScreenWndManager& mgr)
+{
+	for (const ScreenWndManager::ScreenRecord& screen : mgr.screens)
 	{
-		if (record->pWnd)
+		CSidlScreenWnd** ppWindow = screen.pWnd;
+		if (*ppWindow)
 		{
-			ptr.set_offset((T**)record->pWnd);
+			const CXStr& windowName = (*ppWindow)->SidlText;
+
+			// TODO: Adapt to make_range
+
+			// Look up our window(s) that should receive this pointer.
+			auto range = s_windowInitMap.equal_range(windowName);
+			if (range.first == range.second)
+			{
+				// was not found.
+				SPDLOG_WARN("A window was created that is not being tracked: '{}' at {}",
+					windowName, (void*)ppWindow);
+			}
+			else
+			{
+				for (auto iter = range.first; iter != range.second; ++iter)
+				{
+					ForeignPointer<CSidlScreenWnd>& foreignPtr = iter->second;
+
+					if (foreignPtr.get_raw() == nullptr)
+					{
+						foreignPtr.set_offset(ppWindow);
+					}
+				}
+			}
 		}
-		else
-		{
-			//DebugSpewAlways("Failed to find window pointer for %s: record existed but has no value!", name);
-			ptr.set_offset(nullptr);
-		}
-	}
-	else
-	{
-		//DebugSpewAlways("Failed to find window pointer for %s: name not found!", name);
-		ptr.set_offset(nullptr);
 	}
 }
 
 void InitializeInGameUI()
 {
-	UpdateScreenPtr(pZonePathWnd, "ZonePathWnd");
+	static bool initOnce = false;
+	if (!initOnce)
+	{
+		initOnce = true;
+
+		// Dynamically populate the hotbutton window names and pointers as the number of
+		// buttons might vary between types of builds.
+
+		// our container uses string_views, so we make this vector to hold ownership over
+		// the strings we are creatinig dynamically for the hotbuttons.
+		static std::vector<std::string> hotbuttonNames;
+		hotbuttonNames.resize(MAX_HOTBUTTON_WNDS);
+
+		for (int i = 0; i < MAX_HOTBUTTON_WNDS; ++i)
+		{
+			hotbuttonNames[i] = (i == 0) ? std::string("HotButtonWnd") : fmt::format("HotButtonWnd{}", i + 1);
+			s_windowInitMap.emplace(hotbuttonNames[i], pHotButtonWnds[i]);
+		}
+	}
+
+	// To be called immediately after the UI windows are created by the game. This happens in two places:
+	// CDisplay::InitCharSelectUI and CDisplay::ReloadUI (or during initialization if pDisplay is defined.
+
+	if (pDisplay)
+	{
+		InitializeWindowsFromScreenManager(pDisplay->gameScreens);
+		InitializeWindowsFromScreenManager(pDisplay->charselectScreens);
+
+		// this hotbutton pointer always mirrors the first one in the array
+		pHotButtonWnd = pHotButtonWnds[0];
+	}
 }
 
 //----------------------------------------------------------------------------

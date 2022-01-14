@@ -238,8 +238,6 @@ public:
 // CButtonWnd
 //============================================================================
 
-// CButtonWnd__CButtonWnd_x
-// size is 0x278 see 91829A in eqgame.exe dated 18 Sep 2018 Live
 class [[offsetcomments]] CButtonWnd : public CXWnd
 {
 public:
@@ -1637,8 +1635,6 @@ class RefreshCorpseItemChoices;
 class CGroupMemberBase;
 struct RaidMember;
 
-// CAdvancedLootWnd__CAdvancedLootWnd_x
-// size 0x2f8 see 4CEDDD in Nov 02 2017 Beta
 class [[offsetcomments]] CAdvancedLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
 public:
@@ -5657,17 +5653,6 @@ inline namespace deprecated {
 	using CTEXTENTRYWND DEPRECATE("Use CTextEntryWnd instead of CTEXTENTRYWND") = CTextEntryWnd;
 	using PCTEXTENTRYWND DEPRECATE("Use CTextEntryWnd* instead of PCTEXTENTRYWND") = CTextEntryWnd*;
 }
-
-//============================================================================
-// CTimeLeftWnd
-//============================================================================
-
-class CTimeLeftWnd : public CLabel, public WndEventHandler
-{
-public:
-	CTimeLeftWnd(int timeLeft);
-	virtual ~CTimeLeftWnd();
-};
 
 //============================================================================
 // CTipWnd

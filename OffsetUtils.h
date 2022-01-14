@@ -96,6 +96,11 @@ struct ForeignPointer_StorageBase<T>
 		return m_ptr ? *m_ptr : nullptr;
 	}
 
+	T** get_raw() const noexcept
+	{
+		return m_ptr;
+	}
+
 protected:
 	template <typename U>
 	U* coerced_get() const noexcept
@@ -240,6 +245,13 @@ public:
 	void set_offset(T** offset) noexcept { m_ptr = offset; }
 
 	void reset() { m_ptr = nullptr; }
+
+	// If the pointer is convertible, then this object is convertible
+	template <typename U, typename = std::enable_if<std::is_convertible_v<T, U>, void>>
+	inline operator ForeignPointer<U>& ()
+	{
+		return reinterpret_cast<ForeignPointer<U>&>(*this);
+	}
 };
 
 // A pointer-like type that gets its value by derive the computing from some expression.

@@ -246,7 +246,6 @@ class CTextEntryWnd;
 class CTextObjectInterface;
 class CTextureAnimation;
 class CTextureFont;
-class CTimeLeftWnd;
 class CTipWnd;
 class CTrackingWnd;
 class CTradeWnd;
