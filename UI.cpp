@@ -940,9 +940,6 @@ FUNCTION_AT_ADDRESS(long CBankWnd::GetBankQtyFromCoinType(int), CBankWnd__GetBan
 #ifdef CBankWnd__UpdateMoneyDisplay_x
 FUNCTION_AT_ADDRESS(void CBankWnd::UpdateMoneyDisplay(), CBankWnd__UpdateMoneyDisplay);
 #endif
-#ifdef CBankWnd__GetNumBankSlots_x
-FUNCTION_AT_ADDRESS(int CBankWnd::GetNumBankSlots() const, CBankWnd__GetNumBankSlots);
-#endif
 #ifdef CBankWnd__AutoBank_x
 FUNCTION_AT_ADDRESS(void CBankWnd::AutoBank(bool bCanCombine), CBankWnd__AutoBank);
 #endif
@@ -1502,13 +1499,6 @@ FUNCTION_AT_ADDRESS(CContextMenu* CContextMenuManager::GetMenu(int), CContextMen
 // CContextMenu
 //============================================================================
 
-// todo: fixme
-#ifdef CContextMenu__CContextMenu_x
-//CONSTRUCTOR_AT_ADDRESS(CContextMenu::CContextMenu(CXWnd* pParent, uint32_t MenuID, const CXRect& rect), CContextMenu__CContextMenu);
-#endif
-#ifdef CContextMenu__dCContextMenu_x
-//FUNCTION_AT_ADDRESS(CContextMenu::~CContextMenu(), CContextMenu__dCContextMenu);
-#endif
 #ifdef CContextMenu__AddMenuItem_x
 FUNCTION_AT_ADDRESS(int CContextMenu::AddMenuItem(const CXStr&, unsigned int, bool, COLORREF, bool), CContextMenu__AddMenuItem);
 #endif
@@ -1538,9 +1528,6 @@ FUNCTION_AT_ADDRESS(void CContextMenu::SetMenuItem(int, const CXStr&, bool, COLO
 // CCursorAttachment
 //============================================================================
 
-#ifdef CCursorAttachment__CCursorAttachment_x
-FUNCTION_AT_ADDRESS(CCursorAttachment::CCursorAttachment(CXWnd*), CCursorAttachment__CCursorAttachment);
-#endif
 #ifdef CCursorAttachment__DrawButtonText_x
 FUNCTION_AT_ADDRESS(void CCursorAttachment::DrawButtonText() const, CCursorAttachment__DrawButtonText);
 #endif
@@ -1575,9 +1562,6 @@ FUNCTION_AT_ADDRESS(int CFileSelectionWnd::Open(CXWnd* pWnd, int flags), CFileSe
 // CFindItemWnd
 //============================================================================
 
-#ifdef CFindItemWnd__CFindItemWnd_x
-CONSTRUCTOR_AT_ADDRESS(CFindItemWnd::CFindItemWnd(CXWnd*), CFindItemWnd__CFindItemWnd);
-#endif
 #ifdef CFindItemWnd__Update_x
 FUNCTION_AT_ADDRESS(void CFindItemWnd::Update(), CFindItemWnd__Update);
 #endif

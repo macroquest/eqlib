@@ -492,12 +492,6 @@ public:
 
 class CEQItemLocation;
 
-class EQ_CharacterData
-{
-public:
-	EQLIB_OBJECT void EQ_CharacterDataResetAllMembers();
-};
-
 class EQ_Container
 {
 public:
@@ -1479,11 +1473,14 @@ using CDBStr = DatabaseStringTable;
 
 
 
-class EQMisc
+class CTribute
 {
 public:
 	EQLIB_OBJECT int GetActiveFavorCost();
 };
+inline namespace deprecated {
+	using EQMisc DEPRECATE("Use CTribute instead of EQMisc") = CTribute;
+}
 
 struct AUTOSKILL
 {

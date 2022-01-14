@@ -1752,8 +1752,8 @@ public:
 /*0x2e4*/ CButtonWnd*  AutoButton;
 /*0x2e8*/ CButtonWnd*  AltStorageButton;
 /*0x2ec*/ CButtonWnd*  FindItemButton;
-/*0x2f0*/ int          BankSize;
-/*0x2f4*/ int          Unknown0x2F4;
+/*0x2f0*/ CButtonWnd*  DragonHoardButton;
+/*0x2f4*/ int          BankSize;
 /*0x2f8*/
 
 	CBankWnd(CXWnd*, CXStr);
@@ -1763,7 +1763,7 @@ public:
 	virtual int PostDraw() override;
 	virtual int WndNotification(CXWnd* pWnd, unsigned int uiMessage, void* pData) override;
 
-	EQLIB_OBJECT int GetNumBankSlots() const;
+	int GetNumBankSlots() const { return BankSize; }
 
 	// private
 	EQLIB_OBJECT long GetBankQtyFromCoinType(int);
@@ -3061,8 +3061,6 @@ public:
 // CFactionWnd
 //============================================================================
 
-// CFactionWnd__CFactionWnd_x aFactionwnd
-// CFactionWnd__size: 0x270 (see 550F54) in Dec 19 2019 Live
 class [[offsetcomments]] CFactionWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS

@@ -849,11 +849,11 @@ FUNCTION_AT_ADDRESS(EQItemList* EQItemList::is_item_actor(struct T3D_tagACTORINS
 #endif
 
 //============================================================================
-// EQMisc
+// CTribute
 //============================================================================
 
-#ifdef EQMisc__GetActiveFavorCost_x
-FUNCTION_AT_ADDRESS(int EQMisc::GetActiveFavorCost(), EQMisc__GetActiveFavorCost);
+#ifdef CTribute__GetActiveFavorCost_x
+FUNCTION_AT_ADDRESS(int CTribute::GetActiveFavorCost(), CTribute__GetActiveFavorCost);
 #endif
 
 //============================================================================
@@ -1230,14 +1230,6 @@ FUNCTION_AT_ADDRESS(IconCache::~IconCache(), IconCache__dIconCache);
 #endif
 #ifdef IconCache__GetIcon_x
 FUNCTION_AT_ADDRESS(CTextureAnimation* IconCache::GetIcon(int), IconCache__GetIcon);
-#endif
-
-//============================================================================
-// IString
-//============================================================================
-
-#ifdef IString__Append_x
-FUNCTION_AT_ADDRESS(void SoeUtil::IString<char>::Append(const char* c), IString__Append);
 #endif
 
 //============================================================================
@@ -1984,12 +1976,6 @@ FUNCTION_AT_ADDRESS(int SoundManager::StreamingGetSongLength(), SoundManager__St
 // SpellManager
 //============================================================================
 
-//#ifdef SpellManager__SpellManager_x
-//FUNCTION_AT_ADDRESS(SpellManager::SpellManager(char*), SpellManager__SpellManager);
-//#endif
-//#ifdef SpellManager__dSpellManager_x
-//FUNCTION_AT_ADDRESS(SpellManager::~SpellManager(), SpellManager__dSpellManager);
-//#endif
 #ifdef SpellManager__GetSpellByGroupAndRank_x
 FUNCTION_AT_ADDRESS(const EQ_Spell* SpellManager::GetSpellByGroupAndRank(int Group, int SubGroup, int Rank, bool bLesserRanksOk), SpellManager__GetSpellByGroupAndRank);
 #endif

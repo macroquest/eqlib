@@ -123,7 +123,7 @@
 #define pinstDZMember_x                                            0xF972C8
 #define pinstDZTimerInfo_x                                         0xF972CC
 #define pinstEqLogin_x                                             0xF9FDA0
-#define instEQMisc_x                                               0xD968D8
+#define instTribute_x                                              0xD968D8
 #define pinstEQSoundManager_x                                      0xEE0898
 #define pinstEQSpellStrings_x                                      0xECF998
 #define instExpeditionLeader_x                                     0xF97202
@@ -217,9 +217,9 @@
 ////
 
 // CAAwnd
-#define CAAWnd__ShowAbility_x                                      0x6EA410  // Maybe Unneeded
-#define CAAWnd__Update_x                                           0x6E9730  // Maybe Unneeded
-#define CAAWnd__UpdateSelected_x                                   0x6E6AA0  // Maybe Unneeded
+#define CAAWnd__ShowAbility_x                                      0x6EA410
+#define CAAWnd__Update_x                                           0x6E9730
+#define CAAWnd__UpdateSelected_x                                   0x6E6AA0
 
 // CAdvancedLootWnd
 #define CAdvancedLootWnd__DoAdvLootAction_x                        0x49B520
@@ -243,7 +243,6 @@
 #define CharacterZoneClient__FindAffectSlot_x                      0x4CAF00
 #define CharacterZoneClient__GetCurrentMod_x                       0x4EBF20
 #define CharacterZoneClient__GetCursorItemCount_x                  0x4DFEE0
-#define CharacterZoneClient__GetEffect_x                           0x4C1350
 #define CharacterZoneClient__GetFirstEffectSlot_x                  0x4CC5C0
 #define CharacterZoneClient__GetFocusDurationMod_x                 0x4B6EA0
 #define CharacterZoneClient__GetFocusReuseMod_x                    0x4B8BC0
@@ -260,7 +259,6 @@
 #define CharacterZoneClient__RemovePCAffectex_x                    0x4CA610
 
 // CBankWnd
-#define CBankWnd__GetNumBankSlots_x                                0x706CA0
 #define CBankWnd__WndNotification_x                                0x706A40
 
 // CBarterWnd
@@ -293,8 +291,6 @@
 #define CChatWindow__AddHistory_x                                  0x739ED0
 
 // CContextMenu
-#define CContextMenu__CContextMenu_x                               0x99E700
-#define CContextMenu__dCContextMenu_x                              0x99E930
 #define CContextMenu__AddMenuItem_x                                0x99E940
 #define CContextMenu__RemoveMenuItem_x                             0x99EC40
 #define CContextMenu__RemoveAllMenuItems_x                         0x99EC60
@@ -672,8 +668,6 @@
 #define CXWnd__IsReallyVisible_x                                   0x97F220
 #define CXWnd__IsType_x                                            0x980B50
 #define CXWnd__Minimize_x                                          0x97F970
-#define CXWnd__Move_x                                              0x97F290
-#define CXWnd__Move1_x                                             0x97F390
 #define CXWnd__ProcessTransition_x                                 0x97FE50
 #define CXWnd__Refade_x                                            0x97F660
 #define CXWnd__Resize_x                                            0x97F900
@@ -726,84 +720,73 @@
 // ProfileManager
 #define ProfileManager__GetCurrentProfile_x                        0x917A20
 
-// PlayerClient (to us known as EQPlayer)
-#define PlayerClient__GetPcClient_x                                0x699810
-
-// PcClient
-#define PcClient__PcClient_x                                       0x676810
-#define PcClient__GetConLevel_x                                    0x679590
-
 // CCharacterListWnd
 #define CCharacterListWnd__SelectCharacter_x                       0x4C02E0
 #define CCharacterListWnd__EnterWorld_x                            0x4BFCB0
 #define CCharacterListWnd__Quit_x                                  0x4BF9D0
 #define CCharacterListWnd__UpdateList_x                            0x4BFEA0
 
-// EQ_Item (ItemClient)
-#define EQ_Item__CanDrop_x                                         0x658BD0
-#define EQ_Item__CreateItemTagString_x                             0x8EFB30
-#define EQ_Item__IsStackable_x                                     0x8F4DE0
-#define EQ_Item__GetImageNum_x                                     0x8F1880
-#define EQ_Item__CreateItemClient_x                                0x657B70
-#define EQ_Item__GetItemValue_x                                    0x8F2AC0
-#define EQ_Item__ValueSellMerchant_x                               0x8F6B70
-#define EQ_Item__IsKeyRingItem_x                                   0x8F4560
-#define EQ_Item__CanGemFitInSlot_x                                 0x8EF310
-#define EQ_Item__CanGoInBag_x                                      0x658CF0
-#define EQ_Item__IsEmpty_x                                         0x8F3F30
-#define EQ_Item__GetMaxItemCount_x                                 0x8F2EE0
-#define EQ_Item__GetHeldItem_x                                     0x8F1730
+// ItemClient
+#define ItemBase__CanGemFitInSlot_x                                0x8EF310
+#define ItemBase__CreateItemTagString_x                            0x8EFB30
+#define ItemBase__GetImageNum_x                                    0x8F1880
+#define ItemBase__GetItemValue_x                                   0x8F2AC0
+#define ItemBase__IsEmpty_x                                        0x8F3F30
+#define ItemBase__IsKeyRingItem_x                                  0x8F4560
+#define ItemBase__ValueSellMerchant_x                              0x8F6B70
+#define ItemClient__CanDrop_x                                      0x658BD0
+#define ItemClient__CanGoInBag_x                                   0x658CF0
+#define ItemClient__CreateItemClient_x                             0x657B70
 #define ItemClient__dItemClient_x                                  0x657AC0
 
 // EQ_LoadingS
 #define EQ_LoadingS__SetProgressBar_x                              0x5798F0
 #define EQ_LoadingS__Array_x                                       0xD9AD30
 
-// EQ_PC
-#define EQ_PC__GetAlternateAbilityId_x                             0x900D00
-#define EQ_PC__GetCombatAbility_x                                  0x901280
-#define EQ_PC__GetCombatAbilityTimer_x                             0x9012F0
-#define EQ_PC__GetItemRecastTimer_x                                0x6845C0
-#define EQ_PC__HasLoreItem_x                                       0x679EF0
-#define EQ_PC__AlertInventoryChanged_x                             0x678E50
-#define EQ_PC__GetPcZoneClient_x                                   0x6A9F30
-#define EQ_PC__RemoveMyAffect_x                                    0x687E20
-#define EQ_PC__GetItemContainedRealEstateIds_x                     0x901940
-#define EQ_PC__GetNonArchivedOwnedRealEstates_x                    0x9020B0
+// PcClient
+#define PcBase__GetAlternateAbilityId_x                            0x900D00
+#define PcBase__GetCombatAbility_x                                 0x901280
+#define PcBase__GetCombatAbilityTimer_x                            0x9012F0
+#define PcBase__GetItemContainedRealEstateIds_x                    0x901940
+#define PcBase__GetNonArchivedOwnedRealEstates_x                   0x9020B0
+#define PcClient__AlertInventoryChanged_x                          0x678E50
+#define PcClient__GetConLevel_x                                    0x679590
+#define PcClient__HasLoreItem_x                                    0x679EF0
+#define PcZoneClient__GetItemRecastTimer_x                         0x6845C0
+#define PcZoneClient__RemoveMyAffect_x                             0x687E20
 
-// EQItemList
+// EQGroundItemListManager
 #define EQItemList__EQItemList_x                                   0x5D88B0
 #define EQItemList__add_object_x                                   0x608ED0
 #define EQItemList__add_item_x                                     0x5D8E90
 #define EQItemList__delete_item_x                                  0x5D8EE0
 #define EQItemList__FreeItemList_x                                 0x5D8DF0
 
-// EQMisc
-#define EQMisc__GetActiveFavorCost_x                               0x554C40
+// CTribute
+#define CTribute__GetActiveFavorCost_x                             0x554C40
 
-// EQPlayer
-#define EQPlayer__ChangeBoneStringSprite_x                         0x69B240
-#define EQPlayer__dEQPlayer_x                                      0x68D970
-#define EQPlayer__DoAttack_x                                       0x6A3C60
-#define EQPlayer__EQPlayer_x                                       0x68E1C0
-#define EQPlayer__SetNameSpriteState_x                             0x692780
-#define EQPlayer__SetNameSpriteTint_x                              0x693650
-#define PlayerBase__HasProperty_j_x                                0x9EBB10
-#define EQPlayer__IsTargetable_x                                   0x9EC070
-#define EQPlayer__CanSee_x                                         0x9EBE60
-#define EQPlayer__CanSee1_x                                        0x9EBF30
+// PlayerClient
+#define PlayerBase__CanSee_x                                       0x9EBE60
+#define PlayerBase__CanSee1_x                                      0x9EBF30
 #define PlayerBase__GetVisibilityLineSegment_x                     0x9EBBD0
-
-// PlayerZoneClient
+#define PlayerBase__HasProperty_j_x                                0x9EBB10
+#define PlayerBase__IsTargetable_x                                 0x9EC070
+#define PlayerClient__ChangeBoneStringSprite_x                     0x69B240
+#define PlayerClient__dPlayerClient_x                              0x68D970
+#define PlayerClient__GetPcClient_x                                0x699810
+#define PlayerClient__PlayerClient_x                               0x68E1C0
+#define PlayerClient__SetNameSpriteState_x                         0x692780
+#define PlayerClient__SetNameSpriteTint_x                          0x693650
 #define PlayerZoneClient__ChangeHeight_x                           0x6A7A20
+#define PlayerZoneClient__DoAttack_x                               0x6A3C60
 #define PlayerZoneClient__GetLevel_x                               0x6A9F70
 #define PlayerZoneClient__IsValidTeleport_x                        0x60A380
 #define PlayerZoneClient__LegalPlayerRace_x                        0x571890
 
-// EQPlayerManager
-#define EQPlayerManager__GetSpawnByID_x                            0x69E3F0
-#define EQPlayerManager__GetSpawnByName_x                          0x69E4A0
-#define EQPlayerManager__GetPlayerFromPartialName_x                0x69E530
+// PlayerManagerClient
+#define PlayerManagerClient__GetSpawnByID_x                        0x69E3F0
+#define PlayerManagerClient__GetSpawnByName_x                      0x69E4A0
+#define PlayerManagerClient__GetPlayerFromPartialName_x            0x69E530
 
 // KeyPressHandler
 #define KeypressHandler__Get_x                                     0x65C4E0
@@ -922,17 +905,11 @@
 #define msgTokenText_x                                             0x5CC510
 
 // SpellManager
-#define SpellManager__vftable_x                                    0xB38574
-#define SpellManager__SpellManager_x                               0x6C8DD0
 #define Spellmanager__LoadTextSpells_x                             0x6C96D0
 #define SpellManager__GetSpellByGroupAndRank_x                     0x6C8FA0
 
 // CCollisionInfoTargetVisibility
 #define CCollisionInfoTargetVisibility__CCollisionInfoTargetVisibility_x 0x9F0380
-
-// ItemBaseContainer
-#define ItemBaseContainer__ItemBaseContainer_x                     0x920EF0
-#define ItemBaseContainer__CreateItemGlobalIndex_x                 0x921240
 
 // CLargeDialogWnd
 #define CLargeDialogWnd__Open_x                                    0x7A8720
@@ -948,13 +925,9 @@
 #define CEQSuiteTextureLoader__GetTexture_x                        0x9B6480
 
 // CFindItemWnd
-#define CFindItemWnd__CFindItemWnd_x                               0x522400
 #define CFindItemWnd__WndNotification_x                            0x5232D0
 #define CFindItemWnd__Update_x                                     0x523F20
 #define CFindItemWnd__PickupSelectedItem_x                         0x521AD0
-
-// IString
-#define IString__Append_x                                          0x558350
 
 // Camera
 #define EverQuest__Cameras_x                                       0xDAE0E4
@@ -968,7 +941,7 @@
 // COptionsWnd
 #define COptionsWnd__FillChatFilterList_x                          0x8076B0
 
-// CResolutionHandler__UpdateResolution_x
+// CResolutionHandler
 #define CResolutionHandler__UpdateResolution_x                     0x9F6040
 #define CResolutionHandler__GetWindowedStyle_x                     0x6BF620
 
@@ -997,22 +970,12 @@
 // RealEstateManagerClient
 #define RealEstateManagerClient__Instance_x                        0x6B3D80
 
-// CFactionWnd
-#define CFactionWnd__CFactionWnd_x                                 0x517E20
-
 // FactionManagerClient
 #define FactionManagerClient__Instance_x                           0x5028A0
 #define FactionManagerClient__HandleFactionMessage_x               0x5030C0
-//work in progress, these needs to be investigated
 #define FactionManagerClient__GetFactionStanding_x                 0x5038E0
 #define FactionManagerClient__GetMaxFaction_x                      0x5038FF
 #define FactionManagerClient__GetMinFaction_x                      0x5038B0
-
-// BaseProfile (PCHARINFO2)
-#define BaseProfile__GetItemPossession_x                           0x50F740
-
-// ArrayClass
-#define ArrayClass__DeleteElement_x                                0x977AA0
 
 // AggroMeterManagerClient
 #define AggroMeterManagerClient__Instance_x                        0x49E430

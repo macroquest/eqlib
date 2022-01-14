@@ -125,17 +125,17 @@ FUNCTION_AT_ADDRESS(bool EQPlayer::AllowedToAttack(EQPlayer*, int), EQPlayer__Al
 #ifdef EQPlayer__CanIHit_x
 FUNCTION_AT_ADDRESS(bool EQPlayer::CanIHit(EQPlayer*, float), EQPlayer__CanIHit);
 #endif
-#ifdef EQPlayer__CanSee_x
-FUNCTION_AT_ADDRESS(bool PlayerBase::CanSee(const PlayerBase&), EQPlayer__CanSee);
+#ifdef PlayerBase__CanSee_x
+FUNCTION_AT_ADDRESS(bool PlayerBase::CanSee(const PlayerBase&), PlayerBase__CanSee);
 #endif
-#ifdef EQPlayer__CanSee1_x
-FUNCTION_AT_ADDRESS(bool PlayerBase::CanSee(const CVector3& pos), EQPlayer__CanSee1);
+#ifdef PlayerBase__CanSee1_x
+FUNCTION_AT_ADDRESS(bool PlayerBase::CanSee(const CVector3& pos), PlayerBase__CanSee1);
 #endif
 #ifdef EQPlayer__ModifyAttackSpeed_x
 FUNCTION_AT_ADDRESS(unsigned int EQPlayer::ModifyAttackSpeed(unsigned int, int), EQPlayer__ModifyAttackSpeed);
 #endif
-#ifdef EQPlayer__DoAttack_x
-FUNCTION_AT_ADDRESS(bool PlayerZoneClient::DoAttack(BYTE, BYTE, PlayerZoneClient*, bool, bool, bool), EQPlayer__DoAttack);
+#ifdef PlayerZoneClient__DoAttack_x
+FUNCTION_AT_ADDRESS(bool PlayerZoneClient::DoAttack(BYTE, BYTE, PlayerZoneClient*, bool, bool, bool), PlayerZoneClient__DoAttack);
 #endif
 #ifdef EQPlayer__HandleAmmo_x
 FUNCTION_AT_ADDRESS(unsigned char EQPlayer::HandleAmmo(), EQPlayer__HandleAmmo);
@@ -308,8 +308,8 @@ FUNCTION_AT_ADDRESS(bool PlayerZoneClient::CanChangeForm(int Race, BYTE Sex, flo
 #ifdef EQPlayer__SetNameSpriteState_x
 FUNCTION_AT_ADDRESS(int PlayerClient::SetNameSpriteState(bool), EQPlayer__SetNameSpriteState);
 #endif
-#ifdef EQPlayer__ChangeBoneStringSprite_x
-FUNCTION_AT_ADDRESS(void PlayerClient::ChangeBoneStringSprite(int, const char*), EQPlayer__ChangeBoneStringSprite);
+#ifdef PlayerClient__ChangeBoneStringSprite_x
+FUNCTION_AT_ADDRESS(void PlayerClient::ChangeBoneStringSprite(int, const char*), PlayerClient__ChangeBoneStringSprite);
 #endif
 #ifdef EQPlayer__SetNameSpriteTint_x
 FUNCTION_AT_ADDRESS(bool PlayerClient::SetNameSpriteTint(), EQPlayer__SetNameSpriteTint);
@@ -452,22 +452,22 @@ FUNCTION_AT_ADDRESS(bool EQPlayer::IsInvisible(EQPlayer*), EQPlayer__IsInvisible
 #ifdef EQPlayer__IsAMount_x
 FUNCTION_AT_ADDRESS(bool EQPlayer::IsAMount(), EQPlayer__IsAMount);
 #endif
-#ifdef EQPlayer__IsTargetable_x
-FUNCTION_AT_ADDRESS(bool PlayerBase::IsTargetable(), EQPlayer__IsTargetable);
+#ifdef PlayerBase__IsTargetable_x
+FUNCTION_AT_ADDRESS(bool PlayerBase::IsTargetable(), PlayerBase__IsTargetable);
 #endif
 
 //============================================================================
-// EQPlayerManager
+// PlayerManagerClient
 //============================================================================
 
-#ifdef EQPlayerManager__GetSpawnByID_x
-FUNCTION_AT_ADDRESS(PlayerClient* PlayerManagerClient::GetSpawnByID(int), EQPlayerManager__GetSpawnByID);
+#ifdef PlayerManagerClient__GetSpawnByID_x
+FUNCTION_AT_ADDRESS(PlayerClient* PlayerManagerClient::GetSpawnByID(int), PlayerManagerClient__GetSpawnByID);
 #endif
-#ifdef EQPlayerManager__GetSpawnByName_x
-FUNCTION_AT_ADDRESS(PlayerClient* PlayerManagerClient::GetSpawnByName(const char*), EQPlayerManager__GetSpawnByName);
+#ifdef PlayerManagerClient__GetSpawnByName_x
+FUNCTION_AT_ADDRESS(PlayerClient* PlayerManagerClient::GetSpawnByName(const char*), PlayerManagerClient__GetSpawnByName);
 #endif
-#ifdef EQPlayerManager__GetPlayerFromPartialName_x
-FUNCTION_AT_ADDRESS(PlayerClient* PlayerManagerClient::GetPlayerFromPartialName(const char*, PlayerBase*), EQPlayerManager__GetPlayerFromPartialName);
+#ifdef PlayerManagerClient__GetPlayerFromPartialName_x
+FUNCTION_AT_ADDRESS(PlayerClient* PlayerManagerClient::GetPlayerFromPartialName(const char*, PlayerBase*), PlayerManagerClient__GetPlayerFromPartialName);
 #endif
 
 //============================================================================
