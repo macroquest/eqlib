@@ -4187,7 +4187,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0x628 :: 2021-12-14 (test) @ 0x7A0ED0
+// @sizeof(CItemDisplayWnd) == 0x628 :: 2022-01-11 (test) @ 0x7A53A0
 constexpr size_t CItemDisplayWnd_size = 0x628;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4362,7 +4362,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x2f0 :: 2021-12-14 (test) @ 0x56D19D
+// @sizeof(CKeyRingWnd) == 0x2f0 :: 2022-01-11 (test) @ 0x56D95D
 constexpr size_t CKeyRingWnd_size = 0x2f0;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4428,7 +4428,7 @@ public:
 // CLootWnd
 //============================================================================
 
-// @sizeof(CLootWnd) == 0x3a0 :: 2021-12-14 (test) @ 0x56D3FA
+// @sizeof(CLootWnd) == 0x3a0 :: 2022-01-11 (test) @ 0x56DBBA
 constexpr size_t CLootWnd_size = 0x3a0;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4533,7 +4533,7 @@ using PMAPLINE = MAPLINE *;
 // pLines address = 0x254 + 0x035c = 0x05b0 (address of pMapViewMapVfTable)
 // MapViewMap_size: 0x640 - 0x368 = 0x2d8
 
-// @sizeof(MapViewMap) == 0x2d8 :: 2021-12-14 (test) @ 0x7BEE87
+// @sizeof(MapViewMap) == 0x2d8 :: 2022-01-11 (test) @ 0x7C3497
 constexpr size_t MapViewMap_size = 0x2d8;
 
 class [[offsetcomments]] MapViewMap : public CSidlScreenWnd
@@ -4615,7 +4615,7 @@ public:
 
 SIZE_CHECK(MapViewMap, MapViewMap_size);
 
-// @sizeof(CMapViewWnd) == 0x640 :: 2021-12-14 (test) @ 0x56CB90
+// @sizeof(CMapViewWnd) == 0x640 :: 2022-01-11 (test) @ 0x56D350
 constexpr size_t CMapViewWnd_size = 0x640;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
