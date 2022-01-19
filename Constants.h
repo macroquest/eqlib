@@ -510,7 +510,7 @@ constexpr int AA_CHAR_MAX_REAL = 300;
 
 // found in CSpellBookWnd__GetBookSlot_x (see 7A7DD7 in Nov 29 2017 Beta)
 // Find by searching for A1 ? ? ? ? 53 83 CB FF 85 C0 in IDA
-constexpr int NUM_BOOK_SLOTS = 960;
+constexpr int NUM_BOOK_SLOTS = 1120;
 constexpr int NUM_COMBAT_ABILITIES = 300;
 constexpr int NUM_SKILLS = 100;
 constexpr int NUM_INNATE = 25;
