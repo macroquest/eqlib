@@ -434,11 +434,11 @@ using PEVERQUESTINFO = EVERQUESTINFO*;
 // CEverQuest
 //============================================================================
 
-// this struct is actually part of CEverQuest
 struct MQMouseInfo
 {
 	int X = 0;
 	int Y = 0;
+	char szLoginName[128]; // Don't ask
 	int SpeedX = 0;
 	int SpeedY = 0;
 	int Scroll = 0;

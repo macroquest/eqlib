@@ -80,7 +80,6 @@
 #define g_eqCommandStates_x                                        0xDB2270
 #define __CommandList_x                                            0xDB2DF8
 #define __ScreenMode_x                                             0xEEE298
-#define __GroupCount_x                                             0xFA1FAA
 #define __gWorld_x                                                 0xFA21BC
 #define __gpbCommandEvent_x                                        0xFA22C8
 #define __ServerHost_x                                             0xFA2493
@@ -109,27 +108,24 @@
 #define pinstActiveGMaster_x                                       0xF9FEA4
 #define pinstActiveMerchant_x                                      0xF9FE9C
 #define pinstAltAdvManager_x                                       0xEEF0B8
-#define pinstBandageTarget_x                                       0xF9FEB8
 #define pinstCEverQuest_x                                          0xFAC964
 #define pinstCamActor_x                                            0xEEE28C
 #define pinstCDBStr_x                                              0xEEDE28
 #define pinstCDisplay_x                                            0xF9FF24
-#define pinstControlledMissile_x                                   0xF9FEFC
 #define pinstControlledPlayer_x                                    0xF9FEF0
 #define pinstCResolutionHandler_x                                  0x1631518
 #define pinstCSidlManager_x                                        0xFD0F54
 #define pinstCXWndManager_x                                        0xFD0F4C
 #define instDynamicZone_x                                          0xFA62E8
+#define instExpeditionLeader_x                                     0xFA6332
+#define instExpeditionName_x                                       0xFA6372
 #define pinstDZMember_x                                            0xFA63FC
 #define pinstDZTimerInfo_x                                         0xFA6400
 #define pinstEqLogin_x                                             0xFACA18
 #define instTribute_x                                              0xDA58D8
 #define pinstEQSoundManager_x                                      0xEEF9C8
 #define pinstEQSpellStrings_x                                      0xEDEAC8
-#define instExpeditionLeader_x                                     0xFA6332
-#define instExpeditionName_x                                       0xFA6372
 #define pinstSGraphicsEngine_x                                     0x16312E4
-#define pinstGroup_x                                               0xFA1FA6
 #define pinstLocalPC_x                                             0xF9FF14
 #define pinstLocalPlayer_x                                         0xF9FE98
 #define pinstMercenaryData_x                                       0xFA9934
@@ -143,15 +139,12 @@
 #define pinstStringTable_x                                         0xF9FF20
 #define pinstSwitchManager_x                                       0xF9FD48
 #define pinstTarget_x                                              0xF9FEEC
-#define pinstTargetObject_x                                        0xF9FF0C
-#define pinstTargetSwitch_x                                        0xF9FF10
 #define pinstTaskMember_x                                          0xDA5420
 #define pinstTrackTarget_x                                         0xF9FEF4
 #define pinstTradeTarget_x                                         0xF9FEAC
 #define instTributeActive_x                                        0xDA58F9
 #define pinstViewActor_x                                           0xEEE288
 #define pinstWorldData_x                                           0xF9FF1C
-#define pinstZoneAddr_x                                            0xDBC370
 #define pinstPlayerPath_x                                          0xFAA590
 #define pinstTargetIndicator_x                                     0xFABEC8
 #define EQObject_Top_x                                             0xF9FF08
@@ -184,7 +177,6 @@
 #define __ExecuteCmd_x                                             0x5D5370
 #define __FixHeading_x                                             0x9F4010
 #define __FlushDxKeyboard_x                                        0x6DAE20
-#define __GameLoop_x                                               0x6DE750
 #define __get_bearing_x                                            0x5DCAD0
 #define __get_melee_range_x                                        0x5DD380
 #define __GetAnimationCache_x                                      0x74EC70
@@ -336,7 +328,6 @@
 #define CDisplay__CleanGameUI_x                                    0x56FE00
 #define CDisplay__GetClickedActor_x                                0x562650
 #define CDisplay__GetUserDefinedColor_x                            0x55A3D0
-#define CDisplay__GetWorldFilePath_x                               0x564160
 #define CDisplay__InitCharSelectUI_x                               0x56A220
 #define CDisplay__ReloadUI_x                                       0x569B80
 #define CDisplay__WriteTextHD2_x                                   0x55ECD0
@@ -347,10 +338,8 @@
 #define CDisplay__ToggleScreenshotMode_x                           0x561A40
 #define CDisplay__RealRender_World_x                               0x55CC60
 
-// CEditBaseWnd
-#define CEditBaseWnd__SetSel_x                                     0x968340
-
 // CEditWnd
+#define CEditBaseWnd__SetSel_x                                     0x968340
 #define CEditWnd__DrawCaret_x                                      0x949790
 #define CEditWnd__EnsureCaretVisible_x                             0x94BB10
 #define CEditWnd__GetCaretPt_x                                     0x94A970
