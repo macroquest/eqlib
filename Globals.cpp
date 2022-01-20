@@ -87,6 +87,7 @@ ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Firiona,
 	ServerID::Luclin,
 	ServerID::Mayong,
+	ServerID::Miragul,
 	ServerID::Phinigel,
 	ServerID::Povar,
 	ServerID::Ragefire,
@@ -112,6 +113,7 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Firiona: return "firiona";
 	case ServerID::Luclin: return "luclin";
 	case ServerID::Mayong: return "mayong";
+	case ServerID::Miragul: return "miragul";
 	case ServerID::Phinigel: return "phinigel";
 	case ServerID::Povar: return "povar";
 	case ServerID::Ragefire: return "ragefire";
@@ -141,6 +143,7 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "firiona", ServerID::Firiona },
 		{ "luclin", ServerID::Luclin },
 		{ "mayong", ServerID::Mayong },
+		{ "miragul", ServerID::Miragul },
 		{ "phinigel", ServerID::Phinigel },
 		{ "povar", ServerID::Povar },
 		{ "ragefire", ServerID::Ragefire },

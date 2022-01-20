@@ -1008,6 +1008,7 @@ enum class ServerID : int {
 	Ragefire = 159,
 	Phinigel = 161,
 	Mayong = 163,
+	Miragul = 168,
 	Rizlona = 169,
 
 	NumServers = 19,
