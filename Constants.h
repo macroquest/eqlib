@@ -1011,7 +1011,7 @@ enum class ServerID : int {
 	Miragul = 168,
 	Rizlona = 169,
 
-	NumServers = 19,
+	NumServers = 20,
 	Invalid = -1,
 };
 
