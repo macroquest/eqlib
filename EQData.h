@@ -806,10 +806,10 @@ struct [[offsetcomments]] CDynamicZone : public PopDialogHandler
 /*0x08a*/ char         DZName[0x80];
 /*0x10c*/ int          MaxPlayers;
 /*0x110*/ int          MinPlayers;
-/*0x110*/ DynamicZonePlayerInfo* pFirstMember;
-/*0x114*/ DynamicZoneClientTimerData* pFirstTimer;
-/*0x118*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
-/*0x128*/
+/*0x114*/ DynamicZonePlayerInfo* pFirstMember;
+/*0x118*/ DynamicZoneClientTimerData* pFirstTimer;
+/*0x11c*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
+/*0x12c*/
 
 	ALT_MEMBER_GETTER_ARRAY(char, 0x40, LeaderName, Name);
 	ALT_MEMBER_GETTER_ARRAY(char, 0x80, DZName, ExpeditionName);
