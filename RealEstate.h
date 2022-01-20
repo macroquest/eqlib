@@ -265,7 +265,7 @@ public:
 	int GetParentId() const { return parentId.UniqueEntityID; }
 
 /*0x08*/ eqstd::map<int, double> escrowAccount;
-	static_assert(sizeof(escrowAccount) == 8, "escrowAccount is the wrong size");
+	static_assert(sizeof(escrowAccount) == sizeof(uintptr_t) * 2, "escrowAccount is the wrong size");
 /*0x10*/ int                 id;
 /*0x18*/ uint64_t            unused;
 /*0x20*/ int                 staticId;

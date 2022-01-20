@@ -234,6 +234,12 @@
     <None Include="AssemblyFunctions.def">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="AssemblyFunctions64.asm">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="AssemblyFunctions64.def">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="eqlib.rc">

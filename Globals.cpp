@@ -905,15 +905,15 @@ INITIALIZE_EQGAME_OFFSET(ZoneGuideManagerClient__Instance);
 BYTE*                  EQADDR_ATTACK             = nullptr;
 CMDLIST*               EQADDR_CMDLIST            = nullptr;
 IDirectInputDevice8A** EQADDR_DIKEYBOARD         = nullptr;
-DWORD                  EQADDR_DIMAIN             = 0;
+uintptr_t              EQADDR_DIMAIN             = 0;
 IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
 POINT*                 EQADDR_DIMOUSECHECK       = nullptr;
 POINT*                 EQADDR_DIMOUSECOPY        = nullptr;
 int*                   EQADDR_DOABILITYLIST      = nullptr;
-DWORD                  EQADDR_GROUPAGGRO         = 0;
+uintptr_t              EQADDR_GROUPAGGRO         = 0;
 void*                  EQADDR_GWORLD             = nullptr;
 char*                  EQADDR_LASTTELL           = nullptr;
-DWORD                  EQADDR_HWND               = 0;
+uintptr_t              EQADDR_HWND               = 0;
 MQMouseInfo*           EQADDR_MOUSE              = nullptr;
 MOUSECLICK*            EQADDR_MOUSECLICK         = nullptr;
 BYTE*                  EQADDR_NOTINCHATMODE      = nullptr;
@@ -1178,11 +1178,11 @@ ForeignPointer<DWORD>                            g_pDrawHandler;
 fEQNewUIINI            NewUIINI                  = nullptr;
 fEQProcGameEvts        ProcessGameEvents         = nullptr;
 fGetLabelFromEQ        GetLabelFromEQ            = nullptr;
-DWORD                  __ModuleList              = 0;
+uintptr_t              __ModuleList              = 0;
 
 void InitializeGlobalOffsets()
 {
-	__ModuleList = (DWORD)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcessModules");
+	__ModuleList = (uintptr_t)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcessModules");
 }
 
 void InitializeEQGameOffsets()
@@ -1360,31 +1360,31 @@ void InitializeEQGraphicsOffsets()
 //----------------------------------------------------------------------------
 // offsets / patterns
 
-DWORD EQMain__CEQSuiteTextureLoader__GetTexture = 0;
-DWORD EQMain__CLoginViewManager__HandleLButtonUp = 0;
-DWORD EQMain__CXWndManager__GetCursorToDisplay = 0;
-DWORD EQMain__LoginController__GiveTime = 0;
-DWORD EQMain__LoginController__ProcessKeyboardEvents = 0;
-DWORD EQMain__LoginController__ProcessMouseEvents = 0;
-DWORD EQMain__LoginController__Shutdown = 0;
-DWORD EQMain__LoginServerAPI__JoinServer = 0;
-DWORD EQMain__WndProc = 0;
+uintptr_t EQMain__CEQSuiteTextureLoader__GetTexture = 0;
+uintptr_t EQMain__CLoginViewManager__HandleLButtonUp = 0;
+uintptr_t EQMain__CXWndManager__GetCursorToDisplay = 0;
+uintptr_t EQMain__LoginController__GiveTime = 0;
+uintptr_t EQMain__LoginController__ProcessKeyboardEvents = 0;
+uintptr_t EQMain__LoginController__ProcessMouseEvents = 0;
+uintptr_t EQMain__LoginController__Shutdown = 0;
+uintptr_t EQMain__LoginServerAPI__JoinServer = 0;
+uintptr_t EQMain__WndProc = 0;
 
-DWORD EQMain__pinstCEQSuiteTextureLoader = 0;
-DWORD EQMain__pinstCLoginViewManager = 0;
-DWORD EQMain__pinstCSidlManager = 0;
-DWORD EQMain__pinstCXWndManager = 0;
-DWORD EQMain__pinstLoginController = 0;
-DWORD EQMain__pinstLoginServerAPI = 0;
-DWORD EQMain__pinstServerInfo = 0;
+uintptr_t EQMain__pinstCEQSuiteTextureLoader = 0;
+uintptr_t EQMain__pinstCLoginViewManager = 0;
+uintptr_t EQMain__pinstCSidlManager = 0;
+uintptr_t EQMain__pinstCXWndManager = 0;
+uintptr_t EQMain__pinstLoginController = 0;
+uintptr_t EQMain__pinstLoginServerAPI = 0;
+uintptr_t EQMain__pinstServerInfo = 0;
 
 ForeignPointer<CLoginViewManager> g_pLoginViewManager;
 ForeignPointer<LoginClient> g_pLoginClient;
 ForeignPointer<LoginController> g_pLoginController;
 ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 
-FUNCTION_AT_VARIABLE_ADDRESS(int CLoginViewManager::HandleLButtonUp(CXPoint&), EQMain__CLoginViewManager__HandleLButtonUp);
-FUNCTION_AT_VARIABLE_ADDRESS(unsigned int LoginServerAPI::JoinServer(int, void*, int), EQMain__LoginServerAPI__JoinServer);
+FUNCTION_AT_ADDRESS(int, CLoginViewManager::HandleLButtonUp(CXPoint&), EQMain__CLoginViewManager__HandleLButtonUp);
+FUNCTION_AT_ADDRESS(unsigned int, LoginServerAPI::JoinServer(int, void*, int), EQMain__LoginServerAPI__JoinServer);
 
 // We use CLoginViewManager to find the ServerInfo instance
 

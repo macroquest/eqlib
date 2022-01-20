@@ -1357,7 +1357,7 @@ public:
 };
 
 // @sizeof(ItemClient) == 0x110 :: 2022-01-11 (test) @ 0x65A830
-constexpr size_t ItemClient_size = 0x110;
+constexpr size_t ItemClient_size = 0x158;
 
 class [[offsetcomments]] ItemClient : public ItemBase
 {

@@ -134,13 +134,14 @@ public:
 	virtual void UpdateLayout(bool finish = false) override;
 };
 
-#define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature) \
-	template <typename Target>                                             \
-	__declspec(naked) RetType Class<Target>::Name Signature {              \
-		using VFT = typename Orig::VirtualFunctionTable;                   \
-		using TargetT = CXWndTrampoline<Target>;                           \
-		__asm mov eax, [TargetT::s_originalVTable]                         \
-		__asm jmp dword ptr [eax]VFT.Name                                  \
+// FIXME: This is just to get it to compile, the final version might look something like
+// this, but this currently doesn't optimize correctly without /O2
+#define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature)                  \
+	template <typename Target>                                                              \
+	RetType Class<Target>::Name Signature {                                                 \
+		using TargetFunction = RetType(*)();                                                \
+		TargetFunction p = (TargetFunction)CXWndTrampoline<Target>::s_originalVTable->Name; \
+		p();                                                                                \
 	}
 
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, IsValid, () const);

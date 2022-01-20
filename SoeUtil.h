@@ -19,7 +19,7 @@
 namespace eqlib {
 namespace SoeUtil {
 
-EQLIB_OBJECT void* Alloc(int bytes, int align = 0);
+EQLIB_OBJECT void* Alloc(size_t bytes, int align = 0);
 EQLIB_OBJECT void Free(void* p, int align = 0);
 
 template <typename T, typename U>
@@ -339,7 +339,7 @@ public:
 
 	virtual void* Alloc(size_t count, size_t* actual, bool* shareable)
 	{
-		int size = count;
+		size_t size = count;
 		if (m_space > 0)
 		{
 			size += size / 4;

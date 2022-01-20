@@ -1303,7 +1303,7 @@ public:
 };
 
 // @sizeof(ClientSpellManager) == 0x1EF470 :: 2022-01-11 (test) @ 0x628314
-constexpr size_t ClientSpellManager_size = 0x1EF470;
+constexpr size_t ClientSpellManager_size = 0x39DF60;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {

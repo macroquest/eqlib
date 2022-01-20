@@ -4188,7 +4188,7 @@ enum ItemDisplayFlags
 };
 
 // @sizeof(CItemDisplayWnd) == 0x628 :: 2022-01-11 (test) @ 0x7A53A0
-constexpr size_t CItemDisplayWnd_size = 0x628;
+constexpr size_t CItemDisplayWnd_size = 0x7A0;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
 {
@@ -4363,7 +4363,7 @@ public:
 //============================================================================
 
 // @sizeof(CKeyRingWnd) == 0x2f0 :: 2022-01-11 (test) @ 0x56D95D
-constexpr size_t CKeyRingWnd_size = 0x2f0;
+constexpr size_t CKeyRingWnd_size = 0x430;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -4429,7 +4429,7 @@ public:
 //============================================================================
 
 // @sizeof(CLootWnd) == 0x3a0 :: 2022-01-11 (test) @ 0x56DBBA
-constexpr size_t CLootWnd_size = 0x3a0;
+constexpr size_t CLootWnd_size = 0x4F8;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
@@ -4534,7 +4534,7 @@ using PMAPLINE = MAPLINE *;
 // MapViewMap_size: 0x640 - 0x368 = 0x2d8
 
 // @sizeof(MapViewMap) == 0x2d8 :: 2022-01-11 (test) @ 0x7C3497
-constexpr size_t MapViewMap_size = 0x2d8;
+constexpr size_t MapViewMap_size = 0x388;
 
 class [[offsetcomments]] MapViewMap : public CSidlScreenWnd
 {
@@ -4616,7 +4616,7 @@ public:
 SIZE_CHECK(MapViewMap, MapViewMap_size);
 
 // @sizeof(CMapViewWnd) == 0x640 :: 2022-01-11 (test) @ 0x56D350
-constexpr size_t CMapViewWnd_size = 0x640;
+constexpr size_t CMapViewWnd_size = 0x848;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
 {

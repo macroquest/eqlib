@@ -699,7 +699,7 @@ public:
 //============================================================================
 
 // @sizeof(PlayerClient) == 0x1EA0 :: 2022-01-11 (test) @ 0x69FC20 
-constexpr size_t PlayerClient_size = 0x1EA0;
+constexpr size_t PlayerClient_size = 0x1F88;
 
 class [[offsetcomments]] PlayerClient : public PlayerZoneClient
 {

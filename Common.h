@@ -66,71 +66,40 @@
 #define CONSTRUCTOR_AT_ADDRESS(function, offset)
 #define DESTRUCTOR_AT_ADDRESS(function, offset)
 
-#define FUNCTION_AT_ADDRESS(Function, Offset)                                            \
-	__declspec(naked) Function                                                           \
-	{                                                                                    \
-		__asm mov eax, Offset                                                            \
-		__asm jmp eax                                                                    \
-	}
+#define FUNCTION_AT_ADDRESS(rettype, func, variable)                                               \
+__pragma( optimize("ytg", on)  )                                                                   \
+	rettype func {                                                                                 \
+		using TargetFunction = rettype(*)();                                                       \
+		TargetFunction p = (TargetFunction)variable;                                               \
+		return p();                                                                                \
+	}                                                                                              \
+__pragma( optimize("", on) )
 
-#define FUNCTION_AT_VARIABLE_ADDRESS(Function, Variable)                                 \
-	__declspec(naked) Function                                                           \
-	{                                                                                    \
-		__asm mov eax, [Variable]                                                        \
-		__asm jmp eax                                                                    \
-	}
+#define FUNCTION_AT_VIRTUAL_ADDRESS(rettype, func, offset)                                         \
+__pragma( optimize("ytg", on)  )                                                                   \
+	rettype func {                                                                                 \
+		using TargetFunction = rettype(*)();                                                       \
+		TargetFunction p = (TargetFunction)(*(reinterpret_cast<uintptr_t**>(this)[0] + (offset))); \
+		return p();                                                                                \
+	}                                                                                              \
+__pragma( optimize("", on) )
 
-#define FUNCTION_AT_VIRTUAL_ADDRESS(Function, VirtualOffset)                             \
-	__declspec(naked) Function                                                           \
-	{                                                                                    \
-		__asm mov eax, [ecx]                                                             \
-		__asm lea eax, [eax+VirtualOffset]                                               \
-		__asm mov eax, [eax]                                                             \
-		__asm jmp eax                                                                    \
-	}
+#define FORWARD_FUNCTION_TO_VTABLE(rettype, function, Class, member)                               \
+__pragma( optimize("ytg", on) )                                                                    \
+	rettype Class::function {                                                                      \
+		using TargetFunction = rettype(*)();                                                       \
+		return ((TargetFunction)(Class::sm_vftable->member))();                                    \
+	}                                                                                              \
+__pragma( optimize("", on) )
 
-#define FORWARD_FUNCTION_TO_VTABLE(Function, Class, Member)                              \
-	__declspec(naked) Function                                                           \
-	{                                                                                    \
-		using VFT = Class::VirtualFunctionTable;                                         \
-		__asm mov eax, [Class::sm_vftable]                                               \
-		__asm jmp dword ptr [eax]VFT.Member                                              \
-	}
-
-#define FORWARD_FUNCTION_TO_VTABLE2(Function, Class, Base, Member)                       \
-	__declspec(naked) Function                                                           \
-	{                                                                                    \
-		using VFT = Base::VirtualFunctionTable;                                          \
-		__asm mov eax, [Class::sm_vftable]                                               \
-		__asm jmp dword ptr [eax]VFT.Member                                              \
-	}
-
-#define FUNCTION_AT_VIRTUAL_TABLE_ADDRESS(function, address, virtualoffset)              \
-	__declspec(naked) Function                                                           \
-	{                                                                                    \
-		__asm mov edx, virtualoffset                                                     \
-		__asm mov eax, [address]                                                         \
-		__asm lea eax, [eax+edx*4]                                                       \
-		__asm mov eax, [eax]                                                             \
-		__asm jmp eax                                                                    \
-	}
-
-#define PreserveRegisters(code)                                                          \
-{                                                                                        \
-	__asm push eax                                                                       \
-	__asm push ebx                                                                       \
-	__asm push ecx                                                                       \
-	__asm push edx                                                                       \
-	__asm push esi                                                                       \
-	__asm push edi                                                                       \
-	code;                                                                                \
-	__asm pop edi                                                                        \
-    __asm pop esi                                                                        \
-	__asm pop edx                                                                        \
-	__asm pop ecx                                                                        \
-	__asm pop ebx                                                                        \
-	__asm pop eax                                                                        \
-}
+#define FUNCTION_AT_VIRTUAL_TABLE_ADDRESS(rettype, function, address, offset)                      \
+__pragma( optimize("ytg", on) )                                                                    \
+	rettype function {                                                                             \
+		using TargetFunction = rettype(*)();                                                       \
+		TargetFunction p = *(TargetFunction*)((address + offset * sizeof(uintptr_t)));             \
+		return p();                                                                                \
+	}                                                                                              \
+__pragma( optimize("", on) )
 
  // Define access to a member with another name (and type if you so will it)
 #define ALT_MEMBER_GETTER(type, orig, name) \
@@ -177,13 +146,13 @@
 #else
 #define SIZE_CHECK(type, expectedSize)                                                                    \
 	template <typename TypeToCheck, std::size_t ExpectedSize, std::size_t RealSize = sizeof(TypeToCheck)> \
-	void CheckSizeOf##type##__() {                                                                        \
+	std::enable_if_t<ExpectedSize == RealSize, void> CheckSizeOf##type##__() {                            \
 		static_assert(ExpectedSize == RealSize, "Size of " #type " does not match expected size.");       \
 	}                                                                                                     \
 	inline void CheckSizeHelper##type##__() { CheckSizeOf##type##__<type, expectedSize>(); }
 #define SIZE_CHECK2(name, type, expectedSize)                                                             \
 	template <typename TypeToCheck, std::size_t ExpectedSize, std::size_t RealSize = sizeof(TypeToCheck)> \
-	void CheckSizeOf##name##__() {                                                                        \
+	std::enable_if_t<ExpectedSize == RealSize, void> CheckSizeOf##name##__() {                            \
 		static_assert(ExpectedSize == RealSize, "Size of " #type " does not match expected size.");       \
 	}                                                                                                     \
 	inline void CheckSizeHelper##name##__() { CheckSizeOf##name##__<type, expectedSize>(); }

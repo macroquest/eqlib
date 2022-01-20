@@ -101,7 +101,7 @@ public:
 		int len = 0;
 		while (m_uReadOffset < m_uLength)
 		{
-			int offset = m_uReadOffset++;
+			size_t offset = m_uReadOffset++;
 			if (m_pBuffer[offset] == '\0')
 				break;
 

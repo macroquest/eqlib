@@ -532,7 +532,7 @@ inline namespace deprecated {
 //============================================================================
 
 // @sizeof(CEverQuest) == 0x39640 :: 2022-01-11 (test) @ 0x6DC7FF
-constexpr size_t CEverQuest_size = 0x39640;
+constexpr size_t CEverQuest_size = 0x39668;
 
 class CEverQuest
 {

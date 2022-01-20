@@ -244,8 +244,8 @@ public:
 //============================================================================
 
 // @sizeof(CXWnd) == 0x1E0 :: 2022-01-11 (test) @ 0x91B7BA
-constexpr size_t CXWnd_size = 0x1E0;
-constexpr size_t CXWnd_vftable_size = 0x168;
+constexpr size_t CXWnd_size = 0x268;
+constexpr size_t CXWnd_vftable_size = 0x2D0;
 
 class [[offsetcomments]] CXWnd
 	: public TListNode<CXWnd>   // node in list of siblings

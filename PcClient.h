@@ -1503,7 +1503,7 @@ public:
 };
 
 // @sizeof(PcClient) == 0x2BF4 :: 2021-12-01 (live) @ 0x6255FC
-constexpr size_t PcClient_size = 0x2BF4;
+constexpr size_t PcClient_size = 0x3050;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {

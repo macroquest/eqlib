@@ -667,7 +667,7 @@ public:
 
 		HashTableEntry* next = nullptr;
 	};
-	static_assert(sizeof(HashTableEntry<int, int>) == 12);
+	static_assert(sizeof(HashTableEntry<int, int>) == 8 + sizeof(uintptr_t));
 	using HashEntry = HashTableEntry<T, Key>;
 
 	void Insert(const Key& key, const T& obj);

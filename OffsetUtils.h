@@ -18,6 +18,9 @@
 
 namespace eqlib {
 
+#pragma warning( push )
+#pragma warning( disable : 4312 ) // remove the warnings for the reinterpret cast from pointer to byte
+
 inline bool DataCompare(const uint8_t* pData, const uint8_t* bMask, const char* szMask)
 {
 	for (; *szMask; ++szMask, ++pData, ++bMask)
@@ -28,9 +31,9 @@ inline bool DataCompare(const uint8_t* pData, const uint8_t* bMask, const char* 
 	return (*szMask) == 0;
 }
 
-inline uint32_t FindPattern(uint32_t dwAddress, uint32_t dwLen, const uint8_t* bPattern, const char* szMask)
+inline uintptr_t FindPattern(uintptr_t dwAddress, uintptr_t dwLen, const uint8_t* bPattern, const char* szMask)
 {
-	for (uint32_t i = 0; i < dwLen; i++)
+	for (uintptr_t i = 0; i < dwLen; i++)
 	{
 		if (DataCompare(reinterpret_cast<uint8_t*>(dwAddress + i), bPattern, szMask))
 			return dwAddress + i;
@@ -39,27 +42,29 @@ inline uint32_t FindPattern(uint32_t dwAddress, uint32_t dwLen, const uint8_t* b
 	return 0;
 }
 
-inline uint32_t GetDWordAt(uint32_t address, uint32_t numBytes)
+inline uintptr_t GetDWordAt(uintptr_t address, uintptr_t numBytes)
 {
 	if (address)
 	{
 		address += numBytes;
-		return *reinterpret_cast<uint32_t*>(address);
+		return *reinterpret_cast<uintptr_t*>(address);
 	}
 
 	return 0;
 }
 
-inline uint32_t GetFunctionAddressAt(uint32_t address, uint32_t addressOffset, uint32_t numBytes)
+inline uintptr_t GetFunctionAddressAt(uintptr_t address, uintptr_t addressOffset, uintptr_t numBytes)
 {
 	if (address)
 	{
-		uint32_t displacement = *reinterpret_cast<uint32_t*>(address + addressOffset);
+		uintptr_t displacement = *reinterpret_cast<uintptr_t*>(address + addressOffset);
 		return address + numBytes + displacement;
 	}
 
 	return 0;
 }
+
+#pragma warning( pop )
 
 // Variadic expansion of bases for ForeignPointer allow us to specify multiple allowable types for
 // conversion. For example:
