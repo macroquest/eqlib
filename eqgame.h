@@ -512,7 +512,6 @@
 #define CMerchantWnd__DisplayBuyOrSellPrice_x                      0x7E6AD0
 #define CMerchantWnd__PurchasePageHandler__RequestGetItem_x        0x7E7430
 #define CMerchantWnd__PurchasePageHandler__RequestPutItem_x        0x7E7AC0
-#define CMerchantWnd__SelectRecoverySlot_x                         0x7EADB0
 #define CMerchantWnd__MerchantPageHandler__SelectBuySellSlot_x     0x7E5540
 #define CMerchantWnd__SelectBuySellSlot_x                          0x7F0FB0
 #define CMerchantWnd__PurchasePageHandler__UpdateList_x            0x7E6720

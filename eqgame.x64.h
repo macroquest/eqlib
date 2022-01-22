@@ -500,89 +500,88 @@
 #define CListWnd__SetVScrollPos_x                                  0x1405FD240
 
 // CMapViewWnd
-#define CMapViewWnd__CMapViewWnd_x                                 0x0
+#define CMapViewWnd__CMapViewWnd_x                                 0x140478070
 
 // MapViewMap
-#define MapViewMap__MapViewMap_x                                   0x0
-#define MapViewMap__dMapViewMap_x                                  0x0
-#define MapViewMap__vftable_x                                      0x0
-#define MapViewMap__Clear_x                                        0x0
-#define MapViewMap__SetZoom_x                                      0x0
-#define MapViewMap__HandleLButtonDown_x                            0x0
-#define MapViewMap__GetWorldCoordinates_x                          0x0
+#define MapViewMap__MapViewMap_x                                   0x1404721B0
+#define MapViewMap__dMapViewMap_x                                  0x1404722E0
+#define MapViewMap__vftable_x                                      0x1408D7920
+#define MapViewMap__Clear_x                                        0x140476500
+#define MapViewMap__SetZoom_x                                      0x14047D750
+#define MapViewMap__HandleLButtonDown_x                            0x1404723D0
+#define MapViewMap__GetWorldCoordinates_x                          0x140475F70
 
 // CMerchantWnd
-#define CMerchantWnd__DisplayBuyOrSellPrice_x                      0x0
-#define CMerchantWnd__PurchasePageHandler__RequestGetItem_x        0x0
-#define CMerchantWnd__PurchasePageHandler__RequestPutItem_x        0x0
-#define CMerchantWnd__SelectRecoverySlot_x                         0x0
-#define CMerchantWnd__MerchantPageHandler__SelectBuySellSlot_x     0x0
-#define CMerchantWnd__SelectBuySellSlot_x                          0x0
-#define CMerchantWnd__PurchasePageHandler__UpdateList_x            0x0
+#define CMerchantWnd__DisplayBuyOrSellPrice_x                      0x14049FD50    // CMerchantWnd__PurchasePageHandler__DisplayBuyOrSellPrice
+#define CMerchantWnd__PurchasePageHandler__RequestGetItem_x        0x1404A07B0
+#define CMerchantWnd__PurchasePageHandler__RequestPutItem_x        0x1404A1000
+#define CMerchantWnd__MerchantPageHandler__SelectBuySellSlot_x     0x14049E310
+#define CMerchantWnd__SelectBuySellSlot_x                          0x1404ABD70
+#define CMerchantWnd__PurchasePageHandler__UpdateList_x            0x14049F8A0
 
 // CPacketScrambler
-#define CPacketScrambler__ntoh_x                                   0x0
-#define CPacketScrambler__hton_x                                   0x0
+#define CPacketScrambler__ntoh_x                                   0x14067F7A0
+#define CPacketScrambler__hton_x                                   0x14067F790
 
 // CSidlManagerBase
-#define CSidlManagerBase__CreateTabWnd_x                           0x0
-#define CSidlManagerBase__CreatePageWnd_x                          0x0
-#define CSidlManagerBase__FindButtonDrawTemplate_x                 0x0
-#define CSidlManagerBase__FindButtonDrawTemplate1_x                0x0
-#define CSidlManagerBase__FindAnimation1_x                         0x0
-#define CSidlManagerBase__FindScreenPieceTemplate_x                0x0
-#define CSidlManagerBase__FindScreenPieceTemplate1_x               0x0
-#define CSidlManagerBase__CreateLabel_x                            0x0
-#define CSidlManagerBase__CreateXWndFromTemplate_x                 0x0
-#define CSidlManagerBase__CreateXWndFromTemplate1_x                0x0
-#define CSidlManagerBase__CreateXWnd_x                             0x0
+#define CSidlManagerBase__CreateTabWnd_x                           0x140626E80
+#define CSidlManagerBase__CreatePageWnd_x                          0x1406265C0
+#define CSidlManagerBase__FindButtonDrawTemplate_x                 0x1406215A0
+#define CSidlManagerBase__FindButtonDrawTemplate1_x                0x1406214F0
+#define CSidlManagerBase__FindAnimation1_x                         0x1406219A0
+#define CSidlManagerBase__FindScreenPieceTemplate_x                0x140621E60
+#define CSidlManagerBase__FindScreenPieceTemplate1_x               0x140621C10
+#define CSidlManagerBase__CreateLabel_x                            0x140517FE0
+#define CSidlManagerBase__CreateXWndFromTemplate_x                 0x140625350
+#define CSidlManagerBase__CreateXWndFromTemplate1_x                0x1408561E0
+#define CSidlManagerBase__CreateXWnd_x                             0x1406256C0
 
 // CSidlManager
-#define CSidlManager__CreateHotButtonWnd_x                         0x0
-#define CSidlManager__CreateXWnd_x                                 0x0
+#define CSidlManager__CreateHotButtonWnd_x                         0x1405184C0
+#define CSidlManager__CreateXWnd_x                                 0x140517B60
 
 // CSidlScreenWnd
-#define CSidlScreenWnd__CalculateHSBRange_x                        0x0
-#define CSidlScreenWnd__CalculateVSBRange_x                        0x0
-#define CSidlScreenWnd__ConvertToRes_x                             0x0
-#define CSidlScreenWnd__CreateChildrenFromSidl_x                   0x0
-#define CSidlScreenWnd__CSidlScreenWnd1_x                          0x0
-#define CSidlScreenWnd__CSidlScreenWnd2_x                          0x0
-#define CSidlScreenWnd__dCSidlScreenWnd_x                          0x0
-#define CSidlScreenWnd__DrawSidlPiece_x                            0x0
-#define CSidlScreenWnd__EnableIniStorage_x                         0x0
-#define CSidlScreenWnd__GetChildItem_x                             0x0
-#define CSidlScreenWnd__GetSidlPiece_x                             0x0
-#define CSidlScreenWnd__HandleLButtonUp_x                          0x0
-#define CSidlScreenWnd__Init1_x                                    0x0
-#define CSidlScreenWnd__LoadIniInfo_x                              0x0
-#define CSidlScreenWnd__LoadIniListWnd_x                           0x0
-#define CSidlScreenWnd__LoadSidlScreen_x                           0x0
-#define CSidlScreenWnd__m_layoutCopy_x                             0x0
-#define CSidlScreenWnd__StoreIniInfo_x                             0x0
-#define CSidlScreenWnd__StoreIniVis_x                              0x0
-#define CSidlScreenWnd__vftable_x                                  0x0
-#define CSidlScreenWnd__WndNotification_x                          0x0
+#define CSidlScreenWnd__CalculateHSBRange_x                        0x14061CA60
+#define CSidlScreenWnd__CalculateVSBRange_x                        0x14061C930
+#define CSidlScreenWnd__ConvertToRes_x                             0x14064FCF0 // LayoutTools::ConvertToRes
+#define CSidlScreenWnd__CreateChildrenFromSidl_x                   0x14061C1E0
+#define CSidlScreenWnd__CSidlScreenWnd1_x                          0x14061BEE0
+#define CSidlScreenWnd__CSidlScreenWnd2_x                          0x14061BFA0
+#define CSidlScreenWnd__dCSidlScreenWnd_x                          0x14061C060
+#define CSidlScreenWnd__DrawSidlPiece_x                            0x14061D230
+#define CSidlScreenWnd__EnableIniStorage_x                         0x14061D810
+#define CSidlScreenWnd__GetChildItem_x                             0x14061D760
+#define CSidlScreenWnd__GetSidlPiece_x                             0x14085FEE0
+#define CSidlScreenWnd__HandleLButtonUp_x                          0x140608C20 // CXWnd::HandleLButtonUp
+#define CSidlScreenWnd__Init1_x                                    0x14061B8A0
+#define CSidlScreenWnd__LoadIniInfo_x                              0x14061D870
+#define CSidlScreenWnd__LoadIniListWnd_x                           0x14061E710
+#define CSidlScreenWnd__LoadSidlScreen_x                           0x14061A930
+#define CSidlScreenWnd__m_layoutCopy_x                             0x140E1F118
+#define CSidlScreenWnd__StoreIniInfo_x                             0x14061E120
+#define CSidlScreenWnd__StoreIniVis_x                              0x14061E580
+#define CSidlScreenWnd__vftable_x                                  0x1408FEE38
+#define CSidlScreenWnd__WndNotification_x                          0x14061D0C0
 
-// CSkillMgr
-#define CSkillMgr__IsAvailable_x                                   0x0
-#define CSkillMgr__GetSkillCap_x                                   0x0
-#define CSkillMgr__GetNameToken_x                                  0x0
-#define CSkillMgr__IsActivatedSkill_x                              0x0
-#define CSkillMgr__IsCombatSkill_x                                 0x0
+// CSkillMgr   a.k.a. SkillManager
+#define CSkillMgr__IsAvailable_x                                   0x140357950 // SkillManager::CanUseSkill
+#define CSkillMgr__GetSkillCap_x                                   0x140357B90 // SkillManager::GetSkillLimit
+#define CSkillMgr__GetNameToken_x                                  0x140356FC0
+#define CSkillMgr__IsActivatedSkill_x                              0x1403570B0
+#define CSkillMgr__IsCombatSkill_x                                 0x140357020
 
 // CSliderWnd
-#define CSliderWnd__GetValue_x                                     0x0
-#define CSliderWnd__SetValue_x                                     0x0
-#define CSliderWnd__SetNumTicks_x                                  0x0
+#define CSliderWnd__GetValue_x                                     0x140631410
+#define CSliderWnd__SetValue_x                                     0x1406311C0
+#define CSliderWnd__SetNumTicks_x                                  0x140631210
 
 // CSpellBookWnd
-#define CSpellBookWnd__MemorizeSet_x                               0x0
+#define CSpellBookWnd__MemorizeSet_x                               0x14051F8E0
 
 // CStmlWnd
-#define CStmlWnd__AppendSTML_x                                     0x0
-#define CStmlWnd__CalculateHSBRange_x                              0x0
-#define CStmlWnd__CalculateVSBRange_x                              0x0
+#define CStmlWnd__AppendSTML_x                                     0x14063C060
+#define CStmlWnd__CalculateHSBRange_x                              0x14060B120
+#define CStmlWnd__CalculateVSBRange_x                              0x14063D240
 #define CStmlWnd__CanBreakAtCharacter_x                            0x0
 #define CStmlWnd__FastForwardToEndOfTag_x                          0x0
 #define CStmlWnd__ForceParseNow_x                                  0x0
