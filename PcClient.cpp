@@ -294,15 +294,6 @@ const char* GetXtargetType(DWORD type)
 // CharacterBase
 //============================================================================
 
-#ifdef CharacterBase__GetMemorizedSpell_x
-FUNCTION_AT_ADDRESS(int, CharacterBase::GetMemorizedSpell(int), CharacterBase__GetMemorizedSpell);
-#endif
-//#ifdef CharacterBase__CreateItemGlobalIndex_x
-//FUNCTION_AT_ADDRESS(ItemGlobalIndex, CharacterBase::CreateItemGlobalIndex(int, int, int), CharacterBase__CreateItemGlobalIndex);
-//#endif
-//#ifdef CharacterBase__CreateItemIndex_x
-//FUNCTION_AT_ADDRESS(ItemIndex, CharacterBase::CreateItemIndex(int, int, int), CharacterBase__CreateItemIndex);
-//#endif
 #ifdef CharacterBase__GetItemByGlobalIndex_x
 FUNCTION_AT_ADDRESS(ItemPtr, CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const, CharacterBase__GetItemByGlobalIndex);
 #endif

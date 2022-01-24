@@ -243,7 +243,7 @@ public:
 // CXWnd
 //============================================================================
 
-// @sizeof(CXWnd) == 0x1E0 :: 2022-01-11 (test) @ 0x91B7BA
+// @sizeof(CXWnd) == 0x268 :: 2022-01-11 (test) @ 0x1405FF896
 constexpr size_t CXWnd_size = 0x268;
 constexpr size_t CXWnd_vftable_size = 0x2D0;
 
@@ -753,7 +753,7 @@ public:
 /*0x10c*/ uint32_t    BlinkFadeFreq;
 /*0x110*/ bool        bIsTransitioning;
 /*0x111*/ uint8_t     TargetAlpha;
-/*0x114*/ CXStr       WindowText;                          // CXWnd__GetWindowTextA_x has this one
+/*0x114*/ CXStr       WindowText;
 /*0x118*/ bool        bClipToParent;
 /*0x11c*/ CLayoutStrategy* pLayoutStrategy;
 /*0x120*/ bool        bNeedsSaving;                        // will be true if you move or resize the window

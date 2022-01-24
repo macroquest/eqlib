@@ -1494,9 +1494,6 @@ FUNCTION_AT_ADDRESS(void, CContextMenuManager::WarnDefaultMenu(CXWnd*), CContext
 #ifdef CContextMenuManager__HandleWindowMenuCommands_x
 FUNCTION_AT_ADDRESS(int, CContextMenuManager::HandleWindowMenuCommands(CXWnd*, int), CContextMenuManager__HandleWindowMenuCommands);
 #endif
-#ifdef CContextMenuManager__GetMenu_x
-FUNCTION_AT_ADDRESS(CContextMenu*, CContextMenuManager::GetMenu(int), CContextMenuManager__GetMenu);
-#endif
 
 //============================================================================
 // CContextMenu

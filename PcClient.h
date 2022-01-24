@@ -887,7 +887,7 @@ public:
 
 	// Verified
 	EQLIB_OBJECT int IsExpansionFlag(int);
-	EQLIB_OBJECT int GetMemorizedSpell(int gem);             // 0-0xf this func returns the spellid for whatever is in the gem
+	EQLIB_OBJECT int GetMemorizedSpell(int index) { return GetCurrentBaseProfile().GetMemorizedSpell(index); }
 
 	// Items
 	EQLIB_OBJECT ItemPtr GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const;
@@ -1502,8 +1502,8 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x2BF4 :: 2021-12-01 (live) @ 0x6255FC
-constexpr size_t PcClient_size = 0x3050;
+// @sizeof(PcClient) == 0x31E8 :: 2021-12-01 (live) @ 0x14029D48E
+constexpr size_t PcClient_size = 0x31E8;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {

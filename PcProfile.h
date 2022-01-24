@@ -205,6 +205,8 @@ public:
 	inline ItemPtr GetItemPossession(const ItemIndex& index) const { return InventoryContainer.GetItem(index); }
 	inline ItemContainer& GetItemPosessions() { return InventoryContainer; }
 
+	inline int GetMemorizedSpell(int index) const { return MemorizedSpells[index]; }
+
 	const EQ_Affect& GetEffect(int index) const { return Buff[index]; }
 	EQ_Affect& GetEffect(int index) { return Buff[index]; }
 
@@ -281,8 +283,8 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x0B0E0 :: 2022-01-11 (test) @ 0x8F975D
-constexpr size_t PcProfile_size = 0xB130;
+// @sizeof(PcProfile) == 0x0B158 :: 2022-01-11 (test) @ 0x140690DE4
+constexpr size_t PcProfile_size = 0xB158;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
 {
