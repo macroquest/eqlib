@@ -760,9 +760,7 @@
 #define PlayerBase__HasProperty_j_x                                0x9F23D0
 #define PlayerBase__IsTargetable_x                                 0x9F2930
 #define PlayerClient__ChangeBoneStringSprite_x                     0x69CDE0
-#define PlayerClient__dPlayerClient_x                              0x68F4C0
 #define PlayerClient__GetPcClient_x                                0x69B3B0
-#define PlayerClient__PlayerClient_x                               0x68FD10
 #define PlayerClient__SetNameSpriteState_x                         0x6942D0
 #define PlayerClient__SetNameSpriteTint_x                          0x6951C0
 #define PlayerZoneClient__ChangeHeight_x                           0x6A9620
@@ -775,6 +773,10 @@
 #define PlayerManagerClient__GetSpawnByID_x                        0x69FF90
 #define PlayerManagerClient__GetSpawnByName_x                      0x6A0040
 #define PlayerManagerClient__GetPlayerFromPartialName_x            0x6A00D0
+#define PlayerManagerClient__CreatePlayer_x                        0x0 // FIXME: will need to find this for win32
+
+// PlayerManagerBase
+#define PlayerManagerBase__DestroyPlayer_x                         0x0 // FIXME: will need to find this for win32
 
 // KeyPressHandler
 #define KeypressHandler__Get_x                                     0x65DEB0

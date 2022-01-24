@@ -457,6 +457,14 @@ FUNCTION_AT_ADDRESS(bool, PlayerBase::IsTargetable(), PlayerBase__IsTargetable);
 #endif
 
 //============================================================================
+// PlayerManagerBase
+//============================================================================
+
+#ifdef PlayerManagerBase__DestroyPlayer_x
+FUNCTION_AT_ADDRESS(PlayerClient*, PlayerManagerBase::DestroyPlayer(PlayerClient*), PlayerManagerBase__DestroyPlayer);
+#endif
+
+//============================================================================
 // PlayerManagerClient
 //============================================================================
 
@@ -468,6 +476,9 @@ FUNCTION_AT_ADDRESS(PlayerClient*, PlayerManagerClient::GetSpawnByName(const cha
 #endif
 #ifdef PlayerManagerClient__GetPlayerFromPartialName_x
 FUNCTION_AT_ADDRESS(PlayerClient*, PlayerManagerClient::GetPlayerFromPartialName(const char*, PlayerBase*), PlayerManagerClient__GetPlayerFromPartialName);
+#endif
+#ifdef PlayerManagerClient__CreatePlayer_x
+FUNCTION_AT_ADDRESS(PlayerClient*, PlayerManagerClient::CreatePlayer(CUnSerializeBuffer*, unsigned char, int, int, const char*, bool, const char*, const char*), PlayerManagerClient__CreatePlayer);
 #endif
 
 //============================================================================

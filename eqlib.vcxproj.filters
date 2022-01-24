@@ -165,6 +165,9 @@
     <ClInclude Include="Logging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="eqgame.x64.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">
@@ -229,12 +232,12 @@
     <CustomBuild Include="AssemblyFunctions.asm">
       <Filter>Source Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="AssemblyFunctions64.asm">
+      <Filter>Source Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="AssemblyFunctions.def">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="AssemblyFunctions64.asm">
       <Filter>Source Files</Filter>
     </None>
     <None Include="AssemblyFunctions64.def">

@@ -792,6 +792,8 @@ EQLIB_VAR uintptr_t PlayerClient__GetPcClient;
 EQLIB_VAR uintptr_t PlayerClient__PlayerClient;
 EQLIB_VAR uintptr_t PlayerClient__SetNameSpriteState;
 EQLIB_VAR uintptr_t PlayerClient__SetNameSpriteTint;
+EQLIB_VAR uintptr_t PlayerManagerBase__DestroyPlayer;
+EQLIB_VAR uintptr_t PlayerManagerClient__CreatePlayer;
 EQLIB_VAR uintptr_t PlayerManagerClient__GetPlayerFromPartialName;
 EQLIB_VAR uintptr_t PlayerManagerClient__GetSpawnByID;
 EQLIB_VAR uintptr_t PlayerManagerClient__GetSpawnByName;

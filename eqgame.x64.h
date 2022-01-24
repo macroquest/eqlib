@@ -763,9 +763,7 @@
 #define PlayerBase__HasProperty_j_x                                0x1406F7670  // Remove _j
 #define PlayerBase__IsTargetable_x                                 0x1406F7D20
 #define PlayerClient__ChangeBoneStringSprite_x                     0x140327C10
-#define PlayerClient__dPlayerClient_x                              0x1403186F0
 #define PlayerClient__GetPcClient_x                                0x140325D30
-#define PlayerClient__PlayerClient_x                               0x1403184F0
 #define PlayerClient__SetNameSpriteState_x                         0x14031DDB0
 #define PlayerClient__SetNameSpriteTint_x                          0x14031EE10
 #define PlayerZoneClient__ChangeHeight_x                           0x140339CA0
@@ -778,6 +776,10 @@
 #define PlayerManagerClient__GetSpawnByID_x                        0x14032E8C0  // ... GetPlayerById
 #define PlayerManagerClient__GetSpawnByName_x                      0x14032E980  // ... GetPlayerByName
 #define PlayerManagerClient__GetPlayerFromPartialName_x            0x14032EA30
+#define PlayerManagerClient__CreatePlayer_x                        0x14032E3F0
+
+// PlayerManagerBase
+#define PlayerManagerBase__DestroyPlayer_x                         0x1406F6FC0
 
 // KeyPressHandler
 #define KeypressHandler__Get_x                                     0x1402DE950

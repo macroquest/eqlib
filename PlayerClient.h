@@ -347,6 +347,7 @@ class [[offsetcomments]] PlayerManagerBase
 {
 public:
 	virtual ~PlayerManagerBase() {}
+	EQLIB_OBJECT PlayerClient* DestroyPlayer(PlayerClient*);
 
 /*0x04*/ DWORD         random;                   // rand() % 20000
 /*0x08*/ PlayerClient* FirstSpawn;
@@ -365,6 +366,7 @@ public:
 	EQLIB_OBJECT PlayerClient* GetSpawnByID(int);
 	EQLIB_OBJECT PlayerClient* GetSpawnByName(const char*);
 	EQLIB_OBJECT PlayerClient* GetPlayerFromPartialName(const char*, PlayerBase*);
+	EQLIB_OBJECT PlayerClient* CreatePlayer(CUnSerializeBuffer*, unsigned char, int, int, const char*, bool, const char*, const char*);
 };
 
 inline namespace deprecated {
