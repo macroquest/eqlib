@@ -43,27 +43,30 @@ EQLIB_VAR uintptr_t Kernel32BaseAddress;
 // These macros are used for statically building offsets. If using dynamic offset generation
 // with the pattern matching, don't use the macro.
 
-// FIXME: Look at the base addresses
-#define INITIALIZE_EQGAME_OFFSET(var) uintptr_t var = (((uintptr_t)var##_x - 0x400000) + eqlib::EQGameBaseAddress)
-#define INITIALIZE_EQGRAPHICS_OFFSET(var) uintptr_t var = (eqlib::EQGraphicsBaseAddress ? ((uintptr_t)var##_x - 0x10000000) + eqlib::EQGraphicsBaseAddress : 0)
-#define INITIALIZE_EQMAIN_OFFSET(var) uintptr_t var = (eqlib::EQMainBaseAddress ? (uintptr_t)var##_x - 0x10000000) + eqlib::EQMainBaseAddress : 0)
-
 // These functions are used for dynamically building offsets.
 
-inline uintptr_t FixEQGameOffset(uintptr_t nOffset)
+template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
+inline uintptr_t FixEQGameOffset(T nOffset)
 {
-	return (nOffset - 0x400000) + EQGameBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x140001000) + EQGameBaseAddress;
 }
 
-inline uintptr_t FixEQGraphicsOffset(uintptr_t nOffset)
+template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
+inline uintptr_t FixEQGraphicsOffset(T nOffset)
 {
-	return (nOffset - 0x10000000) + EQGraphicsBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180001000) + EQGraphicsBaseAddress;
 }
 
-inline uintptr_t FixEQMainOffset(uintptr_t nOffset)
+template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
+inline uintptr_t FixEQMainOffset(T nOffset)
 {
-	return (nOffset - 0x10000000) + EQMainBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180001000) + EQMainBaseAddress;
 }
+
+#define INITIALIZE_EQGAME_OFFSET(var) uintptr_t var = FixEQGameOffset(var##_x)
+#define INITIALIZE_EQGRAPHICS_OFFSET(var) uintptr_t var = FixEQGraphicsOffset(var##_x)
+#define INITIALIZE_EQMAIN_OFFSET(var) uintptr_t var = FixEQMainOffset(var##_x)
+
 
 //============================================================================
 // Data

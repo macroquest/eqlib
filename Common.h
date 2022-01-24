@@ -140,7 +140,9 @@ __pragma( optimize("", on) )
     type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type (&name)[size];
 
-#if defined(COMMENT_UPDATER) || !defined(_DEBUG)
+#define SIZE_CHECKS_ENABLED 1
+
+#if defined(COMMENT_UPDATER) || !defined(_DEBUG) || SIZE_CHECKS_ENABLED == 0
 #define SIZE_CHECK(type, expectedSize)
 #define SIZE_CHECK2(name, type, expectedSize)
 #else
@@ -161,6 +163,13 @@ __pragma( optimize("", on) )
 #include "base/Color.h"
 
 namespace eqlib {
+
+#if defined(_WIN64)
+	using eqtime_t = time_t;
+#else
+	using eqtime_t = __time32_t;
+#endif
+
 
 class CXSize;
 

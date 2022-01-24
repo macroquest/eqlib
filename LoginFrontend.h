@@ -36,15 +36,15 @@ public:
 	EQLIB_OBJECT int ProcessMouseEvents();
 
 /*0x00*/ IDirectInput8A*          pDI;
-/*0x04*/ IDirectInputDevice8A*    pDIKeyboard;
-/*0x08*/ IDirectInputDevice8A*    pDIMouse;
-/*0x0c*/ HWND                     hWnd;
-/*0x10*/ HINSTANCE                hInstance;
-/*0x14*/ bool                     bIsKeyboardActive;
-/*0x15*/ bool                     bIsMouseActive;
-/*0x18*/ uint32_t                 Unknown0x18;
-/*0x1c*/ int                      LastInputKey;
-/*0x20*/
+/*0x08*/ IDirectInputDevice8A*    pDIKeyboard;
+/*0x10*/ IDirectInputDevice8A*    pDIMouse;
+/*0x18*/ HWND                     hWnd;
+/*0x20*/ HINSTANCE                hInstance;
+/*0x28*/ bool                     bIsKeyboardActive;
+/*0x29*/ bool                     bIsMouseActive;
+/*0x2c*/ uint32_t                 Unknown0x18;
+/*0x30*/ int                      LastInputKey;
+/*0x34*/
 };
 
 class CLoginViewManager
@@ -70,10 +70,10 @@ struct [[offsetcomments]] Date
 /*0x04*/ int8_t    Day;
 /*0x06*/ int16_t   Year;
 /*0x08*/ CXStr     Unknown0x08;
-/*0x0c*/ CXStr     Unknown0x0c;
-/*0x10*/ CXStr     Unknown0x10;
-/*0x18*/ int64_t   TimeStamp;
-/*0x20*/
+/*0x10*/ CXStr     Unknown0x0c;
+/*0x18*/ CXStr     Unknown0x10;
+/*0x20*/ int64_t   TimeStamp;
+/*0x28*/
 };
 
 enum eServerStatus : uint32_t
@@ -85,19 +85,19 @@ enum eServerStatus : uint32_t
 struct [[offsetcomments]] EQClientServerData
 {
 /*0x00*/ ServerID      ID;
-/*0x04*/ CXStr         ServerName;
-/*0x08*/ CXStr         HostName;
-/*0x0c*/ CXStr         ServerIP;
-/*0x10*/ int           ExternalPort;
-/*0x14*/ int           InternalPort;
-/*0x18*/ Date          DateCreated;
-/*0x38*/ int           Flags;
-/*0x3c*/ int           ServerType;
-/*0x40*/ CXStr         LanguageCode;
-/*0x44*/ CXStr         CountryCode;
-/*0x48*/ eServerStatus StatusFlags;
-/*0x4c*/ int           PopulationRanking;
-/*0x50*/
+/*0x08*/ CXStr         ServerName;
+/*0x10*/ CXStr         HostName;
+/*0x18*/ CXStr         ServerIP;
+/*0x20*/ int           ExternalPort;
+/*0x24*/ int           InternalPort;
+/*0x28*/ Date          DateCreated;
+/*0x50*/ int           Flags;
+/*0x54*/ int           ServerType;
+/*0x58*/ CXStr         LanguageCode;
+/*0x60*/ CXStr         CountryCode;
+/*0x68*/ eServerStatus StatusFlags;
+/*0x6c*/ int           PopulationRanking;
+/*0x70*/
 };
 
 class [[offsetcomments]] LoginServerCallback
@@ -125,23 +125,23 @@ struct [[offsetcomments]] EQLogin
 {
 /*0x000*/ EQDevice  Devices[0x10];
 /*0x400*/ int       NumDevices;
-/*0x404*/ HWND      hEQWnd;
-/*0x408*/ int       ReturnCode; // -1 = failed login
-/*0x40c*/ char      Login[0x80];
-/*0x48c*/ char      PW[0x80];
-/*0x50c*/ char      PW2[0x80];
-/*0x58c*/ char      ServerLong[0x80];
-/*0x60c*/ int       ServerPort;
-/*0x610*/ char      AccountKey[0x80];
-/*0x690*/ int       ActiveDeviceIndex;
-/*0x694*/ char      LastZoneEntered[0x20];
-/*0x6b4*/ char      StationName[0x20];
-/*0x6d4*/ char      ExeName[0x20];
-/*0x6f4*/ char      CommandLine[0x1c0];
-/*0x8b4*/ char      ServerShort[0x80];
-/*0x934*/ char      Session[0x40];
-/*0x974*/ char      Character[0x40];
-/*0x9b4*/ // more...
+/*0x408*/ HWND      hEQWnd;
+/*0x410*/ int       ReturnCode; // -1 = failed login
+/*0x414*/ char      Login[0x80];
+/*0x494*/ char      PW[0x80];
+/*0x514*/ char      PW2[0x80];
+/*0x594*/ char      ServerLong[0x80];
+/*0x614*/ int       ServerPort;
+/*0x618*/ char      AccountKey[0x80];
+/*0x698*/ int       ActiveDeviceIndex;
+/*0x69c*/ char      LastZoneEntered[0x20];
+/*0x6bc*/ char      StationName[0x20];
+/*0x6dc*/ char      ExeName[0x20];
+/*0x6fc*/ char      CommandLine[0x1c0];
+/*0x8bc*/ char      ServerShort[0x80];
+/*0x93c*/ char      Session[0x40];
+/*0x97c*/ char      Character[0x40];
+/*0x9bc*/ // more...
 };
 
 } // namespace EQLS
@@ -157,20 +157,20 @@ public:
 		int   Port;
 	};
 
-/*0x008*/ EQLS::EQLogin* pLoginData;
-/*0x00c*/ DoublyLinkedList<Host*> Hosts;
-/*0x02c*/ Host*    pHost;
-/*0x030*/ bool     bRetryConnect;
-/*0x031*/ uint8_t  Unknown0x031[0x7C];
-/*0x0b0*/ CXStr    LoginName;
-/*0x0b4*/ CXStr    Password;
-/*0x0b8*/ CXStr    LoginNameCopy;
-/*0x0bc*/ CXStr    PasswordCopy;
-/*0x0c0*/ CXStr    AccountKey;
-/*0x0c4*/ uint8_t  Unknown0x0C4[0x10];
-/*0x0d4*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
-/*0x0f8*/ EQLS::EQClientServerData QuickConnectServer;
-/*0x148*/ };
+/*0x010*/ EQLS::EQLogin* pLoginData;
+/*0x018*/ DoublyLinkedList<Host*> Hosts;
+/*0x050*/ Host*    pHost;
+/*0x058*/ bool     bRetryConnect;
+/*0x059*/ uint8_t  Unknown0x031[0x7C];
+/*0x0d8*/ CXStr    LoginName;
+/*0x0e0*/ CXStr    Password;
+/*0x0e8*/ CXStr    LoginNameCopy;
+/*0x0f0*/ CXStr    PasswordCopy;
+/*0x0f8*/ CXStr    AccountKey;
+/*0x100*/ uint8_t  Unknown0x0C4[0x10];
+/*0x110*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
+/*0x148*/ EQLS::EQClientServerData QuickConnectServer;
+/*0x1b8*/ };
 
 //----------------------------------------------------------------------------
 

@@ -98,9 +98,9 @@ inline namespace deprecated
 	{
 	public:
 	/*0x00*/ ITEMBASEARRAY* pItems;
-	/*0x04*/ size_t         Size;
-	/*0x08*/ unsigned int   Capacity;
-	/*0x0c*/
+	/*0x08*/ size_t         Size;
+	/*0x10*/ unsigned int   Capacity;
+	/*0x14*/
 	};
 }
 
@@ -1203,47 +1203,47 @@ class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildIt
 {
 public:
 // @start: ItemBase Members
-/*0x0c*/ int                   ArmorType;
-/*0x10*/ unsigned int          ItemHash;
-/*0x14*/ CXStr                 SaveString;
-/*0x18*/ ItemContainer         Contents;
-/*0x34*/ int                   NoDropFlag;
-/*0x38*/ int                   RealEstateID;
-/*0x3c*/ unsigned int          NewArmorID;
-/*0x40*/ int64_t               Price;
-/*0x48*/ CXStr                 ConvertItemName;
-/*0x4c*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x5c*/ int                   Open;
-/*0x60*/ unsigned int          Tint;
-/*0x64*/ int                   AugFlag;
-/*0x68*/ unsigned int          RespawnTime;
-/*0x6c*/ bool                  bCopied;
-/*0x70*/ int                   NoteStatus;
-/*0x74*/ int                   MerchantQuantity;
-/*0x78*/ int64_t               MerchantSlot;
-/*0x80*/ bool                  bRankDisabled;
-/*0x84*/ unsigned int          LastCastTime;
-/*0x88*/ int                   ConvertItemID;
-/*0x8c*/ bool                  bDisableAugTexture;
-/*0x90*/ ITEMINFO*             Item1;
-/*0x94*/ int                   ScriptIndex;
-/*0x98*/ int                   Charges;
-/*0x9c*/ ItemGlobalIndex       GlobalIndex;
-/*0xa8*/ bool                  bRealEstateItemPlaceable;
-/*0xb0*/ int64_t               DontKnow;
-/*0xb8*/ bool                  bConvertable;
-/*0xbc*/ int                   OrnamentationIcon;
-/*0xc0*/ int                   ID;
-/*0xc4*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0xcc*/ bool                  bCollected;
-/*0xd0*/ int                   StackCount;
-/*0xd4*/ EqItemGuid            ItemGUID;
-/*0xe8*/ int                   Luck;
-/*0xec*/ CXStr                 ActorTag1;
-/*0xf0*/ CXStr                 ActorTag2;
-/*0xf4*/ bool                  bItemNeedsUpdate;
-/*0xf8*/ int                   Power;
-/*0xfc*/
+/*0x018*/ int                   ArmorType;
+/*0x01c*/ unsigned int          ItemHash;
+/*0x020*/ CXStr                 SaveString;
+/*0x028*/ ItemContainer         Contents;
+/*0x048*/ int                   NoDropFlag;
+/*0x04c*/ int                   RealEstateID;
+/*0x050*/ unsigned int          NewArmorID;
+/*0x058*/ int64_t               Price;
+/*0x060*/ CXStr                 ConvertItemName;
+/*0x068*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0x080*/ int                   Open;
+/*0x084*/ unsigned int          Tint;
+/*0x088*/ int                   AugFlag;
+/*0x08c*/ unsigned int          RespawnTime;
+/*0x090*/ bool                  bCopied;
+/*0x094*/ int                   NoteStatus;
+/*0x098*/ int                   MerchantQuantity;
+/*0x0a0*/ int64_t               MerchantSlot;
+/*0x0a8*/ bool                  bRankDisabled;
+/*0x0ac*/ unsigned int          LastCastTime;
+/*0x0b0*/ int                   ConvertItemID;
+/*0x0b4*/ bool                  bDisableAugTexture;
+/*0x0b8*/ ITEMINFO*             Item1;
+/*0x0c0*/ int                   ScriptIndex;
+/*0x0c4*/ int                   Charges;
+/*0x0c8*/ ItemGlobalIndex       GlobalIndex;
+/*0x0d4*/ bool                  bRealEstateItemPlaceable;
+/*0x0d8*/ int64_t               DontKnow;
+/*0x0e0*/ bool                  bConvertable;
+/*0x0e4*/ int                   OrnamentationIcon;
+/*0x0e8*/ int                   ID;
+/*0x0f0*/ ItemEvolutionDataPtr  pEvolutionData;
+/*0x100*/ bool                  bCollected;
+/*0x104*/ int                   StackCount;
+/*0x108*/ EqItemGuid            ItemGUID;
+/*0x11c*/ int                   Luck;
+/*0x120*/ CXStr                 ActorTag1;
+/*0x128*/ CXStr                 ActorTag2;
+/*0x130*/ bool                  bItemNeedsUpdate;
+/*0x134*/ int                   Power;
+/*0x138*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT ItemBase();
@@ -1369,10 +1369,10 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
-/*0x100*/ ItemDefinitionPtr SharedItemDef;
-/*0x108*/ CXStr             ClientString;
-/*0x10c*/ uint8_t           Filler0x010c[0x4];
-/*0x110*/
+/*0x138*/ ItemDefinitionPtr SharedItemDef;
+/*0x148*/ CXStr             ClientString;
+/*0x150*/ uint8_t           Filler0x010c[0x4];
+/*0x154*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);
@@ -1386,32 +1386,32 @@ using EQ_Item DEPRECATE("Use ItemClient instead (or make sure the conversion is 
 // 20101012 - ieatacid
 struct [[offsetcomments]] INVENTORY
 {
-/*0x00*/ ItemClient* Charm;
-/*0x04*/ ItemClient* LeftEar;
-/*0x08*/ ItemClient* Head;
-/*0x0c*/ ItemClient* Face;
-/*0x10*/ ItemClient* RightEar;
-/*0x14*/ ItemClient* Neck;
-/*0x18*/ ItemClient* Shoulders;
-/*0x1c*/ ItemClient* Arms;
-/*0x20*/ ItemClient* Back;
-/*0x24*/ ItemClient* LeftWrist;
-/*0x28*/ ItemClient* RightWrist;
-/*0x2c*/ ItemClient* Range;
-/*0x30*/ ItemClient* Hands;
-/*0x34*/ ItemClient* Primary;
-/*0x38*/ ItemClient* Secondary;
-/*0x3c*/ ItemClient* LeftFinger;
-/*0x40*/ ItemClient* RightFinger;
-/*0x44*/ ItemClient* Chest;
-/*0x48*/ ItemClient* Legs;
-/*0x4c*/ ItemClient* Feet;
-/*0x50*/ ItemClient* Waist;
-/*0x54*/ ItemClient* PowerSource;
-/*0x58*/ ItemClient* Ammo;
-/*0x5c*/ ItemClient* Pack[NUM_BAG_SLOTS];
-/*0x8c*/ ItemClient* Cursor;
-/*0x90*/
+/*0x000*/ ItemClient* Charm;
+/*0x008*/ ItemClient* LeftEar;
+/*0x010*/ ItemClient* Head;
+/*0x018*/ ItemClient* Face;
+/*0x020*/ ItemClient* RightEar;
+/*0x028*/ ItemClient* Neck;
+/*0x030*/ ItemClient* Shoulders;
+/*0x038*/ ItemClient* Arms;
+/*0x040*/ ItemClient* Back;
+/*0x048*/ ItemClient* LeftWrist;
+/*0x050*/ ItemClient* RightWrist;
+/*0x058*/ ItemClient* Range;
+/*0x060*/ ItemClient* Hands;
+/*0x068*/ ItemClient* Primary;
+/*0x070*/ ItemClient* Secondary;
+/*0x078*/ ItemClient* LeftFinger;
+/*0x080*/ ItemClient* RightFinger;
+/*0x088*/ ItemClient* Chest;
+/*0x090*/ ItemClient* Legs;
+/*0x098*/ ItemClient* Feet;
+/*0x0a0*/ ItemClient* Waist;
+/*0x0a8*/ ItemClient* PowerSource;
+/*0x0b0*/ ItemClient* Ammo;
+/*0x0b8*/ ItemClient* Pack[NUM_BAG_SLOTS];
+/*0x118*/ ItemClient* Cursor;
+/*0x120*/
 };
 
 using PINVENTORY DEPRECATE("Use INVENTORY* instead of PINVENTORY") = INVENTORY*;
@@ -1440,6 +1440,8 @@ using PINVENTORYARRAY DEPRECATE("Use INVENTORYARRAY* Instead of PINVENTORYARRAY"
 // offsets are relative to their position in LAUNCHSPELLDATA
 struct [[offsetcomments]] ITEMLOCATION
 {
+	FORCE_SYMBOLS
+
 	/*0x00*/ ItemContainerInstance Location DEPRECATE("Use ItemGlobalIndex");
 	/*0x04*/ short InvSlot DEPRECATE("Use ItemGlobalIndex");
 	/*0x06*/ short BagSlot DEPRECATE("Use ItemGlobalIndex");

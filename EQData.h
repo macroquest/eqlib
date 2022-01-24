@@ -218,27 +218,29 @@ using PLEADERABILITIES = LEADERABILITIES*;
 
 struct [[offsetcomments]] EQCAMERABASE
 {
+	FORCE_SYMBOLS
+
 /*0x00*/ void* vftable;
-/*0x04*/ float Y;
-/*0x08*/ float X;
-/*0x0c*/ float Z;
-/*0x10*/ float Orientation_Y;                   // old name Heading
-/*0x14*/ float Orientation_X;                   // old name LookAngle
-/*0x18*/ float Orientation_Z;
-/*0x1c*/ float OldPosition_Y;
-/*0x20*/ float OldPosition_X;
-/*0x24*/ float OldPosition_Z;
-/*0x28*/ float Heading;
-/*0x2c*/ float Height;
-/*0x30*/ float Pitch;
-/*0x34*/ float Distance;
-/*0x38*/ float DirectionalHeading;
-/*0x3c*/ float SideMovement;
-/*0x40*/ float Zoom;                            // old name: ViewAngle
-/*0x44*/ bool  bAutoPitch;
-/*0x45*/ bool  bAutoHeading;
-/*0x46*/ bool  bSkipFrame;
-/*0x48*/
+/*0x08*/ float Y;
+/*0x0c*/ float X;
+/*0x10*/ float Z;
+/*0x14*/ float Orientation_Y;                   // old name Heading
+/*0x18*/ float Orientation_X;                   // old name LookAngle
+/*0x1c*/ float Orientation_Z;
+/*0x20*/ float OldPosition_Y;
+/*0x24*/ float OldPosition_X;
+/*0x28*/ float OldPosition_Z;
+/*0x2c*/ float Heading;
+/*0x30*/ float Height;
+/*0x34*/ float Pitch;
+/*0x38*/ float Distance;
+/*0x3c*/ float DirectionalHeading;
+/*0x40*/ float SideMovement;
+/*0x44*/ float Zoom;                            // old name: ViewAngle
+/*0x48*/ bool  bAutoPitch;
+/*0x49*/ bool  bAutoHeading;
+/*0x4a*/ bool  bSkipFrame;
+/*0x4c*/
 };
 using PEQCAMERABASE = EQCAMERABASE*;
 
@@ -344,63 +346,63 @@ enum eMemPoolType
 struct [[offsetcomments]] EQSWITCH
 {
 /*0x000*/ void*         vfTable;
-/*0x004*/ eMemPoolType  MemType;
-/*0x008*/ bool          bIsS3DCreated;
-/*0x009*/ bool          bHasParentBone;
-/*0x00a*/ bool          bUpdateScaledAmbient;
-/*0x00c*/ float         ScaledAmbient;
-/*0x010*/ float         ScaledAmbientTarget;
-/*0x014*/ float         ParticleScaleFactor;
-/*0x018*/ float         CollisionSphereScaleFactor;
-/*0x01c*/ UINT          UpdateAmbientTick;
-/*0x020*/ UINT          InterpolateAmbientTick;
-/*0x024*/ void*         pParentActor;             // its a  CActor*
-/*0x028*/ void*         pDPVSObject;
-/*0x02c*/ float         Y;
-/*0x030*/ float         X;
-/*0x034*/ float         Z;
-/*0x038*/ float         SurfaceNormalY;
-/*0x03c*/ float         SurfaceNormalX;
-/*0x040*/ float         SurfaceNormalZ;
-/*0x044*/ UINT          VisibleIndex;
-/*0x048*/ float         Alpha;
-/*0x04c*/ bool          bCastShadow;
-/*0x04d*/ bool          bNeverClip;
-/*0x04e*/ bool          bClientCreated;
-/*0x050*/ float         ZOffset;
-/*0x054*/ float         EmitterScalingRadius;
-/*0x058*/ void*         pDuplicateActor;          // its a  CActor*
-/*0x05c*/ bool          bShowParticlesWhenInvisible;
-/*0x060*/ void*         pAreaPortalVolumeList;    // CAreaPortalVolumeList*
-/*0x064*/ void*         CleanupList;              // a TListNode<CActor*>? not sure
-/*0x068*/ BYTE          CleanupListFiller[0xc];
-/*0x074*/ void*         pActorApplicationData;    // CActorApplicationData* 74 for sure see 1003AE70
-/*0x078*/ EActorType    ActorType;
-/*0x07c*/ void*         pTerrainObject;           // CTerrainObject*
-/*0x080*/ void*         HighlightData;            // HighlightData*
-/*0x084*/ float         yAdjustment1;             // from this point on im not sure - 2013 dec 16
-/*0x088*/ float         xAdjustment1;
-/*0x08c*/ float         zAdjustment1;
-/*0x090*/ float         headingAdjustment1;
-/*0x094*/ float         yAdjustment2;
-/*0x098*/ float         xAdjustment2;
-/*0x09c*/ float         zAdjustment2;
-/*0x0a0*/ float         headingAdjustment2;
-/*0x0a4*/ float         yAdjustment3;
-/*0x0a8*/ float         xAdjustment3;
-/*0x0ac*/ float         zAdjustment3;
-/*0x0b0*/ float         headingAdjustment3;
-/*0x0b4*/ float         adjustments4[3];
-/*0x0c0*/ float         adjustments5[4];
-/*0x0d0*/ bool          bbHasAttachSRT;
-/*0x0d1*/ bool          bDisableDesignOverride;
-/*0x0d4*/ int           Unknown0xd4[4];
-/*0x0e4*/ Matrix4x4     transformMatrix;          // used for new armor
-/*0x124*/ float         Heading;
-/*0x128*/ BYTE          Unknown0x12c[0x14];
-/*0x13c*/ float         HeightAdjustment;         // this is most likely wrong dec 16 2013 eqmule
-/*0x140*/ BYTE          Unknown0x144[0x4c];
-/*0x18c*/
+/*0x008*/ eMemPoolType  MemType;
+/*0x00c*/ bool          bIsS3DCreated;
+/*0x00d*/ bool          bHasParentBone;
+/*0x00e*/ bool          bUpdateScaledAmbient;
+/*0x010*/ float         ScaledAmbient;
+/*0x014*/ float         ScaledAmbientTarget;
+/*0x018*/ float         ParticleScaleFactor;
+/*0x01c*/ float         CollisionSphereScaleFactor;
+/*0x020*/ UINT          UpdateAmbientTick;
+/*0x024*/ UINT          InterpolateAmbientTick;
+/*0x028*/ void*         pParentActor;             // its a  CActor*
+/*0x030*/ void*         pDPVSObject;
+/*0x038*/ float         Y;
+/*0x03c*/ float         X;
+/*0x040*/ float         Z;
+/*0x044*/ float         SurfaceNormalY;
+/*0x048*/ float         SurfaceNormalX;
+/*0x04c*/ float         SurfaceNormalZ;
+/*0x050*/ UINT          VisibleIndex;
+/*0x054*/ float         Alpha;
+/*0x058*/ bool          bCastShadow;
+/*0x059*/ bool          bNeverClip;
+/*0x05a*/ bool          bClientCreated;
+/*0x05c*/ float         ZOffset;
+/*0x060*/ float         EmitterScalingRadius;
+/*0x068*/ void*         pDuplicateActor;          // its a  CActor*
+/*0x070*/ bool          bShowParticlesWhenInvisible;
+/*0x078*/ void*         pAreaPortalVolumeList;    // CAreaPortalVolumeList*
+/*0x080*/ void*         CleanupList;              // a TListNode<CActor*>? not sure
+/*0x088*/ BYTE          CleanupListFiller[0xc];
+/*0x098*/ void*         pActorApplicationData;    // CActorApplicationData* 74 for sure see 1003AE70
+/*0x0a0*/ EActorType    ActorType;
+/*0x0a8*/ void*         pTerrainObject;           // CTerrainObject*
+/*0x0b0*/ void*         HighlightData;            // HighlightData*
+/*0x0b8*/ float         yAdjustment1;             // from this point on im not sure - 2013 dec 16
+/*0x0bc*/ float         xAdjustment1;
+/*0x0c0*/ float         zAdjustment1;
+/*0x0c4*/ float         headingAdjustment1;
+/*0x0c8*/ float         yAdjustment2;
+/*0x0cc*/ float         xAdjustment2;
+/*0x0d0*/ float         zAdjustment2;
+/*0x0d4*/ float         headingAdjustment2;
+/*0x0d8*/ float         yAdjustment3;
+/*0x0dc*/ float         xAdjustment3;
+/*0x0e0*/ float         zAdjustment3;
+/*0x0e4*/ float         headingAdjustment3;
+/*0x0e8*/ float         adjustments4[3];
+/*0x0f4*/ float         adjustments5[4];
+/*0x104*/ bool          bbHasAttachSRT;
+/*0x105*/ bool          bDisableDesignOverride;
+/*0x108*/ int           Unknown0xd4[4];
+/*0x118*/ Matrix4x4     transformMatrix;          // used for new armor
+/*0x158*/ float         Heading;
+/*0x15c*/ BYTE          Unknown0x12c[0x14];
+/*0x170*/ float         HeightAdjustment;         // this is most likely wrong dec 16 2013 eqmule
+/*0x174*/ BYTE          Unknown0x144[0x4c];
+/*0x1c0*/
 };
 using PEQSWITCH = EQSWITCH*;
 
@@ -421,8 +423,8 @@ struct [[offsetcomments]] GUILD
 /*0x40*/ DWORD               ID;                 // maybe this is just a int64 now, not sure needs more investigation.
 /*0x44*/ DWORD               ID2;
 /*0x48*/ GUILD*              pNext;
-/*0x4c*/ GUILD*              pPrev;
-/*0x50*/
+/*0x50*/ GUILD*              pPrev;
+/*0x58*/
 };
 using PGUILD = GUILD*;
 
@@ -432,25 +434,25 @@ using PGUILD = GUILD*;
 struct [[offsetcomments]] GUILDS
 {
 /*0x0000*/ void*             pOneEntryVTable;
-/*0x0004*/ BYTE              Unknown0x4[0x4];
-/*0x0008*/ DWORD             GuildMemberCount;
-/*0x000c*/ GuildMember*      pMember;
-/*0x0010*/ BYTE              Unknown0x10[0x51];
-/*0x0061*/ char              GuildMotD[0x200];
-/*0x0261*/ char              GuildLeader[0x40];
-/*0x02a1*/ BYTE              Unknown0x2a1[0x3];
-/*0x02a4*/ DWORD             GuildTribute;
-/*0x02a8*/ BYTE              Unknown0x2a8[0x8dc1];
-/*0x9069*/ char              GuildUrl[0x200];
-/*0x9269*/ char              GuildChannelName[0x80];
-/*0x92e9*/ BYTE              Unknown0x9e9[0x2f];
-/*0x9318*/ GUILD*            pFirst;
-/*0x931c*/ GUILD*            pLast;
-/*0x9320*/ UINT              GuildListCount;
-/*0x9324*/ DWORD             Empty;
-/*0x9328*/ GUILD*            GuildList;
-/*0x932c*/ DWORD             HashValue;
-/*0x9330*/
+/*0x0008*/ BYTE              Unknown0x4[0x4];
+/*0x000c*/ DWORD             GuildMemberCount;
+/*0x0010*/ GuildMember*      pMember;
+/*0x0018*/ BYTE              Unknown0x10[0x51];
+/*0x0069*/ char              GuildMotD[0x200];
+/*0x0269*/ char              GuildLeader[0x40];
+/*0x02a9*/ BYTE              Unknown0x2a1[0x3];
+/*0x02ac*/ DWORD             GuildTribute;
+/*0x02b0*/ BYTE              Unknown0x2a8[0x8dc1];
+/*0x9071*/ char              GuildUrl[0x200];
+/*0x9271*/ char              GuildChannelName[0x80];
+/*0x92f1*/ BYTE              Unknown0x9e9[0x2f];
+/*0x9320*/ GUILD*            pFirst;
+/*0x9328*/ GUILD*            pLast;
+/*0x9330*/ UINT              GuildListCount;
+/*0x9334*/ DWORD             Empty;
+/*0x9338*/ GUILD*            GuildList;
+/*0x9340*/ DWORD             HashValue;
+/*0x9344*/
 };
 using PGUILDS = GUILDS*;
 
@@ -483,13 +485,13 @@ inline namespace deprecated {
 struct [[offsetcomments]] CMDLIST
 {
 /*0x00*/ DWORD LocalizedStringID;
-/*0x04*/ char* szName;
-/*0x08*/ char* szLocalized;
-/*0x0c*/ void  (*fAddress)(PlayerClient*, char*);
-/*0x10*/ DWORD Restriction;
-/*0x14*/ DWORD Category;
-/*0x18*/ DWORD Flags;
-/*0x1c*/
+/*0x08*/ char* szName;
+/*0x10*/ char* szLocalized;
+/*0x18*/ void  (*fAddress)(PlayerClient*, char*);
+/*0x20*/ DWORD Restriction;
+/*0x24*/ DWORD Category;
+/*0x28*/ DWORD Flags;
+/*0x2c*/
 };
 using PCMDLIST = CMDLIST*;
 
@@ -611,16 +613,16 @@ struct [[offsetcomments]] EQGROUP
 /*0x005*/ char          MemberName[5][EQ_MAX_NAME];
 /*0x145*/ BYTE          Unused[3];
 /*0x148*/ PlayerClient* pMember[5];
-/*0x15c*/ char          LeaderName[EQ_MAX_NAME];
-/*0x19c*/
+/*0x170*/ char          LeaderName[EQ_MAX_NAME];
+/*0x1b0*/
 };
 using PEQGROUP = EQGROUP*;
 
 // size 0x08
 struct [[offsetcomments]] EQSTRING {
 /*0x00*/ DWORD ID;
-/*0x04*/ char* String;
-/*0x08*/
+/*0x08*/ char* String;
+/*0x10*/
 };
 using PEQSTRING = EQSTRING*;
 
@@ -628,10 +630,10 @@ using PEQSTRING = EQSTRING*;
 struct [[offsetcomments]] EQSTRINGTABLE
 {
 /*0x00*/ EQSTRING** StringItems;
-/*0x04*/ DWORD      Size;
-/*0x08*/ int        Count;
-/*0x0c*/ DWORD      Unknown0x0c;
-/*0x10*/
+/*0x08*/ DWORD      Size;
+/*0x0c*/ int        Count;
+/*0x10*/ DWORD      Unknown0x0c;
+/*0x14*/
 };
 
 inline namespace deprecated {
@@ -644,13 +646,13 @@ inline namespace deprecated {
 struct [[offsetcomments]] connection_t
 {
 /*0x000*/ void* vtable;
-/*0x004*/ BYTE  Unknown0x4[0x110];
-/*0x114*/ DWORD Master;
-/*0x118*/ DWORD Average;
-/*0x11c*/ DWORD Low;
-/*0x120*/ DWORD High;
-/*0x124*/ DWORD Last;
-/*0x128*/
+/*0x008*/ BYTE  Unknown0x4[0x110];
+/*0x118*/ DWORD Master;
+/*0x11c*/ DWORD Average;
+/*0x120*/ DWORD Low;
+/*0x124*/ DWORD High;
+/*0x128*/ DWORD Last;
+/*0x12c*/
 };
 
 inline namespace deprecated {
@@ -679,21 +681,21 @@ struct [[offsetcomments]] DynamicZoneData
 struct [[offsetcomments]] DynamicZoneTimerData
 {
 /*0x00*/ int                   DataSetID;
-/*0x04*/ __time32_t            TimerExpiration;
-/*0x08*/ int                   EventID;
-/*0x0c*/ int                   DynamicZoneID;
-/*0x10*/ DynamicZoneTimerData* pNext;
-/*0x14*/
+/*0x08*/ eqtime_t              TimerExpiration;
+/*0x10*/ int                   EventID;
+/*0x14*/ int                   DynamicZoneID;
+/*0x18*/ DynamicZoneTimerData* pNext;
+/*0x20*/
 };
 
 struct [[offsetcomments]] DynamicZoneClientTimerData
 {
 /*0x000*/ char         ExpeditionName[0x80];
 /*0x080*/ char         EventName[0x100];
-/*0x180*/ __time32_t   TimeStamp;                      // TimeStamp - Util__FastTime = time left
-/*0x184*/ int          TimerID;
-/*0x188*/ DynamicZoneClientTimerData* pNext;
-/*0x18c*/
+/*0x180*/ eqtime_t     TimeStamp;                      // TimeStamp - Util__FastTime = time left
+/*0x188*/ int          TimerID;
+/*0x190*/ DynamicZoneClientTimerData* pNext;
+/*0x198*/
 };
 
 inline namespace deprecated {
@@ -714,10 +716,10 @@ struct [[offsetcomments]] DynamicZonePlayerInfo
 {
 /*0x00*/ char                     Name[EQ_MAX_NAME];
 /*0x40*/ eDyanicZonePlayerStatus  Status;
-/*0x44*/ DynamicZonePlayerInfo*   pNext;
-/*0x48*/ bool                     bFlagged;                  // Do we meet the requirements?
-/*0x49*/ bool                     bCheckedZoneReqs;          // Zone reqs serverside checked?
-/*0x4c*/
+/*0x48*/ DynamicZonePlayerInfo*   pNext;
+/*0x50*/ bool                     bFlagged;                  // Do we meet the requirements?
+/*0x51*/ bool                     bCheckedZoneReqs;          // Zone reqs serverside checked?
+/*0x54*/
 };
 
 inline namespace deprecated {
@@ -738,7 +740,7 @@ struct [[offsetcomments]] SharedTaskPlayerInfo
 /*0x40*/ int                      ShroudID;
 /*0x44*/ eSharedTaskPlayerRole    Role;
 /*0x48*/ SharedTaskPlayerInfo*    pNext;
-/*0x4c*/
+/*0x50*/
 
 	ALT_MEMBER_GETTER(DWORD, Role, IsLeader);
 };
@@ -787,7 +789,7 @@ inline namespace deprecated {
 struct [[offsetcomments]] DynamicZoneClientSwitchInfo : public DynamicZoneSwitchInfo
 {
 /*0x18*/ DynamicZoneCompass* pCompass;
-/*0x1c*/
+/*0x20*/
 };
 
 inline namespace deprecated {
@@ -798,17 +800,17 @@ inline namespace deprecated {
 // CDynamicZone size: 0x128
 struct [[offsetcomments]] CDynamicZone : public PopDialogHandler
 {
-/*0x004*/ uint32_t     NewMemberDZID;
-/*0x008*/ char         NewMemberName[0x40];
-/*0x048*/ bool         bNewSwap;
-/*0x049*/ bool         bNewAssignedToDZ;
-/*0x04a*/ char         LeaderName[0x40];
-/*0x08a*/ char         DZName[0x80];
-/*0x10c*/ int          MaxPlayers;
-/*0x110*/ DynamicZonePlayerInfo* pFirstMember;
-/*0x114*/ DynamicZoneClientTimerData* pFirstTimer;
-/*0x118*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
-/*0x128*/
+/*0x008*/ uint32_t     NewMemberDZID;
+/*0x00c*/ char         NewMemberName[0x40];
+/*0x04c*/ bool         bNewSwap;
+/*0x04d*/ bool         bNewAssignedToDZ;
+/*0x04e*/ char         LeaderName[0x40];
+/*0x08e*/ char         DZName[0x80];
+/*0x110*/ int          MaxPlayers;
+/*0x118*/ DynamicZonePlayerInfo* pFirstMember;
+/*0x120*/ DynamicZoneClientTimerData* pFirstTimer;
+/*0x128*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
+/*0x140*/
 	ALT_MEMBER_GETTER_ARRAY(char, 0x40, LeaderName, Name);
 	ALT_MEMBER_GETTER_ARRAY(char, 0x80, DZName, ExpeditionName);
 	ALT_MEMBER_GETTER(DynamicZonePlayerInfo*, pFirstMember, pMemberList);
@@ -851,26 +853,26 @@ public:
 	};
 
 	// FIXME: This is off and needs to update updated (members don't align with the functions)
-/*0x04*/ UniversalChatProxyHandler* pChatProxyHandler;
-/*0x08*/ void*             pUdpManager;             // UdpLibrary::UdpManager
-/*0x0c*/ char**            ChannelList;
-/*0x10*/ int               ActiveChannels;          // number of channels joined, aka channelcount
-/*0x14*/ bool              mAuthenticated;
-/*0x15*/ bool              bLoginSent;
-/*0x16*/ bool              bInvisible;
-/*0x17*/ bool              bFullNotifyMode;
-/*0x18*/ void*             UdpConnection;           // UdpLibrary::UdpConnection
-/*0x1c*/ char              ChatID[ChatProxy_MaxNameLen];              // "ServerName.CharName"
-/*0x4c*/ char              ChatPass[ChatProxy_MaxNameLen];
-/*0x7c*/ char              ServerName[ChatProxy_MaxNameLen];          // "ServerName."
-/*0xac*/ int               ServerNameLen;
-/*0xb0*/ char              Locale[16];
-/*0xc0*/ const char*       ChatPrefix;
-/*0xc4*/ int               LastDisconnectCheckTime;
-/*0xc8*/ BuddyEntry**      BuddyList;
-/*0xcc*/ int               BuddyListCount;
-/*0xd0*/ ArrayClass<CXStr> IgnoreList;
-/*0xe0*/
+/*0x008*/ UniversalChatProxyHandler* pChatProxyHandler;
+/*0x010*/ void*             pUdpManager;             // UdpLibrary::UdpManager
+/*0x018*/ char**            ChannelList;
+/*0x020*/ int               ActiveChannels;          // number of channels joined, aka channelcount
+/*0x024*/ bool              mAuthenticated;
+/*0x025*/ bool              bLoginSent;
+/*0x026*/ bool              bInvisible;
+/*0x027*/ bool              bFullNotifyMode;
+/*0x028*/ void*             UdpConnection;           // UdpLibrary::UdpConnection
+/*0x030*/ char              ChatID[ChatProxy_MaxNameLen];              // "ServerName.CharName"
+/*0x060*/ char              ChatPass[ChatProxy_MaxNameLen];
+/*0x090*/ char              ServerName[ChatProxy_MaxNameLen];          // "ServerName."
+/*0x0c0*/ int               ServerNameLen;
+/*0x0c4*/ char              Locale[16];
+/*0x0d8*/ const char*       ChatPrefix;
+/*0x0e0*/ int               LastDisconnectCheckTime;
+/*0x0e8*/ BuddyEntry**      BuddyList;
+/*0x0f0*/ int               BuddyListCount;
+/*0x0f8*/ ArrayClass<CXStr> IgnoreList;
+/*0x110*/
 
 	EQLIB_OBJECT int GetNumberOfFriends();
 	EQLIB_OBJECT const char* GetFriendName(int);
@@ -907,7 +909,7 @@ class [[offsetcomments]] ClientAuraManager
 
 public:
 /*0x00*/ ArrayClass2<AuraData> Auras;
-/*0x18*/
+/*0x20*/
 
 	static EQLIB_OBJECT ClientAuraManager* GetSingleton();
 
@@ -959,13 +961,13 @@ struct [[offsetcomments]] MercenaryInfo
 /*0x28*/ int                 stanceGroupId;
 /*0x2c*/ int                 stanceId;
 /*0x30*/ int                 numStances;
-/*0x34*/ __time32_t          unsuspendedTime;
-/*0x38*/ bool                autoAssist;
-/*0x3c*/ int                 type;
-/*0x40*/ char                name[EQ_MAX_NAME];
-/*0x80*/ MercenaryStanceInfo stanceData[MAX_MERC_STANCES];
-/*0xd0*/ int                 requiredMembershipLevel;
-/*0xd4*/
+/*0x38*/ eqtime_t            unsuspendedTime;
+/*0x40*/ bool                autoAssist;
+/*0x44*/ int                 type;
+/*0x48*/ char                name[EQ_MAX_NAME];
+/*0x88*/ MercenaryStanceInfo stanceData[MAX_MERC_STANCES];
+/*0xd8*/ int                 requiredMembershipLevel;
+/*0xdc*/
 
 	// These should all be marked deprecated...
 	ALT_MEMBER_GETTER(DWORD, typeStringId, nMercCategory);
@@ -982,7 +984,7 @@ inline namespace deprecated {
 struct [[offsetcomments]] MERCSLIST
 {
 /*0x000*/ MercenaryInfo     mercinfo[7];              // is 7 max, even with slots u can buy for sc?
-/*0x5cc*/
+/*0x620*/
 };
 
 enum eMercenaryState {
@@ -996,9 +998,9 @@ class [[offsetcomments]] MercenaryClientData
 public:
 /*0x00*/ bool                     hasMercenary;
 /*0x04*/ eMercenaryState          suspendedState;
-/*0x08*/ __time32_t               restorationTime;
-/*0x0c*/ MercenaryInfo            mercenaryInfo;
-/*0xe0*/
+/*0x08*/ eqtime_t                 restorationTime;
+/*0x10*/ MercenaryInfo            mercenaryInfo;
+/*0xf0*/
 	inline int GetCurrentStanceId() const { return mercenaryInfo.stanceId; }
 };
 
@@ -1043,21 +1045,21 @@ class [[offsetcomments]] CMercenaryManager
 public:
 /*0x000*/ uint8_t                 Unknown0x0[0x110];
 /*0x110*/ MercenaryClientData     currentMercenary;
-/*0x1f0*/ MercenaryInfoList       mercenaries;
-/*0x200*/ int                     numMercenaries;
-/*0x204*/ int                     maxMercenaries;
-/*0x208*/ MercenaryStats          mercenaryStats;
-/*0x218*/ int                     currMercenaryIndex;
-/*0x21c*/ uint32_t                currentMerchantId;
-/*0x220*/ uint32_t                lastMerchantId;
-/*0x224*/ uint32_t                mercenarySpawnId;
-/*0x228*/ uint32_t                initTimeMS;
-/*0x22c*/ uint32_t                warningTimeMS;
-/*0x230*/ uint32_t                lastUpdate;
-/*0x234*/ ControllerFactory       uiControllerFactory;
-/*0x248*/ MercenaryStancePtrList  merchantStanceList;
-/*0x258*/ MercenaryStancePtrList  mercenaryStanceList;
-/*0x268*/ // extra stuff related to event handling at the end
+/*0x200*/ MercenaryInfoList       mercenaries;
+/*0x218*/ int                     numMercenaries;
+/*0x21c*/ int                     maxMercenaries;
+/*0x220*/ MercenaryStats          mercenaryStats;
+/*0x238*/ int                     currMercenaryIndex;
+/*0x23c*/ uint32_t                currentMerchantId;
+/*0x240*/ uint32_t                lastMerchantId;
+/*0x244*/ uint32_t                mercenarySpawnId;
+/*0x248*/ uint32_t                initTimeMS;
+/*0x24c*/ uint32_t                warningTimeMS;
+/*0x250*/ uint32_t                lastUpdate;
+/*0x258*/ ControllerFactory       uiControllerFactory;
+/*0x278*/ MercenaryStancePtrList  merchantStanceList;
+/*0x290*/ MercenaryStancePtrList  mercenaryStanceList;
+/*0x2a8*/ // extra stuff related to event handling at the end
 /*0x2fc*/
 
 	inline bool HasMercenary() const { return currentMercenary.hasMercenary; }
@@ -1239,6 +1241,8 @@ enum AggroDataTypes
 
 struct [[offsetcomments]] GROUPAGGRO
 {
+	FORCE_SYMBOLS
+
 /*0x00*/ DWORD         Unknown0x00;
 /*0x04*/ DWORD         Unknown0x04;
 /*0x08*/ DWORD         GroupMemberAggro[6];      // player is ALWAYS the 6th member...
@@ -1260,7 +1264,7 @@ struct [[offsetcomments]] EQLogin
 {
 /*0x000*/ uint8_t     Unknown0x00[0x6b4];
 /*0x6b4*/ char        station_name[32];
-};
+/*0x6d4*/ };
 
 constexpr uint32_t EQ_ASSIST          = 0x5663;        // do_assist+37Ah :: 2021-12-01 (live) @ 0x5E1B77
 

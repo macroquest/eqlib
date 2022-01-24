@@ -73,19 +73,19 @@ struct [[offsetcomments]] CStrRep
 	// same layout in memory and thus we should be able to
 	// get the same behavior from it without additional work.
 /*0x00*/ std::atomic<int> refCount;
-/*0x04*/ size_t alloc;
-/*0x08*/ size_t length;
-/*0x0c*/ EStringEncoding encoding;
-/*0x10*/ CXFreeList* freeList;
+/*0x08*/ size_t alloc;
+/*0x10*/ size_t length;
+/*0x18*/ EStringEncoding encoding;
+/*0x20*/ CXFreeList* freeList;
 	// The actual string data. Size does not matter, the length
 	// is dynamic and manually allocated.
 	union
 	{
-	/*0x14*/ char utf8[4];
-	/*0x14*/ Unicode16 unicode[2];
-	/*0x14*/ CStrRep* next;
+	/*0x28*/ char utf8[4];
+	/*0x28*/ Unicode16 unicode[2];
+	/*0x28*/ CStrRep* next;
 	};
-/*0x18*/
+/*0x30*/
 };
 
 namespace internal {

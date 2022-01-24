@@ -145,8 +145,8 @@ using RealEstateAccess = RealEstateAccessGroupList;
 struct [[offsetcomments]] RealEstateItemState
 {
 /*0x00*/ bool           placed;
-/*0x04*/ __time32_t     upkeepExpiredTime;
-/*0x08*/
+/*0x08*/ eqtime_t       upkeepExpiredTime;
+/*0x10*/
 };
 
 struct [[offsetcomments]] RealEstateItemPosition
@@ -162,15 +162,15 @@ struct [[offsetcomments]] RealEstateItemPosition
 struct [[offsetcomments]] RealEstateItemOwnerInfo
 {
 /*0x00*/ CXStr          ownerName;
-/*0x04*/ CXStr          ownerHandle;
-/*0x08*/ int            ownerNameHashKey;
-/*0x0c*/
+/*0x08*/ CXStr          ownerHandle;
+/*0x10*/ int            ownerNameHashKey;
+/*0x14*/
 };
 
 struct [[offsetcomments]] RealEstateItemObject
 {
 /*0x00*/ ItemPtr        item;
-/*0x04*/
+/*0x08*/
 };
 
 struct [[offsetcomments]] RealEstateItemIds
@@ -188,7 +188,7 @@ public:
 
 	// State
 	bool IsPlaced() const { return state.placed; }
-	__time32_t GetUpkeepExpiredTime() const { return state.upkeepExpiredTime; }
+	eqtime_t GetUpkeepExpiredTime() const { return state.upkeepExpiredTime; }
 
 	// Position
 	const CVector3& GetPos() const { return position.pos; }
@@ -209,11 +209,11 @@ public:
 
 private:
 /*0x00*/ RealEstateItemState      state;
-/*0x08*/ RealEstateItemPosition   position;
-/*0x24*/ RealEstateItemOwnerInfo  ownerInfo;
-/*0x30*/ RealEstateItemObject     object;
-/*0x34*/ RealEstateItemIds        ids;
-/*0x3c*/
+/*0x10*/ RealEstateItemPosition   position;
+/*0x30*/ RealEstateItemOwnerInfo  ownerInfo;
+/*0x48*/ RealEstateItemObject     object;
+/*0x50*/ RealEstateItemIds        ids;
+/*0x58*/
 };
 
 class [[offsetcomments]] RealEstateItems
@@ -244,13 +244,13 @@ public:
 	}
 
 public:
-/*0x04*/ int                      realEstateId;
-/*0x08*/ RealEstateManagerClient& manager;
-/*0x0c*/ int                      nonRealEstateItemCount;
-/*0x10*/ int                      npcItemCount;
-/*0x14*/ int                      upkeepItemCount;
-/*0x18*/ RealEstateItemsContainer realEstateItems;
-/*0x28*/
+/*0x08*/ int                      realEstateId;
+/*0x10*/ RealEstateManagerClient& manager;
+/*0x18*/ int                      nonRealEstateItemCount;
+/*0x1c*/ int                      npcItemCount;
+/*0x20*/ int                      upkeepItemCount;
+/*0x28*/ RealEstateItemsContainer realEstateItems;
+/*0x40*/
 };
 
 //============================================================================
@@ -266,23 +266,23 @@ public:
 
 /*0x08*/ eqstd::map<int, double> escrowAccount;
 	static_assert(sizeof(escrowAccount) == sizeof(uintptr_t) * 2, "escrowAccount is the wrong size");
-/*0x10*/ int                 id;
-/*0x18*/ uint64_t            unused;
-/*0x20*/ int                 staticId;
-/*0x28*/ EqGuid              parentId;
-/*0x30*/ int                 definitionId;
-/*0x38*/ EqGuid              guildId;
-/*0x40*/ EqGuid              fellowshipId;
-/*0x48*/ CXStr               primaryOwner;
-/*0x4c*/ CXStr               primaryHandle;
-/*0x50*/ int                 defaultPermissionLevel;
-/*0x54*/ CXStr               dynamicName;
-/*0x58*/ uint32_t            defaultUpkeepId;
-/*0x5c*/ __time32_t          upkeepExpiredTime;
-/*0x60*/ bool                votingOptedOut;
-/*0x64*/ ArrayClass<EqGuid>  childIds;
-/*0x74*/ uint32_t            unknown_or_alignment;
-/*0x78*/
+/*0x18*/ int                 id;
+/*0x20*/ uint64_t            unused;
+/*0x28*/ int                 staticId;
+/*0x30*/ EqGuid              parentId;
+/*0x38*/ int                 definitionId;
+/*0x40*/ EqGuid              guildId;
+/*0x48*/ EqGuid              fellowshipId;
+/*0x50*/ CXStr               primaryOwner;
+/*0x58*/ CXStr               primaryHandle;
+/*0x60*/ int                 defaultPermissionLevel;
+/*0x68*/ CXStr               dynamicName;
+/*0x70*/ uint32_t            defaultUpkeepId;
+/*0x78*/ eqtime_t            upkeepExpiredTime;
+/*0x80*/ bool                votingOptedOut;
+/*0x88*/ ArrayClass<EqGuid>  childIds;
+/*0xa0*/ uint32_t            unknown_or_alignment;
+/*0xa4*/
 };
 
 //============================================================================
@@ -299,16 +299,16 @@ using RealEstateCostSubComponentArray = ArrayClass<RealEstateCostSubComponent>;
 struct [[offsetcomments]] RealEstateCostComponent
 {
 /*0x00*/ int id;
-/*0x04*/ RealEstateCostSubComponentArray subComponents;
-/*0x14*/
+/*0x08*/ RealEstateCostSubComponentArray subComponents;
+/*0x20*/
 };
 using RealEstateCostComponentArray = ArrayClass<RealEstateCostComponent>;
 
 struct [[offsetcomments]] RealEstateCostSchemeData
 {
 /*0x00*/ int costId;
-/*0x04*/ RealEstateCostComponentArray costComponents;
-/*0x14*/
+/*0x08*/ RealEstateCostComponentArray costComponents;
+/*0x20*/
 };
 
 class [[offsetcomments]] RealEstateCostManager
@@ -319,8 +319,8 @@ public:
 	}
 
 /*0x00*/ CXStr path;
-/*0x04*/ HashTable<RealEstateCostSchemeData, int> costs;
-/*0x14*/
+/*0x08*/ HashTable<RealEstateCostSchemeData, int> costs;
+/*0x20*/
 };
 
 //============================================================================
@@ -328,26 +328,26 @@ public:
 struct [[offsetcomments]] RealEstateDefinition
 {
 /*0x00*/ uint32_t             id;
-/*0x04*/ CXStr                name;
-/*0x08*/ CXStr                description;
-/*0x0c*/ CXStr                address;
-/*0x10*/ CVector3             zoneInCoords;
-/*0x1c*/ uint32_t             areaId;
-/*0x20*/ uint32_t             costDefinition;
-/*0x24*/ uint32_t             upkeepDefinition;
-/*0x28*/ uint32_t             maxItems;
-/*0x2c*/ uint32_t             maxNonRealEstateItems;
-/*0x30*/ uint32_t             maxChildren;
-/*0x34*/ uint32_t             zoneId;
-/*0x38*/ uint32_t             dzId;
-/*0x3c*/ RealEstateType       type;
-/*0x40*/ int                  groupId;
-/*0x44*/ uint32_t             icon;
-/*0x48*/ int                  maxNpcItems;
-/*0x4c*/ CVector3             switchCoords;
-/*0x58*/ float                switchHeading;
-/*0x5c*/ ArrayClass<uint32_t> childDefinitions;
-/*0x6c*/
+/*0x08*/ CXStr                name;
+/*0x10*/ CXStr                description;
+/*0x18*/ CXStr                address;
+/*0x20*/ CVector3             zoneInCoords;
+/*0x2c*/ uint32_t             areaId;
+/*0x30*/ uint32_t             costDefinition;
+/*0x34*/ uint32_t             upkeepDefinition;
+/*0x38*/ uint32_t             maxItems;
+/*0x3c*/ uint32_t             maxNonRealEstateItems;
+/*0x40*/ uint32_t             maxChildren;
+/*0x44*/ uint32_t             zoneId;
+/*0x48*/ uint32_t             dzId;
+/*0x4c*/ RealEstateType       type;
+/*0x50*/ int                  groupId;
+/*0x54*/ uint32_t             icon;
+/*0x58*/ int                  maxNpcItems;
+/*0x5c*/ CVector3             switchCoords;
+/*0x68*/ float                switchHeading;
+/*0x70*/ ArrayClass<uint32_t> childDefinitions;
+/*0x88*/
 };
 
 class [[offsetcomments]] RealEstateDefinitionManager
@@ -358,8 +358,8 @@ public:
 	}
 
 /*0x00*/ CXStr path;
-/*0x04*/ HashTable<RealEstateDefinition, int> definitions;
-/*0x14*/
+/*0x08*/ HashTable<RealEstateDefinition, int> definitions;
+/*0x20*/
 };
 
 //============================================================================
@@ -386,8 +386,8 @@ public:
 	}
 
 /*0x00*/ CXStr path;
-/*0x04*/ HashTable<RealEstateItemGroup, int> itemGroups;
-/*0x14*/
+/*0x08*/ HashTable<RealEstateItemGroup, int> itemGroups;
+/*0x20*/
 };
 
 //============================================================================
@@ -416,17 +416,17 @@ public:
 	// TODO: Identify what this unknown value is.
 	struct RealEstateHolder { RealEstate* realEstate; uint32_t unknown; };
 
-/*0x004*/ HashTable<RealEstate*, int>            realEstates;
-/*0x014*/ HashTable<RealEstate*, int>            realEstatesByStaticId;
-/*0x024*/ HashTable<RealEstate*, int>            realEstatesByDefinitionId;
-/*0x034*/ HashTable<RealEstate*, CXStr>          realEstatesByOwnerName;
-/*0x044*/ HashListMap<EqGuid, RealEstateHolder, 500>  guildPlotsByGuildId;
-/*0x824*/ HashTable<RealEstateAccess*, int>      accessLists;
-/*0x834*/ HashTable<RealEstateItems*, int>       itemLists;
-/*0x844*/ RealEstateDefinitionManager*           definitions;
-/*0x848*/ RealEstateCostManager*                 costs;
-/*0x84c*/ RealEstateItemGroupManager*            itemGroups;       // appears to always be empty
-/*0x850*/
+/*0x0008*/ HashTable<RealEstate*, int>            realEstates;
+/*0x0020*/ HashTable<RealEstate*, int>            realEstatesByStaticId;
+/*0x0038*/ HashTable<RealEstate*, int>            realEstatesByDefinitionId;
+/*0x0050*/ HashTable<RealEstate*, CXStr>          realEstatesByOwnerName;
+/*0x0068*/ HashListMap<EqGuid, RealEstateHolder, 500>  guildPlotsByGuildId;
+/*0x1028*/ HashTable<RealEstateAccess*, int>      accessLists;
+/*0x1040*/ HashTable<RealEstateItems*, int>       itemLists;
+/*0x1058*/ RealEstateDefinitionManager*           definitions;
+/*0x1060*/ RealEstateCostManager*                 costs;
+/*0x1068*/ RealEstateItemGroupManager*            itemGroups;       // appears to always be empty
+/*0x1070*/
 };
 
 class [[offsetcomments]] RealEstateManagerClient : public RealEstateManager,
@@ -446,18 +446,18 @@ public:
 	int GetCurrentMovingCrateId() const { return currentMovingCrateId; }
 
 
-/*0x858*/ uint32_t           lastRefreshTime;
-/*0x85c*/ int                zoneRealEstateId;
-/*0x860*/ RealEstateType     zoneRealEstateType;
-/*0x864*/ int                currentRealEstateId;
-/*0x868*/ int                currentYardId;
-/*0x86c*/ int                currentHouseId;
-/*0x870*/ int                currentMovingCrateId;
-/*0x874*/ bool               requestPending;
-/*0x878*/ uint32_t           requestTime;
-/*0x87c*/ bool               printRequestTimes;
-/*0x880*/ UniqueIdGen<int>*  idGen;
-/*0x884*/
+/*0x1080*/ uint32_t           lastRefreshTime;
+/*0x1084*/ int                zoneRealEstateId;
+/*0x1088*/ RealEstateType     zoneRealEstateType;
+/*0x108c*/ int                currentRealEstateId;
+/*0x1090*/ int                currentYardId;
+/*0x1094*/ int                currentHouseId;
+/*0x1098*/ int                currentMovingCrateId;
+/*0x109c*/ bool               requestPending;
+/*0x10a0*/ uint32_t           requestTime;
+/*0x10a4*/ bool               printRequestTimes;
+/*0x10a8*/ UniqueIdGen<int>*  idGen;
+/*0x10b0*/
 };
 
 using RealEstateItemClient = RealEstateItem;

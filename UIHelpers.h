@@ -47,8 +47,8 @@ public:
 	virtual ControllerBase* CreateController(const CXStr& controller, int type);
 
 	// this is probably wrong but might be the right size.
-/*0x04*/ HashTable<void*, int, ResizePolicyNoShrink> Factories;
-/*0x14*/
+/*0x08*/ HashTable<void*, int, ResizePolicyNoShrink> Factories;
+/*0x20*/
 };
 
 class [[offsetcomments]] ControllerManager
@@ -56,9 +56,9 @@ class [[offsetcomments]] ControllerManager
 public:
 	virtual ~ControllerManager();
 
-/*0x04*/ ControllerFactory* DefaultControllerFactory;
-/*0x08*/ HashTable<ControllerFactory*> ControllerFactories;
-/*0x18*/
+/*0x08*/ ControllerFactory* DefaultControllerFactory;
+/*0x10*/ HashTable<ControllerFactory*> ControllerFactories;
+/*0x28*/
 };
 
 //----------------------------------------------------------------------------
