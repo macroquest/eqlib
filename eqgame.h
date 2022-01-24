@@ -560,8 +560,8 @@
 #define CSidlScreenWnd__vftable_x                                  0xB88A34
 #define CSidlScreenWnd__WndNotification_x                          0x935350
 
-// CSkillMgr
-#define CSkillMgr__IsAvailable_x                                   0x6C2A20
+// CSkillMgr   
+#define CSkillMgr__IsAvailable_x                                   0x6C2A20 
 #define CSkillMgr__GetSkillCap_x                                   0x6C2BF0
 #define CSkillMgr__GetNameToken_x                                  0x6C2210
 #define CSkillMgr__IsActivatedSkill_x                              0x6C2300
