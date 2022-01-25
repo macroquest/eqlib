@@ -141,7 +141,7 @@ public:
 	RetType Class<Target>::Name Signature {                                                 \
 		using TargetFunction = RetType(*)();                                                \
 		TargetFunction p = (TargetFunction)CXWndTrampoline<Target>::s_originalVTable->Name; \
-		p();                                                                                \
+		return p();                                                                                \
 	}
 
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, IsValid, () const);
