@@ -165,10 +165,30 @@ __pragma( optimize("", on) )
 namespace eqlib {
 
 #if defined(_WIN64)
-	using eqtime_t = time_t;
+using eqtime_t = time_t;
 #else
-	using eqtime_t = __time32_t;
-#endif
+using eqtime_t = __time32_t;
+#endif // defined(_WIN64)
+
+inline errno_t __cdecl eq_ctime(char* Buffer, size_t SizeInBytes, const eqtime_t* Time)
+{
+#if defined(_WIN64)
+	return ctime_s
+#else
+	return _ctime32_s
+#endif // defined(_WIN64)
+		(Buffer, SizeInBytes, Time);
+}
+
+inline errno_t __cdecl eq_localtime(tm* Tm, const eqtime_t* Time)
+{
+#if defined(_WIN64)
+	return localtime_s
+#else
+	return _localtime32_s
+#endif // defined(_WIN64)
+		(Tm, Time);
+}
 
 
 class CXSize;
