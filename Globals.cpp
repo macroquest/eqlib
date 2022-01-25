@@ -917,7 +917,7 @@ BYTE*                  EQADDR_NOTINCHATMODE      = nullptr;
 BYTE*                  EQADDR_RUNWALKSTATE       = nullptr;
 char*                  EQADDR_SERVERHOST         = nullptr;
 char*                  EQADDR_SERVERNAME         = nullptr;
-DWORD*                 EQADDR_SUBSCRIPTIONTYPE   = nullptr;
+uintptr_t*             EQADDR_SUBSCRIPTIONTYPE   = nullptr;
 char*                  EQADDR_TARGETAGGROHOLDER  = nullptr;
 BYTE*                  EQADDR_ZONETYPE           = nullptr;
 char**                 EQMappableCommandList     = nullptr;
@@ -1208,7 +1208,7 @@ void InitializeEQGameOffsets()
 	EQADDR_RUNWALKSTATE             = (BYTE*)__RunWalkState;
 	EQADDR_SERVERHOST               = (char*)__ServerHost;
 	EQADDR_SERVERNAME               = (char*)__ServerName;
-	EQADDR_SUBSCRIPTIONTYPE         = (PDWORD)__SubscriptionType;
+	EQADDR_SUBSCRIPTIONTYPE         = (uintptr_t*)__SubscriptionType;
 	EQADDR_TARGETAGGROHOLDER        = (char*)__TargetAggroHolder;
 	EQADDR_ZONETYPE                 = (BYTE*)__ZoneType;
 	EQbCommandStates                = (BYTE*)g_eqCommandStates;

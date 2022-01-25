@@ -847,7 +847,7 @@ EQLIB_VAR BYTE*                                      EQADDR_NOTINCHATMODE;
 EQLIB_VAR BYTE*                                      EQADDR_RUNWALKSTATE;
 EQLIB_VAR char*                                      EQADDR_SERVERHOST;
 EQLIB_VAR char*                                      EQADDR_SERVERNAME;
-EQLIB_VAR PDWORD                                     EQADDR_SUBSCRIPTIONTYPE;
+EQLIB_VAR uintptr_t*                                 EQADDR_SUBSCRIPTIONTYPE;
 EQLIB_VAR char*                                      EQADDR_TARGETAGGROHOLDER;
 EQLIB_VAR BYTE*                                      EQADDR_ZONETYPE;
 EQLIB_VAR char**                                     EQMappableCommandList;
