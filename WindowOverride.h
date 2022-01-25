@@ -140,8 +140,7 @@ public:
 	template <typename Target>                                                              \
 	RetType Class<Target>::Name Signature {                                                 \
 		using TargetFunction = RetType(*)();                                                \
-		TargetFunction p = (TargetFunction)CXWndTrampoline<Target>::s_originalVTable->Name; \
-		return p();                                                                                \
+		return ((TargetFunction)(Class<Target>::s_originalVTable->Name))();                 \
 	}
 
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, IsValid, () const);
