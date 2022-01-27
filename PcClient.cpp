@@ -294,12 +294,6 @@ const char* GetXtargetType(DWORD type)
 // CharacterBase
 //============================================================================
 
-#ifdef CharacterBase__GetItemByGlobalIndex_x
-FUNCTION_AT_ADDRESS(ItemPtr, CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const, CharacterBase__GetItemByGlobalIndex);
-#endif
-#ifdef CharacterBase__GetItemByGlobalIndex1_x
-FUNCTION_AT_ADDRESS(ItemPtr, CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex, ItemContainer::CheckDepthOptions Option) const, CharacterBase__GetItemByGlobalIndex1);
-#endif
 #ifdef CharacterBase__IsExpansionFlag_x
 FUNCTION_AT_ADDRESS(int, CharacterBase::IsExpansionFlag(int), CharacterBase__IsExpansionFlag);
 #endif
@@ -846,7 +840,7 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetCurrentMod(int index), Characte
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetModCap(int index, bool bToggle), CharacterZoneClient__GetModCap);
 #endif
 
-FUNCTION_AT_VIRTUAL_ADDRESS(int, CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x20);
+FUNCTION_AT_VIRTUAL_ADDRESS(int, CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x40);
 
 
 //============================================================================
@@ -869,9 +863,6 @@ FUNCTION_AT_ADDRESS(void, PcZoneClient::RemovePetEffect(int), PcZoneClient__Remo
 #endif
 #ifdef PcZoneClient__HasAlternateAbility_x
 FUNCTION_AT_ADDRESS(bool, PcZoneClient::HasAlternateAbility(int aaindex, int*, bool, bool), PcZoneClient__HasAlternateAbility);
-#endif
-#ifdef PcZoneClient__GetItemByID_x
-FUNCTION_AT_ADDRESS(ItemPtr, PcZoneClient::GetItemByID(int itemid, ItemIndex*, bool allSlots), PcZoneClient__GetItemByID);
 #endif
 #ifdef PcZoneClient__CanEquipItem_x
 FUNCTION_AT_ADDRESS(bool, PcZoneClient::CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel), PcZoneClient__CanEquipItem);

@@ -22,10 +22,6 @@
 
 namespace eqlib {
 
-// NOTE that using FUNCTION_AT_VIRTUAL_ADDRESS has a high risk of creating infinite
-// recursive calls if trying to call base class. If we want to do it this way, we instead
-// need to read from static vftable, not the instance in the current class.
-
 //----------------------------------------------------------------------------
 
 CXWnd::VirtualFunctionTable* CXWnd::sm_vftable = nullptr;
@@ -46,90 +42,90 @@ DESTRUCTOR_AT_ADDRESS(CXWnd::~CXWnd(), CXWnd__dCXWnd);
 
 // IsValid
 // ~CXWnd
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawNC() const, CXWnd, DrawNC);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawNC() const, CXWnd, DrawNC);
 // Draw
 // PostDraw
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawCursor(const CXPoint&, const CXRect&, bool&), CXWnd, DrawCursor);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawCursor(const CXPoint&, const CXRect&, bool&), CXWnd, DrawCursor);
 // DrawChildItem
 // DrawCaret
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawBackground() const, CXWnd, DrawBackground);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawTooltip(const CXWnd* wnd) const, CXWnd, DrawTooltip);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawTooltipAtPoint(const CXPoint& pos, const CXStr& tooltip) const, CXWnd, DrawTooltipAtPoint);
-FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetMinimizedRect() const, CXWnd, GetMinimizedRect);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawTitleBar(const CXRect&) const, CXWnd, DrawTitleBar);
-FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CXWnd::GetCursorToDisplay() const, CXWnd, GetCursorToDisplay);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonDown(const CXPoint&, uint32_t), CXWnd, HandleLButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonUp(const CXPoint&, uint32_t), CXWnd, HandleLButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonHeld(const CXPoint&, uint32_t), CXWnd, HandleLButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), CXWnd, HandleLButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonDown(const CXPoint&, uint32_t), CXWnd, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonUp(const CXPoint&, uint32_t), CXWnd, HandleRButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonHeld(const CXPoint&, uint32_t), CXWnd, HandleRButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonUpAfterHeld(const CXPoint&, uint32_t), CXWnd, HandleRButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleWheelButtonDown(const CXPoint&, uint32_t), CXWnd, HandleWheelButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleWheelButtonUp(const CXPoint&, uint32_t), CXWnd, HandleWheelButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleMouseMove(const CXPoint&, uint32_t), CXWnd, HandleMouseMove);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleWheelMove(const CXPoint&, int, uint32_t), CXWnd, HandleWheelMove);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleKeyboardMsg(uint32_t, uint32_t, bool), CXWnd, HandleKeyboardMsg);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleMouseLeave(), CXWnd, HandleMouseLeave);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnDragDrop(SDragDropInfo*), CXWnd, OnDragDrop);
-FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CXWnd::GetDragDropCursor(SDragDropInfo*) const, CXWnd, GetDragDropCursor);
-FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::QueryDropOK(SDragDropInfo*) const, CXWnd, QueryDropOK);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnClickStick(CClickStickInfo*, uint32_t, bool), CXWnd, OnClickStick);
-FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CXWnd::GetClickStickCursor(CClickStickInfo*) const, CXWnd, GetClickStickCursor);
-FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::QueryClickStickDropOK(CClickStickInfo* fo) const, CXWnd, QueryClickStickDropOK);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::WndNotification(CXWnd*, uint32_t, void*), CXWnd, WndNotification);
-FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::OnWndNotification(), CXWnd, OnWndNotification);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawBackground() const, CXWnd, DrawBackground);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawTooltip(const CXWnd* wnd) const, CXWnd, DrawTooltip);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawTooltipAtPoint(const CXPoint& pos, const CXStr& tooltip) const, CXWnd, DrawTooltipAtPoint);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetMinimizedRect() const, CXWnd, GetMinimizedRect);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::DrawTitleBar(const CXRect&) const, CXWnd, DrawTitleBar);
+//FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CXWnd::GetCursorToDisplay() const, CXWnd, GetCursorToDisplay);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonDown(const CXPoint&, uint32_t), CXWnd, HandleLButtonDown);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonUp(const CXPoint&, uint32_t), CXWnd, HandleLButtonUp);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonHeld(const CXPoint&, uint32_t), CXWnd, HandleLButtonHeld);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), CXWnd, HandleLButtonUpAfterHeld);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonDown(const CXPoint&, uint32_t), CXWnd, HandleRButtonDown);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonUp(const CXPoint&, uint32_t), CXWnd, HandleRButtonUp);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonHeld(const CXPoint&, uint32_t), CXWnd, HandleRButtonHeld);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleRButtonUpAfterHeld(const CXPoint&, uint32_t), CXWnd, HandleRButtonUpAfterHeld);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleWheelButtonDown(const CXPoint&, uint32_t), CXWnd, HandleWheelButtonDown);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleWheelButtonUp(const CXPoint&, uint32_t), CXWnd, HandleWheelButtonUp);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleMouseMove(const CXPoint&, uint32_t), CXWnd, HandleMouseMove);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleWheelMove(const CXPoint&, int, uint32_t), CXWnd, HandleWheelMove);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleKeyboardMsg(uint32_t, uint32_t, bool), CXWnd, HandleKeyboardMsg);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HandleMouseLeave(), CXWnd, HandleMouseLeave);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnDragDrop(SDragDropInfo*), CXWnd, OnDragDrop);
+//FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CXWnd::GetDragDropCursor(SDragDropInfo*) const, CXWnd, GetDragDropCursor);
+//FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::QueryDropOK(SDragDropInfo*) const, CXWnd, QueryDropOK);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnClickStick(CClickStickInfo*, uint32_t, bool), CXWnd, OnClickStick);
+//FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CXWnd::GetClickStickCursor(CClickStickInfo*) const, CXWnd, GetClickStickCursor);
+//FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::QueryClickStickDropOK(CClickStickInfo* fo) const, CXWnd, QueryClickStickDropOK);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::WndNotification(CXWnd*, uint32_t, void*), CXWnd, WndNotification);
+//FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::OnWndNotification(), CXWnd, OnWndNotification);
 // Activate
 //Deactivate
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnShow(), CXWnd, OnShow);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnMove(const CXRect&), CXWnd, OnMove);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnResize(int, int), CXWnd, OnResize);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnBeginMoveOrResize(), CXWnd, OnBeginMoveOrResize);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnCompleteMoveOrResize(), CXWnd, OnCompleteMoveOrResize);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnMinimizeBox(), CXWnd, OnMinimizeBox);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnMaximizeBox(), CXWnd, OnMaximizeBox);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnTileBox(), CXWnd, OnTileBox);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnShow(), CXWnd, OnShow);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnMove(const CXRect&), CXWnd, OnMove);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnResize(int, int), CXWnd, OnResize);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnBeginMoveOrResize(), CXWnd, OnBeginMoveOrResize);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnCompleteMoveOrResize(), CXWnd, OnCompleteMoveOrResize);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnMinimizeBox(), CXWnd, OnMinimizeBox);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnMaximizeBox(), CXWnd, OnMaximizeBox);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnTileBox(), CXWnd, OnTileBox);
 // OnTile
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnSetFocus(CXWnd*), CXWnd, OnSetFocus);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnKillFocus(CXWnd*), CXWnd, OnKillFocus);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnProcessFrame(), CXWnd, OnProcessFrame);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnVScroll(EScrollCode, int), CXWnd, OnVScroll);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnHScroll(EScrollCode, int), CXWnd, OnHScroll);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnSetFocus(CXWnd*), CXWnd, OnSetFocus);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnKillFocus(CXWnd*), CXWnd, OnKillFocus);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnProcessFrame(), CXWnd, OnProcessFrame);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnVScroll(EScrollCode, int), CXWnd, OnVScroll);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::OnHScroll(EScrollCode, int), CXWnd, OnHScroll);
 // OnBroughtToTop
 // OnActivate
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::Show(bool, bool, bool), CXWnd, Show);
-FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::AboutToShow(), CXWnd, AboutToShow);
-FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::AboutToHide(), CXWnd, AboutToHide);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::Show(bool, bool, bool), CXWnd, Show);
+//FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::AboutToShow(), CXWnd, AboutToShow);
+//FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::AboutToHide(), CXWnd, AboutToHide);
 // RequestDockInfo
 // GetTooltip
-FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::Unknown0x0EC(), CXWnd, Unknown0x0EC);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HitTest(const CXPoint&, int*) const, CXWnd, HitTest);
-FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetHitTestRect(int) const, CXWnd, GetHitTestRect);
-FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetInnerRect() const, CXWnd, GetInnerRect);
-FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetClientRect() const, CXWnd, GetClientRect);
-FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetClientClipRect() const, CXWnd, GetClientClipRect);
-FORWARD_FUNCTION_TO_VTABLE(CXSize, CXWnd::GetMinSize(bool) const, CXWnd, GetMinSize);
-FORWARD_FUNCTION_TO_VTABLE(CXSize, CXWnd::GetMaxSize(bool) const, CXWnd, GetMaxSize);
+//FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::Unknown0x0EC(), CXWnd, Unknown0x0EC);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HitTest(const CXPoint&, int*) const, CXWnd, HitTest);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetHitTestRect(int) const, CXWnd, GetHitTestRect);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetInnerRect() const, CXWnd, GetInnerRect);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetClientRect() const, CXWnd, GetClientRect);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetClientClipRect() const, CXWnd, GetClientClipRect);
+//FORWARD_FUNCTION_TO_VTABLE(CXSize, CXWnd::GetMinSize(bool) const, CXWnd, GetMinSize);
+//FORWARD_FUNCTION_TO_VTABLE(CXSize, CXWnd::GetMaxSize(bool) const, CXWnd, GetMaxSize);
 // GetUntileSize
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::UpdateGeometry(const CXRect&, bool, bool, bool, bool), CXWnd, UpdateGeometry);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::Move(const CXPoint&), CXWnd, Move);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::UpdateGeometry(const CXRect&, bool, bool, bool, bool), CXWnd, UpdateGeometry);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::Move(const CXPoint&), CXWnd, Move);
 // SetWindowText
-FORWARD_FUNCTION_TO_VTABLE(CXWnd*, CXWnd::GetChildWndAt(const CXPoint&, bool, bool) const, CXWnd, GetChildWndAt);
-FORWARD_FUNCTION_TO_VTABLE(CScreenPieceTemplate*, CXWnd::GetSidlPiece(const CXStr&, bool) const, CXWND, GetSidlPiece);
+//FORWARD_FUNCTION_TO_VTABLE(CXWnd*, CXWnd::GetChildWndAt(const CXPoint&, bool, bool) const, CXWnd, GetChildWndAt);
+//FORWARD_FUNCTION_TO_VTABLE(CScreenPieceTemplate*, CXWnd::GetSidlPiece(const CXStr&, bool) const, CXWND, GetSidlPiece);
 // GetWindowName
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::SetVScrollPos(int), CXWnd, SetVScrollPos);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::SetHScrollPos(int), CXWnd, SetHScrollPos);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::AutoSetVScrollPos(CXRect), CXWnd, AutoSetVScrollPos);
-FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::AutoSetHScrollPos(CXRect), CXWnd, AutoSetHScrollPos);
-FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::SetAttributesFromSidl(CParamScreenPiece*), CXWnd, SetAttributesFromSidl);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::SetVScrollPos(int), CXWnd, SetVScrollPos);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::SetHScrollPos(int), CXWnd, SetHScrollPos);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::AutoSetVScrollPos(CXRect), CXWnd, AutoSetVScrollPos);
+//FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::AutoSetHScrollPos(CXRect), CXWnd, AutoSetHScrollPos);
+//FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::SetAttributesFromSidl(CParamScreenPiece*), CXWnd, SetAttributesFromSidl);
 // OnReloadSidl
 // HasActivatedFirstTimeAlert
 // SetHasActivatedFirstTimeAlert
 // GetMinClientSize
 // GetMaxClientSize
 // Unknown0x160
-FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::UpdateLayout(bool), CXWnd, UpdateLayout);
+//FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::UpdateLayout(bool), CXWnd, UpdateLayout);
 
 void CXWnd::SetClientRectDirty(bool dirty)
 {
@@ -391,7 +387,7 @@ FUNCTION_AT_ADDRESS(void, CXWnd::Center(), CXWnd__Center);
 FUNCTION_AT_ADDRESS(void, CXWnd::Right(), CXWnd__Right);
 #endif
 #ifdef CXWnd__GetScreenClipRect_x
-FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenClipRect() const, CXWnd__GetScreenClipRect);
+//FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenClipRect() const, CXWnd__GetScreenClipRect);
 #endif
 #ifdef CXWnd__IsDescendantOf_x
 FUNCTION_AT_ADDRESS(bool, CXWnd::IsDescendantOf(CXWnd const*) const, CXWnd__IsDescendantOf);
@@ -400,7 +396,7 @@ FUNCTION_AT_ADDRESS(bool, CXWnd::IsDescendantOf(CXWnd const*) const, CXWnd__IsDe
 FUNCTION_AT_ADDRESS(CTAFrameDraw const*, CXWnd::GetBorderFrame() const, CXWnd__GetBorderFrame);
 #endif
 #ifdef CXWnd__GetScreenRect_x
-FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenRect() const, CXWnd__GetScreenRect);
+//FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenRect() const, CXWnd__GetScreenRect);
 #endif
 #ifdef CXWnd__Resize_x
 FUNCTION_AT_ADDRESS(int, CXWnd::Resize(int, int, bool, bool, bool), CXWnd__Resize);
@@ -423,22 +419,22 @@ FUNCTION_AT_ADDRESS(int, CXWnd::SetFont(CTextureFont*), CXWnd__SetFont);
 
 // CSidlScreenWnd
 
-FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnResize(int, int), CSidlScreenWnd, OnResize);
-FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::DrawBackground() const, CSidlScreenWnd, DrawBackground);
-FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::WndNotification(CXWnd*, uint32_t, void*), CSidlScreenWnd, WndNotification);
-FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::HandleRButtonDown(const CXPoint&, uint32_t), CSidlScreenWnd, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnShow(), CSidlScreenWnd, OnShow);
-FORWARD_FUNCTION_TO_VTABLE(CScreenPieceTemplate*, CSidlScreenWnd::GetSidlPiece(const CXStr&, bool) const, CSidlScreenWnd, GetSidlPiece);
-FORWARD_FUNCTION_TO_VTABLE(const CXStr*, CSidlScreenWnd::GetWindowName() const, CSidlScreenWnd, GetWindowName);
-FORWARD_FUNCTION_TO_VTABLE(bool, CSidlScreenWnd::HasActivatedFirstTimeAlert() const, CSidlScreenWnd, HasActivatedFirstTimeAlert);
-FORWARD_FUNCTION_TO_VTABLE(void, CSidlScreenWnd::SetHasActivatedFirstTimeAlert(bool), CSidlScreenWnd, SetHasActivatedFirstTimeAlert);
+// FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnResize(int, int), CSidlScreenWnd, OnResize);
+// FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::DrawBackground() const, CSidlScreenWnd, DrawBackground);
+// FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::WndNotification(CXWnd*, uint32_t, void*), CSidlScreenWnd, WndNotification);
+// FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::HandleRButtonDown(const CXPoint&, uint32_t), CSidlScreenWnd, HandleRButtonDown);
+// FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnShow(), CSidlScreenWnd, OnShow);
+// FORWARD_FUNCTION_TO_VTABLE(CScreenPieceTemplate*, CSidlScreenWnd::GetSidlPiece(const CXStr&, bool) const, CSidlScreenWnd, GetSidlPiece);
+// FORWARD_FUNCTION_TO_VTABLE(const CXStr*, CSidlScreenWnd::GetWindowName() const, CSidlScreenWnd, GetWindowName);
+// FORWARD_FUNCTION_TO_VTABLE(bool, CSidlScreenWnd::HasActivatedFirstTimeAlert() const, CSidlScreenWnd, HasActivatedFirstTimeAlert);
+// FORWARD_FUNCTION_TO_VTABLE(void, CSidlScreenWnd::SetHasActivatedFirstTimeAlert(bool), CSidlScreenWnd, SetHasActivatedFirstTimeAlert);
 
-FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnZone(), CSidlScreenWnd, OnZone);
-FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnPreZone(), CSidlScreenWnd, OnPreZone);
-FORWARD_FUNCTION_TO_VTABLE(void, CSidlScreenWnd::LoadIniInfo(), CSidlScreenWnd, LoadIniInfo);
-FORWARD_FUNCTION_TO_VTABLE(void, CSidlScreenWnd::StoreIniInfo(), CSidlScreenWnd, StoreIniInfo);
-FORWARD_FUNCTION_TO_VTABLE(CSidlScreenWnd*, CSidlScreenWnd::AsSidlScreenWnd(), CSidlScreenWnd, AsSidlScreenWnd);
-FORWARD_FUNCTION_TO_VTABLE(bool, CSidlScreenWnd::GetScreenWndType(), CSidlScreenWnd, GetScreenWndType);
+// FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnZone(), CSidlScreenWnd, OnZone);
+// FORWARD_FUNCTION_TO_VTABLE(int, CSidlScreenWnd::OnPreZone(), CSidlScreenWnd, OnPreZone);
+// FORWARD_FUNCTION_TO_VTABLE(void, CSidlScreenWnd::LoadIniInfo(), CSidlScreenWnd, LoadIniInfo);
+// FORWARD_FUNCTION_TO_VTABLE(void, CSidlScreenWnd::StoreIniInfo(), CSidlScreenWnd, StoreIniInfo);
+// FORWARD_FUNCTION_TO_VTABLE(CSidlScreenWnd*, CSidlScreenWnd::AsSidlScreenWnd(), CSidlScreenWnd, AsSidlScreenWnd);
+// FORWARD_FUNCTION_TO_VTABLE(bool, CSidlScreenWnd::GetScreenWndType(), CSidlScreenWnd, GetScreenWndType);
 
 #ifdef CSidlScreenWnd__dCSidlScreenWnd_x
 // defined in AssemblyFunctions.asm
@@ -474,7 +470,7 @@ FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::CalculateHSBRange(), CSidlScreenWnd__C
 FUNCTION_AT_ADDRESS(int, CSidlScreenWnd::DrawSidlPiece(CScreenPieceTemplate*, const CXRect&, const CXRect&) const, CSidlScreenWnd__DrawSidlPiece);
 #endif
 #ifdef CSidlScreenWnd__GetSidlPieceRect_x
-FUNCTION_AT_ADDRESS(CXRect, CSidlScreenWnd::GetSidlPieceRect(CScreenPieceTemplate*, const CXRect&) const, CSidlScreenWnd__GetSidlPieceRect);
+//FUNCTION_AT_ADDRESS(CXRect, CSidlScreenWnd::GetSidlPieceRect(CScreenPieceTemplate*, const CXRect&) const, CSidlScreenWnd__GetSidlPieceRect);
 #endif
 #ifdef CSidlScreenWnd__AddButtonToRadioGroup_x
 FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::AddButtonToRadioGroup(CXStr, CButtonWnd*), CSidlScreenWnd__AddButtonToRadioGroup);

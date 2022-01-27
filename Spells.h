@@ -897,7 +897,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x20c :: 2022-01-11 (test) @ 0x1402044A7
+// @sizeof(EQ_Spell) == 0x20c :: 2022-02-07 (test) @ 0x140204137
 constexpr size_t EQ_Spell_size = 0x20c;
 
 class [[offsetcomments]] EQ_Spell
@@ -907,9 +907,9 @@ public:
 	EQLIB_OBJECT bool IsStackableDot() const;
 	EQLIB_OBJECT int IsPermIllusionSpell() const;
 	EQLIB_OBJECT int SpellUsesDragonBreathEffect();
-	EQLIB_OBJECT unsigned char SpellAffects(int) const;              // this one takes an attrib(soe calls it affect) and returns the index for it...
-	EQLIB_OBJECT unsigned char GetSpellLevelNeeded(int) const;       // takes a Class, druid for example is 6
-	EQLIB_OBJECT int SpellAffectBase(int) const;                     // takes a SPA, returns the first matching base it finds for it
+	EQLIB_OBJECT unsigned char SpellAffects(int) const;                  // this one takes an attrib(soe calls it affect) and returns the index for it...
+	EQLIB_OBJECT unsigned char GetSpellLevelNeeded(EQClass) const;       // takes a Class, druid for example is 6
+	EQLIB_OBJECT int SpellAffectBase(int) const;                         // takes a SPA, returns the first matching base it finds for it
 	EQLIB_OBJECT const SpellAffectData* GetSpellAffectBySlot(int Slot) const;
 	EQLIB_OBJECT const SpellAffectData* GetSpellAffectByIndex(int Index) const;
 	EQLIB_OBJECT static bool IsDegeneratingLevelMod(int);
@@ -992,7 +992,7 @@ public:
 /*0x020*/ uint32_t             DurationCap = 0;
 /*0x024*/ uint32_t             AEDuration = 0;
 /*0x028*/ int                  ManaCost = 0;
-/*0x02c*/ float                Unknown0x02C = 0;              // See 565CB5 in eqgame oct 07 2019
+/*0x02c*/ float                Unknown0x02C = 0;
 /*0x030*/ int                  ReagentID[MAX_SPELL_REAGENTS]; // ReagentId1-ReagentId4d
 /*0x040*/ int                  ReagentCount[MAX_SPELL_REAGENTS]; // ReagentCount1-ReagentCount4
 /*0x050*/ int                  NoExpendReagent[MAX_SPELL_REAGENTS];
@@ -1098,7 +1098,7 @@ public:
 /*0x1f4*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
 /*0x1f5*/ bool                 NoHate = false;
 /*0x1f6*/ bool                 StacksWithSelf = false;
-/*0x1f7*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells see 7A57DF in Aug 10 2017 live
+/*0x1f7*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
 /*0x1f8*/ bool                 NoBuffBlock = false;
 /*0x1f9*/ int                  Scribable = 1;                 // int?
 /*0x1fd*/ bool                 NoStripOnDeath = false;
@@ -1302,7 +1302,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x39DF60 :: 2022-01-11 (test) @ 0x14029EDF6
+// @sizeof(ClientSpellManager) == 0x39DF60 :: 2022-02-07 (test) @ 0x14029F096
 constexpr size_t ClientSpellManager_size = 0x39DF60;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager

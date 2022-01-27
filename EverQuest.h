@@ -15,8 +15,10 @@
 #pragma once
 
 #include "Common.h"
+#include "EQData.h"
 #include "Items.h"
 #include "Spells.h"
+
 
 namespace eqlib {
 
@@ -41,7 +43,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x3a8 :: 2022-01-11 (test) @ 0x14021386E
+// @sizeof(zoneHeader) == 0x3a8 :: 2022-02-07 (test) @ 0x1402138A4
 constexpr size_t zoneHeader_size = 0x3a8;
 
 struct [[offsetcomments]] zoneHeader
@@ -172,6 +174,7 @@ using USINGSKILL = UsingSkill;
 using PUSINGSKILL = USINGSKILL*;
 
 #pragma pack(push, 1)
+// fixme x64
 struct [[offsetcomments]] EQSuccessfulHit
 {
 /*0x00*/ uint16_t      DamagedID;                // Spawn that was hit
@@ -187,19 +190,19 @@ struct [[offsetcomments]] EQSuccessfulHit
 /*0x20*/
 };
 #pragma pack(pop)
-using pEQSuccessfulHit = EQSuccessfulHit*;
+using pEQSuccessfulHit DEPRECATE("Use EQSuccessfulHit* instead of pEQSuccessfulHit") = EQSuccessfulHit*;
 
 struct [[offsetcomments]] EQSuccessfulHeal
 {
-/*0x00*/ WORD   HealedID; // Spawn that was healed
-/*0x02*/ WORD   HealerID; // Spawn who did the healing
-/*0x04*/ int    SpellID;
-/*0x08*/ int    ActualHeal; // Amount that was actually healed
-/*0x0c*/ int    TotalHeal; // Amount that would have been healed if it didn't go over max HP
-/*0x10*/ DWORD  EffectBitmask;
+/*0x00*/ uint16_t      HealedID; // Spawn that was healed
+/*0x02*/ uint16_t      HealerID; // Spawn who did the healing
+/*0x04*/ int           SpellID;
+/*0x08*/ int           ActualHeal; // Amount that was actually healed
+/*0x0c*/ int           TotalHeal; // Amount that would have been healed if it didn't go over max HP
+/*0x10*/ uint32_t      EffectBitmask;
 /*0x14*/
 };
-using pEQSuccessfulHeal = EQSuccessfulHeal*;
+using pEQSuccessfulHeal DEPRECATE("Use EQSuccessfulHeal* instead of pEQSuccessfulHeal") = EQSuccessfulHeal*;
 
 //============================================================================
 // EverQuestInfo
@@ -290,7 +293,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x190*/ int        LMouseSecond;               // __LMouseHeldTime
 /*0x194*/ UINT       RMouseDown;
 /*0x198*/ UINT       LMouseDown;
-/*0x19c*/ char       Unknown0x00198[0x40];
+/*0x19c*/ char       Unknown0x00198[0x40]; // fixme x64
 /*0x1dc*/ UINT       DuelTarget;
 /*0x1e0*/ UINT       DuelMe;
 /*0x1e4*/ BYTE       DuelOn;
@@ -351,7 +354,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x6b0*/ int        SoundUpdate;
 /*0x6b4*/ bool       MouseOn;
 /*0x6b8*/ USINGSKILL UsingSkill;
-/*0x6c8*/ int        Unknown0x006bc[4];
+/*0x6c8*/ int        Unknown0x006bc[4]; // fixme x64
 /*0x6d8*/ uint32_t   Unknown0x006c8;
 /*0x6dc*/ BYTE       ClickThroughMask;
 /*0x6e0*/ int        ShowSpellDescriptions;
@@ -426,7 +429,8 @@ struct [[offsetcomments]] EverQuestinfo
 /*0xf8c*/ uint8_t    bIgnorePR;
 /*0xf8d*/ bool       bFastCamp;
 /*0xf8e*/ bool       bAdvLootGroupedByNPC;
-/*0xf90*/ };
+/*0xf90*/
+};
 using EVERQUESTINFO = EverQuestinfo;
 using PEVERQUESTINFO = EVERQUESTINFO*;
 
@@ -464,16 +468,16 @@ public:
 
 struct [[offsetcomments]] PetitionStatus
 {
-	/*0x00*/ int           ID;
-	/*0x04*/ int           Priority;                 // todo: check
-	/*0x08*/ int           State;                    // todo: figure out.
-	/*0x0c*/ DWORD         ArrivalTime;
-	/*0x10*/ char          User[0x20];
-	/*0x30*/ char          Player[0x40];
-	/*0x70*/ int           NumActive;
-	/*0x74*/ char          Player2[0x40];
-	/*0xb4*/ DWORD         TimeStamp;                // not sure what its for
-	/*0xb8*/
+/*0x00*/ int           ID;
+/*0x04*/ int           Priority;
+/*0x08*/ int           State;
+/*0x0c*/ DWORD         ArrivalTime;
+/*0x10*/ char          User[0x20];
+/*0x30*/ char          Player[0x40];
+/*0x70*/ int           NumActive;
+/*0x74*/ char          Player2[0x40];
+/*0xb4*/ DWORD         TimeStamp;
+/*0xb8*/
 };
 
 inline namespace deprecated {
@@ -481,7 +485,6 @@ inline namespace deprecated {
 	using PETITIONSTATUS DEPRECATE("Use PetitionStatus instead of PETITIONSTATUS") = PetitionStatus;
 }
 
-// size is 0x170 see 4467A5 in Sep 18 2017 Live
 struct [[offsetcomments]] CSINFO
 {
 	/*0x000*/ char         Name[0x40];
@@ -493,8 +496,8 @@ struct [[offsetcomments]] CSINFO
 	/*0x054*/ int          CurZoneID;
 	/*0x058*/ BYTE         Sex;
 	/*0x059*/ BYTE         Face;
-	/*0x05c*/ ArmorProperties ArmProp[9];            // size /*0x14*/ * 9 = 0xB4
-	/*0x110*/ DWORD        Tint[9];                  // size 0x24
+	/*0x05c*/ ArmorProperties ArmProp[9];
+	/*0x110*/ DWORD        Tint[9];
 	/*0x134*/ char         TextureType;
 	/*0x135*/ char         ArmorMaterial;
 	/*0x136*/ char         ArmorVariation;
@@ -531,14 +534,24 @@ inline namespace deprecated {
 
 //============================================================================
 
-// @sizeof(CEverQuest) == 0x39708 :: 2022-01-11 (test) @ 0x140377055
-constexpr size_t CEverQuest_size = 0x39708;
-
-class CEverQuest
+class CEverQuestBase
 {
 public:
-	EQLIB_OBJECT ~CEverQuest();
-	EQLIB_OBJECT CEverQuest(HWND);
+	virtual ~CEverQuestBase() {}
+};
+
+class FreeTargetTracker;
+
+
+// @sizeof(CEverQuest) == 0x39708 :: 2022-02-07 (test) @ 0x1403772D5
+constexpr size_t CEverQuest_size = 0x39708;
+
+class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
+{
+public:
+	CEverQuest(HWND);
+	~CEverQuest();
+
 	EQLIB_OBJECT void CreateTargetIndicator(int Slot, EQ_Spell* pSpell, const ItemGlobalIndex& ItemLoc, ItemSpellTypes spelltype);
 	EQLIB_OBJECT int DeleteTargetIndicator();
 	EQLIB_OBJECT bool IsInTypingMode();
@@ -546,13 +559,13 @@ public:
 	EQLIB_OBJECT bool ReadClientINIBool(char*, char*, bool);
 	EQLIB_OBJECT bool ReadUIINIBool(char*, char*, bool);
 	EQLIB_OBJECT char* GetBodyTypeDesc(int);
-	EQLIB_OBJECT const char* GetClassDesc(int);
-	EQLIB_OBJECT char* GetClassThreeLetterCode(int);
+	EQLIB_OBJECT const char* GetClassDesc(EQClass);
+	EQLIB_OBJECT char* GetClassThreeLetterCode(EQClass);
 	EQLIB_OBJECT char* GetDeityDesc(int);
 	EQLIB_OBJECT char* GetInnateDesc(int);
 	EQLIB_OBJECT char* GetItemClassDesc(int);
 	EQLIB_OBJECT char* GetLangDesc(int);
-	EQLIB_OBJECT const char* GetRaceDesc(int);
+	EQLIB_OBJECT const char* GetRaceDesc(EQRace);
 	EQLIB_OBJECT char* GetSingleMessage(uint32_t, int, int*, char*);
 	EQLIB_OBJECT char* GrabFirstWord(char*, char*);
 	EQLIB_OBJECT char* GrabFirstWord2(char*, char*, int);
@@ -721,58 +734,63 @@ public:
 	EQLIB_OBJECT void WriteStringToClientINI(char*, char*, char*);
 	EQLIB_OBJECT void WriteStringToUIINI(char*, char*, char*);
 
-	// virtual
-	EQLIB_OBJECT void CshOnBuddyStatusChange(char*, int BuddyStatus);
-	EQLIB_OBJECT void CshOnChannelListChange();
-	EQLIB_OBJECT void CshOnMessage(char*, char*, int, char*, bool);
-	EQLIB_OBJECT void CshOnPlayerEntering(char*, int, char*);
-	EQLIB_OBJECT void CshOnPlayerLeaving(char*, int, char*);
 
 public:
-/*0x00000*/ BYTE             Unknown[0x2a4];
-/*0x002a4*/ UniversalChatProxy* ChatService;
-/*0x002a8*/ BYTE             Unknown0x2a8[0x8];
-/*0x002b0*/ bool             bJoinedChannel;
-/*0x002b1*/ char             ChannelPlayerName[0x100];
-/*0x003b1*/ char             ChannelName[0xa][0x30];
-/*0x00591*/ BYTE             Unknown0x591[0x3];
-/*0x00594*/ DWORD            ChannelNumber[0xa];
-/*0x005bc*/ int              ChannelQty;
-/*0x005c0*/ void*            pFreeTargetRing;              // PTARGETRING
-/*0x005c4*/ DWORD            WorldState;                   // 0 everything is fine, 1 we are getting disconnected 2 player not released from zone
-/*0x005c8*/ int              GameState;
-/*0x005cc*/ bool             bStopAreaProcessing;
-/*0x005cd*/ bool             bRAFEnabled;
-/*0x005d0*/ int              ClientOutOfDate;              // I think string ID of popupdialog text (4BAD8A), is client out of date? this func checks it: 4ACD10 see May 12 2020 test exe
-/*0x005d8*/ int64_t          ServerTimeSync;
-/*0x005e0*/ int64_t          ServerTimeBase;
-/*0x005e8*/ int64_t          ServerTimeLastReported;
-/*0x005f0*/ bool             bServerTimeHasWrapped;
-/*0x005f4*/ float            TargetCameraDistance;
-/*0x005f8*/ bool             bUnknown0x5f0;
-/*0x005fc*/ int              TotalCharacterSlots;
-/*0x00600*/ int              MarketplaceCharacterSlots;
-/*0x00604*/ bool             Unknown0x604;
-/*0x00608*/ int              Unknown0x608;
-/*0x0060c*/ bool             Unknown0x60c;
-/*0x00610*/ CPopDialogWnd*   CampDialog;
-/*0x0060c*/ PickZoneTimerHandler pickZoneTimerHandler;
-/*0x0061c*/ USINGSKILL       UsingSkill;
-/*0x0062C*/ PetitionStatus   PetitionStatus[0x200];
-/*0x1762C*/ int              TotalQ;
-/*0x17628*/ int              TotalClientPetitions;
-/*0x1762c*/ char             ChatText[0x840];
-/*0x17e6c*/ int              TrimIdx;
-/*0x17e70*/ char             ChatChanged;
-/*0x17e71*/ char             Trim[0x40][0x840];
-/*0x38e74*/ BOOL             chat;
-/*0x38e78*/ BOOL             disconnected;
-/*0x38E84*/ int              Red;
-/*0x38e88*/ int              Green;
-/*0x38e8c*/ int              Blue;
-/*0x38e90*/ ArrayClass<CSINFO> pCharSelectPlayerArray;
-/*0x38ea0*/ char             Filler[0x7a0]; // more data
-/*0x39640*/
+
+/*0x00000*/ // CEverQuest::`vftable'{for `CEverQuestBase'}
+/*0x00008*/ // CEverQuest::`vftable'{for `UniversalChatProxyHandler'}
+/*0x00010*/ // CEverQuest::`vftable'{for `PopDialogHandler'}
+/*0x00018*/ UniversalChatProxy*   currentChatServerApi;
+/*0x00020*/ bool                  alreadyAutoJoined;
+/*0x00028*/ int64_t               chatNotificationStamp;
+/*0x00030*/ char                  ucpAddress[128];
+/*0x000b0*/ int                   ucpPort;
+/*0x000b4*/ char                  ucpPlayerName[256];
+/*0x001b4*/ char                  ucpTicket[256];
+/*0x002b8*/ UniversalChatProxy*   chatService;
+/*0x002c0*/ int64_t               ucNotificationStamp;
+/*0x002c8*/ bool                  ucNotificationEntering;
+/*0x002c9*/ char                  ucNotificationPlayerName[256];
+/*0x003c9*/ char                  ucNotificationChannelName[10][48];
+/*0x005ac*/ DWORD                 ucNotificationChannelNumber[10];
+/*0x005d4*/ int                   ucNotificationCount;
+/*0x005d8*/ FreeTargetTracker*    freeTargetTracker;
+/*0x005e0*/ int                   WorldState;                   // 0 everything is fine, 1 we are getting disconnected 2 player not released from zone
+/*0x005e4*/ int                   GameState;
+/*0x005e8*/ bool                  bStopAreaProcessing;
+/*0x005e9*/ bool                  bRAFEnabled;
+/*0x005ec*/ int                   ClientOutOfDate;
+/*0x005f0*/ int64_t               ServerTimeSync;
+/*0x005f8*/ int64_t               ServerTimeBase;
+/*0x00600*/ int64_t               ServerTimeLastReported;
+/*0x00608*/ bool                  bServerTimeHasWrapped;
+/*0x0060c*/ float                 TargetCameraDistance;
+/*0x00610*/ bool                  bUnknown0x5f0;
+/*0x00614*/ int                   TotalCharacterSlots;
+/*0x00618*/ int                   MarketplaceCharacterSlots;
+/*0x0061c*/ bool                  Unknown0x604;
+/*0x00620*/ int                   Unknown0x608;
+/*0x00624*/ bool                  Unknown0x60c;
+/*0x00628*/ CPopDialogWnd*        CampDialog;
+/*0x00630*/ PickZoneTimerHandler  pickZoneTimerHandler;
+/*0x00648*/ UsingSkill            usingSkill;
+/*0x00658*/ PetitionStatus        petitionStatus[0x200];
+/*0x17658*/ int                   TotalQ;
+/*0x1765c*/ int                   TotalClientPetitions;
+/*0x17660*/ char                  ChatText[2112];
+/*0x17ea0*/ int                   TrimIdx;
+/*0x17ea4*/ char                  ChatChanged;
+/*0x17ea5*/ char                  Trim[64][2112];
+/*0x38ea8*/ int                   chat;
+/*0x38eac*/ int                   disconnected;
+/*0x38eb0*/ int                   Red;
+/*0x38eb4*/ int                   Green;
+/*0x38eb8*/ int                   Blue;
+/*0x38ec0*/ ArrayClass<CSINFO>    charSelectPlayerArray;
+/*0x38ed8*/ char                  Filler[0x830]; // more data
+/*0x39708*/
+
+	ALT_MEMBER_GETTER(UniversalChatProxy*, chatService, ChatService);
 };
 
 inline namespace deprecated {

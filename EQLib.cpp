@@ -96,9 +96,6 @@ FUNCTION_AT_ADDRESS(DWORD, EQGetTime(), __EQGetTime);
 #ifdef __msg_successful_hit_x
 FUNCTION_AT_ADDRESS(void, msg_successful_hit(struct _EQSuccessfulHit*), __msg_successful_hit);
 #endif
-#ifdef __STMLToText_x
-FUNCTION_AT_ADDRESS(CXStr, STMLToText(const CXStr&, bool), __STMLToText);
-#endif
 #ifdef __GetAnimationCache_x
 FUNCTION_AT_ADDRESS(IconCache*, GetAnimationCache(int index), __GetAnimationCache);
 #endif

@@ -39,7 +39,7 @@ enum UIType
 	UI_Unknown = -1,
 	UI_Class = 0,
 	UI_RGB = 1,
-	UI_TextRGB = 2,   // new since the patch on Jan 08 2018 Test see 0x90EC67
+	UI_TextRGB = 2,
 	UI_Point = 3,
 	UI_Size = 4,
 	UI_TextureInfo = 5,

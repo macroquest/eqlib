@@ -116,10 +116,10 @@ FUNCTION_AT_ADDRESS(void, CEverQuest::StartCasting(void*), CEverQuest__StartCast
 FUNCTION_AT_ADDRESS(void, CEverQuest::Consider(EQPlayer*, void*), CEverQuest__Consider);
 #endif
 #ifdef CEverQuest__GetClassDesc_x
-FUNCTION_AT_ADDRESS(const char*, CEverQuest::GetClassDesc(int), CEverQuest__GetClassDesc);
+FUNCTION_AT_ADDRESS(const char*, CEverQuest::GetClassDesc(EQClass), CEverQuest__GetClassDesc);
 #endif
 #ifdef CEverQuest__GetClassThreeLetterCode_x
-FUNCTION_AT_ADDRESS(char*, CEverQuest::GetClassThreeLetterCode(int), CEverQuest__GetClassThreeLetterCode);
+FUNCTION_AT_ADDRESS(char*, CEverQuest::GetClassThreeLetterCode(EQClass), CEverQuest__GetClassThreeLetterCode);
 #endif
 #ifdef CEverQuest__GetItemClassDesc_x
 FUNCTION_AT_ADDRESS(char*, CEverQuest::GetItemClassDesc(int), CEverQuest__GetItemClassDesc);
@@ -131,7 +131,7 @@ FUNCTION_AT_ADDRESS(char*, CEverQuest::GetBodyTypeDesc(int), CEverQuest__GetBody
 FUNCTION_AT_ADDRESS(char*, CEverQuest::GetLangDesc(int), CEverQuest__GetLangDesc);
 #endif
 #ifdef CEverQuest__GetRaceDesc_x
-FUNCTION_AT_ADDRESS(const char*, CEverQuest::GetRaceDesc(int), CEverQuest__GetRaceDesc);
+FUNCTION_AT_ADDRESS(const char*, CEverQuest::GetRaceDesc(EQRace), CEverQuest__GetRaceDesc);
 #endif
 #ifdef CEverQuest__GetDeityDesc_x
 FUNCTION_AT_ADDRESS(char*, CEverQuest::GetDeityDesc(int), CEverQuest__GetDeityDesc);

@@ -298,7 +298,6 @@ ItemBase::ItemBase()
 	bDisableAugTexture = false;
 	Luck = 0;
 	ID = 0;
-	RespawnTime = 0;
 	MerchantSlot = 0;
 	ConvertItemID = 0;
 	bCopied = false;
@@ -351,9 +350,6 @@ FUNCTION_AT_ADDRESS(char*, ItemBase::CreateItemTagString(char*, int, bool), Item
 #endif
 #ifdef ItemBase__GetImageNum_x
 FUNCTION_AT_ADDRESS(int, ItemBase::GetImageNum() const, ItemBase__GetImageNum);
-#endif
-#ifdef ItemClient__CreateItemClient_x
-FUNCTION_AT_ADDRESS(ItemPtr, ItemBase::CreateItemClient(CUnSerializeBuffer& buffer), ItemClient__CreateItemClient);
 #endif
 #ifdef ItemClient__CanDrop_x
 FUNCTION_AT_ADDRESS(bool, ItemBase::CanDrop(bool, bool, bool, bool) const, ItemClient__CanDrop);

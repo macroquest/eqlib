@@ -146,6 +146,48 @@ struct [[offsetcomments]] EQLogin
 
 } // namespace EQLS
 
+struct [[offsetcomments]] IniKeyValuePair
+{
+/*0x00*/ CXStr            key;
+/*0x08*/ CXStr            value;
+/*0x10*/ const char*      valueStr;
+/*0x18*/ int              hashVal;
+/*0x20*/ IniKeyValuePair* next;
+/*0x28*/
+};
+
+struct [[offsetcomments]] IniFileSection
+{
+/*0x00*/ HashTable<IniKeyValuePair*> values;
+/*0x18*/ int              numValues;
+/*0x20*/ CXStr            section;
+/*0x28*/ int              hashVal;
+/*0x30*/ IniKeyValuePair* firstKeyValue;
+/*0x38*/ IniKeyValuePair* lastKeyValue;
+/*0x40*/ IniFileSection*  nextSection;
+/*0x48*/
+};
+
+class [[offsetcomments]] IniFileWrapper
+{
+public:
+	virtual ~IniFileWrapper() {}
+
+/*0x08*/ HashTable<IniFileSection*> sections;
+/*0x20*/ int              numSections;
+/*0x28*/ IniFileSection*  firstSection;
+/*0x30*/ IniFileSection*  lastSection;
+/*0x38*/ bool             dirty;
+/*0x3c*/
+};
+
+struct [[offsetcomments]] TimeCheck
+{
+/*0x00*/ int64_t    lastTimeChecked;
+/*0x08*/ int64_t    elapsedTime;
+/*0x10*/
+};
+
 // LoginClient
 class [[offsetcomments]] LoginClient : public EQLS::LoginServerCallback,
 	public EQLS::ChannelServerHandler
@@ -157,20 +199,27 @@ public:
 		int   Port;
 	};
 
-/*0x010*/ EQLS::EQLogin* pLoginData;
+/*0x010*/ EQLS::EQLogin*          pLoginData;
 /*0x018*/ DoublyLinkedList<Host*> Hosts;
-/*0x050*/ Host*    pHost;
-/*0x058*/ bool     bRetryConnect;
-/*0x059*/ uint8_t  Unknown0x031[0x7C];
-/*0x0d8*/ CXStr    LoginName;
-/*0x0e0*/ CXStr    Password;
-/*0x0e8*/ CXStr    LoginNameCopy;
-/*0x0f0*/ CXStr    PasswordCopy;
-/*0x0f8*/ CXStr    AccountKey;
-/*0x100*/ uint8_t  Unknown0x0C4[0x10];
-/*0x110*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
-/*0x148*/ EQLS::EQClientServerData QuickConnectServer;
-/*0x1b8*/ };
+/*0x050*/ Host*                   pHost;
+/*0x058*/ bool                    bRetryConnect;
+/*0x060*/ IniFileWrapper          hostIniFile;
+/*0x0a0*/ IniFileWrapper          systemMacrosIniFile;
+/*0x0e0*/ IniFileWrapper          userMacrosIniFile;
+/*0x120*/ TimeCheck               timeCheck;
+/*0x130*/ CXStr                   LoginName;
+/*0x138*/ CXStr                   Password;
+/*0x140*/ CXStr                   LoginNameCopy;
+/*0x148*/ CXStr                   PasswordCopy;
+/*0x150*/ CXStr                   AccountKey;
+/*0x158*/ int                     accountId;
+/*0x160*/ EQLS::EQClientServerData* selectedServer;
+/*0x168*/ int                     displayDeviceIndex;
+/*0x16c*/ bool                    isLoggingIn;
+/*0x170*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
+/*0x1a8*/ EQLS::EQClientServerData QuickConnectServer;
+/*0x218*/
+};
 
 //----------------------------------------------------------------------------
 

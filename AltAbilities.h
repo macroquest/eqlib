@@ -91,7 +91,7 @@ using PALTABILITY = CAltAbilityData*;
 
 //============================================================================
 
-class AltAdvManager
+class [[offsetcomments]] AltAdvManager
 {
 public:
 	EQLIB_OBJECT CAltAbilityData* GetAAById(int index, int level = -1);
@@ -103,7 +103,8 @@ public:
 	EQLIB_OBJECT CAltAbilityData* GetAAByGroupId(int nGroupId);
 
 /*0x000*/ RequirementAssociationManager reqAssocManager;
-/*0x230*/ HashTable<CAltAbilityData*>* abilities;
+/*0x248*/ HashTable<CAltAbilityData*>* abilities;
+/*0x250*/
 };
 
 //============================================================================

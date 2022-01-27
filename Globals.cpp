@@ -87,6 +87,7 @@ ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Firiona,
 	ServerID::Luclin,
 	ServerID::Mayong,
+	ServerID::Miragul,
 	ServerID::Phinigel,
 	ServerID::Povar,
 	ServerID::Ragefire,
@@ -112,6 +113,7 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Firiona: return "firiona";
 	case ServerID::Luclin: return "luclin";
 	case ServerID::Mayong: return "mayong";
+	case ServerID::Miragul: return "miragul";
 	case ServerID::Phinigel: return "phinigel";
 	case ServerID::Povar: return "povar";
 	case ServerID::Ragefire: return "ragefire";
@@ -141,6 +143,7 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "firiona", ServerID::Firiona },
 		{ "luclin", ServerID::Luclin },
 		{ "mayong", ServerID::Mayong },
+		{ "miragul", ServerID::Miragul },
 		{ "phinigel", ServerID::Phinigel },
 		{ "povar", ServerID::Povar },
 		{ "ragefire", ServerID::Ragefire },
@@ -219,13 +222,13 @@ INITIALIZE_EQGAME_OFFSET(__CurrentSocial);
 INITIALIZE_EQGAME_OFFSET(__do_loot);
 INITIALIZE_EQGAME_OFFSET(__DoAbilityList);
 INITIALIZE_EQGAME_OFFSET(__gpbCommandEvent);
-INITIALIZE_EQGAME_OFFSET(__GroupAggro);
 INITIALIZE_EQGAME_OFFSET(__Guilds);
 INITIALIZE_EQGAME_OFFSET(__gWorld);
 INITIALIZE_EQGAME_OFFSET(__heqmain);
 INITIALIZE_EQGAME_OFFSET(__HWnd);
 INITIALIZE_EQGAME_OFFSET(__InChatMode);
 INITIALIZE_EQGAME_OFFSET(__Inviter);
+INITIALIZE_EQGAME_OFFSET(__LabelCache);
 INITIALIZE_EQGAME_OFFSET(__LastTell);
 INITIALIZE_EQGAME_OFFSET(__LMouseHeldTime);
 INITIALIZE_EQGAME_OFFSET(__LoginName);
@@ -249,7 +252,6 @@ INITIALIZE_EQGAME_OFFSET(__ShowNames);
 INITIALIZE_EQGAME_OFFSET(__SocialChangedList);
 INITIALIZE_EQGAME_OFFSET(__Socials);
 INITIALIZE_EQGAME_OFFSET(__SubscriptionType);
-INITIALIZE_EQGAME_OFFSET(__TargetAggroHolder);
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRate);
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRateEnd);
 INITIALIZE_EQGAME_OFFSET(__UseTellWindows);
@@ -278,6 +280,7 @@ INITIALIZE_EQGAME_OFFSET(pinstCEverQuest);
 INITIALIZE_EQGAME_OFFSET(pinstCInvSlotMgr);
 INITIALIZE_EQGAME_OFFSET(pinstCItemDisplayManager);
 INITIALIZE_EQGAME_OFFSET(pinstControlledPlayer);
+INITIALIZE_EQGAME_OFFSET(pinstCMercenaryClientManager);
 INITIALIZE_EQGAME_OFFSET(pinstCPopupWndManager);
 INITIALIZE_EQGAME_OFFSET(pinstCResolutionHandler);
 INITIALIZE_EQGAME_OFFSET(pinstCSidlManager);
@@ -294,7 +297,6 @@ INITIALIZE_EQGAME_OFFSET(pinstEverQuestInfo);
 INITIALIZE_EQGAME_OFFSET(pinstItemIconCache);
 INITIALIZE_EQGAME_OFFSET(pinstLocalPC);
 INITIALIZE_EQGAME_OFFSET(pinstLocalPlayer);
-INITIALIZE_EQGAME_OFFSET(pinstMercenaryData);
 INITIALIZE_EQGAME_OFFSET(pinstMercenaryStats);
 INITIALIZE_EQGAME_OFFSET(pinstModelPlayer);
 INITIALIZE_EQGAME_OFFSET(pinstRenderInterface);
@@ -714,7 +716,6 @@ INITIALIZE_EQGAME_OFFSET(CTabWnd__SetPage);
 INITIALIZE_EQGAME_OFFSET(CTabWnd__SetPageRect);
 INITIALIZE_EQGAME_OFFSET(CTabWnd__UpdatePage);
 INITIALIZE_EQGAME_OFFSET(CTargetManager__Get);
-INITIALIZE_EQGAME_OFFSET(CTargetRing__Cast);
 INITIALIZE_EQGAME_OFFSET(CTargetWnd__GetBuffCaster);
 INITIALIZE_EQGAME_OFFSET(CTargetWnd__HandleBuffRemoveRequest);
 INITIALIZE_EQGAME_OFFSET(CTargetWnd__RefreshTargetBuffs);
@@ -806,6 +807,7 @@ INITIALIZE_EQGAME_OFFSET(EverQuest__Cameras);
 INITIALIZE_EQGAME_OFFSET(EverQuestinfo__IsItemPending);
 INITIALIZE_EQGAME_OFFSET(FactionManagerClient__HandleFactionMessage);
 INITIALIZE_EQGAME_OFFSET(FactionManagerClient__Instance);
+INITIALIZE_EQGAME_OFFSET(FreeTargetTracker__CastSpell);
 INITIALIZE_EQGAME_OFFSET(IconCache__GetIcon);
 INITIALIZE_EQGAME_OFFSET(ItemBase__CanGemFitInSlot);
 INITIALIZE_EQGAME_OFFSET(ItemBase__CreateItemTagString);
@@ -874,7 +876,7 @@ INITIALIZE_EQGAME_OFFSET(PlayerClient__ChangeBoneStringSprite);
 INITIALIZE_EQGAME_OFFSET(PlayerClient__GetPcClient);
 INITIALIZE_EQGAME_OFFSET(PlayerClient__SetNameSpriteState);
 INITIALIZE_EQGAME_OFFSET(PlayerClient__SetNameSpriteTint);
-INITIALIZE_EQGAME_OFFSET(PlayerManagerBase__DestroyPlayer);
+INITIALIZE_EQGAME_OFFSET(PlayerManagerBase__PrepForDestroyPlayer);
 INITIALIZE_EQGAME_OFFSET(PlayerManagerClient__CreatePlayer);
 INITIALIZE_EQGAME_OFFSET(PlayerManagerClient__GetPlayerFromPartialName);
 INITIALIZE_EQGAME_OFFSET(PlayerManagerClient__GetSpawnByID);
@@ -907,7 +909,6 @@ IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
 POINT*                 EQADDR_DIMOUSECHECK       = nullptr;
 POINT*                 EQADDR_DIMOUSECOPY        = nullptr;
 int*                   EQADDR_DOABILITYLIST      = nullptr;
-uintptr_t              EQADDR_GROUPAGGRO         = 0;
 void*                  EQADDR_GWORLD             = nullptr;
 char*                  EQADDR_LASTTELL           = nullptr;
 uintptr_t              EQADDR_HWND               = 0;
@@ -918,7 +919,6 @@ BYTE*                  EQADDR_RUNWALKSTATE       = nullptr;
 char*                  EQADDR_SERVERHOST         = nullptr;
 char*                  EQADDR_SERVERNAME         = nullptr;
 uintptr_t*             EQADDR_SUBSCRIPTIONTYPE   = nullptr;
-char*                  EQADDR_TARGETAGGROHOLDER  = nullptr;
 BYTE*                  EQADDR_ZONETYPE           = nullptr;
 char**                 EQMappableCommandList     = nullptr;
 BYTE*                  EQbCommandStates          = nullptr;
@@ -941,9 +941,9 @@ CEQSuiteTextureLoader* pEQSuiteTextureLoader     = nullptr;
 EverQuestinfo*         pEverQuestInfo            = nullptr;
 INT*                   pgCurrentSocial           = nullptr;
 CGuild*                pGuild                    = nullptr;
-GUILDS*                pGuildList                = nullptr;
+CGuild*                pGuildList                = nullptr;
 char*                  pMouseLook                = nullptr;
-EQRAID*                pRaid                     = nullptr;
+CRaid*                 pRaid                     = nullptr;
 DWORD*                 pScreenMode               = nullptr;
 DWORD*                 pScreenX                  = nullptr;
 DWORD*                 pScreenXMax               = nullptr;
@@ -975,7 +975,7 @@ ComputedPointer<AggroMeterManagerClient>         pAggroInfo([]{ return &AggroMet
 ForeignPointer<AltAdvManager>                    pAltAdvManager;
 ComputedPointer<ClientAuraManager>               pAuraMgr([]{ return ClientAuraManager::GetSingleton(); });
 ForeignPointer<CChatWindowManager>               pChatManager;
-ComputedPointer<CChatService>                    pChatService([]{ return (CChatService*)pEverQuest.get_as<EVERQUEST>()->ChatService; });
+ComputedPointer<UniversalChatProxy>              pChatService([]{ return pEverQuest->chatService; });
 ForeignPointer<connection_t>                     pConnection;
 ForeignPointer<CContainerMgr>                    pContainerMgr;
 ForeignPointer<CContextMenuManager>              pContextMenuManager;
@@ -1004,7 +1004,7 @@ ForeignPointer<SkillManager>                     pSkillMgr;
 ForeignPointer<SkillManager>                     pCSkillMgr;
 ForeignPointer<PlayerManagerClient>              pSpawnManager;
 ForeignPointer<ClientSpellManager>               pSpellMgr;
-ForeignPointer<StringTable, EQSTRINGTABLE>       pStringTable;
+ForeignPointer<StringTable>                      pStringTable;
 ForeignPointer<EqSwitchManager>                  pSwitchMgr;
 ForeignPointer<SharedTaskPlayerInfo>             pTaskMember;
 ComputedPointer<CBroadcast>                      pTextOverlay([]{ return CBroadcast::Get(); });
@@ -1170,7 +1170,8 @@ ForeignPointer<CSidlScreenWnd>                   pVoteWnd;
 ForeignPointer<CZoneGuideWnd>                    pZoneGuideWnd;
 ForeignPointer<CZonePathWnd>                     pZonePathWnd;
 
-ForeignPointer<DWORD>                            g_pDrawHandler;
+ForeignPointer<CRender>                          g_pDrawHandler;
+ForeignPointer<LabelCache>                       g_labelCache;
 
 fEQNewUIINI            NewUIINI                  = nullptr;
 fEQProcGameEvts        ProcessGameEvents         = nullptr;
@@ -1198,7 +1199,6 @@ void InitializeEQGameOffsets()
 	EQADDR_DIMOUSECHECK             = (PPOINT)DI8__Mouse_Check;
 	EQADDR_DIMOUSECOPY              = (PPOINT)DI8__Mouse_Copy;
 	EQADDR_DOABILITYLIST            = (int*)__DoAbilityList;
-	EQADDR_GROUPAGGRO               = (DWORD)__GroupAggro;
 	EQADDR_GWORLD                   = (void*)__gWorld;
 	EQADDR_HWND                     = __HWnd;
 	EQADDR_LASTTELL                 = (char*)__LastTell;
@@ -1209,7 +1209,6 @@ void InitializeEQGameOffsets()
 	EQADDR_SERVERHOST               = (char*)__ServerHost;
 	EQADDR_SERVERNAME               = (char*)__ServerName;
 	EQADDR_SUBSCRIPTIONTYPE         = (uintptr_t*)__SubscriptionType;
-	EQADDR_TARGETAGGROHOLDER        = (char*)__TargetAggroHolder;
 	EQADDR_ZONETYPE                 = (BYTE*)__ZoneType;
 	EQbCommandStates                = (BYTE*)g_eqCommandStates;
 	EQMappableCommandList           = (char**)__BindList;
@@ -1233,9 +1232,10 @@ void InitializeEQGameOffsets()
 	pEverQuestInfo                  = (EverQuestinfo*)pinstEverQuestInfo;
 	pgCurrentSocial                 = (INT*)__CurrentSocial;
 	pGuild                          = (CGuild*)__Guilds;
-	pGuildList                      = (GUILDS*)__Guilds;
+#pragma warning(suppress: 4996)
+	pGuildList                      = (CGuild*)__Guilds;
 	pMouseLook                      = (char*)__MouseLook;
-	pRaid                           = (PEQRAID)instCRaid;
+	pRaid                           = (CRaid*)instCRaid;
 	pScreenMode                     = (DWORD*)__ScreenMode;
 	pScreenX                        = (DWORD*)__ScreenX;
 	pScreenXMax                     = (DWORD*)__ScreenXMax;
@@ -1284,8 +1284,8 @@ void InitializeEQGameOffsets()
 	pItemDisplayManager             = pinstCItemDisplayManager;
 	pLootFiltersManager             = pinstLootFiltersManager;
 #pragma warning(suppress: 4996)
-	pMercInfo                       = pinstMercenaryData;              // deprecated
-	pMercManager                    = pinstMercenaryData;
+	pMercInfo                       = pinstCMercenaryClientManager;    // deprecated
+	pMercManager                    = pinstCMercenaryClientManager;
 	pResolutionHandler              = pinstCResolutionHandler;
 	pSidlMgr                        = pinstCSidlManager;
 	pSkillMgr                       = pinstSkillMgr;
@@ -1373,7 +1373,7 @@ uintptr_t EQMain__pinstCSidlManager = 0;
 uintptr_t EQMain__pinstCXWndManager = 0;
 uintptr_t EQMain__pinstLoginController = 0;
 uintptr_t EQMain__pinstLoginServerAPI = 0;
-uintptr_t EQMain__pinstServerInfo = 0;
+uintptr_t EQMain__pinstLoginClient = 0;
 
 ForeignPointer<CLoginViewManager> g_pLoginViewManager;
 ForeignPointer<LoginClient> g_pLoginClient;
@@ -1405,10 +1405,23 @@ bool InitializeEQMainOffsets()
 		EQMain__pinstCXWndManager = FixEQMainOffset(EQMain__pinstCXWndManager_x);
 		EQMain__pinstLoginController = FixEQMainOffset(EQMain__pinstLoginController_x);
 		EQMain__pinstLoginServerAPI = FixEQMainOffset(EQMain__pinstLoginServerAPI_x);
-		EQMain__pinstServerInfo = EQMain__pinstCLoginViewManager - 4;
+		EQMain__pinstLoginClient = EQMain__pinstCLoginViewManager - 8;
 
 		if (EQMain__LoginController__GiveTime)
 		{
+#if defined(_WIN64)
+			//.text:18001BAC0                     public: void __thiscall LoginController::GiveTime(void) proc near
+			//.text:18001BAC0 40 53                               push    rbx
+			//.text:18001BAC2 48 83 EC 20                         sub     rsp, 20h
+			//.text:18001BAC6 48 8B D9                            mov     rbx, rcx
+			//.text:18001BAC9 E8 02 02 00 00                      call    LoginController::PollAndProcessDXKeyboard(void)
+			EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 9, 1, 4);
+			//.text:18001BACE 48 8B CB                            mov     rcx, rbx
+			//.text:18001BAD1 48 83 C4 20                         add     rsp, 20h
+			//.text:18001BAD5 5B                                  pop     rbx
+			//.text:18001BAD6 E9 25 06 00 00                      jmp     LoginController::PollAndProcessDXMouse(void)
+			EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 22, 1, 4);
+#else
 			//.text:10014B00                      public: void __thiscall LoginController::GiveTime(void) proc near
 			//.text:10014B00 56                                   push    esi
 			//.text:10014B01 8B F1                                mov     esi, this
@@ -1418,12 +1431,13 @@ bool InitializeEQMainOffsets()
 			//.text:10014B0A 5E                                   pop     esi
 			//.text:10014B0B E9 A0 08 00 00                       jmp     LoginController::ProcessMouseEvents(void)
 			EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 11, 1, 4);
+#endif
 		}
 
 		g_pLoginViewManager = EQMain__pinstCLoginViewManager;
 		g_pLoginController = EQMain__pinstLoginController;
 		g_pLoginServerAPI = EQMain__pinstLoginServerAPI;
-		g_pLoginClient = EQMain__pinstServerInfo;
+		g_pLoginClient = EQMain__pinstLoginClient;
 
 		// Update addresses shared with eqgame.exe
 		CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
@@ -1455,7 +1469,7 @@ void CleanupEQMainOffsets()
 	EQMain__pinstCXWndManager = 0;
 	EQMain__pinstLoginController = 0;
 	EQMain__pinstLoginServerAPI = 0;
-	EQMain__pinstServerInfo = 0;
+	EQMain__pinstLoginClient = 0;
 
 	g_pLoginController.reset();
 	g_pLoginViewManager.reset();

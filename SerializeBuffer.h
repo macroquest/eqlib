@@ -49,8 +49,8 @@ class CUnSerializeBuffer
 {
 public:
 	const char* m_pBuffer = nullptr;
-	size_t      m_uLength = 0;
-	size_t      m_uReadOffset = 0;
+	uint32_t    m_uLength = 0;
+	uint32_t    m_uReadOffset = 0;
 
 	inline CUnSerializeBuffer() = default;
 
@@ -60,7 +60,7 @@ public:
 		, m_uReadOffset(other.m_uReadOffset)
 	{}
 
-	inline CUnSerializeBuffer(const char* buffer, size_t length)
+	inline CUnSerializeBuffer(const char* buffer, uint32_t length)
 		: m_pBuffer(buffer)
 		, m_uLength(length)
 	{}
@@ -110,9 +110,9 @@ public:
 	}
 
 	template <typename T>
-	void Read(T* r, size_t size)
+	void Read(T* r, uint32_t size)
 	{
-		size_t savedSize;
+		uint32_t savedSize;
 		Read(savedSize);
 
 		for (size_t i = 0; i < savedSize && i < size; i++)
@@ -123,8 +123,8 @@ public:
 
 	bool ReadString(char* buffer, size_t bufferSize)
 	{
-		size_t size = strnlen(m_pBuffer + m_uReadOffset, m_uLength - m_uReadOffset) + 1;
-		size_t readAmount = std::min(bufferSize - 1, size);
+		uint32_t size = (uint32_t)strnlen(m_pBuffer + m_uReadOffset, m_uLength - m_uReadOffset) + 1;
+		uint32_t readAmount = std::min((uint32_t)bufferSize - 1, size);
 
 		if (!ValidateRead(readAmount))
 		{
@@ -139,7 +139,7 @@ public:
 	}
 
 private:
-	bool ValidateRead(size_t amount)
+	bool ValidateRead(uint32_t amount)
 	{
 		return (m_uReadOffset + amount <= m_uLength);
 	}

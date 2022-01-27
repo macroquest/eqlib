@@ -106,7 +106,6 @@
     </ClCompile>
     <Link>
       <BaseAddress>0x034000000000</BaseAddress>
-      <ModuleDefinitionFile>AssemblyFunctions64.def</ModuleDefinitionFile>
       <AdditionalDependencies>fmt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -132,7 +131,6 @@
     </ClCompile>
     <Link>
       <BaseAddress>0x034000000000</BaseAddress>
-      <ModuleDefinitionFile>AssemblyFunctions64.def</ModuleDefinitionFile>
       <AdditionalDependencies>fmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -146,7 +144,6 @@
     <ClInclude Include="Containers.h" />
     <ClInclude Include="CXStr.h" />
     <ClInclude Include="CXWnd.h" />
-    <ClInclude Include="eqgame.x64.h" />
     <ClInclude Include="eqstd\map.h" />
     <ClInclude Include="eqstd\xmemory.h" />
     <ClInclude Include="eqstd\xtree.h" />
@@ -155,7 +152,6 @@
     <ClInclude Include="RealEstate.h" />
     <ClInclude Include="Requirements.h" />
     <ClInclude Include="WindowOverride.h" />
-    <ClInclude Include="DynamicArray.h" />
     <ClInclude Include="EQClasses.h" />
     <ClInclude Include="EQData.h" />
     <ClInclude Include="eqgame.h" />
@@ -226,34 +222,7 @@
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="AssemblyFunctions.asm">
-      <FileType>Document</FileType>
-      <PreserveIdentifierCase Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">1</PreserveIdentifierCase>
-      <PreserveIdentifierCase Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">1</PreserveIdentifierCase>
-      <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</MakeAllSymbolsPublic>
-      <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</MakeAllSymbolsPublic>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(MQ2Root)tools\NASM\nasm.exe" "%(FullPath)" -f win32 -o "$(IntDir)%(Filename).obj"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(MQ2Root)tools\NASM\nasm.exe" "%(FullPath)" -f win32 -o "$(IntDir)%(Filename).obj"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <CustomBuild Include="AssemblyFunctions64.asm">
-      <FileType>Document</FileType>
-      <PreserveIdentifierCase Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">1</PreserveIdentifierCase>
-      <PreserveIdentifierCase Condition="'$(Configuration)|$(Platform)'=='Release|x64'">1</PreserveIdentifierCase>
-      <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</MakeAllSymbolsPublic>
-      <MakeAllSymbolsPublic Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</MakeAllSymbolsPublic>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(MQ2Root)tools\NASM\nasm.exe" "%(FullPath)" -f win64 -o "$(IntDir)%(Filename).obj"</Command>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(MQ2Root)tools\NASM\nasm.exe" "%(FullPath)" -f win64 -o "$(IntDir)%(Filename).obj"</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)%(Filename).obj;%(Outputs)</Outputs>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="AssemblyFunctions.def" />
-    <None Include="AssemblyFunctions64.def" />
+    <NASM Include="AssemblyFunctions64.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

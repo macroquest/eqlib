@@ -34,8 +34,11 @@ class ActorTagManager;
 class CDisplay;
 class CRender;
 class CCameraInterface;
+class CParticleCloudInterface;
 class CParticlePointInterface;
 class CPhysicsInfo;
+class CLightDefinitionInterface;
+class CThickLineInterface;
 
 class EQPlacedItem;
 class MissileBase;
@@ -68,6 +71,13 @@ struct SDeviceInfo;
 class CBufferSet;
 class CEffect;
 class CRenderEffect;
+
+enum MemPoolManagerType
+{
+	eGlobal,
+	eOnDemand,
+	eClearOnZone,
+};
 
 struct [[offsetcomments]] SModeInfo
 {
@@ -109,7 +119,7 @@ struct [[offsetcomments]] SDevice
 // size: 0x818
 struct SItemPlacementStatsDisplay
 {
-	char unknown[0x818];
+	char unknown[0x818]; // fixme x64
 };
 
 template <typename T>
@@ -406,6 +416,28 @@ enum EActorType
 	PlacedObject = 9,
 };
 
+enum EActorClass
+{
+	ActorClass_Unknown,
+	ActorClass_Simple,
+	ActorClasS_Hierarchical,
+};
+
+class CActor;
+
+template <typename NodeType, typename T>
+class TDataNode : public TListNode<NodeType>
+{
+public:
+/*0x00*/ T* pData = nullptr;;
+};
+
+struct CActorNode : TDataNode<CActorNode, CActor> {};
+using CActorList = TList<CActorNode>;
+
+struct CActorInterfaceNode : TDataNode<CActorInterfaceNode, CActorInterface> {};
+using CActorInterfaceList = TList<CActorInterfaceNode>;
+
 
 //============================================================================
 // ActorAnimation
@@ -438,6 +470,7 @@ public:
 //============================================================================
 // CActorApplicationData
 //============================================================================
+
 class CActorApplicationData
 {
 public:
@@ -470,6 +503,258 @@ public:
 };
 
 //============================================================================
+// ActorDefinitionInterface
+//============================================================================
+
+class CActorDefinition;
+class CActorDefinitionServer;
+
+class CActorDefinitionInterface
+{
+public:
+	virtual const char* GetTag() const = 0;
+	virtual float ComputeboundingRadius() = 0;
+	virtual void SetBoundingRadius(float) = 0;
+	virtual CActorDefinition* AsActorDefinition() = 0;
+	virtual const CActorDefinition* AsActorDefinition() const = 0;
+	virtual CActorDefinitionServer* AsActorDefinitionServer() = 0;
+	virtual const CActorDefinitionServer* AsActorDefinitionServer() const = 0;
+	virtual void EnableNormalRendering(bool) = 0;
+};
+ 
+//============================================================================
+// ActorInterface
+//============================================================================
+
+class CActorDataBase;
+class CAreaPortalVolumeList;
+class CBoneInterface;
+class CBoneGroupInterface;
+class CCollisionInfoSphere;
+class CCollisionInfoRay;
+class CCollisionInfoLineSegment;
+class CTerrainObject;
+class CTerrainObjectInterface;
+struct SHighlightData;
+struct SActorParticle;
+
+class [[offsetcomments]] CActorInterfaceBase
+{
+public:
+/*0x000*/ virtual ~CActorInterfaceBase() {}
+/*0x008*/ virtual bool IsDisabled() const = 0;
+/*0x010*/ virtual void SetDisabled(bool) = 0;
+/*0x018*/ virtual void SetDisabledDesignOverride(bool) = 0;
+/*0x020*/ virtual bool GetDisabledDesignOverride() const = 0;
+/*0x028*/ virtual float GetEmitterScalingRadius() const = 0;
+/*0x030*/ virtual void SetEmitterScalingRadius(float) = 0;
+/*0x038*/ virtual void SetSurfacePitchType(int) = 0;
+/*0x040*/ virtual const CActorApplicationData* GetApplicationData() const = 0;
+/*0x048*/ virtual CActorApplicationData* GetApplicationData() = 0;
+/*0x050*/ virtual void SetActorApplicationData(CActorApplicationData*) = 0;
+/*0x058*/ virtual void SetActorType(EActorType) = 0;
+/*0x060*/ virtual EActorType GetActorType() = 0;
+/*0x068*/ virtual void SetInvisible(bool) = 0;
+/*0x070*/ virtual bool IsInvisible() const = 0;
+/*0x078*/ virtual int GetCollisionVolumeType() const = 0;
+/*0x080*/ virtual CSphere GetCollisionVolumeSphere() const = 0;
+/*0x088*/ virtual float GetCollisionVolumeRadius() const = 0;
+/*0x090*/ virtual void SetCllisionVolumeRadius(float) = 0;
+/*0x098*/ virtual CAABox GetCollisionBox(bool, bool) const = 0;
+/*0x0a0*/ virtual void SetCollisionRestrictionMask(uint32_t) = 0;
+/*0x0a8*/ virtual uint32_t GetCollisionRestrictionMask() const = 0;
+/*0x0b0*/ virtual void* GetCollisionGroup() = 0;
+/*0x0b8*/ virtual void SetCollisionGroup(void*) = 0;
+/*0x0c0*/ virtual float GetBoundingRadius() const = 0;
+/*0x0c8*/ virtual void SetBoundingRadius(float) = 0;
+/*0x0d0*/ virtual float ComputeBoundingRadius() = 0;
+/*0x0d8*/ virtual void Update() = 0;
+/*0x0e0*/ virtual int Move(const CVector3*) = 0;
+/*0x0e8*/ virtual void Orient(const CVector3*) = 0;
+/*0x0f0*/ virtual void Scale(float, bool) = 0;
+/*0x0f8*/ virtual void GetPosition(CVector3*) const = 0;
+/*0x100*/ virtual const CVector3& GetPosition() const = 0;
+/*0x108*/ virtual void GetOrientation(CVector3*) const = 0;
+/*0x110*/ virtual float GetHeading() const = 0;
+/*0x118*/ virtual float GetPitch() const = 0;
+/*0x120*/ virtual float GetRoll() const = 0;
+/*0x128*/ virtual void SetHeading(float) = 0;
+/*0x130*/ virtual void SetPitch(float) = 0;
+/*0x138*/ virtual void SetRoll(float) = 0;
+/*0x140*/ virtual float GetScaleFactor() const = 0;
+/*0x148*/ virtual void SetCollisionSurfaceNormal(CVector3*) = 0;
+/*0x150*/ virtual CActorDefinitionInterface* GetDefinition() const = 0;
+/*0x158*/ virtual CActorDataBase& GetActorDataBase() = 0;
+/*0x160*/ virtual const CActorDataBase& GetActorDataBase() const = 0;
+/*0x168*/ virtual CActor* AsActor() = 0;
+/*0x170*/ virtual const CActor* AsActor() const = 0;
+/*0x178*/ virtual bool HasNewStyleHierarchicalModel() const = 0;
+/*0x180*/ virtual int GetActorIndex() const = 0;
+/*0x188*/ virtual const char* GetTag() const = 0;
+/*0x190*/ virtual const char* GetActorName() const = 0;
+/*0x198*/ virtual void SetCollisionSphereScaleFactor(float) = 0;
+/*0x1a0*/ virtual float GetCollisionSphereScaleFactor() const = 0;
+/*0x1a8*/ virtual CTerrainObjectInterface* GetTerrainObjectInterface() const = 0;
+/*0x1b0*/ virtual EActorClass GetActorClass() const = 0;
+/*0x1b8*/ virtual bool FindIntersection(CCollisionInfoSphere&) const = 0;
+/*0x1c0*/ virtual bool FindIntersection(CCollisionInfoRay&) const = 0;
+/*0x1c8*/ virtual bool FindIntersection(CCollisionInfoLineSegment&) const = 0;
+};
+
+class [[offsetcomments]] CActorInterface : public CActorInterfaceBase
+{
+public:
+/*0x1d0*/ virtual bool ReplaceMaterial(const char*, const char*, const RGB*, bool, const char*, const RGB*) = 0;
+/*0x1d8*/ virtual bool SetConditionalHide(int, bool, bool) = 0;
+/*0x1e0*/ virtual bool IsConditionalHide(int) = 0;
+/*0x1e8*/ virtual float GetScaledAmbient() = 0;
+/*0x1f0*/ virtual void GetBonePosition(int, glm::vec3*, bool) const = 0;
+/*0x1f8*/ virtual void GetBoneWorldPosition(int, glm::vec3*, bool) const = 0;
+/*0x200*/ virtual void GetBoneWorldPosition(CBoneInterface*, glm::vec3*, bool) = 0;
+/*0x208*/ virtual glm::mat4x4* GetObjectToWorldMatrix() = 0;
+/*0x210*/ virtual void SetConstantAmbient(const RGB*) = 0;
+/*0x218*/ virtual bool SetMaterialLayer(int, const char*, int, bool) = 0;
+/*0x220*/ virtual void SetInvisibleAsAttachment(bool) = 0;
+/*0x228*/ virtual void SetMaterialTint(const RGB*, bool) = 0;
+/*0x230*/ virtual void SetMaterialTint(int, const RGB*) = 0;
+/*0x238*/ virtual void SetSecondaryMaterialTint(const RGB*) = 0;
+/*0x240*/ virtual void SetSecondaryMaterialTint(int, const RGB*) = 0;
+/*0x248*/ virtual void SetBoneScale(int, float) = 0;
+/*0x250*/ virtual float GetBoneScale(int) = 0;
+/*0x258*/ virtual void SetBoneOrientation(int, CVector3&) = 0;
+/*0x260*/ virtual void GetBoneOrientation(int, CVector3&) = 0;
+/*0x268*/ virtual void SetBonePosition(int, CVector3&) = 0;
+/*0x270*/ virtual void* ChangeBoneAttachment(int, const char*, const glm::mat4x4*) = 0;
+/*0x278*/ virtual int GetBoneIndexByName(const char*) const = 0;
+/*0x280*/ virtual bool ReplaceCloakMaterials(int, RGB*) = 0;
+/*0x288*/ virtual bool ReplaceSpecialCloakMaterials(const char*) = 0;
+/*0x290*/ virtual bool SwapBody(int, const char*) = 0;
+/*0x298*/ virtual void SetActorSpriteTint(const RGB*) = 0;
+/*0x2a0*/ virtual bool SwapHead(const char* uint32, bool, bool, bool, uint32_t) = 0;
+/*0x2a8*/ virtual void GetDefaultEyeMaterialIndices(int*, int*, bool, bool) = 0;
+/*0x2b0*/ virtual bool SetNgeFaceMaterial(const char*) = 0;
+/*0x2b8*/ virtual bool SetNgeEyeMaterial(int, const char*) = 0;
+/*0x2c0*/ virtual bool SetEyeMaterial(int, int) = 0;
+/*0x2c8*/ virtual int GetNumSkins() const = 0;
+/*0x2d0*/ virtual void SwapNpcMaterials(const char*, const char*, RGB*, RGB*) = 0;
+/*0x2d8*/ virtual int GetNumberOfBones() const = 0;
+/*0x2e0*/ virtual int GetNumberOfParticlePoints() const = 0;
+/*0x2e8*/ virtual void GetParticlePointData(int, CXStr&, int&, CVector3&, CVector3&, CVector3&) = 0;
+/*0x2f0*/ virtual void SetParticlePointData(int, CXStr&, int, CVector3, CVector3, CVector3) = 0;
+/*0x2f8*/ virtual int GetNumberOfParticles() = 0;
+/*0x300*/ virtual void GetParticleData(int, SActorParticle*) = 0;
+/*0x308*/ virtual void SetParticleData(int, SActorParticle*) = 0;
+/*0x310*/ virtual CParticlePointInterface* GetParticlePoint(int) = 0;
+/*0x318*/ virtual CParticlePointInterface* GetParticlePoint(const char*) = 0;
+/*0x320*/ virtual void SetStringSprite(int, const char*, const char*) = 0;
+/*0x328*/ virtual void SetStringSpriteTint(const RGB*) = 0;
+/*0x330*/ virtual void EnumerateBones(int(*)(const char*), int, bool) = 0;
+/*0x338*/ virtual void PutAllBonesInBoneGroup(int, int, bool) = 0;
+/*0x340*/ virtual void SetBone(int, const char*) = 0;
+/*0x348*/ virtual void ResetBone(int) = 0;
+/*0x350*/ virtual bool IsBoneSet(int) const = 0;
+/*0x358*/ virtual CActorInterface* GetAttachedActor(int) const = 0;
+/*0x360*/ virtual bool HasAttachedActor() const = 0;
+/*0x368*/ virtual void SetAttachedActor(CBoneInterface*, CActorInterface*) = 0;
+/*0x370*/ virtual void SetAttachedActor(int, CActorInterface*) = 0;
+/*0x378*/ virtual void SetAttachedActorSprite(int, CActorInterface*) = 0;
+/*0x380*/ virtual CBoneInterface* GetBone(const char*) = 0;
+/*0x388*/ virtual CBoneInterface* GetBone(int) = 0;
+/*0x390*/ virtual CBoneInterface* GetBoneByIndex(int) const = 0;
+/*0x398*/ virtual CBoneGroupInterface* GetBoneGroup(int) const = 0;
+/*0x3a0*/ virtual int PlayWeaponAnimation(int, const char*, const char*, float, bool, int, float) = 0;
+/*0x3a8*/ virtual void InitializeSkins() = 0;
+/*0x3b0*/ virtual void PlayAttackParticle() = 0;
+/*0x3b8*/ virtual void AddPointDefinition(CXStr&, int, CVector3&, CVector3&, CVector3*) = 0;
+/*0x3c0*/ virtual void DeletePointDefinition(CXStr&) = 0;
+/*0x3c8*/ virtual void AddParticleDefinition(SActorParticle*) = 0;
+/*0x3d0*/ virtual void DeleteParticleDefinition(uint32_t) = 0;
+/*0x3d8*/ virtual void DisableAllParticles() = 0;
+/*0x3e0*/ virtual int TestParticle(int, const char*, int, int) = 0;
+/*0x3e8*/ virtual void SetupAnimationParticles(int, int, int, CBoneGroupInterface*, CActorInterface*) = 0;
+/*0x3f0*/ virtual void SetupWeaponAnimationParticles(int, int) = 0;
+/*0x3f8*/ virtual void StartActorParticle(int, CParticlePointInterface*, bool) = 0;
+/*0x400*/ virtual void SetSpawnScaling(int) = 0;
+/*0x408*/ virtual bool IsDPVSVisible() = 0;
+/*0x410*/ virtual void SetAlpha(float) = 0;
+/*0x418*/ virtual float GetAlpha() const = 0;
+/*0x420*/ virtual void ResetParticleS(int) = 0;
+/*0x428*/ virtual void CastShadow(bool) = 0;
+/*0x430*/ virtual void SetParticleScaleFactor(float) = 0;
+/*0x438*/ virtual float GetParticleScaleFactor() const = 0;
+/*0x440*/ virtual void SetZOffset(float) = 0;
+/*0x448*/ virtual float GetZOffset() const = 0;
+/*0x450*/ virtual float GetVerticalCameraOffset() const = 0;
+/*0x458*/ virtual void SetDuplicateActor(CActorInterface*) = 0;
+/*0x460*/ virtual float GetPitchOffset() const = 0;
+/*0x468*/ virtual void CreateActorParticle(SActorParticle*, bool) = 0;
+/*0x470*/ virtual int GetHighlightMode() const = 0;
+/*0x478*/ virtual void SetHighlightMode(int) = 0;
+/*0x480*/ virtual void ShowParticlesWhenInvisible(bool) = 0;
+/*0x488*/ virtual bool ShouldShowParticlesWhenInvisible() = 0;
+/*0x490*/ virtual bool HasStaticCollisionMesh() const = 0;
+/*0x498*/ virtual void EnableDynamicBoundingSphereUpdates(bool) = 0;
+/*0x4a0*/ virtual bool SwapMaterials(const char*) = 0;
+/*0x4a8*/ virtual void LoadMaterials(uint32_t, const CVector3&, bool) = 0;
+};
+
+class [[offsetcomments]] CActor : public CActorInterface
+{
+public:
+/*0x008*/ MemPoolManagerType     memoryPoolManagerType;
+/*0x00c*/ bool                   bIsS3DCreated;
+/*0x00d*/ bool                   bHasParentBone;
+/*0x00e*/ bool                   bUpdateScaledAmbient;
+/*0x010*/ float                  scaledAmbient;
+/*0x014*/ float                  scaledAmbientTarget;
+/*0x018*/ float                  particleScaleFactor;
+/*0x01c*/ float                  collisionSphereScaleFactor;
+/*0x020*/ uint32_t               updateAmbientTick;
+/*0x024*/ uint32_t               interpolateAmbientTick;
+/*0x028*/ CActor*                pParentActor;
+/*0x030*/ void*                  pDPVSObject;
+/*0x038*/ glm::vec3              updateAmbientPosition;
+/*0x044*/ glm::vec3              surfaceNormal;
+/*0x050*/ uint32_t               visibleIndex;
+/*0x054*/ float                  alpha;
+/*0x058*/ bool                   bCastShadow;
+/*0x059*/ bool                   bNeverClip;
+/*0x05a*/ bool                   bClientCreated;
+/*0x05c*/ float                  zOffset;
+/*0x060*/ float                  emitterScalingRadius;
+/*0x068*/ CActor*                pDuplicateActor;
+/*0x070*/ bool                   bShowParticlesWhenInvisible;
+/*0x078*/ CAreaPortalVolumeList* pAreaPortalVolumeList;
+/*0x080*/ CActorNode             cleanupNode;
+/*0x0a0*/ CActorApplicationData* pActorApplicationData;
+/*0x0a8*/ EActorType             actorType;
+/*0x0b0*/ CTerrainObject*        pTerrainObject;
+/*0x0b8*/ SHighlightData*        highlightData;
+/*0x0c0*/ __declspec(align(16)) glm::mat4x4 attachmentMtx;
+/*0x100*/ bool                   bHasAttachSRT;
+/*0x101*/ bool                   bDisableDesignOverride;
+
+// everything after this point is technically part of subclasses via CActorDataBase
+/*0x108*/ uint64_t               pad[2];
+/*0x118*/ glm::mat4x4            positionMtx;
+/*0x158*/ glm::vec3              orientation;
+/*0x164*/ int                    actorIndex;
+/*0x168*/ const char*            szActorTag;
+/*0x170*/ const char*            szActorName;
+/*0x178*/ int                    pitchType;
+/*0x17c*/ uint32_t               flags;
+/*0x180*/ float                  scaleFactor;
+/*0x184*/ float                  boundingRadius;
+/*0x188*/ uint32_t               collisionRestrictionMask;
+/*0x18c*/ int                    collisionGroup;
+/*0x190*/
+// additional stuff
+};
+
+using EQSWITCH DEPRECATE("Use CActor instead of EQSWITCH") = CActor;
+using PEQSWITCH DEPRECATE("Use CActor* instead of PEQSWITCH") = CActor*;
+
+//============================================================================
 // ActorBase
 //============================================================================
 
@@ -478,10 +763,10 @@ class CObjectGroupStage;
 class [[offsetcomments]] CObjectGroupStageInstance : public TListNode<CObjectGroupStageInstance>
 {
 public:
-	/*0x18*/ CActorInterface* pActor1;
-	/*0x20*/ CActorInterface* pActor2;
-	/*0x28*/ CObjectGroupStage* pStage;
-	/*0x30*/
+/*0x18*/ CActorInterface* pActor1;
+/*0x20*/ CActorInterface* pActor2;
+/*0x28*/ CObjectGroupStage* pStage;
+/*0x30*/
 };
 
 struct [[offsetcomments]] ARMOR
@@ -511,20 +796,20 @@ inline namespace deprecated {
 struct [[offsetcomments]] EQUIPMENT
 {
 	union {
-	/*0x00*/ struct { ARMOR Item[9]; };          // EQUIPARRAY
-		struct                                   // EQUIPUNIQUE
-		{
-		/*0x00*/ ARMOR Head;
-		/*0x14*/ ARMOR Chest;
-		/*0x28*/ ARMOR Arms;
-		/*0x3c*/ ARMOR Wrists;
-		/*0x50*/ ARMOR Hands;
-		/*0x64*/ ARMOR Legs;
-		/*0x78*/ ARMOR Feet;
-		/*0x8c*/ ARMOR Primary;
-		/*0xa0*/ ARMOR Offhand;
-		};
+/*0x00*/ struct { ARMOR Item[9]; };          // EQUIPARRAY
+	struct                                   // EQUIPUNIQUE
+	{
+	/*0x00*/ ARMOR Head;
+	/*0x14*/ ARMOR Chest;
+	/*0x28*/ ARMOR Arms;
+	/*0x3c*/ ARMOR Wrists;
+	/*0x50*/ ARMOR Hands;
+	/*0x64*/ ARMOR Legs;
+	/*0x78*/ ARMOR Feet;
+	/*0x8c*/ ARMOR Primary;
+	/*0xa0*/ ARMOR Offhand;
 	};
+};
 /*0xb4*/
 };
 
@@ -535,9 +820,10 @@ inline namespace deprecated {
 class [[offsetcomments]] ActorBase
 {
 public:
-	EQLIB_OBJECT float GetBoundingRadius();
+	virtual ~ActorBase();
+	virtual int Reset(const char*, bool) = 0;
+	virtual bool IsActorUsingNewStyleModel() = 0;
 
-/*0x000*/ void*       vfTableActorClient;
 /*0x008*/ char        TextureType;
 /*0x009*/ char        Material;
 /*0x00a*/ char        Variation;
@@ -559,7 +845,7 @@ public:
 /*0x08c*/ int         Heritage;                 // drakkin only face setting
 /*0x090*/ int         Tattoo;                   // drakkin only face setting
 /*0x094*/ int         Details;                  // drakkin only face setting
-/*0x098*/ EQUIPMENT   ActorEquipment;           // 0x0ff8 is confirmed // size 0xb4
+/*0x098*/ EQUIPMENT   ActorEquipment;
 /*0x14c*/
 };
 
@@ -567,35 +853,38 @@ public:
 // ActorClient
 //============================================================================
 
-// size 0x1140 see 63D777 in Sep 25 2018 Test
-//.text:0063D777                 mov     [edi+1B8h], eax so last member is at 1B8h which makes the struct size 0x1bc
-// 0x1bc + 0x0f84 is 0x1140
+class CBoneGroupInterface;
+class CLightInterface;
+
+
 class [[offsetcomments]] ActorClient : public ActorBase
 {
-public:
-	// EQLIB_OBJECT const CVector3& GetPosition() const;
-	// EQLIB_OBJECT void GetPosition(CVector3*) const;
+	FORCE_SYMBOLS;
 
-/*0x150*/ int         LeftEyeMaterialIndex;
-/*0x154*/ int         RightEyeMaterialIndex;
-/*0x158*/ CParticlePointInterface* pParticlePoints[0xa];
-/*0x1a8*/ void*       pLowerBones;
-/*0x1b0*/ void*       pUpperBones;
-/*0x1b8*/ void*       pcactorex;                // todo: move to ActorInterface*
-/*0x1c0*/ CLightInterface* pLight;
-/*0x1c8*/ ActorAnimation*  pActorAnimation;
-/*0x1d0*/ TList<CObjectGroupStageInstance> StageInstances;          // size 0x8
-/*0x1e0*/ bool        bActiveTransition;
-/*0x1e4*/ unsigned int CurrentStage;
-/*0x1e8*/ float       ZOffset;
-/*0x1ec*/ float       TempY;//related to ZOffset adjustments I *think*
-/*0x1f0*/ float       TempX;
-/*0x1f4*/ float       TempZ;
-/*0x1f8*/ bool        bReplacedStaticObject;
-/*0x1fc*/ int         PartialFaceNumber;
-/*0x200*/ bool        bNewArmorDisabled;
-/*0x208*/ CActorApplicationData* pAppData;
+public:
+	virtual int Reset(const char*, bool) { return 0; };
+	virtual bool IsActorUsingNewStyleModel() { return false; }
+
+/*0x150*/ int                      LeftEyeMaterialIndex;
+/*0x154*/ int                      RightEyeMaterialIndex;
+/*0x158*/ CParticlePointInterface* pParticlePoints[10];
+/*0x1a8*/ CBoneGroupInterface*     pLowerBones;
+/*0x1b0*/ CBoneGroupInterface*     pUpperBones;
+/*0x1b8*/ CActorInterface*         pActor;
+/*0x1c0*/ CLightInterface*         pLight;
+/*0x1c8*/ ActorAnimation*          pActorAnimation;
+/*0x1d0*/ TList<CObjectGroupStageInstance> StageInstances;
+/*0x1e0*/ bool                     bActiveTransition;
+/*0x1e4*/ unsigned int             CurrentStage;
+/*0x1e8*/ float                    ZOffset;
+/*0x1ec*/ CVector3                 AdjustedLoc;
+/*0x1f8*/ bool                     bReplacedStaticObject;
+/*0x1fc*/ int                      PartialFaceNumber;
+/*0x200*/ bool                     bNewArmorDisabled;
+/*0x208*/ CActorApplicationData*   pApplicationData;
 /*0x210*/
+
+	ALT_MEMBER_GETTER_DEPRECATED(CActorInterface*, pActor, pcactorex, "Use pActor instead of pcactorex");
 };
 
 //============================================================================
@@ -827,35 +1116,73 @@ public:
 /*0x0138*/ uint8_t                NewPCModelsLoaded;
 /*0x0139*/ bool                   bHorsesLoaded;
 /*0x0140*/ ActorTagManager*       pActorTagManager;
-/*0x0148*/ uint8_t                Unknown0x130[0x24];
+/*0x0148*/ bool                   fogEnabled;
+/*0x014c*/ float                  fogStartDistance;
+/*0x0150*/ float                  fogEndDistance;
+/*0x0154*/ float                  fogDensity;
+/*0x0158*/ uint8_t                fogRed;
+/*0x0159*/ uint8_t                fogGreen;
+/*0x015a*/ uint8_t                fogBlue;
+/*0x015c*/ uint32_t               saveRed;
+/*0x0160*/ uint32_t               saveGreen;
+/*0x0164*/ uint32_t               saveBlue;
+/*0x0168*/ uint8_t                dayPeriod;
 /*0x016c*/ uint32_t               TimeStamp;
-/*0x0170*/ BYTE                   Unknown0x158[0x2c12];
-/*0x2d82*/ bool                   NpcNames;
-/*0x2d83*/ bool                   bShowPetNames;
-/*0x2d84*/ bool                   bShowMercNames;
-/*0x2d85*/ bool                   bShowPetOwnerNames;
-/*0x2d86*/ bool                   bShowMercOwnerNames;
-/*0x2d87*/ bool                   bAdvancedLightingEnabled;
-/*0x2d88*/ bool                   bPostEffectsEnabled;
-/*0x2d89*/ bool                   bBloomEnabled;
-/*0x2d8a*/ bool                   bShadowsEnabled;
-/*0x2d8b*/ bool                   bWaterSwapEnabled;
-/*0x2d8c*/ bool                   b20PixelShadersEnabled;
-/*0x2d8d*/ bool                   bVertexShadersEnabled;
-/*0x2d8e*/ bool                   bWindowedGamma;
-/*0x2d8f*/ bool                   bWindowedIncreasedGamma;
-/*0x2d90*/ int                    ActorClipPlane;
-/*0x2d94*/ int                    ShadowClipPlane;
-/*0x2d98*/ int                    Unknown2d80;
-/*0x2da0*/ ScreenWndManager       gameScreens;
-/*0x2e00*/ ScreenWndManager       charselectScreens;
-/*0x2e60*/
+/*0x0170*/ bool                   bRain;
+/*0x0171*/ bool                   bRainScreen;
+/*0x0174*/ int                    numUserLights;
+/*0x0178*/ CLightDefinitionInterface* userLightDef[2500];
+/*0x4f98*/ CLightDefinitionInterface* tempLightDef;
+/*0x4fa0*/ void*                  moreDisplayInterfaces[25]; // too many to list out right now. They are all distinct.
+/*0x5068*/ uint32_t               timeLastArrival;
+/*0x506c*/ float                  scaleShield;
+/*0x5070*/ float                  scalePrimary;
+/*0x5074*/ float                  scaleSecondary;
+/*0x5078*/ bool                   indoorEnvironment;
+/*0x5080*/ HWND                   hGameWindow;
+/*0x5088*/ float                  viewAngle;
+/*0x508c*/ float                  aspectRatio;
+/*0x5090*/ int                    titleOverlayIndex;
+/*0x5094*/ int                    nearClipPlane;
+/*0x5098*/ PALETTEENTRY           palette[256];
+/*0x5498*/ uint8_t                padding[0x5512 - 0x5498]; // to be filled out later...
+/*0x5512*/ bool                   NpcNames;
+/*0x5513*/ bool                   bShowPetNames;
+/*0x5514*/ bool                   bShowMercNames;
+/*0x5515*/ bool                   bShowPetOwnerNames;
+/*0x5516*/ bool                   bShowMercOwnerNames;
+/*0x5517*/ bool                   bAdvancedLightingEnabled;
+/*0x5518*/ bool                   bPostEffectsEnabled;
+/*0x5519*/ bool                   bBloomEnabled;
+/*0x551a*/ bool                   bShadowsEnabled;
+/*0x551b*/ bool                   bWaterSwapEnabled;
+/*0x551c*/ bool                   b20PixelShadersEnabled;
+/*0x551d*/ bool                   bVertexShadersEnabled;
+/*0x551e*/ bool                   bWindowedGamma;
+/*0x551f*/ bool                   bWindowedIncreasedGamma;
+/*0x5520*/ int                    ActorClipPlane;
+/*0x5524*/ int                    ShadowClipPlane;
+/*0x5528*/ int                    Unknown2d80;
+/*0x5530*/ ScreenWndManager       gameScreens;
+/*0x5590*/ ScreenWndManager       charselectScreens;
+/*0x55f0*/
 };
 
 inline namespace deprecated {
 	using CDISPLAY DEPRECATE("Use CDisplay instead of CDISPLAY") = CDisplay;
 	using PCDISPLAY DEPRECATE("Use CDisplay* instead of PCDISPLAY") = CDisplay*;
 }
+
+
+class CThreadLoader : public TListNode<CThreadLoader>
+{
+public:
+	virtual bool ThreadLoad() = 0;
+	virtual MemPoolManagerType GetMemoryPoolManagerType() const = 0;
+
+	bool m_isLoading = false;
+};
+
 
 } // namespace eqlib
 

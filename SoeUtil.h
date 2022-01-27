@@ -496,26 +496,12 @@ private:
 	}
 
 private:
-/*0x04*/ T* m_data = "";
-/*0x08*/ size_t m_length = 0;
+/*0x08*/ T* m_data = "";
+/*0x08*/ int m_length = 0;
 /*0x0c*/ int m_space = 0;
 };
 
 using String = IString<char>;
-
-
-template <typename T, int T_SIZE>
-class IStringFixed : public IString<T>
-{
-public:
-	BYTE FixedData[(T_SIZE * sizeof(T)) + sizeof(AtomicInt)];
-};
-
-template <int T_SIZE>
-class StringFixed : public IStringFixed<char, T_SIZE>
-{
-public:
-};
 
 #pragma endregion
 
@@ -808,6 +794,108 @@ SharedPtr<T> MakeShared(Args&&... args)
 }
 
 //----------------------------------------------------------------------------
+
+template <typename Key, typename Value>
+class Map
+{
+public:
+	using key_type = Key;
+	using value_type = Value;
+
+	Map()
+	{
+	}
+
+	virtual ~Map()
+	{
+	}
+
+	virtual bool IsSwapAllowed() const { return true; }
+	virtual uint8_t* Allocate() { return nullptr; }
+	virtual void Free(uint8_t*) {}
+
+	struct Node
+	{
+		value_type value;
+		key_type key;
+
+		Node* parent;
+		Node* left;
+		Node* right;
+		uint32_t red : 1;
+		uint32_t position : 32;
+	};
+
+/*0x08*/ Node* root = nullptr;
+/*0x10*/ int count = 0;
+};
+
+//----------------------------------------------------------------------------
+
+#pragma endregion
+
+#pragma region StrongType
+
+template <typename T, typename K>
+class StrongType
+{
+public:
+	using value_type = T;
+
+	StrongType() : m_value() {}
+	StrongType(const T& value) : m_value(value) {}
+
+	StrongType(const StrongType& other)
+		: m_value(other.m_value) {}
+	StrongType(StrongType&& other)
+		: m_value(other.m_value) {}
+
+	StrongType& operator=(const StrongType& other) { m_value = other.m_value; return *this; }
+	StrongType& operator=(StrongType&& other) { m_value = other.m_value; return *this; }
+
+	T& value() { return m_value; }
+	const T& value() const { return m_value; }
+	const T& const_value() const { return m_value; }
+
+private:
+	value_type m_value;
+};
+
+template <typename T, typename K>
+inline bool operator==(const StrongType<T, K>& v1, const StrongType<T, K>& v2)
+{
+	return v1.value() == v2.value();
+}
+
+template <typename T, typename K>
+inline bool operator!=(const StrongType<T, K>& v1, const StrongType<T, K>& v2)
+{
+	return v1.value() != v2.value();
+}
+
+template <typename T, typename K>
+inline bool operator<(const StrongType<T, K>& v1, const StrongType<T, K>& v2)
+{
+	return v1.value() < v2.value();
+}
+
+template <typename T, typename K>
+inline bool operator<=(const StrongType<T, K>& v1, const StrongType<T, K>& v2)
+{
+	return v1.value() <= v2.value();
+}
+
+template <typename T, typename K>
+inline bool operator>(const StrongType<T, K>& v1, const StrongType<T, K>& v2)
+{
+	return v1.value() == v2.value();
+}
+
+template <typename T, typename K>
+inline bool operator>=(const StrongType<T, K>& v1, const StrongType<T, K>& v2)
+{
+	return v1.value() == v2.value();
+}
 
 #pragma endregion
 

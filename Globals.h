@@ -30,9 +30,9 @@ namespace eqlib {
 
 // the preferred base of eqgame.exe
 #if defined(_WIN64)
-#define EQGamePreferredAddress 0x140000000
+constexpr uintptr_t EQGamePreferredAddress = 0x140000000;
 #else
-#define EQGamePreferredAddress 0x400000
+constexpr uintptr_t EQGamePreferredAddress = 0x400000;
 #endif // defined(_WIN64)
 
 // the base address of eqgame.exe
@@ -55,19 +55,19 @@ EQLIB_VAR uintptr_t Kernel32BaseAddress;
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQGameOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x140001000) + EQGameBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x140000000) + EQGameBaseAddress;
 }
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQGraphicsOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180001000) + EQGraphicsBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180000000) + EQGraphicsBaseAddress;
 }
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQMainOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180001000) + EQMainBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180000000) + EQMainBaseAddress;
 }
 
 #define INITIALIZE_EQGAME_OFFSET(var) uintptr_t var = FixEQGameOffset(var##_x)
@@ -134,7 +134,6 @@ EQLIB_VAR uintptr_t __do_loot;
 EQLIB_VAR uintptr_t __DoAbilityList;
 EQLIB_VAR uintptr_t __DrawHandler;
 EQLIB_VAR uintptr_t __gpbCommandEvent;
-EQLIB_VAR uintptr_t __GroupAggro;
 EQLIB_VAR uintptr_t __Guilds;
 EQLIB_VAR uintptr_t __gWorld;
 EQLIB_VAR uintptr_t __heqmain;
@@ -142,6 +141,7 @@ EQLIB_VAR uintptr_t __HotkeyPage;
 EQLIB_VAR uintptr_t __HWnd;
 EQLIB_VAR uintptr_t __InChatMode;
 EQLIB_VAR uintptr_t __Inviter;
+EQLIB_VAR uintptr_t __LabelCache;
 EQLIB_VAR uintptr_t __LastTell;
 EQLIB_VAR uintptr_t __LMouseHeldTime;
 EQLIB_VAR uintptr_t __LoginName;
@@ -165,7 +165,6 @@ EQLIB_VAR uintptr_t __ShowNames;
 EQLIB_VAR uintptr_t __Socials;
 EQLIB_VAR uintptr_t __SocialChangedList;
 EQLIB_VAR uintptr_t __SubscriptionType;
-EQLIB_VAR uintptr_t __TargetAggroHolder;
 EQLIB_VAR uintptr_t __ThrottleFrameRate;
 EQLIB_VAR uintptr_t __ThrottleFrameRateEnd;
 EQLIB_VAR uintptr_t __UseTellWindows;
@@ -193,6 +192,7 @@ EQLIB_VAR uintptr_t pinstCDisplay;
 EQLIB_VAR uintptr_t pinstCEverQuest;
 EQLIB_VAR uintptr_t pinstCInvSlotMgr;
 EQLIB_VAR uintptr_t pinstCItemDisplayManager;
+EQLIB_VAR uintptr_t pinstCMercenaryClientManager;
 EQLIB_VAR uintptr_t pinstCPopupWndManager;
 EQLIB_VAR uintptr_t pinstCResolutionHandler;
 EQLIB_VAR uintptr_t pinstCSidlManager;
@@ -209,7 +209,6 @@ EQLIB_VAR uintptr_t pinstEverQuestInfo;
 EQLIB_VAR uintptr_t pinstItemIconCache;
 EQLIB_VAR uintptr_t pinstLocalPC;
 EQLIB_VAR uintptr_t pinstLocalPlayer;
-EQLIB_VAR uintptr_t pinstMercenaryData;
 EQLIB_VAR uintptr_t pinstMercenaryStats;
 EQLIB_VAR uintptr_t pinstModelPlayer;
 EQLIB_VAR uintptr_t pinstRenderInterface;
@@ -636,7 +635,6 @@ EQLIB_VAR uintptr_t CTabWnd__SetPage;
 EQLIB_VAR uintptr_t CTabWnd__SetPageRect;
 EQLIB_VAR uintptr_t CTabWnd__UpdatePage;
 EQLIB_VAR uintptr_t CTargetManager__Get;
-EQLIB_VAR uintptr_t CTargetRing__Cast;
 EQLIB_VAR uintptr_t CTargetWnd__GetBuffCaster;
 EQLIB_VAR uintptr_t CTargetWnd__HandleBuffRemoveRequest;
 EQLIB_VAR uintptr_t CTargetWnd__RefreshTargetBuffs;
@@ -728,6 +726,7 @@ EQLIB_VAR uintptr_t EverQuest__Cameras;
 EQLIB_VAR uintptr_t EverQuestinfo__IsItemPending;
 EQLIB_VAR uintptr_t FactionManagerClient__HandleFactionMessage;
 EQLIB_VAR uintptr_t FactionManagerClient__Instance;
+EQLIB_VAR uintptr_t FreeTargetTracker__CastSpell;
 EQLIB_VAR uintptr_t IconCache__GetIcon;
 EQLIB_VAR uintptr_t ItemBase__CanGemFitInSlot;
 EQLIB_VAR uintptr_t ItemBase__CreateItemTagString;
@@ -799,7 +798,7 @@ EQLIB_VAR uintptr_t PlayerClient__GetPcClient;
 EQLIB_VAR uintptr_t PlayerClient__PlayerClient;
 EQLIB_VAR uintptr_t PlayerClient__SetNameSpriteState;
 EQLIB_VAR uintptr_t PlayerClient__SetNameSpriteTint;
-EQLIB_VAR uintptr_t PlayerManagerBase__DestroyPlayer;
+EQLIB_VAR uintptr_t PlayerManagerBase__PrepForDestroyPlayer;
 EQLIB_VAR uintptr_t PlayerManagerClient__CreatePlayer;
 EQLIB_VAR uintptr_t PlayerManagerClient__GetPlayerFromPartialName;
 EQLIB_VAR uintptr_t PlayerManagerClient__GetSpawnByID;
@@ -836,8 +835,6 @@ EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIMOUSE;
 EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECHECK;
 EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECOPY;
 EQLIB_VAR int*                                       EQADDR_DOABILITYLIST;
-EQLIB_VAR uintptr_t                                  EQADDR_EQLABELS;
-EQLIB_VAR uintptr_t                                  EQADDR_GROUPAGGRO;
 EQLIB_VAR void*                                      EQADDR_GWORLD;
 EQLIB_VAR uintptr_t                                  EQADDR_HWND;
 EQLIB_VAR char*                                      EQADDR_LASTTELL;
@@ -848,7 +845,6 @@ EQLIB_VAR BYTE*                                      EQADDR_RUNWALKSTATE;
 EQLIB_VAR char*                                      EQADDR_SERVERHOST;
 EQLIB_VAR char*                                      EQADDR_SERVERNAME;
 EQLIB_VAR uintptr_t*                                 EQADDR_SUBSCRIPTIONTYPE;
-EQLIB_VAR char*                                      EQADDR_TARGETAGGROHOLDER;
 EQLIB_VAR BYTE*                                      EQADDR_ZONETYPE;
 EQLIB_VAR char**                                     EQMappableCommandList;
 EQLIB_VAR BYTE*                                      EQbCommandStates;
@@ -870,9 +866,9 @@ EQLIB_VAR CEQSuiteTextureLoader*                     pEQSuiteTextureLoader;
 EQLIB_VAR EverQuestinfo*                             pEverQuestInfo;
 EQLIB_VAR INT*                                       pgCurrentSocial;
 EQLIB_VAR CGuild*                                    pGuild;
-EQLIB_VAR GUILDS*                                    pGuildList;
+EQLIB_VAR CGuild*                                    pGuildList DEPRECATE("Use pGuild instead of pGuildList");
 EQLIB_VAR char*                                      pMouseLook;
-EQLIB_VAR EQRAID*                                    pRaid;
+EQLIB_VAR CRaid*                                     pRaid;
 EQLIB_VAR DWORD*                                     pScreenMode;
 EQLIB_VAR DWORD*                                     pScreenX;
 EQLIB_VAR DWORD*                                     pScreenXMax;
@@ -937,7 +933,7 @@ EQLIB_VAR ForeignPointer<SkillManager>               pCSkillMgr DEPRECATE("Use p
 EQLIB_VAR ComputedPointer<PlayerClient>              pSpawnList;
 EQLIB_VAR ForeignPointer<PlayerManagerClient>        pSpawnManager;
 EQLIB_VAR ForeignPointer<ClientSpellManager>         pSpellMgr;
-EQLIB_VAR ForeignPointer<StringTable, EQSTRINGTABLE> pStringTable;
+EQLIB_VAR ForeignPointer<StringTable>                pStringTable;
 EQLIB_VAR ForeignPointer<EqSwitchManager>            pSwitchMgr;
 EQLIB_VAR ForeignPointer<SharedTaskPlayerInfo>       pTaskMember;
 EQLIB_VAR ComputedPointer<CBroadcast>                pTextOverlay;
@@ -1105,8 +1101,9 @@ EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pVoteWnd;
 EQLIB_VAR ForeignPointer<CZoneGuideWnd>              pZoneGuideWnd;
 EQLIB_VAR ForeignPointer<CZonePathWnd>               pZonePathWnd;
 
-// TODO: Map out
-EQLIB_VAR ForeignPointer<DWORD>                      g_pDrawHandler;
+
+EQLIB_VAR ForeignPointer<CRender>                    g_pDrawHandler;
+EQLIB_VAR ForeignPointer<LabelCache>                 g_labelCache;
 
 //----------------------------------------------------------------------------
 
@@ -1173,7 +1170,7 @@ EQLIB_VAR uintptr_t EQMain__pinstCSidlManager;
 EQLIB_VAR uintptr_t EQMain__pinstCXWndManager;
 EQLIB_VAR uintptr_t EQMain__pinstLoginController;
 EQLIB_VAR uintptr_t EQMain__pinstLoginServerAPI;
-EQLIB_VAR uintptr_t EQMain__pinstServerInfo;
+EQLIB_VAR uintptr_t EQMain__pinstLoginClient;
 
 EQLIB_VAR ForeignPointer<CLoginViewManager> g_pLoginViewManager;
 EQLIB_VAR ForeignPointer<LoginClient> g_pLoginClient;

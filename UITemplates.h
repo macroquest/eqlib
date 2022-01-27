@@ -356,10 +356,17 @@ public:
 	EQLIB_OBJECT CInvSlotTemplate(CParamInvSlot*);
 };
 
-class CLabelTemplate : public CControlTemplate
+class [[offsetcomments]] CLabelTemplate : public CControlTemplate
 {
 public:
 	EQLIB_OBJECT CLabelTemplate(CParamLabel*);
+
+/*0x0c8*/ bool                     bNoWrap;
+/*0x0c9*/ bool                     bAlignCenter;
+/*0x0ca*/ bool                     bAlignRight;
+/*0x0cb*/ bool                     bResizeHeightToText;
+/*0x0d0*/ CXStr                    strPrependText;
+/*0x0d8*/ CXStr                    strAppendText;
 };
 
 class CListboxColumnTemplate

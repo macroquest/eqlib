@@ -19,23 +19,6 @@
 
 namespace eqlib {
 
-//============================================================================
-// ActorBase
-//============================================================================
-
-FUNCTION_AT_VIRTUAL_ADDRESS(float, ActorBase::GetBoundingRadius(), 0x60);
-
-//============================================================================
-// ActorClient
-//============================================================================
-
-#ifdef ActorClient__GetPosition_x
-FUNCTION_AT_ADDRESS(const CVector3&, ActorClient::GetPosition() const, ActorClient__GetPosition);
-#endif
-#ifdef ActorClient__GetPosition1_x
-FUNCTION_AT_ADDRESS(void, ActorClient::GetPosition(CVector3*) const, ActorClient__GetPosition1);
-#endif
-
 
 //============================================================================
 // EQPlayer
@@ -489,7 +472,7 @@ FUNCTION_AT_ADDRESS(PlayerClient*, PlayerManagerClient::CreatePlayer(CUnSerializ
 FUNCTION_AT_ADDRESS(bool, PlayerBase::HasProperty(unsigned int, int, int), PlayerBase__HasProperty);
 #endif
 #ifdef PlayerBase__GetVisibilityLineSegment_x
-FUNCTION_AT_ADDRESS(CLineSegment, PlayerBase::GetVisibilityLineSegment(const PlayerBase&, unsigned int), PlayerBase__GetVisibilityLineSegment);
+//FUNCTION_AT_ADDRESS(CLineSegment, PlayerBase::GetVisibilityLineSegment(const PlayerBase&, unsigned int), PlayerBase__GetVisibilityLineSegment);
 #endif
 
 //============================================================================

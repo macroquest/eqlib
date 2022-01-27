@@ -15,7 +15,6 @@
 #pragma once
 
 #include "Allocator.h"
-#include "DynamicArray.h"
 
 #include <fmt/format.h>
 
@@ -55,7 +54,7 @@ enum ECompareMode
 class CXFreeList
 {
 public:
-	size_t blockSize;
+	uint32_t blockSize;
 	CStrRep* repList;
 };
 
@@ -73,19 +72,19 @@ struct [[offsetcomments]] CStrRep
 	// same layout in memory and thus we should be able to
 	// get the same behavior from it without additional work.
 /*0x00*/ std::atomic<int> refCount;
-/*0x08*/ size_t alloc;
-/*0x10*/ size_t length;
-/*0x18*/ EStringEncoding encoding;
-/*0x20*/ CXFreeList* freeList;
+/*0x04*/ uint32_t alloc;
+/*0x08*/ uint32_t length;
+/*0x0c*/ EStringEncoding encoding;
+/*0x10*/ CXFreeList* freeList;
 	// The actual string data. Size does not matter, the length
 	// is dynamic and manually allocated.
 	union
 	{
-	/*0x28*/ char utf8[4];
-	/*0x28*/ Unicode16 unicode[2];
-	/*0x28*/ CStrRep* next;
+	/*0x18*/ char utf8[4];
+	/*0x18*/ Unicode16 unicode[2];
+	/*0x18*/ CStrRep* next;
 	};
-/*0x30*/
+/*0x20*/
 };
 
 namespace internal {
@@ -118,7 +117,7 @@ public:
 	using traits_type = std::char_traits<char>;
 	using value_type = char;
 	using allocator_type = eqlib::everquest_allocator<char>;
-	using size_type = std::allocator_traits<allocator_type>::size_type;
+	using size_type = size_t;
 	using difference_type = std::allocator_traits<allocator_type>::difference_type;
 	using reference = value_type&;
 	using const_reference = const value_type&;
@@ -446,7 +445,7 @@ public:
 	// Constructs the string with the contents of the initializer list ilist.
 	CXStr(std::initializer_list<char> ilist)
 	{
-		assign(ilist.begin(), static_cast<size_t>(ilist.size()));
+		assign(ilist.begin(), static_cast<size_type>(ilist.size()));
 	}
 
 	// Implicitly converts t to a string view sv as if by std::string_view sv = t,
@@ -543,7 +542,7 @@ public:
 	// assign(ilist.begin(), ilist.size());
 	CXStr& operator=(std::initializer_list<char> ilist)
 	{
-		return assign(ilist.begin(), static_cast<size_t>(ilist.size()));
+		return assign(ilist.begin(), static_cast<size_type>(ilist.size()));
 	}
 
 	// Implicitly converts t to a string_view sv as if by std::string_view sv = t;,
@@ -564,7 +563,7 @@ public:
 
 		Assure(count + 1, StringEncodingUtf8);
 
-		m_data->length = count;
+		m_data->length = static_cast<uint32_t>(count);
 		traits_type::assign(m_data->utf8, count, ch);
 		traits_type::assign(m_data->utf8[count], value_type());
 
@@ -609,7 +608,7 @@ public:
 
 		Assure(count + 1, StringEncodingUtf8);
 
-		m_data->length = count;
+		m_data->length = static_cast<uint32_t>(count);
 		traits_type::move(m_data->utf8, s, count);
 		traits_type::assign(m_data->utf8[count], value_type());
 
@@ -621,7 +620,7 @@ public:
 	// using Traits::length(s);
 	CXStr& assign(const char* s)
 	{
-		return assign(s, static_cast<size_t>(traits_type::length(s)));
+		return assign(s, static_cast<size_type>(traits_type::length(s)));
 	}
 
 	// Replaces the contents with copies of the characters in the range [first, last).
@@ -636,7 +635,7 @@ public:
 	// Replaces the contents with those of the initializer list ilist.
 	CXStr& assign(std::initializer_list<char> ilist)
 	{
-		return assign(ilist.begin(), static_cast<size_t>(ilist.size()));
+		return assign(ilist.begin(), static_cast<size_type>(ilist.size()));
 	}
 
 	// Implicitly converts t to a string_view sv as if by std::string_view sv = t;,
@@ -647,7 +646,7 @@ public:
 	CXStr& assign(const T& t)
 	{
 		const std::string_view sv = t;
-		return assign(sv.data(), static_cast<size_t>(sv.size()));
+		return assign(sv.data(), static_cast<size_type>(sv.size()));
 	}
 
 	// Implicitly converts t to a string_view sv as if by std::stirng_view sv = t;,
@@ -887,7 +886,7 @@ public:
 		Assure(size() + count + 1, StringEncodingUtf8);
 
 		size_t oldSize = m_data->length;
-		m_data->length = oldSize + count;
+		m_data->length = static_cast<uint32_t>(oldSize + count);
 		char* ptr = m_data->utf8;
 		char* insertPos = ptr + index;
 
@@ -905,7 +904,7 @@ public:
 	// Traits::length(s).
 	CXStr& insert(size_type index, const char* s)
 	{
-		return insert(index, s, traits_type::length(s));
+		return insert(index, s, (size_type)traits_type::length(s));
 	}
 
 	// Inserts the characters in the range [s, s + count) at the position index. The
@@ -916,7 +915,7 @@ public:
 		Assure(size() + count + 1, StringEncodingUtf8);
 
 		size_t oldSize = m_data->length;
-		m_data->length = oldSize + count;
+		m_data->length = static_cast<uint32_t>(oldSize + count);
 		char* ptr = m_data->utf8;
 		char* insertPos = ptr + index;
 
@@ -965,7 +964,7 @@ public:
 	iterator insert(const_iterator pos, char ch)
 	{
 		const difference_type offset = pos - begin();
-		insert(static_cast<size_t>(offset), 1, ch);
+		insert(static_cast<size_type>(offset), 1, ch);
 		return begin() + offset;
 	}
 
@@ -973,7 +972,7 @@ public:
 	iterator insert(const_iterator pos, size_type count, char ch)
 	{
 		const difference_type offset = pos - begin();
-		insert(static_cast<size_t>(offset), count, ch);
+		insert(static_cast<size_type>(offset), count, ch);
 		return begin() + offset;
 	}
 
@@ -993,7 +992,7 @@ public:
 	iterator insert(const_iterator pos, std::initializer_list<char> ilist)
 	{
 		const difference_type offset = pos - begin();
-		insert(static_cast<size_t>(offset), ilist.begin(), static_cast<size_t>(ilist.size()));
+		insert(static_cast<size_type>(offset), ilist.begin(), static_cast<size_type>(ilist.size()));
 		return begin() + offset;
 	}
 
@@ -1005,7 +1004,7 @@ public:
 	CXStr& insert(size_type pos, const T& t)
 	{
 		std::string_view sv = t;
-		return insert(pos, sv.data(), static_cast<size_t>(sv.size()));
+		return insert(pos, sv.data(), static_cast<size_type>(sv.size()));
 	}
 
 	// Implicitly converts t to a string_view sv as if by std::string_view sv = t;,
@@ -1032,7 +1031,7 @@ public:
 			CheckOffset(index);
 			Assure(size() + 1, StringEncodingUtf8);
 
-			traits_type::assign(m_data->utf8[m_data->length = index], value_type());
+			traits_type::assign(m_data->utf8[m_data->length = static_cast<uint32_t>(index)], value_type());
 		}
 
 		return *this;
@@ -1049,7 +1048,7 @@ public:
 		char* ptr = m_data->utf8;
 		char* eraseAt = ptr + index;
 		const size_type newSize = oldSize - count;
-		m_data->length = newSize;
+		m_data->length = static_cast<uint32_t>(newSize);
 		traits_type::move(eraseAt, eraseAt + count, newSize - index + 1); // move suffix and null up
 
 		return *this;
@@ -1094,7 +1093,7 @@ public:
 		Assure(size() + count + 1, StringEncodingUtf8);
 
 		const size_type oldSize = m_data->length;
-		m_data->length = oldSize + count;
+		m_data->length = static_cast<uint32_t>(oldSize + count);
 
 		traits_type::assign(m_data->utf8 + oldSize, count, ch);
 		traits_type::assign(m_data->utf8[oldSize + count], value_type());
@@ -1123,7 +1122,7 @@ public:
 		Assure(size() + count + 1, StringEncodingUtf8);
 
 		const size_type oldSize = m_data->length;
-		m_data->length = oldSize + count;
+		m_data->length = static_cast<uint32_t>(oldSize + count);
 
 		traits_type::move(m_data->utf8 + oldSize, s, count);
 		traits_type::assign(m_data->utf8[oldSize + count], value_type());
@@ -1148,7 +1147,7 @@ public:
 	// Appends characters from the initializer list ilist.
 	CXStr& append(std::initializer_list<char> ilist)
 	{
-		return append(ilist.begin(), static_cast<size_t>(ilist.size()));
+		return append(ilist.begin(), static_cast<size_type>(ilist.size()));
 	}
 
 	// Implicitly converts to to a string view sv as if by string_view sv = t;, then appends all
@@ -1195,7 +1194,7 @@ public:
 	// Appends characters in the initializer list ilist
 	CXStr& operator+=(std::initializer_list<char> ilist)
 	{
-		return append(ilist.begin(), static_cast<size_t>(ilist.size()));
+		return append(ilist.begin(), static_cast<size_type>(ilist.size()));
 	}
 
 	// Appends characters in the string_view-like type t
@@ -1334,7 +1333,7 @@ public:
 			return *this;
 		}
 
-		m_data->length = newSize;
+		m_data->length = static_cast<uint32_t>(newSize);
 	}
 
 	CXStr& replace(const_iterator first, const_iterator last,
@@ -1369,7 +1368,7 @@ public:
 			return *this;
 		}
 
-		m_data->length = newSize;
+		m_data->length = static_cast<uint32_t>(newSize);
 		char* insertAt = m_data->utf8 + pos;
 
 		traits_type::move(insertAt + count2, insertAt + count, oldSize - count - pos + 1);
@@ -1456,7 +1455,7 @@ public:
 			// shrink
 			Assure(count + 1, StringEncodingUtf8);
 
-			m_data->utf8[m_data->length = count] = char();
+			m_data->utf8[m_data->length = static_cast<uint32_t>(count)] = char();
 		}
 	}
 
@@ -1578,7 +1577,7 @@ private:
 	void FreeRep(CStrRep* rep);
 	void FreeRepNoLock(CStrRep* rep);
 
-	[[noreturn]] void CheckOffset(const size_t offset) const
+	[[noreturn]] void CheckOffset(const size_type offset) const
 	{
 		if (size() < offset)
 		{
@@ -1586,7 +1585,7 @@ private:
 		}
 	}
 
-	[[noreturn]] void CheckOffsetExclusive(const size_t offset) const
+	[[noreturn]] void CheckOffsetExclusive(const size_type offset) const
 	{
 		if (size() <= offset)
 		{
@@ -1594,10 +1593,10 @@ private:
 		}
 	}
 
-	size_t ClampSuffixSize(const size_t offset, const size_t size) const noexcept
+	size_type ClampSuffixSize(const size_type offset, const size_type size) const noexcept
 	{
-		size_t mySize = length();
-		return std::min<size_t>(size, mySize - offset);
+		size_type mySize = static_cast<size_type>(length());
+		return std::min<size_type>(size, mySize - offset);
 	}
 };
 
@@ -1751,7 +1750,7 @@ inline void swap(CXStr& lhs, CXStr& rhs) noexcept
 [[nodiscard]] inline CXStr operator+(const CXStr& lhs, const char* rhs)
 {
 	CXStr result;
-	result.reserve(lhs.size() + CXStr::traits_type::length(rhs));
+	result.reserve(static_cast<CXStr::size_type>(lhs.size() + CXStr::traits_type::length(rhs)));
 	result += lhs;
 	result += rhs;
 	return result;
@@ -1760,7 +1759,7 @@ inline void swap(CXStr& lhs, CXStr& rhs) noexcept
 [[nodiscard]] inline CXStr operator+(const CXStr& lhs, char rhs)
 {
 	CXStr result;
-	result.reserve(lhs.size() + 1);
+	result.reserve(static_cast<CXStr::size_type>(lhs.size() + 1));
 	result += lhs;
 	result += rhs;
 	return result;
@@ -1769,7 +1768,7 @@ inline void swap(CXStr& lhs, CXStr& rhs) noexcept
 [[nodiscard]] inline CXStr operator+(const char* lhs, const CXStr& rhs)
 {
 	CXStr result;
-	result.reserve(CXStr::traits_type::length(lhs) + rhs.size());
+	result.reserve(static_cast<CXStr::size_type>(CXStr::traits_type::length(lhs) + rhs.size()));
 	result += lhs;
 	result += rhs;
 	return result;
@@ -1778,7 +1777,7 @@ inline void swap(CXStr& lhs, CXStr& rhs) noexcept
 [[nodiscard]] inline CXStr operator+(char lhs, const CXStr& rhs)
 {
 	CXStr result;
-	result.reserve(1 + rhs.size());
+	result.reserve(static_cast < CXStr::size_type>(1 + rhs.size()));
 	result += lhs;
 	result += rhs;
 	return result;

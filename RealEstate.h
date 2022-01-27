@@ -281,8 +281,7 @@ public:
 /*0x78*/ eqtime_t            upkeepExpiredTime;
 /*0x80*/ bool                votingOptedOut;
 /*0x88*/ ArrayClass<EqGuid>  childIds;
-/*0xa0*/ uint32_t            unknown_or_alignment;
-/*0xa4*/
+/*0xa0*/
 };
 
 //============================================================================

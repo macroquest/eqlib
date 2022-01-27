@@ -244,7 +244,7 @@ FUNCTION_AT_ADDRESS(char*, CGuild::GetGuildMotd(), CGuild__GetGuildMotd);
 FUNCTION_AT_ADDRESS(char*, CGuild::GetGuildMotdAuthor(), CGuild__GetGuildMotdAuthor);
 #endif
 #ifdef CGuild__GetGuildName_x
-FUNCTION_AT_ADDRESS(const char*, CGuild::GetGuildName(int64_t, ServerGuildName, int, bool) const, CGuild__GetGuildName);
+FUNCTION_AT_ADDRESS(const char*, CGuild::GetGuildName(int64_t, char*, bool*, bool) const, CGuild__GetGuildName);
 #endif
 #ifdef CGuild__GetGuildIndex_x
 FUNCTION_AT_ADDRESS(int64_t, CGuild::GetGuildIndex(const char*), CGuild__GetGuildIndex);
@@ -324,16 +324,16 @@ FUNCTION_AT_ADDRESS(ClientAuraManager*, ClientAuraManager::GetSingleton(), Clien
 // ClientSpellManager
 //============================================================================
 
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::LoadSpells(const char*, const char*, const char*), 0x04);
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::LoadSpellStackingData(const char*), 0x08);
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::DoesMeetRequirement(PlayerZoneClient*, int), 0x0c);
-FUNCTION_AT_VIRTUAL_ADDRESS(void, ClientSpellManager::PrintFailedRequirementString(int, int), 0x10);
-FUNCTION_AT_VIRTUAL_ADDRESS(int, ClientSpellManager::GetSpellStackingGroupID(int), 0x14);
-FUNCTION_AT_VIRTUAL_ADDRESS(int, ClientSpellManager::GetSpellStackingGroupRank(int), 0x18);
-FUNCTION_AT_VIRTUAL_ADDRESS(ESpellStackingRules, ClientSpellManager::GetSpellStackingGroupRule(int), 0x1c);
-FUNCTION_AT_VIRTUAL_ADDRESS(PSPELL, ClientSpellManager::GetSpellByID(int), 0x20);
-FUNCTION_AT_VIRTUAL_ADDRESS(SPELLCALCINFO*, ClientSpellManager::GetSpellAffect(int), 0x24);
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::GetSpellAffectEmpty(bool), 0x28);
+FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::LoadSpells(const char*, const char*, const char*), 0x08);
+FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::LoadSpellStackingData(const char*), 0x10);
+FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::DoesMeetRequirement(PlayerZoneClient*, int), 0x18);
+FUNCTION_AT_VIRTUAL_ADDRESS(void, ClientSpellManager::PrintFailedRequirementString(int, int), 0x20);
+FUNCTION_AT_VIRTUAL_ADDRESS(int, ClientSpellManager::GetSpellStackingGroupID(int), 0x28);
+FUNCTION_AT_VIRTUAL_ADDRESS(int, ClientSpellManager::GetSpellStackingGroupRank(int), 0x30);
+FUNCTION_AT_VIRTUAL_ADDRESS(ESpellStackingRules, ClientSpellManager::GetSpellStackingGroupRule(int), 0x38);
+FUNCTION_AT_VIRTUAL_ADDRESS(PSPELL, ClientSpellManager::GetSpellByID(int), 0x40);
+FUNCTION_AT_VIRTUAL_ADDRESS(SPELLCALCINFO*, ClientSpellManager::GetSpellAffect(int), 0x48);
+FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::GetSpellAffectEmpty(bool), 0x50);
 
 //============================================================================
 // ConversationJournal
@@ -634,11 +634,11 @@ FUNCTION_AT_ADDRESS(CTargetManager*, CTargetManager::Get(), CTargetManager__Get)
 #endif
 
 //============================================================================
-// CTargetRing
+// FreeTargetTracker
 //============================================================================
 
-#ifdef CTargetRing__Cast_x
-FUNCTION_AT_ADDRESS(int, CTargetRing::Cast(const CVector3&), CTargetRing__Cast);
+#ifdef FreeTargetTracker__CastSpell_x
+FUNCTION_AT_ADDRESS(int, FreeTargetTracker::CastSpell(const CVector3&), FreeTargetTracker__CastSpell);
 #endif
 
 //============================================================================
@@ -749,56 +749,6 @@ FUNCTION_AT_ADDRESS(void, EQ_LoadingS::WriteTextHD(char*, int, int, int), EQ_Loa
 #endif
 #ifdef EQ_LoadingS__SetProgressBar_x
 FUNCTION_AT_ADDRESS(void, EQ_LoadingS::SetProgressBar(int, const char*), EQ_LoadingS__SetProgressBar);
-#endif
-
-//============================================================================
-// EQ_Spell
-//============================================================================
-
-#ifdef EQ_Spell__IsStackableDot_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsStackableDot() const, EQ_Spell__IsStackableDot);
-#endif
-#ifdef EQ_Spell__IsStackable_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsStackable() const, EQ_Spell__IsStackable);
-#endif
-#ifdef EQ_Spell__GetSpellAffectBySlot_x
-FUNCTION_AT_ADDRESS(const SpellAffectData*, EQ_Spell::GetSpellAffectBySlot(int) const, EQ_Spell__GetSpellAffectBySlot);
-#endif
-#ifdef EQ_Spell__GetSpellAffectByIndex_x
-FUNCTION_AT_ADDRESS(const SpellAffectData*, EQ_Spell::GetSpellAffectByIndex(int) const, EQ_Spell__GetSpellAffectByIndex);
-#endif
-#ifdef EQ_Spell__IsSPAStacking_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsSPAStacking(int) , EQ_Spell__IsSPAStacking);
-#endif
-#ifdef EQ_Spell__IsSPAIgnoredByStacking_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsSPAIgnoredByStacking(int) , EQ_Spell__IsSPAIgnoredByStacking);
-#endif
-#ifdef EQ_Spell__IsNoRemove_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsNoRemove() const, EQ_Spell__IsNoRemove);
-#endif
-#ifdef EQ_Spell__IsDegeneratingLevelMod_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsDegeneratingLevelMod(int) , EQ_Spell__IsDegeneratingLevelMod);
-#endif
-#ifdef EQ_Spell__SpellUsesDragonBreathEffect_x
-FUNCTION_AT_ADDRESS(int, EQ_Spell::SpellUsesDragonBreathEffect(), EQ_Spell__SpellUsesDragonBreathEffect);
-#endif
-#ifdef EQ_Spell__EQ_Spell_x
-FUNCTION_AT_ADDRESS(EQ_Spell::EQ_Spell(char*), EQ_Spell__EQ_Spell);
-#endif
-#ifdef EQ_Spell__dEQ_Spell_x
-FUNCTION_AT_ADDRESS(EQ_Spell::~EQ_Spell(), EQ_Spell__dEQ_Spell);
-#endif
-#ifdef EQ_Spell__SpellAffects_x
-FUNCTION_AT_ADDRESS(unsigned char, EQ_Spell::SpellAffects(int) const, EQ_Spell__SpellAffects);
-#endif
-#ifdef EQ_Spell__IsPermIllusionSpell_x
-FUNCTION_AT_ADDRESS(int, EQ_Spell::IsPermIllusionSpell() const, EQ_Spell__IsPermIllusionSpell);
-#endif
-#ifdef EQ_Spell__GetSpellLevelNeeded_x
-FUNCTION_AT_ADDRESS(unsigned char, EQ_Spell::GetSpellLevelNeeded(int) const, EQ_Spell__GetSpellLevelNeeded);
-#endif
-#ifdef EQ_Spell__SpellAffectBase_x
-FUNCTION_AT_ADDRESS(int, EQ_Spell::SpellAffectBase(int) const, EQ_Spell__SpellAffectBase);
 #endif
 
 //============================================================================
@@ -1320,9 +1270,6 @@ FUNCTION_AT_ADDRESS(bool, KeyCombo::UsesShift() const, KeyCombo__UsesShift);
 #endif
 #ifdef KeyCombo__UsesAlt_x
 FUNCTION_AT_ADDRESS(bool, KeyCombo::UsesAlt() const, KeyCombo__UsesAlt);
-#endif
-#ifdef KeyCombo__GetTextDescription_x
-FUNCTION_AT_ADDRESS(CXStr, KeyCombo::GetTextDescription() const, KeyCombo__GetTextDescription);
 #endif
 #ifdef KeyCombo__GetPrintableLetter_x
 FUNCTION_AT_ADDRESS(bool, KeyCombo::GetPrintableLetter(unsigned short*) const, KeyCombo__GetPrintableLetter);

@@ -156,7 +156,7 @@ FUNCTION_AT_ADDRESS(void, CCheckBoxWnd::SetRadioLook(), CCheckBoxWnd__SetRadioLo
 //============================================================================
 
 #ifdef CComboWnd__GetListRect_x
-FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetListRect(bool) const, CComboWnd__GetListRect);
+//FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetListRect(bool) const, CComboWnd__GetListRect);
 #endif
 #ifdef CComboWnd__SetColors_x
 FUNCTION_AT_ADDRESS(void, CComboWnd::SetColors(COLORREF, COLORREF, COLORREF), CComboWnd__SetColors);
@@ -170,18 +170,22 @@ FUNCTION_AT_ADDRESS(void, CComboWnd::SetChoice(int), CComboWnd__SetChoice);
 #ifdef CComboWnd__GetItemCount_x
 FUNCTION_AT_ADDRESS(int, CComboWnd::GetItemCount(), CComboWnd__GetItemCount);
 #endif
-#ifdef CComboWnd__GetCurChoice_x
-FUNCTION_AT_ADDRESS(int, CComboWnd::GetCurChoice() const, CComboWnd__GetCurChoice);
-#endif
-#ifdef CComboWnd__GetCurChoiceText_x
-FUNCTION_AT_ADDRESS(CXStr, CComboWnd::GetCurChoiceText() const, CComboWnd__GetCurChoiceText);
-#endif
 #ifdef CComboWnd__DeleteAll_x
 FUNCTION_AT_ADDRESS(void, CComboWnd::DeleteAll(), CComboWnd__DeleteAll);
 #endif
 #ifdef CComboWnd__GetTextRect_x
-FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetTextRect() const, CComboWnd__GetTextRect);
+//FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetTextRect() const, CComboWnd__GetTextRect);
 #endif
+
+int CComboWnd::GetCurChoice() const
+{
+	return pListWnd->GetCurSel();
+}
+
+CXStr CComboWnd::GetCurChoiceText() const
+{
+	return pListWnd->GetItemText(pListWnd->GetCurSel());
+}
 
 //============================================================================
 // CEditWnd
@@ -197,9 +201,6 @@ FUNCTION_AT_ADDRESS(void, CEditBaseWnd::SetSel(int, int), CEditBaseWnd__SetSel);
 
 
 // CEditWnd
-#ifdef CEditWnd__CEditWnd_x
-//FUNCTION_AT_ADDRESS(CEditWnd::CEditWnd(CXWnd*, uint32_t, CXRect, uint32_t), CEditWnd__CEditWnd);
-#endif
 #ifdef CEditWnd__GetLineForPrintableChar_x
 FUNCTION_AT_ADDRESS(int, CEditWnd::GetLineForPrintableChar(int) const, CEditWnd__GetLineForPrintableChar);
 #endif
@@ -218,15 +219,6 @@ FUNCTION_AT_ADDRESS(void, CEditWnd::AddItemTag(int, char*, int), CEditWnd__AddIt
 #ifdef CEditWnd__ProcessText_x
 FUNCTION_AT_ADDRESS(void, CEditWnd::ProcessText(), CEditWnd__ProcessText);
 #endif
-#ifdef CEditWnd__GetCharIndexPt_x
-FUNCTION_AT_ADDRESS(CXPoint, CEditWnd::GetCharIndexPt(int) const, CEditWnd__GetCharIndexPt);
-#endif
-#ifdef CEditWnd__GetSelStartPt_x
-FUNCTION_AT_ADDRESS(CXPoint, CEditWnd::GetSelStartPt() const, CEditWnd__GetSelStartPt);
-#endif
-#ifdef CEditWnd__GetSelEndPt_x
-FUNCTION_AT_ADDRESS(CXPoint, CEditWnd::GetSelEndPt() const, CEditWnd__GetSelEndPt);
-#endif
 #ifdef CEditWnd__FilterInputStr_x
 FUNCTION_AT_ADDRESS(void, CEditWnd::FilterInputStr(CXStr&), CEditWnd__FilterInputStr);
 #endif
@@ -239,9 +231,6 @@ FUNCTION_AT_ADDRESS(void, CEditWnd::EnsureCaretVisible(), CEditWnd__EnsureCaretV
 #ifdef CEditWnd__SetEditable_x
 FUNCTION_AT_ADDRESS(void, CEditWnd::SetEditable(bool), CEditWnd__SetEditable);
 #endif
-#ifdef CEditWnd__GetSTMLSafeText_x
-FUNCTION_AT_ADDRESS(CXStr, CEditWnd::GetSTMLSafeText(), CEditWnd__GetSTMLSafeText);
-#endif
 #ifdef CEditWnd__SetWindowText_x
 FUNCTION_AT_ADDRESS(void, CEditWnd::SetWindowText(const CXStr& Str), CEditWnd__SetWindowText);
 #endif
@@ -251,9 +240,24 @@ FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexPrintableToTagged(int), CEditWnd_
 #ifdef CEditWnd__ConvertIndexTaggedToPrintable_x
 FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexTaggedToPrintable(int), CEditWnd__ConvertIndexTaggedToPrintable);
 #endif
-#ifdef CEditWnd__GetCaretPt_x
-FUNCTION_AT_ADDRESS(CXPoint, CEditWnd::GetCaretPt() const, CEditWnd__GetCaretPt);
-#endif
+
+CXPoint CEditWnd::GetCaretPt() const
+{
+	if (bAnchorAtStart)
+		return GetSelEndPt();
+
+	return GetSelStartPt();
+}
+
+CXPoint CEditWnd::GetSelStartPt() const
+{
+	return GetCharIndexPt(StartPos);
+}
+
+CXPoint CEditWnd::GetSelEndPt() const
+{
+	return GetCharIndexPt(EndPos);
+}
 
 void CEditBaseWnd::SetMaxChars(int maxChars)
 {
@@ -273,10 +277,10 @@ void CEditBaseWnd::SetMaxChars(int maxChars)
 FUNCTION_AT_ADDRESS(CGaugeWnd::CGaugeWnd(CXWnd*, uint32_t, CXRect, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, int, unsigned long, unsigned long, bool, int, int, int, int), CGaugeWnd__CGaugeWnd);
 #endif
 #ifdef CGaugeWnd__CalcFillRect_x
-FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcFillRect(CXRect*, int) const, CGaugeWnd__CalcFillRect);
+//FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcFillRect(CXRect*, int) const, CGaugeWnd__CalcFillRect);
 #endif
 #ifdef CGaugeWnd__CalcLinesFillRect_x
-FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcLinesFillRect(CXRect*, int) const, CGaugeWnd__CalcLinesFillRect);
+//FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcLinesFillRect(CXRect*, int) const, CGaugeWnd__CalcLinesFillRect);
 #endif
 #ifdef CGaugeWnd__SpecialToolTip_x
 FUNCTION_AT_ADDRESS(void, CGaugeWnd::SpecialToolTip(), CGaugeWnd__SpecialToolTip);
@@ -346,8 +350,8 @@ FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnMove(const CXRect& rect), CListWnd, 
 FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnResize(int w, int h), CListWnd, OnResize);
 FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnVScroll(EScrollCode code, int pos), CListWnd, OnVScroll);
 FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnHScroll(EScrollCode code, int pos), CListWnd, OnHScroll);
-FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetHitTestRect(int code) const, CListWnd, GetHitTestRect);
-FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetClientClipRect() const, CListWnd, GetClientClipRect);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetHitTestRect(int code) const, CListWnd, GetHitTestRect);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetClientClipRect() const, CListWnd, GetClientClipRect);
 FORWARD_FUNCTION_TO_VTABLE(CXWnd*, CListWnd::GetChildWndAt(const CXPoint& pos, bool, bool) const, CListWnd, GetChildWndAt);
 FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::SetVScrollPos(int pos), CListWnd, SetVScrollPos);
 
@@ -367,7 +371,7 @@ FUNCTION_AT_ADDRESS(int, CListWnd::GetCurCol() const, CListWnd__GetCurCol);
 FUNCTION_AT_ADDRESS(uint64_t, CListWnd::GetItemData(int) const, CListWnd__GetItemData);
 #endif
 #ifdef CListWnd__GetItemText_x
-FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
+//FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
 #endif
 #ifdef CListWnd__GetItemIcon_x
 FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetItemIcon(int, int) const, CListWnd__GetItemIcon);
@@ -389,9 +393,6 @@ FUNCTION_AT_ADDRESS(void, CListWnd::ShiftColumnSeparator(int, int), CListWnd__Sh
 #endif
 #ifdef CListWnd__GetColumnMinWidth_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnMinWidth(int) const, CListWnd__GetColumnMinWidth);
-#endif
-#ifdef CListWnd__GetColumnTooltip_x
-FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetColumnTooltip(int) const, CListWnd__GetColumnTooltip);
 #endif
 #ifdef CListWnd__GetColumnJustification_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnJustification(int) const, CListWnd__GetColumnJustification);
@@ -496,7 +497,7 @@ FUNCTION_AT_ADDRESS(void, CListWnd::CalculateFirstVisibleLine(), CListWnd__Calcu
 FUNCTION_AT_ADDRESS(void, CListWnd::EnsureVisible(int), CListWnd__EnsureVisible);
 #endif
 #ifdef CListWnd__GetItemRect_x
-FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
+//FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
 #endif
 #ifdef CListWnd__GetItemAtPoint_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetItemAtPoint(const CXPoint&) const, CListWnd__GetItemAtPoint);
@@ -511,7 +512,7 @@ FUNCTION_AT_ADDRESS(void, CListWnd::CloseAndUpdateEditWindow(), CListWnd__CloseA
 FUNCTION_AT_ADDRESS(void, CListWnd::SetColors(unsigned long, unsigned long, unsigned long), CListWnd__SetColors);
 #endif
 #ifdef CListWnd__GetSeparatorRect_x
-FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetSeparatorRect(int) const, CListWnd__GetSeparatorRect);
+//FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetSeparatorRect(int) const, CListWnd__GetSeparatorRect);
 #endif
 #ifdef CListWnd__GetHeaderRect_x
 FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetHeaderRect(int) const, CListWnd__GetHeaderRect);
@@ -565,6 +566,14 @@ CXWnd* CListWnd::GetItemWnd(int Index, int SubItem) const
 	return nullptr;
 }
 #endif
+
+CXStr CListWnd::GetColumnTooltip(int column) const
+{
+	if (column >= 0 && column < GetColumnCount())
+		return Columns[column].Tooltip;
+
+	return CXStr();
+}
 
 //============================================================================
 // CPageWnd
@@ -653,12 +662,6 @@ FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeTextLine(SParseVariables*, int), C
 #endif
 #ifdef CStmlWnd__AddTextPieceToLine_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::AddTextPieceToLine(SParseVariables*), CStmlWnd__AddTextPieceToLine);
-#endif
-#ifdef CStmlWnd__MakeStmlColorTag_x
-FUNCTION_AT_ADDRESS(CXStr, __cdecl CStmlWnd::MakeStmlColorTag(unsigned long), CStmlWnd__MakeStmlColorTag);
-#endif
-#ifdef CStmlWnd__MakeWndNotificationTag_x
-FUNCTION_AT_ADDRESS(CXStr, CStmlWnd::MakeWndNotificationTag(uint32_t, const CXStr&, const CXStr&), CStmlWnd__MakeWndNotificationTag);
 #endif
 #ifdef CStmlWnd__ParseTagColor_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::ParseTagColor(CXStr, unsigned long*) const, CStmlWnd__ParseTagColor);
@@ -762,16 +765,16 @@ FUNCTION_AT_ADDRESS(CTabWnd::CTabWnd(CXWnd* pParent, UINT uId, RECT* rect, CTabB
 //FUNCTION_AT_ADDRESS(CPageWnd*, CTabWnd::GetCurrentPage() const, CTabWnd__GetCurrentPage);
 #endif
 #ifdef CTabWnd__GetTabRect_x
-FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
+//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
 #endif
 #ifdef CTabWnd__GetTabInnerRect_x
-FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabInnerRect(int) const, CTabWnd__GetTabInnerRect);
+//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabInnerRect(int) const, CTabWnd__GetTabInnerRect);
 #endif
 #ifdef CTabWnd__GetPageClientRect_x
 FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageClientRect() const, CTabWnd__GetPageClientRect);
 #endif
 #ifdef CTabWnd__GetPageInnerRect_x
-FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageInnerRect() const, CTabWnd__GetPageInnerRect);
+//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageInnerRect() const, CTabWnd__GetPageInnerRect);
 #endif
 #ifdef CTabWnd__SetPage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::SetPage(int, bool, bool, bool), CTabWnd__SetPage);
@@ -1849,10 +1852,6 @@ FUNCTION_AT_ADDRESS(void, CInventoryWnd::UpdateMoneyDisplay(), CInventoryWnd__Up
 
 #ifdef CInvSlot__CInvSlot_x
 FUNCTION_AT_ADDRESS(CInvSlot::CInvSlot(), CInvSlot__CInvSlot);
-#endif
-#ifdef CInvSlot__GetItemBase_x
-FUNCTION_AT_ADDRESS(void, CInvSlot::GetItemBase(ItemClient**), CInvSlot__GetItemBase);
-FUNCTION_AT_ADDRESS(ItemPtr, CInvSlot::GetItem(), CInvSlot__GetItemBase);
 #endif
 #ifdef CInvSlot__UpdateItem_x
 FUNCTION_AT_ADDRESS(void, CInvSlot::UpdateItem(), CInvSlot__UpdateItem);

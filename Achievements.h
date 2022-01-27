@@ -284,7 +284,7 @@ using AchievementStateInfoArray = ArrayClass<SingleAchievementIdAndInfo>;
 //============================================================================
 // Achievement Manager
 
-class AchievementManager
+class [[offsetcomments]] AchievementManager
 {
 public:
 	EQLIB_OBJECT static AchievementManager& Instance();
@@ -403,25 +403,26 @@ public:
 	//----------------------------------------------------------------------------
 	// AchievementManager
 
-/*0x04*/ ArrayClass2<AchievementCategory>   categories;
-/*0x1c*/ ArrayClass2<Achievement>           achievements;
+/*0x08*/ ArrayClass2<AchievementCategory>   categories;
+/*0x28*/ ArrayClass2<Achievement>           achievements;
 
 	//----------------------------------------------------------------------------
 	// AchievementManagerClient
 
-/*0x34*/ AchievementsAndComponentsInfoArray achievementClientInfoArray;
-/*0x44*/ AchievementsAndComponentsInfoArray achievementsClientComparisonInfoArray;
-/*0x54*/ bool                               achievementClientReadOnlyDataSet;
-/*0x55*/ bool                               achievementClientStatesSet;
-/*0x56*/ bool                               comparisonAchievementStatesSet;
-/*0x58*/ uint32_t                           completedAchievementScore;
-/*0x5c*/ uint32_t                           completedAchievementCount;
-/*0x60*/ uint32_t                           lockedAchievemmentCount;
-/*0x64*/ uint32_t                           openAchievementCount;
-/*0x68*/ uint32_t                           comparisonCompletedAchievementScore;
-/*0x6c*/ uint32_t                           comparisonCompletedAchievementCount;
-/*0x70*/ uint32_t                           comparisonLockedAchievementCount;
-/*0x74*/ uint32_t                           comparisonOpenAchievementCount;
+/*0x48*/ AchievementsAndComponentsInfoArray achievementClientInfoArray;
+/*0x60*/ AchievementsAndComponentsInfoArray achievementsClientComparisonInfoArray;
+/*0x78*/ bool                               achievementClientReadOnlyDataSet;
+/*0x79*/ bool                               achievementClientStatesSet;
+/*0x7a*/ bool                               comparisonAchievementStatesSet;
+/*0x7c*/ uint32_t                           completedAchievementScore;
+/*0x80*/ uint32_t                           completedAchievementCount;
+/*0x84*/ uint32_t                           lockedAchievemmentCount;
+/*0x88*/ uint32_t                           openAchievementCount;
+/*0x8c*/ uint32_t                           comparisonCompletedAchievementScore;
+/*0x90*/ uint32_t                           comparisonCompletedAchievementCount;
+/*0x94*/ uint32_t                           comparisonLockedAchievementCount;
+/*0x98*/ uint32_t                           comparisonOpenAchievementCount;
+/*0x9c*/
 };
 
 } // namespace eqlib

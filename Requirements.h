@@ -20,15 +20,17 @@
 
 namespace eqlib {
 
-
 //----------------------------------------------------------------------------
+
+class CSerializeBuffer;
+class CUnSerializeBuffer;
 
 class [[offsetcomments]] FileStatMgr
 {
 public:
 	struct FileStat
 	{
-		struct _stat32 Stats;
+		eqstat_t       Stats;
 		CXStr          Filename;
 		CXStr          Key;
 	};
@@ -49,10 +51,19 @@ enum ReqType
 	// there are like 72 more of these...
 };
 
+// size: 0x248
+
 class [[offsetcomments]] RequirementAssociationManager : public FileStatMgr
 {
 public:
-/*0x018*/ void* vfTable;
+	RequirementAssociationManager();
+	EQLIB_OBJECT virtual ~RequirementAssociationManager() {}
+
+	virtual void ClearAllRequirementAssociationsData() {}
+	virtual void Serialize(CSerializeBuffer&) {}
+	virtual void UnSerialize(CUnSerializeBuffer&) {}
+	virtual int LoadRequirementAssociationsFromFile(const char*, bool) { return 0; }
+
 /*0x020*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
 /*0x038*/ char               AssocFilename[512];
 /*0x238*/ ReqType            LastFailReason;

@@ -157,7 +157,7 @@ void CXStr::AssureCopy()
 	Assure(size() + 1, GetEncoding());
 }
 
-void CXStr::Assure(size_t size, EStringEncoding encoding)
+void CXStr::Assure(size_type size, EStringEncoding encoding)
 {
 	if (encoding == StringEncodingUtf16)
 	{
@@ -190,7 +190,7 @@ void CXStr::Assure(size_t size, EStringEncoding encoding)
 		if (m_data->encoding == StringEncodingUtf16
 			&& encoding == StringEncodingUtf8)
 		{
-			size_t utf8Length = CalcUnicodeToUtf8Length(m_data->unicode) + 1;
+			size_type utf8Length = (size_type)CalcUnicodeToUtf8Length(m_data->unicode) + 1;
 
 			if (size < utf8Length)
 				size = utf8Length;
@@ -210,7 +210,7 @@ void CXStr::Assure(size_t size, EStringEncoding encoding)
 			else if (m_data->encoding == StringEncodingUtf16)
 			{
 				// utf16 -> utf8
-				rep->length = UnicodeToUtf8(m_data->unicode, rep->utf8, rep->alloc);
+				rep->length = static_cast<uint32_t>(UnicodeToUtf8(m_data->unicode, rep->utf8, rep->alloc));
 			}
 		}
 		else if (rep->encoding == StringEncodingUtf16)
@@ -218,7 +218,7 @@ void CXStr::Assure(size_t size, EStringEncoding encoding)
 			if (m_data->encoding == StringEncodingUtf8)
 			{
 				// utf8 -> utf16
-				rep->length = Utf8ToUnicode(m_data->utf8, rep->unicode, rep->alloc);
+				rep->length = static_cast<uint32_t>(Utf8ToUnicode(m_data->utf8, rep->unicode, rep->alloc));
 			}
 			else
 			{
@@ -235,9 +235,9 @@ void CXStr::Assure(size_t size, EStringEncoding encoding)
 	}
 }
 
-CStrRep* CXStr::AllocRepNoLock(size_t size, EStringEncoding encoding)
+CStrRep* CXStr::AllocRepNoLock(size_type size, EStringEncoding encoding)
 {
-	size_t i = 0;
+	size_type i = 0;
 	CXFreeList* freeLists = gFreeLists;
 
 	while (freeLists[i].blockSize > 0)
@@ -291,7 +291,7 @@ CStrRep* CXStr::AllocRepNoLock(size_t size, EStringEncoding encoding)
 
 	rep->next = nullptr;
 	rep->length = 0;
-	rep->alloc = size;
+	rep->alloc = static_cast<uint32_t>(size);
 	rep->encoding = encoding;
 	rep->refCount = 1;
 	rep->freeList = gFreeLists;

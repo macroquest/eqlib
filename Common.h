@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <limits>
+#include <sys/stat.h>
 
 #include "../common/Common.h"
 #include "OffsetUtils.h"
@@ -66,40 +67,64 @@
 #define CONSTRUCTOR_AT_ADDRESS(function, offset)
 #define DESTRUCTOR_AT_ADDRESS(function, offset)
 
+#define FUNCTION_CHECKS_OFF() \
+    __pragma(optimize("ytg", on)) __pragma(runtime_checks("", off)) __pragma(check_stack(off)) __pragma(strict_gs_check(push,off))
+#define FUNCTION_CHECKS_ON() \
+    __pragma(optimize("", on)) __pragma(runtime_checks("",restore)) __pragma(check_stack())    __pragma(strict_gs_check(pop))
+
+namespace eqlib::detail{
+	template <typename T>
+	struct check_size_t {
+		enum { value = sizeof(T) };
+	};
+	template <>
+	struct check_size_t<void> {
+		enum { value = 1 };
+	};
+
+	template <typename T>
+	struct is_size_ok
+	{
+		enum { value = ((std::is_reference_v<T> || std::is_pointer_v<T> || std::is_void_v<T>) ? 8 : !std::is_pod_v<T> ? 12 : check_size_t<T>::value) <= 8 ? 1 : 0 };
+	};
+
+}
+
 #define FUNCTION_AT_ADDRESS(rettype, func, variable)                                               \
-__pragma( optimize("ytg", on)  )                                                                   \
+	FUNCTION_CHECKS_OFF()                                                                          \
 	rettype func {                                                                                 \
+		static_assert(eqlib::detail::is_size_ok<rettype>::value == 1, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
-		TargetFunction p = (TargetFunction)variable;                                               \
-		return p();                                                                                \
+		return ((TargetFunction)variable)();                                                       \
 	}                                                                                              \
-__pragma( optimize("", on) )
+	FUNCTION_CHECKS_ON()
 
 #define FUNCTION_AT_VIRTUAL_ADDRESS(rettype, func, offset)                                         \
-__pragma( optimize("ytg", on)  )                                                                   \
+	FUNCTION_CHECKS_OFF()                                                                          \
 	rettype func {                                                                                 \
+		static_assert(eqlib::detail::is_size_ok<rettype>::value == 1, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
-		TargetFunction p = (TargetFunction)(*(reinterpret_cast<uintptr_t**>(this)[0] + (offset))); \
-		return p();                                                                                \
+		return ((TargetFunction)(*(reinterpret_cast<uintptr_t**>(this)[0] + (offset/8))))();         \
 	}                                                                                              \
-__pragma( optimize("", on) )
+	FUNCTION_CHECKS_ON()
 
 #define FORWARD_FUNCTION_TO_VTABLE(rettype, function, Class, member)                               \
-__pragma( optimize("ytg", on) )                                                                    \
+	FUNCTION_CHECKS_OFF()                                                                          \
 	rettype Class::function {                                                                      \
+		static_assert(eqlib::detail::is_size_ok<rettype>::value == 1, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
 		return ((TargetFunction)(Class::sm_vftable->member))();                                    \
 	}                                                                                              \
-__pragma( optimize("", on) )
+	FUNCTION_CHECKS_ON()
 
 #define FUNCTION_AT_VIRTUAL_TABLE_ADDRESS(rettype, function, address, offset)                      \
-__pragma( optimize("ytg", on) )                                                                    \
+	FUNCTION_CHECKS_OFF()                                                                          \
 	rettype function {                                                                             \
+		static_assert(eqlib::detail::check_size_t<rettype>::value <= 8, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
-		TargetFunction p = *(TargetFunction*)((address + offset * sizeof(uintptr_t)));             \
-		return p();                                                                                \
+		return (*(TargetFunction*)((address + offset * sizeof(uintptr_t))))();                     \
 	}                                                                                              \
-__pragma( optimize("", on) )
+	FUNCTION_CHECKS_ON()
 
  // Define access to a member with another name (and type if you so will it)
 #define ALT_MEMBER_GETTER(type, orig, name) \
@@ -166,8 +191,10 @@ namespace eqlib {
 
 #if defined(_WIN64)
 using eqtime_t = time_t;
+using eqstat_t = struct ::_stat;
 #else
 using eqtime_t = __time32_t;
+using eqstat_t = struct ::_stat32;
 #endif // defined(_WIN64)
 
 inline errno_t __cdecl eq_ctime(char* Buffer, size_t SizeInBytes, const eqtime_t* Time)
@@ -497,6 +524,32 @@ public:
 	float Z = 0.f;
 };
 
+class CVector4
+{
+public:
+	float X, Y, Z, W;
+};
+
+class CMatrix44
+{
+public:
+	CVector4 row[4];
+};
+
+class CSphere
+{
+public:
+	float radius;
+	CVector3 center;
+};
+
+class CAABox
+{
+public:
+	CVector3 center;
+	CVector3 extents;
+};
+
 struct EQLOC
 {
 	float x;
@@ -532,3 +585,14 @@ inline bool operator==(const EqGuid& a, const EqGuid& b)
 
 #include "Constants.h"
 #include "ForwardDecls.h"
+
+#include "SoeUtil.h"
+
+namespace eqlib
+{
+	class EnumKeyTypeRace;
+	using EQRace = SoeUtil::StrongType<int, EnumKeyTypeRace>;
+
+	class EnumKeyTypeClass;
+	using EQClass = SoeUtil::StrongType<int, EnumKeyTypeClass>;
+}
