@@ -801,7 +801,7 @@
 #define PcZoneClient__HasAlternateAbility_x                        0x140309940
 #define PcZoneClient__CanEquipItem_x                               0x14030A0D0
 #define PcZoneClient__GetItemByID_x                                0x14030DFE0
-#define PcZoneClient__RemoveBuffEffect_x                           0x140311E50
+#define PcZoneClient__RemoveBuffEffect_x                           0x140311F20
 #define PcZoneClient__BandolierSwap_x                              0x14030B320
 #define PcZoneClient__GetLinkedSpellReuseTimer_x                   0x14030D770
 
