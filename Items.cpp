@@ -298,7 +298,6 @@ ItemBase::ItemBase()
 	bDisableAugTexture = false;
 	Luck = 0;
 	ID = 0;
-	RespawnTime = 0;
 	MerchantSlot = 0;
 	ConvertItemID = 0;
 	bCopied = false;
@@ -347,41 +346,37 @@ void ItemBase::UpdateItemDefinition()
 }
 
 #ifdef ItemBase__CreateItemTagString_x
-FUNCTION_AT_ADDRESS(char* ItemBase::CreateItemTagString(char*, int, bool), ItemBase__CreateItemTagString);
+FUNCTION_AT_ADDRESS(char*, ItemBase::CreateItemTagString(char*, int, bool), ItemBase__CreateItemTagString);
 #endif
 #ifdef ItemBase__GetImageNum_x
-FUNCTION_AT_ADDRESS(int ItemBase::GetImageNum() const, ItemBase__GetImageNum);
-#endif
-#ifdef ItemClient__CreateItemClient_x
-FUNCTION_AT_ADDRESS(ItemPtr ItemBase::CreateItemClient(CUnSerializeBuffer& buffer), ItemClient__CreateItemClient);
+FUNCTION_AT_ADDRESS(int, ItemBase::GetImageNum() const, ItemBase__GetImageNum);
 #endif
 #ifdef ItemClient__CanDrop_x
-FUNCTION_AT_ADDRESS(bool ItemBase::CanDrop(bool, bool, bool, bool) const, ItemClient__CanDrop);
+FUNCTION_AT_ADDRESS(bool, ItemBase::CanDrop(bool, bool, bool, bool) const, ItemClient__CanDrop);
 #endif
 #ifdef ItemBase__GetItemValue_x
-FUNCTION_AT_ADDRESS(int ItemBase::GetItemValue(bool) const, ItemBase__GetItemValue);
+FUNCTION_AT_ADDRESS(int, ItemBase::GetItemValue(bool) const, ItemBase__GetItemValue);
 #endif
 #ifdef ItemBase__IsKeyRingItem_x
-FUNCTION_AT_ADDRESS(bool ItemBase::IsKeyRingItem(KeyRingType) const, ItemBase__IsKeyRingItem);
+FUNCTION_AT_ADDRESS(bool, ItemBase::IsKeyRingItem(KeyRingType) const, ItemBase__IsKeyRingItem);
 #endif
 #ifdef ItemClient__CanGoInBag_x
-FUNCTION_AT_ADDRESS(bool ItemBase::CanGoInBag(const ItemPtr& pItem, int unused, bool mustbefalse) const, ItemClient__CanGoInBag);
+FUNCTION_AT_ADDRESS(bool, ItemBase::CanGoInBag(const ItemPtr& pItem, int unused, bool mustbefalse) const, ItemClient__CanGoInBag);
 #endif
 #ifdef ItemBase__ValueSellMerchant_x
-FUNCTION_AT_ADDRESS(int ItemBase::ValueSellMerchant(float, int) const, ItemBase__ValueSellMerchant);
+FUNCTION_AT_ADDRESS(int, ItemBase::ValueSellMerchant(float, int) const, ItemBase__ValueSellMerchant);
 #endif
 #ifdef ItemBase__CanGemFitInSlot_x
-FUNCTION_AT_ADDRESS(int ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, ItemBase__CanGemFitInSlot);
+FUNCTION_AT_ADDRESS(int, ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, ItemBase__CanGemFitInSlot);
 #endif
 
 //----------------------------------------------------------------------------
 
-// Defined in AssemblyFunctions.asm
 ItemClient::ItemClient()
 {
 }
 
-//ItemClient::~ItemClient()
+DESTRUCTOR_AT_ADDRESS(ItemClient::~ItemClient, ItemClient__dItemClient);
 
 ItemDefinition* ItemClient::GetItemDefinition() const
 {
@@ -592,7 +587,7 @@ void EqItemGuid::UnSerialize(CUnSerializeBuffer& buffer)
 // MultipleItemMoveManager
 
 #ifdef MultipleItemMoveManager__ProcessMove_x
-FUNCTION_AT_ADDRESS(MultipleItemMoveManager::ErrorCodes
+FUNCTION_AT_ADDRESS(MultipleItemMoveManager::ErrorCodes,
 	MultipleItemMoveManager::ProcessMove(
 		PcZoneClient* pPC,
 		const MultipleItemMoveManager::MoveItemArray& moveItemList,

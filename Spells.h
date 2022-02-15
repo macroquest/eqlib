@@ -897,7 +897,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x20c :: 2022-01-13 (live) @ 0x5A3179
+// @sizeof(EQ_Spell) == 0x20c :: 2022-02-07 (test) @ 0x140204137
 constexpr size_t EQ_Spell_size = 0x20c;
 
 class [[offsetcomments]] EQ_Spell
@@ -907,9 +907,9 @@ public:
 	EQLIB_OBJECT bool IsStackableDot() const;
 	EQLIB_OBJECT int IsPermIllusionSpell() const;
 	EQLIB_OBJECT int SpellUsesDragonBreathEffect();
-	EQLIB_OBJECT unsigned char SpellAffects(int) const;              // this one takes an attrib(soe calls it affect) and returns the index for it...
-	EQLIB_OBJECT unsigned char GetSpellLevelNeeded(int) const;       // takes a Class, druid for example is 6
-	EQLIB_OBJECT int SpellAffectBase(int) const;                     // takes a SPA, returns the first matching base it finds for it
+	EQLIB_OBJECT unsigned char SpellAffects(int) const;                  // this one takes an attrib(soe calls it affect) and returns the index for it...
+	EQLIB_OBJECT unsigned char GetSpellLevelNeeded(EQClass) const;       // takes a Class, druid for example is 6
+	EQLIB_OBJECT int SpellAffectBase(int) const;                         // takes a SPA, returns the first matching base it finds for it
 	EQLIB_OBJECT const SpellAffectData* GetSpellAffectBySlot(int Slot) const;
 	EQLIB_OBJECT const SpellAffectData* GetSpellAffectByIndex(int Index) const;
 	EQLIB_OBJECT static bool IsDegeneratingLevelMod(int);
@@ -992,7 +992,7 @@ public:
 /*0x020*/ uint32_t             DurationCap = 0;
 /*0x024*/ uint32_t             AEDuration = 0;
 /*0x028*/ int                  ManaCost = 0;
-/*0x02c*/ float                Unknown0x02C = 0;              // See 565CB5 in eqgame oct 07 2019
+/*0x02c*/ float                Unknown0x02C = 0;
 /*0x030*/ int                  ReagentID[MAX_SPELL_REAGENTS]; // ReagentId1-ReagentId4d
 /*0x040*/ int                  ReagentCount[MAX_SPELL_REAGENTS]; // ReagentCount1-ReagentCount4
 /*0x050*/ int                  NoExpendReagent[MAX_SPELL_REAGENTS];
@@ -1098,7 +1098,7 @@ public:
 /*0x1f4*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
 /*0x1f5*/ bool                 NoHate = false;
 /*0x1f6*/ bool                 StacksWithSelf = false;
-/*0x1f7*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells see 7A57DF in Aug 10 2017 live
+/*0x1f7*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
 /*0x1f8*/ bool                 NoBuffBlock = false;
 /*0x1f9*/ int                  Scribable = 1;                 // int?
 /*0x1fd*/ bool                 NoStripOnDeath = false;
@@ -1149,8 +1149,8 @@ SIZE_CHECK(EQ_Spell, EQ_Spell_size);
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
 public:
-/*0x0230*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
-/*0x11e0*/
+/*0x0248*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
+/*0x21a8*/
 };
 
 enum EEffectActor
@@ -1251,8 +1251,8 @@ class [[offsetcomments]] EQSpellExtra
 {
 public:
 /*0x00*/ OldSpellEffect*    OldSpellEff;
-/*0x04*/ NewSpellEffect*    NewSpellEff;
-/*0x08*/
+/*0x08*/ NewSpellEffect*    NewSpellEff;
+/*0x10*/
 };
 
 //Matching stack group ID rules
@@ -1284,17 +1284,17 @@ constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocat
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
-/*0x00014*/ int            SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x40754*/ EQ_Spell*      MissingSpell;
-/*0x40758*/ SPELLCALCINFO* MissingSpellAffect;
-/*0x4075c*/ SPELLCALCINFO* MissingSpellAffectAC;
-/*0x40760*/ int            MissingSpellCrc32;
-/*0x40764*/ int            SpellFileCRC;
-/*0x40768*/ int            SpellAssocFileCRC;
-/*0x4076c*/ int            SpellStackingFileCRC;
-/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;
-/*0x41950*/ HashTable<int, int> SpellGroups;
-/*0x41960*/
+/*0x00020*/ int            SpellsCrc32[TOTAL_SPELL_COUNT];
+/*0x40760*/ EQ_Spell*      MissingSpell;
+/*0x40768*/ SPELLCALCINFO* MissingSpellAffect;
+/*0x40770*/ SPELLCALCINFO* MissingSpellAffectAC;
+/*0x40778*/ int            MissingSpellCrc32;
+/*0x4077c*/ int            SpellFileCRC;
+/*0x40780*/ int            SpellAssocFileCRC;
+/*0x40784*/ int            SpellStackingFileCRC;
+/*0x40788*/ SpellRequirementAssociationManager ReqAssocManager;
+/*0x42930*/ HashTable<int, int> SpellGroups;
+/*0x42948*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1302,8 +1302,8 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x1EF470 :: 2022-01-13 (live) @ 0x626E94
-constexpr size_t ClientSpellManager_size = 0x1EF470;
+// @sizeof(ClientSpellManager) == 0x39DF60 :: 2022-02-07 (test) @ 0x14029F096
+constexpr size_t ClientSpellManager_size = 0x39DF60;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
@@ -1320,11 +1320,11 @@ public:
 	EQLIB_OBJECT SPELLCALCINFO* GetSpellAffect(int index);
 	EQLIB_OBJECT bool GetSpellAffectEmpty(bool);
 
-/*0x041960*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
-/*0x0820a0*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
-/*0x16e5e0*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
-/*0x1ef460*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
-/*0x1ef470*/
+/*0x042948*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
+/*0x0c37c8*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
+/*0x29c248*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
+/*0x39df48*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
+/*0x39df60*/
 };
 
 inline namespace deprecated {
@@ -1338,15 +1338,15 @@ class [[offsetcomments]] MercenaryAbilityEffectsDefinition
 {
 public:
 /*0x00*/ void*     vfTable;
-/*0x04*/ int       ID;
-/*0x08*/ int       AbilityID;
-/*0x0c*/ int       FromID;
-/*0x10*/ int       Base;
-/*0x14*/ int       Base2;
-/*0x18*/ int       LevelMod;
-/*0x1c*/ int       Cap;
-/*0x20*/ int       Slot;
-/*0x24*/
+/*0x08*/ int       ID;
+/*0x0c*/ int       AbilityID;
+/*0x10*/ int       FromID;
+/*0x14*/ int       Base;
+/*0x18*/ int       Base2;
+/*0x1c*/ int       LevelMod;
+/*0x20*/ int       Cap;
+/*0x24*/ int       Slot;
+/*0x28*/
 };
 
 struct [[offsetcomments]] FocusEffectData
@@ -1361,8 +1361,8 @@ struct [[offsetcomments]] FocusEffectData
 struct [[offsetcomments]] CachedFocusAbility
 {
 /*0x00*/ FocusEffectData*   pEffectData;
-/*0x04*/ int                Percent;
-/*0x08*/
+/*0x08*/ int                Percent;
+/*0x0c*/
 };
 
 class [[offsetcomments]] SpellCache
@@ -1404,16 +1404,16 @@ public:
 	};
 
 /*0x00*/ HashTable<EffectCache>*                    pCachedEffects;
-/*0x04*/ bool                                       bCachedSpellEffects;
-/*0x08*/ HashTable<AltEffectCache>*                 pCachedAltAbilityEffects;
-/*0x0c*/ bool                                       bCachedAltEffects;
-/*0x10*/ HashTable<EffectCache>*                    pCachedLimitedEffects;
-/*0x14*/ bool                                       bCachedLimitedEffects;
-/*0x18*/ HashTable<CachedFocusItem, int64_t>        CachedFocusItems;
-/*0x28*/ HashTable<CachedFocusEffect, int64_t>      CachedFocusEffects;
-/*0x38*/ HashTable<CachedFocusAbility, int64_t>     CachedFocusAbilities;
-/*0x48*/ HashTable<CachedFocusMercAbility, int64_t> CachedFocusMercAbilities;
-/*0x58*/
+/*0x08*/ bool                                       bCachedSpellEffects;
+/*0x10*/ HashTable<AltEffectCache>*                 pCachedAltAbilityEffects;
+/*0x18*/ bool                                       bCachedAltEffects;
+/*0x20*/ HashTable<EffectCache>*                    pCachedLimitedEffects;
+/*0x28*/ bool                                       bCachedLimitedEffects;
+/*0x30*/ HashTable<CachedFocusItem, int64_t>        CachedFocusItems;
+/*0x48*/ HashTable<CachedFocusEffect, int64_t>      CachedFocusEffects;
+/*0x60*/ HashTable<CachedFocusAbility, int64_t>     CachedFocusAbilities;
+/*0x78*/ HashTable<CachedFocusMercAbility, int64_t> CachedFocusMercAbilities;
+/*0x90*/
 };
 
 constexpr int NUM_SLOTDATA = 6;

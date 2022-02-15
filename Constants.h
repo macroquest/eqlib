@@ -498,7 +498,6 @@ constexpr int MAX_MEMORIZED_SPELLS = 18;
 // need to find this one
 constexpr int NUM_ALT_ABILITIES_ARRAY = 503;
 
-// see 4FBD46 in eqgame.exe dated oct 29 2013 test
 constexpr int NUM_ALT_ABILITIES = 49999;
 
 // these two will merge when i get a chance - ieatacid wrote this?
@@ -508,8 +507,7 @@ constexpr int AA_CHAR_MAX = 245;
 // size is at 7EE7F8 in eqgame dated jun 13 2014
 constexpr int AA_CHAR_MAX_REAL = 300;
 
-// found in CSpellBookWnd__GetBookSlot_x (see 7A7DD7 in Nov 29 2017 Beta)
-// Find by searching for A1 ? ? ? ? 53 83 CB FF 85 C0 in IDA
+// found in CSpellBookWnd__GetBookSlot_x
 constexpr int NUM_BOOK_SLOTS = 1120;
 constexpr int NUM_COMBAT_ABILITIES = 300;
 constexpr int NUM_SKILLS = 100;
@@ -881,18 +879,7 @@ enum ETargetRelationship
 	eTargetOtherNPC
 };
 
-enum ETargetType
-{
-	eTrivialCon,
-	eVeryEasyCon,
-	eEasyCon,
-	eFairlyEasyCon,
-	eFairMatchCon,
-	eDifficultCon,
-	eDeadlyCon,
-	eFreeTarget,
-	eFreeTargetInvalid,
-};
+
 
 enum ePetCommandType
 {

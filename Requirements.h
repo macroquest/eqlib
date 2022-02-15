@@ -20,21 +20,23 @@
 
 namespace eqlib {
 
-
 //----------------------------------------------------------------------------
+
+class CSerializeBuffer;
+class CUnSerializeBuffer;
 
 class [[offsetcomments]] FileStatMgr
 {
 public:
 	struct FileStat
 	{
-		struct _stat32 Stats;
+		eqstat_t       Stats;
 		CXStr          Filename;
 		CXStr          Key;
 	};
 
 /*0x00*/ HashTable<FileStat*> FileStats;
-/*0x10*/
+/*0x18*/
 };
 
 enum ReqType
@@ -49,16 +51,25 @@ enum ReqType
 	// there are like 72 more of these...
 };
 
+// size: 0x248
+
 class [[offsetcomments]] RequirementAssociationManager : public FileStatMgr
 {
 public:
-/*0x010*/ void* vfTable;
-/*0x014*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
-/*0x024*/ char               AssocFilename[512];
-/*0x224*/ ReqType            LastFailReason;
-/*0x228*/ int                LastFailGroupID;
-/*0x22c*/ int                LastFailReqID;
-/*0x230*/
+	RequirementAssociationManager();
+	EQLIB_OBJECT virtual ~RequirementAssociationManager() {}
+
+	virtual void ClearAllRequirementAssociationsData() {}
+	virtual void Serialize(CSerializeBuffer&) {}
+	virtual void UnSerialize(CUnSerializeBuffer&) {}
+	virtual int LoadRequirementAssociationsFromFile(const char*, bool) { return 0; }
+
+/*0x020*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
+/*0x038*/ char               AssocFilename[512];
+/*0x238*/ ReqType            LastFailReason;
+/*0x23c*/ int                LastFailGroupID;
+/*0x240*/ int                LastFailReqID;
+/*0x244*/
 };
 
 } // namespace eqlib

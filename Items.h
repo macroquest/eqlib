@@ -98,9 +98,9 @@ inline namespace deprecated
 	{
 	public:
 	/*0x00*/ ITEMBASEARRAY* pItems;
-	/*0x04*/ size_t         Size;
-	/*0x08*/ unsigned int   Capacity;
-	/*0x0c*/
+	/*0x08*/ size_t         Size;
+	/*0x10*/ unsigned int   Capacity;
+	/*0x14*/
 	};
 }
 
@@ -302,7 +302,7 @@ inline bool operator!=(const ItemGlobalIndex& lhs, const ItemGlobalIndex& rhs)
 
 using ItemArray = VeArray<ItemPtr>;
 
-class ItemContainer
+class [[offsetcomments]] ItemContainer
 {
 public:
 	using iterator = ItemArray::iterator;
@@ -724,10 +724,10 @@ protected:
 /*0x00*/ uint32_t                m_size;
 /*0x04*/ ItemContainerInstance   m_type;
 /*0x08*/ ItemArray               m_items;
-/*0x0c*/ uint8_t                 m_atDepth = 0;
-/*0x10*/ short                   m_slots[ItemIndex::MAX_INVENTORY_DEPTH - 1];
-/*0x14*/ bool                    m_bDynamic;
-/*0x18*/
+/*0x20*/ uint8_t                 m_atDepth = 0;
+/*0x22*/ short                   m_slots[ItemIndex::MAX_INVENTORY_DEPTH - 1];
+/*0x26*/ bool                    m_bDynamic;
+/*0x28*/
 
 public:
 	ALT_MEMBER_GETTER(uint32_t, m_size, Size);
@@ -942,7 +942,7 @@ public:
 	}
 };
 
-// @sizeof(ItemDefinition) == 0x610 :: 2022-01-13 (live) @ 0x5C641D
+// @sizeof(ItemDefinition) == 0x610 :: 2022-02-07 (test) @ 0x14022CC9D
 constexpr size_t ItemDefinition_size = 0x610;
 
 class [[offsetcomments]] ItemDefinition
@@ -968,34 +968,34 @@ public:
 /*0x0d5*/ bool                NoDestroy;
 /*0x0d6*/ bool                bNoNPC;
 /*0x0d7*/ bool                NoZone;
-/*0x0d8*/ int                 MakerID;                           // 0-?? I did up to 12, I think it asks server for the name see 883655 in 11 jun 2018 test - eqmule
-/*0x0dc*/ bool                NoGround;                          // 88607E 11 jun 2018 test
+/*0x0d8*/ int                 MakerID;
+/*0x0dc*/ bool                NoGround;
 /*0x0dd*/ bool                bNoLoot;
-/*0x0de*/ bool                MarketPlace;                       // 886F85 11 jun 2018 test
-/*0x0df*/ bool                bFreeSlot;                         // 885565 11 jun 2018 test
-/*0x0e0*/ bool                bAutoUse;                          // 885865 11 jun 2018 test
+/*0x0de*/ bool                MarketPlace;
+/*0x0df*/ bool                bFreeSlot;
+/*0x0e0*/ bool                bAutoUse;
 /*0x0e4*/ int                 Unknown0x0e4;
-/*0x0e8*/ uint8_t             Size;                              // 884920 11 jun 2018 test
-/*0x0e9*/ uint8_t             Type;                              // 884BA5 11 jun 2018 test
-/*0x0ea*/ bool                TradeSkills;                       // 886EC5 11 jun 2018 test
-/*0x0ec*/ int                 Lore;                              // -1=Lore 0=Not Lore >=1=Lore Group see 885EE1 in 11 jun 2018 test
-/*0x0f0*/ int                 LoreEquipped;                      // just guessing todo: check
+/*0x0e8*/ uint8_t             Size;
+/*0x0e9*/ uint8_t             Type;
+/*0x0ea*/ bool                TradeSkills;
+/*0x0ec*/ int                 Lore;                              // -1=Lore 0=Not Lore >=1=Lore Group
+/*0x0f0*/ int                 LoreEquipped;                      // check me
 /*0x0f4*/ bool                Artifact;
 /*0x0f5*/ bool                Summoned;
 /*0x0f6*/ char                SvCold;
-/*0x0f7*/ char                SvFire;                            // 8848B0 jun 11 2018 test
+/*0x0f7*/ char                SvFire;
 /*0x0f8*/ char                SvMagic;
 /*0x0f9*/ char                SvDisease;
 /*0x0fa*/ char                SvPoison;
 /*0x0fb*/ char                SvCorruption;
 /*0x0fc*/ char                STR;
-/*0x0fd*/ char                STA;                               // 884B20 jun 11 2018 test
+/*0x0fd*/ char                STA;
 /*0x0fe*/ char                AGI;
 /*0x0ff*/ char                DEX;
-/*0x100*/ char                CHA;                               // 883E20 jun 11 2018 test
+/*0x100*/ char                CHA;
 /*0x101*/ char                INT;
 /*0x102*/ char                WIS;
-/*0x104*/ int                 HP;                                // 884010 jun 11 2018 test
+/*0x104*/ int                 HP;
 /*0x108*/ int                 Mana;
 /*0x10c*/ int                 AC;
 /*0x110*/ int                 RequiredLevel;
@@ -1016,7 +1016,7 @@ public:
 /*0x14c*/ int                 Deity;
 /*0x150*/ uint32_t            MaterialTintIndex;
 /*0x154*/ bool                Magic;
-/*0x155*/ uint8_t             Light;                      // 884045 jun 11 2018 test
+/*0x155*/ uint8_t             Light;
 /*0x156*/ uint8_t             Delay;
 /*0x157*/ uint8_t             ElementalFlag;              // used to be called DmgBonusType;
 /*0x158*/ uint8_t             ElementalDamage;            // used to be called DmgBonusVal
@@ -1024,19 +1024,19 @@ public:
 /*0x15c*/ int                 Damage;                     // BaseDamage
 /*0x160*/ int                 BackstabDamage;
 /*0x164*/ int                 HeroicSTR;
-/*0x168*/ int                 HeroicINT;                  // 883A30 jun 11 2018 test
-/*0x16c*/ int                 HeroicWIS;                  // 883A90 jun 11 2018 test
-/*0x170*/ int                 HeroicAGI;                  // 8839D0 jun 11 2018 test
+/*0x168*/ int                 HeroicINT;
+/*0x16c*/ int                 HeroicWIS;
+/*0x170*/ int                 HeroicAGI;
 /*0x174*/ int                 HeroicDEX;
-/*0x178*/ int                 HeroicSTA;                  // 883A50 jun 11 2018 test
-/*0x17c*/ int                 HeroicCHA;                  // 8839F0 jun 11 2018 test
-/*0x180*/ int                 HealAmount;                 // 883980 jun 11 2018 test
+/*0x178*/ int                 HeroicSTA;
+/*0x17c*/ int                 HeroicCHA;
+/*0x180*/ int                 HealAmount;
 /*0x184*/ int                 SpellDamage;
 /*0x188*/ int                 MinLuck;
 /*0x18c*/ int                 MaxLuck;
-/*0x190*/ int                 Prestige;                   // 884816 jun 11 2018 test
+/*0x190*/ int                 Prestige;
 /*0x194*/ uint8_t             ItemClass;                  // eItemClass
-/*0x198*/ ArmorProperties     ArmorProps;                 // size is 0x14
+/*0x198*/ ArmorProperties     ArmorProps;
 /*0x1ac*/ ItemSocketData      AugData;
 /*0x1dc*/ int                 AugType;
 /*0x1e0*/ uint32_t            AugSkinTypeMask;
@@ -1058,7 +1058,7 @@ public:
 /*0x505*/ uint8_t             Slots;
 /*0x506*/ uint8_t             SizeCapacity;
 /*0x507*/ uint8_t             WeightReduction;
-/*0x508*/ uint8_t             BookType;                   // 0=note, !0=book 884CF5 jun 11 2018 test
+/*0x508*/ uint8_t             BookType;                   // 0=note, !0=book
 /*0x509*/ int8_t              BookLang;
 /*0x50a*/ char                BookFile[30];
 /*0x528*/ int                 Favor;                      // Tribute Value
@@ -1203,47 +1203,46 @@ class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildIt
 {
 public:
 // @start: ItemBase Members
-/*0x0c*/ int                   Charges;
-/*0x10*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x20*/ ITEMINFO*             Item1;
-/*0x24*/ bool                  bDisableAugTexture;
-/*0x25*/ EqItemGuid            ItemGUID;
-/*0x37*/ bool                  bRankDisabled;
-/*0x38*/ CXStr                 ActorTag1;
-/*0x3c*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x44*/ unsigned int          RespawnTime;
-/*0x48*/ bool                  bConvertable;
-/*0x4c*/ unsigned int          NewArmorID;
-/*0x50*/ int                   Power;
-/*0x54*/ bool                  bItemNeedsUpdate;
-/*0x58*/ int                   OrnamentationIcon;
-/*0x5c*/ int                   ConvertItemID;
-/*0x60*/ bool                  bCollected;
-/*0x68*/ int64_t               MerchantSlot;
-/*0x70*/ int                   RealEstateID;
-/*0x74*/ bool                  bRealEstateItemPlaceable;
-/*0x78*/ int                   NoteStatus;
-/*0x7c*/ int                   StackCount;
-/*0x80*/ int64_t               Price;
-/*0x88*/ unsigned int          Tint;
-/*0x8c*/ int                   NoDropFlag;
-/*0x90*/ int                   MerchantQuantity;
-/*0x94*/ int                   AugFlag;
-/*0x98*/ CXStr                 SaveString;
-/*0x9c*/ CXStr                 ConvertItemName;
-/*0xa0*/ int                   Luck;
-/*0xa4*/ int                   Open;
-/*0xa8*/ unsigned int          ItemHash;
-/*0xb0*/ int64_t               DontKnow;
-/*0xb8*/ bool                  bCopied;
-/*0xbc*/ int                   ScriptIndex;
-/*0xc0*/ unsigned int          LastCastTime;
-/*0xc4*/ ItemGlobalIndex       GlobalIndex;
-/*0xd0*/ int                   ArmorType;
-/*0xd4*/ int                   ID;
-/*0xd8*/ ItemContainer         Contents;
-/*0xf4*/ CXStr                 ActorTag2;
-/*0xf8*/
+/*0x018*/ bool                  bRealEstateItemPlaceable;
+/*0x01c*/ int                   ScriptIndex;
+/*0x020*/ int                   NoDropFlag;
+/*0x028*/ CXStr                 SaveString;
+/*0x030*/ int                   AugFlag;
+/*0x038*/ CXStr                 ConvertItemName;
+/*0x040*/ CXStr                 ActorTag1;
+/*0x048*/ int                   MerchantQuantity;
+/*0x04c*/ int                   ConvertItemID;
+/*0x050*/ int                   Charges;
+/*0x054*/ int                   ID;
+/*0x058*/ int64_t               MerchantSlot;
+/*0x060*/ int                   StackCount;
+/*0x064*/ int                   Open;
+/*0x068*/ ItemGlobalIndex       GlobalIndex;
+/*0x074*/ int                   Luck;
+/*0x078*/ bool                  bConvertable;
+/*0x080*/ ItemContainer         Contents;
+/*0x0a8*/ bool                  bCollected;
+/*0x0ac*/ int                   OrnamentationIcon;
+/*0x0b0*/ EqItemGuid            ItemGUID;
+/*0x0c4*/ int                   RealEstateID;
+/*0x0c8*/ int64_t               Price;
+/*0x0d0*/ CXStr                 ActorTag2;
+/*0x0d8*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0x0f0*/ int                   ArmorType;
+/*0x0f4*/ unsigned int          LastCastTime;
+/*0x0f8*/ bool                  bItemNeedsUpdate;
+/*0x0fc*/ unsigned int          NewArmorID;
+/*0x100*/ bool                  bDisableAugTexture;
+/*0x108*/ int64_t               DontKnow;
+/*0x110*/ int                   NoteStatus;
+/*0x114*/ bool                  bRankDisabled;
+/*0x118*/ int                   Power;
+/*0x120*/ ItemEvolutionDataPtr  pEvolutionData;
+/*0x130*/ unsigned int          ItemHash;
+/*0x134*/ unsigned int          Tint;
+/*0x138*/ ITEMINFO*             Item1;
+/*0x140*/ bool                  bCopied;
+/*0x144*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT ItemBase();
@@ -1356,8 +1355,8 @@ public:
 	__declspec(property(get = get_Item2)) ItemDefinition* Item2;
 };
 
-// @sizeof(ItemClient) == 0x108 :: 2022-01-13 (live) @ 0x65803C
-constexpr size_t ItemClient_size = 0x108;
+// @sizeof(ItemClient) == 0x160 :: 2022-02-07 (test) @ 0x1402DA87A 
+constexpr size_t ItemClient_size = 0x160;
 
 class [[offsetcomments]] ItemClient : public ItemBase
 {
@@ -1369,10 +1368,9 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
-/*0x0f8*/ ItemDefinitionPtr SharedItemDef;
-/*0x100*/ CXStr             ClientString;
-/*0x104*/ uint8_t           Filler0x010c[0x4];
-/*0x108*/
+/*0x148*/ ItemDefinitionPtr SharedItemDef;
+/*0x158*/ CXStr             ClientString;
+/*0x160*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);
@@ -1386,32 +1384,32 @@ using EQ_Item DEPRECATE("Use ItemClient instead (or make sure the conversion is 
 // 20101012 - ieatacid
 struct [[offsetcomments]] INVENTORY
 {
-/*0x00*/ ItemClient* Charm;
-/*0x04*/ ItemClient* LeftEar;
-/*0x08*/ ItemClient* Head;
-/*0x0c*/ ItemClient* Face;
-/*0x10*/ ItemClient* RightEar;
-/*0x14*/ ItemClient* Neck;
-/*0x18*/ ItemClient* Shoulders;
-/*0x1c*/ ItemClient* Arms;
-/*0x20*/ ItemClient* Back;
-/*0x24*/ ItemClient* LeftWrist;
-/*0x28*/ ItemClient* RightWrist;
-/*0x2c*/ ItemClient* Range;
-/*0x30*/ ItemClient* Hands;
-/*0x34*/ ItemClient* Primary;
-/*0x38*/ ItemClient* Secondary;
-/*0x3c*/ ItemClient* LeftFinger;
-/*0x40*/ ItemClient* RightFinger;
-/*0x44*/ ItemClient* Chest;
-/*0x48*/ ItemClient* Legs;
-/*0x4c*/ ItemClient* Feet;
-/*0x50*/ ItemClient* Waist;
-/*0x54*/ ItemClient* PowerSource;
-/*0x58*/ ItemClient* Ammo;
-/*0x5c*/ ItemClient* Pack[NUM_BAG_SLOTS];
-/*0x8c*/ ItemClient* Cursor;
-/*0x90*/
+/*0x000*/ ItemClient* Charm;
+/*0x008*/ ItemClient* LeftEar;
+/*0x010*/ ItemClient* Head;
+/*0x018*/ ItemClient* Face;
+/*0x020*/ ItemClient* RightEar;
+/*0x028*/ ItemClient* Neck;
+/*0x030*/ ItemClient* Shoulders;
+/*0x038*/ ItemClient* Arms;
+/*0x040*/ ItemClient* Back;
+/*0x048*/ ItemClient* LeftWrist;
+/*0x050*/ ItemClient* RightWrist;
+/*0x058*/ ItemClient* Range;
+/*0x060*/ ItemClient* Hands;
+/*0x068*/ ItemClient* Primary;
+/*0x070*/ ItemClient* Secondary;
+/*0x078*/ ItemClient* LeftFinger;
+/*0x080*/ ItemClient* RightFinger;
+/*0x088*/ ItemClient* Chest;
+/*0x090*/ ItemClient* Legs;
+/*0x098*/ ItemClient* Feet;
+/*0x0a0*/ ItemClient* Waist;
+/*0x0a8*/ ItemClient* PowerSource;
+/*0x0b0*/ ItemClient* Ammo;
+/*0x0b8*/ ItemClient* Pack[NUM_BAG_SLOTS];
+/*0x118*/ ItemClient* Cursor;
+/*0x120*/
 };
 
 using PINVENTORY DEPRECATE("Use INVENTORY* instead of PINVENTORY") = INVENTORY*;
@@ -1440,6 +1438,8 @@ using PINVENTORYARRAY DEPRECATE("Use INVENTORYARRAY* Instead of PINVENTORYARRAY"
 // offsets are relative to their position in LAUNCHSPELLDATA
 struct [[offsetcomments]] ITEMLOCATION
 {
+	FORCE_SYMBOLS
+
 	/*0x00*/ ItemContainerInstance Location DEPRECATE("Use ItemGlobalIndex");
 	/*0x04*/ short InvSlot DEPRECATE("Use ItemGlobalIndex");
 	/*0x06*/ short BagSlot DEPRECATE("Use ItemGlobalIndex");

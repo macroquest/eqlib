@@ -52,9 +52,9 @@ enum AchievementState
 struct [[offsetcomments]] CompletedAchievementData
 {
 /*0x00*/ int                      achievementId;
-/*0x04*/ __time32_t               completedTimestamp;
-/*0x08*/ int                      completedVersion;
-/*0x0c*/
+/*0x08*/ eqtime_t                 completedTimestamp;
+/*0x10*/ int                      completedVersion;
+/*0x14*/
 };
 
 //----------------------------------------------------------------------------
@@ -83,8 +83,8 @@ struct [[offsetcomments]] AchievementSubComponentCountData
 struct [[offsetcomments]] AchievementInfo
 {
 /*0x00*/ int       achievementId;
-/*0x04*/ CXStr     description;
-/*0x08*/
+/*0x08*/ CXStr     description;
+/*0x10*/
 };
 using AchievementInfoArray = ArrayClass<AchievementInfo>;
 
@@ -127,23 +127,23 @@ public:
 	}
 	
 
-/*0x04*/ AchievementInfoArray     achievements;
-/*0x14*/ ArrayClass<int>          childCategories;
-/*0x24*/ int                      id = -1;
-/*0x28*/ int                      parentId = -1;
-/*0x2c*/ CXStr                    name;
-/*0x30*/ CXStr                    description;
-/*0x34*/ CXStr                    bitmapId;
-/*0x38*/ int                      displaySequence = -1;
-/*0x3c*/ int                      completedAchievementScore;
-/*0x40*/ int                      comparisonCompletedAchievementScore;
-/*0x44*/ int                      completedAchievementCount;
-/*0x48*/ int                      openAchievementCount;
-/*0x4c*/ int                      lockedAchievementCount;
-/*0x50*/ int                      comparisonCompletedAchievementCount;
-/*0x54*/ int                      comparisonOpenAchievementCount;
-/*0x58*/ int                      comparisonLockedAchievementCount;
-/*0x5c*/
+/*0x08*/ AchievementInfoArray     achievements;
+/*0x20*/ ArrayClass<int>          childCategories;
+/*0x38*/ int                      id = -1;
+/*0x3c*/ int                      parentId = -1;
+/*0x40*/ CXStr                    name;
+/*0x48*/ CXStr                    description;
+/*0x50*/ CXStr                    bitmapId;
+/*0x58*/ int                      displaySequence = -1;
+/*0x5c*/ int                      completedAchievementScore;
+/*0x60*/ int                      comparisonCompletedAchievementScore;
+/*0x64*/ int                      completedAchievementCount;
+/*0x68*/ int                      openAchievementCount;
+/*0x6c*/ int                      lockedAchievementCount;
+/*0x70*/ int                      comparisonCompletedAchievementCount;
+/*0x74*/ int                      comparisonOpenAchievementCount;
+/*0x78*/ int                      comparisonLockedAchievementCount;
+/*0x7c*/
 };
 
 //----------------------------------------------------------------------------
@@ -153,13 +153,13 @@ public:
 	virtual void Serialize(CSerializeBuffer&) const {}
 	virtual void UnSerialize(CUnSerializeBuffer&) {}
 
-/*0x04*/ int                      id = -1;
-/*0x08*/ AchievementComponentType type = AchievementComponentNone;
-/*0x0c*/ int                      sequenceNum = -1;
-/*0x10*/ int                      requiredCount = 0;
-/*0x14*/ CXStr                    description;
-/*0x18*/ int                      count = 0;
-/*0x1c*/
+/*0x08*/ int                      id = -1;
+/*0x0c*/ AchievementComponentType type = AchievementComponentNone;
+/*0x10*/ int                      sequenceNum = -1;
+/*0x14*/ int                      requiredCount = 0;
+/*0x18*/ CXStr                    description;
+/*0x20*/ int                      count = 0;
+/*0x24*/
 };
 using AchievementComponentArray = ArrayClass<AchievementComponent>;
 
@@ -213,16 +213,16 @@ public:
 	}
 
 /*0x00*/ AchievementComponentArray componentsByType[AchievementComponentCount];
-/*0x40*/ int                      id = -1;
-/*0x44*/ CXStr                    name;
-/*0x48*/ CXStr                    description;
-/*0x4c*/ int                      iconId = -1;
-/*0x50*/ bool                     persistent = true;
-/*0x54*/ int                      version = 0;
-/*0x58*/ int                      points = 0;
-/*0x5c*/ int                      rewardSet = 0;
-/*0x60*/ uint8_t                  unknown0x60 = 0; // maybe a bool?
-/*0x64*/
+/*0x60*/ int                      id = -1;
+/*0x68*/ CXStr                    name;
+/*0x70*/ CXStr                    description;
+/*0x78*/ int                      iconId = -1;
+/*0x7c*/ bool                     persistent = true;
+/*0x80*/ int                      version = 0;
+/*0x84*/ int                      points = 0;
+/*0x88*/ int                      rewardSet = 0;
+/*0x8c*/ uint8_t                  unknown0x60 = 0; // maybe a bool?
+/*0x90*/
 };
 
 //----------------------------------------------------------------------------
@@ -249,12 +249,12 @@ struct [[offsetcomments]] SingleAchievementAndComponentsInfo
 		}
 	}
 
-/*0x04*/ AchievementState         achievementState;
-/*0x08*/ DynamicBitField<uint16_t, int16_t> completionComponentStatusBitField;
-/*0x10*/ DynamicBitField<uint16_t, int16_t> indirectComponentStatusBitField;
-/*0x18*/ DynamicBitField<uint16_t, int16_t> unlockedComponentStatusBitField;
-/*0x20*/ __time32_t               completionTimestamp;
-/*0x24*/
+/*0x08*/ AchievementState         achievementState;
+/*0x10*/ DynamicBitField<uint16_t, int16_t> completionComponentStatusBitField;
+/*0x20*/ DynamicBitField<uint16_t, int16_t> indirectComponentStatusBitField;
+/*0x30*/ DynamicBitField<uint16_t, int16_t> unlockedComponentStatusBitField;
+/*0x40*/ eqtime_t                 completionTimestamp;
+/*0x48*/
 };
 using AchievementsAndComponentsInfoArray = ArrayClass<SingleAchievementAndComponentsInfo>;
 
@@ -263,17 +263,20 @@ struct [[offsetcomments]] SingleAchievementAndComponentsInfoWithCounts : public 
 {
 	EQLIB_OBJECT int GetComponentCount(AchievementComponentType type, int index);
 
-/*0x24*/ ArrayClass<int>          completionComponentCounts;
-/*0x34*/ ArrayClass<int>          indirectComponentCounts;
-/*0x44*/ ArrayClass<int>          unlockedComponentCounts;
-/*0x54*/
+/*0x48*/ ArrayClass<int>          completionComponentCounts;
+/*0x60*/ ArrayClass<int>          indirectComponentCounts;
+/*0x78*/ ArrayClass<int>          unlockedComponentCounts;
+/*0x90*/
 };
 
 //----------------------------------------------------------------------------
 struct [[offsetcomments]] SingleAchievementIdAndInfo
 {
+	FORCE_SYMBOLS
+
 /*0x00*/ int                      achievementId;
-/*0x04*/ SingleAchievementAndComponentsInfo achievementInfo;
+/*0x08*/ SingleAchievementAndComponentsInfo achievementInfo;
+/*0x50*/
 };
 using AchievementStateInfoArray = ArrayClass<SingleAchievementIdAndInfo>;
 
@@ -281,7 +284,7 @@ using AchievementStateInfoArray = ArrayClass<SingleAchievementIdAndInfo>;
 //============================================================================
 // Achievement Manager
 
-class AchievementManager
+class [[offsetcomments]] AchievementManager
 {
 public:
 	EQLIB_OBJECT static AchievementManager& Instance();
@@ -400,25 +403,26 @@ public:
 	//----------------------------------------------------------------------------
 	// AchievementManager
 
-/*0x04*/ ArrayClass2<AchievementCategory>   categories;
-/*0x1c*/ ArrayClass2<Achievement>           achievements;
+/*0x08*/ ArrayClass2<AchievementCategory>   categories;
+/*0x28*/ ArrayClass2<Achievement>           achievements;
 
 	//----------------------------------------------------------------------------
 	// AchievementManagerClient
 
-/*0x34*/ AchievementsAndComponentsInfoArray achievementClientInfoArray;
-/*0x44*/ AchievementsAndComponentsInfoArray achievementsClientComparisonInfoArray;
-/*0x54*/ bool                               achievementClientReadOnlyDataSet;
-/*0x55*/ bool                               achievementClientStatesSet;
-/*0x56*/ bool                               comparisonAchievementStatesSet;
-/*0x58*/ uint32_t                           completedAchievementScore;
-/*0x5c*/ uint32_t                           completedAchievementCount;
-/*0x60*/ uint32_t                           lockedAchievemmentCount;
-/*0x64*/ uint32_t                           openAchievementCount;
-/*0x68*/ uint32_t                           comparisonCompletedAchievementScore;
-/*0x6c*/ uint32_t                           comparisonCompletedAchievementCount;
-/*0x70*/ uint32_t                           comparisonLockedAchievementCount;
-/*0x74*/ uint32_t                           comparisonOpenAchievementCount;
+/*0x48*/ AchievementsAndComponentsInfoArray achievementClientInfoArray;
+/*0x60*/ AchievementsAndComponentsInfoArray achievementsClientComparisonInfoArray;
+/*0x78*/ bool                               achievementClientReadOnlyDataSet;
+/*0x79*/ bool                               achievementClientStatesSet;
+/*0x7a*/ bool                               comparisonAchievementStatesSet;
+/*0x7c*/ uint32_t                           completedAchievementScore;
+/*0x80*/ uint32_t                           completedAchievementCount;
+/*0x84*/ uint32_t                           lockedAchievemmentCount;
+/*0x88*/ uint32_t                           openAchievementCount;
+/*0x8c*/ uint32_t                           comparisonCompletedAchievementScore;
+/*0x90*/ uint32_t                           comparisonCompletedAchievementCount;
+/*0x94*/ uint32_t                           comparisonLockedAchievementCount;
+/*0x98*/ uint32_t                           comparisonOpenAchievementCount;
+/*0x9c*/
 };
 
 } // namespace eqlib

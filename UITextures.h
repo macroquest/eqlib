@@ -62,9 +62,9 @@ public:
 /*0x00*/ bool          bValid = false;
 /*0x04*/ enDir         Directory = cUIDirectory;
 /*0x08*/ CXStr         Name;
-/*0x0c*/ CXSize        TextureSize;
-/*0x14*/ uint32_t      TextureId = -1;
-/*0x18*/
+/*0x10*/ CXSize        TextureSize;
+/*0x18*/ uint32_t      TextureId = -1;
+/*0x1c*/
 };
 
 class [[offsetcomments]] CUITexturePiece
@@ -85,8 +85,8 @@ public:
 
 private:
 /*0x00*/ CUITextureInfo      m_info;
-/*0x18*/ CXRect              m_rect;
-/*0x28*/
+/*0x20*/ CXRect              m_rect;
+/*0x30*/
 };
 
 
@@ -99,9 +99,9 @@ struct [[offsetcomments]] STextureAnimationFrame
 	FORCE_SYMBOLS;
 
 /*0x00*/ CUITexturePiece    Piece;
-/*0x28*/ uint32_t           Ticks = 0;
-/*0x2c*/ CXPoint            Hotspot;
-/*0x34*/
+/*0x30*/ uint32_t           Ticks = 0;
+/*0x34*/ CXPoint            Hotspot;
+/*0x3c*/
 };
 
 class [[offsetcomments]] CTextureAnimation
@@ -137,21 +137,21 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x04*/ CXStr              Name;
-/*0x08*/ ArrayClass<STextureAnimationFrame> Frames;
-/*0x18*/ uint32_t           TotalTicks = 0;
-/*0x1c*/ int                ZeroFrame = 0;
-/*0x20*/ uint32_t           StartTicks = GetTickCount();
-/*0x24*/ CXSize             Size;
-/*0x2c*/ bool               bPaused = false;
-/*0x2d*/ bool               bCycle = true;
-/*0x2e*/ bool               bGrid = false;
-/*0x2f*/ bool               bVertical = false;
-/*0x30*/ int                CellWidth = 0;
-/*0x34*/ int                CellHeight = 0;
-/*0x38*/ int                CurCell = -1;
-/*0x3c*/ CXRect             CellRect;
-/*0x4c*/
+/*0x08*/ CXStr              Name;
+/*0x10*/ ArrayClass<STextureAnimationFrame> Frames;
+/*0x28*/ uint32_t           TotalTicks = 0;
+/*0x2c*/ int                ZeroFrame = 0;
+/*0x30*/ uint32_t           StartTicks = GetTickCount();
+/*0x34*/ CXSize             Size;
+/*0x3c*/ bool               bPaused = false;
+/*0x3d*/ bool               bCycle = true;
+/*0x3e*/ bool               bGrid = false;
+/*0x3f*/ bool               bVertical = false;
+/*0x40*/ int                CellWidth = 0;
+/*0x44*/ int                CellHeight = 0;
+/*0x48*/ int                CurCell = -1;
+/*0x4c*/ CXRect             CellRect;
+/*0x5c*/
 };
 
 //============================================================================
@@ -212,13 +212,13 @@ public:
 	// data members
 private:
 /*0x00*/ CXStr              m_name;
-/*0x04*/ CTextureAnimation* m_pta[FrameDraw_Max];
-/*0x38*/ int                Unknown0x38 = -1;                 // FIXME: Check this
-/*0x3c*/ int                m_nOverlapTop = 0;
-/*0x40*/ int                m_nOverlapLeft = 0;
-/*0x44*/ int                m_nOverlapBottom = 0;
-/*0x48*/ int                m_nOverlapRight = 0;
-/*0x4c*/
+/*0x08*/ CTextureAnimation* m_pta[FrameDraw_Max];
+/*0x70*/ int                Unknown0x38 = -1;                 // FIXME: Check this
+/*0x74*/ int                m_nOverlapTop = 0;
+/*0x78*/ int                m_nOverlapLeft = 0;
+/*0x7c*/ int                m_nOverlapBottom = 0;
+/*0x80*/ int                m_nOverlapRight = 0;
+/*0x84*/
 };
 
 

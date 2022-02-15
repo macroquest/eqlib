@@ -22,8 +22,7 @@
 
 namespace eqlib {
 
-FUNCTION_AT_VARIABLE_ADDRESS(void ConvertItemTags(CXStr&, bool), __ConvertItemTags);
-FUNCTION_AT_VARIABLE_ADDRESS(CXStr CleanItemTags(const CXStr&, bool), __CleanItemTags);
+FUNCTION_AT_ADDRESS(void, ConvertItemTags(CXStr&, bool), __ConvertItemTags);
 
 // Used in ConvertItemTags, to be safe from change this could be imported from the game.
 // This can be found from within ConvertItemTags
@@ -175,7 +174,7 @@ bool GetItemLink(ItemClient* pItem, char* Buffer, size_t BufferSize, bool Clicka
 
 	pItem->CreateItemTagString(hash, MAX_STRING, true);
 
-	int len = strlen(hash);
+	size_t len = strlen(hash);
 	if (len > 0)
 	{
 		if (Clickable)
@@ -236,7 +235,7 @@ void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* a
 		for (int index = 0; index < achievementInfo.unlockedComponentCounts.GetLength(); ++index)
 			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.unlockedComponentCounts[index]);
 
-		snprintf(Buffer, BufferSize, "%c%d%.*s'%s%c", ITEM_TAG_CHAR, ETAG_ACHIEVEMENT, mbuf.size(), mbuf.data(),
+		snprintf(Buffer, BufferSize, "%c%d%.*s'%s%c", ITEM_TAG_CHAR, ETAG_ACHIEVEMENT, static_cast<int>(mbuf.size()), mbuf.data(),
 			achievement->name.c_str(), ITEM_TAG_CHAR);
 	}
 }
@@ -328,7 +327,7 @@ bool ExecuteTextLink(const TextTagInfo& link)
 
 			// strip the \x12 and the text portion
 			char szTempLink[MAX_STRING];
-			sprintf_s(szTempLink, "%.*s", linkCode.size(), linkCode.data());
+			sprintf_s(szTempLink, "%.*s", static_cast<int>(linkCode.size()), linkCode.data());
 
 			pWnd->WndNotification(pWnd->OutputWnd, notif, szTempLink);
 			return true;
@@ -345,9 +344,9 @@ char* StripTextLinks(char* szText)
 	if (linkCount == 0) // nothing to strip
 		return szText;
 
-	int stringLength = strlen(szText);
-	int pos = 0;                   // source copy position
-	int dest = 0;                  // dest copy position
+	size_t stringLength = strlen(szText);
+	size_t pos = 0;                   // source copy position
+	size_t dest = 0;                  // dest copy position
 
 	// holds pointer to the end of the previous link.
 	const char* prevLinkEnd = szText;
@@ -362,7 +361,7 @@ char* StripTextLinks(char* szText)
 		size_t skipAmount = tagInfo.link.size();
 		prevLinkEnd = erasePos + skipAmount;
 
-		int forwardDistance = (erasePos - szText) - pos;
+		int forwardDistance = static_cast<int>(erasePos - szText) - static_cast<int>(pos);
 
 		// if we have to move our cursor forward, do it now.
 		if (forwardDistance > 0)

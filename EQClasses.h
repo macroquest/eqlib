@@ -37,12 +37,47 @@ class CVector3;
 //============================================================================
 // Aggro Meter
 
+enum AggroDataTypes
+{
+	AD_Player,
+	AD_Secondary,
+	AD_Group1,
+	AD_Group2,
+	AD_Group3,
+	AD_Group4,
+	AD_Group5,
+	AD_xTarget1,
+	AD_xTarget2,
+	AD_xTarget3,
+	AD_xTarget4,
+	AD_xTarget5,
+	AD_xTarget6,
+	AD_xTarget7,
+	AD_xTarget8,
+	AD_xTarget9,
+	AD_xTarget10,
+	AD_xTarget11,
+	AD_xTarget12,
+	AD_xTarget13,
+	AD_xTarget14,
+	AD_xTarget15,
+	AD_xTarget16,
+	AD_xTarget17,
+	AD_xTarget18,
+	AD_xTarget19,
+	AD_xTarget20,
+};
+
 struct AggroMeterListEntry
 {
-	void*    vfTable;
+	virtual void Reset() {}
+
 	uint16_t AggroPct;
 };
-using PAggroMeterListEntry = AggroMeterListEntry*;
+
+using PAggroMeterListEntry DEPRECATE("Use AggroMeterListEntry* instead of PAggroMeterListEntry") = AggroMeterListEntry*;
+using AGGRODATA DEPRECATE("Use AggroMeterListEntry instead of AGGRODATA") = AggroMeterListEntry;
+using PAGGRODATA DEPRECATE("Use AggroMeterListEntry* instead of PAGGRODATA") = AggroMeterListEntry*;
 
 constexpr int MAX_AGGRO_METER_SIZE = 30;
 
@@ -51,40 +86,232 @@ class [[offsetcomments]] AggroMeterManagerClient
 public:
 	static EQLIB_OBJECT AggroMeterManagerClient& Instance();
 
-/*0x00*/ TSafeArrayStatic<AggroMeterListEntry, MAX_AGGRO_METER_SIZE> aggroData;
-/*0xf0*/ DWORD AggroLockID;                     // this can be 0, I dont know what it is...
-/*0xf4*/ DWORD AggroTargetID;                   // this is id of whoever we are fighting
-/*0xf8*/ DWORD AggroSecondaryID;                // this is id of whoever the npc is fighting
-/*0xfc*/
+/*0x000*/ AggroMeterListEntry aggroData[MAX_AGGRO_METER_SIZE];
+/*0x1e0*/ uint32_t AggroLockID;                     // this can be 0, I dont know what it is...
+/*0x1e4*/ uint32_t AggroTargetID;                   // this is id of whoever we are fighting
+/*0x1e8*/ uint32_t AggroSecondaryID;                // this is id of whoever the npc is fighting
+/*0x1ec*/
 };
 
-// actual size 0x80 20101012 - ieatacid
+using AGGROINFO DEPRECATE("Use AggroMeterManagerClient instead of AGGROINFO") = AggroMeterManagerClient;
+using PAGGROINFO DEPRECATE("Use AggroMeterManagerClient* instead of PAGGROINFO") = AggroMeterManagerClient*;
+
+
+// This is actually part of the LabelCache.
+struct [[offsetcomments]] LabelCache_AggroData
+{
+	FORCE_SYMBOLS
+
+/*0x000*/ int           AggroMostHatedName[64];
+/*0x100*/ int           AggroHatePct[MAX_AGGRO_METER_SIZE];
+/*0x178*/ int           AggroMyHatePct;
+/*0x17c*/ };
+
+struct [[offsetcomments]] LabelCache
+{
+/*0x000*/ char  Name[64];
+/*0x040*/ char  LastName[64];
+/*0x080*/ int   Level;
+/*0x084*/ char  Class[64];
+/*0x0c4*/ char  Title[64];
+/*0x104*/ int   Deity;
+/*0x108*/ int   Str;
+/*0x10c*/ int   Sta;
+/*0x110*/ int   Dex;
+/*0x114*/ int   Agi;
+/*0x118*/ int   Wis;
+/*0x11c*/ int   Int;
+/*0x120*/ int   Cha;
+/*0x124*/ int   ResistPoison;
+/*0x128*/ int   ResistDisease;
+/*0x12c*/ int   ResistCorruption;
+/*0x130*/ int   ResistFire;
+/*0x134*/ int   ResistCold;
+/*0x138*/ int   ResistMagic;
+/*0x13c*/ int   BaseStr;
+/*0x140*/ int   BaseSta;
+/*0x144*/ int   BaseDex;
+/*0x148*/ int   BaseAgi;
+/*0x14c*/ int   BaseWis;
+/*0x150*/ int   BaseInt;
+/*0x154*/ int   BaseCha;
+/*0x158*/ int   BaseResistPoison;
+/*0x15c*/ int   BaseResistDisease;
+/*0x160*/ int   BaseResistCorruption;
+/*0x164*/ int   BaseResistFire;
+/*0x168*/ int   BaseResistCold;
+/*0x16c*/ int   BaseResistMagic;
+/*0x170*/ int   HeroicStr;
+/*0x174*/ int   HeroicSta;
+/*0x178*/ int   HeroicDex;
+/*0x17c*/ int   HeroicAgi;
+/*0x180*/ int   HeroicWis;
+/*0x184*/ int   HeroicInt;
+/*0x188*/ int   HeroicCha;
+/*0x18c*/ int   MaxStr;
+/*0x190*/ int   MaxSta;
+/*0x194*/ int   MaxDex;
+/*0x198*/ int   MaxAgi;
+/*0x19c*/ int   MaxWis;
+/*0x1a0*/ int   MaxInt;
+/*0x1a4*/ int   MaxCha;
+/*0x1a8*/ int   MaxResistPoison;
+/*0x1ac*/ int   MaxResistDisease;
+/*0x1b0*/ int   MaxResistCorruption;
+/*0x1b4*/ int   MaxResistFire;
+/*0x1b8*/ int   MaxResistCold;
+/*0x1bc*/ int   MaxResistMagic;
+/*0x1c0*/ int   HP;
+/*0x1c4*/ int   MaxHP;
+/*0x1c8*/ float HPPct;
+/*0x1cc*/ int   Mana;
+/*0x1d0*/ int   MaxMana;
+/*0x1d4*/ float ManaPct;
+/*0x1d8*/ int   Endurance;
+/*0x1dc*/ int   MaxEndurance;
+/*0x1e0*/ float EndurancePct;
+/*0x1e4*/ int   Mitigation;
+/*0x1e8*/ int   Evasion;
+/*0x1ec*/ int   Attack;
+/*0x1f0*/ int   Accuracy;
+/*0x1f4*/ int   Weight;
+/*0x1f8*/ int   MaxWeight;
+/*0x1fc*/ float ExpPct;
+/*0x200*/ float AAExpPct;
+/*0x204*/ int   AAPoints;
+/*0x208*/ int   AASiphon;
+/*0x20c*/ int   Haste;
+/*0x210*/ int   HPRegen;
+/*0x214*/ int   ManaRegen;
+/*0x218*/ int   EnduranceRegen;
+/*0x21c*/ int   SpellShield;
+/*0x220*/ int   CombatEfficiency;
+/*0x224*/ int   Shielding;
+/*0x228*/ int   DmgShielding;
+/*0x22c*/ int   DoTShielding;
+/*0x230*/ int   DmgShieldMitigation;
+/*0x234*/ int   Avoidance;
+/*0x238*/ int   AccuracyBonus;
+/*0x23c*/ int   StunResist;
+/*0x240*/ int   StrikeThrough;
+/*0x244*/ int   HealAmount;
+/*0x248*/ int   SpellDamage;
+/*0x24c*/ int   Clairvoyance;
+/*0x250*/ int   SkillDmgBash;
+/*0x254*/ int   SkillDmgBackstab;
+/*0x258*/ int   SkillDmgDragonPunch;
+/*0x25c*/ int   SkillDmgEagleStrike;
+/*0x260*/ int   SkillDmgFlyingKick;
+/*0x264*/ int   SkillDmgKick;
+/*0x268*/ int   SkillDmgRoundKick;
+/*0x26c*/ int   SkillDmgTigerClaw;
+/*0x270*/ int   SkillDmgFrenzy;
+/*0x274*/ int   Unused1;
+/*0x278*/ int   LoyaltyTokens;
+/*0x27c*/ int   ParcelCount;
+/*0x280*/ int   CurrentLoyaltyVelocity;
+/*0x284*/ int   OverflowCount;
+/*0x288*/ int   Luck;
+/*0x28c*/ char  TargetName[256];
+/*0x38c*/ int   TargetHPPct;
+/*0x390*/ char  PetName[128];
+/*0x410*/ int   PetHPPct;
+/*0x414*/ int   PetTargetHPPct;
+/*0x418*/ char  GroupName[MAX_GROUP_SIZE - 1][64];
+/*0x558*/ int   GroupHPPct[MAX_GROUP_SIZE - 1];
+/*0x56c*/ int   GroupPetHPPct[MAX_GROUP_SIZE - 1];
+/*0x580*/ int   GroupManaPct[MAX_GROUP_SIZE - 1];
+/*0x594*/ int   GroupSTAPct[MAX_GROUP_SIZE - 1];
+/*0x5a8*/ int   Buff[15];
+/*0x5e4*/ int   BardBuff[6];
+/*0x5fc*/ int   PetBuff[30];
+/*0x674*/ int   Spell[10];
+/*0x69c*/ char  SongTitle[512];                 // mp3 player
+/*0x89c*/ int   SongDurationMin;
+/*0x8a0*/ int   SongDurationSec;
+/*0x8a4*/ int   SongCurrentMin;
+/*0x8a8*/ int   SongCurrentSec;
+/*0x8ac*/ int   GroupLeaderExpPct;             // no longer used
+/*0x8b0*/ int   RaidLeaderExPct;               // no longer used
+/*0x8b4*/ char  TargetOfTargetName[64];
+/*0x8f4*/ int   ExtendedTargetHPPct[MAX_EXTENDED_TARGET_SIZE];
+/*0x950*/ int   ExtendedTargetManaPct[MAX_EXTENDED_TARGET_SIZE];
+/*0x9ac*/ int   ExtendedTargetEndurancePct[MAX_EXTENDED_TARGET_SIZE];
+/*0xa08*/ char  AggroTargetName[64];
+/*0xa48*/ char  AggroMostHatedName[64];
+/*0xa88*/ char  AggroMostHatedNameNoLock[64];
+/*0xac8*/ int   AggroHatePct[MAX_AGGRO_METER_SIZE];
+/*0xb40*/ int   AggroMyHatePct;
+/*0xb44*/ int   AggroMostHatedPct;
+/*0xb48*/ float MercenaryAAExperiencePct;
+/*0xb4c*/ int   MercenaryAAPoints;
+/*0xb50*/ int   MercenaryAAPointsSpent;
+/*0xb54*/ int   MercenaryHP;
+/*0xb58*/ int   MercenaryMaxHP;
+/*0xb5c*/ int   MercenaryMana;
+/*0xb60*/ int   MercenaryMaxMana;
+/*0xb64*/ int   MercenaryEndurance;
+/*0xb68*/ int   MercenaryMaxEndurance;
+/*0xb6c*/ int   MercenaryMitigation;
+/*0xb70*/ int   MercenaryEvasion;
+/*0xb74*/ int   MercenaryAttack;
+/*0xb78*/ int   MercenaryAccuracy;
+/*0xb7c*/ int   MercenaryHaste;
+/*0xb80*/ int   MercenaryStr;
+/*0xb84*/ int   MercenarySta;
+/*0xb88*/ int   MercenaryInt;
+/*0xb8c*/ int   MercenaryWis;
+/*0xb90*/ int   MercenaryAgi;
+/*0xb94*/ int   MercenaryDex;
+/*0xb98*/ int   MercenaryCha;
+/*0xb9c*/ int   MercenaryHeroicStr;
+/*0xba0*/ int   MercenaryHeroicSta;
+/*0xba4*/ int   MercenaryHeroicInt;
+/*0xba8*/ int   MercenaryHeroicWis;
+/*0xbac*/ int   MercenaryHeroicAgi;
+/*0xbb0*/ int   MercenaryHeroicDex;
+/*0xbb4*/ int   MercenaryHeroicCha;
+/*0xbb8*/ int   MercenaryCombatHPRegen;
+/*0xbbc*/ int   MercenaryCombatManaRegen;
+/*0xbc0*/ int   MercenaryCombatEnduranceRegen;
+/*0xbc4*/ int   MercenaryHealAmount;
+/*0xbc8*/ int   MercenarySpellDamage;
+/*0xbcc*/ char  PowerSourcePercent[8];
+/*0xbd4*/ bool  HasMercenary;
+/*0xbd8*/
+};
+
+//============================================================================
+//============================================================================
+
 class [[offsetcomments]] EQGroundItem
 {
 public:
-/*0x00*/ EQGroundItem* pPrev;
-/*0x04*/ EQGroundItem* pNext;
-/*0x08*/ ItemPtr       Item;
-/*0x0c*/ DWORD         DropID;                   // unique id
-/*0x10*/ DWORD         ZoneID;
-/*0x14*/ DWORD         DropSubID;                // well zonefile id, but yeah...
-/*0x18*/ EQSWITCH*     pSwitch;                  // CActorInterface
-/*0x1c*/ char          Name[0x40];
-/*0x5c*/ long          Expires;
-/*0x60*/ float         Heading;
-/*0x64*/ float         Pitch;
-/*0x68*/ float         Roll;
-/*0x6c*/ float         Scale;
-/*0x70*/ float         Y;
-/*0x74*/ float         X;
-/*0x78*/ float         Z;
-/*0x7c*/ int           Weight;                   // -1 means it can't be picked up
-/*0x80*/
+/*0x00*/ EQGroundItem*    pPrev;
+/*0x08*/ EQGroundItem*    pNext;
+/*0x10*/ ItemPtr          Item;
+/*0x18*/ DWORD            DropID;                   // unique id
+/*0x1c*/ DWORD            ZoneID;
+/*0x20*/ DWORD            DropSubID;                // zonefile id
+/*0x28*/ CActorInterface* pActor;
+/*0x30*/ char             Name[EQ_MAX_NAME];
+/*0x70*/ long             Expires;
+/*0x74*/ float            Heading;
+/*0x78*/ float            Pitch;
+/*0x7c*/ float            Roll;
+/*0x80*/ float            Scale;
+/*0x84*/ float            Y;
+/*0x88*/ float            X;
+/*0x8c*/ float            Z;
+/*0x90*/ int              Weight;                   // -1 means it can't be picked up
+/*0x94*/
 
 	DEPRECATE("Use Item instead of ID/pContents") inline ItemPtr get_ID() const { return Item; }
 	DEPRECATE("Use Item instead of ID/pContents") inline void set_ID(ItemPtr ptr) { Item = ptr; }
 	__declspec(property(get = get_ID, put = set_ID)) ItemPtr ID;
 	__declspec(property(get = get_ID, put = set_ID)) ItemPtr pContents;
+
+	ALT_MEMBER_GETTER_DEPRECATED(CActorInterface*, pActor, pSwitch, "Use pActor instead of pSwitch");
 };
 using GROUNDITEM = EQGroundItem;
 using PGROUNDITEM = EQGroundItem*;
@@ -109,18 +336,18 @@ public:
 	EQLIB_OBJECT void DisplayText(const char* Str, int TextColor, int Priority, int MaxAlpha, UINT FadeInTime, UINT FadeOutTime, UINT DisplayTime);
 
 /*0x00*/ CTextObjectInterface* TextObject;
-/*0x04*/ bool               bBroadcastActive;
-/*0x05*/ bool               bFadingOut;
-/*0x06*/ bool               bFadingIn;
-/*0x08*/ UINT               StartTime;
-/*0x0c*/ UINT               FadeInTime;
-/*0x10*/ UINT               EndTime;
-/*0x14*/ UINT               FadeOutTime;
-/*0x18*/ UINT               DisplayTime;
-/*0x1c*/ int                BroadcastColor;
-/*0x20*/ int                CurrentPriority;
-/*0x24*/ int                MaxAlpha;
-/*0x28*/
+/*0x08*/ bool               bBroadcastActive;
+/*0x09*/ bool               bFadingOut;
+/*0x0a*/ bool               bFadingIn;
+/*0x0c*/ UINT               StartTime;
+/*0x10*/ UINT               FadeInTime;
+/*0x14*/ UINT               EndTime;
+/*0x18*/ UINT               FadeOutTime;
+/*0x1c*/ UINT               DisplayTime;
+/*0x20*/ int                BroadcastColor;
+/*0x24*/ int                CurrentPriority;
+/*0x28*/ int                MaxAlpha;
+/*0x2c*/
 };
 inline namespace deprecated {
 	using CTextOverlay DEPRECATE("Use CBroadcast instead of CTextOverlay") = CBroadcast;
@@ -144,12 +371,12 @@ struct [[offsetcomments]] TARGETRING
 	FORCE_SYMBOLS;
 
 /*0x00*/ DWORD         Gem;                      // the gem the spell below is memmed in... 0-11
-/*0x04*/ PSPELL        thespell;
-/*0x08*/ ItemGlobalIndex ItemLoc;
-/*0x14*/ ItemSpellTypes SpellType;
-/*0x18*/ float         SquaredRange;
-/*0x1c*/ bool          bCursorVisible;
-/*0x20*/
+/*0x08*/ PSPELL        thespell;
+/*0x10*/ ItemGlobalIndex ItemLoc;
+/*0x1c*/ ItemSpellTypes SpellType;
+/*0x20*/ float         SquaredRange;
+/*0x24*/ bool          bCursorVisible;
+/*0x28*/
 };
 using PTARGETRING = TARGETRING*;
 
@@ -183,64 +410,6 @@ public:
 	EQLIB_OBJECT void AllocateCatArray();
 	EQLIB_OBJECT void AllocateNPCArray();
 	EQLIB_OBJECT void ReadCategory(FILE*);
-};
-
-struct RaidAddMember;
-struct SCRaidMessage;
-struct CreateRaidMessage;
-struct RenameRaidMember;
-struct RaidMember;
-
-class CRaid
-{
-public:
-	EQLIB_OBJECT bool IsInRaid();
-	EQLIB_OBJECT bool IsInvited();
-	EQLIB_OBJECT bool IsRaidGroupLeader();
-	EQLIB_OBJECT bool IsRaidLeader();
-	EQLIB_OBJECT bool IsRaidMember(char*);
-	EQLIB_OBJECT int GetLootType();
-	EQLIB_OBJECT int GetNumRaidMembers();
-	EQLIB_OBJECT RaidMember* GetRaidMemberAt(int);
-	EQLIB_OBJECT void AddRaidLooter();
-	EQLIB_OBJECT void ClearInvitedState();
-	EQLIB_OBJECT void CreateInviteRaid();
-	EQLIB_OBJECT void HandleC2SRaidMessage(char*);
-	EQLIB_OBJECT void HandleCreateInviteRaid(SCRaidMessage*);
-	EQLIB_OBJECT void HandleS2CRaidMessage(char*);
-	EQLIB_OBJECT void RemoveRaidLooter();
-	EQLIB_OBJECT void RemoveRaidMember();
-	EQLIB_OBJECT void ResetRaid();
-	EQLIB_OBJECT void ResetWindow();
-	EQLIB_OBJECT void SendInviteResponse(bool);
-	EQLIB_OBJECT void SendLeadershipChange(char*);
-	EQLIB_OBJECT void SendRaidChat(char*);
-	EQLIB_OBJECT void SetLootType(char*);
-	EQLIB_OBJECT void SetRaidLeader(char*);
-	EQLIB_OBJECT void SetTargetRaidPlayer(char*);
-	EQLIB_OBJECT void UpdateClassColor(int, unsigned long);
-	EQLIB_OBJECT void UpdateOptionsWindow();
-
-	// private
-	EQLIB_OBJECT bool IsRaidLooter(char*);
-	EQLIB_OBJECT int FindOpenIndex();
-	EQLIB_OBJECT int FindPlayerIndex(char*);
-	EQLIB_OBJECT int FindRaidGroupLeader(int);
-	EQLIB_OBJECT void AddRaidMember(RaidAddMember*);
-	EQLIB_OBJECT void ChangeLeadership(char*);
-	EQLIB_OBJECT void DeleteRaidMember(SCRaidMessage*);
-	EQLIB_OBJECT void DetermineRaidChanges(char*);
-	EQLIB_OBJECT void HandleAddLooter(char*);
-	EQLIB_OBJECT void HandlePositionChange(SCRaidMessage*);
-	EQLIB_OBJECT void HandleRemoveLooter(char*);
-	EQLIB_OBJECT void HandleSetLootType(int);
-	EQLIB_OBJECT void InitializeRaid(char*);
-	EQLIB_OBJECT void RaidCreated(CreateRaidMessage*);
-	EQLIB_OBJECT void RaidGroupLeaderChange(SCRaidMessage*);
-	EQLIB_OBJECT void RenameMember(RenameRaidMember*);
-	EQLIB_OBJECT void SendRaidMsg(int, char*, char*, int);
-	EQLIB_OBJECT void SetLootTypeResponse(SCRaidMessage*);
-	EQLIB_OBJECT void UpdateLevelAverage();
 };
 
 struct ResolutionUpdateData
@@ -317,28 +486,6 @@ public:
 	EQLIB_OBJECT DWORD GetWindowedStyle() const;
 };
 
-
-class CTargetManager
-{
-public:
-	EQLIB_OBJECT static CTargetManager* Get();
-	EQLIB_OBJECT void Update();
-};
-
-class [[offsetcomments]] CTargetRing
-{
-public:
-	EQLIB_OBJECT int Cast(const CVector3& pos);
-
-/*0x00*/ DWORD         Gem;           // the gem the spell below is memmed in... 0-11
-/*0x04*/ PSPELL        thespell;
-/*0x08*/ ItemGlobalIndex ItemLoc;
-/*0x14*/ ItemSpellTypes SpellType;
-/*0x18*/ float         SquaredRange;
-/*0x1c*/ bool          bCursorVisible;
-/*0x20*/
-};
-
 enum TaskType
 {
 	cTaskTypeUnknown = -1,
@@ -386,11 +533,11 @@ struct [[offsetcomments]] CTaskElement
 /*0x0cc*/ TaskGroupType      ElementGroup;
 /*0x0d0*/ int                DZSwitchID;
 /*0x0d4*/ char               ElementDescriptionOverride[0x80];
-/*0x154*/ CXStr              ItemNameList;
-/*0x158*/ CXStr              SkillIDList;
-/*0x15c*/ CXStr              SpellIDList;
-/*0x160*/ CXStr              TaskTitle;
-/*0x164*/
+/*0x158*/ CXStr              ItemNameList;
+/*0x160*/ CXStr              SkillIDList;
+/*0x168*/ CXStr              SpellIDList;
+/*0x170*/ CXStr              TaskTitle;
+/*0x178*/
 };
 
 const int MAX_TASK_ELEMENTS = 20;
@@ -408,22 +555,22 @@ struct [[offsetcomments]] CTaskEntry
 /*0x0ff8*/ int               RewardPoints;
 /*0x0ffc*/ int               RewardFactionID;
 /*0x1000*/ int               RewardFactionAmount;
-/*0x1004*/ CXStr             RewardItemTag;
-/*0x1008*/ CTaskElement      Elements[MAX_TASK_ELEMENTS];
-/*0x2bd8*/ TaskSystemType    TaskSystem;
-/*0x2bdc*/ int               PointType;
-/*0x2be0*/ bool              StartTextCompiled;
-/*0x2be1*/ char              RawStartText[0xFa0];
-/*0x3b81*/ bool              bElementsReceived;
-/*0x3b84*/ __time32_t        TimeCompleted;
-/*0x3b88*/ ArrayClass<MonsterMissionTemplate> MonsterTemplates;
-/*0x3b98*/ bool              bTemplateSelectionLocked;
-/*0x3b99*/ bool              bHasRewardSet;
-/*0x3b9c*/ int               Unknown1;
-/*0x3ba0*/ int               Unknown2;
-/*0x3ba4*/ int               Unknown3;
-/*0x3ba8*/ int               Unknown4;
-/*0x3bac*/
+/*0x1008*/ CXStr             RewardItemTag;
+/*0x1010*/ CTaskElement      Elements[MAX_TASK_ELEMENTS];
+/*0x2d70*/ TaskSystemType    TaskSystem;
+/*0x2d74*/ int               PointType;
+/*0x2d78*/ bool              StartTextCompiled;
+/*0x2d79*/ char              RawStartText[0xFa0];
+/*0x3d19*/ bool              bElementsReceived;
+/*0x3d20*/ eqtime_t          TimeCompleted;
+/*0x3d28*/ ArrayClass<MonsterMissionTemplate> MonsterTemplates;
+/*0x3d40*/ bool              bTemplateSelectionLocked;
+/*0x3d41*/ bool              bHasRewardSet;
+/*0x3d44*/ int               Unknown1;
+/*0x3d48*/ int               Unknown2;
+/*0x3d4c*/ int               Unknown3;
+/*0x3d50*/ int               Unknown4;
+/*0x3d54*/
 };
 
 enum SharedTaskPlayerRole
@@ -449,16 +596,16 @@ constexpr int MAX_QUEST_HISTORY_ENTRIES = 50;
 class [[offsetcomments]] CTaskManager : public PopDialogHandler
 {
 public:
-/*0x000004*/ CTaskEntry                TaskEntries[MAX_TASK_ENTRIES];
-/*0x003bb0*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
-/*0x06fe2c*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
-/*0x0739d8*/ CTaskEntry                UnkTaskEntries[MAX_UNKNOWN_ENTRIES];
-/*0x0a05e8*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
-/*0x15ad80*/ int                       AddPlayerID;
-/*0x15ad84*/ bool                      bAddPlayerIsSwap;
-/*0x15ad85*/ char                      AddPlayerSwapeeName[0x40];
-/*0x15adc8*/ SharedTaskClientPlayerInfo* pFirstMember;
-/*0x15adcc*/
+/*0x000008*/ CTaskEntry                TaskEntries[MAX_TASK_ENTRIES];
+/*0x003d60*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
+/*0x073058*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
+/*0x076db0*/ CTaskEntry                UnkTaskEntries[MAX_UNKNOWN_ENTRIES];
+/*0x0a4dd0*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
+/*0x164900*/ int                       AddPlayerID;
+/*0x164904*/ bool                      bAddPlayerIsSwap;
+/*0x164905*/ char                      AddPlayerSwapeeName[0x40];
+/*0x164948*/ SharedTaskClientPlayerInfo* pFirstMember;
+/*0x164950*/
 
 	EQLIB_OBJECT CTaskManager(CXWnd*);
 
@@ -644,39 +791,39 @@ enum ePlacementType
 class [[offsetcomments]] EQPlacedItem : public CActorApplicationData
 {
 public:
-/*0x04*/ EQPlacedItem*    pPrev;
-/*0x08*/ EQPlacedItem*    pNext;
-/*0x0c*/ int              RecordNum;
-/*0x10*/ EqItemGuid       ItemGuid;
-/*0x24*/ int              RealEstateID;
-/*0x28*/ int              RealEstateItemID;
-/*0x2c*/ bool             bIsNPC;
-/*0x30*/ unsigned int     PlacingItemNpcID;
-/*0x34*/ CLightInterface* pLight;
-/*0x38*/ CActorInterface* pActor;
-/*0x3c*/ char             Name[EQ_ACTOR_TAG];
-/*0x7c*/ int              Unknown0x7c;
-/*0x80*/ int              Unknown0x80;
-/*0x84*/ float            Scale;
-/*0x88*/ float            Heading;
-/*0x8c*/ float            Angle;
-/*0x90*/ float            Roll;
-/*0x94*/ float            Y;
-/*0x98*/ float            X;
-/*0x9c*/ float            Z;
-/*0xa0*/ bool             bIgnoreCollisions;
-/*0xa1*/ bool             bDisablePlacementRotation;
-/*0xa2*/ bool             bDisableFreePlacement;
-/*0xa4*/ ePlacementType   PlacementType;
-/*0xa8*/ float            ScaleRangeMin;
-/*0xac*/ float            ScaleRangeMax;
-/*0xb0*/ float            DefaultScale;
-/*0xb4*/ float            DefaultHeading;
-/*0xb8*/ float            DefaultAngle;
-/*0xbc*/ float            DefaultRoll;
-/*0xc0*/ int              LightType;
-/*0xc4*/ float            NPCHeight;
-/*0xc8*/
+/*0x08*/ EQPlacedItem*    pPrev;
+/*0x10*/ EQPlacedItem*    pNext;
+/*0x18*/ int              RecordNum;
+/*0x1c*/ EqItemGuid       ItemGuid;
+/*0x30*/ int              RealEstateID;
+/*0x34*/ int              RealEstateItemID;
+/*0x38*/ bool             bIsNPC;
+/*0x3c*/ unsigned int     PlacingItemNpcID;
+/*0x40*/ CLightInterface* pLight;
+/*0x48*/ CActorInterface* pActor;
+/*0x50*/ char             Name[EQ_ACTOR_TAG];
+/*0x90*/ int              Unknown0x7c;
+/*0x94*/ int              Unknown0x80;
+/*0x98*/ float            Scale;
+/*0x9c*/ float            Heading;
+/*0xa0*/ float            Angle;
+/*0xa4*/ float            Roll;
+/*0xa8*/ float            Y;
+/*0xac*/ float            X;
+/*0xb0*/ float            Z;
+/*0xb4*/ bool             bIgnoreCollisions;
+/*0xb5*/ bool             bDisablePlacementRotation;
+/*0xb6*/ bool             bDisableFreePlacement;
+/*0xb8*/ ePlacementType   PlacementType;
+/*0xbc*/ float            ScaleRangeMin;
+/*0xc0*/ float            ScaleRangeMax;
+/*0xc4*/ float            DefaultScale;
+/*0xc8*/ float            DefaultHeading;
+/*0xcc*/ float            DefaultAngle;
+/*0xd0*/ float            DefaultRoll;
+/*0xd4*/ int              LightType;
+/*0xd8*/ float            NPCHeight;
+/*0xdc*/
 };
 
 class EQPlacedItemManager
@@ -695,7 +842,7 @@ class [[offsetcomments]] FactionManagerClient
 {
 public:
 /*0x00*/ void*         vftable;
-/*0x04*/ // todo: map it
+/*0x08*/ // todo: map it
 
 	EQLIB_OBJECT static FactionManagerClient& Instance();
 	EQLIB_OBJECT void HandleFactionMessage(UINT MessageID, char* pData, unsigned int DataLength);
@@ -781,33 +928,33 @@ public:
 	EQLIB_OBJECT void ReleaseZoneSpecificWaves();
 	EQLIB_OBJECT void UpdateEmitterStates();
 
-/*0x000*/ Mp3Manager*        pMp3Manager;
-/*0x004*/ SoundManager*      pSoundManager;
-/*0x008*/ EmitterManager*    pEmitterManager;
-/*0x00c*/ MusicManager*      pMusicManager;
-/*0x010*/ SoundAsset*        pGlobalMidiAsset;
-/*0x014*/ SoundAsset*        pOpenerMidiAsset;
-/*0x018*/ SoundAsset*        pOpenerMp3Asset;
-/*0x01c*/ SoundAsset*        pDeathMp3Asset;
-/*0x020*/ SoundAsset*        pCombatMp3Asset;
-/*0x024*/ SoundAsset*        pMerchantMp3Asset;
-/*0x028*/ SoundAsset*        pZoneMidiAsset;
-/*0x02c*/ SoundAsset*        pScriptMp3Asset;
-/*0x030*/ bool               bDisabled;
-/*0x034*/ int                NextMusicID;
-/*0x038*/ SoundEmitter*      pEmitters[1000];
-/*0xfd8*/ int                EmittersCount;
-/*0xfdc*/ SoundEmitter*      pRainEmitter;
-/*0xfe0*/ SoundEmitter*      pWindEmitter;
-/*0xfe4*/ int                EnvironmentHigh;
-/*0xfe8*/ int                EnvironmentLow;
-/*0xfec*/ int                EnvironmentOutside;
-/*0xff0*/ float              fEffectsLevel;
-/*0xff4*/ float              fWaveVolumeLevel;
-/*0xff8*/ // more here but i only need volume for now so...
+/*0x0000*/ Mp3Manager*        pMp3Manager;
+/*0x0008*/ SoundManager*      pSoundManager;
+/*0x0010*/ EmitterManager*    pEmitterManager;
+/*0x0018*/ MusicManager*      pMusicManager;
+/*0x0020*/ SoundAsset*        pGlobalMidiAsset;
+/*0x0028*/ SoundAsset*        pOpenerMidiAsset;
+/*0x0030*/ SoundAsset*        pOpenerMp3Asset;
+/*0x0038*/ SoundAsset*        pDeathMp3Asset;
+/*0x0040*/ SoundAsset*        pCombatMp3Asset;
+/*0x0048*/ SoundAsset*        pMerchantMp3Asset;
+/*0x0050*/ SoundAsset*        pZoneMidiAsset;
+/*0x0058*/ SoundAsset*        pScriptMp3Asset;
+/*0x0060*/ bool               bDisabled;
+/*0x0064*/ int                NextMusicID;
+/*0x0068*/ SoundEmitter*      pEmitters[1000];
+/*0x1fa8*/ int                EmittersCount;
+/*0x1fb0*/ SoundEmitter*      pRainEmitter;
+/*0x1fb8*/ SoundEmitter*      pWindEmitter;
+/*0x1fc0*/ int                EnvironmentHigh;
+/*0x1fc4*/ int                EnvironmentLow;
+/*0x1fc8*/ int                EnvironmentOutside;
+/*0x1fcc*/ float              fEffectsLevel;
+/*0x1fd0*/ float              fWaveVolumeLevel;
+/*0x1fd4*/ // more here but i only need volume for now so...
 };
 
-class [[offsetcomments]] EQSwitch
+class [[offsetcomments]] EQSwitch : public CActorApplicationData
 {
 public:
 	EQLIB_OBJECT float GetCustomMoveDistance();
@@ -825,57 +972,59 @@ public:
 	EQLIB_OBJECT void ResetSwitchState(unsigned char);
 	EQLIB_OBJECT void UseSwitch(UINT SpawnID, int KeyID, int PickSkill, const CVector3* hitloc = 0);
 
-/*0x00*/ void*         vtable;
-/*0x04*/ BYTE          ObjType;                  // always 5
-/*0x05*/ BYTE          ID;
-/*0x06*/ char          Name[0x20];
-/*0x26*/ BYTE          Type;
-/*0x27*/ BYTE          State;                    // 0 = closed, 1 = open, 2 = opening, 3 = closing
-/*0x28*/ float         DefaultY;
-/*0x2c*/ float         DefaultX;
-/*0x30*/ float         DefaultZ;
-/*0x34*/ float         DefaultHeading;
-/*0x38*/ float         DefaultDoorAngle;
-/*0x3c*/ float         TopSpeed1;
-/*0x40*/ float         TopSpeed2;
-/*0x44*/ float         Y;
-/*0x48*/ float         X;
-/*0x4c*/ float         Z;
-/*0x50*/ float         Heading;
-/*0x54*/ float         DoorAngle;
-/*0x58*/ BYTE          DefaultState;
-/*0x59*/ BYTE          SelfActivated;
-/*0x5a*/ BYTE          Dependent;
-/*0x5b*/ bool          bTemplate;
-/*0x5c*/ BYTE          Difficulty;               // pick/disarm...
-/*0x5d*/ BYTE          AffectSlots[5];
-/*0x62*/ BYTE          CurrentCombination[5];
-/*0x67*/ BYTE          ReqCombination[5];
-/*0x6c*/ BYTE          RandomCombo;
-/*0x70*/ int           Key;
-/*0x74*/ SHORT         ScaleFactor;              // divide by 100 to get scale multiplier
-/*0x78*/ int           SpellID;
-/*0x7c*/ BYTE          TargetID[0x5];
-/*0x81*/ char          Script[0x20];
-/*0xa4*/ PEQSWITCH     pSwitch;                  // (CActorInterface*)
-/*0xa8*/ void*         particle;                 // (CParticleCloudInterface*)
-/*0xac*/ DWORD         TimeStamp;                // last time UseSwitch
-/*0xb0*/ float         Accel;
-/*0xb4*/ BYTE          AlwaysActive;
-/*0xb8*/ int           AdventureDoorID;
-/*0xbc*/ float         ReturnY;
-/*0xc0*/ float         ReturnX;
-/*0xc4*/ float         ReturnZ;
-/*0xc8*/ int           DynDoorID;
-/*0xcc*/ bool          bHasScript;
-/*0xd0*/ int           SomeID;
-/*0xd4*/ bool          bUsable;
-/*0xd5*/ bool          bRemainOpen;
-/*0xd6*/ bool          bVisible;
-/*0xd7*/ bool          bHeadingChanged;
-/*0xd8*/ bool          bAllowCorpseDrag;
-/*0xdc*/ int           RealEstateDoorID;
-/*0xe0*/
+/*0x08*/ BYTE          ObjType;                  // always 5
+/*0x09*/ BYTE          ID;
+/*0x0a*/ char          Name[0x20];
+/*0x2a*/ BYTE          Type;
+/*0x2b*/ BYTE          State;                    // 0 = closed, 1 = open, 2 = opening, 3 = closing
+/*0x2c*/ float         DefaultY;
+/*0x30*/ float         DefaultX;
+/*0x34*/ float         DefaultZ;
+/*0x38*/ float         DefaultHeading;
+/*0x3c*/ float         DefaultDoorAngle;
+/*0x40*/ float         TopSpeed1;
+/*0x44*/ float         TopSpeed2;
+/*0x48*/ float         Y;
+/*0x4c*/ float         X;
+/*0x50*/ float         Z;
+/*0x54*/ float         Heading;
+/*0x58*/ float         DoorAngle;
+/*0x5c*/ BYTE          DefaultState;
+/*0x5d*/ BYTE          SelfActivated;
+/*0x5e*/ BYTE          Dependent;
+/*0x5f*/ bool          bTemplate;
+/*0x60*/ BYTE          Difficulty;               // pick/disarm...
+/*0x61*/ BYTE          AffectSlots[5];
+/*0x66*/ BYTE          CurrentCombination[5];
+/*0x6b*/ BYTE          ReqCombination[5];
+/*0x70*/ BYTE          RandomCombo;
+/*0x74*/ int           Key;
+/*0x78*/ SHORT         ScaleFactor;              // divide by 100 to get scale multiplier
+/*0x7c*/ int           SpellID;
+/*0x80*/ BYTE          TargetID[0x5];
+/*0x85*/ char          Script[0x20];
+/*0xa8*/ CActorInterface* pActor;
+/*0xb0*/ CParticleCloudInterface* particle;
+/*0xb8*/ DWORD         TimeStamp;                // last time UseSwitch
+/*0xbc*/ float         Accel;
+/*0xc0*/ BYTE          AlwaysActive;
+/*0xc4*/ int           AdventureDoorID;
+/*0xc8*/ float         ReturnY;
+/*0xcc*/ float         ReturnX;
+/*0xd0*/ float         ReturnZ;
+/*0xd4*/ int           DynDoorID;
+/*0xd8*/ bool          bHasScript;
+/*0xdc*/ int           SomeID;
+/*0xe0*/ bool          bUsable;
+/*0xe1*/ bool          bRemainOpen;
+/*0xe2*/ bool          bVisible;
+/*0xe3*/ bool          bHeadingChanged;
+/*0xe4*/ bool          bAllowCorpseDrag;
+/*0xe8*/ int           RealEstateDoorID;
+/*0xec*/ float         unknownFloat1;
+/*0xf0*/ float         unknownFloat2;
+/*0xf4*/
+	ALT_MEMBER_GETTER_DEPRECATED(CActorInterface*, pActor, pSwitch, "Use pActor instead of pSwitch");
 };
 using DOOR = EQSwitch;
 using PDOOR = EQSwitch*;
@@ -916,26 +1065,25 @@ public:
 	{
 		for (int i = 0; i < NumEntries; ++i)
 		{
-			if (Switches[i] && (CActorInterface*)Switches[i]->pSwitch == pActor)
+			if (Switches[i] && Switches[i]->pActor == pActor)
 				return Switches[i];
 		}
 
 		return nullptr;
 	}
 
-/*0x000*/ int          NumEntries;
-/*0x004*/ EQSwitch*    Switches[512];
-/*0x804*/
+/*0x0000*/ int          NumEntries;
+/*0x0008*/ EQSwitch*    Switches[512];
+/*0x1008*/
 	inline EQSwitch** get_pDoor() { return Switches; }
 	__declspec(property(get = get_pDoor)) EQSwitch** pDoor;
 };
 using DOORTABLE = EqSwitchManager;
 using PDOORTABLE = EqSwitchManager*;
 
-class EQUtil
+namespace EQUtil
 {
-public:
-	EQLIB_OBJECT static char* FormatCharName(char*, char*, int);
+	EQLIB_OBJECT char* FormatCharName(char*, char*, int);
 };
 
 constexpr int MAX_ZONES = 1000; // 0x3e8
@@ -958,7 +1106,6 @@ constexpr uint64_t EQZoneFlag_NoMount        = 0x00000200;
 // 0x10000000 bazaarzone?
 // 0x80000000 guildhallzone
 
-// Size 0x1D8 see 867D39 in eqgame.exe live 21 apr 2016 - eqmule
 class [[offsetcomments]] EQZoneInfo
 {
 	virtual ~EQZoneInfo();
@@ -991,13 +1138,16 @@ inline namespace deprecated {
 	using PZONELIST DEPRECATE("Use EQZoneInfo* instead of PZONELIST") = EQZoneInfo*;
 }
 
-// EQWorldData__EQWorldData_x
-// Size 0xFC0 see 5721F1 in eqgame.exe live 21 apr 2016 - eqmule
-class EQWorldData
+
+// @sizeof(EQWorldData) == 0x1f88 :: 2022-02-07 (test) @ 0x1402896D9
+constexpr size_t EQWorldData_size = 0x1f88;
+
+class [[offsetcomments]] EQWorldData
 {
+	FORCE_SYMBOLS;
+
 public:
-	EQWorldData();
-	virtual ~EQWorldData();
+	virtual ~EQWorldData() {}
 
 	inline EQZoneInfo* GetZone(EQZoneIndex zoneId) const
 	{
@@ -1033,22 +1183,25 @@ public:
 	EQLIB_OBJECT void CurrentGameTime(char*);
 	EQLIB_OBJECT void GetFullZoneName(EQZoneIndex, char*);
 
-/*0x004*/ uint8_t      Hour;
-/*0x005*/ uint8_t      Minute;
-/*0x006*/ uint8_t      Day;
-/*0x007*/ uint8_t      Month;
-/*0x008*/ int          Year;
-/*0x00c*/ uint8_t      LastHour;
-/*0x00d*/ uint8_t      LastMinute;
-/*0x00e*/ uint8_t      LastDay;
-/*0x00f*/ uint8_t      LastMonth;
-/*0x010*/ int          LastYear;
-/*0x014*/ uint32_t     LastAdvance;
-/*0x018*/ uint32_t     LastTime;
-/*0x01c*/ uint32_t     NextMercenaryId;
-/*0x020*/ EQZoneInfo*  ZoneArray[MAX_ZONES];     // see 867D1B in eqgame.exe live 21 apr 2016
-/*0xfc0*/
+/*0x0008*/ uint8_t                         Hour;
+/*0x0009*/ uint8_t                         Minute;
+/*0x000a*/ uint8_t                         Day;
+/*0x000b*/ uint8_t                         Month;
+/*0x000c*/ int                             Year;
+/*0x0010*/ uint8_t                         LastHour;
+/*0x0011*/ uint8_t                         LastMinute;
+/*0x0012*/ uint8_t                         LastDay;
+/*0x0013*/ uint8_t                         LastMonth;
+/*0x0014*/ int                             LastYear;
+/*0x0018*/ uint32_t                        LastAdvance;
+/*0x0020*/ eqtime_t                        LastTime;
+/*0x0028*/ uint32_t                        NextMercenaryId;
+/*0x0030*/ EQZoneInfo*                     ZoneArray[MAX_ZONES];
+/*0x1f70*/ HashTable<SoeUtil::String, int> ZoneNameHash;
+/*0x1f88*/
 };
+
+SIZE_CHECK(EQWorldData, EQWorldData_size);
 
 inline namespace deprecated {
 	using WORLDDATA DEPRECATE("Use EQWorldData instead WORLDDATA") = EQWorldData;
@@ -1284,8 +1437,8 @@ public:
 	void AddRef();
 	void Release();
 
-/*0x04*/ int refCount = 1;
-/*0x08*/
+/*0x08*/ int refCount = 1;
+/*0x0c*/
 };
 
 class [[offsetcomments]] SoundAsset : public SoundObject
@@ -1305,14 +1458,14 @@ public:
 	EQLIB_OBJECT virtual ~SoundAsset();
 	EQLIB_OBJECT void YourManagerDeleted();
 
-/*0x008*/ char szName[512];
-/*0x208*/ char* rawData;
-/*0x20c*/ int rawDataLen;
-/*0x210*/ AssetType assetType;
-/*0x214*/ SoundManager* soundManager;
-/*0x218*/ SoundInstance* soundInstance;
-/*0x21c*/ SoundAsset* pNext;
-/*0x220*/
+/*0x010*/ char szName[512];
+/*0x210*/ char* rawData;
+/*0x218*/ int rawDataLen;
+/*0x21c*/ AssetType assetType;
+/*0x220*/ SoundManager* soundManager;
+/*0x228*/ SoundInstance* soundInstance;
+/*0x230*/ SoundAsset* pNext;
+/*0x238*/
 };
 
 struct [[offsetcomments]] SoundControl
@@ -1393,12 +1546,6 @@ public:
 	EQLIB_OBJECT void AssetAdd(SoundAsset*);
 	EQLIB_OBJECT void AssetGiveTime();
 	EQLIB_OBJECT void AssetRemove(SoundAsset*);
-};
-
-class StringTable
-{
-public:
-	EQLIB_OBJECT const char* getString(uint32_t ID, bool* bFound = nullptr);
 };
 
 class Wave3dInstance : public SoundInstance
@@ -1489,7 +1636,6 @@ struct AUTOSKILL
 using PAUTOSKILL = AUTOSKILL*;
 
 
-// actual size: 0x148 04-11-2017 test confirmed see 5F7150
 enum eSkillCombatType
 {
 	SCT_NonCombat,
@@ -1522,14 +1668,14 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x35344C :: 2022-01-13 (live) @ 0x613762
-constexpr size_t SkillManager_size = 0x35344C;
+// @sizeof(SkillManager) == 0x353780 :: 2022-02-07 (test) @ 0x1402897F3
+constexpr size_t SkillManager_size = 0x353780;
 
 class [[offsetcomments]] SkillManager
 {
 public:
 	EQLIB_OBJECT int GetNameToken(int);
-	EQLIB_OBJECT unsigned long GetSkillCap(PcZoneClient*, int, int, int, bool, bool, bool); // TODO: CharacterZoneClient or PcZoneClient ?
+	EQLIB_OBJECT unsigned long GetSkillCap(PcZoneClient*, int, int, int, bool, bool, bool);
 	EQLIB_OBJECT unsigned long SkillAvailableAtLevel(int, int);
 	EQLIB_OBJECT bool IsActivatedSkill(int);
 	EQLIB_OBJECT unsigned long GetBaseDamage(int);
@@ -1538,18 +1684,17 @@ public:
 	EQLIB_OBJECT bool IsCombatSkill(int);
 
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;
-/*0x000190*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x1a97d0*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x352e10*/ char      SkillCapsFilename[MAX_PATH];
-/*0x352f14*/ uint32_t  Unknown0x32FC94[0x4];
-/*0x352f24*/ EQ_Skill* pSkill2[NUM_SKILLS]; // I'm absolutely not sure tha these are skills, but the struct fits here so... -eqmule
-/*0x3530b4*/ UINT      SkillLastUsed[NUM_SKILLS];
-/*0x353244*/ UINT      SkillTimerDuration[NUM_SKILLS];
-/*0x3533d4*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
-/*0x3533dc*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
-/*0x3533e4*/ bool      bSkillCanUse[NUM_SKILLS];
-/*0x353448*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
-/*0x35344c*/
+/*0x000320*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
+/*0x1a9960*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
+/*0x352fa0*/ char      SkillCapsFilename[MAX_PATH];
+/*0x3530a8*/ HashListSet<EQ_Skill, NUM_SKILLS> SkillHash;
+/*0x3533e8*/ UINT      SkillLastUsed[NUM_SKILLS];
+/*0x353578*/ UINT      SkillTimerDuration[NUM_SKILLS];
+/*0x353708*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
+/*0x353710*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
+/*0x353718*/ bool      bSkillCanUse[NUM_SKILLS];
+/*0x35377c*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
+/*0x353780*/
 };
 using CSkillMgr = SkillManager;
 using SKILLMGR = SkillManager;
@@ -1572,6 +1717,113 @@ struct [[offsetcomments]] tp_coords
 /*0x1c*/ UINT          VehicleID;
 /*0x20*/
 };
+
+
+class [[offsetcomments]] FreeTargetTracker
+{
+public:
+	EQLIB_OBJECT int CastSpell(const CVector3& pos);
+
+/*0x00*/ int             slot;           // the gem the spell below is memmed in... 0-11
+/*0x08*/ PSPELL          spell;
+/*0x10*/ ItemGlobalIndex itemLocation;
+/*0x1c*/ ItemSpellTypes  itemSpellType;
+/*0x20*/ float           rangeSquared;
+/*0x24*/ bool            cursorVisible;
+/*0x28*/
+};
+
+using CTargetRing DEPRECATE("Use FreeTargetTracker instead of CTargetRing") = CTargetRing;
+
+class CTargetIndicatorSettings;
+
+struct [[offsetcomments]] CTargetIndicator
+{
+	FORCE_SYMBOLS;
+
+	enum Markers
+	{
+		AssistMarker = 0,
+		FirstMarker = 1,
+		LastMarker = FirstMarker + 2,
+		MarkerCount
+	};
+
+	enum ETargetType
+	{
+		eTrivialCon,
+		eVeryEasyCon,
+		eEasyCon,
+		eFairlyEasyCon,
+		eFairMatchCon,
+		eDifficultCon,
+		eDeadlyCon,
+		eFreeTarget,
+		eFreeTargetInvalid,
+	};
+
+/*0x00*/ bool                      bVisible;
+/*0x01*/ bool                      bSettingsLoaded;
+/*0x08*/ PlayerClient*             lasttarget;
+/*0x10*/ PlayerClient*             MarkedTarget[MarkerCount];
+/*0x30*/ bool                      IndicatorHidden;                // if this is 1 our mouse is over another window and not on the main one - shouldnt cast when this is 1
+/*0x31*/ bool                      CanActivate;                    // if 0 the indicator is red if 1 its green, i.e. it can be activated.
+/*0x38*/ CTargetIndicatorSettings* TargetIndicatorSettings;
+/*0x40*/ CTargetIndicatorSettings* MarkerIndicatorSettings;
+/*0x48*/ ETargetType               IndicatorType;
+/*0x4c*/ float                     SegmentLength;
+/*0x50*/ float                     ControlSegmentLength;
+/*0x58*/ CThickLineInterface*      pTargetThickLine;
+/*0x60*/ CThickLineInterface*      pFreeTargetThickLine;
+/*0x68*/ CThickLineInterface*      pMarkerThickLine[MarkerCount];
+/*0x88*/
+};
+
+using TARGETINDICATOR DEPRECATE("Use CTargetIndicator instead of TARGETINDICATOR") = CTargetIndicator;
+using PTARGETINDICATOR DEPRECATE("Use CTargetIndicator* instead of PTARGETINDICATOR") = CTargetIndicator*;
+
+struct [[offsetcomments]] STargetData
+{
+	FORCE_SYMBOLS;
+
+/*0x00*/ PlayerClient* player;
+/*0x08*/ float         distanceSquared;
+/*0x0c*/ bool          visited;
+/*0x10*/
+};
+
+// CTargetManager
+class [[offsetcomments]] CTargetManager
+{
+	FORCE_SYMBOLS;
+
+public:
+	EQLIB_OBJECT static CTargetManager* Get();
+	EQLIB_OBJECT void Update();
+
+	enum { MaxTargetHistory = 10 };
+
+/*0x000*/ STargetData  CycleNPCList[MaxTargetHistory];
+/*0x0a0*/ STargetData  CyclePCList[MaxTargetHistory];
+/*0x140*/ STargetData  CycleCorpseList[MaxTargetHistory];
+/*0x1e0*/ uint32_t     LastTargetID;
+/*0x1e4*/ uint32_t     TabTargetID;
+/*0x1e8*/ uint32_t     AttackTargetID;
+/*0x1ec*/ uint32_t     LastHoverUpdate;
+/*0x1f0*/ uint32_t     HoverUpdateInterval;
+/*0x1f4*/ uint32_t     LastFreeTargetUpdate;
+/*0x1f8*/ uint32_t     FreeTargetUpdateInterval;
+/*0x1fc*/ uint32_t     PreviousTargetID;
+/*0x200*/ uint32_t     HoverTargetID;                    // id of the entity our cursor is over
+/*0x204*/ bool         freeTargetingEnabled;
+/*0x208*/ float        freeTargetingRangeSquared;
+/*0x20c*/ glm::vec3    lastFreeTargetingPosition;
+/*0x218*/ bool         lastFreeTargetingInRange;         // 0=red 1=green
+/*0x21c*/
+};
+
+using TARGETMANAGER DEPRECATE("Use CTargetManager instead of TARGETMANAGER") = CTargetManager;
+using PTARGETMANAGER DEPRECATE("Use CTargetManager instead of TARGETMANAGER") = CTargetManager*;
 
 } // namespace eqlib
 

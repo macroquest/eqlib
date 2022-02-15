@@ -22,7 +22,7 @@ namespace eqlib {
 //============================================================================
 
 #ifdef ProfileManager__GetCurrentProfile_x
-//FUNCTION_AT_ADDRESS(BaseProfile* ProfileManager::GetCurrentProfile(), ProfileManager__GetCurrentProfile);
+//FUNCTION_AT_ADDRESS(BaseProfile*, ProfileManager::GetCurrentProfile(), ProfileManager__GetCurrentProfile);
 #endif
 
 

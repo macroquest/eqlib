@@ -37,16 +37,16 @@ CSidlScreenWnd::VirtualFunctionTable* MapViewMap::sm_vftable = nullptr;
 FUNCTION_AT_ADDRESS(CEQSuiteTextureLoader::~CEQSuiteTextureLoader(), CEQSuiteTextureLoader__dCEQSuiteTextureLoader);
 #endif
 #ifdef CEQSuiteTextureLoader__CreateTexture_x
-FUNCTION_AT_ADDRESS(unsigned int CEQSuiteTextureLoader::CreateTexture(const CUITextureInfo&), CEQSuiteTextureLoader__CreateTexture);
+FUNCTION_AT_ADDRESS(unsigned int, CEQSuiteTextureLoader::CreateTexture(const CUITextureInfo&), CEQSuiteTextureLoader__CreateTexture);
 #endif
 #ifdef CEQSuiteTextureLoader__UnloadAllTextures_x
-FUNCTION_AT_ADDRESS(void CEQSuiteTextureLoader::UnloadAllTextures(), CEQSuiteTextureLoader__UnloadAllTextures);
+FUNCTION_AT_ADDRESS(void, CEQSuiteTextureLoader::UnloadAllTextures(), CEQSuiteTextureLoader__UnloadAllTextures);
 #endif
 #ifdef CEQSuiteTextureLoader__GetTexture_x
-FUNCTION_AT_ADDRESS(BMI* CEQSuiteTextureLoader::GetTexture(const CUITextureInfo& ti), CEQSuiteTextureLoader__GetTexture);
+FUNCTION_AT_ADDRESS(BMI*, CEQSuiteTextureLoader::GetTexture(const CUITextureInfo& ti), CEQSuiteTextureLoader__GetTexture);
 #endif
 #ifdef CEQSuiteTextureLoader__GetDefaultUIPath_x
-FUNCTION_AT_ADDRESS(const CXStr& CEQSuiteTextureLoader::GetDefaultUIPath(int DirType) const, CEQSuiteTextureLoader__GetDefaultUIPath);
+FUNCTION_AT_ADDRESS(const CXStr&, CEQSuiteTextureLoader::GetDefaultUIPath(int DirType) const, CEQSuiteTextureLoader__GetDefaultUIPath);
 #endif
 #ifdef CEQSuiteTextureLoader__CEQSuiteTextureLoader_x
 FUNCTION_AT_ADDRESS(CEQSuiteTextureLoader::CEQSuiteTextureLoader(), CEQSuiteTextureLoader__CEQSuiteTextureLoader);
@@ -57,28 +57,28 @@ FUNCTION_AT_ADDRESS(CEQSuiteTextureLoader::CEQSuiteTextureLoader(), CEQSuiteText
 //============================================================================
 
 #ifdef CTextureFont__GetWidth_x
-FUNCTION_AT_ADDRESS(int CTextureFont::GetWidth(unsigned short) const, CTextureFont__GetWidth);
+FUNCTION_AT_ADDRESS(int, CTextureFont::GetWidth(unsigned short) const, CTextureFont__GetWidth);
 #endif
 #ifdef CTextureFont__GetKerning_x
-FUNCTION_AT_ADDRESS(int CTextureFont::GetKerning(unsigned short, unsigned short) const, CTextureFont__GetKerning);
+FUNCTION_AT_ADDRESS(int, CTextureFont::GetKerning(unsigned short, unsigned short) const, CTextureFont__GetKerning);
 #endif
 #ifdef CTextureFont__GetTextExtent_x
-FUNCTION_AT_ADDRESS(int CTextureFont::GetTextExtent(const CXStr&), CTextureFont__GetTextExtent);
+FUNCTION_AT_ADDRESS(int, CTextureFont::GetTextExtent(const CXStr&), CTextureFont__GetTextExtent);
 #endif
 #ifdef CTextureFont__GetHeight_x
-FUNCTION_AT_ADDRESS(int CTextureFont::GetHeight() const, CTextureFont__GetHeight);
+FUNCTION_AT_ADDRESS(int, CTextureFont::GetHeight() const, CTextureFont__GetHeight);
 #endif
 #ifdef CTextureFont__GetName_x
-FUNCTION_AT_ADDRESS(CXStr CTextureFont::GetName() const, CTextureFont__GetName);
+FUNCTION_AT_ADDRESS(CXStr, CTextureFont::GetName() const, CTextureFont__GetName);
 #endif
 #ifdef CTextureFont__DrawWrappedText_x
-FUNCTION_AT_ADDRESS(int CTextureFont::DrawWrappedText(const CXStr&, int, int, int, const CXRect&, COLORREF, uint16_t, int) const, CTextureFont__DrawWrappedText);
+FUNCTION_AT_ADDRESS(int, CTextureFont::DrawWrappedText(const CXStr&, int, int, int, const CXRect&, COLORREF, uint16_t, int) const, CTextureFont__DrawWrappedText);
 #endif
 #ifdef CTextureFont__DrawWrappedText1_x
-FUNCTION_AT_ADDRESS(int CTextureFont::DrawWrappedText(const CXStr&, const CXRect&, const CXRect&, COLORREF, uint16_t, int) const, CTextureFont__DrawWrappedText1);
+FUNCTION_AT_ADDRESS(int, CTextureFont::DrawWrappedText(const CXStr&, const CXRect&, const CXRect&, COLORREF, uint16_t, int) const, CTextureFont__DrawWrappedText1);
 #endif
 #ifdef CTextureFont__DrawWrappedText2_x
-FUNCTION_AT_ADDRESS(int CTextureFont::DrawWrappedText(CTextObjectInterface*, const CXStr&, const CXRect&, const CXRect&, COLORREF, uint16_t, int) const, CTextureFont__DrawWrappedText);
+FUNCTION_AT_ADDRESS(int, CTextureFont::DrawWrappedText(CTextObjectInterface*, const CXStr&, const CXRect&, const CXRect&, COLORREF, uint16_t, int) const, CTextureFont__DrawWrappedText);
 #endif
 
 // MISC
@@ -110,35 +110,35 @@ CRadioGroup::~CRadioGroup()
 //============================================================================
 
 // Class virtuals
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::SetRadioGroup(CRadioGroup*), CButtonWnd, SetRadioGroup);
-FORWARD_FUNCTION_TO_VTABLE(int CButtonWnd::DrawWndText(const CXRect&, const CXRect&), CButtonWnd, DrawWndText);
-FORWARD_FUNCTION_TO_VTABLE(int CButtonWnd::DrawCooldown(), CButtonWnd, DrawCooldown);
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::SetCheck(bool, bool), CButtonWnd, SetCheck);
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::SetCoolDownCompletionTimeDelta(uint32_t, uint32_t), CButtonWnd, SetCoolDownCompletionTimeDelta);
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::SetCoolDownCompletionTime(uint32_t, uint32_t), CButtonWnd, SetCoolDownCompletionTime);
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::SetCoolDownCompletionTime(__time32_t, uint32_t), CButtonWnd, SetCoolDownCompletionTime2);
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::SetCoolDownBeginTime(uint32_t, uint32_t), CButtonWnd, SetCoolDownBeginTime);
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::SetCoolDownUpdatedBeginTime(uint32_t, uint32_t), CButtonWnd, SetCoolDownUpdatedBeginTime);
-FORWARD_FUNCTION_TO_VTABLE(uint32_t CButtonWnd::GetCoolDownBeginTime() const, CButtonWnd, SetCoolDownUpdatedBeginTime);
-FORWARD_FUNCTION_TO_VTABLE(uint32_t CButtonWnd::GetCoolDownTotalDuration() const, CButtonWnd, GetCoolDownTotalDuration);
-FORWARD_FUNCTION_TO_VTABLE(uint32_t CButtonWnd::GetCoolDownTimeRemaining() const, CButtonWnd, GetCoolDownTimeRemaining);
-FORWARD_FUNCTION_TO_VTABLE(void CButtonWnd::ClearCoolDownCompletionTime(), CButtonWnd, ClearCoolDownCompletionTime);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetRadioGroup(CRadioGroup*), CButtonWnd, SetRadioGroup);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::DrawWndText(const CXRect&, const CXRect&), CButtonWnd, DrawWndText);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::DrawCooldown(), CButtonWnd, DrawCooldown);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetCheck(bool, bool), CButtonWnd, SetCheck);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetCoolDownCompletionTimeDelta(uint32_t, uint32_t), CButtonWnd, SetCoolDownCompletionTimeDelta);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetCoolDownCompletionTime(uint32_t, uint32_t), CButtonWnd, SetCoolDownCompletionTime);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetCoolDownCompletionTime(eqtime_t, uint32_t), CButtonWnd, SetCoolDownCompletionTime2);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetCoolDownBeginTime(uint32_t, uint32_t), CButtonWnd, SetCoolDownBeginTime);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetCoolDownUpdatedBeginTime(uint32_t, uint32_t), CButtonWnd, SetCoolDownUpdatedBeginTime);
+FORWARD_FUNCTION_TO_VTABLE(uint32_t, CButtonWnd::GetCoolDownBeginTime() const, CButtonWnd, SetCoolDownUpdatedBeginTime);
+FORWARD_FUNCTION_TO_VTABLE(uint32_t, CButtonWnd::GetCoolDownTotalDuration() const, CButtonWnd, GetCoolDownTotalDuration);
+FORWARD_FUNCTION_TO_VTABLE(uint32_t, CButtonWnd::GetCoolDownTimeRemaining() const, CButtonWnd, GetCoolDownTimeRemaining);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::ClearCoolDownCompletionTime(), CButtonWnd, ClearCoolDownCompletionTime);
 
 // Overridden virtuals
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::Draw(), CButtonWnd, CXWnd, Draw);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::DrawTooltipAtPoint(const CXPoint& pos, const CXStr& tooltip) const, CButtonWnd, CXWnd, DrawTooltipAtPoint);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleLButtonDown(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonDown);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleLButtonUp(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonUp);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleLButtonHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleRButtonDown(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleRButtonUp(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonUp);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleRButtonHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleRButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::HandleMouseMove(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleMouseMove);
-FORWARD_FUNCTION_TO_VTABLE2(int CButtonWnd::OnProcessFrame(), CButtonWnd, CXWnd, OnProcessFrame);
-FORWARD_FUNCTION_TO_VTABLE2(bool CButtonWnd::IsPointTransparent(const CXPoint& point) const, CButtonWnd, CXWnd, IsPointTransparent);
-FORWARD_FUNCTION_TO_VTABLE2(void CButtonWnd::SetAttributesFromSidl(CParamScreenPiece*), CButtonWnd, CXWnd, SetAttributesFromSidl);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::Draw(), CButtonWnd, Draw);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::DrawTooltipAtPoint(const CXPoint& pos, const CXStr& tooltip) const, CButtonWnd, DrawTooltipAtPoint);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonDown(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonDown);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonUp(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonUp);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonHeld(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonDown(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonDown);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonUp(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonUp);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonHeld(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleMouseMove(const CXPoint&, uint32_t), CButtonWnd, HandleMouseMove);
+FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::OnProcessFrame(), CButtonWnd, OnProcessFrame);
+FORWARD_FUNCTION_TO_VTABLE(bool, CButtonWnd::IsPointTransparent(const CXPoint& point) const, CButtonWnd, IsPointTransparent);
+FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetAttributesFromSidl(CParamScreenPiece*), CButtonWnd, SetAttributesFromSidl);
 
 //============================================================================
 // CCheckBoxWnd
@@ -148,7 +148,7 @@ FORWARD_FUNCTION_TO_VTABLE2(void CButtonWnd::SetAttributesFromSidl(CParamScreenP
 FUNCTION_AT_ADDRESS(CCheckBoxWnd::CCheckBoxWnd(CXWnd*, uint32_t, CXRect, class CXPoint, CXSize, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*), CCheckBoxWnd__CCheckBoxWnd);
 #endif
 #ifdef CCheckBoxWnd__SetRadioLook_x
-FUNCTION_AT_ADDRESS(void CCheckBoxWnd::SetRadioLook(), CCheckBoxWnd__SetRadioLook);
+FUNCTION_AT_ADDRESS(void, CCheckBoxWnd::SetRadioLook(), CCheckBoxWnd__SetRadioLook);
 #endif
 
 //============================================================================
@@ -156,32 +156,36 @@ FUNCTION_AT_ADDRESS(void CCheckBoxWnd::SetRadioLook(), CCheckBoxWnd__SetRadioLoo
 //============================================================================
 
 #ifdef CComboWnd__GetListRect_x
-FUNCTION_AT_ADDRESS(CXRect CComboWnd::GetListRect(bool) const, CComboWnd__GetListRect);
+//FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetListRect(bool) const, CComboWnd__GetListRect);
 #endif
 #ifdef CComboWnd__SetColors_x
-FUNCTION_AT_ADDRESS(void CComboWnd::SetColors(COLORREF, COLORREF, COLORREF), CComboWnd__SetColors);
+FUNCTION_AT_ADDRESS(void, CComboWnd::SetColors(COLORREF, COLORREF, COLORREF), CComboWnd__SetColors);
 #endif
 #ifdef CComboWnd__InsertChoice_x
-FUNCTION_AT_ADDRESS(int CComboWnd::InsertChoice(const CXStr&, uint32_t), CComboWnd__InsertChoice);
+FUNCTION_AT_ADDRESS(int, CComboWnd::InsertChoice(const CXStr&, uint32_t), CComboWnd__InsertChoice);
 #endif
 #ifdef CComboWnd__SetChoice_x
-FUNCTION_AT_ADDRESS(void CComboWnd::SetChoice(int), CComboWnd__SetChoice);
+FUNCTION_AT_ADDRESS(void, CComboWnd::SetChoice(int), CComboWnd__SetChoice);
 #endif
 #ifdef CComboWnd__GetItemCount_x
-FUNCTION_AT_ADDRESS(int CComboWnd::GetItemCount(), CComboWnd__GetItemCount);
-#endif
-#ifdef CComboWnd__GetCurChoice_x
-FUNCTION_AT_ADDRESS(int CComboWnd::GetCurChoice() const, CComboWnd__GetCurChoice);
-#endif
-#ifdef CComboWnd__GetCurChoiceText_x
-FUNCTION_AT_ADDRESS(CXStr CComboWnd::GetCurChoiceText() const, CComboWnd__GetCurChoiceText);
+FUNCTION_AT_ADDRESS(int, CComboWnd::GetItemCount(), CComboWnd__GetItemCount);
 #endif
 #ifdef CComboWnd__DeleteAll_x
-FUNCTION_AT_ADDRESS(void CComboWnd::DeleteAll(), CComboWnd__DeleteAll);
+FUNCTION_AT_ADDRESS(void, CComboWnd::DeleteAll(), CComboWnd__DeleteAll);
 #endif
 #ifdef CComboWnd__GetTextRect_x
-FUNCTION_AT_ADDRESS(CXRect CComboWnd::GetTextRect() const, CComboWnd__GetTextRect);
+//FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetTextRect() const, CComboWnd__GetTextRect);
 #endif
+
+int CComboWnd::GetCurChoice() const
+{
+	return pListWnd->GetCurSel();
+}
+
+CXStr CComboWnd::GetCurChoiceText() const
+{
+	return pListWnd->GetItemText(pListWnd->GetCurSel());
+}
 
 //============================================================================
 // CEditWnd
@@ -189,71 +193,71 @@ FUNCTION_AT_ADDRESS(CXRect CComboWnd::GetTextRect() const, CComboWnd__GetTextRec
 
 // CEditBaseWnd
 #ifdef CEditBaseWnd__SetMaxChars_x
-FUNCTION_AT_ADDRESS(void CEditBaseWnd::SetMaxChars(int), CEditBaseWnd__SetMaxChars);
+FUNCTION_AT_ADDRESS(void, CEditBaseWnd::SetMaxChars(int), CEditBaseWnd__SetMaxChars);
 #endif
 #ifdef CEditBaseWnd__SetSel_x
-FUNCTION_AT_ADDRESS(void CEditBaseWnd::SetSel(int, int), CEditBaseWnd__SetSel);
+FUNCTION_AT_ADDRESS(void, CEditBaseWnd::SetSel(int, int), CEditBaseWnd__SetSel);
 #endif
 
 
 // CEditWnd
-#ifdef CEditWnd__CEditWnd_x
-//FUNCTION_AT_ADDRESS(CEditWnd::CEditWnd(CXWnd*, uint32_t, CXRect, uint32_t), CEditWnd__CEditWnd);
-#endif
 #ifdef CEditWnd__GetLineForPrintableChar_x
-FUNCTION_AT_ADDRESS(int CEditWnd::GetLineForPrintableChar(int) const, CEditWnd__GetLineForPrintableChar);
+FUNCTION_AT_ADDRESS(int, CEditWnd::GetLineForPrintableChar(int) const, CEditWnd__GetLineForPrintableChar);
 #endif
 #ifdef CEditWnd__GetLineLength_x
-FUNCTION_AT_ADDRESS(int CEditWnd::GetLineLength(int) const, CEditWnd__GetLineLength);
+FUNCTION_AT_ADDRESS(int, CEditWnd::GetLineLength(int) const, CEditWnd__GetLineLength);
 #endif
 #ifdef CEditWnd__FillIndexArray_x
-FUNCTION_AT_ADDRESS(void CEditWnd::FillIndexArray(CXStr) const, CEditWnd__FillIndexArray);
+FUNCTION_AT_ADDRESS(void, CEditWnd::FillIndexArray(CXStr) const, CEditWnd__FillIndexArray);
 #endif
 #ifdef CEditWnd__SelectableCharFromPoint_x
-FUNCTION_AT_ADDRESS(int CEditWnd::SelectableCharFromPoint(CXPoint) const, CEditWnd__SelectableCharFromPoint);
+FUNCTION_AT_ADDRESS(int, CEditWnd::SelectableCharFromPoint(CXPoint) const, CEditWnd__SelectableCharFromPoint);
 #endif
 #ifdef CEditWnd__AddItemTag_x
-FUNCTION_AT_ADDRESS(void CEditWnd::AddItemTag(int, char*, int), CEditWnd__AddItemTag);
+FUNCTION_AT_ADDRESS(void, CEditWnd::AddItemTag(int, char*, int), CEditWnd__AddItemTag);
 #endif
 #ifdef CEditWnd__ProcessText_x
-FUNCTION_AT_ADDRESS(void CEditWnd::ProcessText(), CEditWnd__ProcessText);
-#endif
-#ifdef CEditWnd__GetCharIndexPt_x
-FUNCTION_AT_ADDRESS(CXPoint CEditWnd::GetCharIndexPt(int) const, CEditWnd__GetCharIndexPt);
-#endif
-#ifdef CEditWnd__GetSelStartPt_x
-FUNCTION_AT_ADDRESS(CXPoint CEditWnd::GetSelStartPt() const, CEditWnd__GetSelStartPt);
-#endif
-#ifdef CEditWnd__GetSelEndPt_x
-FUNCTION_AT_ADDRESS(CXPoint CEditWnd::GetSelEndPt() const, CEditWnd__GetSelEndPt);
+FUNCTION_AT_ADDRESS(void, CEditWnd::ProcessText(), CEditWnd__ProcessText);
 #endif
 #ifdef CEditWnd__FilterInputStr_x
-FUNCTION_AT_ADDRESS(void CEditWnd::FilterInputStr(CXStr&), CEditWnd__FilterInputStr);
+FUNCTION_AT_ADDRESS(void, CEditWnd::FilterInputStr(CXStr&), CEditWnd__FilterInputStr);
 #endif
 #ifdef CEditWnd__CalculateScrollRange_x
-FUNCTION_AT_ADDRESS(void CEditWnd::CalculateScrollRange(), CEditWnd__CalculateScrollRange);
+FUNCTION_AT_ADDRESS(void, CEditWnd::CalculateScrollRange(), CEditWnd__CalculateScrollRange);
 #endif
 #ifdef CEditWnd__EnsureCaretVisible_x
-FUNCTION_AT_ADDRESS(void CEditWnd::EnsureCaretVisible(), CEditWnd__EnsureCaretVisible);
+FUNCTION_AT_ADDRESS(void, CEditWnd::EnsureCaretVisible(), CEditWnd__EnsureCaretVisible);
 #endif
 #ifdef CEditWnd__SetEditable_x
-FUNCTION_AT_ADDRESS(void CEditWnd::SetEditable(bool), CEditWnd__SetEditable);
-#endif
-#ifdef CEditWnd__GetSTMLSafeText_x
-FUNCTION_AT_ADDRESS(CXStr CEditWnd::GetSTMLSafeText(), CEditWnd__GetSTMLSafeText);
+FUNCTION_AT_ADDRESS(void, CEditWnd::SetEditable(bool), CEditWnd__SetEditable);
 #endif
 #ifdef CEditWnd__SetWindowText_x
-FUNCTION_AT_ADDRESS(void CEditWnd::SetWindowText(const CXStr& Str), CEditWnd__SetWindowText);
+FUNCTION_AT_ADDRESS(void, CEditWnd::SetWindowText(const CXStr& Str), CEditWnd__SetWindowText);
 #endif
 #ifdef CEditWnd__ConvertIndexPrintableToTagged_x
-FUNCTION_AT_ADDRESS(int CEditWnd::ConvertIndexPrintableToTagged(int), CEditWnd__ConvertIndexPrintableToTagged);
+FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexPrintableToTagged(int), CEditWnd__ConvertIndexPrintableToTagged);
 #endif
 #ifdef CEditWnd__ConvertIndexTaggedToPrintable_x
-FUNCTION_AT_ADDRESS(int CEditWnd::ConvertIndexTaggedToPrintable(int), CEditWnd__ConvertIndexTaggedToPrintable);
+FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexTaggedToPrintable(int), CEditWnd__ConvertIndexTaggedToPrintable);
 #endif
-#ifdef CEditWnd__GetCaretPt_x
-FUNCTION_AT_ADDRESS(CXPoint CEditWnd::GetCaretPt() const, CEditWnd__GetCaretPt);
-#endif
+
+CXPoint CEditWnd::GetCaretPt() const
+{
+	if (bAnchorAtStart)
+		return GetSelEndPt();
+
+	return GetSelStartPt();
+}
+
+CXPoint CEditWnd::GetSelStartPt() const
+{
+	return GetCharIndexPt(StartPos);
+}
+
+CXPoint CEditWnd::GetSelEndPt() const
+{
+	return GetCharIndexPt(EndPos);
+}
 
 void CEditBaseWnd::SetMaxChars(int maxChars)
 {
@@ -273,13 +277,13 @@ void CEditBaseWnd::SetMaxChars(int maxChars)
 FUNCTION_AT_ADDRESS(CGaugeWnd::CGaugeWnd(CXWnd*, uint32_t, CXRect, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, int, unsigned long, unsigned long, bool, int, int, int, int), CGaugeWnd__CGaugeWnd);
 #endif
 #ifdef CGaugeWnd__CalcFillRect_x
-FUNCTION_AT_ADDRESS(CXRect CGaugeWnd::CalcFillRect(CXRect*, int) const, CGaugeWnd__CalcFillRect);
+//FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcFillRect(CXRect*, int) const, CGaugeWnd__CalcFillRect);
 #endif
 #ifdef CGaugeWnd__CalcLinesFillRect_x
-FUNCTION_AT_ADDRESS(CXRect CGaugeWnd::CalcLinesFillRect(CXRect*, int) const, CGaugeWnd__CalcLinesFillRect);
+//FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcLinesFillRect(CXRect*, int) const, CGaugeWnd__CalcLinesFillRect);
 #endif
 #ifdef CGaugeWnd__SpecialToolTip_x
-FUNCTION_AT_ADDRESS(void CGaugeWnd::SpecialToolTip(), CGaugeWnd__SpecialToolTip);
+FUNCTION_AT_ADDRESS(void, CGaugeWnd::SpecialToolTip(), CGaugeWnd__SpecialToolTip);
 #endif
 
 //============================================================================
@@ -287,10 +291,10 @@ FUNCTION_AT_ADDRESS(void CGaugeWnd::SpecialToolTip(), CGaugeWnd__SpecialToolTip)
 //============================================================================
 
 #ifdef CHotButton__SetButtonSize_x
-FUNCTION_AT_ADDRESS(void CHotButton::SetButtonSize(int percent, bool bUpdateParent), CHotButton__SetButtonSize);
+FUNCTION_AT_ADDRESS(void, CHotButton::SetButtonSize(int percent, bool bUpdateParent), CHotButton__SetButtonSize);
 #endif
 #ifdef CHotButton__SetCheck_x
-FUNCTION_AT_ADDRESS(void CHotButton::SetCheck(bool), CHotButton__SetCheck);
+FUNCTION_AT_ADDRESS(void, CHotButton::SetCheck(bool), CHotButton__SetCheck);
 #endif
 
 //============================================================================
@@ -301,13 +305,13 @@ FUNCTION_AT_ADDRESS(void CHotButton::SetCheck(bool), CHotButton__SetCheck);
 FUNCTION_AT_ADDRESS(CLabel::CLabel(CXWnd*, uint32_t, CXRect*, int), CLabel__CLabel);
 #endif
 #ifdef CLabel__SetNoWrap_x
-FUNCTION_AT_ADDRESS(void CLabel::SetNoWrap(bool), CLabel__SetNoWrap);
+FUNCTION_AT_ADDRESS(void, CLabel::SetNoWrap(bool), CLabel__SetNoWrap);
 #endif
 #ifdef CLabel__SetAlignRight_x
-FUNCTION_AT_ADDRESS(void CLabel::SetAlignRight(bool), CLabel__SetAlignRight);
+FUNCTION_AT_ADDRESS(void, CLabel::SetAlignRight(bool), CLabel__SetAlignRight);
 #endif
 #ifdef CLabel__SetAlignCenter_x
-FUNCTION_AT_ADDRESS(void CLabel::SetAlignCenter(bool), CLabel__SetAlignCenter);
+FUNCTION_AT_ADDRESS(void, CLabel::SetAlignCenter(bool), CLabel__SetAlignCenter);
 #endif
 
 //============================================================================
@@ -315,206 +319,203 @@ FUNCTION_AT_ADDRESS(void CLabel::SetAlignCenter(bool), CLabel__SetAlignCenter);
 //============================================================================
 
 // class virtuals
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::OnHeaderClick(CXPoint), CListWnd, OnHeaderClick);
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::DrawColumnSeparators() const, CListWnd, DrawColumnSeparators);
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::DrawSeparator(int index) const, CListWnd, DrawSeparator);
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::DrawLine(int index) const, CListWnd, DrawLine);
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::DrawHeader() const, CListWnd, DrawHeader);
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::DrawItem(int index, int, int) const, CListWnd, DrawItem);
-FORWARD_FUNCTION_TO_VTABLE(void CListWnd::DeleteAll(), CListWnd, DeleteAll);
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::Compare(const SListWndLine&, const SListWndLine&) const, CListWnd, Compare);
-FORWARD_FUNCTION_TO_VTABLE(int CListWnd::Unknown0x188(int a, int b) const, CListWnd, Unknown0x188);
-FORWARD_FUNCTION_TO_VTABLE(void CListWnd::Sort(bool unstable), CListWnd, Sort);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnHeaderClick(CXPoint), CListWnd, OnHeaderClick);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawColumnSeparators() const, CListWnd, DrawColumnSeparators);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawSeparator(int index) const, CListWnd, DrawSeparator);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawLine(int index) const, CListWnd, DrawLine);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawHeader() const, CListWnd, DrawHeader);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawItem(int index, int, int) const, CListWnd, DrawItem);
+FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::DeleteAll(), CListWnd, DeleteAll);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::Compare(const SListWndLine&, const SListWndLine&) const, CListWnd, Compare);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::Unknown0x188(int a, int b) const, CListWnd, Unknown0x188);
+FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::Sort(bool unstable), CListWnd, Sort);
 
 // overrides
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::Draw(), CListWnd, CXWnd, Draw);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::DrawBackground() const, CListWnd, CXWnd, DrawBackground);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::DrawTooltip(const CXWnd* wnd) const, CListWnd, CXWnd, DrawTooltip);
-FORWARD_FUNCTION_TO_VTABLE2(HCURSOR CListWnd::GetCursorToDisplay() const, CListWnd, CXWnd, GetCursorToDisplay);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleLButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonDown);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleLButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonUp);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleLButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleLButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleRButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleRButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonUp);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleRButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleRButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::HandleMouseMove(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleMouseMove);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::WndNotification(CXWnd* sender, uint32_t message, void* data), CListWnd, CXWnd, WndNotification);
-FORWARD_FUNCTION_TO_VTABLE2(void CListWnd::OnWndNotification(), CListWnd, CXWnd, OnWndNotification);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::OnMove(const CXRect& rect), CListWnd, CXWnd, OnMove);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::OnResize(int w, int h), CListWnd, CXWnd, OnResize);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::OnVScroll(EScrollCode code, int pos), CListWnd, CXWnd, OnVScroll);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::OnHScroll(EScrollCode code, int pos), CListWnd, CXWnd, OnHScroll);
-FORWARD_FUNCTION_TO_VTABLE2(CXRect CListWnd::GetHitTestRect(int code) const, CListWnd, CXWnd, GetHitTestRect);
-FORWARD_FUNCTION_TO_VTABLE2(CXRect CListWnd::GetClientClipRect() const, CListWnd, CXWnd, GetClientClipRect);
-FORWARD_FUNCTION_TO_VTABLE2(CXWnd* CListWnd::GetChildWndAt(const CXPoint& pos, bool, bool) const, CListWnd, CXWnd, GetChildWndAt);
-FORWARD_FUNCTION_TO_VTABLE2(int CListWnd::SetVScrollPos(int pos), CListWnd, CXWnd, SetVScrollPos);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::Draw(), CListWnd, Draw);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawBackground() const, CListWnd, DrawBackground);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawTooltip(const CXWnd* wnd) const, CListWnd, DrawTooltip);
+FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CListWnd::GetCursorToDisplay() const, CListWnd, GetCursorToDisplay);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonDown);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonUp);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonDown);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonUp);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleMouseMove(const CXPoint& pos, uint32_t flags), CListWnd, HandleMouseMove);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::WndNotification(CXWnd* sender, uint32_t message, void* data), CListWnd, WndNotification);
+FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::OnWndNotification(), CListWnd, OnWndNotification);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnMove(const CXRect& rect), CListWnd, OnMove);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnResize(int w, int h), CListWnd, OnResize);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnVScroll(EScrollCode code, int pos), CListWnd, OnVScroll);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnHScroll(EScrollCode code, int pos), CListWnd, OnHScroll);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetHitTestRect(int code) const, CListWnd, GetHitTestRect);
+//FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetClientClipRect() const, CListWnd, GetClientClipRect);
+FORWARD_FUNCTION_TO_VTABLE(CXWnd*, CListWnd::GetChildWndAt(const CXPoint& pos, bool, bool) const, CListWnd, GetChildWndAt);
+FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::SetVScrollPos(int pos), CListWnd, SetVScrollPos);
 
 #ifdef CListWnd__CListWnd_x
 CONSTRUCTOR_AT_ADDRESS(CListWnd::CListWnd(CXWnd*, uint32_t, CXRect const&), CListWnd__CListWnd);
 #endif
 #ifdef CListWnd__dCListWnd_x
-FUNCTION_AT_ADDRESS(CListWnd::~CListWnd(), CListWnd__dCListWnd);
+DESTRUCTOR_AT_ADDRESS(CListWnd::~CListWnd(), CListWnd__dCListWnd);
 #endif
 #ifdef CListWnd__GetCurSel_x
-FUNCTION_AT_ADDRESS(int CListWnd::GetCurSel() const, CListWnd__GetCurSel);
+FUNCTION_AT_ADDRESS(int, CListWnd::GetCurSel() const, CListWnd__GetCurSel);
 #endif
 #ifdef CListWnd__GetCurCol_x
-FUNCTION_AT_ADDRESS(int CListWnd::GetCurCol() const, CListWnd__GetCurCol);
+FUNCTION_AT_ADDRESS(int, CListWnd::GetCurCol() const, CListWnd__GetCurCol);
 #endif
 #ifdef CListWnd__GetItemData_x
-FUNCTION_AT_ADDRESS(uint64_t CListWnd::GetItemData(int) const, CListWnd__GetItemData);
+FUNCTION_AT_ADDRESS(uint64_t, CListWnd::GetItemData(int) const, CListWnd__GetItemData);
 #endif
 #ifdef CListWnd__GetItemText_x
-FUNCTION_AT_ADDRESS(CXStr CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
+//FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
 #endif
 #ifdef CListWnd__GetItemIcon_x
-FUNCTION_AT_ADDRESS(CTextureAnimation const* CListWnd::GetItemIcon(int, int) const, CListWnd__GetItemIcon);
+FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetItemIcon(int, int) const, CListWnd__GetItemIcon);
 #endif
 #ifdef CListWnd__GetItemColor_x
-FUNCTION_AT_ADDRESS(unsigned long CListWnd::GetItemColor(int, int) const, CListWnd__GetItemColor);
+FUNCTION_AT_ADDRESS(unsigned long, CListWnd::GetItemColor(int, int) const, CListWnd__GetItemColor);
 #endif
 #ifdef CListWnd__GetColumnFlags_x
-FUNCTION_AT_ADDRESS(uint32_t CListWnd::GetColumnFlags(int) const, CListWnd__GetColumnFlags);
+FUNCTION_AT_ADDRESS(uint32_t, CListWnd::GetColumnFlags(int) const, CListWnd__GetColumnFlags);
 #endif
 #ifdef CListWnd__GetColumnWidth_x
-FUNCTION_AT_ADDRESS(int CListWnd::GetColumnWidth(int) const, CListWnd__GetColumnWidth);
+FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnWidth(int) const, CListWnd__GetColumnWidth);
 #endif
 #ifdef CListWnd__SetColumnWidth_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetColumnWidth(int, int), CListWnd__SetColumnWidth);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetColumnWidth(int, int), CListWnd__SetColumnWidth);
 #endif
 #ifdef CListWnd__ShiftColumnSeparator_x
-FUNCTION_AT_ADDRESS(void CListWnd::ShiftColumnSeparator(int, int), CListWnd__ShiftColumnSeparator);
+FUNCTION_AT_ADDRESS(void, CListWnd::ShiftColumnSeparator(int, int), CListWnd__ShiftColumnSeparator);
 #endif
 #ifdef CListWnd__GetColumnMinWidth_x
-FUNCTION_AT_ADDRESS(int CListWnd::GetColumnMinWidth(int) const, CListWnd__GetColumnMinWidth);
-#endif
-#ifdef CListWnd__GetColumnTooltip_x
-FUNCTION_AT_ADDRESS(CXStr CListWnd::GetColumnTooltip(int) const, CListWnd__GetColumnTooltip);
+FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnMinWidth(int) const, CListWnd__GetColumnMinWidth);
 #endif
 #ifdef CListWnd__GetColumnJustification_x
-FUNCTION_AT_ADDRESS(int CListWnd::GetColumnJustification(int) const, CListWnd__GetColumnJustification);
+FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnJustification(int) const, CListWnd__GetColumnJustification);
 #endif
 #ifdef CListWnd__SetColumnJustification_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetColumnJustification(int, int), CListWnd__SetColumnJustification);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetColumnJustification(int, int), CListWnd__SetColumnJustification);
 #endif
 #ifdef CListWnd__GetColumnLabel_x
-FUNCTION_AT_ADDRESS(CXStr CListWnd::GetColumnLabel(int) const, CListWnd__GetColumnLabel);
+FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetColumnLabel(int) const, CListWnd__GetColumnLabel);
 #endif
 #ifdef CListWnd__GetColumnAnimation_x
-FUNCTION_AT_ADDRESS(CTextureAnimation const* CListWnd::GetColumnAnimation(int) const, CListWnd__GetColumnAnimation);
+FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetColumnAnimation(int) const, CListWnd__GetColumnAnimation);
 #endif
 #ifdef CListWnd__GetColumnAnimationSelected_x
-FUNCTION_AT_ADDRESS(CTextureAnimation const* CListWnd::GetColumnAnimationSelected(int) const, CListWnd__GetColumnAnimationSelected);
+FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetColumnAnimationSelected(int) const, CListWnd__GetColumnAnimationSelected);
 #endif
 #ifdef CListWnd__GetColumnAnimationMouseOver_x
-FUNCTION_AT_ADDRESS(CTextureAnimation const* CListWnd::GetColumnAnimationMouseOver(int) const, CListWnd__GetColumnAnimationMouseOver);
+FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetColumnAnimationMouseOver(int) const, CListWnd__GetColumnAnimationMouseOver);
 #endif
 #ifdef CListWnd__AddLine_x
-FUNCTION_AT_ADDRESS(int CListWnd::AddLine(SListWndLine*), CListWnd__AddLine);
+FUNCTION_AT_ADDRESS(int, CListWnd::AddLine(SListWndLine*), CListWnd__AddLine);
 #endif
 #ifdef CListWnd__AddString_x
-FUNCTION_AT_ADDRESS(int CListWnd::AddString(const CXStr& Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr), CListWnd__AddString);
+FUNCTION_AT_ADDRESS(int, CListWnd::AddString(const CXStr& Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr), CListWnd__AddString);
 #endif
 #ifdef CListWnd__RemoveString_x
-FUNCTION_AT_ADDRESS(void CListWnd::RemoveString(int), CListWnd__RemoveString);
+FUNCTION_AT_ADDRESS(void, CListWnd::RemoveString(int), CListWnd__RemoveString);
 #endif
 #ifdef CListWnd__InsertLine_x
-FUNCTION_AT_ADDRESS(void CListWnd::InsertLine(int ID, SListWndLine* rEntry), CListWnd__InsertLine);
+FUNCTION_AT_ADDRESS(void, CListWnd::InsertLine(int ID, SListWndLine* rEntry), CListWnd__InsertLine);
 #endif
 #ifdef CListWnd__RemoveLine_x
-FUNCTION_AT_ADDRESS(void CListWnd::RemoveLine(int), CListWnd__RemoveLine);
+FUNCTION_AT_ADDRESS(void, CListWnd::RemoveLine(int), CListWnd__RemoveLine);
 #endif
 #ifdef CListWnd__SetCurSel_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetCurSel(int), CListWnd__SetCurSel);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetCurSel(int), CListWnd__SetCurSel);
 #endif
 #ifdef CListWnd__ToggleSel_x
-FUNCTION_AT_ADDRESS(void CListWnd::ToggleSel(int), CListWnd__ToggleSel);
+FUNCTION_AT_ADDRESS(void, CListWnd::ToggleSel(int), CListWnd__ToggleSel);
 #endif
 #ifdef CListWnd__ExtendSel_x
-FUNCTION_AT_ADDRESS(void CListWnd::ExtendSel(int), CListWnd__ExtendSel);
+FUNCTION_AT_ADDRESS(void, CListWnd::ExtendSel(int), CListWnd__ExtendSel);
 #endif
 #ifdef CListWnd__ClearAllSel_x
-FUNCTION_AT_ADDRESS(void CListWnd::ClearAllSel(), CListWnd__ClearAllSel);
+FUNCTION_AT_ADDRESS(void, CListWnd::ClearAllSel(), CListWnd__ClearAllSel);
 #endif
 #ifdef CListWnd__ClearSel_x
-FUNCTION_AT_ADDRESS(void CListWnd::ClearSel(int), CListWnd__ClearSel);
+FUNCTION_AT_ADDRESS(void, CListWnd::ClearSel(int), CListWnd__ClearSel);
 #endif
 #ifdef CListWnd__SetColumnsSizable_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetColumnsSizable(bool), CListWnd__SetColumnsSizable);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetColumnsSizable(bool), CListWnd__SetColumnsSizable);
 #endif
 #ifdef CListWnd__GetItemWnd_x
-FUNCTION_AT_ADDRESS(CXWnd* CListWnd::GetItemWnd(int Index, int SubItem) const, CListWnd__GetItemWnd);
+FUNCTION_AT_ADDRESS(CXWnd*, CListWnd::GetItemWnd(int Index, int SubItem) const, CListWnd__GetItemWnd);
 #endif
 #ifdef CListWnd__SetItemIcon_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetItemIcon(int Index, int SubItem, const CTextureAnimation* pTA), CListWnd__SetItemIcon);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetItemIcon(int Index, int SubItem, const CTextureAnimation* pTA), CListWnd__SetItemIcon);
 #endif
 #ifdef CListWnd__CalculateCustomWindowPositions_x
-FUNCTION_AT_ADDRESS(void CListWnd::CalculateCustomWindowPositions(), CListWnd__CalculateCustomWindowPositions);
+FUNCTION_AT_ADDRESS(void, CListWnd::CalculateCustomWindowPositions(), CListWnd__CalculateCustomWindowPositions);
 #endif
 #ifdef CListWnd__SetItemWnd_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetItemWnd(int Index, int SubItem, CXWnd* pWnd), CListWnd__SetItemWnd);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetItemWnd(int Index, int SubItem, CXWnd* pWnd), CListWnd__SetItemWnd);
 #endif
 #ifdef CListWnd__SetItemData_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetItemData(int, uint64_t), CListWnd__SetItemData);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetItemData(int, uint64_t), CListWnd__SetItemData);
 #endif
 #ifdef CListWnd__SetItemText_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetItemText(int, int, const CXStr&), CListWnd__SetItemText);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetItemText(int, int, const CXStr&), CListWnd__SetItemText);
 #endif
 #ifdef CListWnd__SetItemColor_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetItemColor(int, int, unsigned long), CListWnd__SetItemColor);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetItemColor(int, int, unsigned long), CListWnd__SetItemColor);
 #endif
 #ifdef CListWnd__IsLineEnabled_x
-FUNCTION_AT_ADDRESS(bool CListWnd::IsLineEnabled(int) const, CListWnd__IsLineEnabled);
+FUNCTION_AT_ADDRESS(bool, CListWnd::IsLineEnabled(int) const, CListWnd__IsLineEnabled);
 #endif
 #ifdef CListWnd__EnableLine_x
-FUNCTION_AT_ADDRESS(void CListWnd::EnableLine(int, bool), CListWnd__EnableLine);
+FUNCTION_AT_ADDRESS(void, CListWnd::EnableLine(int, bool), CListWnd__EnableLine);
 #endif
 #ifdef CListWnd__AddColumn_x
-FUNCTION_AT_ADDRESS(int CListWnd::AddColumn(const CXStr&, int, uint32_t, uint32_t), CListWnd__AddColumn);
+FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr&, int, uint32_t, uint32_t), CListWnd__AddColumn);
 #endif
 #ifdef CListWnd__AddColumn1_x
 // CListWnd::AddColumn implemented in ExceptionsDisabled.cpp
 #endif
 #ifdef CListWnd__SetColumnLabel_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetColumnLabel(int, const CXStr&), CListWnd__SetColumnLabel);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetColumnLabel(int, const CXStr&), CListWnd__SetColumnLabel);
 #endif
 #ifdef CListWnd__GetItemHeight_x
-FUNCTION_AT_ADDRESS(int CListWnd::GetItemHeight(int) const, CListWnd__GetItemHeight);
+FUNCTION_AT_ADDRESS(int, CListWnd::GetItemHeight(int) const, CListWnd__GetItemHeight);
 #endif
 #ifdef CListWnd__CalculateLineHeights_x
-FUNCTION_AT_ADDRESS(void CListWnd::CalculateLineHeights(), CListWnd__CalculateLineHeights);
+FUNCTION_AT_ADDRESS(void, CListWnd::CalculateLineHeights(), CListWnd__CalculateLineHeights);
 #endif
 #ifdef CListWnd__CalculateVSBRange_x
-FUNCTION_AT_ADDRESS(void CListWnd::CalculateVSBRange(), CListWnd__CalculateVSBRange);
+FUNCTION_AT_ADDRESS(void, CListWnd::CalculateVSBRange(), CListWnd__CalculateVSBRange);
 #endif
 #ifdef CListWnd__CalculateFirstVisibleLine_x
-FUNCTION_AT_ADDRESS(void CListWnd::CalculateFirstVisibleLine(), CListWnd__CalculateFirstVisibleLine);
+FUNCTION_AT_ADDRESS(void, CListWnd::CalculateFirstVisibleLine(), CListWnd__CalculateFirstVisibleLine);
 #endif
 #ifdef CListWnd__EnsureVisible_x
-FUNCTION_AT_ADDRESS(void CListWnd::EnsureVisible(int), CListWnd__EnsureVisible);
+FUNCTION_AT_ADDRESS(void, CListWnd::EnsureVisible(int), CListWnd__EnsureVisible);
 #endif
 #ifdef CListWnd__GetItemRect_x
-FUNCTION_AT_ADDRESS(CXRect CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
+//FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
 #endif
 #ifdef CListWnd__GetItemAtPoint_x
-FUNCTION_AT_ADDRESS(int CListWnd::GetItemAtPoint(const CXPoint&) const, CListWnd__GetItemAtPoint);
+FUNCTION_AT_ADDRESS(int, CListWnd::GetItemAtPoint(const CXPoint&) const, CListWnd__GetItemAtPoint);
 #endif
 #ifdef CListWnd__GetItemAtPoint1_x
-FUNCTION_AT_ADDRESS(void CListWnd::GetItemAtPoint(const CXPoint&, int*, int*) const, CListWnd__GetItemAtPoint1);
+FUNCTION_AT_ADDRESS(void, CListWnd::GetItemAtPoint(const CXPoint&, int*, int*) const, CListWnd__GetItemAtPoint1);
 #endif
 #ifdef CListWnd__CloseAndUpdateEditWindow_x
-FUNCTION_AT_ADDRESS(void CListWnd::CloseAndUpdateEditWindow(), CListWnd__CloseAndUpdateEditWindow);
+FUNCTION_AT_ADDRESS(void, CListWnd::CloseAndUpdateEditWindow(), CListWnd__CloseAndUpdateEditWindow);
 #endif
 #ifdef CListWnd__SetColors_x
-FUNCTION_AT_ADDRESS(void CListWnd::SetColors(unsigned long, unsigned long, unsigned long), CListWnd__SetColors);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetColors(unsigned long, unsigned long, unsigned long), CListWnd__SetColors);
 #endif
 #ifdef CListWnd__GetSeparatorRect_x
-FUNCTION_AT_ADDRESS(CXRect CListWnd::GetSeparatorRect(int) const, CListWnd__GetSeparatorRect);
+//FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetSeparatorRect(int) const, CListWnd__GetSeparatorRect);
 #endif
 #ifdef CListWnd__GetHeaderRect_x
-FUNCTION_AT_ADDRESS(CXRect CListWnd::GetHeaderRect(int) const, CListWnd__GetHeaderRect);
+FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetHeaderRect(int) const, CListWnd__GetHeaderRect);
 #endif
 
 int CListWnd::AddString(const char* Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr)
@@ -566,6 +567,14 @@ CXWnd* CListWnd::GetItemWnd(int Index, int SubItem) const
 }
 #endif
 
+CXStr CListWnd::GetColumnTooltip(int column) const
+{
+	if (column >= 0 && column < GetColumnCount())
+		return Columns[column].Tooltip;
+
+	return CXStr();
+}
+
 //============================================================================
 // CPageWnd
 //============================================================================
@@ -574,10 +583,10 @@ CXWnd* CListWnd::GetItemWnd(int Index, int SubItem) const
 FUNCTION_AT_ADDRESS(CPageWnd::CPageWnd(CXWnd*, uint32_t, CXRect, class CXStr, CPageTemplate*), CPageWnd__CPageWnd);
 #endif
 #ifdef CPageWnd__FlashTab_x
-FUNCTION_AT_ADDRESS(void CPageWnd::FlashTab(bool, int) const, CPageWnd__FlashTab);
+FUNCTION_AT_ADDRESS(void, CPageWnd::FlashTab(bool, int) const, CPageWnd__FlashTab);
 #endif
 #ifdef CPageWnd__SetTabText_x
-FUNCTION_AT_ADDRESS(void CPageWnd::SetTabText(CXStr&) const, CPageWnd__SetTabText);
+FUNCTION_AT_ADDRESS(void, CPageWnd::SetTabText(CXStr&) const, CPageWnd__SetTabText);
 #endif
 
 CXStr CPageWnd::GetTabText(bool bShowFlashing) const
@@ -599,46 +608,46 @@ CXStr CPageWnd::GetTabText(bool bShowFlashing) const
 FUNCTION_AT_ADDRESS(CSliderWnd::CSliderWnd(CXWnd*, uint32_t, CXRect, CSliderTemplate*), CSliderWnd__CSliderWnd);
 #endif
 #ifdef CSliderWnd__SetValue_x
-FUNCTION_AT_ADDRESS(void CSliderWnd::SetValue(int), CSliderWnd__SetValue);
+FUNCTION_AT_ADDRESS(void, CSliderWnd::SetValue(int), CSliderWnd__SetValue);
 #endif
 #ifdef CSliderWnd__SetNumTicks_x
-FUNCTION_AT_ADDRESS(void CSliderWnd::SetNumTicks(int), CSliderWnd__SetNumTicks);
+FUNCTION_AT_ADDRESS(void, CSliderWnd::SetNumTicks(int), CSliderWnd__SetNumTicks);
 #endif
 #ifdef CSliderWnd__UpdateThumb_x
-FUNCTION_AT_ADDRESS(void CSliderWnd::UpdateThumb(), CSliderWnd__UpdateThumb);
+FUNCTION_AT_ADDRESS(void, CSliderWnd::UpdateThumb(), CSliderWnd__UpdateThumb);
 #endif
 #ifdef CSliderWnd__UpdateMiddleRange_x
-FUNCTION_AT_ADDRESS(void CSliderWnd::UpdateMiddleRange(), CSliderWnd__UpdateMiddleRange);
+FUNCTION_AT_ADDRESS(void, CSliderWnd::UpdateMiddleRange(), CSliderWnd__UpdateMiddleRange);
 #endif
 #ifdef CSliderWnd__GetValue_x
-FUNCTION_AT_ADDRESS(int CSliderWnd::GetValue() const, CSliderWnd__GetValue);
+FUNCTION_AT_ADDRESS(int, CSliderWnd::GetValue() const, CSliderWnd__GetValue);
 #endif
 #ifdef CSliderWnd__GetMiddleRangeRect_x
-FUNCTION_AT_ADDRESS(CXRect CSliderWnd::GetMiddleRangeRect() const, CSliderWnd__GetMiddleRangeRect);
+FUNCTION_AT_ADDRESS(CXRect, CSliderWnd::GetMiddleRangeRect() const, CSliderWnd__GetMiddleRangeRect);
 #endif
 #ifdef CSliderWnd__GetEndCapLeftRect_x
-FUNCTION_AT_ADDRESS(CXRect CSliderWnd::GetEndCapLeftRect() const, CSliderWnd__GetEndCapLeftRect);
+FUNCTION_AT_ADDRESS(CXRect, CSliderWnd::GetEndCapLeftRect() const, CSliderWnd__GetEndCapLeftRect);
 #endif
 #ifdef CSliderWnd__GetEndCapRightRect_x
-FUNCTION_AT_ADDRESS(CXRect CSliderWnd::GetEndCapRightRect() const, CSliderWnd__GetEndCapRightRect);
+FUNCTION_AT_ADDRESS(CXRect, CSliderWnd::GetEndCapRightRect() const, CSliderWnd__GetEndCapRightRect);
 #endif
 #ifdef CSliderWnd__GetThumbRect_x
-FUNCTION_AT_ADDRESS(CXRect CSliderWnd::GetThumbRect() const, CSliderWnd__GetThumbRect);
+FUNCTION_AT_ADDRESS(CXRect, CSliderWnd::GetThumbRect() const, CSliderWnd__GetThumbRect);
 #endif
 #ifdef CSliderWnd__SetThumbToOffset_x
-FUNCTION_AT_ADDRESS(void CSliderWnd::SetThumbToOffset(int), CSliderWnd__SetThumbToOffset);
+FUNCTION_AT_ADDRESS(void, CSliderWnd::SetThumbToOffset(int), CSliderWnd__SetThumbToOffset);
 #endif
 #ifdef CSliderWnd__DrawMiddleRange_x
-FUNCTION_AT_ADDRESS(int CSliderWnd::DrawMiddleRange() const, CSliderWnd__DrawMiddleRange);
+FUNCTION_AT_ADDRESS(int, CSliderWnd::DrawMiddleRange() const, CSliderWnd__DrawMiddleRange);
 #endif
 #ifdef CSliderWnd__DrawEndCapLeft_x
-FUNCTION_AT_ADDRESS(int CSliderWnd::DrawEndCapLeft() const, CSliderWnd__DrawEndCapLeft);
+FUNCTION_AT_ADDRESS(int, CSliderWnd::DrawEndCapLeft() const, CSliderWnd__DrawEndCapLeft);
 #endif
 #ifdef CSliderWnd__DrawEndCapRight_x
-FUNCTION_AT_ADDRESS(int CSliderWnd::DrawEndCapRight() const, CSliderWnd__DrawEndCapRight);
+FUNCTION_AT_ADDRESS(int, CSliderWnd::DrawEndCapRight() const, CSliderWnd__DrawEndCapRight);
 #endif
 #ifdef CSliderWnd__DrawThumb_x
-FUNCTION_AT_ADDRESS(int CSliderWnd::DrawThumb() const, CSliderWnd__DrawThumb);
+FUNCTION_AT_ADDRESS(int, CSliderWnd::DrawThumb() const, CSliderWnd__DrawThumb);
 #endif
 
 //============================================================================
@@ -649,103 +658,97 @@ FUNCTION_AT_ADDRESS(int CSliderWnd::DrawThumb() const, CSliderWnd__DrawThumb);
 FUNCTION_AT_ADDRESS(CStmlWnd::CStmlWnd(CXWnd*, uint32_t, CXRect), CStmlWnd__CStmlWnd);
 #endif
 #ifdef CStmlWnd__InitializeTextLine_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::InitializeTextLine(SParseVariables*, int), CStmlWnd__InitializeTextLine);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeTextLine(SParseVariables*, int), CStmlWnd__InitializeTextLine);
 #endif
 #ifdef CStmlWnd__AddTextPieceToLine_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::AddTextPieceToLine(SParseVariables*), CStmlWnd__AddTextPieceToLine);
-#endif
-#ifdef CStmlWnd__MakeStmlColorTag_x
-FUNCTION_AT_ADDRESS(CXStr __cdecl CStmlWnd::MakeStmlColorTag(unsigned long), CStmlWnd__MakeStmlColorTag);
-#endif
-#ifdef CStmlWnd__MakeWndNotificationTag_x
-FUNCTION_AT_ADDRESS(CXStr CStmlWnd::MakeWndNotificationTag(uint32_t, const CXStr&, const CXStr&), CStmlWnd__MakeWndNotificationTag);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::AddTextPieceToLine(SParseVariables*), CStmlWnd__AddTextPieceToLine);
 #endif
 #ifdef CStmlWnd__ParseTagColor_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::ParseTagColor(CXStr, unsigned long*) const, CStmlWnd__ParseTagColor);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::ParseTagColor(CXStr, unsigned long*) const, CStmlWnd__ParseTagColor);
 #endif
 #ifdef CStmlWnd__ParseTagFace_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::ParseTagFace(CXStr, CTextureFont const**) const, CStmlWnd__ParseTagFace);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::ParseTagFace(CXStr, CTextureFont const**) const, CStmlWnd__ParseTagFace);
 #endif
 #ifdef CStmlWnd__ParseAmpersand_x
-FUNCTION_AT_ADDRESS(bool CStmlWnd::ParseAmpersand(CXStr&, char*) const, CStmlWnd__ParseAmpersand);
+FUNCTION_AT_ADDRESS(bool, CStmlWnd::ParseAmpersand(CXStr&, char*) const, CStmlWnd__ParseAmpersand);
 #endif
 #ifdef CStmlWnd__FastForwardPastSpaces_x
-FUNCTION_AT_ADDRESS(unsigned short CStmlWnd::FastForwardPastSpaces(CXStr&, int*), CStmlWnd__FastForwardPastSpaces);
+FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardPastSpaces(CXStr&, int*), CStmlWnd__FastForwardPastSpaces);
 #endif
 #ifdef CStmlWnd__FastForwardPastSpacesAndQuotes_x
-FUNCTION_AT_ADDRESS(unsigned short CStmlWnd::FastForwardPastSpacesAndQuotes(CXStr&, int*), CStmlWnd__FastForwardPastSpacesAndQuotes);
+FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardPastSpacesAndQuotes(CXStr&, int*), CStmlWnd__FastForwardPastSpacesAndQuotes);
 #endif
 #ifdef CStmlWnd__GetNextTagPiece_x
-FUNCTION_AT_ADDRESS(unsigned short CStmlWnd::GetNextTagPiece(const CXStr&, CXStr*, int*, bool (*)(unsigned short), bool), CStmlWnd__GetNextTagPiece);
+FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::GetNextTagPiece(const CXStr&, CXStr*, int*, bool (*)(unsigned short), bool), CStmlWnd__GetNextTagPiece);
 #endif
 #ifdef CStmlWnd__IsCharacterNotQuotes_x
-FUNCTION_AT_ADDRESS(bool __cdecl CStmlWnd::IsCharacterNotQuotes(unsigned short), CStmlWnd__IsCharacterNotQuotes);
+FUNCTION_AT_ADDRESS(bool __cdecl, CStmlWnd::IsCharacterNotQuotes(unsigned short), CStmlWnd__IsCharacterNotQuotes);
 #endif
 #ifdef CStmlWnd__FastForwardPastQuotesAndGetNextTagPiece_x
-FUNCTION_AT_ADDRESS(unsigned short CStmlWnd::FastForwardPastQuotesAndGetNextTagPiece(CXStr&, CXStr*, int*, bool), CStmlWnd__FastForwardPastQuotesAndGetNextTagPiece);
+FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardPastQuotesAndGetNextTagPiece(CXStr&, CXStr*, int*, bool), CStmlWnd__FastForwardPastQuotesAndGetNextTagPiece);
 #endif
 #ifdef CStmlWnd__FastForwardToEndOfTag_x
-FUNCTION_AT_ADDRESS(unsigned short CStmlWnd::FastForwardToEndOfTag(const CXStr&, CXStr*, int*, char), CStmlWnd__FastForwardToEndOfTag);
+FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardToEndOfTag(const CXStr&, CXStr*, int*, char), CStmlWnd__FastForwardToEndOfTag);
 #endif
 #ifdef CStmlWnd__InitializeTempVariables_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::InitializeTempVariables(SParseVariables*, CXRect), CStmlWnd__InitializeTempVariables);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeTempVariables(SParseVariables*, CXRect), CStmlWnd__InitializeTempVariables);
 #endif
 #ifdef CStmlWnd__InitializeWindowVariables_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::InitializeWindowVariables(), CStmlWnd__InitializeWindowVariables);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeWindowVariables(), CStmlWnd__InitializeWindowVariables);
 #endif
 #ifdef CStmlWnd__ResetTempVariablesForNewLine_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::ResetTempVariablesForNewLine(SParseVariables*), CStmlWnd__ResetTempVariablesForNewLine);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::ResetTempVariablesForNewLine(SParseVariables*), CStmlWnd__ResetTempVariablesForNewLine);
 #endif
 #ifdef CStmlWnd__GetNextChar_x
-FUNCTION_AT_ADDRESS(unsigned short CStmlWnd::GetNextChar(int*, CXStr&), CStmlWnd__GetNextChar);
+FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::GetNextChar(int*, CXStr&), CStmlWnd__GetNextChar);
 #endif
 #ifdef CStmlWnd__GetThisChar_x
-FUNCTION_AT_ADDRESS(unsigned short CStmlWnd::GetThisChar(int, CXStr&), CStmlWnd__GetThisChar);
+FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::GetThisChar(int, CXStr&), CStmlWnd__GetThisChar);
 #endif
 #ifdef CStmlWnd__IsCharacterNotEquals_x
-FUNCTION_AT_ADDRESS(bool __cdecl CStmlWnd::IsCharacterNotEquals(unsigned short), CStmlWnd__IsCharacterNotEquals);
+FUNCTION_AT_ADDRESS(bool __cdecl, CStmlWnd::IsCharacterNotEquals(unsigned short), CStmlWnd__IsCharacterNotEquals);
 #endif
 #ifdef CStmlWnd__IsCharacterNotASpaceAndNotNULL_x
-FUNCTION_AT_ADDRESS(bool __cdecl CStmlWnd::IsCharacterNotASpaceAndNotNULL(unsigned short), CStmlWnd__IsCharacterNotASpaceAndNotNULL);
+FUNCTION_AT_ADDRESS(bool __cdecl, CStmlWnd::IsCharacterNotASpaceAndNotNULL(unsigned short), CStmlWnd__IsCharacterNotASpaceAndNotNULL);
 #endif
 #ifdef CStmlWnd__ParseSTMLHead_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::ParseSTMLHead(CXStr&), CStmlWnd__ParseSTMLHead);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::ParseSTMLHead(CXStr&), CStmlWnd__ParseSTMLHead);
 #endif
 #ifdef CStmlWnd__ParseSTMLTable_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::ParseSTMLTable(CXStr&, int*, CXStr&, SParseVariables*), CStmlWnd__ParseSTMLTable);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::ParseSTMLTable(CXStr&, int*, CXStr&, SParseVariables*), CStmlWnd__ParseSTMLTable);
 #endif
 #ifdef CStmlWnd__ParseSTMLTableAttributes_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::ParseSTMLTableAttributes(CXStr, STable*), CStmlWnd__ParseSTMLTableAttributes);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::ParseSTMLTableAttributes(CXStr, STable*), CStmlWnd__ParseSTMLTableAttributes);
 #endif
 #ifdef CStmlWnd__ForceParseNow_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::ForceParseNow(), CStmlWnd__ForceParseNow);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::ForceParseNow(), CStmlWnd__ForceParseNow);
 #endif
 #ifdef CStmlWnd__CalculateVSBRange_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::CalculateVSBRange(int), CStmlWnd__CalculateVSBRange);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::CalculateVSBRange(int), CStmlWnd__CalculateVSBRange);
 #endif
 #ifdef CStmlWnd__CalculateHSBRange_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::CalculateHSBRange(int), CStmlWnd__CalculateHSBRange);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::CalculateHSBRange(int), CStmlWnd__CalculateHSBRange);
 #endif
 #ifdef CStmlWnd__CompleteParse_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::CompleteParse(), CStmlWnd__CompleteParse);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::CompleteParse(), CStmlWnd__CompleteParse);
 #endif
 #ifdef CStmlWnd__StripFirstSTMLLines_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::StripFirstSTMLLines(int), CStmlWnd__StripFirstSTMLLines);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::StripFirstSTMLLines(int), CStmlWnd__StripFirstSTMLLines);
 #endif
 #ifdef CStmlWnd__CanBreakAtCharacter_x
-FUNCTION_AT_ADDRESS(bool __cdecl CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
+FUNCTION_AT_ADDRESS(bool, __cdecl CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
 #endif
 #ifdef CStmlWnd__UpdateHistoryString_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::UpdateHistoryString(int32_t, const CXStr&), CStmlWnd__UpdateHistoryString);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::UpdateHistoryString(int32_t, const CXStr&), CStmlWnd__UpdateHistoryString);
 #endif
 #ifdef CStmlWnd__SetSTMLTextWithoutHistory_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::SetSTMLTextWithoutHistory(CXStr), CStmlWnd__SetSTMLTextWithoutHistory);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::SetSTMLTextWithoutHistory(CXStr), CStmlWnd__SetSTMLTextWithoutHistory);
 #endif
 #ifdef CStmlWnd__GoToBackHistoryLink_x
-FUNCTION_AT_ADDRESS(void CStmlWnd::GoToBackHistoryLink(), CStmlWnd__GoToBackHistoryLink);
+FUNCTION_AT_ADDRESS(void, CStmlWnd::GoToBackHistoryLink(), CStmlWnd__GoToBackHistoryLink);
 #endif
 #ifdef CStmlWnd__CanGoBackward_x
-FUNCTION_AT_ADDRESS(bool CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
+FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
 #endif
 
 //============================================================================
@@ -756,55 +759,55 @@ FUNCTION_AT_ADDRESS(bool CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
 FUNCTION_AT_ADDRESS(CTabWnd::CTabWnd(CXWnd* pParent, UINT uId, RECT* rect, CTabBoxTemplate* pTabContents), CTabWnd__CTabWnd);
 #endif
 #ifdef CTabWnd__GetNumTabs_x
-//FUNCTION_AT_ADDRESS(int CTabWnd::GetNumTabs() const, CTabWnd__GetNumTabs);
+//FUNCTION_AT_ADDRESS(int, CTabWnd::GetNumTabs() const, CTabWnd__GetNumTabs);
 #endif
 #ifdef CTabWnd__GetCurrentPage_x
-//FUNCTION_AT_ADDRESS(CPageWnd* CTabWnd::GetCurrentPage() const, CTabWnd__GetCurrentPage);
+//FUNCTION_AT_ADDRESS(CPageWnd*, CTabWnd::GetCurrentPage() const, CTabWnd__GetCurrentPage);
 #endif
 #ifdef CTabWnd__GetTabRect_x
-FUNCTION_AT_ADDRESS(CXRect CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
+//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
 #endif
 #ifdef CTabWnd__GetTabInnerRect_x
-FUNCTION_AT_ADDRESS(CXRect CTabWnd::GetTabInnerRect(int) const, CTabWnd__GetTabInnerRect);
+//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabInnerRect(int) const, CTabWnd__GetTabInnerRect);
 #endif
 #ifdef CTabWnd__GetPageClientRect_x
-FUNCTION_AT_ADDRESS(CXRect CTabWnd::GetPageClientRect() const, CTabWnd__GetPageClientRect);
+FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageClientRect() const, CTabWnd__GetPageClientRect);
 #endif
 #ifdef CTabWnd__GetPageInnerRect_x
-FUNCTION_AT_ADDRESS(CXRect CTabWnd::GetPageInnerRect() const, CTabWnd__GetPageInnerRect);
+//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageInnerRect() const, CTabWnd__GetPageInnerRect);
 #endif
 #ifdef CTabWnd__SetPage_x
-FUNCTION_AT_ADDRESS(void CTabWnd::SetPage(int, bool, bool, bool), CTabWnd__SetPage);
+FUNCTION_AT_ADDRESS(void, CTabWnd::SetPage(int, bool, bool, bool), CTabWnd__SetPage);
 #endif
 #ifdef CTabWnd__SetPage1_x
-FUNCTION_AT_ADDRESS(bool CTabWnd::SetPage(CPageWnd*, bool, bool), CTabWnd__SetPage1);
+FUNCTION_AT_ADDRESS(bool, CTabWnd::SetPage(CPageWnd*, bool, bool), CTabWnd__SetPage1);
 #endif
 #ifdef CTabWnd__InsertPage_x
-FUNCTION_AT_ADDRESS(void CTabWnd::InsertPage(CPageWnd*, int), CTabWnd__InsertPage);
+FUNCTION_AT_ADDRESS(void, CTabWnd::InsertPage(CPageWnd*, int), CTabWnd__InsertPage);
 #endif
 #ifdef CTabWnd__SetPageRect_x
-FUNCTION_AT_ADDRESS(void CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageRect);
+FUNCTION_AT_ADDRESS(void, CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageRect);
 #endif
 #ifdef CTabWnd__UpdatePage_x
-FUNCTION_AT_ADDRESS(void CTabWnd::UpdatePage(), CTabWnd__UpdatePage);
+FUNCTION_AT_ADDRESS(void, CTabWnd::UpdatePage(), CTabWnd__UpdatePage);
 #endif
 #ifdef CTabWnd__GetPageFromTabIndex_x
-//FUNCTION_AT_ADDRESS(CPageWnd* CTabWnd::GetPageFromTabIndex(int) const, CTabWnd__GetPageFromTabIndex);
+//FUNCTION_AT_ADDRESS(CPageWnd*, CTabWnd::GetPageFromTabIndex(int) const, CTabWnd__GetPageFromTabIndex);
 #endif
 #ifdef CTabWnd__GetCurrentTabIndex_x
-//FUNCTION_AT_ADDRESS(int CTabWnd::GetCurrentTabIndex() const, CTabWnd__GetCurrentTabIndex);
+//FUNCTION_AT_ADDRESS(int, CTabWnd::GetCurrentTabIndex() const, CTabWnd__GetCurrentTabIndex);
 #endif
 #ifdef CTabWnd__IndexInBounds_x
-FUNCTION_AT_ADDRESS(bool CTabWnd::IndexInBounds(int) const, CTabWnd__IndexInBounds);
+FUNCTION_AT_ADDRESS(bool, CTabWnd::IndexInBounds(int) const, CTabWnd__IndexInBounds);
 #endif
 #ifdef CTabWnd__GetPageFromTabPoint_x
-FUNCTION_AT_ADDRESS(CPageWnd* CTabWnd::GetPageFromTabPoint(CXPoint) const, CTabWnd__GetPageFromTabPoint);
+FUNCTION_AT_ADDRESS(CPageWnd*, CTabWnd::GetPageFromTabPoint(CXPoint) const, CTabWnd__GetPageFromTabPoint);
 #endif
 #ifdef CTabWnd__DrawTab_x
-FUNCTION_AT_ADDRESS(int CTabWnd::DrawTab(int) const, CTabWnd__DrawTab);
+FUNCTION_AT_ADDRESS(int, CTabWnd::DrawTab(int) const, CTabWnd__DrawTab);
 #endif
 #ifdef CTabWnd__DrawCurrentPage_x
-FUNCTION_AT_ADDRESS(int CTabWnd::DrawCurrentPage() const, CTabWnd__DrawCurrentPage);
+FUNCTION_AT_ADDRESS(int, CTabWnd::DrawCurrentPage() const, CTabWnd__DrawCurrentPage);
 #endif
 
 //void CTabWnd::InsertPage(CPageWnd* pPageWnd, int position)
@@ -893,13 +896,13 @@ CPageWnd* CTabWnd::GetCurrentPage() const
 //============================================================================
 
 #ifdef CAAWnd__ShowAbility_x
-FUNCTION_AT_ADDRESS(bool CAAWnd::ShowAbility(int), CAAWnd__ShowAbility);
+FUNCTION_AT_ADDRESS(bool, CAAWnd::ShowAbility(int), CAAWnd__ShowAbility);
 #endif
 #ifdef CAAWnd__Update_x
-FUNCTION_AT_ADDRESS(void CAAWnd::Update(bool), CAAWnd__Update);
+FUNCTION_AT_ADDRESS(void, CAAWnd::Update(bool), CAAWnd__Update);
 #endif
 #ifdef CAAWnd__UpdateSelected_x
-FUNCTION_AT_ADDRESS(void CAAWnd::UpdateSelected(void), CAAWnd__UpdateSelected);
+FUNCTION_AT_ADDRESS(void, CAAWnd::UpdateSelected(void), CAAWnd__UpdateSelected);
 #endif
 
 //============================================================================
@@ -907,13 +910,13 @@ FUNCTION_AT_ADDRESS(void CAAWnd::UpdateSelected(void), CAAWnd__UpdateSelected);
 //============================================================================
 
 #ifdef CActionsWnd__MainPageActivate_x
-FUNCTION_AT_ADDRESS(int CActionsWnd::MainPageActivate(), CActionsWnd__MainPageActivate);
+FUNCTION_AT_ADDRESS(int, CActionsWnd::MainPageActivate(), CActionsWnd__MainPageActivate);
 #endif
 #ifdef CActionsWnd__MainPageDeactivate_x
-FUNCTION_AT_ADDRESS(int CActionsWnd::MainPageDeactivate(), CActionsWnd__MainPageDeactivate);
+FUNCTION_AT_ADDRESS(int, CActionsWnd::MainPageDeactivate(), CActionsWnd__MainPageDeactivate);
 #endif
 #ifdef CActionsWnd__SocialsPageDeactivate_x
-FUNCTION_AT_ADDRESS(int CActionsWnd::SocialsPageDeactivate(), CActionsWnd__SocialsPageDeactivate);
+FUNCTION_AT_ADDRESS(int, CActionsWnd::SocialsPageDeactivate(), CActionsWnd__SocialsPageDeactivate);
 #endif
 
 //============================================================================
@@ -921,10 +924,10 @@ FUNCTION_AT_ADDRESS(int CActionsWnd::SocialsPageDeactivate(), CActionsWnd__Socia
 //============================================================================
 
 #ifdef CAdvancedLootWnd__DoAdvLootAction_x
-FUNCTION_AT_ADDRESS(void CAdvancedLootWnd::DoAdvLootAction(int, const CXStr&, bool, int), CAdvancedLootWnd__DoAdvLootAction);
+FUNCTION_AT_ADDRESS(void, CAdvancedLootWnd::DoAdvLootAction(int, const CXStr&, bool, int), CAdvancedLootWnd__DoAdvLootAction);
 #endif
 #ifdef CAdvancedLootWnd__DoSharedAdvLootAction_x
-FUNCTION_AT_ADDRESS(void CAdvancedLootWnd::DoSharedAdvLootAction(const AdvancedLootItem& pLootItem, const CXStr& Assignee, bool Action, int Quantity), CAdvancedLootWnd__DoSharedAdvLootAction);
+FUNCTION_AT_ADDRESS(void, CAdvancedLootWnd::DoSharedAdvLootAction(const AdvancedLootItem& pLootItem, const CXStr& Assignee, bool Action, int Quantity), CAdvancedLootWnd__DoSharedAdvLootAction);
 #endif
 
 //============================================================================
@@ -932,16 +935,19 @@ FUNCTION_AT_ADDRESS(void CAdvancedLootWnd::DoSharedAdvLootAction(const AdvancedL
 //============================================================================
 
 #ifdef CBankWnd__ClickedMoneyButton_x
-FUNCTION_AT_ADDRESS(void CBankWnd::ClickedMoneyButton(int, int), CBankWnd__ClickedMoneyButton);
+FUNCTION_AT_ADDRESS(void, CBankWnd::ClickedMoneyButton(int, int), CBankWnd__ClickedMoneyButton);
 #endif
 #ifdef CBankWnd__GetBankQtyFromCoinType_x
-FUNCTION_AT_ADDRESS(long CBankWnd::GetBankQtyFromCoinType(int), CBankWnd__GetBankQtyFromCoinType);
+FUNCTION_AT_ADDRESS(long, CBankWnd::GetBankQtyFromCoinType(int), CBankWnd__GetBankQtyFromCoinType);
 #endif
 #ifdef CBankWnd__UpdateMoneyDisplay_x
-FUNCTION_AT_ADDRESS(void CBankWnd::UpdateMoneyDisplay(), CBankWnd__UpdateMoneyDisplay);
+FUNCTION_AT_ADDRESS(void, CBankWnd::UpdateMoneyDisplay(), CBankWnd__UpdateMoneyDisplay);
+#endif
+#ifdef CBankWnd__GetNumBankSlots_x
+FUNCTION_AT_ADDRESS(int, CBankWnd::GetNumBankSlots() const, CBankWnd__GetNumBankSlots);
 #endif
 #ifdef CBankWnd__AutoBank_x
-FUNCTION_AT_ADDRESS(void CBankWnd::AutoBank(bool bCanCombine), CBankWnd__AutoBank);
+FUNCTION_AT_ADDRESS(void, CBankWnd::AutoBank(bool bCanCombine), CBankWnd__AutoBank);
 #endif
 
 //============================================================================
@@ -949,31 +955,31 @@ FUNCTION_AT_ADDRESS(void CBankWnd::AutoBank(bool bCanCombine), CBankWnd__AutoBan
 //============================================================================
 
 #ifdef CBazaarSearchWnd__UpdatePlayerUpdateButton_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::UpdatePlayerUpdateButton(bool), CBazaarSearchWnd__UpdatePlayerUpdateButton);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::UpdatePlayerUpdateButton(bool), CBazaarSearchWnd__UpdatePlayerUpdateButton);
 #endif
 #ifdef CBazaarSearchWnd__UpdatePlayerCombo_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::UpdatePlayerCombo(), CBazaarSearchWnd__UpdatePlayerCombo);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::UpdatePlayerCombo(), CBazaarSearchWnd__UpdatePlayerCombo);
 #endif
 #ifdef CBazaarSearchWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::Activate(), CBazaarSearchWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::Activate(), CBazaarSearchWnd__Activate);
 #endif
 #ifdef CBazaarSearchWnd__GetPriceString_x
-FUNCTION_AT_ADDRESS(char* CBazaarSearchWnd::GetPriceString(unsigned long), CBazaarSearchWnd__GetPriceString);
+FUNCTION_AT_ADDRESS(char*, CBazaarSearchWnd::GetPriceString(unsigned long), CBazaarSearchWnd__GetPriceString);
 #endif
 #ifdef CBazaarSearchWnd__SortItemList_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::SortItemList(int), CBazaarSearchWnd__SortItemList);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::SortItemList(int), CBazaarSearchWnd__SortItemList);
 #endif
 #ifdef CBazaarSearchWnd__AddItemtoList_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::AddItemtoList(char*, unsigned long, char*, int, int), CBazaarSearchWnd__AddItemtoList);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::AddItemtoList(char*, unsigned long, char*, int, int), CBazaarSearchWnd__AddItemtoList);
 #endif
 #ifdef CBazaarSearchWnd__UpdateComboButtons_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::UpdateComboButtons(), CBazaarSearchWnd__UpdateComboButtons);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::UpdateComboButtons(), CBazaarSearchWnd__UpdateComboButtons);
 #endif
 #ifdef CBazaarSearchWnd__HandleBazaarMsg_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::HandleBazaarMsg(char*, int), CBazaarSearchWnd__HandleBazaarMsg);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::HandleBazaarMsg(char*, int), CBazaarSearchWnd__HandleBazaarMsg);
 #endif
 #ifdef CBazaarSearchWnd__doQuery_x
-FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::doQuery(), CBazaarSearchWnd__doQuery);
+FUNCTION_AT_ADDRESS(void, CBazaarSearchWnd::doQuery(), CBazaarSearchWnd__doQuery);
 #endif
 
 //============================================================================
@@ -981,58 +987,58 @@ FUNCTION_AT_ADDRESS(void CBazaarSearchWnd::doQuery(), CBazaarSearchWnd__doQuery)
 //============================================================================
 
 #ifdef CBazaarWnd__CreateBZRIniFilename_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::CreateBZRIniFilename(), CBazaarWnd__CreateBZRIniFilename);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::CreateBZRIniFilename(), CBazaarWnd__CreateBZRIniFilename);
 #endif
 #ifdef CBazaarWnd__AddBazaarText_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::AddBazaarText(char*, int), CBazaarWnd__AddBazaarText);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::AddBazaarText(char*, int), CBazaarWnd__AddBazaarText);
 #endif
 #ifdef CBazaarWnd__ReturnItemByIndex_x
-FUNCTION_AT_ADDRESS(ItemPtr CBazaarWnd::ReturnItemByIndex(int), CBazaarWnd__ReturnItemByIndex);
+FUNCTION_AT_ADDRESS(ItemPtr, CBazaarWnd::ReturnItemByIndex(int), CBazaarWnd__ReturnItemByIndex);
 #endif
 #ifdef CBazaarWnd__GetPriceString_x
-FUNCTION_AT_ADDRESS(char* CBazaarWnd::GetPriceString(unsigned long), CBazaarWnd__GetPriceString);
+FUNCTION_AT_ADDRESS(char*, CBazaarWnd::GetPriceString(unsigned long), CBazaarWnd__GetPriceString);
 #endif
 #ifdef CBazaarWnd__HandleTraderMsg_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::HandleTraderMsg(char*), CBazaarWnd__HandleTraderMsg);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::HandleTraderMsg(char*), CBazaarWnd__HandleTraderMsg);
 #endif
 #ifdef CBazaarWnd__RebuildItemArray_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::RebuildItemArray(), CBazaarWnd__RebuildItemArray);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::RebuildItemArray(), CBazaarWnd__RebuildItemArray);
 #endif
 #ifdef CBazaarWnd__BuildBazaarItemArray_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::BuildBazaarItemArray(), CBazaarWnd__BuildBazaarItemArray);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::BuildBazaarItemArray(), CBazaarWnd__BuildBazaarItemArray);
 #endif
 #ifdef CBazaarWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::Activate(), CBazaarWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::Activate(), CBazaarWnd__Activate);
 #endif
 #ifdef CBazaarWnd__UpdatePriceButtons_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::UpdatePriceButtons(), CBazaarWnd__UpdatePriceButtons);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::UpdatePriceButtons(), CBazaarWnd__UpdatePriceButtons);
 #endif
 #ifdef CBazaarWnd__StoreSelectedPrice_x
-FUNCTION_AT_ADDRESS(bool CBazaarWnd::StoreSelectedPrice(), CBazaarWnd__StoreSelectedPrice);
+FUNCTION_AT_ADDRESS(bool, CBazaarWnd::StoreSelectedPrice(), CBazaarWnd__StoreSelectedPrice);
 #endif
 #ifdef CBazaarWnd__UpdateButtons_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::UpdateButtons(), CBazaarWnd__UpdateButtons);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::UpdateButtons(), CBazaarWnd__UpdateButtons);
 #endif
 #ifdef CBazaarWnd__SelectBazaarSlotItem_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::SelectBazaarSlotItem(int, CTextureAnimation*), CBazaarWnd__SelectBazaarSlotItem);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::SelectBazaarSlotItem(int, CTextureAnimation*), CBazaarWnd__SelectBazaarSlotItem);
 #endif
 #ifdef CBazaarWnd__SetMoneyButton_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::SetMoneyButton(int, int), CBazaarWnd__SetMoneyButton);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::SetMoneyButton(int, int), CBazaarWnd__SetMoneyButton);
 #endif
 #ifdef CBazaarWnd__GetQtyFromCoinType_x
-FUNCTION_AT_ADDRESS(long CBazaarWnd::GetQtyFromCoinType(int), CBazaarWnd__GetQtyFromCoinType);
+FUNCTION_AT_ADDRESS(long, CBazaarWnd::GetQtyFromCoinType(int), CBazaarWnd__GetQtyFromCoinType);
 #endif
 #ifdef CBazaarWnd__ClickedMoneyButton_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::ClickedMoneyButton(int, int), CBazaarWnd__ClickedMoneyButton);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::ClickedMoneyButton(int, int), CBazaarWnd__ClickedMoneyButton);
 #endif
 #ifdef CBazaarWnd__GetPrice_x
-FUNCTION_AT_ADDRESS(unsigned long CBazaarWnd::GetPrice(), CBazaarWnd__GetPrice);
+FUNCTION_AT_ADDRESS(unsigned long, CBazaarWnd::GetPrice(), CBazaarWnd__GetPrice);
 #endif
 #ifdef CBazaarWnd__UpdateBazaarListtoServer_x
-FUNCTION_AT_ADDRESS(int CBazaarWnd::UpdateBazaarListtoServer(), CBazaarWnd__UpdateBazaarListtoServer);
+FUNCTION_AT_ADDRESS(int, CBazaarWnd::UpdateBazaarListtoServer(), CBazaarWnd__UpdateBazaarListtoServer);
 #endif
 #ifdef CBazaarWnd__ToggleBzrItemActive_x
-FUNCTION_AT_ADDRESS(void CBazaarWnd::ToggleBzrItemActive(int, bool), CBazaarWnd__ToggleBzrItemActive);
+FUNCTION_AT_ADDRESS(void, CBazaarWnd::ToggleBzrItemActive(int, bool), CBazaarWnd__ToggleBzrItemActive);
 #endif
 
 //============================================================================
@@ -1040,37 +1046,37 @@ FUNCTION_AT_ADDRESS(void CBazaarWnd::ToggleBzrItemActive(int, bool), CBazaarWnd_
 //============================================================================
 
 #ifdef CBodyTintWnd__GetTintChangeCount_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::GetTintChangeCount(), CBodyTintWnd__GetTintChangeCount);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::GetTintChangeCount(), CBodyTintWnd__GetTintChangeCount);
 #endif
 #ifdef CBodyTintWnd__GetReagentCount_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::GetReagentCount(), CBodyTintWnd__GetReagentCount);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::GetReagentCount(), CBodyTintWnd__GetReagentCount);
 #endif
 #ifdef CBodyTintWnd__BuildRBGTooltip_x
-FUNCTION_AT_ADDRESS(char* CBodyTintWnd::BuildRBGTooltip(unsigned long, char* const), CBodyTintWnd__BuildRBGTooltip);
+FUNCTION_AT_ADDRESS(char*, CBodyTintWnd::BuildRBGTooltip(unsigned long, char* const), CBodyTintWnd__BuildRBGTooltip);
 #endif
 #ifdef CBodyTintWnd__GetItemTint_x
-FUNCTION_AT_ADDRESS(unsigned long CBodyTintWnd::GetItemTint(int), CBodyTintWnd__GetItemTint);
+FUNCTION_AT_ADDRESS(unsigned long, CBodyTintWnd::GetItemTint(int), CBodyTintWnd__GetItemTint);
 #endif
 #ifdef CBodyTintWnd__SetSlotLabels_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::SetSlotLabels(bool), CBodyTintWnd__SetSlotLabels);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::SetSlotLabels(bool), CBodyTintWnd__SetSlotLabels);
 #endif
 #ifdef CBodyTintWnd__UpdateLocalTintColor_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::UpdateLocalTintColor(unsigned long), CBodyTintWnd__UpdateLocalTintColor);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::UpdateLocalTintColor(unsigned long), CBodyTintWnd__UpdateLocalTintColor);
 #endif
 #ifdef CBodyTintWnd__UpdateMaterialTintLocal_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::UpdateMaterialTintLocal(unsigned long), CBodyTintWnd__UpdateMaterialTintLocal);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::UpdateMaterialTintLocal(unsigned long), CBodyTintWnd__UpdateMaterialTintLocal);
 #endif
 #ifdef CBodyTintWnd__UpdateLabelsAndButtons_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::UpdateLabelsAndButtons(), CBodyTintWnd__UpdateLabelsAndButtons);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::UpdateLabelsAndButtons(), CBodyTintWnd__UpdateLabelsAndButtons);
 #endif
 #ifdef CBodyTintWnd__GetButtonTint_x
-FUNCTION_AT_ADDRESS(unsigned long CBodyTintWnd::GetButtonTint(int), CBodyTintWnd__GetButtonTint);
+FUNCTION_AT_ADDRESS(unsigned long, CBodyTintWnd::GetButtonTint(int), CBodyTintWnd__GetButtonTint);
 #endif
 #ifdef CBodyTintWnd__StoreModifiedBodyTints_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::StoreModifiedBodyTints(), CBodyTintWnd__StoreModifiedBodyTints);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::StoreModifiedBodyTints(), CBodyTintWnd__StoreModifiedBodyTints);
 #endif
 #ifdef CBodyTintWnd__ResetToOrigBodyTints_x
-FUNCTION_AT_ADDRESS(void CBodyTintWnd::ResetToOrigBodyTints(), CBodyTintWnd__ResetToOrigBodyTints);
+FUNCTION_AT_ADDRESS(void, CBodyTintWnd::ResetToOrigBodyTints(), CBodyTintWnd__ResetToOrigBodyTints);
 #endif
 
 //============================================================================
@@ -1081,64 +1087,64 @@ FUNCTION_AT_ADDRESS(void CBodyTintWnd::ResetToOrigBodyTints(), CBodyTintWnd__Res
 FUNCTION_AT_ADDRESS(CCastSpellWnd::CCastSpellWnd(CXWnd*), CCastSpellWnd__CCastSpellWnd);
 #endif
 #ifdef CCastSpellWnd__Init_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::Init(), CCastSpellWnd__Init);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::Init(), CCastSpellWnd__Init);
 #endif
 #ifdef CCastSpellWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::Activate(), CCastSpellWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::Activate(), CCastSpellWnd__Activate);
 #endif
 #ifdef CCastSpellWnd__HandleSpellInfoDisplay_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::HandleSpellInfoDisplay(CXWnd*), CCastSpellWnd__HandleSpellInfoDisplay);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::HandleSpellInfoDisplay(CXWnd*), CCastSpellWnd__HandleSpellInfoDisplay);
 #endif
 #ifdef CCastSpellWnd__HandleSpellLeftClick_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::HandleSpellLeftClick(int), CCastSpellWnd__HandleSpellLeftClick);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::HandleSpellLeftClick(int), CCastSpellWnd__HandleSpellLeftClick);
 #endif
 #ifdef CCastSpellWnd__Unmemorize_x
-FUNCTION_AT_ADDRESS(void __cdecl CCastSpellWnd::Unmemorize(int), CCastSpellWnd__Unmemorize);
+FUNCTION_AT_ADDRESS(void __cdecl, CCastSpellWnd::Unmemorize(int), CCastSpellWnd__Unmemorize);
 #endif
 #ifdef CCastSpellWnd__UnmemorizeList_x
-FUNCTION_AT_ADDRESS(void __cdecl CCastSpellWnd::UnmemorizeList(int*, int), CCastSpellWnd__UnmemorizeList);
+FUNCTION_AT_ADDRESS(void __cdecl, CCastSpellWnd::UnmemorizeList(int*, int), CCastSpellWnd__UnmemorizeList);
 #endif
 #ifdef CCastSpellWnd__HandleSpellRightClick_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::HandleSpellRightClick(int), CCastSpellWnd__HandleSpellRightClick);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::HandleSpellRightClick(int), CCastSpellWnd__HandleSpellRightClick);
 #endif
 #ifdef CCastSpellWnd__ForgetMemorizedSpell_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::ForgetMemorizedSpell(int), CCastSpellWnd__ForgetMemorizedSpell);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::ForgetMemorizedSpell(int), CCastSpellWnd__ForgetMemorizedSpell);
 #endif
 #ifdef CCastSpellWnd__IsBardSongPlaying_x
-FUNCTION_AT_ADDRESS(bool CCastSpellWnd::IsBardSongPlaying(), CCastSpellWnd__IsBardSongPlaying);
+FUNCTION_AT_ADDRESS(bool, CCastSpellWnd::IsBardSongPlaying(), CCastSpellWnd__IsBardSongPlaying);
 #endif
 #ifdef CCastSpellWnd__RefreshSpellGemButtons_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::RefreshSpellGemButtons(), CCastSpellWnd__RefreshSpellGemButtons);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::RefreshSpellGemButtons(), CCastSpellWnd__RefreshSpellGemButtons);
 #endif
 #ifdef CCastSpellWnd__UpdateSpellGems_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::UpdateSpellGems(int), CCastSpellWnd__UpdateSpellGems);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::UpdateSpellGems(int), CCastSpellWnd__UpdateSpellGems);
 #endif
 #ifdef CCastSpellWnd__UpdateSpellGemTooltips_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::UpdateSpellGemTooltips(int), CCastSpellWnd__UpdateSpellGemTooltips);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::UpdateSpellGemTooltips(int), CCastSpellWnd__UpdateSpellGemTooltips);
 #endif
 #ifdef CCastSpellWnd__GetSpellGemColor_x
-FUNCTION_AT_ADDRESS(unsigned long CCastSpellWnd::GetSpellGemColor(EQ_Spell*), CCastSpellWnd__GetSpellGemColor);
+FUNCTION_AT_ADDRESS(unsigned long, CCastSpellWnd::GetSpellGemColor(EQ_Spell*), CCastSpellWnd__GetSpellGemColor);
 #endif
 #ifdef CCastSpellWnd__SpellBookDeactivating_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::SpellBookDeactivating(), CCastSpellWnd__SpellBookDeactivating);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::SpellBookDeactivating(), CCastSpellWnd__SpellBookDeactivating);
 #endif
 #ifdef CCastSpellWnd__KeyMapUpdated_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::KeyMapUpdated(), CCastSpellWnd__KeyMapUpdated);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::KeyMapUpdated(), CCastSpellWnd__KeyMapUpdated);
 #endif
 #ifdef CCastSpellWnd__ClearSpellCategories_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::ClearSpellCategories(), CCastSpellWnd__ClearSpellCategories);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::ClearSpellCategories(), CCastSpellWnd__ClearSpellCategories);
 #endif
 #ifdef CCastSpellWnd__RecacheCategorizedSpells_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::RecacheCategorizedSpells(), CCastSpellWnd__RecacheCategorizedSpells);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::RecacheCategorizedSpells(), CCastSpellWnd__RecacheCategorizedSpells);
 #endif
 #ifdef CCastSpellWnd__MakeSpellSelectMenu_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::MakeSpellSelectMenu(), CCastSpellWnd__MakeSpellSelectMenu);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::MakeSpellSelectMenu(), CCastSpellWnd__MakeSpellSelectMenu);
 #endif
 #ifdef CCastSpellWnd__CategorizeSpell_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::CategorizeSpell(int, int, int, int), CCastSpellWnd__CategorizeSpell);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::CategorizeSpell(int, int, int, int), CCastSpellWnd__CategorizeSpell);
 #endif
 #ifdef CCastSpellWnd__RecacheLoadoutContextMenu_x
-FUNCTION_AT_ADDRESS(void CCastSpellWnd::RecacheLoadoutContextMenu(), CCastSpellWnd__RecacheLoadoutContextMenu);
+FUNCTION_AT_ADDRESS(void, CCastSpellWnd::RecacheLoadoutContextMenu(), CCastSpellWnd__RecacheLoadoutContextMenu);
 #endif
 
 //============================================================================
@@ -1149,82 +1155,82 @@ FUNCTION_AT_ADDRESS(void CCastSpellWnd::RecacheLoadoutContextMenu(), CCastSpellW
 FUNCTION_AT_ADDRESS(CCharacterCreation::CCharacterCreation(CXWnd*), CCharacterCreation__CCharacterCreation);
 #endif
 #ifdef CCharacterCreation__Init_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::Init(), CCharacterCreation__Init);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::Init(), CCharacterCreation__Init);
 #endif
 #ifdef CCharacterCreation__Activate_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::Activate(), CCharacterCreation__Activate);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::Activate(), CCharacterCreation__Activate);
 #endif
 #ifdef CCharacterCreation__NameGenerated_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::NameGenerated(char*), CCharacterCreation__NameGenerated);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::NameGenerated(char*), CCharacterCreation__NameGenerated);
 #endif
 #ifdef CCharacterCreation__DoBackButton_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::DoBackButton(), CCharacterCreation__DoBackButton);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::DoBackButton(), CCharacterCreation__DoBackButton);
 #endif
 #ifdef CCharacterCreation__DoNextButton_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::DoNextButton(), CCharacterCreation__DoNextButton);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::DoNextButton(), CCharacterCreation__DoNextButton);
 #endif
 #ifdef CCharacterCreation__DoStatButton_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::DoStatButton(int), CCharacterCreation__DoStatButton);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::DoStatButton(int), CCharacterCreation__DoStatButton);
 #endif
 #ifdef CCharacterCreation__ActivateScreen_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::ActivateScreen(int), CCharacterCreation__ActivateScreen);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::ActivateScreen(int), CCharacterCreation__ActivateScreen);
 #endif
 #ifdef CCharacterCreation__RandomizeCharacter_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::RandomizeCharacter(bool, bool), CCharacterCreation__RandomizeCharacter);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::RandomizeCharacter(bool, bool), CCharacterCreation__RandomizeCharacter);
 #endif
 #ifdef CCharacterCreation__RandomizeFacialFeatures_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::RandomizeFacialFeatures(), CCharacterCreation__RandomizeFacialFeatures);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::RandomizeFacialFeatures(), CCharacterCreation__RandomizeFacialFeatures);
 #endif
 #ifdef CCharacterCreation__InitStats_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::InitStats(bool), CCharacterCreation__InitStats);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::InitStats(bool), CCharacterCreation__InitStats);
 #endif
 #ifdef CCharacterCreation__InitNewPC_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::InitNewPC(), CCharacterCreation__InitNewPC);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::InitNewPC(), CCharacterCreation__InitNewPC);
 #endif
 #ifdef CCharacterCreation__InitStartingCities_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::InitStartingCities(), CCharacterCreation__InitStartingCities);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::InitStartingCities(), CCharacterCreation__InitStartingCities);
 #endif
 #ifdef CCharacterCreation__SetNewPCDeityFromBtnIndex_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::SetNewPCDeityFromBtnIndex(int), CCharacterCreation__SetNewPCDeityFromBtnIndex);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::SetNewPCDeityFromBtnIndex(int), CCharacterCreation__SetNewPCDeityFromBtnIndex);
 #endif
 #ifdef CCharacterCreation__UpdatePlayerFromNewPC_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::UpdatePlayerFromNewPC(), CCharacterCreation__UpdatePlayerFromNewPC);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::UpdatePlayerFromNewPC(), CCharacterCreation__UpdatePlayerFromNewPC);
 #endif
 #ifdef CCharacterCreation__UpdateScreenZeroButtons_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::UpdateScreenZeroButtons(bool), CCharacterCreation__UpdateScreenZeroButtons);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::UpdateScreenZeroButtons(bool), CCharacterCreation__UpdateScreenZeroButtons);
 #endif
 #ifdef CCharacterCreation__GetRaceButtonIndex_x
-FUNCTION_AT_ADDRESS(int CCharacterCreation::GetRaceButtonIndex(int), CCharacterCreation__GetRaceButtonIndex);
+FUNCTION_AT_ADDRESS(int, CCharacterCreation::GetRaceButtonIndex(int), CCharacterCreation__GetRaceButtonIndex);
 #endif
 #ifdef CCharacterCreation__GetClassButtonIndex_x
-FUNCTION_AT_ADDRESS(int CCharacterCreation::GetClassButtonIndex(int), CCharacterCreation__GetClassButtonIndex);
+FUNCTION_AT_ADDRESS(int, CCharacterCreation::GetClassButtonIndex(int), CCharacterCreation__GetClassButtonIndex);
 #endif
 #ifdef CCharacterCreation__IsLackingExpansion_x
-FUNCTION_AT_ADDRESS(bool CCharacterCreation::IsLackingExpansion(bool, bool), CCharacterCreation__IsLackingExpansion);
+FUNCTION_AT_ADDRESS(bool, CCharacterCreation::IsLackingExpansion(bool, bool), CCharacterCreation__IsLackingExpansion);
 #endif
 #ifdef CCharacterCreation__SelectStartingCity_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::SelectStartingCity(int), CCharacterCreation__SelectStartingCity);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::SelectStartingCity(int), CCharacterCreation__SelectStartingCity);
 #endif
 #ifdef CCharacterCreation__SelectedRaceButton_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::SelectedRaceButton(int), CCharacterCreation__SelectedRaceButton);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::SelectedRaceButton(int), CCharacterCreation__SelectedRaceButton);
 #endif
 #ifdef CCharacterCreation__SelectedClassButton_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::SelectedClassButton(int), CCharacterCreation__SelectedClassButton);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::SelectedClassButton(int), CCharacterCreation__SelectedClassButton);
 #endif
 #ifdef CCharacterCreation__SetPlayerAppearanceFromNewPC_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::SetPlayerAppearanceFromNewPC(EQPlayer*, EQ_PC*, bool), CCharacterCreation__SetPlayerAppearanceFromNewPC);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::SetPlayerAppearanceFromNewPC(EQPlayer*, EQ_PC*, bool), CCharacterCreation__SetPlayerAppearanceFromNewPC);
 #endif
 #ifdef CCharacterCreation__HandleNameApprovalResponse_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::HandleNameApprovalResponse(int), CCharacterCreation__HandleNameApprovalResponse);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::HandleNameApprovalResponse(int), CCharacterCreation__HandleNameApprovalResponse);
 #endif
 #ifdef CCharacterCreation__SubmitNameToWorld_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::SubmitNameToWorld(), CCharacterCreation__SubmitNameToWorld);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::SubmitNameToWorld(), CCharacterCreation__SubmitNameToWorld);
 #endif
 #ifdef CCharacterCreation__FinalizeNewPCAndSendToWorld_x
-FUNCTION_AT_ADDRESS(void CCharacterCreation::FinalizeNewPCAndSendToWorld(), CCharacterCreation__FinalizeNewPCAndSendToWorld);
+FUNCTION_AT_ADDRESS(void, CCharacterCreation::FinalizeNewPCAndSendToWorld(), CCharacterCreation__FinalizeNewPCAndSendToWorld);
 #endif
 #ifdef CCharacterCreation__GetCharCreateText_x
-FUNCTION_AT_ADDRESS(char* CCharacterCreation::GetCharCreateText(char*, int, int, int, int), CCharacterCreation__GetCharCreateText);
+FUNCTION_AT_ADDRESS(char*, CCharacterCreation::GetCharCreateText(char*, int, int, int, int), CCharacterCreation__GetCharCreateText);
 #endif
 
 //============================================================================
@@ -1232,64 +1238,64 @@ FUNCTION_AT_ADDRESS(char* CCharacterCreation::GetCharCreateText(char*, int, int,
 //============================================================================
 
 #ifdef CCharacterListWnd__EnableButtons_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::EnableButtons(bool), CCharacterListWnd__EnableButtons);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::EnableButtons(bool), CCharacterListWnd__EnableButtons);
 #endif
 #ifdef CCharacterListWnd__EnableEqMovementCommands_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::EnableEqMovementCommands(bool), CCharacterListWnd__EnableEqMovementCommands);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::EnableEqMovementCommands(bool), CCharacterListWnd__EnableEqMovementCommands);
 #endif
 #ifdef CCharacterListWnd__EnterWorld_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::EnterWorld(), CCharacterListWnd__EnterWorld);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::EnterWorld(), CCharacterListWnd__EnterWorld);
 #endif
 #ifdef CCharacterListWnd__Quit_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::Quit(), CCharacterListWnd__Quit);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::Quit(), CCharacterListWnd__Quit);
 #endif
 #ifdef CCharacterListWnd__UpdateList_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::UpdateList(bool), CCharacterListWnd__UpdateList);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::UpdateList(bool), CCharacterListWnd__UpdateList);
 #endif
 #ifdef CCharacterListWnd__EnterExplorationMode_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::EnterExplorationMode(), CCharacterListWnd__EnterExplorationMode);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::EnterExplorationMode(), CCharacterListWnd__EnterExplorationMode);
 #endif
 #ifdef CCharacterListWnd__LeaveExplorationMode_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::LeaveExplorationMode(), CCharacterListWnd__LeaveExplorationMode);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::LeaveExplorationMode(), CCharacterListWnd__LeaveExplorationMode);
 #endif
 #ifdef CCharacterListWnd__IsValidCharacterSelected_x
-FUNCTION_AT_ADDRESS(int CCharacterListWnd::IsValidCharacterSelected(), CCharacterListWnd__IsValidCharacterSelected);
+FUNCTION_AT_ADDRESS(int, CCharacterListWnd::IsValidCharacterSelected(), CCharacterListWnd__IsValidCharacterSelected);
 #endif
 #ifdef CCharacterListWnd__IsEmptyCharacterSlot_x
-FUNCTION_AT_ADDRESS(int CCharacterListWnd::IsEmptyCharacterSlot(int), CCharacterListWnd__IsEmptyCharacterSlot);
+FUNCTION_AT_ADDRESS(int, CCharacterListWnd::IsEmptyCharacterSlot(int), CCharacterListWnd__IsEmptyCharacterSlot);
 #endif
 #ifdef CCharacterListWnd__NumberOfCharacters_x
-FUNCTION_AT_ADDRESS(int CCharacterListWnd::NumberOfCharacters(), CCharacterListWnd__NumberOfCharacters);
+FUNCTION_AT_ADDRESS(int, CCharacterListWnd::NumberOfCharacters(), CCharacterListWnd__NumberOfCharacters);
 #endif
 #ifdef CCharacterListWnd__IsEvil_x
-FUNCTION_AT_ADDRESS(unsigned char CCharacterListWnd::IsEvil(int, int, int), CCharacterListWnd__IsEvil);
+FUNCTION_AT_ADDRESS(unsigned char, CCharacterListWnd::IsEvil(int, int, int), CCharacterListWnd__IsEvil);
 #endif
 #ifdef CCharacterListWnd__SelectCharacter_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::SelectCharacter(int, bool, bool), CCharacterListWnd__SelectCharacter);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::SelectCharacter(int, bool, bool), CCharacterListWnd__SelectCharacter);
 #endif
 #ifdef CCharacterListWnd__SetLoadZonePlayerLocation_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::SetLoadZonePlayerLocation(), CCharacterListWnd__SetLoadZonePlayerLocation);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::SetLoadZonePlayerLocation(), CCharacterListWnd__SetLoadZonePlayerLocation);
 #endif
 #ifdef CCharacterListWnd__DeleteCharacter_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::DeleteCharacter(), CCharacterListWnd__DeleteCharacter);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::DeleteCharacter(), CCharacterListWnd__DeleteCharacter);
 #endif
 #ifdef CCharacterListWnd__UpdateButtonNames_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::UpdateButtonNames(), CCharacterListWnd__UpdateButtonNames);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::UpdateButtonNames(), CCharacterListWnd__UpdateButtonNames);
 #endif
 #ifdef CCharacterListWnd__SetLocationByClass_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::SetLocationByClass(EQPlayer*, bool, int), CCharacterListWnd__SetLocationByClass);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::SetLocationByClass(EQPlayer*, bool, int), CCharacterListWnd__SetLocationByClass);
 #endif
 #ifdef CCharacterListWnd__CreateExplorationModePlayers_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::CreateExplorationModePlayers(), CCharacterListWnd__CreateExplorationModePlayers);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::CreateExplorationModePlayers(), CCharacterListWnd__CreateExplorationModePlayers);
 #endif
 #ifdef CCharacterListWnd__RemoveExplorationModePlayers_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::RemoveExplorationModePlayers(), CCharacterListWnd__RemoveExplorationModePlayers);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::RemoveExplorationModePlayers(), CCharacterListWnd__RemoveExplorationModePlayers);
 #endif
 #ifdef CCharacterListWnd__SetRoomLocationByIndex_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::SetRoomLocationByIndex(int, EQPlayer*), CCharacterListWnd__SetRoomLocationByIndex);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::SetRoomLocationByIndex(int, EQPlayer*), CCharacterListWnd__SetRoomLocationByIndex);
 #endif
 #ifdef CCharacterListWnd__SwitchModel_x
-FUNCTION_AT_ADDRESS(void CCharacterListWnd::SwitchModel(EQPlayer*, unsigned char, int, unsigned char, unsigned char), CCharacterListWnd__SwitchModel);
+FUNCTION_AT_ADDRESS(void, CCharacterListWnd::SwitchModel(EQPlayer*, unsigned char, int, unsigned char, unsigned char), CCharacterListWnd__SwitchModel);
 #endif
 
 //============================================================================
@@ -1300,28 +1306,28 @@ FUNCTION_AT_ADDRESS(void CCharacterListWnd::SwitchModel(EQPlayer*, unsigned char
 FUNCTION_AT_ADDRESS(CColorPickerWnd::CColorPickerWnd(CXWnd*), CColorPickerWnd__CColorPickerWnd);
 #endif
 #ifdef CColorPickerWnd__SetTemplateColor_x
-FUNCTION_AT_ADDRESS(void CColorPickerWnd::SetTemplateColor(int, unsigned long), CColorPickerWnd__SetTemplateColor);
+FUNCTION_AT_ADDRESS(void, CColorPickerWnd::SetTemplateColor(int, unsigned long), CColorPickerWnd__SetTemplateColor);
 #endif
 #ifdef CColorPickerWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CColorPickerWnd::Activate(CXWnd*, unsigned long), CColorPickerWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CColorPickerWnd::Activate(CXWnd*, unsigned long), CColorPickerWnd__Activate);
 #endif
 #ifdef CColorPickerWnd__SetCurrentColor_x
-FUNCTION_AT_ADDRESS(void CColorPickerWnd::SetCurrentColor(unsigned long), CColorPickerWnd__SetCurrentColor);
+FUNCTION_AT_ADDRESS(void, CColorPickerWnd::SetCurrentColor(unsigned long), CColorPickerWnd__SetCurrentColor);
 #endif
 #ifdef CColorPickerWnd__UpdateCurrentColor_x
-FUNCTION_AT_ADDRESS(void CColorPickerWnd::UpdateCurrentColor(), CColorPickerWnd__UpdateCurrentColor);
+FUNCTION_AT_ADDRESS(void, CColorPickerWnd::UpdateCurrentColor(), CColorPickerWnd__UpdateCurrentColor);
 #endif
 #ifdef CColorPickerWnd__CheckMaxEditWnd_x
-FUNCTION_AT_ADDRESS(void CColorPickerWnd::CheckMaxEditWnd(), CColorPickerWnd__CheckMaxEditWnd);
+FUNCTION_AT_ADDRESS(void, CColorPickerWnd::CheckMaxEditWnd(), CColorPickerWnd__CheckMaxEditWnd);
 #endif
 #ifdef CColorPickerWnd__UpdateEditWndFromSlider_x
-FUNCTION_AT_ADDRESS(void CColorPickerWnd::UpdateEditWndFromSlider(CSliderWnd*, CEditWnd*, int*), CColorPickerWnd__UpdateEditWndFromSlider);
+FUNCTION_AT_ADDRESS(void, CColorPickerWnd::UpdateEditWndFromSlider(CSliderWnd*, CEditWnd*, int*), CColorPickerWnd__UpdateEditWndFromSlider);
 #endif
 #ifdef CColorPickerWnd__UpdateSliderFromEditWnd_x
-FUNCTION_AT_ADDRESS(void CColorPickerWnd::UpdateSliderFromEditWnd(CSliderWnd*, CEditWnd*, int*), CColorPickerWnd__UpdateSliderFromEditWnd);
+FUNCTION_AT_ADDRESS(void, CColorPickerWnd::UpdateSliderFromEditWnd(CSliderWnd*, CEditWnd*, int*), CColorPickerWnd__UpdateSliderFromEditWnd);
 #endif
 #ifdef CColorPickerWnd__Open_x
-FUNCTION_AT_ADDRESS(int CColorPickerWnd::Open(CXWnd* pwndCaller, D3DCOLOR CurrentColor), CColorPickerWnd__Open);
+FUNCTION_AT_ADDRESS(int, CColorPickerWnd::Open(CXWnd* pwndCaller, D3DCOLOR CurrentColor), CColorPickerWnd__Open);
 #endif
 
 //============================================================================
@@ -1329,7 +1335,7 @@ FUNCTION_AT_ADDRESS(int CColorPickerWnd::Open(CXWnd* pwndCaller, D3DCOLOR Curren
 //============================================================================
 
 #ifdef CCombatSkillsSelectWnd__ShouldDisplayThisSkill_x
-FUNCTION_AT_ADDRESS(bool CCombatSkillsSelectWnd::ShouldDisplayThisSkill(int), CCombatSkillsSelectWnd__ShouldDisplayThisSkill);
+FUNCTION_AT_ADDRESS(bool, CCombatSkillsSelectWnd::ShouldDisplayThisSkill(int), CCombatSkillsSelectWnd__ShouldDisplayThisSkill);
 #endif
 
 //============================================================================
@@ -1340,16 +1346,16 @@ FUNCTION_AT_ADDRESS(bool CCombatSkillsSelectWnd::ShouldDisplayThisSkill(int), CC
 FUNCTION_AT_ADDRESS(CCompassWnd::CCompassWnd(CXWnd*), CCompassWnd__CCompassWnd);
 #endif
 #ifdef CCompassWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CCompassWnd::Activate(), CCompassWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CCompassWnd::Activate(), CCompassWnd__Activate);
 #endif
 #ifdef CCompassWnd__PickNewTarget_x
-FUNCTION_AT_ADDRESS(void CCompassWnd::PickNewTarget(), CCompassWnd__PickNewTarget);
+FUNCTION_AT_ADDRESS(void, CCompassWnd::PickNewTarget(), CCompassWnd__PickNewTarget);
 #endif
 #ifdef CCompassWnd__SetSpeed_x
-FUNCTION_AT_ADDRESS(void CCompassWnd::SetSpeed(), CCompassWnd__SetSpeed);
+FUNCTION_AT_ADDRESS(void, CCompassWnd::SetSpeed(), CCompassWnd__SetSpeed);
 #endif
 #ifdef CCompassWnd__SenseHeading_x
-FUNCTION_AT_ADDRESS(void CCompassWnd::SenseHeading(), CCompassWnd__SenseHeading);
+FUNCTION_AT_ADDRESS(void, CCompassWnd::SenseHeading(), CCompassWnd__SenseHeading);
 #endif
 
 //============================================================================
@@ -1360,40 +1366,40 @@ FUNCTION_AT_ADDRESS(void CCompassWnd::SenseHeading(), CCompassWnd__SenseHeading)
 FUNCTION_AT_ADDRESS(CConfirmationDialog::CConfirmationDialog(CXWnd*), CConfirmationDialog__CConfirmationDialog);
 #endif
 #ifdef CConfirmationDialog__Init_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::Init(), CConfirmationDialog__Init);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::Init(), CConfirmationDialog__Init);
 #endif
 #ifdef CConfirmationDialog__Activate_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::Activate(int, unsigned int, const char*, int, int, int, int), CConfirmationDialog__Activate);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::Activate(int, unsigned int, const char*, int, int, int, int), CConfirmationDialog__Activate);
 #endif
 #ifdef CConfirmationDialog__Deactivate_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::Deactivate(), CConfirmationDialog__Deactivate);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::Deactivate(), CConfirmationDialog__Deactivate);
 #endif
 #ifdef CConfirmationDialog__ExpireCurrentDialog_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::ExpireCurrentDialog(), CConfirmationDialog__ExpireCurrentDialog);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::ExpireCurrentDialog(), CConfirmationDialog__ExpireCurrentDialog);
 #endif
 #ifdef CConfirmationDialog__HandleButtonYesPressed_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::HandleButtonYesPressed(), CConfirmationDialog__HandleButtonYesPressed);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::HandleButtonYesPressed(), CConfirmationDialog__HandleButtonYesPressed);
 #endif
 #ifdef CConfirmationDialog__HandleButtonNoPressed_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::HandleButtonNoPressed(), CConfirmationDialog__HandleButtonNoPressed);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::HandleButtonNoPressed(), CConfirmationDialog__HandleButtonNoPressed);
 #endif
 #ifdef CConfirmationDialog__HandleButtonOkPressed_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::HandleButtonOkPressed(), CConfirmationDialog__HandleButtonOkPressed);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::HandleButtonOkPressed(), CConfirmationDialog__HandleButtonOkPressed);
 #endif
 #ifdef CConfirmationDialog__ProcessYes_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::ProcessYes(), CConfirmationDialog__ProcessYes);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::ProcessYes(), CConfirmationDialog__ProcessYes);
 #endif
 #ifdef CConfirmationDialog__ResetFocusOnClose_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::ResetFocusOnClose(), CConfirmationDialog__ResetFocusOnClose);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::ResetFocusOnClose(), CConfirmationDialog__ResetFocusOnClose);
 #endif
 #ifdef CConfirmationDialog__ProcessNo_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::ProcessNo(int), CConfirmationDialog__ProcessNo);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::ProcessNo(int), CConfirmationDialog__ProcessNo);
 #endif
 #ifdef CConfirmationDialog__SetNameApprovalData_x
-FUNCTION_AT_ADDRESS(void CConfirmationDialog::SetNameApprovalData(char*, char*, int, int, char*), CConfirmationDialog__SetNameApprovalData);
+FUNCTION_AT_ADDRESS(void, CConfirmationDialog::SetNameApprovalData(char*, char*, int, int, char*), CConfirmationDialog__SetNameApprovalData);
 #endif
 #ifdef CConfirmationDialog__WndNotification_x
-FUNCTION_AT_ADDRESS(int CConfirmationDialog::WndNotification(CXWnd*, uint32_t, void*), CConfirmationDialog__WndNotification);
+FUNCTION_AT_ADDRESS(int, CConfirmationDialog::WndNotification(CXWnd*, uint32_t, void*), CConfirmationDialog__WndNotification);
 #endif
 
 //============================================================================
@@ -1405,54 +1411,54 @@ FUNCTION_AT_ADDRESS(int CConfirmationDialog::WndNotification(CXWnd*, uint32_t, v
 FUNCTION_AT_ADDRESS(CContainerWnd::CContainerWnd(CXWnd*), CContainerWnd__CContainerWnd);
 #endif
 #ifdef CContainerWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CContainerWnd::Activate(), CContainerWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CContainerWnd::Activate(), CContainerWnd__Activate);
 #endif
 #ifdef CContainerWnd__HandleCombine_x
-FUNCTION_AT_ADDRESS(void CContainerWnd::HandleCombine(), CContainerWnd__HandleCombine);
+FUNCTION_AT_ADDRESS(void, CContainerWnd::HandleCombine(), CContainerWnd__HandleCombine);
 #endif
 #ifdef CContainerWnd__SetContainer_x
-FUNCTION_AT_ADDRESS(void CContainerWnd::SetContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location), CContainerWnd__SetContainer);
+FUNCTION_AT_ADDRESS(void, CContainerWnd::SetContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location), CContainerWnd__SetContainer);
 #endif
 #ifdef CContainerWnd__CheckCloseable_x
-FUNCTION_AT_ADDRESS(void CContainerWnd::CheckCloseable(), CContainerWnd__CheckCloseable);
+FUNCTION_AT_ADDRESS(void, CContainerWnd::CheckCloseable(), CContainerWnd__CheckCloseable);
 #endif
 #ifdef CContainerWnd__ContainsNoDrop_x
-FUNCTION_AT_ADDRESS(bool CContainerWnd::ContainsNoDrop(), CContainerWnd__ContainsNoDrop);
+FUNCTION_AT_ADDRESS(bool, CContainerWnd::ContainsNoDrop(), CContainerWnd__ContainsNoDrop);
 #endif
 
 // CContainerMgr
 #ifdef CContainerMgr__GetFreeContainerWnd_x
-FUNCTION_AT_ADDRESS(CContainerWnd* CContainerMgr::GetFreeContainerWnd(), CContainerMgr__GetFreeContainerWnd);
+FUNCTION_AT_ADDRESS(CContainerWnd*, CContainerMgr::GetFreeContainerWnd(), CContainerMgr__GetFreeContainerWnd);
 #endif
 #ifdef CContainerMgr__OpenExperimentContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::OpenExperimentContainer(const ItemPtr& pCont, const ItemGlobalIndex& Location), CContainerMgr__OpenExperimentContainer);
+FUNCTION_AT_ADDRESS(void, CContainerMgr::OpenExperimentContainer(const ItemPtr& pCont, const ItemGlobalIndex& Location), CContainerMgr__OpenExperimentContainer);
 #endif
 #ifdef CContainerMgr__CContainerMgr_x
 FUNCTION_AT_ADDRESS(CContainerMgr::CContainerMgr(), CContainerMgr__CContainerMgr);
 #endif
 #ifdef CContainerMgr__Process_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::Process(), CContainerMgr__Process);
+FUNCTION_AT_ADDRESS(void, CContainerMgr::Process(), CContainerMgr__Process);
 #endif
 #ifdef CContainerMgr__OpenWorldContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::OpenWorldContainer(const ItemPtr&, unsigned long), CContainerMgr__OpenWorldContainer);
+FUNCTION_AT_ADDRESS(void, CContainerMgr::OpenWorldContainer(const ItemPtr&, unsigned long), CContainerMgr__OpenWorldContainer);
 #endif
 //#ifdef CContainerMgr__SetWorldContainerItem_x
-//FUNCTION_AT_ADDRESS(void CContainerMgr::SetWorldContainerItem(const ItemPtr&, int), CContainerMgr__SetWorldContainerItem);
+//FUNCTION_AT_ADDRESS(void, CContainerMgr::SetWorldContainerItem(const ItemPtr&, int), CContainerMgr__SetWorldContainerItem);
 //#endif
 //#ifdef CContainerMgr__GetWorldContainerItem_x
-//FUNCTION_AT_ADDRESS(ItemPtr CContainerMgr::GetWorldContainerItem(int), CContainerMgr__GetWorldContainerItem);
+//FUNCTION_AT_ADDRESS(ItemPtr, CContainerMgr::GetWorldContainerItem(int), CContainerMgr__GetWorldContainerItem);
 //#endif
 //#ifdef CContainerMgr__ClearWorldContainerItems_x
-//FUNCTION_AT_ADDRESS(void CContainerMgr::ClearWorldContainerItems(), CContainerMgr__ClearWorldContainerItems);
+//FUNCTION_AT_ADDRESS(void, CContainerMgr::ClearWorldContainerItems(), CContainerMgr__ClearWorldContainerItems);
 //#endif
 #ifdef CContainerMgr__OpenContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::OpenContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location, bool), CContainerMgr__OpenContainer);
+FUNCTION_AT_ADDRESS(void, CContainerMgr::OpenContainer(const ItemPtr& pContainer, const ItemGlobalIndex& location, bool), CContainerMgr__OpenContainer);
 #endif
 #ifdef CContainerMgr__CloseContainer_x
-FUNCTION_AT_ADDRESS(void CContainerMgr::CloseContainer(const ItemPtr& pContainer, bool bDeleteWindow), CContainerMgr__CloseContainer);
+FUNCTION_AT_ADDRESS(void, CContainerMgr::CloseContainer(const ItemPtr& pContainer, bool bDeleteWindow), CContainerMgr__CloseContainer);
 #endif
 #ifdef CContainerMgr__CloseAllContainers_x
-FUNCTION_AT_ADDRESS(bool CContainerMgr::CloseAllContainers(), CContainerMgr__CloseAllContainers);
+FUNCTION_AT_ADDRESS(bool, CContainerMgr::CloseAllContainers(), CContainerMgr__CloseAllContainers);
 #endif
 
 CContainerWnd* CContainerMgr::GetWindowForItem(const ItemPtr& pContainer) const
@@ -1471,28 +1477,25 @@ CContainerWnd* CContainerMgr::GetWindowForItem(const ItemPtr& pContainer) const
 //============================================================================
 
 #ifdef CContextMenuManager__RemoveMenu_x
-FUNCTION_AT_ADDRESS(int CContextMenuManager::RemoveMenu(int, bool), CContextMenuManager__RemoveMenu);
+FUNCTION_AT_ADDRESS(int, CContextMenuManager::RemoveMenu(int, bool), CContextMenuManager__RemoveMenu);
 #endif
 #ifdef CContextMenuManager__AddMenu_x
-FUNCTION_AT_ADDRESS(int CContextMenuManager::AddMenu(CContextMenu*), CContextMenuManager__AddMenu);
+FUNCTION_AT_ADDRESS(int, CContextMenuManager::AddMenu(CContextMenu*), CContextMenuManager__AddMenu);
 #endif
 #ifdef CContextMenuManager__PopupMenu_x
-FUNCTION_AT_ADDRESS(int CContextMenuManager::PopupMenu(int, CXPoint const&, CXWnd*), CContextMenuManager__PopupMenu);
+FUNCTION_AT_ADDRESS(int, CContextMenuManager::PopupMenu(int, CXPoint const&, CXWnd*), CContextMenuManager__PopupMenu);
 #endif
 #ifdef CContextMenuManager__Flush_x
-FUNCTION_AT_ADDRESS(void CContextMenuManager::Flush(), CContextMenuManager__Flush);
+FUNCTION_AT_ADDRESS(void, CContextMenuManager::Flush(), CContextMenuManager__Flush);
 #endif
 #ifdef CContextMenuManager__CreateDefaultMenu_x
-FUNCTION_AT_ADDRESS(void CContextMenuManager::CreateDefaultMenu(), CContextMenuManager__CreateDefaultMenu);
+FUNCTION_AT_ADDRESS(void, CContextMenuManager::CreateDefaultMenu(), CContextMenuManager__CreateDefaultMenu);
 #endif
 #ifdef CContextMenuManager__WarnDefaultMenu_x
-FUNCTION_AT_ADDRESS(void CContextMenuManager::WarnDefaultMenu(CXWnd*), CContextMenuManager__WarnDefaultMenu);
+FUNCTION_AT_ADDRESS(void, CContextMenuManager::WarnDefaultMenu(CXWnd*), CContextMenuManager__WarnDefaultMenu);
 #endif
 #ifdef CContextMenuManager__HandleWindowMenuCommands_x
-FUNCTION_AT_ADDRESS(int CContextMenuManager::HandleWindowMenuCommands(CXWnd*, int), CContextMenuManager__HandleWindowMenuCommands);
-#endif
-#ifdef CContextMenuManager__GetMenu_x
-FUNCTION_AT_ADDRESS(CContextMenu* CContextMenuManager::GetMenu(int), CContextMenuManager__GetMenu);
+FUNCTION_AT_ADDRESS(int, CContextMenuManager::HandleWindowMenuCommands(CXWnd*, int), CContextMenuManager__HandleWindowMenuCommands);
 #endif
 
 //============================================================================
@@ -1500,28 +1503,28 @@ FUNCTION_AT_ADDRESS(CContextMenu* CContextMenuManager::GetMenu(int), CContextMen
 //============================================================================
 
 #ifdef CContextMenu__AddMenuItem_x
-FUNCTION_AT_ADDRESS(int CContextMenu::AddMenuItem(const CXStr&, unsigned int, bool, COLORREF, bool), CContextMenu__AddMenuItem);
+FUNCTION_AT_ADDRESS(int, CContextMenu::AddMenuItem(const CXStr&, unsigned int, bool, COLORREF, bool), CContextMenu__AddMenuItem);
 #endif
 #ifdef CContextMenu__AddSeparator_x
-FUNCTION_AT_ADDRESS(int CContextMenu::AddSeparator(), CContextMenu__AddSeparator);
+FUNCTION_AT_ADDRESS(int, CContextMenu::AddSeparator(), CContextMenu__AddSeparator);
 #endif
 #ifdef CContextMenu__RemoveAllMenuItems_x
-FUNCTION_AT_ADDRESS(void CContextMenu::RemoveAllMenuItems(), CContextMenu__RemoveAllMenuItems);
+FUNCTION_AT_ADDRESS(void, CContextMenu::RemoveAllMenuItems(), CContextMenu__RemoveAllMenuItems);
 #endif
 #ifdef CContextMenu__RemoveMenuItem_x
-FUNCTION_AT_ADDRESS(void CContextMenu::RemoveMenuItem(int), CContextMenu__RemoveMenuItem);
+FUNCTION_AT_ADDRESS(void, CContextMenu::RemoveMenuItem(int), CContextMenu__RemoveMenuItem);
 #endif
 #ifdef CContextMenu__EnableMenuItem_x
-FUNCTION_AT_ADDRESS(void CContextMenu::EnableMenuItem(int, bool), CContextMenu__EnableMenuItem);
+FUNCTION_AT_ADDRESS(void, CContextMenu::EnableMenuItem(int, bool), CContextMenu__EnableMenuItem);
 #endif
 #ifdef CContextMenu__CheckMenuItem_x
-FUNCTION_AT_ADDRESS(void CContextMenu::CheckMenuItem(int, bool, bool), CContextMenu__CheckMenuItem);
+FUNCTION_AT_ADDRESS(void, CContextMenu::CheckMenuItem(int, bool, bool), CContextMenu__CheckMenuItem);
 #endif
 #ifdef CContextMenu__Activate_x
-FUNCTION_AT_ADDRESS(void CContextMenu::Activate(CXPoint, int, int), CContextMenu__Activate);
+FUNCTION_AT_ADDRESS(void, CContextMenu::Activate(CXPoint, int, int), CContextMenu__Activate);
 #endif
 #ifdef CContextMenu__SetMenuItem_x
-FUNCTION_AT_ADDRESS(void CContextMenu::SetMenuItem(int, const CXStr&, bool, COLORREF, bool), CContextMenu__SetMenuItem);
+FUNCTION_AT_ADDRESS(void, CContextMenu::SetMenuItem(int, const CXStr&, bool, COLORREF, bool), CContextMenu__SetMenuItem);
 #endif
 
 //============================================================================
@@ -1529,25 +1532,25 @@ FUNCTION_AT_ADDRESS(void CContextMenu::SetMenuItem(int, const CXStr&, bool, COLO
 //============================================================================
 
 #ifdef CCursorAttachment__DrawButtonText_x
-FUNCTION_AT_ADDRESS(void CCursorAttachment::DrawButtonText() const, CCursorAttachment__DrawButtonText);
+FUNCTION_AT_ADDRESS(void, CCursorAttachment::DrawButtonText() const, CCursorAttachment__DrawButtonText);
 #endif
 #ifdef CCursorAttachment__DrawQuantity_x
-FUNCTION_AT_ADDRESS(void CCursorAttachment::DrawQuantity() const, CCursorAttachment__DrawQuantity);
+FUNCTION_AT_ADDRESS(void, CCursorAttachment::DrawQuantity() const, CCursorAttachment__DrawQuantity);
 #endif
 #ifdef CCursorAttachment__IsOkToActivate_x
-FUNCTION_AT_ADDRESS(bool CCursorAttachment::IsOkToActivate(int), CCursorAttachment__IsOkToActivate);
+FUNCTION_AT_ADDRESS(bool, CCursorAttachment::IsOkToActivate(int), CCursorAttachment__IsOkToActivate);
 #endif
 #ifdef CCursorAttachment__RemoveAttachment_x
-FUNCTION_AT_ADDRESS(bool CCursorAttachment::RemoveAttachment(), CCursorAttachment__RemoveAttachment);
+FUNCTION_AT_ADDRESS(bool, CCursorAttachment::RemoveAttachment(), CCursorAttachment__RemoveAttachment);
 #endif
 #ifdef CCursorAttachment__AttachToCursor_x
-FUNCTION_AT_ADDRESS(void CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const char* Assigned_Name, const char* Name, int Qty, int IconID), CCursorAttachment__AttachToCursor);
+FUNCTION_AT_ADDRESS(void, CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const char* Assigned_Name, const char* Name, int Qty, int IconID), CCursorAttachment__AttachToCursor);
 #endif
 #ifdef CCursorAttachment__AttachToCursor1_x
-FUNCTION_AT_ADDRESS(void CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* Assigned_Name, const char* Name, int Qty, int  IconID), CCursorAttachment__AttachToCursor1);
+FUNCTION_AT_ADDRESS(void, CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* Assigned_Name, const char* Name, int Qty, int  IconID), CCursorAttachment__AttachToCursor1);
 #endif
 #ifdef CCursorAttachment__Deactivate_x
-FUNCTION_AT_ADDRESS(void CCursorAttachment::Deactivate(), CCursorAttachment__Deactivate);
+FUNCTION_AT_ADDRESS(void, CCursorAttachment::Deactivate(), CCursorAttachment__Deactivate);
 #endif
 
 //============================================================================
@@ -1555,7 +1558,7 @@ FUNCTION_AT_ADDRESS(void CCursorAttachment::Deactivate(), CCursorAttachment__Dea
 //============================================================================
 
 #ifdef CFileSelectionWnd__Open_x
-FUNCTION_AT_ADDRESS(int CFileSelectionWnd::Open(CXWnd* pWnd, int flags), CFileSelectionWnd__Open);
+FUNCTION_AT_ADDRESS(int, CFileSelectionWnd::Open(CXWnd* pWnd, int flags), CFileSelectionWnd__Open);
 #endif
 
 //============================================================================
@@ -1563,10 +1566,10 @@ FUNCTION_AT_ADDRESS(int CFileSelectionWnd::Open(CXWnd* pWnd, int flags), CFileSe
 //============================================================================
 
 #ifdef CFindItemWnd__Update_x
-FUNCTION_AT_ADDRESS(void CFindItemWnd::Update(), CFindItemWnd__Update);
+FUNCTION_AT_ADDRESS(void, CFindItemWnd::Update(), CFindItemWnd__Update);
 #endif
 #ifdef CFindItemWnd__PickupSelectedItem_x
-FUNCTION_AT_ADDRESS(void CFindItemWnd::PickupSelectedItem(), CFindItemWnd__PickupSelectedItem);
+FUNCTION_AT_ADDRESS(void, CFindItemWnd::PickupSelectedItem(), CFindItemWnd__PickupSelectedItem);
 #endif
 
 //============================================================================
@@ -1577,85 +1580,85 @@ FUNCTION_AT_ADDRESS(void CFindItemWnd::PickupSelectedItem(), CFindItemWnd__Picku
 FUNCTION_AT_ADDRESS(CGemsGameWnd::CGemsGameWnd(CXWnd*), CGemsGameWnd__CGemsGameWnd);
 #endif
 #ifdef CGemsGameWnd__Init_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::Init(), CGemsGameWnd__Init);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::Init(), CGemsGameWnd__Init);
 #endif
 #ifdef CGemsGameWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::Activate(), CGemsGameWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::Activate(), CGemsGameWnd__Activate);
 #endif
 #ifdef CGemsGameWnd__Restart_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::Restart(), CGemsGameWnd__Restart);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::Restart(), CGemsGameWnd__Restart);
 #endif
 #ifdef CGemsGameWnd__AdvanceToNextWave_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::AdvanceToNextWave(), CGemsGameWnd__AdvanceToNextWave);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::AdvanceToNextWave(), CGemsGameWnd__AdvanceToNextWave);
 #endif
 #ifdef CGemsGameWnd__DoMatchScore_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::DoMatchScore(int), CGemsGameWnd__DoMatchScore);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::DoMatchScore(int), CGemsGameWnd__DoMatchScore);
 #endif
 #ifdef CGemsGameWnd__DrawSpellGem_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::DrawSpellGem(int, CXRect, int, bool) const, CGemsGameWnd__DrawSpellGem);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::DrawSpellGem(int, CXRect, int, bool) const, CGemsGameWnd__DrawSpellGem);
 #endif
 #ifdef CGemsGameWnd__SetPause_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::SetPause(bool), CGemsGameWnd__SetPause);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::SetPause(bool), CGemsGameWnd__SetPause);
 #endif
 #ifdef CGemsGameWnd__TogglePause_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::TogglePause(), CGemsGameWnd__TogglePause);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::TogglePause(), CGemsGameWnd__TogglePause);
 #endif
 #ifdef CGemsGameWnd__SetNextUpdate_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::SetNextUpdate(), CGemsGameWnd__SetNextUpdate);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::SetNextUpdate(), CGemsGameWnd__SetNextUpdate);
 #endif
 #ifdef CGemsGameWnd__GetRndBlockImage_x
-FUNCTION_AT_ADDRESS(int CGemsGameWnd::GetRndBlockImage(), CGemsGameWnd__GetRndBlockImage);
+FUNCTION_AT_ADDRESS(int, CGemsGameWnd::GetRndBlockImage(), CGemsGameWnd__GetRndBlockImage);
 #endif
 #ifdef CGemsGameWnd__BadSpecial_x
-FUNCTION_AT_ADDRESS(bool CGemsGameWnd::BadSpecial(int) const, CGemsGameWnd__BadSpecial);
+FUNCTION_AT_ADDRESS(bool, CGemsGameWnd::BadSpecial(int) const, CGemsGameWnd__BadSpecial);
 #endif
 #ifdef CGemsGameWnd__ActivateSpecialMode_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::ActivateSpecialMode(int), CGemsGameWnd__ActivateSpecialMode);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::ActivateSpecialMode(int), CGemsGameWnd__ActivateSpecialMode);
 #endif
 #ifdef CGemsGameWnd__GetNextBlock_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::GetNextBlock(), CGemsGameWnd__GetNextBlock);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::GetNextBlock(), CGemsGameWnd__GetNextBlock);
 #endif
 #ifdef CGemsGameWnd__MoveCurBlock_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::MoveCurBlock(int), CGemsGameWnd__MoveCurBlock);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::MoveCurBlock(int), CGemsGameWnd__MoveCurBlock);
 #endif
 #ifdef CGemsGameWnd__ProcessMoveCurBlock_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::ProcessMoveCurBlock(int), CGemsGameWnd__ProcessMoveCurBlock);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::ProcessMoveCurBlock(int), CGemsGameWnd__ProcessMoveCurBlock);
 #endif
 #ifdef CGemsGameWnd__LegalBlockMove_x
-FUNCTION_AT_ADDRESS(bool CGemsGameWnd::LegalBlockMove(int, int, int, int, bool), CGemsGameWnd__LegalBlockMove);
+FUNCTION_AT_ADDRESS(bool, CGemsGameWnd::LegalBlockMove(int, int, int, int, bool), CGemsGameWnd__LegalBlockMove);
 #endif
 #ifdef CGemsGameWnd__MarkHigherBlocksFalling_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::MarkHigherBlocksFalling(int, int), CGemsGameWnd__MarkHigherBlocksFalling);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::MarkHigherBlocksFalling(int, int), CGemsGameWnd__MarkHigherBlocksFalling);
 #endif
 #ifdef CGemsGameWnd__ClearBlock_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::ClearBlock(struct _GemsBlock*), CGemsGameWnd__ClearBlock);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::ClearBlock(struct _GemsBlock*), CGemsGameWnd__ClearBlock);
 #endif
 #ifdef CGemsGameWnd__ClearHighScores_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::ClearHighScores(), CGemsGameWnd__ClearHighScores);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::ClearHighScores(), CGemsGameWnd__ClearHighScores);
 #endif
 #ifdef CGemsGameWnd__ReadHighScores_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::ReadHighScores(), CGemsGameWnd__ReadHighScores);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::ReadHighScores(), CGemsGameWnd__ReadHighScores);
 #endif
 #ifdef CGemsGameWnd__WriteHighScores_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::WriteHighScores(), CGemsGameWnd__WriteHighScores);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::WriteHighScores(), CGemsGameWnd__WriteHighScores);
 #endif
 #ifdef CGemsGameWnd__CheckForNewHighScore_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::CheckForNewHighScore(), CGemsGameWnd__CheckForNewHighScore);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::CheckForNewHighScore(), CGemsGameWnd__CheckForNewHighScore);
 #endif
 #ifdef CGemsGameWnd__ProcessMatches_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::ProcessMatches(int), CGemsGameWnd__ProcessMatches);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::ProcessMatches(int), CGemsGameWnd__ProcessMatches);
 #endif
 #ifdef CGemsGameWnd__CheckForMatches_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::CheckForMatches(int, int), CGemsGameWnd__CheckForMatches);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::CheckForMatches(int, int), CGemsGameWnd__CheckForMatches);
 #endif
 #ifdef CGemsGameWnd__MakeBlockDrop_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::MakeBlockDrop(int, int, int), CGemsGameWnd__MakeBlockDrop);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::MakeBlockDrop(int, int, int), CGemsGameWnd__MakeBlockDrop);
 #endif
 #ifdef CGemsGameWnd__Update_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::Update(), CGemsGameWnd__Update);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::Update(), CGemsGameWnd__Update);
 #endif
 #ifdef CGemsGameWnd__UpdateDisplay_x
-FUNCTION_AT_ADDRESS(void CGemsGameWnd::UpdateDisplay(), CGemsGameWnd__UpdateDisplay);
+FUNCTION_AT_ADDRESS(void, CGemsGameWnd::UpdateDisplay(), CGemsGameWnd__UpdateDisplay);
 #endif
 
 //============================================================================
@@ -1666,10 +1669,10 @@ FUNCTION_AT_ADDRESS(void CGemsGameWnd::UpdateDisplay(), CGemsGameWnd__UpdateDisp
 FUNCTION_AT_ADDRESS(CGiveWnd::CGiveWnd(CXWnd*), CGiveWnd__CGiveWnd);
 #endif
 #ifdef CGiveWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CGiveWnd::Activate(), CGiveWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CGiveWnd::Activate(), CGiveWnd__Activate);
 #endif
 #ifdef CGiveWnd__UpdateGiveDisplay_x
-FUNCTION_AT_ADDRESS(void CGiveWnd::UpdateGiveDisplay(), CGiveWnd__UpdateGiveDisplay);
+FUNCTION_AT_ADDRESS(void, CGiveWnd::UpdateGiveDisplay(), CGiveWnd__UpdateGiveDisplay);
 #endif
 
 //============================================================================
@@ -1680,28 +1683,28 @@ FUNCTION_AT_ADDRESS(void CGiveWnd::UpdateGiveDisplay(), CGiveWnd__UpdateGiveDisp
 FUNCTION_AT_ADDRESS(CGroupWnd::CGroupWnd(CXWnd*), CGroupWnd__CGroupWnd);
 #endif
 #ifdef CGroupWnd__Init_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::Init(), CGroupWnd__Init);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::Init(), CGroupWnd__Init);
 #endif
 #ifdef CGroupWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::Activate(), CGroupWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::Activate(), CGroupWnd__Activate);
 #endif
 #ifdef CGroupWnd__SetInvited_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::SetInvited(bool), CGroupWnd__SetInvited);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::SetInvited(bool), CGroupWnd__SetInvited);
 #endif
 #ifdef CGroupWnd__UpdateButtons_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::UpdateButtons(), CGroupWnd__UpdateButtons);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::UpdateButtons(), CGroupWnd__UpdateButtons);
 #endif
 #ifdef CGroupWnd__UpdateDisplay_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::UpdateDisplay(int Index, PlayerClient* groupmember, COLORREF NameColor, UINT RoleBits), CGroupWnd__UpdateDisplay);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::UpdateDisplay(int Index, PlayerClient* groupmember, COLORREF NameColor, UINT RoleBits), CGroupWnd__UpdateDisplay);
 #endif
 #ifdef CGroupWnd__KeyMapUpdated_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::KeyMapUpdated(), CGroupWnd__KeyMapUpdated);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::KeyMapUpdated(), CGroupWnd__KeyMapUpdated);
 #endif
 #ifdef CGroupWnd__CreateLocalMenu_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::CreateLocalMenu(), CGroupWnd__CreateLocalMenu);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::CreateLocalMenu(), CGroupWnd__CreateLocalMenu);
 #endif
 #ifdef CGroupWnd__UpdateContextMenu_x
-FUNCTION_AT_ADDRESS(void CGroupWnd::UpdateContextMenu(), CGroupWnd__UpdateContextMenu);
+FUNCTION_AT_ADDRESS(void, CGroupWnd::UpdateContextMenu(), CGroupWnd__UpdateContextMenu);
 #endif
 
 //============================================================================
@@ -1712,64 +1715,64 @@ FUNCTION_AT_ADDRESS(void CGroupWnd::UpdateContextMenu(), CGroupWnd__UpdateContex
 FUNCTION_AT_ADDRESS(CGuildMgmtWnd::CGuildMgmtWnd(CXWnd*), CGuildMgmtWnd__CGuildMgmtWnd);
 #endif
 #ifdef CGuildMgmtWnd__Init_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::Init(), CGuildMgmtWnd__Init);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::Init(), CGuildMgmtWnd__Init);
 #endif
 #ifdef CGuildMgmtWnd__UpdateButtons_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::UpdateButtons(), CGuildMgmtWnd__UpdateButtons);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::UpdateButtons(), CGuildMgmtWnd__UpdateButtons);
 #endif
 #ifdef CGuildMgmtWnd__Clean_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::Clean(), CGuildMgmtWnd__Clean);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::Clean(), CGuildMgmtWnd__Clean);
 #endif
 #ifdef CGuildMgmtWnd__SetMOTD_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::SetMOTD(char*, char*), CGuildMgmtWnd__SetMOTD);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::SetMOTD(char*, char*), CGuildMgmtWnd__SetMOTD);
 #endif
 #ifdef CGuildMgmtWnd__SetPlayerCount_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::SetPlayerCount(int), CGuildMgmtWnd__SetPlayerCount);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::SetPlayerCount(int), CGuildMgmtWnd__SetPlayerCount);
 #endif
 #ifdef CGuildMgmtWnd__CreatePersonalNotesFilename_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::CreatePersonalNotesFilename(), CGuildMgmtWnd__CreatePersonalNotesFilename);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::CreatePersonalNotesFilename(), CGuildMgmtWnd__CreatePersonalNotesFilename);
 #endif
 #ifdef CGuildMgmtWnd__LoadPersonalNotes_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::LoadPersonalNotes(), CGuildMgmtWnd__LoadPersonalNotes);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::LoadPersonalNotes(), CGuildMgmtWnd__LoadPersonalNotes);
 #endif
 #ifdef CGuildMgmtWnd__SavePersonalNotes_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::SavePersonalNotes(), CGuildMgmtWnd__SavePersonalNotes);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::SavePersonalNotes(), CGuildMgmtWnd__SavePersonalNotes);
 #endif
 #ifdef CGuildMgmtWnd__GetPersonalNote_x
-FUNCTION_AT_ADDRESS(char* CGuildMgmtWnd::GetPersonalNote(char*), CGuildMgmtWnd__GetPersonalNote);
+FUNCTION_AT_ADDRESS(char*, CGuildMgmtWnd::GetPersonalNote(char*), CGuildMgmtWnd__GetPersonalNote);
 #endif
 #ifdef CGuildMgmtWnd__SetPersonalNote_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::SetPersonalNote(char*, char*), CGuildMgmtWnd__SetPersonalNote);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::SetPersonalNote(char*, char*), CGuildMgmtWnd__SetPersonalNote);
 #endif
 #ifdef CGuildMgmtWnd__AddMember_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::AddMember(GuildMember*), CGuildMgmtWnd__AddMember);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::AddMember(GuildMember*), CGuildMgmtWnd__AddMember);
 #endif
 #ifdef CGuildMgmtWnd__RemoveMember_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::RemoveMember(GuildMember*), CGuildMgmtWnd__RemoveMember);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::RemoveMember(GuildMember*), CGuildMgmtWnd__RemoveMember);
 #endif
 #ifdef CGuildMgmtWnd__RenameMember_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::RenameMember(char*, char*), CGuildMgmtWnd__RenameMember);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::RenameMember(char*, char*), CGuildMgmtWnd__RenameMember);
 #endif
 #ifdef CGuildMgmtWnd__UpdateListMember_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::UpdateListMember(GuildMember*, int), CGuildMgmtWnd__UpdateListMember);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::UpdateListMember(GuildMember*, int), CGuildMgmtWnd__UpdateListMember);
 #endif
 #ifdef CGuildMgmtWnd__FindListMember_x
-FUNCTION_AT_ADDRESS(int CGuildMgmtWnd::FindListMember(GuildMember*), CGuildMgmtWnd__FindListMember);
+FUNCTION_AT_ADDRESS(int, CGuildMgmtWnd::FindListMember(GuildMember*), CGuildMgmtWnd__FindListMember);
 #endif
 #ifdef CGuildMgmtWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::Activate(), CGuildMgmtWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::Activate(), CGuildMgmtWnd__Activate);
 #endif
 #ifdef CGuildMgmtWnd__CleanAndRefillListWnd_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::CleanAndRefillListWnd(bool), CGuildMgmtWnd__CleanAndRefillListWnd);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::CleanAndRefillListWnd(bool), CGuildMgmtWnd__CleanAndRefillListWnd);
 #endif
 #ifdef CGuildMgmtWnd__SortList_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::SortList(int, bool), CGuildMgmtWnd__SortList);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::SortList(int, bool), CGuildMgmtWnd__SortList);
 #endif
 #ifdef CGuildMgmtWnd__DumpToFile_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::DumpToFile(char*), CGuildMgmtWnd__DumpToFile);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::DumpToFile(char*), CGuildMgmtWnd__DumpToFile);
 #endif
 #ifdef CGuildMgmtWnd__LoadINI_x
-FUNCTION_AT_ADDRESS(void CGuildMgmtWnd::LoadINI(), CGuildMgmtWnd__LoadINI);
+FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::LoadINI(), CGuildMgmtWnd__LoadINI);
 #endif
 
 //============================================================================
@@ -1788,13 +1791,13 @@ FUNCTION_AT_ADDRESS(CHelpWnd::CHelpWnd(CXWnd*), CHelpWnd__CHelpWnd);
 FUNCTION_AT_ADDRESS(CHotButtonWnd::CHotButtonWnd(CXWnd*), CHotButtonWnd__CHotButtonWnd);
 #endif
 #ifdef CHotButtonWnd__UpdatePage_x
-FUNCTION_AT_ADDRESS(void CHotButtonWnd::UpdatePage(), CHotButtonWnd__UpdatePage);
+FUNCTION_AT_ADDRESS(void, CHotButtonWnd::UpdatePage(), CHotButtonWnd__UpdatePage);
 #endif
 #ifdef CHotButtonWnd__DoHotButton_x
-FUNCTION_AT_ADDRESS(void CHotButtonWnd::DoHotButton(int, int, int), CHotButtonWnd__DoHotButton);
+FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButton(int, int, int), CHotButtonWnd__DoHotButton);
 #endif
 #ifdef CHotButtonWnd__DoHotButtonRightClick_x
-FUNCTION_AT_ADDRESS(void CHotButtonWnd::DoHotButtonRightClick(int), CHotButtonWnd__DoHotButtonRightClick);
+FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButtonRightClick(int), CHotButtonWnd__DoHotButtonRightClick);
 #endif
 
 //============================================================================
@@ -1805,16 +1808,16 @@ FUNCTION_AT_ADDRESS(void CHotButtonWnd::DoHotButtonRightClick(int), CHotButtonWn
 FUNCTION_AT_ADDRESS(CInspectWnd::CInspectWnd(CXWnd*), CInspectWnd__CInspectWnd);
 #endif
 #ifdef CInspectWnd__Init_x
-FUNCTION_AT_ADDRESS(void CInspectWnd::Init(), CInspectWnd__Init);
+FUNCTION_AT_ADDRESS(void, CInspectWnd::Init(), CInspectWnd__Init);
 #endif
 #ifdef CInspectWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CInspectWnd::Activate(struct _inspect*), CInspectWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CInspectWnd::Activate(struct _inspect*), CInspectWnd__Activate);
 #endif
 #ifdef CInspectWnd__AcceptInspectText_x
-FUNCTION_AT_ADDRESS(void CInspectWnd::AcceptInspectText(), CInspectWnd__AcceptInspectText);
+FUNCTION_AT_ADDRESS(void, CInspectWnd::AcceptInspectText(), CInspectWnd__AcceptInspectText);
 #endif
 #ifdef CInspectWnd__PlayerBeingDeleted_x
-FUNCTION_AT_ADDRESS(void CInspectWnd::PlayerBeingDeleted(EQPlayer*), CInspectWnd__PlayerBeingDeleted);
+FUNCTION_AT_ADDRESS(void, CInspectWnd::PlayerBeingDeleted(EQPlayer*), CInspectWnd__PlayerBeingDeleted);
 #endif
 
 //============================================================================
@@ -1825,22 +1828,22 @@ FUNCTION_AT_ADDRESS(void CInspectWnd::PlayerBeingDeleted(EQPlayer*), CInspectWnd
 FUNCTION_AT_ADDRESS(CInventoryWnd::CInventoryWnd(CXWnd*), CInventoryWnd__CInventoryWnd);
 #endif
 #ifdef CInventoryWnd__Init_x
-FUNCTION_AT_ADDRESS(void CInventoryWnd::Init(), CInventoryWnd__Init);
+FUNCTION_AT_ADDRESS(void, CInventoryWnd::Init(), CInventoryWnd__Init);
 #endif
 #ifdef CInventoryWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CInventoryWnd::Activate(), CInventoryWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CInventoryWnd::Activate(), CInventoryWnd__Activate);
 #endif
 #ifdef CInventoryWnd__DestroyHeld_x
-FUNCTION_AT_ADDRESS(void CInventoryWnd::DestroyHeld(), CInventoryWnd__DestroyHeld);
+FUNCTION_AT_ADDRESS(void, CInventoryWnd::DestroyHeld(), CInventoryWnd__DestroyHeld);
 #endif
 #ifdef CInventoryWnd__ClickedMoneyButton_x
-FUNCTION_AT_ADDRESS(void CInventoryWnd::ClickedMoneyButton(int, int), CInventoryWnd__ClickedMoneyButton);
+FUNCTION_AT_ADDRESS(void, CInventoryWnd::ClickedMoneyButton(int, int), CInventoryWnd__ClickedMoneyButton);
 #endif
 #ifdef CInventoryWnd__GetInventoryQtyFromCoinType_x
-FUNCTION_AT_ADDRESS(long CInventoryWnd::GetInventoryQtyFromCoinType(int), CInventoryWnd__GetInventoryQtyFromCoinType);
+FUNCTION_AT_ADDRESS(long, CInventoryWnd::GetInventoryQtyFromCoinType(int), CInventoryWnd__GetInventoryQtyFromCoinType);
 #endif
 #ifdef CInventoryWnd__UpdateMoneyDisplay_x
-FUNCTION_AT_ADDRESS(void CInventoryWnd::UpdateMoneyDisplay(), CInventoryWnd__UpdateMoneyDisplay);
+FUNCTION_AT_ADDRESS(void, CInventoryWnd::UpdateMoneyDisplay(), CInventoryWnd__UpdateMoneyDisplay);
 #endif
 
 //============================================================================
@@ -1850,48 +1853,44 @@ FUNCTION_AT_ADDRESS(void CInventoryWnd::UpdateMoneyDisplay(), CInventoryWnd__Upd
 #ifdef CInvSlot__CInvSlot_x
 FUNCTION_AT_ADDRESS(CInvSlot::CInvSlot(), CInvSlot__CInvSlot);
 #endif
-#ifdef CInvSlot__GetItemBase_x
-FUNCTION_AT_ADDRESS(void CInvSlot::GetItemBase(ItemClient**), CInvSlot__GetItemBase);
-FUNCTION_AT_ADDRESS(ItemPtr CInvSlot::GetItem(), CInvSlot__GetItemBase);
-#endif
 #ifdef CInvSlot__UpdateItem_x
-FUNCTION_AT_ADDRESS(void CInvSlot::UpdateItem(), CInvSlot__UpdateItem);
+FUNCTION_AT_ADDRESS(void, CInvSlot::UpdateItem(), CInvSlot__UpdateItem);
 #endif
 #ifdef CInvSlot__SetInvSlotWnd_x
-FUNCTION_AT_ADDRESS(void CInvSlot::SetInvSlotWnd(CInvSlotWnd*), CInvSlot__SetInvSlotWnd);
+FUNCTION_AT_ADDRESS(void, CInvSlot::SetInvSlotWnd(CInvSlotWnd*), CInvSlot__SetInvSlotWnd);
 #endif
 #ifdef CInvSlot__SetItem_x
-FUNCTION_AT_ADDRESS(void CInvSlot::SetItem(const ItemPtr&), CInvSlot__SetItem);
+FUNCTION_AT_ADDRESS(void, CInvSlot::SetItem(const ItemPtr&), CInvSlot__SetItem);
 #endif
 #ifdef CInvSlot__SliderComplete_x
-FUNCTION_AT_ADDRESS(void CInvSlot::SliderComplete(int), CInvSlot__SliderComplete);
+FUNCTION_AT_ADDRESS(void, CInvSlot::SliderComplete(int), CInvSlot__SliderComplete);
 #endif
 #ifdef CInvSlot__HandleLButtonUp_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleLButtonUp(CXPoint, bool), CInvSlot__HandleLButtonUp);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleLButtonUp(CXPoint, bool), CInvSlot__HandleLButtonUp);
 #endif
 #ifdef CInvSlot__HandleLButtonHeld_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleLButtonHeld(CXPoint), CInvSlot__HandleLButtonHeld);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleLButtonHeld(CXPoint), CInvSlot__HandleLButtonHeld);
 #endif
 #ifdef CInvSlot__HandleRButtonUp_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleRButtonUp(const CXPoint&), CInvSlot__HandleRButtonUp);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleRButtonUp(const CXPoint&), CInvSlot__HandleRButtonUp);
 #endif
 #ifdef CInvSlot__HandleRButtonHeld_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleRButtonHeld(CXPoint), CInvSlot__HandleRButtonHeld);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleRButtonHeld(CXPoint), CInvSlot__HandleRButtonHeld);
 #endif
 #ifdef CInvSlot__HandleRButtonUpAfterHeld_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleRButtonUpAfterHeld(CXPoint), CInvSlot__HandleRButtonUpAfterHeld);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleRButtonUpAfterHeld(CXPoint), CInvSlot__HandleRButtonUpAfterHeld);
 #endif
 #ifdef CInvSlot__IllegalBigBank_x
-FUNCTION_AT_ADDRESS(bool CInvSlot::IllegalBigBank(int), CInvSlot__IllegalBigBank);
+FUNCTION_AT_ADDRESS(bool, CInvSlot::IllegalBigBank(int), CInvSlot__IllegalBigBank);
 #endif
 #ifdef CInvSlot__HandleLButtonDown_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleLButtonDown(CXPoint), CInvSlot__HandleLButtonDown);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleLButtonDown(CXPoint), CInvSlot__HandleLButtonDown);
 #endif
 #ifdef CInvSlot__HandleLButtonUpAfterHeld_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleLButtonUpAfterHeld(CXPoint), CInvSlot__HandleLButtonUpAfterHeld);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleLButtonUpAfterHeld(CXPoint), CInvSlot__HandleLButtonUpAfterHeld);
 #endif
 #ifdef CInvSlot__HandleRButtonDown_x
-FUNCTION_AT_ADDRESS(void CInvSlot::HandleRButtonDown(CXPoint), CInvSlot__HandleRButtonDown);
+FUNCTION_AT_ADDRESS(void, CInvSlot::HandleRButtonDown(CXPoint), CInvSlot__HandleRButtonDown);
 #endif
 
 ItemGlobalIndex CInvSlot::GetItemLocation() const
@@ -1909,25 +1908,25 @@ ItemGlobalIndex CInvSlot::GetItemLocation() const
 //============================================================================
 
 #ifdef CInvSlotMgr__Process_x
-FUNCTION_AT_ADDRESS(void CInvSlotMgr::Process(), CInvSlotMgr__Process);
+FUNCTION_AT_ADDRESS(void, CInvSlotMgr::Process(), CInvSlotMgr__Process);
 #endif
 #ifdef CInvSlotMgr__CInvSlotMgr_x
 FUNCTION_AT_ADDRESS(CInvSlotMgr::CInvSlotMgr(), CInvSlotMgr__CInvSlotMgr);
 #endif
 #ifdef CInvSlotMgr__MoveItem_x
-FUNCTION_AT_ADDRESS(bool CInvSlotMgr::MoveItem(const ItemGlobalIndex& from, const ItemGlobalIndex& to, bool bDebugOut, bool CombineIsOk, bool MoveFromIntoToBag, bool MoveToIntoFromBag), CInvSlotMgr__MoveItem);
+FUNCTION_AT_ADDRESS(bool, CInvSlotMgr::MoveItem(const ItemGlobalIndex& from, const ItemGlobalIndex& to, bool bDebugOut, bool CombineIsOk, bool MoveFromIntoToBag, bool MoveToIntoFromBag), CInvSlotMgr__MoveItem);
 #endif
 #ifdef CInvSlotMgr__CreateInvSlot_x
-FUNCTION_AT_ADDRESS(CInvSlot* CInvSlotMgr::CreateInvSlot(CInvSlotWnd*), CInvSlotMgr__CreateInvSlot);
+FUNCTION_AT_ADDRESS(CInvSlot*, CInvSlotMgr::CreateInvSlot(CInvSlotWnd*), CInvSlotMgr__CreateInvSlot);
 #endif
 #ifdef CInvSlotMgr__FindInvSlot_x
-FUNCTION_AT_ADDRESS(CInvSlot* CInvSlotMgr::FindInvSlot(int, int, ItemContainerInstance, bool), CInvSlotMgr__FindInvSlot);
+FUNCTION_AT_ADDRESS(CInvSlot*, CInvSlotMgr::FindInvSlot(int, int, ItemContainerInstance, bool), CInvSlotMgr__FindInvSlot);
 #endif
 #ifdef CInvSlotMgr__SelectSlot_x
-FUNCTION_AT_ADDRESS(void CInvSlotMgr::SelectSlot(CInvSlot*), CInvSlotMgr__SelectSlot);
+FUNCTION_AT_ADDRESS(void, CInvSlotMgr::SelectSlot(CInvSlot*), CInvSlotMgr__SelectSlot);
 #endif
 #ifdef CInvSlotMgr__UpdateSlots_x
-FUNCTION_AT_ADDRESS(void CInvSlotMgr::UpdateSlots(), CInvSlotMgr__UpdateSlots);
+FUNCTION_AT_ADDRESS(void, CInvSlotMgr::UpdateSlots(), CInvSlotMgr__UpdateSlots);
 #endif
 
 //============================================================================
@@ -1939,7 +1938,7 @@ CONSTRUCTOR_AT_ADDRESS(CInvSlotWnd::CInvSlotWnd(CXWnd* pParent, uint32_t ID, CXR
 	CTextureAnimation* ptaBackground, const ItemGlobalIndex& itemLocation, int ItemOffsetX, int ItemOffsetY), CInvSlotWnd__CInvSlotWnd);
 #endif
 #ifdef CInvSlotWnd__SetInvSlot_x
-FUNCTION_AT_ADDRESS(void CInvSlotWnd::SetInvSlot(CInvSlot*), CInvSlotWnd__SetInvSlot);
+FUNCTION_AT_ADDRESS(void, CInvSlotWnd::SetInvSlot(CInvSlot*), CInvSlotWnd__SetInvSlot);
 #endif
 
 //============================================================================
@@ -1947,51 +1946,51 @@ FUNCTION_AT_ADDRESS(void CInvSlotWnd::SetInvSlot(CInvSlot*), CInvSlotWnd__SetInv
 //============================================================================
 
 #ifdef CItemDisplayWnd__UpdateStrings_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::UpdateStrings(), CItemDisplayWnd__UpdateStrings);
+FUNCTION_AT_ADDRESS(void, CItemDisplayWnd::UpdateStrings(), CItemDisplayWnd__UpdateStrings);
 #endif
 #ifdef CItemDisplayWnd__InsertAugmentRequest_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::InsertAugmentRequest(int AugSlot), CItemDisplayWnd__InsertAugmentRequest);
+FUNCTION_AT_ADDRESS(void, CItemDisplayWnd::InsertAugmentRequest(int AugSlot), CItemDisplayWnd__InsertAugmentRequest);
 #endif
 #ifdef CItemDisplayWnd__RemoveAugmentRequest_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::RemoveAugmentRequest(int AugSlot), CItemDisplayWnd__RemoveAugmentRequest);
+FUNCTION_AT_ADDRESS(void, CItemDisplayWnd::RemoveAugmentRequest(int AugSlot), CItemDisplayWnd__RemoveAugmentRequest);
 #endif
 #ifdef CItemDisplayWnd__RequestConvertItem_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::RequestConvertItem(), CItemDisplayWnd__RequestConvertItem);
+FUNCTION_AT_ADDRESS(void, CItemDisplayWnd::RequestConvertItem(), CItemDisplayWnd__RequestConvertItem);
 #endif
 #ifdef CItemDisplayWnd__SetItem_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetItem(const ItemPtr& pItem, int flags), CItemDisplayWnd__SetItem);
+FUNCTION_AT_ADDRESS(void, CItemDisplayWnd::SetItem(const ItemPtr& pItem, int flags), CItemDisplayWnd__SetItem);
 #endif
 #ifdef CItemDisplayWnd__SetItemText_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::SetItemText(char*), CItemDisplayWnd__SetItemText);
+FUNCTION_AT_ADDRESS(void, CItemDisplayWnd::SetItemText(char*), CItemDisplayWnd__SetItemText);
 #endif
 #ifdef CItemDisplayWnd__GetSizeString_x
-FUNCTION_AT_ADDRESS(void CItemDisplayWnd::GetSizeString(int, char*), CItemDisplayWnd__GetSizeString);
+FUNCTION_AT_ADDRESS(void, CItemDisplayWnd::GetSizeString(int, char*), CItemDisplayWnd__GetSizeString);
 #endif
 #ifdef CItemDisplayWnd__CreateRaceString_x
-FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateRaceString(EQ_Equipment*), CItemDisplayWnd__CreateRaceString);
+FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateRaceString(EQ_Equipment*), CItemDisplayWnd__CreateRaceString);
 #endif
 #ifdef CItemDisplayWnd__CreateClassString_x
-FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateClassString(EQ_Equipment*), CItemDisplayWnd__CreateClassString);
+FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateClassString(EQ_Equipment*), CItemDisplayWnd__CreateClassString);
 #endif
 #ifdef CItemDisplayWnd__CreateMealSizeString_x
-FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateMealSizeString(EQ_Equipment*), CItemDisplayWnd__CreateMealSizeString);
+FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateMealSizeString(EQ_Equipment*), CItemDisplayWnd__CreateMealSizeString);
 #endif
 #ifdef CItemDisplayWnd__CreateModString_x
-FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateModString(EQ_Equipment*, int, int, int*), CItemDisplayWnd__CreateModString);
+FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateModString(EQ_Equipment*, int, int, int*), CItemDisplayWnd__CreateModString);
 #endif
 #ifdef CItemDisplayWnd__CreateEquipmentStatusString_x
-FUNCTION_AT_ADDRESS(CXStr CItemDisplayWnd::CreateEquipmentStatusString(const ItemPtr&), CItemDisplayWnd__CreateEquipmentStatusString);
+FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateEquipmentStatusString(const ItemPtr&), CItemDisplayWnd__CreateEquipmentStatusString);
 #endif
 
-FUNCTION_AT_ADDRESS(void CSpellDisplayWnd::SetSpell(int SpellID, bool HasSpellDescr, int), CSpellDisplayWnd__SetSpell);
-FUNCTION_AT_ADDRESS(void CSpellDisplayWnd::UpdateStrings(), CSpellDisplayWnd__UpdateStrings);
+FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::SetSpell(int SpellID, bool HasSpellDescr, int), CSpellDisplayWnd__SetSpell);
+FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::UpdateStrings(), CSpellDisplayWnd__UpdateStrings);
 
 //============================================================================
 // CKeyRingWnd
 //============================================================================
 
 #ifdef CKeyRingWnd__ExecuteRightClick_x
-FUNCTION_AT_ADDRESS(int CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, const ItemPtr& pItem, int index), CKeyRingWnd__ExecuteRightClick);
+FUNCTION_AT_ADDRESS(int, CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, const ItemPtr& pItem, int index), CKeyRingWnd__ExecuteRightClick);
 #endif
 
 CListWnd* CKeyRingWnd::GetKeyRingList(KeyRingType type) const
@@ -2010,28 +2009,28 @@ CListWnd* CKeyRingWnd::GetKeyRingList(KeyRingType type) const
 FUNCTION_AT_ADDRESS(CLootWnd::CLootWnd(CXWnd*), CLootWnd__CLootWnd);
 #endif
 #ifdef CLootWnd__Init_x
-FUNCTION_AT_ADDRESS(void CLootWnd::Init(), CLootWnd__Init);
+FUNCTION_AT_ADDRESS(void, CLootWnd::Init(), CLootWnd__Init);
 #endif
 #ifdef CLootWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CLootWnd::Activate(unsigned char, long, long, long, long), CLootWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CLootWnd::Activate(unsigned char, long, long, long, long), CLootWnd__Activate);
 #endif
 #ifdef CLootWnd__Deactivate1_x
-FUNCTION_AT_ADDRESS(void CLootWnd::Deactivate(bool), CLootWnd__Deactivate1);
+FUNCTION_AT_ADDRESS(void, CLootWnd::Deactivate(bool), CLootWnd__Deactivate1);
 #endif
 #ifdef CLootWnd__LootAll_x
-FUNCTION_AT_ADDRESS(void CLootWnd::LootAll(bool), CLootWnd__LootAll);
+FUNCTION_AT_ADDRESS(void, CLootWnd::LootAll(bool), CLootWnd__LootAll);
 #endif
 #ifdef CLootWnd__FinalizeLoot_x
-FUNCTION_AT_ADDRESS(void CLootWnd::FinalizeLoot(), CLootWnd__FinalizeLoot);
+FUNCTION_AT_ADDRESS(void, CLootWnd::FinalizeLoot(), CLootWnd__FinalizeLoot);
 #endif
 #ifdef CLootWnd__AddItemToLootArray_x
-FUNCTION_AT_ADDRESS(void CLootWnd::AddItemToLootArray(const ItemPtr&), CLootWnd__AddItemToLootArray);
+FUNCTION_AT_ADDRESS(void, CLootWnd::AddItemToLootArray(const ItemPtr&), CLootWnd__AddItemToLootArray);
 #endif
 #ifdef CLootWnd__RequestLootSlot_x
-FUNCTION_AT_ADDRESS(void CLootWnd::RequestLootSlot(int, bool), CLootWnd__RequestLootSlot);
+FUNCTION_AT_ADDRESS(void, CLootWnd::RequestLootSlot(int, bool), CLootWnd__RequestLootSlot);
 #endif
 #ifdef CLootWnd__SlotLooted_x
-FUNCTION_AT_ADDRESS(void CLootWnd::SlotLooted(int), CLootWnd__SlotLooted);
+FUNCTION_AT_ADDRESS(void, CLootWnd::SlotLooted(int), CLootWnd__SlotLooted);
 #endif
 
 //============================================================================
@@ -2040,139 +2039,142 @@ FUNCTION_AT_ADDRESS(void CLootWnd::SlotLooted(int), CLootWnd__SlotLooted);
 
 // CMapViewWnd
 #ifdef CMapViewWnd__IsMappingEnabled_x
-FUNCTION_AT_ADDRESS(bool CMapViewWnd::IsMappingEnabled(), CMapViewWnd__IsMappingEnabled);
+FUNCTION_AT_ADDRESS(bool, CMapViewWnd::IsMappingEnabled(), CMapViewWnd__IsMappingEnabled);
 #endif
 #ifdef CMapViewWnd__CMapViewWnd_x
 CONSTRUCTOR_AT_ADDRESS(CMapViewWnd::CMapViewWnd(CXWnd*), CMapViewWnd__CMapViewWnd);
 #endif
 #ifdef CMapViewWnd__Init_x
-FUNCTION_AT_ADDRESS(void CMapViewWnd::Init(), CMapViewWnd__Init);
+FUNCTION_AT_ADDRESS(void, CMapViewWnd::Init(), CMapViewWnd__Init);
 #endif
 #ifdef CMapViewWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CMapViewWnd::Activate(), CMapViewWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CMapViewWnd::Activate(), CMapViewWnd__Activate);
 #endif
 #ifdef CMapViewWnd__ActivateAutoMapping_x
-FUNCTION_AT_ADDRESS(void CMapViewWnd::ActivateAutoMapping(), CMapViewWnd__ActivateAutoMapping);
+FUNCTION_AT_ADDRESS(void, CMapViewWnd::ActivateAutoMapping(), CMapViewWnd__ActivateAutoMapping);
 #endif
 #ifdef CMapViewWnd__DeactivateAutoMapping_x
-FUNCTION_AT_ADDRESS(void CMapViewWnd::DeactivateAutoMapping(), CMapViewWnd__DeactivateAutoMapping);
+FUNCTION_AT_ADDRESS(void, CMapViewWnd::DeactivateAutoMapping(), CMapViewWnd__DeactivateAutoMapping);
 #endif
 
 // MapViewMap virtual override implementations
-FORWARD_FUNCTION_TO_VTABLE2(int MapViewMap::PostDraw(), MapViewMap, CXWnd, PostDraw);
-FORWARD_FUNCTION_TO_VTABLE2(int MapViewMap::HandleLButtonDown(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleLButtonDown);
-FORWARD_FUNCTION_TO_VTABLE2(int MapViewMap::HandleLButtonUp(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleLButtonUp);
-FORWARD_FUNCTION_TO_VTABLE2(int MapViewMap::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleLButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE2(int MapViewMap::HandleRButtonDown(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE2(int MapViewMap::HandleWheelMove(const CXPoint&, int, uint32_t), MapViewMap, CXWnd, HandleWheelMove);
+FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::PostDraw(), MapViewMap, PostDraw);
+FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleLButtonDown(const CXPoint&, uint32_t), MapViewMap, HandleLButtonDown);
+FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleLButtonUp(const CXPoint&, uint32_t), MapViewMap, HandleLButtonUp);
+FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), MapViewMap, HandleLButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleRButtonDown(const CXPoint&, uint32_t), MapViewMap, HandleRButtonDown);
+FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleWheelMove(const CXPoint&, int, uint32_t), MapViewMap, HandleWheelMove);
 
 #ifdef MapViewMap__MapViewMap_x
 CONSTRUCTOR_AT_ADDRESS(MapViewMap::MapViewMap(), MapViewMap__MapViewMap);
 #endif
+#ifdef MapViewMap__dMapViewMap_x
+DESTRUCTOR_AT_ADDRESS(MapViewMap::~MapViewMap(), MapViewMap__dMapViewMap);
+#endif
 #ifdef CMapViewWnd__HandleLButtonDown_x
-FUNCTION_AT_ADDRESS(int MapViewMap::HandleLButtonDown(const CXPoint&, uint32_t), CMapViewWnd__HandleLButtonDown);
+FUNCTION_AT_ADDRESS(int, MapViewMap::HandleLButtonDown(const CXPoint&, uint32_t), CMapViewWnd__HandleLButtonDown);
 #endif
 #ifdef MapViewMap__Clear_x
-FUNCTION_AT_ADDRESS(void MapViewMap::Clear(), MapViewMap__Clear);
+FUNCTION_AT_ADDRESS(void, MapViewMap::Clear(), MapViewMap__Clear);
 #endif
 #ifdef MapViewMap__StartLine_x
-FUNCTION_AT_ADDRESS(void MapViewMap::StartLine(float, float, float), MapViewMap__StartLine);
+FUNCTION_AT_ADDRESS(void, MapViewMap::StartLine(float, float, float), MapViewMap__StartLine);
 #endif
 #ifdef MapViewMap__EndLine_x
-FUNCTION_AT_ADDRESS(void MapViewMap::EndLine(float, float, float), MapViewMap__EndLine);
+FUNCTION_AT_ADDRESS(void, MapViewMap::EndLine(float, float, float), MapViewMap__EndLine);
 #endif
 #ifdef MapViewMap__RemoveLine_x
-FUNCTION_AT_ADDRESS(void MapViewMap::RemoveLine(), MapViewMap__RemoveLine);
+FUNCTION_AT_ADDRESS(void, MapViewMap::RemoveLine(), MapViewMap__RemoveLine);
 #endif
 #ifdef MapViewMap__AddPoint_x
-FUNCTION_AT_ADDRESS(void MapViewMap::AddPoint(float, float, float), MapViewMap__AddPoint);
+FUNCTION_AT_ADDRESS(void, MapViewMap::AddPoint(float, float, float), MapViewMap__AddPoint);
 #endif
 #ifdef MapViewMap__AddLabel_x
-FUNCTION_AT_ADDRESS(void MapViewMap::AddLabel(float, float, float, unsigned long, int, char*), MapViewMap__AddLabel);
+FUNCTION_AT_ADDRESS(void, MapViewMap::AddLabel(float, float, float, unsigned long, int, char*), MapViewMap__AddLabel);
 #endif
 #ifdef MapViewMap__RecalcLabelExtents_x
-FUNCTION_AT_ADDRESS(void MapViewMap::RecalcLabelExtents(struct _mapviewlabel*), MapViewMap__RecalcLabelExtents);
+FUNCTION_AT_ADDRESS(void, MapViewMap::RecalcLabelExtents(struct _mapviewlabel*), MapViewMap__RecalcLabelExtents);
 #endif
 #ifdef MapViewMap__RemoveLabel_x
-FUNCTION_AT_ADDRESS(void MapViewMap::RemoveLabel(), MapViewMap__RemoveLabel);
+FUNCTION_AT_ADDRESS(void, MapViewMap::RemoveLabel(), MapViewMap__RemoveLabel);
 #endif
 #ifdef MapViewMap__MoveLabel_x
-FUNCTION_AT_ADDRESS(void MapViewMap::MoveLabel(struct _mapviewlabel*, float, float, float), MapViewMap__MoveLabel);
+FUNCTION_AT_ADDRESS(void, MapViewMap::MoveLabel(struct _mapviewlabel*, float, float, float), MapViewMap__MoveLabel);
 #endif
 #ifdef MapViewMap__CalcLabelRenderOffsets_x
-FUNCTION_AT_ADDRESS(void MapViewMap::CalcLabelRenderOffsets(CXRect), MapViewMap__CalcLabelRenderOffsets);
+FUNCTION_AT_ADDRESS(void, MapViewMap::CalcLabelRenderOffsets(CXRect), MapViewMap__CalcLabelRenderOffsets);
 #endif
 #ifdef MapViewMap__IsLayerVisible_x
-FUNCTION_AT_ADDRESS(bool MapViewMap::IsLayerVisible(int), MapViewMap__IsLayerVisible);
+FUNCTION_AT_ADDRESS(bool, MapViewMap::IsLayerVisible(int), MapViewMap__IsLayerVisible);
 #endif
 #ifdef MapViewMap__PointInMapViewArea_x
-FUNCTION_AT_ADDRESS(bool MapViewMap::PointInMapViewArea(CXPoint, CXRect), MapViewMap__PointInMapViewArea);
+FUNCTION_AT_ADDRESS(bool, MapViewMap::PointInMapViewArea(CXPoint, CXRect), MapViewMap__PointInMapViewArea);
 #endif
 #ifdef MapViewMap__PreCalcRenderValues_x
-FUNCTION_AT_ADDRESS(void MapViewMap::PreCalcRenderValues(), MapViewMap__PreCalcRenderValues);
+FUNCTION_AT_ADDRESS(void, MapViewMap::PreCalcRenderValues(), MapViewMap__PreCalcRenderValues);
 #endif
 #ifdef MapViewMap__TransformPoint_x
-FUNCTION_AT_ADDRESS(void MapViewMap::TransformPoint(struct T3D_XYZ*), MapViewMap__TransformPoint);
+FUNCTION_AT_ADDRESS(void, MapViewMap::TransformPoint(struct T3D_XYZ*), MapViewMap__TransformPoint);
 #endif
 #ifdef MapViewMap__Draw_x
-FUNCTION_AT_ADDRESS(void MapViewMap::Draw(CXRect), MapViewMap__Draw);
+FUNCTION_AT_ADDRESS(void, MapViewMap::Draw(CXRect), MapViewMap__Draw);
 #endif
 #ifdef MapViewMap__DrawClippedLine_x
-FUNCTION_AT_ADDRESS(bool MapViewMap::DrawClippedLine(struct T3D_XYZ*, struct T3D_RGB, CXRect), MapViewMap__DrawClippedLine);
+FUNCTION_AT_ADDRESS(bool, MapViewMap::DrawClippedLine(struct T3D_XYZ*, struct T3D_RGB, CXRect), MapViewMap__DrawClippedLine);
 #endif
 #ifdef MapViewMap__Save_x
-FUNCTION_AT_ADDRESS(void MapViewMap::Save(char*), MapViewMap__Save);
+FUNCTION_AT_ADDRESS(void, MapViewMap::Save(char*), MapViewMap__Save);
 #endif
 //#ifdef MapViewMap__SaveEx_x
-//FUNCTION_AT_ADDRESS(void MapViewMap::SaveEx(char*, int), MapViewMap__SaveEx);
+//FUNCTION_AT_ADDRESS(void, MapViewMap::SaveEx(char*, int), MapViewMap__SaveEx);
 //#endif
 #ifdef MapViewMap__Load_x
-FUNCTION_AT_ADDRESS(void MapViewMap::Load(char*), MapViewMap__Load);
+FUNCTION_AT_ADDRESS(void, MapViewMap::Load(char*), MapViewMap__Load);
 #endif
 #ifdef MapViewMap__LoadEx_x
-FUNCTION_AT_ADDRESS(bool MapViewMap::LoadEx(char*, int), MapViewMap__LoadEx);
+FUNCTION_AT_ADDRESS(bool, MapViewMap::LoadEx(char*, int), MapViewMap__LoadEx);
 #endif
 #ifdef MapViewMap__GetCurrentColor_x
-FUNCTION_AT_ADDRESS(unsigned long MapViewMap::GetCurrentColor(), MapViewMap__GetCurrentColor);
+FUNCTION_AT_ADDRESS(unsigned long, MapViewMap::GetCurrentColor(), MapViewMap__GetCurrentColor);
 #endif
 #ifdef MapViewMap__SetCurrentColor_x
-FUNCTION_AT_ADDRESS(void MapViewMap::SetCurrentColor(unsigned long), MapViewMap__SetCurrentColor);
+FUNCTION_AT_ADDRESS(void, MapViewMap::SetCurrentColor(unsigned long), MapViewMap__SetCurrentColor);
 #endif
 #ifdef MapViewMap__SetMarkedLine_x
-FUNCTION_AT_ADDRESS(void MapViewMap::SetMarkedLine(struct _mapviewline*), MapViewMap__SetMarkedLine);
+FUNCTION_AT_ADDRESS(void, MapViewMap::SetMarkedLine(struct _mapviewline*), MapViewMap__SetMarkedLine);
 #endif
 #ifdef MapViewMap__SetMarkedLineColor_x
-FUNCTION_AT_ADDRESS(void MapViewMap::SetMarkedLineColor(unsigned long), MapViewMap__SetMarkedLineColor);
+FUNCTION_AT_ADDRESS(void, MapViewMap::SetMarkedLineColor(unsigned long), MapViewMap__SetMarkedLineColor);
 #endif
 #ifdef MapViewMap__GetMarkedLineColor_x
-FUNCTION_AT_ADDRESS(unsigned long MapViewMap::GetMarkedLineColor(), MapViewMap__GetMarkedLineColor);
+FUNCTION_AT_ADDRESS(unsigned long, MapViewMap::GetMarkedLineColor(), MapViewMap__GetMarkedLineColor);
 #endif
 #ifdef MapViewMap__ClearActiveLayer_x
-FUNCTION_AT_ADDRESS(void MapViewMap::ClearActiveLayer(), MapViewMap__ClearActiveLayer);
+FUNCTION_AT_ADDRESS(void, MapViewMap::ClearActiveLayer(), MapViewMap__ClearActiveLayer);
 #endif
 #ifdef MapViewMap__RemoveLine1_x
-FUNCTION_AT_ADDRESS(void MapViewMap::RemoveLine(struct _mapviewline*), MapViewMap__RemoveLine1);
+FUNCTION_AT_ADDRESS(void, MapViewMap::RemoveLine(struct _mapviewline*), MapViewMap__RemoveLine1);
 #endif
 #ifdef MapViewMap__RemoveLabel1_x
-FUNCTION_AT_ADDRESS(void MapViewMap::RemoveLabel(struct _mapviewlabel*), MapViewMap__RemoveLabel1);
+FUNCTION_AT_ADDRESS(void, MapViewMap::RemoveLabel(struct _mapviewlabel*), MapViewMap__RemoveLabel1);
 #endif
 #ifdef MapViewMap__JoinLinesAtIntersect_x
-FUNCTION_AT_ADDRESS(void MapViewMap::JoinLinesAtIntersect(bool), MapViewMap__JoinLinesAtIntersect);
+FUNCTION_AT_ADDRESS(void, MapViewMap::JoinLinesAtIntersect(bool), MapViewMap__JoinLinesAtIntersect);
 #endif
 #ifdef MapViewMap__SetZoneExtents_x
-FUNCTION_AT_ADDRESS(void MapViewMap::SetZoneExtents(int, int, int, int), MapViewMap__SetZoneExtents);
+FUNCTION_AT_ADDRESS(void, MapViewMap::SetZoneExtents(int, int, int, int), MapViewMap__SetZoneExtents);
 #endif
 #ifdef MapViewMap__SetZoom_x
-FUNCTION_AT_ADDRESS(void MapViewMap::SetZoom(float), MapViewMap__SetZoom);
+FUNCTION_AT_ADDRESS(void, MapViewMap::SetZoom(float), MapViewMap__SetZoom);
 #endif
 #ifdef MapViewMap__GetMinZ_x
-FUNCTION_AT_ADDRESS(int MapViewMap::GetMinZ(), MapViewMap__GetMinZ);
+FUNCTION_AT_ADDRESS(int, MapViewMap::GetMinZ(), MapViewMap__GetMinZ);
 #endif
 #ifdef MapViewMap__GetMaxZ_x
-FUNCTION_AT_ADDRESS(int MapViewMap::GetMaxZ(), MapViewMap__GetMaxZ);
+FUNCTION_AT_ADDRESS(int, MapViewMap::GetMaxZ(), MapViewMap__GetMaxZ);
 #endif
 #ifdef MapViewMap__GetWorldCoordinates_x
-FUNCTION_AT_ADDRESS(void MapViewMap::GetWorldCoordinates(CVector3&), MapViewMap__GetWorldCoordinates);
+FUNCTION_AT_ADDRESS(void, MapViewMap::GetWorldCoordinates(CVector3&), MapViewMap__GetWorldCoordinates);
 #endif
 
 
@@ -2184,46 +2186,46 @@ FUNCTION_AT_ADDRESS(void MapViewMap::GetWorldCoordinates(CVector3&), MapViewMap_
 FUNCTION_AT_ADDRESS(CMerchantWnd::CMerchantWnd(CXWnd*), CMerchantWnd__CMerchantWnd);
 #endif
 #ifdef CMerchantWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::Activate(EQPlayer*, float), CMerchantWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::Activate(EQPlayer*, float), CMerchantWnd__Activate);
 #endif
 #ifdef CMerchantWnd__HandleBuy_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::HandleBuy(int), CMerchantWnd__HandleBuy);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::HandleBuy(int), CMerchantWnd__HandleBuy);
 #endif
 #ifdef CMerchantWnd__HandleSell_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::HandleSell(int), CMerchantWnd__HandleSell);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::HandleSell(int), CMerchantWnd__HandleSell);
 #endif
 #ifdef CMerchantWnd__UpdateBuySellButtons_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::UpdateBuySellButtons(), CMerchantWnd__UpdateBuySellButtons);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::UpdateBuySellButtons(), CMerchantWnd__UpdateBuySellButtons);
 #endif
 #ifdef CMerchantWnd__SelectBuySellSlot_x
-FUNCTION_AT_ADDRESS(int CMerchantWnd::SelectBuySellSlot(const ItemGlobalIndex&, int Unknown), CMerchantWnd__SelectBuySellSlot);
+FUNCTION_AT_ADDRESS(int, CMerchantWnd::SelectBuySellSlot(const ItemGlobalIndex&, int Unknown), CMerchantWnd__SelectBuySellSlot);
 #endif
 #ifdef CMerchantWnd__DisplayBuyOrSellPrice_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::DisplayBuyOrSellPrice(const ItemPtr& item, bool buy), CMerchantWnd__DisplayBuyOrSellPrice);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::DisplayBuyOrSellPrice(const ItemPtr& item, bool buy), CMerchantWnd__DisplayBuyOrSellPrice);
 #endif
 #ifdef CMerchantWnd__PurchasePageHandler__RequestGetItem_x
-//FUNCTION_AT_ADDRESS(bool CMerchantWnd::PurchasePageHandler::RequestGetItem(int), CMerchantWnd__PurchasePageHandler__RequestGetItem);
+//FUNCTION_AT_ADDRESS(bool, CMerchantWnd::PurchasePageHandler::RequestGetItem(int), CMerchantWnd__PurchasePageHandler__RequestGetItem);
 #endif
 #ifdef CMerchantWnd__FinishBuyingItem_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::FinishBuyingItem(struct _sell_msg*), CMerchantWnd__FinishBuyingItem);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::FinishBuyingItem(struct _sell_msg*), CMerchantWnd__FinishBuyingItem);
 #endif
 #ifdef CMerchantWnd__PurchasePageHandler__RequestPutItem_x
-//FUNCTION_AT_ADDRESS(void CMerchantWnd::PurchasePageHandler::RequestPutItem(int), CMerchantWnd__PurchasePageHandler__RequestPutItem);
+//FUNCTION_AT_ADDRESS(void, CMerchantWnd::PurchasePageHandler::RequestPutItem(int), CMerchantWnd__PurchasePageHandler__RequestPutItem);
 #endif
 #ifdef CMerchantWnd__FinishSellingItem_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::FinishSellingItem(struct _sell_msg*), CMerchantWnd__FinishSellingItem);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::FinishSellingItem(struct _sell_msg*), CMerchantWnd__FinishSellingItem);
 #endif
 #ifdef CMerchantWnd__AddEquipmentToMercArray_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::AddEquipmentToMercArray(EQ_Equipment*), CMerchantWnd__AddEquipmentToMercArray);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::AddEquipmentToMercArray(EQ_Equipment*), CMerchantWnd__AddEquipmentToMercArray);
 #endif
 #ifdef CMerchantWnd__AddNoteToMercArray_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::AddNoteToMercArray(EQ_Note*), CMerchantWnd__AddNoteToMercArray);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::AddNoteToMercArray(EQ_Note*), CMerchantWnd__AddNoteToMercArray);
 #endif
 #ifdef CMerchantWnd__AddContainerToMercArray_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::AddContainerToMercArray(EQ_Container*), CMerchantWnd__AddContainerToMercArray);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::AddContainerToMercArray(EQ_Container*), CMerchantWnd__AddContainerToMercArray);
 #endif
 #ifdef CMerchantWnd__ClearMerchantSlot_x
-FUNCTION_AT_ADDRESS(void CMerchantWnd::ClearMerchantSlot(int), CMerchantWnd__ClearMerchantSlot);
+FUNCTION_AT_ADDRESS(void, CMerchantWnd::ClearMerchantSlot(int), CMerchantWnd__ClearMerchantSlot);
 #endif
 
 //============================================================================
@@ -2231,13 +2233,13 @@ FUNCTION_AT_ADDRESS(void CMerchantWnd::ClearMerchantSlot(int), CMerchantWnd__Cle
 //============================================================================
 
 #ifdef CMusicPlayerWnd__AutoStart_x
-FUNCTION_AT_ADDRESS(void CMusicPlayerWnd::AutoStart(), CMusicPlayerWnd__AutoStart);
+FUNCTION_AT_ADDRESS(void, CMusicPlayerWnd::AutoStart(), CMusicPlayerWnd__AutoStart);
 #endif
 #ifdef CMusicPlayerWnd__Update_x
-FUNCTION_AT_ADDRESS(void CMusicPlayerWnd::Update(), CMusicPlayerWnd__Update);
+FUNCTION_AT_ADDRESS(void, CMusicPlayerWnd::Update(), CMusicPlayerWnd__Update);
 #endif
 #ifdef CMusicPlayerWnd__UpdateButtons_x
-FUNCTION_AT_ADDRESS(void CMusicPlayerWnd::UpdateButtons(), CMusicPlayerWnd__UpdateButtons);
+FUNCTION_AT_ADDRESS(void, CMusicPlayerWnd::UpdateButtons(), CMusicPlayerWnd__UpdateButtons);
 #endif
 
 //============================================================================
@@ -2245,10 +2247,10 @@ FUNCTION_AT_ADDRESS(void CMusicPlayerWnd::UpdateButtons(), CMusicPlayerWnd__Upda
 //============================================================================
 
 #ifdef CNoteWnd__CheckNote_x
-FUNCTION_AT_ADDRESS(bool CNoteWnd::CheckNote(EQ_Note*), CNoteWnd__CheckNote);
+FUNCTION_AT_ADDRESS(bool, CNoteWnd::CheckNote(EQ_Note*), CNoteWnd__CheckNote);
 #endif
 #ifdef CNoteWnd__SetNote_x
-FUNCTION_AT_ADDRESS(void CNoteWnd::SetNote(char*), CNoteWnd__SetNote);
+FUNCTION_AT_ADDRESS(void, CNoteWnd::SetNote(char*), CNoteWnd__SetNote);
 #endif
 
 //============================================================================
@@ -2256,100 +2258,100 @@ FUNCTION_AT_ADDRESS(void CNoteWnd::SetNote(char*), CNoteWnd__SetNote);
 //============================================================================
 
 #ifdef COptionsWnd__FillChatFilterList_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::FillChatFilterList(), COptionsWnd__FillChatFilterList);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::FillChatFilterList(), COptionsWnd__FillChatFilterList);
 #endif
 #ifdef COptionsWnd__SyncGeneralPage_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::SyncGeneralPage(), COptionsWnd__SyncGeneralPage);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::SyncGeneralPage(), COptionsWnd__SyncGeneralPage);
 #endif
 #ifdef COptionsWnd__SyncDisplayPage_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::SyncDisplayPage(), COptionsWnd__SyncDisplayPage);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::SyncDisplayPage(), COptionsWnd__SyncDisplayPage);
 #endif
 #ifdef COptionsWnd__SyncMousePage_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::SyncMousePage(), COptionsWnd__SyncMousePage);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::SyncMousePage(), COptionsWnd__SyncMousePage);
 #endif
 #ifdef COptionsWnd__SyncChatPage_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::SyncChatPage(), COptionsWnd__SyncChatPage);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::SyncChatPage(), COptionsWnd__SyncChatPage);
 #endif
 #ifdef COptionsWnd__SyncColorPage_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::SyncColorPage(), COptionsWnd__SyncColorPage);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::SyncColorPage(), COptionsWnd__SyncColorPage);
 #endif
 #ifdef COptionsWnd__InitKeyboardPage_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::InitKeyboardPage(), COptionsWnd__InitKeyboardPage);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::InitKeyboardPage(), COptionsWnd__InitKeyboardPage);
 #endif
 #ifdef COptionsWnd__InitKeyboardAssignments_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::InitKeyboardAssignments(), COptionsWnd__InitKeyboardAssignments);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::InitKeyboardAssignments(), COptionsWnd__InitKeyboardAssignments);
 #endif
 #ifdef COptionsWnd__RefreshCurrentKeyboardAssignmentList_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::RefreshCurrentKeyboardAssignmentList(), COptionsWnd__RefreshCurrentKeyboardAssignmentList);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::RefreshCurrentKeyboardAssignmentList(), COptionsWnd__RefreshCurrentKeyboardAssignmentList);
 #endif
 #ifdef COptionsWnd__AddKeyboardAssignment_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::AddKeyboardAssignment(int, int, int), COptionsWnd__AddKeyboardAssignment);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::AddKeyboardAssignment(int, int, int), COptionsWnd__AddKeyboardAssignment);
 #endif
 #ifdef COptionsWnd__ResetKeysToDefault_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::ResetKeysToDefault(), COptionsWnd__ResetKeysToDefault);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::ResetKeysToDefault(), COptionsWnd__ResetKeysToDefault);
 #endif
 #ifdef COptionsWnd__RedirectOnProcessFrameTo_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::RedirectOnProcessFrameTo(CPageWnd*), COptionsWnd__RedirectOnProcessFrameTo);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::RedirectOnProcessFrameTo(CPageWnd*), COptionsWnd__RedirectOnProcessFrameTo);
 #endif
 #ifdef COptionsWnd__RedirectWndNotificationTo_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::RedirectWndNotificationTo(CPageWnd*, CXWnd*, uint32_t, void*), COptionsWnd__RedirectWndNotificationTo);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::RedirectWndNotificationTo(CPageWnd*, CXWnd*, uint32_t, void*), COptionsWnd__RedirectWndNotificationTo);
 #endif
 #ifdef COptionsWnd__RedirectHandleKeyboardMsgTo_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::RedirectHandleKeyboardMsgTo(CPageWnd*, uint32_t, uint32_t, bool), COptionsWnd__RedirectHandleKeyboardMsgTo);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::RedirectHandleKeyboardMsgTo(CPageWnd*, uint32_t, uint32_t, bool), COptionsWnd__RedirectHandleKeyboardMsgTo);
 #endif
 #ifdef COptionsWnd__RedirectDeactivateTo_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::RedirectDeactivateTo(CPageWnd*), COptionsWnd__RedirectDeactivateTo);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::RedirectDeactivateTo(CPageWnd*), COptionsWnd__RedirectDeactivateTo);
 #endif
 #ifdef COptionsWnd__GeneralPageOnProcessFrame_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::GeneralPageOnProcessFrame(), COptionsWnd__GeneralPageOnProcessFrame);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::GeneralPageOnProcessFrame(), COptionsWnd__GeneralPageOnProcessFrame);
 #endif
 #ifdef COptionsWnd__GeneralPageWndNotification_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::GeneralPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__GeneralPageWndNotification);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::GeneralPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__GeneralPageWndNotification);
 #endif
 #ifdef COptionsWnd__DisplayPageOnProcessFrame_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::DisplayPageOnProcessFrame(), COptionsWnd__DisplayPageOnProcessFrame);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::DisplayPageOnProcessFrame(), COptionsWnd__DisplayPageOnProcessFrame);
 #endif
 #ifdef COptionsWnd__DisplayPageWndNotification_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::DisplayPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__DisplayPageWndNotification);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::DisplayPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__DisplayPageWndNotification);
 #endif
 #ifdef COptionsWnd__MousePageOnProcessFrame_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::MousePageOnProcessFrame(), COptionsWnd__MousePageOnProcessFrame);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::MousePageOnProcessFrame(), COptionsWnd__MousePageOnProcessFrame);
 #endif
 #ifdef COptionsWnd__MousePageWndNotification_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::MousePageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__MousePageWndNotification);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::MousePageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__MousePageWndNotification);
 #endif
 #ifdef COptionsWnd__KeyboardPageWndNotification_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::KeyboardPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__KeyboardPageWndNotification);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::KeyboardPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__KeyboardPageWndNotification);
 #endif
 #ifdef COptionsWnd__KeyboardPageHandleKeyboardMsg_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::KeyboardPageHandleKeyboardMsg(uint32_t, uint32_t, bool), COptionsWnd__KeyboardPageHandleKeyboardMsg);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::KeyboardPageHandleKeyboardMsg(uint32_t, uint32_t, bool), COptionsWnd__KeyboardPageHandleKeyboardMsg);
 #endif
 #ifdef COptionsWnd__KeyboardPageDeactivate_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::KeyboardPageDeactivate(), COptionsWnd__KeyboardPageDeactivate);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::KeyboardPageDeactivate(), COptionsWnd__KeyboardPageDeactivate);
 #endif
 #ifdef COptionsWnd__KeyboardPageCancelKeypressAssignment_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::KeyboardPageCancelKeypressAssignment(), COptionsWnd__KeyboardPageCancelKeypressAssignment);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::KeyboardPageCancelKeypressAssignment(), COptionsWnd__KeyboardPageCancelKeypressAssignment);
 #endif
 #ifdef COptionsWnd__ChatPageOnProcessFrame_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::ChatPageOnProcessFrame(), COptionsWnd__ChatPageOnProcessFrame);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::ChatPageOnProcessFrame(), COptionsWnd__ChatPageOnProcessFrame);
 #endif
 #ifdef COptionsWnd__ColorPageOnProcessFrame_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::ColorPageOnProcessFrame(), COptionsWnd__ColorPageOnProcessFrame);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::ColorPageOnProcessFrame(), COptionsWnd__ColorPageOnProcessFrame);
 #endif
 #ifdef COptionsWnd__ChatPageWndNotification_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::ChatPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__ChatPageWndNotification);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::ChatPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__ChatPageWndNotification);
 #endif
 #ifdef COptionsWnd__ColorPageWndNotification_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::ColorPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__ColorPageWndNotification);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::ColorPageWndNotification(CXWnd*, uint32_t, void*), COptionsWnd__ColorPageWndNotification);
 #endif
 #ifdef COptionsWnd__RestoreDefaultColors_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::RestoreDefaultColors(), COptionsWnd__RestoreDefaultColors);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::RestoreDefaultColors(), COptionsWnd__RestoreDefaultColors);
 #endif
 #ifdef COptionsWnd__SetBagOptions_x
-FUNCTION_AT_ADDRESS(void COptionsWnd::SetBagOptions(int, int), COptionsWnd__SetBagOptions);
+FUNCTION_AT_ADDRESS(void, COptionsWnd::SetBagOptions(int, int), COptionsWnd__SetBagOptions);
 #endif
 #ifdef COptionsWnd__KeyboardPageOnProcessFrame_x
-FUNCTION_AT_ADDRESS(int COptionsWnd::KeyboardPageOnProcessFrame(), COptionsWnd__KeyboardPageOnProcessFrame);
+FUNCTION_AT_ADDRESS(int, COptionsWnd::KeyboardPageOnProcessFrame(), COptionsWnd__KeyboardPageOnProcessFrame);
 #endif
 
 //============================================================================
@@ -2361,10 +2363,10 @@ FUNCTION_AT_ADDRESS(int COptionsWnd::KeyboardPageOnProcessFrame(), COptionsWnd__
 //============================================================================
 
 #ifdef CPlayerNotesWnd__SaveNotes_x
-FUNCTION_AT_ADDRESS(void CPlayerNotesWnd::SaveNotes(), CPlayerNotesWnd__SaveNotes);
+FUNCTION_AT_ADDRESS(void, CPlayerNotesWnd::SaveNotes(), CPlayerNotesWnd__SaveNotes);
 #endif
 #ifdef CPlayerNotesWnd__AppendText_x
-FUNCTION_AT_ADDRESS(void CPlayerNotesWnd::AppendText(char*), CPlayerNotesWnd__AppendText);
+FUNCTION_AT_ADDRESS(void, CPlayerNotesWnd::AppendText(char*), CPlayerNotesWnd__AppendText);
 #endif
 
 //============================================================================
@@ -2372,10 +2374,10 @@ FUNCTION_AT_ADDRESS(void CPlayerNotesWnd::AppendText(char*), CPlayerNotesWnd__Ap
 //============================================================================
 
 #ifdef CPlayerWnd__CreateLocalMenu_x
-FUNCTION_AT_ADDRESS(void CPlayerWnd::CreateLocalMenu(), CPlayerWnd__CreateLocalMenu);
+FUNCTION_AT_ADDRESS(void, CPlayerWnd::CreateLocalMenu(), CPlayerWnd__CreateLocalMenu);
 #endif
 #ifdef CPlayerWnd__UpdateContextMenu_x
-FUNCTION_AT_ADDRESS(void CPlayerWnd::UpdateContextMenu(), CPlayerWnd__UpdateContextMenu);
+FUNCTION_AT_ADDRESS(void, CPlayerWnd::UpdateContextMenu(), CPlayerWnd__UpdateContextMenu);
 #endif
 
 //============================================================================
@@ -2383,16 +2385,16 @@ FUNCTION_AT_ADDRESS(void CPlayerWnd::UpdateContextMenu(), CPlayerWnd__UpdateCont
 //============================================================================
 
 #ifdef CQuantityWnd__CheckMaxEditWnd_x
-FUNCTION_AT_ADDRESS(void CQuantityWnd::CheckMaxEditWnd(), CQuantityWnd__CheckMaxEditWnd);
+FUNCTION_AT_ADDRESS(void, CQuantityWnd::CheckMaxEditWnd(), CQuantityWnd__CheckMaxEditWnd);
 #endif
 #ifdef CQuantityWnd__Open_x
-FUNCTION_AT_ADDRESS(void CQuantityWnd::Open(CXWnd*, int, int, int, int, int, int, bool), CQuantityWnd__Open);
+FUNCTION_AT_ADDRESS(void, CQuantityWnd::Open(CXWnd*, int, int, int, int, int, int, bool), CQuantityWnd__Open);
 #endif
 #ifdef CQuantityWnd__UpdateEditWndFromSlider_x
-FUNCTION_AT_ADDRESS(void CQuantityWnd::UpdateEditWndFromSlider(), CQuantityWnd__UpdateEditWndFromSlider);
+FUNCTION_AT_ADDRESS(void, CQuantityWnd::UpdateEditWndFromSlider(), CQuantityWnd__UpdateEditWndFromSlider);
 #endif
 #ifdef CQuantityWnd__UpdateSliderFromEditWnd_x
-FUNCTION_AT_ADDRESS(void CQuantityWnd::UpdateSliderFromEditWnd(), CQuantityWnd__UpdateSliderFromEditWnd);
+FUNCTION_AT_ADDRESS(void, CQuantityWnd::UpdateSliderFromEditWnd(), CQuantityWnd__UpdateSliderFromEditWnd);
 #endif
 
 //============================================================================
@@ -2400,16 +2402,16 @@ FUNCTION_AT_ADDRESS(void CQuantityWnd::UpdateSliderFromEditWnd(), CQuantityWnd__
 //============================================================================
 
 #ifdef CRaidOptionsWnd__AddLooterToList_x
-FUNCTION_AT_ADDRESS(void CRaidOptionsWnd::AddLooterToList(char*), CRaidOptionsWnd__AddLooterToList);
+FUNCTION_AT_ADDRESS(void, CRaidOptionsWnd::AddLooterToList(char*), CRaidOptionsWnd__AddLooterToList);
 #endif
 #ifdef CRaidOptionsWnd__ClearLooterList_x
-FUNCTION_AT_ADDRESS(void CRaidOptionsWnd::ClearLooterList(), CRaidOptionsWnd__ClearLooterList);
+FUNCTION_AT_ADDRESS(void, CRaidOptionsWnd::ClearLooterList(), CRaidOptionsWnd__ClearLooterList);
 #endif
 #ifdef CRaidOptionsWnd__UpdateComponents_x
-FUNCTION_AT_ADDRESS(void CRaidOptionsWnd::UpdateComponents(), CRaidOptionsWnd__UpdateComponents);
+FUNCTION_AT_ADDRESS(void, CRaidOptionsWnd::UpdateComponents(), CRaidOptionsWnd__UpdateComponents);
 #endif
 #ifdef CRaidOptionsWnd__InitializeClassColors_x
-FUNCTION_AT_ADDRESS(void CRaidOptionsWnd::InitializeClassColors(), CRaidOptionsWnd__InitializeClassColors);
+FUNCTION_AT_ADDRESS(void, CRaidOptionsWnd::InitializeClassColors(), CRaidOptionsWnd__InitializeClassColors);
 #endif
 
 //============================================================================
@@ -2417,64 +2419,64 @@ FUNCTION_AT_ADDRESS(void CRaidOptionsWnd::InitializeClassColors(), CRaidOptionsW
 //============================================================================
 
 #ifdef CRaidWnd__AddPlayertoList_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::AddPlayertoList(char*, char*, char*, char*, int, int, bool), CRaidWnd__AddPlayertoList);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::AddPlayertoList(char*, char*, char*, char*, int, int, bool), CRaidWnd__AddPlayertoList);
 #endif
 #ifdef CRaidWnd__RemovePlayerFromList_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::RemovePlayerFromList(char*, int), CRaidWnd__RemovePlayerFromList);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::RemovePlayerFromList(char*, int), CRaidWnd__RemovePlayerFromList);
 #endif
 #ifdef CRaidWnd__SetRaidCount_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::SetRaidCount(int), CRaidWnd__SetRaidCount);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::SetRaidCount(int), CRaidWnd__SetRaidCount);
 #endif
 #ifdef CRaidWnd__ClearPlayerList_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::ClearPlayerList(), CRaidWnd__ClearPlayerList);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::ClearPlayerList(), CRaidWnd__ClearPlayerList);
 #endif
 #ifdef CRaidWnd__AddSeparator_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::AddSeparator(), CRaidWnd__AddSeparator);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::AddSeparator(), CRaidWnd__AddSeparator);
 #endif
 #ifdef CRaidWnd__SetRaidMemberRank_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::SetRaidMemberRank(char*, char*, int), CRaidWnd__SetRaidMemberRank);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::SetRaidMemberRank(char*, char*, int), CRaidWnd__SetRaidMemberRank);
 #endif
 #ifdef CRaidWnd__ChangePosition_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::ChangePosition(char*, int, int, int, bool), CRaidWnd__ChangePosition);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::ChangePosition(char*, int, int, int, bool), CRaidWnd__ChangePosition);
 #endif
 #ifdef CRaidWnd__ChangeRaidGroupLeader_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::ChangeRaidGroupLeader(char*, int, char*), CRaidWnd__ChangeRaidGroupLeader);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::ChangeRaidGroupLeader(char*, int, char*), CRaidWnd__ChangeRaidGroupLeader);
 #endif
 #ifdef CRaidWnd__UpdateMemberName_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::UpdateMemberName(char*, char*, int), CRaidWnd__UpdateMemberName);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::UpdateMemberName(char*, char*, int), CRaidWnd__UpdateMemberName);
 #endif
 #ifdef CRaidWnd__SetRaidTarget_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::SetRaidTarget(char*, int, char*, int), CRaidWnd__SetRaidTarget);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::SetRaidTarget(char*, int, char*, int), CRaidWnd__SetRaidTarget);
 #endif
 #ifdef CRaidWnd__UpdateLevelAverage_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::UpdateLevelAverage(int), CRaidWnd__UpdateLevelAverage);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::UpdateLevelAverage(int), CRaidWnd__UpdateLevelAverage);
 #endif
 #ifdef CRaidWnd__UpdateButtons_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::UpdateButtons(), CRaidWnd__UpdateButtons);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::UpdateButtons(), CRaidWnd__UpdateButtons);
 #endif
 #ifdef CRaidWnd__InitializeClassColors_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::InitializeClassColors(), CRaidWnd__InitializeClassColors);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::InitializeClassColors(), CRaidWnd__InitializeClassColors);
 #endif
 #ifdef CRaidWnd__SetPlayerClassColor_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::SetPlayerClassColor(int, int, int), CRaidWnd__SetPlayerClassColor);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::SetPlayerClassColor(int, int, int), CRaidWnd__SetPlayerClassColor);
 #endif
 #ifdef CRaidWnd__SetPlayerClassColor1_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::SetPlayerClassColor(char*, int, int), CRaidWnd__SetPlayerClassColor1);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::SetPlayerClassColor(char*, int, int), CRaidWnd__SetPlayerClassColor1);
 #endif
 #ifdef CRaidWnd__SetClassColor_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::SetClassColor(int, unsigned long), CRaidWnd__SetClassColor);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::SetClassColor(int, unsigned long), CRaidWnd__SetClassColor);
 #endif
 #ifdef CRaidWnd__ResortRaidGroupList_x
-FUNCTION_AT_ADDRESS(void CRaidWnd::ResortRaidGroupList(int, int), CRaidWnd__ResortRaidGroupList);
+FUNCTION_AT_ADDRESS(void, CRaidWnd::ResortRaidGroupList(int, int), CRaidWnd__ResortRaidGroupList);
 #endif
 #ifdef CRaidWnd__FindOpenIndexInGroup_x
-FUNCTION_AT_ADDRESS(int CRaidWnd::FindOpenIndexInGroup(int), CRaidWnd__FindOpenIndexInGroup);
+FUNCTION_AT_ADDRESS(int, CRaidWnd::FindOpenIndexInGroup(int), CRaidWnd__FindOpenIndexInGroup);
 #endif
 #ifdef CRaidWnd__FindIndexNotInGroupList_x
-FUNCTION_AT_ADDRESS(int CRaidWnd::FindIndexNotInGroupList(char*), CRaidWnd__FindIndexNotInGroupList);
+FUNCTION_AT_ADDRESS(int, CRaidWnd::FindIndexNotInGroupList(char*), CRaidWnd__FindIndexNotInGroupList);
 #endif
 #ifdef CRaidWnd__FindPlayerIndexInGroup_x
-FUNCTION_AT_ADDRESS(int CRaidWnd::FindPlayerIndexInGroup(char*, int), CRaidWnd__FindPlayerIndexInGroup);
+FUNCTION_AT_ADDRESS(int, CRaidWnd::FindPlayerIndexInGroup(char*, int), CRaidWnd__FindPlayerIndexInGroup);
 #endif
 
 //============================================================================
@@ -2482,7 +2484,7 @@ FUNCTION_AT_ADDRESS(int CRaidWnd::FindPlayerIndexInGroup(char*, int), CRaidWnd__
 //============================================================================
 
 #ifdef CSelectorWnd__KeyMapUpdated_x
-FUNCTION_AT_ADDRESS(void CSelectorWnd::KeyMapUpdated(), CSelectorWnd__KeyMapUpdated);
+FUNCTION_AT_ADDRESS(void, CSelectorWnd::KeyMapUpdated(), CSelectorWnd__KeyMapUpdated);
 #endif
 
 //============================================================================
@@ -2490,16 +2492,16 @@ FUNCTION_AT_ADDRESS(void CSelectorWnd::KeyMapUpdated(), CSelectorWnd__KeyMapUpda
 //============================================================================
 
 #ifdef CSkillsSelectWnd__Refresh_x
-FUNCTION_AT_ADDRESS(void CSkillsSelectWnd::Refresh(), CSkillsSelectWnd__Refresh);
+FUNCTION_AT_ADDRESS(void, CSkillsSelectWnd::Refresh(), CSkillsSelectWnd__Refresh);
 #endif
 #ifdef CSkillsSelectWnd__UpdateAll_x
-FUNCTION_AT_ADDRESS(void CSkillsSelectWnd::UpdateAll(), CSkillsSelectWnd__UpdateAll);
+FUNCTION_AT_ADDRESS(void, CSkillsSelectWnd::UpdateAll(), CSkillsSelectWnd__UpdateAll);
 #endif
 #ifdef CSkillsSelectWnd__UpdateSkill_x
-FUNCTION_AT_ADDRESS(void CSkillsSelectWnd::UpdateSkill(int), CSkillsSelectWnd__UpdateSkill);
+FUNCTION_AT_ADDRESS(void, CSkillsSelectWnd::UpdateSkill(int), CSkillsSelectWnd__UpdateSkill);
 #endif
 #ifdef CSkillsSelectWnd__SetTypesToDisplay_x
-FUNCTION_AT_ADDRESS(void CSkillsSelectWnd::SetTypesToDisplay(int), CSkillsSelectWnd__SetTypesToDisplay);
+FUNCTION_AT_ADDRESS(void, CSkillsSelectWnd::SetTypesToDisplay(int), CSkillsSelectWnd__SetTypesToDisplay);
 #endif
 
 //============================================================================
@@ -2507,13 +2509,13 @@ FUNCTION_AT_ADDRESS(void CSkillsSelectWnd::SetTypesToDisplay(int), CSkillsSelect
 //============================================================================
 
 #ifdef CSkillsWnd__SkillImproveOccurred_x
-FUNCTION_AT_ADDRESS(void CSkillsWnd::SkillImproveOccurred(int), CSkillsWnd__SkillImproveOccurred);
+FUNCTION_AT_ADDRESS(void, CSkillsWnd::SkillImproveOccurred(int), CSkillsWnd__SkillImproveOccurred);
 #endif
 #ifdef CSkillsWnd__UpdateAll_x
-FUNCTION_AT_ADDRESS(void CSkillsWnd::UpdateAll(), CSkillsWnd__UpdateAll);
+FUNCTION_AT_ADDRESS(void, CSkillsWnd::UpdateAll(), CSkillsWnd__UpdateAll);
 #endif
 #ifdef CSkillsWnd__UpdateSkill_x
-FUNCTION_AT_ADDRESS(void CSkillsWnd::UpdateSkill(int), CSkillsWnd__UpdateSkill);
+FUNCTION_AT_ADDRESS(void, CSkillsWnd::UpdateSkill(int), CSkillsWnd__UpdateSkill);
 #endif
 
 //============================================================================
@@ -2521,22 +2523,22 @@ FUNCTION_AT_ADDRESS(void CSkillsWnd::UpdateSkill(int), CSkillsWnd__UpdateSkill);
 //============================================================================
 
 #ifdef CStoryWnd__SaveIni_x
-FUNCTION_AT_ADDRESS(void CStoryWnd::SaveIni(), CStoryWnd__SaveIni);
+FUNCTION_AT_ADDRESS(void, CStoryWnd::SaveIni(), CStoryWnd__SaveIni);
 #endif
 #ifdef CStoryWnd__ShowAuto_x
-FUNCTION_AT_ADDRESS(bool CStoryWnd::ShowAuto(), CStoryWnd__ShowAuto);
+FUNCTION_AT_ADDRESS(bool, CStoryWnd::ShowAuto(), CStoryWnd__ShowAuto);
 #endif
 #ifdef CStoryWnd__HasNew_x
-FUNCTION_AT_ADDRESS(bool CStoryWnd::HasNew(), CStoryWnd__HasNew);
+FUNCTION_AT_ADDRESS(bool, CStoryWnd::HasNew(), CStoryWnd__HasNew);
 #endif
 #ifdef CStoryWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CStoryWnd::Activate(), CStoryWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CStoryWnd::Activate(), CStoryWnd__Activate);
 #endif
 #ifdef CStoryWnd__SelectOldestNew_x
-FUNCTION_AT_ADDRESS(void CStoryWnd::SelectOldestNew(), CStoryWnd__SelectOldestNew);
+FUNCTION_AT_ADDRESS(void, CStoryWnd::SelectOldestNew(), CStoryWnd__SelectOldestNew);
 #endif
 #ifdef CStoryWnd__SelectIndex_x
-FUNCTION_AT_ADDRESS(void CStoryWnd::SelectIndex(int), CStoryWnd__SelectIndex);
+FUNCTION_AT_ADDRESS(void, CStoryWnd::SelectIndex(int), CStoryWnd__SelectIndex);
 #endif
 
 //============================================================================
@@ -2544,19 +2546,19 @@ FUNCTION_AT_ADDRESS(void CStoryWnd::SelectIndex(int), CStoryWnd__SelectIndex);
 //============================================================================
 
 #ifdef CSocialEditWnd__ClickedAccept_x
-FUNCTION_AT_ADDRESS(void CSocialEditWnd::ClickedAccept(), CSocialEditWnd__ClickedAccept);
+FUNCTION_AT_ADDRESS(void, CSocialEditWnd::ClickedAccept(), CSocialEditWnd__ClickedAccept);
 #endif
 #ifdef CSocialEditWnd__ClickedClear_x
-FUNCTION_AT_ADDRESS(void CSocialEditWnd::ClickedClear(), CSocialEditWnd__ClickedClear);
+FUNCTION_AT_ADDRESS(void, CSocialEditWnd::ClickedClear(), CSocialEditWnd__ClickedClear);
 #endif
 #ifdef CSocialEditWnd__ClickedTextColorButton_x
-FUNCTION_AT_ADDRESS(void CSocialEditWnd::ClickedTextColorButton(int), CSocialEditWnd__ClickedTextColorButton);
+FUNCTION_AT_ADDRESS(void, CSocialEditWnd::ClickedTextColorButton(int), CSocialEditWnd__ClickedTextColorButton);
 #endif
 #ifdef CSocialEditWnd__GetSocialTextColor_x
-FUNCTION_AT_ADDRESS(unsigned long CSocialEditWnd::GetSocialTextColor(int), CSocialEditWnd__GetSocialTextColor);
+FUNCTION_AT_ADDRESS(unsigned long, CSocialEditWnd::GetSocialTextColor(int), CSocialEditWnd__GetSocialTextColor);
 #endif
 #ifdef CSocialEditWnd__UpdateControlsFromSocial_x
-FUNCTION_AT_ADDRESS(void CSocialEditWnd::UpdateControlsFromSocial(), CSocialEditWnd__UpdateControlsFromSocial);
+FUNCTION_AT_ADDRESS(void, CSocialEditWnd::UpdateControlsFromSocial(), CSocialEditWnd__UpdateControlsFromSocial);
 #endif
 
 //============================================================================
@@ -2564,79 +2566,79 @@ FUNCTION_AT_ADDRESS(void CSocialEditWnd::UpdateControlsFromSocial(), CSocialEdit
 //============================================================================
 
 #ifdef CSpellBookWnd__GetBookSlot_x
-FUNCTION_AT_ADDRESS(int __cdecl CSpellBookWnd::GetBookSlot(int), CSpellBookWnd__GetBookSlot);
+FUNCTION_AT_ADDRESS(int __cdecl, CSpellBookWnd::GetBookSlot(int), CSpellBookWnd__GetBookSlot);
 #endif
 #ifdef CSpellBookWnd__MemorizeSet_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::MemorizeSet(int*, int), CSpellBookWnd__MemorizeSet);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::MemorizeSet(int*, int), CSpellBookWnd__MemorizeSet);
 #endif
 #ifdef CSpellBookWnd__ContinueSetMem_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::ContinueSetMem(), CSpellBookWnd__ContinueSetMem);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::ContinueSetMem(), CSpellBookWnd__ContinueSetMem);
 #endif
 #ifdef CSpellBookWnd__DelayedSpellMem_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::DelayedSpellMem(int, int, int), CSpellBookWnd__DelayedSpellMem);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::DelayedSpellMem(int, int, int), CSpellBookWnd__DelayedSpellMem);
 #endif
 #ifdef CSpellBookWnd__EndSetMem_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::EndSetMem(), CSpellBookWnd__EndSetMem);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::EndSetMem(), CSpellBookWnd__EndSetMem);
 #endif
 #ifdef CSpellBookWnd__AutoMemSpell_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::AutoMemSpell(int, int), CSpellBookWnd__AutoMemSpell);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::AutoMemSpell(int, int), CSpellBookWnd__AutoMemSpell);
 #endif
 #ifdef CSpellBookWnd__HandleLeftClickOnSpell_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::HandleLeftClickOnSpell(int), CSpellBookWnd__HandleLeftClickOnSpell);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::HandleLeftClickOnSpell(int), CSpellBookWnd__HandleLeftClickOnSpell);
 #endif
 #ifdef CSpellBookWnd__HandleRightClickOnSpell_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::HandleRightClickOnSpell(int), CSpellBookWnd__HandleRightClickOnSpell);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::HandleRightClickOnSpell(int), CSpellBookWnd__HandleRightClickOnSpell);
 #endif
 #ifdef CSpellBookWnd__CanStartMemming_x
-FUNCTION_AT_ADDRESS(bool CSpellBookWnd::CanStartMemming(int), CSpellBookWnd__CanStartMemming);
+FUNCTION_AT_ADDRESS(bool, CSpellBookWnd::CanStartMemming(int), CSpellBookWnd__CanStartMemming);
 #endif
 #ifdef CSpellBookWnd__StartSpellMemorizationDrag_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::StartSpellMemorizationDrag(int, CButtonWnd*), CSpellBookWnd__StartSpellMemorizationDrag);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::StartSpellMemorizationDrag(int, CButtonWnd*), CSpellBookWnd__StartSpellMemorizationDrag);
 #endif
 #ifdef CSpellBookWnd__StartSpellMemorization_x
-FUNCTION_AT_ADDRESS(bool CSpellBookWnd::StartSpellMemorization(int, int, bool), CSpellBookWnd__StartSpellMemorization);
+FUNCTION_AT_ADDRESS(bool, CSpellBookWnd::StartSpellMemorization(int, int, bool), CSpellBookWnd__StartSpellMemorization);
 #endif
 #ifdef CSpellBookWnd__FinishMemorizing_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::FinishMemorizing(int, int), CSpellBookWnd__FinishMemorizing);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::FinishMemorizing(int, int), CSpellBookWnd__FinishMemorizing);
 #endif
 #ifdef CSpellBookWnd__GetSpellMemTicksLeft_x
-FUNCTION_AT_ADDRESS(int CSpellBookWnd::GetSpellMemTicksLeft(), CSpellBookWnd__GetSpellMemTicksLeft);
+FUNCTION_AT_ADDRESS(int, CSpellBookWnd::GetSpellMemTicksLeft(), CSpellBookWnd__GetSpellMemTicksLeft);
 #endif
 #ifdef CSpellBookWnd__StartSpellScribe_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::StartSpellScribe(int), CSpellBookWnd__StartSpellScribe);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::StartSpellScribe(int), CSpellBookWnd__StartSpellScribe);
 #endif
 #ifdef CSpellBookWnd__FinishScribing_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::FinishScribing(int, int), CSpellBookWnd__FinishScribing);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::FinishScribing(int, int), CSpellBookWnd__FinishScribing);
 #endif
 #ifdef CSpellBookWnd__GetSpellScribeTicksLeft_x
-FUNCTION_AT_ADDRESS(int CSpellBookWnd::GetSpellScribeTicksLeft(), CSpellBookWnd__GetSpellScribeTicksLeft);
+FUNCTION_AT_ADDRESS(int, CSpellBookWnd::GetSpellScribeTicksLeft(), CSpellBookWnd__GetSpellScribeTicksLeft);
 #endif
 #ifdef CSpellBookWnd__SwapSpellBookSlots_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::SwapSpellBookSlots(int, int), CSpellBookWnd__SwapSpellBookSlots);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::SwapSpellBookSlots(int, int), CSpellBookWnd__SwapSpellBookSlots);
 #endif
 #ifdef CSpellBookWnd__HandleSpellInfoDisplay_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::HandleSpellInfoDisplay(CXWnd*), CSpellBookWnd__HandleSpellInfoDisplay);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::HandleSpellInfoDisplay(CXWnd*), CSpellBookWnd__HandleSpellInfoDisplay);
 #endif
 #ifdef CSpellBookWnd__DisplaySpellInfo_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::DisplaySpellInfo(int), CSpellBookWnd__DisplaySpellInfo);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::DisplaySpellInfo(int), CSpellBookWnd__DisplaySpellInfo);
 #endif
 #ifdef CSpellBookWnd__TurnToPage_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::TurnToPage(int), CSpellBookWnd__TurnToPage);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::TurnToPage(int), CSpellBookWnd__TurnToPage);
 #endif
 #ifdef CSpellBookWnd__UpdateSpellBookDisplay_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::UpdateSpellBookDisplay(), CSpellBookWnd__UpdateSpellBookDisplay);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::UpdateSpellBookDisplay(), CSpellBookWnd__UpdateSpellBookDisplay);
 #endif
 #ifdef CSpellBookWnd__StopSpellBookAction_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::StopSpellBookAction(), CSpellBookWnd__StopSpellBookAction);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::StopSpellBookAction(), CSpellBookWnd__StopSpellBookAction);
 #endif
 #ifdef CSpellBookWnd__GetSpellDeletionConfirmation_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::GetSpellDeletionConfirmation(int), CSpellBookWnd__GetSpellDeletionConfirmation);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::GetSpellDeletionConfirmation(int), CSpellBookWnd__GetSpellDeletionConfirmation);
 #endif
 #ifdef CSpellBookWnd__RequestSpellDeletion_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::RequestSpellDeletion(int), CSpellBookWnd__RequestSpellDeletion);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::RequestSpellDeletion(int), CSpellBookWnd__RequestSpellDeletion);
 #endif
 #ifdef CSpellBookWnd__DeleteSpellFromBook_x
-FUNCTION_AT_ADDRESS(void CSpellBookWnd::DeleteSpellFromBook(int, int), CSpellBookWnd__DeleteSpellFromBook);
+FUNCTION_AT_ADDRESS(void, CSpellBookWnd::DeleteSpellFromBook(int, int), CSpellBookWnd__DeleteSpellFromBook);
 #endif
 
 //============================================================================
@@ -2647,16 +2649,16 @@ FUNCTION_AT_ADDRESS(void CSpellBookWnd::DeleteSpellFromBook(int, int), CSpellBoo
 FUNCTION_AT_ADDRESS(CSpellGemWnd::CSpellGemWnd(CXWnd*, uint32_t, CXRect, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, int, int, unsigned long), CSpellGemWnd__CSpellGemWnd);
 #endif
 #ifdef CSpellGemWnd__SetSpellIconIndex_x
-FUNCTION_AT_ADDRESS(void CSpellGemWnd::SetSpellIconIndex(int), CSpellGemWnd__SetSpellIconIndex);
+FUNCTION_AT_ADDRESS(void, CSpellGemWnd::SetSpellIconIndex(int), CSpellGemWnd__SetSpellIconIndex);
 #endif
 #ifdef CSpellGemWnd__SetSpellGemTint_x
-FUNCTION_AT_ADDRESS(void CSpellGemWnd::SetSpellGemTint(unsigned long), CSpellGemWnd__SetSpellGemTint);
+FUNCTION_AT_ADDRESS(void, CSpellGemWnd::SetSpellGemTint(unsigned long), CSpellGemWnd__SetSpellGemTint);
 #endif
 #ifdef CSpellGemWnd__SetGemTintStage_x
-FUNCTION_AT_ADDRESS(void CSpellGemWnd::SetGemTintStage(int), CSpellGemWnd__SetGemTintStage);
+FUNCTION_AT_ADDRESS(void, CSpellGemWnd::SetGemTintStage(int), CSpellGemWnd__SetGemTintStage);
 #endif
 #ifdef CSpellGemWnd__SetCheck_x
-FUNCTION_AT_ADDRESS(void CSpellGemWnd::SetCheck(bool), CSpellGemWnd__SetCheck);
+FUNCTION_AT_ADDRESS(void, CSpellGemWnd::SetCheck(bool), CSpellGemWnd__SetCheck);
 #endif
 
 //============================================================================
@@ -2664,13 +2666,13 @@ FUNCTION_AT_ADDRESS(void CSpellGemWnd::SetCheck(bool), CSpellGemWnd__SetCheck);
 //============================================================================
 
 #ifdef CTargetWnd__RefreshTargetBuffs_x
-FUNCTION_AT_ADDRESS(void CTargetWnd::RefreshTargetBuffs(CUnSerializeBuffer&), CTargetWnd__RefreshTargetBuffs);
+FUNCTION_AT_ADDRESS(void, CTargetWnd::RefreshTargetBuffs(CUnSerializeBuffer&), CTargetWnd__RefreshTargetBuffs);
 #endif
 #ifdef CTargetWnd__HandleBuffRemoveRequest_x
-FUNCTION_AT_ADDRESS(void CTargetWnd::HandleBuffRemoveRequest(CXWnd*), CTargetWnd__HandleBuffRemoveRequest);
+FUNCTION_AT_ADDRESS(void, CTargetWnd::HandleBuffRemoveRequest(CXWnd*), CTargetWnd__HandleBuffRemoveRequest);
 #endif
 #ifdef CTargetWnd__GetBuffCaster_x
-FUNCTION_AT_ADDRESS(CXStr* CTargetWnd::GetBuffCaster(int), CTargetWnd__GetBuffCaster);
+FUNCTION_AT_ADDRESS(CXStr*, CTargetWnd::GetBuffCaster(int), CTargetWnd__GetBuffCaster);
 #endif
 
 
@@ -2679,10 +2681,10 @@ FUNCTION_AT_ADDRESS(CXStr* CTargetWnd::GetBuffCaster(int), CTargetWnd__GetBuffCa
 //============================================================================
 
 #ifdef CTaskWnd__UpdateTaskTimers_x
-FUNCTION_AT_ADDRESS(int CTaskWnd::UpdateTaskTimers(unsigned long), CTaskWnd__UpdateTaskTimers);
+FUNCTION_AT_ADDRESS(int, CTaskWnd::UpdateTaskTimers(unsigned long), CTaskWnd__UpdateTaskTimers);
 #endif
 #ifdef CTaskWnd__ConfirmAbandonTask_x
-FUNCTION_AT_ADDRESS(void CTaskWnd::ConfirmAbandonTask(int), CTaskWnd__ConfirmAbandonTask);
+FUNCTION_AT_ADDRESS(void, CTaskWnd::ConfirmAbandonTask(int), CTaskWnd__ConfirmAbandonTask);
 #endif
 
 //============================================================================
@@ -2693,16 +2695,16 @@ FUNCTION_AT_ADDRESS(void CTaskWnd::ConfirmAbandonTask(int), CTaskWnd__ConfirmAba
 FUNCTION_AT_ADDRESS(CTextEntryWnd::CTextEntryWnd(CXWnd*), CTextEntryWnd__CTextEntryWnd);
 #endif
 #ifdef CTextEntryWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CTextEntryWnd::Activate(CXWnd*, int, char*, int, int, char*), CTextEntryWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CTextEntryWnd::Activate(CXWnd*, int, char*, int, int, char*), CTextEntryWnd__Activate);
 #endif
 #ifdef CTextEntryWnd__Callback_x
-FUNCTION_AT_ADDRESS(void CTextEntryWnd::Callback(bool), CTextEntryWnd__Callback);
+FUNCTION_AT_ADDRESS(void, CTextEntryWnd::Callback(bool), CTextEntryWnd__Callback);
 #endif
 #ifdef CTextEntryWnd__UpdateButtons_x
-FUNCTION_AT_ADDRESS(void CTextEntryWnd::UpdateButtons(), CTextEntryWnd__UpdateButtons);
+FUNCTION_AT_ADDRESS(void, CTextEntryWnd::UpdateButtons(), CTextEntryWnd__UpdateButtons);
 #endif
 #ifdef CTextEntryWnd__GetEntryText_x
-FUNCTION_AT_ADDRESS(CXStr CTextEntryWnd::GetEntryText(), CTextEntryWnd__GetEntryText);
+FUNCTION_AT_ADDRESS(CXStr, CTextEntryWnd::GetEntryText(), CTextEntryWnd__GetEntryText);
 #endif
 
 //============================================================================
@@ -2713,37 +2715,37 @@ FUNCTION_AT_ADDRESS(CXStr CTextEntryWnd::GetEntryText(), CTextEntryWnd__GetEntry
 FUNCTION_AT_ADDRESS(CTipWnd::CTipWnd(CXWnd*, int), CTipWnd__CTipWnd);
 #endif
 #ifdef CTipWnd__Activate_x
-FUNCTION_AT_ADDRESS(bool CTipWnd::Activate(int, bool), CTipWnd__Activate);
+FUNCTION_AT_ADDRESS(bool, CTipWnd::Activate(int, bool), CTipWnd__Activate);
 #endif
 #ifdef CTipWnd__UpdateButtons_x
-FUNCTION_AT_ADDRESS(void CTipWnd::UpdateButtons(), CTipWnd__UpdateButtons);
+FUNCTION_AT_ADDRESS(void, CTipWnd::UpdateButtons(), CTipWnd__UpdateButtons);
 #endif
 #ifdef CTipWnd__InitializeTipSettings_x
-FUNCTION_AT_ADDRESS(void CTipWnd::InitializeTipSettings(), CTipWnd__InitializeTipSettings);
+FUNCTION_AT_ADDRESS(void, CTipWnd::InitializeTipSettings(), CTipWnd__InitializeTipSettings);
 #endif
 #ifdef CTipWnd__CleanDayTips_x
-FUNCTION_AT_ADDRESS(void CTipWnd::CleanDayTips(), CTipWnd__CleanDayTips);
+FUNCTION_AT_ADDRESS(void, CTipWnd::CleanDayTips(), CTipWnd__CleanDayTips);
 #endif
 #ifdef CTipWnd__SelectRandomTip_x
-FUNCTION_AT_ADDRESS(int CTipWnd::SelectRandomTip(), CTipWnd__SelectRandomTip);
+FUNCTION_AT_ADDRESS(int, CTipWnd::SelectRandomTip(), CTipWnd__SelectRandomTip);
 #endif
 #ifdef CTipWnd__SetTOTD_x
-FUNCTION_AT_ADDRESS(void CTipWnd::SetTOTD(int), CTipWnd__SetTOTD);
+FUNCTION_AT_ADDRESS(void, CTipWnd::SetTOTD(int), CTipWnd__SetTOTD);
 #endif
 #ifdef CTipWnd__IsRecentTOTD_x
-FUNCTION_AT_ADDRESS(bool CTipWnd::IsRecentTOTD(int), CTipWnd__IsRecentTOTD);
+FUNCTION_AT_ADDRESS(bool, CTipWnd::IsRecentTOTD(int), CTipWnd__IsRecentTOTD);
 #endif
 #ifdef CTipWnd__AddContextTip_x
-FUNCTION_AT_ADDRESS(void CTipWnd::AddContextTip(int), CTipWnd__AddContextTip);
+FUNCTION_AT_ADDRESS(void, CTipWnd::AddContextTip(int), CTipWnd__AddContextTip);
 #endif
 #ifdef CTipWnd__ShowHistoryTip_x
-FUNCTION_AT_ADDRESS(void CTipWnd::ShowHistoryTip(int), CTipWnd__ShowHistoryTip);
+FUNCTION_AT_ADDRESS(void, CTipWnd::ShowHistoryTip(int), CTipWnd__ShowHistoryTip);
 #endif
 #ifdef CTipWnd__LoadINISettings_x
-FUNCTION_AT_ADDRESS(void CTipWnd::LoadINISettings(), CTipWnd__LoadINISettings);
+FUNCTION_AT_ADDRESS(void, CTipWnd::LoadINISettings(), CTipWnd__LoadINISettings);
 #endif
 #ifdef CTipWnd__LoadDayTips_x
-FUNCTION_AT_ADDRESS(void CTipWnd::LoadDayTips(), CTipWnd__LoadDayTips);
+FUNCTION_AT_ADDRESS(void, CTipWnd::LoadDayTips(), CTipWnd__LoadDayTips);
 #endif
 
 //============================================================================
@@ -2754,46 +2756,46 @@ FUNCTION_AT_ADDRESS(void CTipWnd::LoadDayTips(), CTipWnd__LoadDayTips);
 FUNCTION_AT_ADDRESS(CTrackingWnd::CTrackingWnd(CXWnd*), CTrackingWnd__CTrackingWnd);
 #endif
 #ifdef CTrackingWnd__Init_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::Init(), CTrackingWnd__Init);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::Init(), CTrackingWnd__Init);
 #endif
 #ifdef CTrackingWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::Activate(), CTrackingWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::Activate(), CTrackingWnd__Activate);
 #endif
 #ifdef CTrackingWnd__NotifyServerOfTrackingTarget_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::NotifyServerOfTrackingTarget(int), CTrackingWnd__NotifyServerOfTrackingTarget);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::NotifyServerOfTrackingTarget(int), CTrackingWnd__NotifyServerOfTrackingTarget);
 #endif
 #ifdef CTrackingWnd__UpdateTrackingControls_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::UpdateTrackingControls(), CTrackingWnd__UpdateTrackingControls);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::UpdateTrackingControls(), CTrackingWnd__UpdateTrackingControls);
 #endif
 #ifdef CTrackingWnd__GetTrackColor_x
-FUNCTION_AT_ADDRESS(unsigned long CTrackingWnd::GetTrackColor(int), CTrackingWnd__GetTrackColor);
+FUNCTION_AT_ADDRESS(unsigned long, CTrackingWnd::GetTrackColor(int), CTrackingWnd__GetTrackColor);
 #endif
 #ifdef CTrackingWnd__UpdateTrackingList_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::UpdateTrackingList(bool), CTrackingWnd__UpdateTrackingList);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::UpdateTrackingList(bool), CTrackingWnd__UpdateTrackingList);
 #endif
 #ifdef CTrackingWnd__GenerateTrackingList_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::GenerateTrackingList(), CTrackingWnd__GenerateTrackingList);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::GenerateTrackingList(), CTrackingWnd__GenerateTrackingList);
 #endif
 #ifdef CTrackingWnd__SetTrackingList_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::SetTrackingList(struct TrackingHit*, int), CTrackingWnd__SetTrackingList);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::SetTrackingList(struct TrackingHit*, int), CTrackingWnd__SetTrackingList);
 #endif
 #ifdef CTrackingWnd__DoTrackSort_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::DoTrackSort(bool), CTrackingWnd__DoTrackSort);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::DoTrackSort(bool), CTrackingWnd__DoTrackSort);
 #endif
 #ifdef CTrackingWnd__DoTrackFilter_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::DoTrackFilter(bool), CTrackingWnd__DoTrackFilter);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::DoTrackFilter(bool), CTrackingWnd__DoTrackFilter);
 #endif
 #ifdef CTrackingWnd__RemovePlayerFromTracking_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::RemovePlayerFromTracking(EQPlayer*), CTrackingWnd__RemovePlayerFromTracking);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::RemovePlayerFromTracking(EQPlayer*), CTrackingWnd__RemovePlayerFromTracking);
 #endif
 #ifdef CTrackingWnd__RemovePlayerFromTracking1_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::RemovePlayerFromTracking(int), CTrackingWnd__RemovePlayerFromTracking1);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::RemovePlayerFromTracking(int), CTrackingWnd__RemovePlayerFromTracking1);
 #endif
 #ifdef CTrackingWnd__RemoveFromListWndByData_x
-FUNCTION_AT_ADDRESS(void CTrackingWnd::RemoveFromListWndByData(unsigned int), CTrackingWnd__RemoveFromListWndByData);
+FUNCTION_AT_ADDRESS(void, CTrackingWnd::RemoveFromListWndByData(unsigned int), CTrackingWnd__RemoveFromListWndByData);
 #endif
 #ifdef CTrackingWnd__GetListIdByData_x
-FUNCTION_AT_ADDRESS(int CTrackingWnd::GetListIdByData(unsigned int), CTrackingWnd__GetListIdByData);
+FUNCTION_AT_ADDRESS(int, CTrackingWnd::GetListIdByData(unsigned int), CTrackingWnd__GetListIdByData);
 #endif
 
 //============================================================================
@@ -2804,55 +2806,55 @@ FUNCTION_AT_ADDRESS(int CTrackingWnd::GetListIdByData(unsigned int), CTrackingWn
 FUNCTION_AT_ADDRESS(CTradeWnd::CTradeWnd(CXWnd*), CTradeWnd__CTradeWnd);
 #endif
 #ifdef CTradeWnd__Init_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::Init(), CTradeWnd__Init);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::Init(), CTradeWnd__Init);
 #endif
 #ifdef CTradeWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::Activate(EQPlayer*, bool), CTradeWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::Activate(EQPlayer*, bool), CTradeWnd__Activate);
 #endif
 #ifdef CTradeWnd__ClickedCancelButton_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::ClickedCancelButton(), CTradeWnd__ClickedCancelButton);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::ClickedCancelButton(), CTradeWnd__ClickedCancelButton);
 #endif
 #ifdef CTradeWnd__ClickedTradeButton_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::ClickedTradeButton(), CTradeWnd__ClickedTradeButton);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::ClickedTradeButton(), CTradeWnd__ClickedTradeButton);
 #endif
 #ifdef CTradeWnd__ClickedMoneyButton_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::ClickedMoneyButton(int), CTradeWnd__ClickedMoneyButton);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::ClickedMoneyButton(int), CTradeWnd__ClickedMoneyButton);
 #endif
 #ifdef CTradeWnd__UpdateTradeDisplay_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::UpdateTradeDisplay(), CTradeWnd__UpdateTradeDisplay);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::UpdateTradeDisplay(), CTradeWnd__UpdateTradeDisplay);
 #endif
 #ifdef CTradeWnd__IsMyTradeSlot_x
-FUNCTION_AT_ADDRESS(bool CTradeWnd::IsMyTradeSlot(int, bool*), CTradeWnd__IsMyTradeSlot);
+FUNCTION_AT_ADDRESS(bool, CTradeWnd::IsMyTradeSlot(int, bool*), CTradeWnd__IsMyTradeSlot);
 #endif
 #ifdef CTradeWnd__TradeItemChanged_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::TradeItemChanged(int, int), CTradeWnd__TradeItemChanged);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::TradeItemChanged(int, int), CTradeWnd__TradeItemChanged);
 #endif
 #ifdef CTradeWnd__CompleteTrade_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::CompleteTrade(), CTradeWnd__CompleteTrade);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::CompleteTrade(), CTradeWnd__CompleteTrade);
 #endif
 #ifdef CTradeWnd__AddEquipmentToHisTradeArray_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::AddEquipmentToHisTradeArray(EQ_Equipment*), CTradeWnd__AddEquipmentToHisTradeArray);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::AddEquipmentToHisTradeArray(EQ_Equipment*), CTradeWnd__AddEquipmentToHisTradeArray);
 #endif
 #ifdef CTradeWnd__AddNoteToHisTradeArray_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::AddNoteToHisTradeArray(EQ_Note*), CTradeWnd__AddNoteToHisTradeArray);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::AddNoteToHisTradeArray(EQ_Note*), CTradeWnd__AddNoteToHisTradeArray);
 #endif
 #ifdef CTradeWnd__AddContainerToHisTradeArray_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::AddContainerToHisTradeArray(EQ_Container*), CTradeWnd__AddContainerToHisTradeArray);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::AddContainerToHisTradeArray(EQ_Container*), CTradeWnd__AddContainerToHisTradeArray);
 #endif
 #ifdef CTradeWnd__DeleteItemFromHisTradeArray_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::DeleteItemFromHisTradeArray(int), CTradeWnd__DeleteItemFromHisTradeArray);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::DeleteItemFromHisTradeArray(int), CTradeWnd__DeleteItemFromHisTradeArray);
 #endif
 #ifdef CTradeWnd__DropItemIntoTrade_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::DropItemIntoTrade(), CTradeWnd__DropItemIntoTrade);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::DropItemIntoTrade(), CTradeWnd__DropItemIntoTrade);
 #endif
 #ifdef CTradeWnd__SetMyReadyTrade_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::SetMyReadyTrade(bool), CTradeWnd__SetMyReadyTrade);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::SetMyReadyTrade(bool), CTradeWnd__SetMyReadyTrade);
 #endif
 #ifdef CTradeWnd__SetHisReadyTrade_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::SetHisReadyTrade(bool), CTradeWnd__SetHisReadyTrade);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::SetHisReadyTrade(bool), CTradeWnd__SetHisReadyTrade);
 #endif
 #ifdef CTradeWnd__SetHisMoney_x
-FUNCTION_AT_ADDRESS(void CTradeWnd::SetHisMoney(int, long), CTradeWnd__SetHisMoney);
+FUNCTION_AT_ADDRESS(void, CTradeWnd::SetHisMoney(int, long), CTradeWnd__SetHisMoney);
 #endif
 
 //============================================================================
@@ -2863,40 +2865,40 @@ FUNCTION_AT_ADDRESS(void CTradeWnd::SetHisMoney(int, long), CTradeWnd__SetHisMon
 FUNCTION_AT_ADDRESS(CTrainWnd::CTrainWnd(CXWnd*), CTrainWnd__CTrainWnd);
 #endif
 #ifdef CTrainWnd__Activate_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::Activate(), CTrainWnd__Activate);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::Activate(), CTrainWnd__Activate);
 #endif
 #ifdef CTrainWnd__UpdateRight_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::UpdateRight(), CTrainWnd__UpdateRight);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::UpdateRight(), CTrainWnd__UpdateRight);
 #endif
 #ifdef CTrainWnd__UpdateAll_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::UpdateAll(bool), CTrainWnd__UpdateAll);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::UpdateAll(bool), CTrainWnd__UpdateAll);
 #endif
 #ifdef CTrainWnd__SkillName_x
-FUNCTION_AT_ADDRESS(char* CTrainWnd::SkillName(int), CTrainWnd__SkillName);
+FUNCTION_AT_ADDRESS(char*, CTrainWnd::SkillName(int), CTrainWnd__SkillName);
 #endif
 #ifdef CTrainWnd__SkillValue_x
-FUNCTION_AT_ADDRESS(int CTrainWnd::SkillValue(int), CTrainWnd__SkillValue);
+FUNCTION_AT_ADDRESS(int, CTrainWnd::SkillValue(int), CTrainWnd__SkillValue);
 #endif
 #ifdef CTrainWnd__SwapSkill_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::SwapSkill(int, int), CTrainWnd__SwapSkill);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::SwapSkill(int, int), CTrainWnd__SwapSkill);
 #endif
 #ifdef CTrainWnd__SortNames_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::SortNames(int), CTrainWnd__SortNames);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::SortNames(int), CTrainWnd__SortNames);
 #endif
 #ifdef CTrainWnd__SortSkill_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::SortSkill(int), CTrainWnd__SortSkill);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::SortSkill(int), CTrainWnd__SortSkill);
 #endif
 #ifdef CTrainWnd__UpdateSkill_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::UpdateSkill(int), CTrainWnd__UpdateSkill);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::UpdateSkill(int), CTrainWnd__UpdateSkill);
 #endif
 #ifdef CTrainWnd__SkillChanged_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::SkillChanged(int), CTrainWnd__SkillChanged);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::SkillChanged(int), CTrainWnd__SkillChanged);
 #endif
 #ifdef CTrainWnd__SetGMData_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::SetGMData(int*, unsigned char*, float), CTrainWnd__SetGMData);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::SetGMData(int*, unsigned char*, float), CTrainWnd__SetGMData);
 #endif
 #ifdef CTrainWnd__Train_x
-FUNCTION_AT_ADDRESS(void CTrainWnd::Train(), CTrainWnd__Train);
+FUNCTION_AT_ADDRESS(void, CTrainWnd::Train(), CTrainWnd__Train);
 #endif
 
 //============================================================================
@@ -2904,13 +2906,13 @@ FUNCTION_AT_ADDRESS(void CTrainWnd::Train(), CTrainWnd__Train);
 //============================================================================
 
 #ifdef CVideoModesWnd__Update_x
-FUNCTION_AT_ADDRESS(void CVideoModesWnd::Update(), CVideoModesWnd__Update);
+FUNCTION_AT_ADDRESS(void, CVideoModesWnd::Update(), CVideoModesWnd__Update);
 #endif
 #ifdef CVideoModesWnd__UpdateSelection_x
-FUNCTION_AT_ADDRESS(void CVideoModesWnd::UpdateSelection(unsigned int), CVideoModesWnd__UpdateSelection);
+FUNCTION_AT_ADDRESS(void, CVideoModesWnd::UpdateSelection(unsigned int), CVideoModesWnd__UpdateSelection);
 #endif
 #ifdef CVideoModesWnd__RestoreOldMode_x
-FUNCTION_AT_ADDRESS(void CVideoModesWnd::RestoreOldMode(), CVideoModesWnd__RestoreOldMode);
+FUNCTION_AT_ADDRESS(void, CVideoModesWnd::RestoreOldMode(), CVideoModesWnd__RestoreOldMode);
 #endif
 
 //============================================================================
@@ -2918,20 +2920,20 @@ FUNCTION_AT_ADDRESS(void CVideoModesWnd::RestoreOldMode(), CVideoModesWnd__Resto
 //============================================================================
 
 #ifdef CChatWindowManager__FreeChatWindow_x
-FUNCTION_AT_ADDRESS(void CChatWindowManager::FreeChatWindow(CChatWindow*), CChatWindowManager__FreeChatWindow);
+FUNCTION_AT_ADDRESS(void, CChatWindowManager::FreeChatWindow(CChatWindow*), CChatWindowManager__FreeChatWindow);
 #endif
 #ifdef CChatWindowManager__GetRGBAFromIndex_x
-FUNCTION_AT_ADDRESS(COLORREF CChatWindowManager::GetRGBAFromIndex(int), CChatWindowManager__GetRGBAFromIndex);
+FUNCTION_AT_ADDRESS(COLORREF, CChatWindowManager::GetRGBAFromIndex(int), CChatWindowManager__GetRGBAFromIndex);
 #endif
 #ifdef CChatWindowManager__InitContextMenu_x
-FUNCTION_AT_ADDRESS(int CChatWindowManager::InitContextMenu(CChatWindow*), CChatWindowManager__InitContextMenu);
+FUNCTION_AT_ADDRESS(int, CChatWindowManager::InitContextMenu(CChatWindow*), CChatWindowManager__InitContextMenu);
 #endif
 
 #ifdef CChatWindowManager__SetLockedActiveChatWindow_x
-FUNCTION_AT_ADDRESS(void CChatWindowManager::SetLockedActiveChatWindow(CChatWindow*), CChatWindowManager__SetLockedActiveChatWindow);
+FUNCTION_AT_ADDRESS(void, CChatWindowManager::SetLockedActiveChatWindow(CChatWindow*), CChatWindowManager__SetLockedActiveChatWindow);
 #endif
 #ifdef CChatWindowManager__CreateChatWindow_x
-FUNCTION_AT_ADDRESS(void CChatWindowManager::CreateChatWindow(CXWnd* pParentWnd, int ID, char* Name, int Language, int DefaultChannel,
+FUNCTION_AT_ADDRESS(void, CChatWindowManager::CreateChatWindow(CXWnd* pParentWnd, int ID, char* Name, int Language, int DefaultChannel,
 	int ChatChannel, char* szTellTarget, int FontStyle, bool bScrollbar, bool bHighLight, COLORREF HighlightColor), CChatWindowManager__CreateChatWindow);
 #endif
 
@@ -2953,37 +2955,37 @@ CChatWindow* CChatWindowManager::GetLockedActiveChatWindow() const
 CONSTRUCTOR_AT_ADDRESS(CChatWindow::CChatWindow(CXWnd*), CChatWindow__CChatWindow);
 #endif
 #ifdef CChatWindow__AddOutputText_x
-FUNCTION_AT_ADDRESS(void CChatWindow::AddOutputText(PCXSTR, int), CChatWindow__AddOutputText);
+FUNCTION_AT_ADDRESS(void, CChatWindow::AddOutputText(PCXSTR, int), CChatWindow__AddOutputText);
 #endif
 #ifdef CChatWindow__HistoryBack_x
-FUNCTION_AT_ADDRESS(void CChatWindow::HistoryBack(), CChatWindow__HistoryBack);
+FUNCTION_AT_ADDRESS(void, CChatWindow::HistoryBack(), CChatWindow__HistoryBack);
 #endif
 #ifdef CChatWindow__HistoryForward_x
-FUNCTION_AT_ADDRESS(void CChatWindow::HistoryForward(), CChatWindow__HistoryForward);
+FUNCTION_AT_ADDRESS(void, CChatWindow::HistoryForward(), CChatWindow__HistoryForward);
 #endif
 #ifdef CChatWindow__AddHistory_x
 // defined in ExceptionsDisabled.cpp
 #endif
 #ifdef CChatWindow__GetInputText_x
-FUNCTION_AT_ADDRESS(CXStr CChatWindow::GetInputText(), CChatWindow__GetInputText);
+FUNCTION_AT_ADDRESS(CXStr, CChatWindow::GetInputText(), CChatWindow__GetInputText);
 #endif
 #ifdef CChatWindow__PageUp_x
-FUNCTION_AT_ADDRESS(void CChatWindow::PageUp(), CChatWindow__PageUp);
+FUNCTION_AT_ADDRESS(void, CChatWindow::PageUp(), CChatWindow__PageUp);
 #endif
 #ifdef CChatWindow__PageDown_x
-FUNCTION_AT_ADDRESS(void CChatWindow::PageDown(), CChatWindow__PageDown);
+FUNCTION_AT_ADDRESS(void, CChatWindow::PageDown(), CChatWindow__PageDown);
 #endif
 #ifdef CChatWindow__SetChatFont_x
-FUNCTION_AT_ADDRESS(void CChatWindow::SetChatFont(int), CChatWindow__SetChatFont);
+FUNCTION_AT_ADDRESS(void, CChatWindow::SetChatFont(int), CChatWindow__SetChatFont);
 #endif
 #ifdef CChatWindow__Clear_x
-FUNCTION_AT_ADDRESS(void CChatWindow::Clear(), CChatWindow__Clear);
+FUNCTION_AT_ADDRESS(void, CChatWindow::Clear(), CChatWindow__Clear);
 #endif
 #ifdef CChatWindow__GetInputWnd_x
-FUNCTION_AT_ADDRESS(CEditWnd* CChatWindow::GetInputWnd(), CChatWindow__GetInputWnd);
+FUNCTION_AT_ADDRESS(CEditWnd*, CChatWindow::GetInputWnd(), CChatWindow__GetInputWnd);
 #endif
 #ifdef CChatWindow__WndNotification_x
-FUNCTION_AT_ADDRESS(int CChatWindow::WndNotification(CXWnd*, uint32_t, void*), CChatWindow__WndNotification);
+FUNCTION_AT_ADDRESS(int, CChatWindow::WndNotification(CXWnd*, uint32_t, void*), CChatWindow__WndNotification);
 #endif
 
 
@@ -2992,28 +2994,28 @@ FUNCTION_AT_ADDRESS(int CChatWindow::WndNotification(CXWnd*, uint32_t, void*), C
 //============================================================================
 
 #ifdef CSidlManagerBase__FindButtonDrawTemplate_x
-FUNCTION_AT_ADDRESS(CButtonDrawTemplate* CSidlManagerBase::FindButtonDrawTemplate(uint32_t) const, CSidlManagerBase__FindButtonDrawTemplate);
+FUNCTION_AT_ADDRESS(CButtonDrawTemplate*, CSidlManagerBase::FindButtonDrawTemplate(uint32_t) const, CSidlManagerBase__FindButtonDrawTemplate);
 #endif
 #ifdef CSidlManagerBase__FindButtonDrawTemplate1_x
-FUNCTION_AT_ADDRESS(CButtonDrawTemplate* CSidlManagerBase::FindButtonDrawTemplate(const CXStr& Name) const, CSidlManagerBase__FindButtonDrawTemplate1);
+FUNCTION_AT_ADDRESS(CButtonDrawTemplate*, CSidlManagerBase::FindButtonDrawTemplate(const CXStr& Name) const, CSidlManagerBase__FindButtonDrawTemplate1);
 #endif
 #ifdef CSidlManagerBase__FindAnimation1_x
-FUNCTION_AT_ADDRESS(CTextureAnimation* CSidlManagerBase::FindAnimation(const CXStr&) const, CSidlManagerBase__FindAnimation1);
+FUNCTION_AT_ADDRESS(CTextureAnimation*, CSidlManagerBase::FindAnimation(const CXStr&) const, CSidlManagerBase__FindAnimation1);
 #endif
 #ifdef CSidlManagerBase__FindScreenPieceTemplate_x
-FUNCTION_AT_ADDRESS(CScreenPieceTemplate* CSidlManagerBase::FindScreenPieceTemplate(uint32_t) const, CSidlManagerBase__FindScreenPieceTemplate);
+FUNCTION_AT_ADDRESS(CScreenPieceTemplate*, CSidlManagerBase::FindScreenPieceTemplate(uint32_t) const, CSidlManagerBase__FindScreenPieceTemplate);
 #endif
 #ifdef CSidlManagerBase__FindScreenPieceTemplate1_x
-FUNCTION_AT_ADDRESS(CScreenPieceTemplate* CSidlManagerBase::FindScreenPieceTemplate(const CXStr&) const, CSidlManagerBase__FindScreenPieceTemplate1);
+FUNCTION_AT_ADDRESS(CScreenPieceTemplate*, CSidlManagerBase::FindScreenPieceTemplate(const CXStr&) const, CSidlManagerBase__FindScreenPieceTemplate1);
 #endif
 #ifdef CSidlManagerBase__CreateXWndFromTemplate_x
-FUNCTION_AT_ADDRESS(CXWnd* CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, CControlTemplate*, bool), CSidlManagerBase__CreateXWndFromTemplate);
+FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, CControlTemplate*, bool), CSidlManagerBase__CreateXWndFromTemplate);
 #endif
 #ifdef CSidlManagerBase__CreateXWndFromTemplate1_x
-FUNCTION_AT_ADDRESS(CXWnd* CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, const CXStr&), CSidlManagerBase__CreateXWndFromTemplate1);
+FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, const CXStr&), CSidlManagerBase__CreateXWndFromTemplate1);
 #endif
 #ifdef CSidlManagerBase__CreateXWnd_x
-FUNCTION_AT_ADDRESS(CXWnd* CSidlManagerBase::CreateXWnd(CXWnd* pwndParent, CControlTemplate* pControl), CSidlManagerBase__CreateXWnd);
+FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWnd(CXWnd* pwndParent, CControlTemplate* pControl), CSidlManagerBase__CreateXWnd);
 #endif
 
 CXMLParamManager* CSidlManagerBase::GetParamManager()
@@ -3026,7 +3028,7 @@ CXMLParamManager* CSidlManagerBase::GetParamManager()
 //============================================================================
 
 #ifdef CSidlManager__CreateHotButtonWnd_x
-FUNCTION_AT_ADDRESS(CXWnd* CSidlManager::CreateHotButtonWnd(CXWnd* pwndParent, CControlTemplate* pControl), CSidlManager__CreateHotButtonWnd);
+FUNCTION_AT_ADDRESS(CXWnd*, CSidlManager::CreateHotButtonWnd(CXWnd* pwndParent, CControlTemplate* pControl), CSidlManager__CreateHotButtonWnd);
 #endif
 
 //============================================================================
@@ -3056,10 +3058,10 @@ void CascadeItemCommand::ExecuteCommand()
 //============================================================================
 
 // CWndDisplayManager
-FUNCTION_AT_ADDRESS(int CWndDisplayManager::FindWindow(bool bNewWnd), CWndDisplayManager__FindWindow);
+FUNCTION_AT_ADDRESS(int, CWndDisplayManager::FindWindow(bool bNewWnd), CWndDisplayManager__FindWindow);
 
 // CItemDisplayManager
-FUNCTION_AT_ADDRESS(int CItemDisplayManager::CreateWindowInstance(), CItemDisplayManager__CreateWindowInstance);
+FUNCTION_AT_ADDRESS(int, CItemDisplayManager::CreateWindowInstance(), CItemDisplayManager__CreateWindowInstance);
 
 void CItemDisplayManager::ShowItem(const ItemPtr& pItem)
 {
@@ -3085,7 +3087,7 @@ void CItemDisplayManager::ShowItem(const ItemPtr& pItem)
 	}
 }
 
-FUNCTION_AT_ADDRESS(ZoneGuideManagerClient& ZoneGuideManagerClient::Instance(), ZoneGuideManagerClient__Instance);
+FUNCTION_AT_ADDRESS(ZoneGuideManagerClient&, ZoneGuideManagerClient::Instance(), ZoneGuideManagerClient__Instance);
 
 //----------------------------------------------------------------------------
 

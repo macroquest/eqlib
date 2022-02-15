@@ -47,8 +47,8 @@ struct EQLIB_OBJECT CDynamicArrayException : public CExceptionApplication {
 class EQLIB_OBJECT CDynamicArrayBase
 {
 protected:
-	/*0x00*/    int m_length = 0;
-	/*0x04*/
+/*0x00*/    int m_length = 0;
+/*0x08*/
 
 public:
 	// two names for the same thing
@@ -403,10 +403,10 @@ private:
 template <typename T>
 class ArrayClass : public CDynamicArrayBase
 {
-/*0x04*/ T* m_array = nullptr;
-/*0x08*/ int m_alloc = 0;
-/*0x0c*/ bool m_isValid = true;
-/*0x10*/
+/*0x08*/ T* m_array = nullptr;
+/*0x10*/ int m_alloc = 0;
+/*0x04*/ bool m_isValid = true;
+/*0x18*/
 
 public:
 	ArrayClass()
@@ -577,7 +577,7 @@ public:
 	const T* end() const { return m_array + m_length; }
 	const T* cend() const { return m_array + m_length; }
 
-	void reserve(size_t amt) { InternalResize(amt, true); }
+	void reserve(size_t amt) { InternalResize((int)amt, true); }
 	size_t size() const noexcept { return (size_t)m_length; }
 	T* data() noexcept { return m_array; }
 	const T* data() const noexcept { return m_array; }
@@ -667,7 +667,7 @@ public:
 
 		HashTableEntry* next = nullptr;
 	};
-	static_assert(sizeof(HashTableEntry<int, int>) == 12);
+	static_assert(sizeof(HashTableEntry<int, int>) == 8 + sizeof(uintptr_t));
 	using HashEntry = HashTableEntry<T, Key>;
 
 	void Insert(const Key& key, const T& obj);
@@ -894,10 +894,10 @@ public:
 
 private:
 /*0x00*/ HashEntry** m_table = nullptr;
-/*0x04*/ int         m_tableSize = 0;
-/*0x08*/ int         m_entryCount = 0;
-/*0x0c*/ int         m_statUsedSlots = 0;
-/*0x10*/
+/*0x08*/ int         m_tableSize = 0;
+/*0x0c*/ int         m_entryCount = 0;
+/*0x10*/ int         m_statUsedSlots = 0;
+/*0x14*/
 };
 
 template <typename T, typename Key, typename ResizePolicy>
@@ -1490,9 +1490,9 @@ public:
 
 private:
 /*0x00*/ T*       m_data = nullptr;
-/*0x04*/ uint32_t m_size = 0;
-/*0x08*/ uint32_t m_capacity = 0;
-/*0x0c*/
+/*0x08*/ size_t   m_size = 0;
+/*0x10*/ size_t   m_capacity = 0;
+/*0x18*/
 };
 
 #pragma endregion
@@ -1845,11 +1845,11 @@ public:
 
  	enum { TheSize = ((_Size == 0) ? 1 : _Size) };
 
-	/*0x00*/ void* vfTable;
-	/*0x04*/ int DynSize;
-	/*0x08*/ int MaxDynSize;
-	/*0x0c*/ int Count;
-	/*0x10*/
+/*0x00*/ void* vfTable;
+/*0x08*/ size_t DynSize;
+/*0x10*/ size_t MaxDynSize;
+/*0x18*/ size_t Count;
+/*0x20*/
 	union
 	{
 		Node *Table[TheSize];
@@ -1948,12 +1948,6 @@ class TString : public TSafeArrayStatic<char, _Len>
 template <uint32_t _Len>
 class TSafeString : public TString<_Len>
 {};
-
-class AtomicInt
-{
-public:
-	volatile int Value;
-};
 
 template <typename ET>
 class CircularArrayClass2 : public CDynamicArrayBase
@@ -2196,6 +2190,16 @@ private:
 public:
 	uint32_t Bits[ElementCount];
 };
+
+//----------------------------------------------------------------------------
+
+// this needs to go somewhere
+class CharacterPropertyHash : public HashTable<int>
+{
+public:
+
+};
+
 
 //----------------------------------------------------------------------------
 

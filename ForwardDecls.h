@@ -308,7 +308,6 @@ class EqSoundManager;
 class EQSpellStrings;
 class EQSwitch;
 class EqSwitchManager;
-class EQUtil;
 class EQWorldData;
 class EQZoneInfo;
 struct EverQuestinfo;
@@ -353,13 +352,11 @@ struct DynamicZoneClientTimerData;
 struct DynamicZonePlayerInfo;
 struct EQMERCALTABILITIES;
 struct EQMissileHitinfo;
-struct EQRAID;
 struct EQSOCIAL;
 struct EQSOCIALCHANGED;
-struct EQSTRINGTABLE;
 struct GuildMember;
-struct GUILDS;
-struct MAPLABEL;
+struct MapViewLabel;
+using MAPLABEL = MapViewLabel;
 struct MOUSECLICK;
 struct MQMouseInfo;
 struct SDragDropInfo;
@@ -375,6 +372,15 @@ struct STempTableRow;
 struct zoneHeader;
 struct EQLogin;
 struct MercenaryInfo;
+
+class CRaid;
+using EQRAID = CRaid;
+class CRender;
+
+struct LabelCache;
+
+class StringTable;
+using EQSTRINGTABLE DEPRECATE("Use StringTable instead of EQSTRINGTABLE") = StringTable;
 
 using ZONEINFO = zoneHeader;
 using CChatService = UniversalChatProxy;
