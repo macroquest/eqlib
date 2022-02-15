@@ -133,7 +133,7 @@ namespace eqlib::detail{
 #define FUNCTION_AT_ADDRESS(RetType, Function, Variable)                                 \
 	__declspec(naked) RetType Function                                                   \
 	{                                                                                    \
-		__asm mov eax, [Offset]                                                          \
+		__asm mov eax, Variable                                                          \
 		__asm jmp eax                                                                    \
 	}
 
