@@ -10,13 +10,13 @@ extern _CSidlScreenWnd__CSidlScreenWnd2
 extern _CSidlScreenWnd__dCSidlScreenWnd
 extern _MapViewMap__MapViewMap
 extern _MapViewMap__dMapViewMap
-;extern _ItemClient__ItemClient
 extern _ItemClient__dItemClient
 
 section .text
 
 ; public: __thiscall eqlib::CXWnd::CXWnd(class eqlib::CXWnd *,unsigned int,struct eqlib::CXRect)"
 global ??0CXWnd@eqlib@@QAE@PAV01@IVCXRect@1@@Z
+export ??0CXWnd@eqlib@@QAE@PAV01@IVCXRect@1@@Z
 ??0CXWnd@eqlib@@QAE@PAV01@IVCXRect@1@@Z:
 	mov eax, [_CXWnd__CXWnd]
 	jmp eax
@@ -25,6 +25,7 @@ global ??0CXWnd@eqlib@@QAE@PAV01@IVCXRect@1@@Z
 
 ; public: virtual __thiscall eqlib::CXWnd::~CXWnd(void) proc near
 global ??1CXWnd@eqlib@@UAE@XZ
+export ??1CXWnd@eqlib@@UAE@XZ
 ??1CXWnd@eqlib@@UAE@XZ:
 	mov eax, [_CXWnd__dCXWnd]
 	jmp eax
@@ -33,6 +34,7 @@ global ??1CXWnd@eqlib@@UAE@XZ
 
 ; public: __thiscall eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *,class eqlib::CXStr const &)"
 global ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@@Z
+export ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@@Z
 ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@@Z:
 	mov eax, [_CSidlScreenWnd__CSidlScreenWnd2]
 	jmp eax
@@ -41,6 +43,7 @@ global ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@@Z
 
 ; public: __thiscall eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *,class eqlib::CXStr const &,int,int,char *)
 global ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@HHPAD@Z
+export ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@HHPAD@Z
 ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@HHPAD@Z:
 	mov eax, [_CSidlScreenWnd__CSidlScreenWnd1]
 	jmp eax
@@ -50,6 +53,7 @@ global ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@HHPAD@Z
 
 ; public: virtual __thiscall eqlib::CSidlScreenWnd::~CSidlScreenWnd(void) proc near
 global ??1CSidlScreenWnd@eqlib@@UAE@XZ
+export ??1CSidlScreenWnd@eqlib@@UAE@XZ
 ??1CSidlScreenWnd@eqlib@@UAE@XZ:
 	mov eax, [_CSidlScreenWnd__dCSidlScreenWnd]
 	jmp eax
@@ -58,6 +62,7 @@ global ??1CSidlScreenWnd@eqlib@@UAE@XZ
 
 ; public: __thiscall eqlib::MapViewMap::MapViewMap(eqlib::MapViewMap *__hidden this)
 global ??0MapViewMap@eqlib@@QAE@XZ
+export ??0MapViewMap@eqlib@@QAE@XZ
 ??0MapViewMap@eqlib@@QAE@XZ:
 	mov eax, [_MapViewMap__MapViewMap]
 	jmp eax
@@ -66,22 +71,16 @@ global ??0MapViewMap@eqlib@@QAE@XZ
 
 ; void __thiscall eqlib::MapViewMap::~MapViewMap(eqlib::MapViewMap *__hidden this)
 global ??1MapViewMap@eqlib@@UAE@XZ
+export ??1MapViewMap@eqlib@@UAE@XZ
 ??1MapViewMap@eqlib@@UAE@XZ:
 	mov eax, [_MapViewMap__dMapViewMap]
 	jmp eax
 
 ;---------------------------------------------------------------------------------------
 
-; public: __thiscall eqlib::ItemClient::ItemClient(eqlib::ItemClient *__hidden this)
-;global ??0ItemClient@eqlib@@QAE@XZ
-;??0ItemClient@eqlib@@QAE@XZ:
-;	mov eax, [_ItemClient__ItemClient]
-;	jmp eax
-
-;---------------------------------------------------------------------------------------
-
 ; void __thiscall eqlib::ItemClient::~ItemClient(eqlib::ItemClient *__hidden this)
 global ??1ItemClient@eqlib@@UAE@XZ:
+export ??1ItemClient@eqlib@@UAE@XZ:
 ??1ItemClient@eqlib@@UAE@XZ:
 	mov eax, [_ItemClient__dItemClient]
 	jmp eax

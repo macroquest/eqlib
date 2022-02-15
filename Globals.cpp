@@ -1409,7 +1409,7 @@ bool InitializeEQMainOffsets()
 
 		if (EQMain__LoginController__GiveTime)
 		{
-#if defined(_WIN64)
+#if defined(_M_AMD64)
 			//.text:18001BAC0                     public: void __thiscall LoginController::GiveTime(void) proc near
 			//.text:18001BAC0 40 53                               push    rbx
 			//.text:18001BAC2 48 83 EC 20                         sub     rsp, 20h

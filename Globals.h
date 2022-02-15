@@ -29,11 +29,11 @@
 namespace eqlib {
 
 // the preferred base of eqgame.exe
-#if defined(_WIN64)
+#if defined(_M_AMD64)
 constexpr uintptr_t EQGamePreferredAddress = 0x140000000;
 #else
 constexpr uintptr_t EQGamePreferredAddress = 0x400000;
-#endif // defined(_WIN64)
+#endif // defined(_M_AMD64)
 
 // the base address of eqgame.exe
 EQLIB_VAR uintptr_t EQGameBaseAddress;

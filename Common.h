@@ -90,6 +90,8 @@ namespace eqlib::detail{
 
 }
 
+#if defined(_M_AMD64)
+
 #define FUNCTION_AT_ADDRESS(rettype, func, variable)                                               \
 	FUNCTION_CHECKS_OFF()                                                                          \
 	rettype func {                                                                                 \
@@ -125,6 +127,44 @@ namespace eqlib::detail{
 		return (*(TargetFunction*)((address + offset * sizeof(uintptr_t))))();                     \
 	}                                                                                              \
 	FUNCTION_CHECKS_ON()
+
+#else // x86 version
+
+#define FUNCTION_AT_ADDRESS(RetType, Function, Variable)                                 \
+	__declspec(naked) RetType Function                                                   \
+	{                                                                                    \
+		__asm mov eax, [Offset]                                                          \
+		__asm jmp eax                                                                    \
+	}
+
+#define FUNCTION_AT_VIRTUAL_ADDRESS(RetType, Function, VirtualOffset)                    \
+	__declspec(naked) RetType Function                                                   \
+	{                                                                                    \
+		__asm mov eax, [ecx]                                                             \
+		__asm lea eax, [eax+VirtualOffset]                                               \
+		__asm mov eax, [eax]                                                             \
+		__asm jmp eax                                                                    \
+	}
+
+#define FORWARD_FUNCTION_TO_VTABLE(RetType, Function, Class, Member)                     \
+	__declspec(naked) RetType Function                                                   \
+	{                                                                                    \
+		using VFT = Class::VirtualFunctionTable;                                         \
+		__asm mov eax, [Class::sm_vftable]                                               \
+		__asm jmp dword ptr [eax]VFT.Member                                              \
+	}
+
+#define FUNCTION_AT_VIRTUAL_TABLE_ADDRESS(RetType, function, address, virtualoffset)     \
+	__declspec(naked) RetType Function                                                   \
+	{                                                                                    \
+		__asm mov edx, virtualoffset                                                     \
+		__asm mov eax, [address]                                                         \
+		__asm lea eax, [eax+edx*4]                                                       \
+		__asm mov eax, [eax]                                                             \
+		__asm jmp eax                                                                    \
+	}
+
+#endif
 
  // Define access to a member with another name (and type if you so will it)
 #define ALT_MEMBER_GETTER(type, orig, name) \
@@ -189,31 +229,31 @@ namespace eqlib::detail{
 
 namespace eqlib {
 
-#if defined(_WIN64)
+#if defined(_M_AMD64)
 using eqtime_t = time_t;
 using eqstat_t = struct ::_stat;
 #else
 using eqtime_t = __time32_t;
 using eqstat_t = struct ::_stat32;
-#endif // defined(_WIN64)
+#endif // defined(_M_AMD64)
 
 inline errno_t __cdecl eq_ctime(char* Buffer, size_t SizeInBytes, const eqtime_t* Time)
 {
-#if defined(_WIN64)
+#if defined(_M_AMD64)
 	return ctime_s
 #else
 	return _ctime32_s
-#endif // defined(_WIN64)
+#endif // defined(_M_AMD64)
 		(Buffer, SizeInBytes, Time);
 }
 
 inline errno_t __cdecl eq_localtime(tm* Tm, const eqtime_t* Time)
 {
-#if defined(_WIN64)
+#if defined(_M_AMD64)
 	return localtime_s
 #else
 	return _localtime32_s
-#endif // defined(_WIN64)
+#endif // defined(_M_AMD64)
 		(Tm, Time);
 }
 

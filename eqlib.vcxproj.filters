@@ -231,5 +231,8 @@
     <NASM Include="AssemblyFunctions64.asm">
       <Filter>Source Files</Filter>
     </NASM>
+    <NASM Include="AssemblyFunctions.asm">
+      <Filter>Source Files</Filter>
+    </NASM>
   </ItemGroup>
 </Project>
