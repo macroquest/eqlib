@@ -159,8 +159,6 @@ public:
 		__asm jmp dword ptr [eax]VFT.Name                                  \
 	}
 
-#endif
-
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, IsValid, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, DrawNC, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, Draw, ());
@@ -171,9 +169,7 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, DrawCaret, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, DrawBackground, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, DrawTooltip, (const CXWnd*) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, DrawTooltipAtPoint, (const CXPoint&, const CXStr&) const);
-#if !defined(_M_AMD64)
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetMinimizedRect, () const);
-#endif
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, DrawTitleBar, (const CXRect& rect) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, HCURSOR, GetCursorToDisplay, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, HandleLButtonDown, (const CXPoint& pos, uint32_t flags));
@@ -220,12 +216,9 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, Show, (bool show, bool 
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, AboutToShow, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, AboutToHide, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, RequestDockInfo, (EDockAction action, CXWnd* wnd, CXRect* rect));
-#if !defined(_M_AMD64)
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXStr, GetTooltip, () const);
-#endif
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, void, Unknown0x0EC, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, HitTest, (const CXPoint& pos, int* result) const);
-#if !defined(_M_AMD64)
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetHitTestRect, (int code) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetInnerRect, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetClientRect, () const);
@@ -233,7 +226,6 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetClientClipRect, (
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXSize, GetMinSize, (bool withBorder) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXSize, GetMaxSize, (bool withBorder) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXSize, GetUntileSize, () const);
-#endif
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, IsPointTransparent, (const CXPoint& point) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, ShouldProcessChildrenFrames, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, ShouldProcessControllerFrame, () const);
@@ -257,6 +249,8 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, const CXSize&, GetMaxClientS
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CEditWnd*, GetActiveEditWnd, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, void, UpdateLayout, (bool finish));
 
+#endif
+
 template <typename Target>
 class CSidlScreenWndTrampoline : public CXWndTrampoline<Target>
 {
@@ -272,12 +266,16 @@ public:
 	virtual bool GetScreenWndType();
 };
 
+#if !defined(_M_AMD64)
+
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, int, OnZone, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, int, OnPreZone, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, void, LoadIniInfo, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, void, StoreIniInfo, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, CSidlScreenWnd*, AsSidlScreenWnd, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, bool, GetScreenWndType, ());
+
+#endif
 
 #undef IMPLEMENT_VTABLE_TRAMPOLINE
 
