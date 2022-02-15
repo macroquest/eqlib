@@ -17,7 +17,7 @@
 #include "Expansions.h"
 
 // Defines the EverQuest build type (LIVE, TEST, etc)
-#define TEST
+#define LIVE
 
 // Defines the expansion level of the build.
 #if defined(LIVE)
