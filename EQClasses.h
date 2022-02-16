@@ -542,6 +542,9 @@ struct [[offsetcomments]] CTaskElement
 
 const int MAX_TASK_ELEMENTS = 20;
 
+// @sizeof(CTaskEntry) == 0x3d60 :: 2022-02-10 (live) @ 0x1401A45FB
+constexpr size_t CTaskEntry_size = 0x3d60;
+
 struct [[offsetcomments]] CTaskEntry
 {
 /*0x0000*/ int               TaskID;
@@ -566,12 +569,11 @@ struct [[offsetcomments]] CTaskEntry
 /*0x3d28*/ ArrayClass<MonsterMissionTemplate> MonsterTemplates;
 /*0x3d40*/ bool              bTemplateSelectionLocked;
 /*0x3d41*/ bool              bHasRewardSet;
-/*0x3d44*/ int               Unknown1;
-/*0x3d48*/ int               Unknown2;
-/*0x3d4c*/ int               Unknown3;
-/*0x3d50*/ int               Unknown4;
-/*0x3d54*/
+/*0x3d48*/ SoeUtil::String   UnknownString;
+/*0x3d60*/
 };
+
+SIZE_CHECK(CTaskEntry, CTaskEntry_size);
 
 enum SharedTaskPlayerRole
 {
@@ -589,7 +591,6 @@ struct SharedTaskClientPlayerInfo
 
 constexpr int MAX_TASK_ENTRIES = 1;
 constexpr int MAX_QUEST_ENTRIES = 29;
-constexpr int MAX_UNKNOWN_ENTRIES = 12; // 29 + 12 = 41
 constexpr int MAX_SHARED_TASK_ENTRIES = 1;
 constexpr int MAX_QUEST_HISTORY_ENTRIES = 50;
 
@@ -597,15 +598,14 @@ class [[offsetcomments]] CTaskManager : public PopDialogHandler
 {
 public:
 /*0x000008*/ CTaskEntry                TaskEntries[MAX_TASK_ENTRIES];
-/*0x003d60*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
-/*0x073058*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
-/*0x076db0*/ CTaskEntry                UnkTaskEntries[MAX_UNKNOWN_ENTRIES];
-/*0x0a4dd0*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
-/*0x164900*/ int                       AddPlayerID;
-/*0x164904*/ bool                      bAddPlayerIsSwap;
-/*0x164905*/ char                      AddPlayerSwapeeName[0x40];
-/*0x164948*/ SharedTaskClientPlayerInfo* pFirstMember;
-/*0x164950*/
+/*0x003d68*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
+/*0x073148*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
+/*0x076ea8*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
+/*0x136b68*/ int                       AddPlayerID;
+/*0x136b6c*/ bool                      bAddPlayerIsSwap;
+/*0x136b6d*/ char                      AddPlayerSwapeeName[0x40];
+/*0x136bb0*/ SharedTaskClientPlayerInfo* pFirstMember;
+/*0x136bb8*/
 
 	EQLIB_OBJECT CTaskManager(CXWnd*);
 
