@@ -1177,10 +1177,12 @@ fEQNewUIINI            NewUIINI                  = nullptr;
 fEQProcGameEvts        ProcessGameEvents         = nullptr;
 fGetLabelFromEQ        GetLabelFromEQ            = nullptr;
 uintptr_t              __ModuleList              = 0;
+uintptr_t              __ProcessList             = 0;
 
 void InitializeGlobalOffsets()
 {
 	__ModuleList = (uintptr_t)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcessModules");
+	__ProcessList = (uintptr_t)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcesses");
 }
 
 void InitializeEQGameOffsets()
