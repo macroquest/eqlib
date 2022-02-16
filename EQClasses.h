@@ -1675,7 +1675,7 @@ class [[offsetcomments]] SkillManager
 {
 public:
 	EQLIB_OBJECT int GetNameToken(int);
-	EQLIB_OBJECT unsigned long GetSkillCap(PcZoneClient*, int, int, int, bool, bool, bool);
+	EQLIB_OBJECT unsigned long GetSkillCap(PcZoneClient*, int, EQClass, int, bool, bool, bool);
 	EQLIB_OBJECT unsigned long SkillAvailableAtLevel(int, int);
 	EQLIB_OBJECT bool IsActivatedSkill(int);
 	EQLIB_OBJECT unsigned long GetBaseDamage(int);
