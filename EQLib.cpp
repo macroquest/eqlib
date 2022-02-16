@@ -76,7 +76,7 @@ void ShutdownEQLib()
 FUNCTION_AT_ADDRESS(int, CastRay(PlayerClient*, float y, float x, float z), __CastRay);
 #endif
 #ifdef __CastRay2_x
-FUNCTION_AT_ADDRESS(int, CastRayLoc(const CVector3& SourcePos, int Race, float DestX, float DestY, float DestZ), __CastRay2);
+FUNCTION_AT_ADDRESS(int, CastRayLoc(const CVector3& SourcePos, EQRace Race, float DestX, float DestY, float DestZ), __CastRay2);
 #endif
 #ifdef __HeadingDiff_x
 FUNCTION_AT_ADDRESS(float, HeadingDiff(float h1, float h2, float* DiffOut), __HeadingDiff);
