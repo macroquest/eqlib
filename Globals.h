@@ -1134,6 +1134,7 @@ EQLIB_VAR fEQProcGameEvts      ProcessGameEvents;
 EQLIB_VAR fGetLabelFromEQ      GetLabelFromEQ;
 
 EQLIB_VAR uintptr_t __ModuleList;
+EQLIB_VAR uintptr_t __ProcessList;
 
 EQLIB_VAR const char* szExpansions[NUM_EXPANSIONS + 1];
 
