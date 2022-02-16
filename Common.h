@@ -94,7 +94,7 @@ namespace eqlib::detail{
 
 #define FUNCTION_AT_ADDRESS(rettype, func, variable)                                               \
 	FUNCTION_CHECKS_OFF()                                                                          \
-	rettype func {                                                                                 \
+	__declspec(noinline) rettype func {                                                            \
 		static_assert(eqlib::detail::is_size_ok<rettype>::value == 1, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
 		return ((TargetFunction)variable)();                                                       \
@@ -103,16 +103,16 @@ namespace eqlib::detail{
 
 #define FUNCTION_AT_VIRTUAL_ADDRESS(rettype, func, offset)                                         \
 	FUNCTION_CHECKS_OFF()                                                                          \
-	rettype func {                                                                                 \
+	__declspec(noinline) rettype func {                                                            \
 		static_assert(eqlib::detail::is_size_ok<rettype>::value == 1, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
-		return ((TargetFunction)(*(reinterpret_cast<uintptr_t**>(this)[0] + (offset/8))))();         \
+		return ((TargetFunction)(*(reinterpret_cast<uintptr_t**>(this)[0] + (offset/8))))();       \
 	}                                                                                              \
 	FUNCTION_CHECKS_ON()
 
 #define FORWARD_FUNCTION_TO_VTABLE(rettype, function, Class, member)                               \
 	FUNCTION_CHECKS_OFF()                                                                          \
-	rettype Class::function {                                                                      \
+	__declspec(noinline) rettype Class::function {                                                 \
 		static_assert(eqlib::detail::is_size_ok<rettype>::value == 1, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
 		return ((TargetFunction)(Class::sm_vftable->member))();                                    \
@@ -121,7 +121,7 @@ namespace eqlib::detail{
 
 #define FUNCTION_AT_VIRTUAL_TABLE_ADDRESS(rettype, function, address, offset)                      \
 	FUNCTION_CHECKS_OFF()                                                                          \
-	rettype function {                                                                             \
+	__declspec(noinline) rettype function {                                                        \
 		static_assert(eqlib::detail::check_size_t<rettype>::value <= 8, "Cannot use this macro with a return type that would spill"); \
 		using TargetFunction = rettype(*)();                                                       \
 		return (*(TargetFunction*)((address + offset * sizeof(uintptr_t))))();                     \
