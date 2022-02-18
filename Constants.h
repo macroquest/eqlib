@@ -429,16 +429,6 @@ constexpr int CMD_EQ = 2;
 #define LASTFIND_NOTFOUND                        96
 #define LASTFIND_PRIMARY                         97
 
-#define EVENT_CHAT                               0
-#define EVENT_TIMER                              1
-#define EVENT_CUSTOM                             2
-#define EVENT_EVAL                               3
-#define EVENT_EXEC                               4
-#define EVENT_PULSE                              5
-#define EVENT_SHUTDOWN                           6
-#define EVENT_BREAK                              7
-#define NUM_EVENTS                               8
-
 constexpr int CHAT_SAY                         = 0x0001;
 constexpr int CHAT_TELL                        = 0x0002;
 constexpr int CHAT_OOC                         = 0x0004;
