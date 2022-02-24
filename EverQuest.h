@@ -43,7 +43,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x3a8 :: 2022-02-07 (test) @ 0x1402138A4
+// @sizeof(zoneHeader) == 0x3a8 :: 2022-02-10 (live) @ 0x1402139F9
 constexpr size_t zoneHeader_size = 0x3a8;
 
 struct [[offsetcomments]] zoneHeader
@@ -543,7 +543,7 @@ public:
 class FreeTargetTracker;
 
 
-// @sizeof(CEverQuest) == 0x39708 :: 2022-02-07 (test) @ 0x1403772D5
+// @sizeof(CEverQuest) == 0x39708 :: 2022-02-10 (live) @ 0x140377925
 constexpr size_t CEverQuest_size = 0x39708;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler

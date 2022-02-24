@@ -1139,7 +1139,7 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2022-02-07 (test) @ 0x1402896D9
+// @sizeof(EQWorldData) == 0x1f88 :: 2022-02-10 (live) @ 0x1402898E9
 constexpr size_t EQWorldData_size = 0x1f88;
 
 class [[offsetcomments]] EQWorldData
@@ -1668,7 +1668,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x353780 :: 2022-02-07 (test) @ 0x1402897F3
+// @sizeof(SkillManager) == 0x353780 :: 2022-02-10 (live) @ 0x140289A03
 constexpr size_t SkillManager_size = 0x353780;
 
 class [[offsetcomments]] SkillManager

@@ -35,6 +35,7 @@ enum PlayerClass
 	Necromancer = 11,
 	Wizard = 12,
 	Mage = 13,
+	Magician = 13,
 	Enchanter = 14,
 	Beastlord = 15,
 	Berserker = 16,
