@@ -636,10 +636,10 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::NoMezMe(int, EQPlayer*, EQ_Spell*)
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::NoBashMe(int), CharacterZoneClient__NoBashMe);
 #endif
 #ifdef CharacterZoneClient__StunMe_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient1::StunMe(unsigned int, bool, bool, bool), CharacterZoneClient__StunMe);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::StunMe(unsigned int, bool, bool, bool), CharacterZoneClient__StunMe);
 #endif
 #ifdef CharacterZoneClient__UnStunMe_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient1::UnStunMe(), CharacterZoneClient__UnStunMe);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::UnStunMe(), CharacterZoneClient__UnStunMe);
 #endif
 #ifdef CharacterZoneClient__ApplyDamage_x
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::ApplyDamage(int, struct _EQMissileHitinfo*, bool, HateListEntry*, bool), CharacterZoneClient__ApplyDamage);
@@ -723,7 +723,7 @@ FUNCTION_AT_ADDRESS(bool, CharacterZoneClient::DoesSpellMatchFocusFilters(EQ_Spe
 FUNCTION_AT_ADDRESS(EQPlayer*, CharacterZoneClient::GetMyPetPlayer(), CharacterZoneClient__GetMyPetPlayer);
 #endif
 #ifdef CharacterZoneClient__SetEffectId_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient1::SetEffectId(unsigned char, unsigned int), CharacterZoneClient__SetEffectId);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::SetEffectId(unsigned char, unsigned int), CharacterZoneClient__SetEffectId);
 #endif
 #ifdef CharacterZoneClient__CastSpell_x
 FUNCTION_AT_ADDRESS(unsigned char, CharacterZoneClient::CastSpell(unsigned char gemid, int spellid, const ItemPtr& ppItem, const ItemGlobalIndex&, enum ItemSpellTypes slot, unsigned char spell_loc, int arg7, int arg8, int arg9, bool arg10), CharacterZoneClient__CastSpell);
@@ -807,10 +807,10 @@ FUNCTION_AT_ADDRESS(void, CharacterZoneClient::RemovePCAffect(EQ_Affect*), Chara
 FUNCTION_AT_ADDRESS(void, CharacterZoneClient::RemovePCAffectex(EQ_Affect*, bool, ArrayClass<LaunchSpellData*>&, int, int, int), CharacterZoneClient__RemovePCAffectex);
 #endif
 #ifdef CharacterZoneClient__StopSpellCast_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient1::StopSpellCast(unsigned char), CharacterZoneClient__StopSpellCast);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::StopSpellCast(unsigned char), CharacterZoneClient__StopSpellCast);
 #endif
 #ifdef CharacterZoneClient__StopSpellCast1_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient1::StopSpellCast(unsigned char, int), CharacterZoneClient__StopSpellCast1);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::StopSpellCast(unsigned char, int), CharacterZoneClient__StopSpellCast1);
 #endif
 #ifdef CharacterZoneClient__ReCachSpellEffects_x
 FUNCTION_AT_ADDRESS(void, CharacterZoneClient::ReCachSpellEffects(), CharacterZoneClient__ReCachSpellEffects);

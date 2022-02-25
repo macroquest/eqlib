@@ -849,8 +849,14 @@ public:
 	PlayerClient& operator=(const PlayerClient&) = delete;
 
 	inline int GetClass() const { return mActorClient.Class; }
-	inline int GetRace() const { return mActorClient.RaceOverride ? mActorClient.RaceOverride : mActorClient.Race; }
+	EQLIB_OBJECT const char* GetClassString() const;
+	EQLIB_OBJECT const char* GetClassThreeLetterCode() const;
+	inline int GetRaceWithOverride() const { return mActorClient.RaceOverride ? mActorClient.RaceOverride : mActorClient.Race; }
+	inline int GetRace() const { return mActorClient.Race; }
+	EQLIB_OBJECT const char* GetRaceString() const;
+	inline int GetGender() const { return mActorClient.Gender; }
 	inline BYTE GetCharacterType() const { return Type; }
+	inline bool GetShowHelm() const { return mActorClient.bShowHelm; }
 	inline unsigned int GetId() const { return SpawnID; }
 	inline CharacterZoneClient* GetCharacter() const { return (CharacterZoneClient*)GetPcClient(); }
 	inline EQZoneIndex GetZoneID() const { return Zone; }

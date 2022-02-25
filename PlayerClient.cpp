@@ -16,6 +16,7 @@
 
 #include "Globals.h"
 #include "PlayerClient.h"
+#include "EverQuest.h"
 
 namespace eqlib {
 
@@ -476,14 +477,6 @@ FUNCTION_AT_ADDRESS(bool, PlayerBase::HasProperty(unsigned int, int, int), Playe
 #endif
 
 //============================================================================
-// PlayerClient
-//============================================================================
-
-#ifdef PlayerClient__GetPcClient_x
-FUNCTION_AT_ADDRESS(PcClient*, PlayerClient::GetPcClient() const, PlayerClient__GetPcClient);
-#endif
-
-//============================================================================
 // PlayerZoneClient
 //============================================================================
 
@@ -496,5 +489,28 @@ FUNCTION_AT_ADDRESS(unsigned char, PlayerZoneClient::GetLevel() const, PlayerZon
 #ifdef PlayerZoneClient__IsValidTeleport_x
 FUNCTION_AT_ADDRESS(bool, PlayerZoneClient::IsValidTeleport(float X, float Y, float Z, float Heading, float Distance), PlayerZoneClient__IsValidTeleport);
 #endif
+
+//============================================================================
+// PlayerClient
+//============================================================================
+
+#ifdef PlayerClient__GetPcClient_x
+FUNCTION_AT_ADDRESS(PcClient*, PlayerClient::GetPcClient() const, PlayerClient__GetPcClient);
+#endif
+
+const char* PlayerClient::GetClassString() const
+{
+	return pEverQuest->GetClassDesc(GetClass());
+}
+
+const char* PlayerClient::GetClassThreeLetterCode() const
+{
+	return pEverQuest->GetClassThreeLetterCode(GetClass());
+}
+
+const char* PlayerClient::GetRaceString() const
+{
+	return pEverQuest->GetRaceDesc(GetRace());
+}
 
 } // namespace eqlib
