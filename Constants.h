@@ -122,9 +122,29 @@ constexpr int EQR_IKSAR                                = 128;
 constexpr int EQR_VAHSHIR                              = 130;
 constexpr int EQR_FROGLOCK                             = 330;
 constexpr int EQR_SKELETON_NEW                         = 367;
+constexpr int EQR_BANNER                               = 500;
 constexpr int EQR_DRAKKIN                              = 522;
+constexpr int EQR_BANNER0                              = 553;
+constexpr int EQR_BANNER1                              = 554;
+constexpr int EQR_BANNER2                              = 555;
+constexpr int EQR_BANNER3                              = 556;
+constexpr int EQR_BANNER4                              = 557;
+
+constexpr int EQR_CAMPSITE                             = 567;
+constexpr int EQR_TCGBANNER                            = 586;
 constexpr int EQR_OEQ_SKELETON                         = 802;
 constexpr int EQR_SOL_SKELETON                         = 803;
+
+// property types
+enum PlayerProperty {
+	PlayerProperty_None = 0,
+	PlayerProperty_Humanoid = 1,
+
+	PlayerProperty_Utility,
+	PlayerProperty_Trap,
+	PlayerProperty_Companion,
+
+};
 
 // door types
 #define EQSWITCH_STANDARD                        0
