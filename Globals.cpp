@@ -1303,6 +1303,7 @@ void InitializeEQGameOffsets()
 	pWorldData                      = pinstWorldData;
 
 	g_pDrawHandler                  = pinstRenderInterface;
+	g_labelCache                    = __LabelCache;
 
 	NewUIINI                        = (fEQNewUIINI)__NewUIINI;
 	ProcessGameEvents               = (fEQProcGameEvts)__ProcessGameEvents;
