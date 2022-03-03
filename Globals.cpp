@@ -956,6 +956,7 @@ CTaskManager*          pTaskManager              = nullptr;
 BYTE*                  pTributeActive            = nullptr;
 ZONEINFO*              pZoneInfo                 = nullptr;
 SoeUtil::String*       pExceptionSubmissionEndpoint = nullptr;
+LabelCache*            g_labelCache              = nullptr;
 
 ForeignPointer<PcClient>                         pCharData;          // deprecated
 ForeignPointer<PcClient>                         pPCData;            // deprecated
@@ -1171,7 +1172,6 @@ ForeignPointer<CZoneGuideWnd>                    pZoneGuideWnd;
 ForeignPointer<CZonePathWnd>                     pZonePathWnd;
 
 ForeignPointer<CRender>                          g_pDrawHandler;
-ForeignPointer<LabelCache>                       g_labelCache;
 
 fEQNewUIINI            NewUIINI                  = nullptr;
 fEQProcGameEvts        ProcessGameEvents         = nullptr;
@@ -1303,7 +1303,7 @@ void InitializeEQGameOffsets()
 	pWorldData                      = pinstWorldData;
 
 	g_pDrawHandler                  = pinstRenderInterface;
-	g_labelCache                    = __LabelCache;
+	g_labelCache                    = (LabelCache*)__LabelCache;
 
 	NewUIINI                        = (fEQNewUIINI)__NewUIINI;
 	ProcessGameEvents               = (fEQProcGameEvts)__ProcessGameEvents;
