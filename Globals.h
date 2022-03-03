@@ -882,6 +882,7 @@ EQLIB_VAR BYTE*                                      pTributeActive;
 EQLIB_VAR ZONEINFO*                                  pZoneInfo;
 EQLIB_VAR SoeUtil::String*                           pExceptionSubmissionEndpoint;
 EQLIB_VAR EQLogin*                                   pEQLogin;
+EQLIB_VAR LabelCache*                                g_labelCache;
 
 // Spawn/Char related
 EQLIB_VAR ForeignPointer<PcClient>                   pCharData /*DEPRECATE("Use pLocalPC instead of pCharData")*/;
@@ -1101,9 +1102,7 @@ EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pVoteWnd;
 EQLIB_VAR ForeignPointer<CZoneGuideWnd>              pZoneGuideWnd;
 EQLIB_VAR ForeignPointer<CZonePathWnd>               pZonePathWnd;
 
-
 EQLIB_VAR ForeignPointer<CRender>                    g_pDrawHandler;
-EQLIB_VAR ForeignPointer<LabelCache>                 g_labelCache;
 
 //----------------------------------------------------------------------------
 
