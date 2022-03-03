@@ -897,8 +897,8 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x20c :: 2022-02-23 (test) @ 0x1402042B7
-constexpr size_t EQ_Spell_size = 0x20c;
+// @sizeof(EQ_Spell) == 0x210 :: 2022-02-28 (test) @ 0x14020a247
+constexpr size_t EQ_Spell_size = 0x210;
 
 class [[offsetcomments]] EQ_Spell
 {
@@ -1050,64 +1050,65 @@ public:
 /*0x12c*/ float                BaseEffectsFocusSlope = 1.0f;
 /*0x130*/ CVector2             DistanceModStart = { 0, 0 };
 /*0x138*/ CVector2             DistanceModEnd = { 0, 0 };
-/*0x140*/ float                MinRange = 0.0f;
-/*0x144*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
-/*0x145*/ bool                 Feedbackable = false;
-/*0x146*/ bool                 Reflectable = false;
-/*0x147*/ bool                 NoPartialSave = false;
-/*0x148*/ bool                 NoResist = false;
-/*0x149*/ bool                 UsesPersistentParticles = false;
-/*0x14a*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
-/*0x14b*/ bool                 Uninterruptable = false;
-/*0x14c*/ bool                 NotStackableDot = false;
-/*0x14d*/ bool                 Deletable = false;
-/*0x14e*/ bool                 BypassRegenCheck = false;
-/*0x14f*/ bool                 CanCastInCombat = false;
-/*0x150*/ bool                 CanCastOutOfCombat = false;
-/*0x151*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
-/*0x152*/ bool                 OnlyDuringFastRegen = false;
-/*0x153*/ bool                 CastNotStanding = false;
-/*0x154*/ bool                 CanMGB = false;
-/*0x155*/ bool                 NoDispell = false;
-/*0x156*/ bool                 AffectInanimate = false;       // ldon trap spells etc
-/*0x157*/ bool                 IsSkill = false;
-/*0x158*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
-/*0x159*/ bool                 bShowDoTMessage = false;
-/*0x15a*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
-/*0x17e*/ uint8_t              LightType = 0;
-/*0x17f*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x180*/ uint8_t              Resist = 0;                    // enum eResistType
-/*0x181*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
-/*0x182*/ uint8_t              CastDifficulty = 0;
-/*0x183*/ uint8_t              Skill = 0;
-/*0x184*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
-/*0x185*/ uint8_t              Environment = 0;
-/*0x186*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
-/*0x187*/ uint8_t              CastingAnim = 0;
-/*0x188*/ uint8_t              AnimVariation = 0;
-/*0x189*/ uint8_t              TargetAnim = 0;
-/*0x18a*/ uint8_t              TravelType = 0;
-/*0x18b*/ uint8_t              CancelOnSit = 0;
-/*0x18c*/ bool                 CountdownHeld = false;
-/*0x18d*/ char                 Name[64];
-/*0x1cd*/ int                  ActorTagId = 0;
-/*0x1d1*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
-/*0x1f1*/ bool                 ShowWearOffMessage = false;
-/*0x1f2*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
-/*0x1f3*/ bool                 SneakAttack = false;
-/*0x1f4*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
-/*0x1f5*/ bool                 NoHate = false;
-/*0x1f6*/ bool                 StacksWithSelf = false;
-/*0x1f7*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
-/*0x1f8*/ bool                 NoBuffBlock = false;
-/*0x1f9*/ int                  Scribable = 1;                 // int?
-/*0x1fd*/ bool                 NoStripOnDeath = false;
-/*0x1fe*/ bool                 NoRemove = false;              // spell can't be clicked off?
-/*0x1ff*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
-/*0x203*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
-/*0x207*/ uint8_t              CRC32Marker = 0;
-/*0x208*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
-/*0x20c*/
+/*0x140*/ int                  Unknown1 = -1;
+/*0x144*/ float                MinRange = 0.0f;
+/*0x148*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
+/*0x149*/ bool                 Feedbackable = false;
+/*0x14a*/ bool                 Reflectable = false;
+/*0x14b*/ bool                 NoPartialSave = false;
+/*0x14c*/ bool                 NoResist = false;
+/*0x14d*/ bool                 UsesPersistentParticles = false;
+/*0x14e*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
+/*0x14f*/ bool                 Uninterruptable = false;
+/*0x150*/ bool                 NotStackableDot = false;
+/*0x151*/ bool                 Deletable = false;
+/*0x152*/ bool                 BypassRegenCheck = false;
+/*0x153*/ bool                 CanCastInCombat = false;
+/*0x154*/ bool                 CanCastOutOfCombat = false;
+/*0x155*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
+/*0x156*/ bool                 OnlyDuringFastRegen = false;
+/*0x157*/ bool                 CastNotStanding = false;
+/*0x158*/ bool                 CanMGB = false;
+/*0x159*/ bool                 NoDispell = false;
+/*0x15a*/ bool                 AffectInanimate = false;       // ldon trap spells etc
+/*0x15b*/ bool                 IsSkill = false;
+/*0x15c*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
+/*0x15d*/ bool                 bShowDoTMessage = false;
+/*0x15e*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
+/*0x182*/ uint8_t              LightType = 0;
+/*0x183*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
+/*0x184*/ uint8_t              Resist = 0;                    // enum eResistType
+/*0x185*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
+/*0x186*/ uint8_t              CastDifficulty = 0;
+/*0x187*/ uint8_t              Skill = 0;
+/*0x188*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
+/*0x189*/ uint8_t              Environment = 0;
+/*0x18a*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
+/*0x18b*/ uint8_t              CastingAnim = 0;
+/*0x18c*/ uint8_t              AnimVariation = 0;
+/*0x18d*/ uint8_t              TargetAnim = 0;
+/*0x18e*/ uint8_t              TravelType = 0;
+/*0x18f*/ uint8_t              CancelOnSit = 0;
+/*0x190*/ bool                 CountdownHeld = false;
+/*0x191*/ char                 Name[64];
+/*0x1d1*/ int                  ActorTagId = 0;
+/*0x1d5*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
+/*0x1f5*/ bool                 ShowWearOffMessage = false;
+/*0x1f6*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
+/*0x1f7*/ bool                 SneakAttack = false;
+/*0x1f8*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
+/*0x1f9*/ bool                 NoHate = false;
+/*0x1fa*/ bool                 StacksWithSelf = false;
+/*0x1fb*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
+/*0x1fc*/ bool                 NoBuffBlock = false;
+/*0x1fd*/ int                  Scribable = 1;                 // int?
+/*0x201*/ bool                 NoStripOnDeath = false;
+/*0x202*/ bool                 NoRemove = false;              // spell can't be clicked off?
+/*0x203*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
+/*0x207*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
+/*0x20b*/ uint8_t              CRC32Marker = 0;
+/*0x20c*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
+/*0x210*/
 
 	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")
 	ALT_MEMBER_ALIAS_DEPRECATED(int, EnduranceUpkeep, EndurUpkeep, "EndurUpkeep has been replaced with EnduranceUpkeep.")
@@ -1302,8 +1303,8 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x39DF60 :: 2022-02-23 (test) @ 0x14029F016
-constexpr size_t ClientSpellManager_size = 0x39DF60;
+// @sizeof(ClientSpellManager) == 0x39df60 :: 2022-02-28 (test) @ 0x1402a51d6
+constexpr size_t ClientSpellManager_size = 0x39df60;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
@@ -1421,9 +1422,11 @@ constexpr int NUM_SLOTDATA = 6;
 struct [[offsetcomments]] SlotData
 {
 /*0x00*/ int Slot;
-/*0x04*/ int Value;
-/*0x08*/
+/*0x08*/ int64_t Value;
+/*0x10*/
 };
+
+constexpr size_t EQ_Affect_size = 0x98;
 
 class [[offsetcomments]] EQ_Affect
 {
@@ -1431,30 +1434,30 @@ public:
 	EQLIB_OBJECT void Reset();
 
 	// Get/Set individual slot data
-	EQLIB_OBJECT int GetAffectData(int slot) const;
-	EQLIB_OBJECT void SetAffectData(int slot, int value);
+	EQLIB_OBJECT int64_t GetAffectData(int slot) const;
+	EQLIB_OBJECT void SetAffectData(int slot, int64_t value);
 
 	// Populate all slot data from a specified spell.
 	EQLIB_OBJECT void PopulateFromSpell(const EQ_Spell* pSpell);
 
 /*0x00*/ EqGuid    CasterGuid;
 /*0x08*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)
-/*0x38*/ uint32_t  Flags;
-/*0x3c*/ int       SpellID;                      // -1 or 0 for no spell..
-/*0x40*/ int       Duration;
-/*0x44*/ int       InitialDuration;
-/*0x48*/ int       HitCount;
-/*0x4c*/ int       ViralTimer;                   // not 100% sure this is correct
-/*0x50*/ float     Modifier;                     // Bard song modifier, 1.0 is default BaseDmgMod
-/*0x54*/ float     Y;                            // Referenced by SPA 441 (distance removal)
-/*0x58*/ float     X;
-/*0x5c*/ float     Z;
-/*0x60*/ uint8_t   Type;
-/*0x61*/ uint8_t   Level;                        // casterlevel
-/*0x62*/ uint8_t   ChargesRemaining;             // dont think this is used anymore.
-/*0x63*/ uint8_t   Activatable;                  // dont think this is used anymore. We used to think this was DamageShield
-/*0x64*/ uint32_t  Unknown0x64;                  // not 100% sure this is correct it could be ViralTimer
-/*0x68*/
+/*0x68*/ uint32_t  Flags;
+/*0x6c*/ int       SpellID;                      // -1 or 0 for no spell..
+/*0x70*/ int       Duration;
+/*0x74*/ int       InitialDuration;
+/*0x78*/ int       HitCount;
+/*0x7c*/ int       ViralTimer;                   // not 100% sure this is correct
+/*0x80*/ float     Modifier;                     // Bard song modifier, 1.0 is default BaseDmgMod
+/*0x84*/ float     Y;                            // Referenced by SPA 441 (distance removal)
+/*0x88*/ float     X;
+/*0x8c*/ float     Z;
+/*0x90*/ uint8_t   Type;
+/*0x91*/ uint8_t   Level;                        // casterlevel
+/*0x92*/ uint8_t   ChargesRemaining;             // dont think this is used anymore.
+/*0x93*/ uint8_t   Activatable;                  // dont think this is used anymore. We used to think this was DamageShield
+/*0x94*/ uint32_t  Unknown0x64;                  // not 100% sure this is correct it could be ViralTimer
+/*0x98*/
 
 	EQ_Affect()
 	{
@@ -1476,6 +1479,8 @@ public:
 		Unknown0x64 = 0;
 	}
 };
+
+SIZE_CHECK(EQ_Affect, EQ_Affect_size);
 
 inline namespace deprecated {
 	using PSPELLBUFF DEPRECATE("Use EQ_Affect* instead of PSPELLBUFF") = EQ_Affect*;

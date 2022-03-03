@@ -542,7 +542,7 @@ struct [[offsetcomments]] CTaskElement
 
 const int MAX_TASK_ELEMENTS = 20;
 
-// @sizeof(CTaskEntry) == 0x3d60 :: 2022-02-23 (test) @ 0x1401A463B
+// @sizeof(CTaskEntry) == 0x3d60 :: 2022-02-28 (test) @ 0x1401aa12b
 constexpr size_t CTaskEntry_size = 0x3d60;
 
 struct [[offsetcomments]] CTaskEntry
@@ -1139,7 +1139,7 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2022-02-23 (test) @ 0x140289649
+// @sizeof(EQWorldData) == 0x1f88 :: 2022-02-28 (test) @ 0x14028f809
 constexpr size_t EQWorldData_size = 0x1f88;
 
 class [[offsetcomments]] EQWorldData
@@ -1668,7 +1668,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x353780 :: 2022-02-23 (test) @ 0x140289763
+// @sizeof(SkillManager) == 0x353780 :: 2022-02-28 (test) @ 0x14028f923
 constexpr size_t SkillManager_size = 0x353780;
 
 class [[offsetcomments]] SkillManager
