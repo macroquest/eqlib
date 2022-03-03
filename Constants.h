@@ -987,11 +987,12 @@ enum eParcelStatus
 	ePS_OverParcelsLimit = eParcelStatusOverfilled,
 };
 
-enum eEnvironmentalLiquidType
+enum EnvironmentalLiquidType
 {
-	ELT_Water = 5,
-	ELT_Slime = 6,
-	ELT_Lava = 7,
+	LiquidType_None = 0,
+	LiquidType_Water = 5,
+	LiquidType_Slime = 6,
+	LiquidType_Lava = 7,
 };
 
 enum class ServerID : int {
