@@ -183,7 +183,7 @@ public:
 /*0x4f7c*/ int                                   designId;
 /*0x4f80*/ int                                   InventorySlotBitmask;
 /*0x4f84*/ uint32_t                              CurrentProgressionID;
-/*0x4f88*/ uint8_t                               Unknown0x3c28[0x54];
+/*0x4f88*/ uint8_t                               Unknown0x3c28[0x58];
 /*0x4fdc*/ int                                   ParentId;
 /*0x4fe0*/ int                                   TattooIndex;
 /*0x4fe4*/ int                                   FacialAttachmentIndex;

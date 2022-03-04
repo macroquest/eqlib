@@ -705,8 +705,8 @@ public:
 // PlayerClient
 //============================================================================
 
-// @sizeof(PlayerClient) == 0x1f70 :: 2022-02-28 (test) @ 0x14031feae
-constexpr size_t PlayerClient_size = 0x1f70;
+// @sizeof(PlayerClient) == 0x1f78 :: 2022-02-28 (test) @ 0x14031feae
+constexpr size_t PlayerClient_size = 0x1f78;
 
 class [[offsetcomments]] PlayerClient : public PlayerZoneClient
 {
@@ -772,7 +772,7 @@ public:
 /*0x1340*/ int               RightHolding;                 // Nothing=0 Other/Weapon=1 shield=2
 /*0x1344*/ int               LeftHolding;                  // old Holding
 /*0x1348*/ unsigned int      DeathAnimationFinishTime;
-/*0x134c*/ bool              bRemoveCorpseAfterDeathAnim;  // 0x1274 for sure used by /hidecorpse
+/*0x134c*/ bool              bRemoveCorpseAfterDeathAnim;  // used by /hidecorpse
 /*0x1350*/ unsigned int      LastBubblesTime;
 /*0x1354*/ unsigned int      LastBubblesTime1;
 /*0x1358*/ unsigned int      LastColdBreathTime;
