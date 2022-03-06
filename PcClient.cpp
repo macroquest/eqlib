@@ -344,9 +344,6 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::CalcAffectChange(const EQ_Spell* s
 #ifdef CharacterZoneClient__CalcAffectChangeGeneric_x
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::CalcAffectChangeGeneric(const EQ_Spell* spell, BYTE, BYTE, const EQ_Affect*, int, bool), CharacterZoneClient__CalcAffectChangeGeneric);
 #endif
-#ifdef CharacterZoneClient__GetFocusReuseMod_x
-FUNCTION_AT_ADDRESS(const int, CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem, bool evalOnly), CharacterZoneClient__GetFocusReuseMod);
-#endif
 #ifdef CharacterZoneClient__IsStackBlocked_x
 FUNCTION_AT_ADDRESS(bool, CharacterZoneClient::IsStackBlocked(const EQ_Spell*, PlayerClient*, EQ_Affect*, int, bool), CharacterZoneClient__IsStackBlocked);
 #endif
@@ -707,9 +704,6 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusCastingTimeModifier(const 
 #ifdef CharacterZoneClient__GetFocusDurationMod_x
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2), CharacterZoneClient__GetFocusDurationMod);
 #endif
-#ifdef CharacterZoneClient__GetFocusRangeModifier_x
-FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& pItemOut), CharacterZoneClient__GetFocusRangeModifier);
-#endif
 #ifdef CharacterZoneClient__GetFocusItem_x
 FUNCTION_AT_ADDRESS(EQ_Equipment*, CharacterZoneClient::GetFocusItem(EQ_Spell const*, int), CharacterZoneClient__GetFocusItem);
 #endif
@@ -840,8 +834,29 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetCurrentMod(int index), Characte
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetModCap(int index, bool bToggle), CharacterZoneClient__GetModCap);
 #endif
 
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::GetPctModAndMin(const EQ_Spell* pSpell, int spa, ItemPtr& pOutItem, int& outPctMod, int& outMin, bool wMins, bool evalOnly, bool all, CharacterZoneClient* caster), CharacterZoneClient__GetPctModAndMin);
+
 FUNCTION_AT_VIRTUAL_ADDRESS(int, CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x40);
 
+int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem, bool evalOnly)
+{
+	int pctMod = 0;
+	int minVal = 0;
+
+	GetPctModAndMin(pSpell, SPA_FOCUS_REUSE_TIMER, pOutItem, pctMod, minVal, false, evalOnly);
+
+	return std::min<int>(minVal, (int)pSpell->RecastTime);
+}
+
+int CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& pOutItem)
+{
+	int pctMod = 0;
+	int minVal = 0;
+
+	GetPctModAndMin(pSpell, SPA_FOCUS_RANGE_MOD, pOutItem, pctMod, minVal, false);
+
+	return static_cast<int>(pSpell->Range * minVal / 100);
+}
 
 //============================================================================
 // PcClient

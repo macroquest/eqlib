@@ -232,25 +232,44 @@
 #define CharacterZoneClient__BardCastBard_x                        0x14010D140
 #define CharacterZoneClient__CalcAffectChange_x                    0x14010B510
 #define CharacterZoneClient__CalcAffectChangeGeneric_x             0x14010B810
+#define CharacterZoneClient__CanUseItem_x                          0x1401237A0
 #define CharacterZoneClient__CanUseMemorizedSpellSlot_x            0x1400FE310
+#define CharacterZoneClient__CastSpell_x                           0x140103C00
 #define CharacterZoneClient__CharacterZoneClient_x                 0x140110FA0
+#define CharacterZoneClient__Cur_HP_x                              0x14011A540
+#define CharacterZoneClient__Cur_Mana_x                            0x140123550
 #define CharacterZoneClient__FindAffectSlot_x                      0x140109AB0
+#define CharacterZoneClient__GetAdjustedSkill_x                    0x14011E6C0
+#define CharacterZoneClient__GetBaseSkill_x                        0x14011F9E0  // CharacterZoneClient::Skill
+#define CharacterZoneClient__GetCastingTimeModifier_x              0x1401078D0
 #define CharacterZoneClient__GetCurrentMod_x                       0x140130D40
 #define CharacterZoneClient__GetCursorItemCount_x                  0x140122130
+#define CharacterZoneClient__GetEnduranceRegen_x                   0x14012A740
 #define CharacterZoneClient__GetFirstEffectSlot_x                  0x14010B260
+#define CharacterZoneClient__GetFocusCastingTimeModifier_x         0x1400F16F0
 #define CharacterZoneClient__GetFocusDurationMod_x                 0x1400EC4F0
-#define CharacterZoneClient__GetFocusReuseMod_x                    0x0
+#define CharacterZoneClient__GetHPRegen_x                          0x14012A020
 #define CharacterZoneClient__GetItemCountInInventory_x             0x1401221E0
 #define CharacterZoneClient__GetItemCountWorn_x                    0x140121E90
 #define CharacterZoneClient__GetLastEffectSlot_x                   0x14010B2F0
+#define CharacterZoneClient__GetManaRegen_x                        0x14012AD90
 #define CharacterZoneClient__GetMaxEffects_x                       0x1401030C0
 #define CharacterZoneClient__GetModCap_x                           0x140130C30
 #define CharacterZoneClient__GetOpenEffectSlot_x                   0x14010B180
+#define CharacterZoneClient__GetPCSpellAffect_x                    0x1401089E0
+#define CharacterZoneClient__GetPctModAndMin_x                     0x1400F5A80
 #define CharacterZoneClient__HasSkill_x                            0x14011E970
 #define CharacterZoneClient__IsStackBlocked_x                      0x140107010
 #define CharacterZoneClient__MakeMeVisible_x                       0x140120660
+#define CharacterZoneClient__Max_Endurance_x                       0x14030FE20  // PcZoneClient::Max_Endurance
+#define CharacterZoneClient__Max_HP_x                              0x14011A300
+#define CharacterZoneClient__Max_Mana_x                            0x14030FBC0  // PcZoneclient::Max_Mana
 #define CharacterZoneClient__NotifyPCAffectChange_x                0x14012BB40
 #define CharacterZoneClient__RemovePCAffectex_x                    0x140109010
+#define CharacterZoneClient__SpellDuration_x                       0x1401084C0
+#define CharacterZoneClient__TotalEffect_x                         0x14010C840
+#define CharacterZoneClient__UseSkill_x                            0x14012C430
+
 
 // CBankWnd
 #define CBankWnd__WndNotification_x                                0x1403ADA70
@@ -681,27 +700,6 @@
 
 // CDBStr
 #define CDBStr__GetString_x                                        0x1401B46F0
-
-// CharacterZoneClient
-#define CharacterZoneClient__CanUseItem_x                          0x1401237A0
-#define CharacterZoneClient__CastSpell_x                           0x140103C00
-#define CharacterZoneClient__Cur_HP_x                              0x14011A540
-#define CharacterZoneClient__Cur_Mana_x                            0x140123550
-#define CharacterZoneClient__GetAdjustedSkill_x                    0x14011E6C0
-#define CharacterZoneClient__GetBaseSkill_x                        0x14011F9E0  // CharacterZoneClient::Skill
-#define CharacterZoneClient__GetCastingTimeModifier_x              0x1401078D0
-#define CharacterZoneClient__GetEnduranceRegen_x                   0x14012A740
-#define CharacterZoneClient__GetFocusCastingTimeModifier_x         0x0
-#define CharacterZoneClient__GetFocusRangeModifier_x               0x0
-#define CharacterZoneClient__GetHPRegen_x                          0x14012A020
-#define CharacterZoneClient__GetManaRegen_x                        0x14012AD90
-#define CharacterZoneClient__GetPCSpellAffect_x                    0x1401089E0
-#define CharacterZoneClient__Max_Endurance_x                       0x14030FE20  // PcZoneClient::Max_Endurance
-#define CharacterZoneClient__Max_HP_x                              0x14011A300
-#define CharacterZoneClient__Max_Mana_x                            0x14030FBC0  // PcZoneclient::Max_Mana
-#define CharacterZoneClient__SpellDuration_x                       0x1401084C0
-#define CharacterZoneClient__TotalEffect_x                         0x14010C840
-#define CharacterZoneClient__UseSkill_x                            0x14012C430
 
 // ProfileManager
 #define ProfileManager__GetCurrentProfile_x                        0x1406B7B10
