@@ -237,7 +237,10 @@ public:
 // CButtonWnd
 //============================================================================
 
-class [[offsetcomments]] CButtonWnd : public CXWnd
+// @sizeof(CButtonWnd) == 0x358 :: 2022-02-28 (test) @ 0x14062C54E
+constexpr size_t CButtonWnd_size = 0x358;
+
+class [[offsetcomments]] CButtonWnd : public CXWnd, public VeBaseReferenceCount
 {
 public:
 	//----------------------------------------------------------------------------
@@ -341,6 +344,8 @@ public:
 	// points to the eq instance of the virtual function table for this class
 	EQLIB_OBJECT static VirtualFunctionTable* sm_vftable;
 };
+
+SIZE_CHECK(CButtonWnd, CButtonWnd_size);
 
 inline namespace deprecated {
 	using CBUTTONWND DEPRECATE("Use CButtonWnd instead of CBUTTONWND") = CButtonWnd;
