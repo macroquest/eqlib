@@ -883,13 +883,13 @@ constexpr int MAX_SPELL_REAGENTS = 4;
 
 struct [[offsetcomments]] SpellAffectData
 {
-/*0x00*/ int Slot = 0;
-/*0x04*/ int Base = 0;
-/*0x08*/ int Base2 = 0;
-/*0x0c*/ int Max = 0;
-/*0x10*/ int Calc = 0;
-/*0x14*/ int Attrib = SPA_NOSPELL;
-/*0x18*/
+/*0x00*/ int     Slot = 0;
+/*0x08*/ int64_t Base = 0;
+/*0x10*/ int64_t Base2 = 0;
+/*0x18*/ int64_t Max = 0;
+/*0x20*/ int     Calc = 0;
+/*0x24*/ int     Attrib = SPA_NOSPELL;
+/*0x28*/
 };
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
@@ -1309,17 +1309,19 @@ constexpr size_t ClientSpellManager_size = 0x39df60;
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
 public:
+	// virtuals
 	EQLIB_OBJECT virtual ~ClientSpellManager();
-	EQLIB_OBJECT bool LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName);
-	EQLIB_OBJECT bool LoadSpellStackingData(const char* StackingFileName);
-	EQLIB_OBJECT bool DoesMeetRequirement(PlayerZoneClient* pPlayer, int SpellAssocID);
-	EQLIB_OBJECT void PrintFailedRequirementString(int StrToken, int StringID);
-	EQLIB_OBJECT int GetSpellStackingGroupID(int SpellID);
-	EQLIB_OBJECT int GetSpellStackingGroupRank(int SpellID);
-	EQLIB_OBJECT ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
-	EQLIB_OBJECT PSPELL GetSpellByID(int SpellID);
-	EQLIB_OBJECT SPELLCALCINFO* GetSpellAffect(int index);
-	EQLIB_OBJECT bool GetSpellAffectEmpty(bool);
+	EQLIB_OBJECT virtual bool LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName);
+	EQLIB_OBJECT virtual bool LoadSpellStackingData(const char* StackingFileName);
+	EQLIB_OBJECT virtual bool DoesMeetRequirement(PlayerZoneClient* pPlayer, int SpellAssocID);
+	EQLIB_OBJECT virtual void PrintFailedRequirementString(int StrToken, int StringID);
+	EQLIB_OBJECT virtual int GetSpellStackingGroupID(int SpellID);
+	EQLIB_OBJECT virtual int GetSpellStackingGroupRank(int SpellID);
+	EQLIB_OBJECT virtual ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
+	EQLIB_OBJECT virtual EQ_Spell* GetSpellByID(int SpellID);
+	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffect(int index);
+	EQLIB_OBJECT virtual bool GetSpellAffectEmpty(bool);
+
 
 /*0x042948*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
 /*0x0c37c8*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0

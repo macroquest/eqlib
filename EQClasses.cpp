@@ -324,16 +324,16 @@ FUNCTION_AT_ADDRESS(ClientAuraManager*, ClientAuraManager::GetSingleton(), Clien
 // ClientSpellManager
 //============================================================================
 
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::LoadSpells(const char*, const char*, const char*), 0x08);
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::LoadSpellStackingData(const char*), 0x10);
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::DoesMeetRequirement(PlayerZoneClient*, int), 0x18);
-FUNCTION_AT_VIRTUAL_ADDRESS(void, ClientSpellManager::PrintFailedRequirementString(int, int), 0x20);
-FUNCTION_AT_VIRTUAL_ADDRESS(int, ClientSpellManager::GetSpellStackingGroupID(int), 0x28);
-FUNCTION_AT_VIRTUAL_ADDRESS(int, ClientSpellManager::GetSpellStackingGroupRank(int), 0x30);
-FUNCTION_AT_VIRTUAL_ADDRESS(ESpellStackingRules, ClientSpellManager::GetSpellStackingGroupRule(int), 0x38);
-FUNCTION_AT_VIRTUAL_ADDRESS(PSPELL, ClientSpellManager::GetSpellByID(int), 0x40);
-FUNCTION_AT_VIRTUAL_ADDRESS(SPELLCALCINFO*, ClientSpellManager::GetSpellAffect(int), 0x48);
-FUNCTION_AT_VIRTUAL_ADDRESS(bool, ClientSpellManager::GetSpellAffectEmpty(bool), 0x50);
+bool ClientSpellManager::LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName) { return false; }
+bool ClientSpellManager::LoadSpellStackingData(const char*) { return false; }
+bool ClientSpellManager::DoesMeetRequirement(PlayerZoneClient*, int) { return false; }
+void ClientSpellManager::PrintFailedRequirementString(int, int) {}
+int ClientSpellManager::GetSpellStackingGroupID(int) { return 0; }
+int ClientSpellManager::GetSpellStackingGroupRank(int) { return 0; }
+ESpellStackingRules ClientSpellManager::GetSpellStackingGroupRule(int) { return ESSR_None; }
+SpellAffectData* ClientSpellManager::GetSpellAffect(int) { return nullptr; }
+EQ_Spell* ClientSpellManager::GetSpellByID(int) { return nullptr; }
+bool ClientSpellManager::GetSpellAffectEmpty(bool) { return false; }
 
 //============================================================================
 // ConversationJournal
