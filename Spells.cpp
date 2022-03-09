@@ -99,7 +99,7 @@ void EQ_Affect::Reset()
 	Unknown0x64 = 0;
 }
 
-int EQ_Affect::GetAffectData(int slot) const
+int64_t EQ_Affect::GetAffectData(int slot) const
 {
 	for (const eqlib::SlotData& data : this->SlotData)
 	{
@@ -111,7 +111,7 @@ int EQ_Affect::GetAffectData(int slot) const
 	return 0;
 }
 
-void EQ_Affect::SetAffectData(int slot, int value)
+void EQ_Affect::SetAffectData(int slot, int64_t value)
 {
 	for (eqlib::SlotData& data : this->SlotData)
 	{

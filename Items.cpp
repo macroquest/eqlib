@@ -300,7 +300,6 @@ ItemBase::ItemBase()
 	ID = 0;
 	MerchantSlot = 0;
 	ConvertItemID = 0;
-	bCopied = false;
 	DontKnow = 0;
 	NoDropFlag = 0;
 	LastCastTime = 0;

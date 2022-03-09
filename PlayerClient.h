@@ -314,17 +314,17 @@ public:
 struct [[offsetcomments]] PZCPhysicsInfo
 {
 // @start: PZCPhysicsInfo Members
-/*0x00*/ int Heading : 12;
-/*0x04*/ float X;
-/*0x08*/ int ZHeading : 12;
-/*0x0c*/ float DeltaZ;
-/*0x10*/ float DeltaX;
-/*0x14*/ float Z;
-/*0x18*/ float Y;
+/*0x00*/ float X;
+/*0x04*/ float DeltaZ;
+/*0x08*/ float Y;
+/*0x0c*/ float DeltaX;
+/*0x10*/ float Z;
+/*0x14*/ int Heading : 12;
+/*0x18*/ float DeltaY;
+/*0x1c*/ int Acceleration : 10;
+/*0x1c*/ int ZHeading : 12;
 /*0x1c*/ int DeltaHeading : 10;
-/*0x20*/ float DeltaY;
-/*0x24*/ int Acceleration : 10;
-/*0x28*/
+/*0x20*/
 // @end: PZCPhysicsInfo Members
 };
 
@@ -476,135 +476,135 @@ public:
 /*0x01b8*/ unsigned int                 LastIntimidateUse;
 
 // @start: PlayerZoneClient Members
-/*0x01bc*/ uint8_t                  GMRank;
-/*0x01c0*/ SPAWNINFO*               pViewPlayer;
-/*0x01c8*/ int64_t                  HPMax;
-/*0x01d0*/ int                      Anon;                         // found in EQPlayer__SetNameSpriteTint_x
-/*0x01d4*/ unsigned int             StunTimer;
-/*0x01d8*/ unsigned int             MinuteTimer;
-/*0x01dc*/ unsigned int             LastTimeStoodStill;
-/*0x01e0*/ float                    GetMeleeRangeVar1;            // used by GetMeleeRange (fScaleFactor)
-/*0x01e4*/ char                     LoginRelated[0x20];
-/*0x0204*/ bool                     bOfflineMode;
-/*0x0208*/ float                    FallingStartZ;
-/*0x020c*/ bool                     Sneak;
-/*0x0210*/ float                    AnimationSpeedRelated;
-/*0x0214*/ int                      Trader;                       // found in CEverQuest__RightClickedOnPlayer_x
-/*0x0218*/ uint8_t                  Blind;
-/*0x0219*/ char                     Title[0x80];
-/*0x0299*/ char                     GM;
-/*0x029c*/ unsigned int             RespawnTimer;                 // its actually TimeOfDeath...TimeStamp of when RespawnWnd will close - 0 when you're alive
-/*0x02a0*/ unsigned int**           ppUDP;                        // UdpLibrary::UdpConnection
-/*0x02a8*/ uint8_t                  FishingEvent;
-/*0x02ac*/ int                      SomethingElse;
-/*0x02b0*/ float                    MissileRangeToTarget;
-/*0x02b4*/ int                      PetID;
-/*0x02b8*/ int                      DoSpecialMelee;
-/*0x02bc*/ uint8_t                  StandState;
-/*0x02bd*/ uint8_t                  HoldingAnimation;             // todo: create enum for this byte. Holding: Nothing=0 A RightHand Weapon=1 A Shield=2 Dual Wielding Two Weapons=3 A Spear=4 A LeftHand Weapon=5 A Two Handed Weapon=6 A bow=7
-/*0x02c0*/ unsigned int             SpellGemETA[0xf];             // InnateETA is now the last member in this array
-/*0x02fc*/ bool                     Mercenary;
-/*0x02fd*/ bool                     bBuffTimersOnHold;            // no you can't control this client side so unless you want to get banned leave it alone
-/*0x0300*/ int                      ManaCurrent;
-/*0x0304*/ unsigned int             CorpseDragCount;
-/*0x0308*/ CPhysicsInfo             LastCollision;
-/*0x0338*/ int                      AltAttack;
-/*0x033c*/ bool                     bAnimationOnPop;
-/*0x0340*/ float                    BearingToTarget;
-/*0x0344*/ unsigned int             LastTick;
-/*0x0348*/ bool                     LFG;
-/*0x0349*/ uint8_t                  LastAttack;
-/*0x0350*/ int64_t                  GuildID;
-/*0x0358*/ unsigned int             Meditating;
-/*0x035c*/ unsigned int             SitStartTime;
-/*0x0360*/ int                      HideMode;
-/*0x0364*/ int                      NpcTintIndex;
-/*0x0368*/ unsigned int             NextSwim;
-/*0x036c*/ int                      IsAttacking;                  // need to investigate
-/*0x0370*/ unsigned int             LastTrapDamageTime;
-/*0x0374*/ int                      AFK;
-/*0x0378*/ unsigned int             ACounter;                     // not sure what this one is for (m_uHibernatingCount)
-/*0x037c*/ unsigned int             Zone;
-/*0x0380*/ int                      LastCastNum;
-/*0x0384*/ uint8_t                  Type2;
-/*0x0388*/ void*                    pRaceGenderInfo;              // todo this is not a void* so... map the CRaceGenderInfo class
-/*0x0390*/ bool                     PvPFlag;
-/*0x0394*/ int                      WarCry;
-/*0x0398*/ float                    MyWalkSpeed;
-/*0x039c*/ int                      DontKnowYet;
-/*0x03a0*/ uint8_t                  IntimidateCount;
-/*0x03a4*/ float                    MerchantGreed;
-/*0x03a8*/ uint8_t                  CharClass;                    // Im pretty sure this isnt working
-/*0x03a9*/ uint8_t                  FD;
-/*0x03ac*/ int                      Deity;
-/*0x03b0*/ bool                     bSummoned;                    // by a PC or by anyone? need to investigate
-/*0x03b1*/ EqItemGuid               realEstateItemGuid;
-/*0x03c4*/ unsigned int             LastCastTime;
-/*0x03c8*/ unsigned int             LastRefresh;                  // last 18 sec tick
-/*0x03cc*/ char                     Suffix[0x80];
-/*0x044c*/ unsigned int             TimeStamp;                    // updates all the time including when on a mount
-/*0x0450*/ uint8_t                  Level;
-/*0x0451*/ bool                     bStationary;
-/*0x0454*/ unsigned int             LastSecondaryUseTime;
-/*0x0458*/ bool                     bBetaBuffed;
-/*0x045c*/ unsigned int             NextIntimidateTime;
-/*0x0460*/ char                     DragNames[0x2][0x40];
-/*0x04e0*/ unsigned int             SpellCooldownETA;
-/*0x04e4*/ bool                     bSwitchMoved;                 // true when a door moves near the spawn
-/*0x04e8*/ int                      RealEstateID;
-/*0x04ec*/ uint8_t                  TitleVisible;
-/*0x04ed*/ bool                     bAlwaysShowAura;
-/*0x04ee*/ bool                     bTempPet;
-/*0x04f0*/ unsigned int             FishingETA;
-/*0x04f4*/ int                      PrimaryTintIndex;
-/*0x04f8*/ int                      berserker;
-/*0x04fc*/ float                    CameraOffset;
-/*0x0500*/ bool                     bAttackRelated;
-/*0x0504*/ unsigned int             LastRangedUsedTime;
-/*0x0508*/ int                      Buyer;
-/*0x050c*/ uint8_t                  FindBits;
-/*0x0510*/ unsigned int             MasterID;
-/*0x0514*/ char                     Handle[0x20];
-/*0x0534*/ int                      CurrIOState;
-/*0x0538*/ unsigned int             LastPrimaryUseTime;
-/*0x053c*/ float                    RunSpeed;                     // 0.70 on runspeed 5...
-/*0x0540*/ char                     DraggingPlayer[0x40];
-/*0x0580*/ int                      ManaMax;
-/*0x0584*/ uint8_t                  Light;
-/*0x0585*/ bool                     bShowHelm;
-/*0x0588*/ int64_t                  HPCurrent;
-/*0x0590*/ CharacterZoneClient*     pCharacter;
-/*0x0598*/ void*                    pTouchingSwitch;              // need to get that in here : struct _EQSWITCH
-/*0x05a0*/ unsigned int             LastResendAddPlayerPacket;
-/*0x05a4*/ unsigned int             LastMealTime;                 // last time we eat or drank
-/*0x05a8*/ unsigned int             CombatSkillTicks[0x2];
-/*0x05b0*/ uint8_t                  HmmWhat;
-/*0x05b4*/ int                      EnduranceCurrent;
-/*0x05b8*/ unsigned int             EnduranceMax;
-/*0x05bc*/ uint8_t                  InPvPArea;                    // are we in a PvP area?
-/*0x05c0*/ int                      SecondaryTintIndex;
-/*0x05c4*/ int                      AARank;                       // this really is the title id
-/*0x05c8*/ int                      RealEstateItemId;
-/*0x05cc*/ unsigned int             LoginSerial;
-/*0x05d0*/ int                      Dontknowyet2;
-/*0x05d4*/ float                    ViewHeight;
-/*0x05d8*/ LaunchSpellData          CastingData;                  // size: 0x58
-/*0x0630*/ int                      Stuff;
-/*0x0634*/ bool                     Linkdead;
-/*0x0638*/ int                      SomeData[0x2];
-/*0x0640*/ uint8_t                  IsPassenger;                  // if u are on a boat or airship or whatever
-/*0x0644*/ unsigned int             CombatSkillUsed[0x2];
+/*0x01bc*/ uint8_t                  HoldingAnimation;             // todo: create enum for this byte. Holding: Nothing=0 A RightHand Weapon=1 A Shield=2 Dual Wielding Two Weapons=3 A Spear=4 A LeftHand Weapon=5 A Two Handed Weapon=6 A bow=7
+/*0x01bd*/ uint8_t                  Blind;
+/*0x01be*/ char                     Title[0x80];
+/*0x0240*/ int                      ManaCurrent;
+/*0x0244*/ unsigned int             ACounter;                     // not sure what this one is for (m_uHibernatingCount)
+/*0x0248*/ bool                     Linkdead;
+/*0x0249*/ char                     Suffix[0x80];
+/*0x02cc*/ int                      PetID;
+/*0x02d0*/ unsigned int             MinuteTimer;
+/*0x02d4*/ int                      EnduranceCurrent;
+/*0x02d8*/ int                      RealEstateID;
+/*0x02dc*/ unsigned int             NextSwim;
+/*0x02e0*/ uint8_t                  Level;
+/*0x02e4*/ int                      LastCastNum;
+/*0x02e8*/ unsigned int             CorpseDragCount;
+/*0x02ec*/ int                      Trader;                       // found in CEverQuest__RightClickedOnPlayer_x
+/*0x02f0*/ uint8_t                  Type2;
+/*0x02f8*/ void*                    pRaceGenderInfo;              // todo this is not a void* so... map the CRaceGenderInfo class
+/*0x0300*/ uint8_t                  TitleVisible;
+/*0x0304*/ unsigned int             FishingETA;
+/*0x0308*/ bool                     Sneak;
+/*0x030c*/ int                      AltAttack;
+/*0x0310*/ bool                     bBuffTimersOnHold;            // no you can't control this client side so unless you want to get banned leave it alone
+/*0x0318*/ int64_t                  HPMax;
+/*0x0320*/ unsigned int             LastCastTime;
+/*0x0324*/ unsigned int             SpellCooldownETA;
+/*0x0328*/ int                      Deity;
+/*0x032c*/ bool                     Mercenary;
+/*0x032d*/ uint8_t                  InPvPArea;                    // are we in a PvP area?
+/*0x032e*/ char                     LoginRelated[0x20];
+/*0x034e*/ bool                     bTempPet;
+/*0x034f*/ bool                     bAlwaysShowAura;
+/*0x0350*/ unsigned int             NextIntimidateTime;
+/*0x0354*/ unsigned int             CombatSkillTicks[0x2];
+/*0x035c*/ unsigned int             LastRefresh;                  // last 18 sec tick
+/*0x0360*/ unsigned int             LastTrapDamageTime;
+/*0x0364*/ uint8_t                  Light;
+/*0x0365*/ bool                     PvPFlag;
+/*0x0368*/ unsigned int             StunTimer;
+/*0x036c*/ unsigned int             SitStartTime;
+/*0x0370*/ int                      Buyer;
+/*0x0374*/ float                    MissileRangeToTarget;
+/*0x0378*/ char                     DragNames[0x2][0x40];
+/*0x03f8*/ int                      DontKnowYet;
+/*0x03fc*/ int                      Dontknowyet2;
+/*0x0400*/ uint8_t                  LastAttack;
+/*0x0404*/ float                    GetMeleeRangeVar1;            // used by GetMeleeRange (fScaleFactor)
+/*0x0408*/ int                      SomethingElse;
+/*0x040c*/ bool                     bAnimationOnPop;
+/*0x0410*/ int                      AFK;
+/*0x0414*/ LaunchSpellData          CastingData;                  // size: 0x58
+/*0x046c*/ unsigned int             LastResendAddPlayerPacket;
+/*0x0470*/ unsigned int             LastSecondaryUseTime;
+/*0x0474*/ char                     GM;
+/*0x0475*/ bool                     LFG;
+/*0x0476*/ uint8_t                  HmmWhat;
+/*0x0478*/ int                      CurrIOState;
+/*0x047c*/ bool                     bSummoned;                    // by a PC or by anyone? need to investigate
+/*0x0480*/ float                    MyWalkSpeed;
+/*0x0484*/ unsigned int             Zone;
+/*0x0488*/ int                      HideMode;
+/*0x048c*/ char                     DraggingPlayer[0x40];
+/*0x04cc*/ unsigned int             Meditating;
+/*0x04d0*/ uint8_t                  IntimidateCount;
+/*0x04d4*/ int                      DoSpecialMelee;
+/*0x04d8*/ unsigned int**           ppUDP;                        // UdpLibrary::UdpConnection
+/*0x04e0*/ unsigned int             LastTimeStoodStill;
+/*0x04e4*/ unsigned int             LoginSerial;
+/*0x04e8*/ int                      AARank;                       // this really is the title id
+/*0x04ec*/ unsigned int             TimeStamp;                    // updates all the time including when on a mount
+/*0x04f0*/ float                    FallingStartZ;
+/*0x04f4*/ int                      RealEstateItemId;
+/*0x04f8*/ uint8_t                  FishingEvent;
+/*0x04fc*/ int                      SecondaryTintIndex;
+/*0x0500*/ int                      Stuff;
+/*0x0504*/ bool                     bAttackRelated;
+/*0x0505*/ bool                     bBetaBuffed;
+/*0x0508*/ float                    MerchantGreed;
+/*0x050c*/ char                     Handle[0x20];
+/*0x052c*/ unsigned int             SpellGemETA[0xf];             // InnateETA is now the last member in this array
+/*0x0568*/ float                    ViewHeight;
+/*0x056c*/ bool                     bStationary;
+/*0x056d*/ uint8_t                  StandState;
+/*0x0570*/ int                      berserker;
+/*0x0574*/ CPhysicsInfo             LastCollision;
+/*0x05a4*/ bool                     bShowHelm;
+/*0x05a8*/ int                      PrimaryTintIndex;
+/*0x05ac*/ uint8_t                  CharClass;                    // Im pretty sure this isnt working
+/*0x05b0*/ int                      Anon;                         // found in EQPlayer__SetNameSpriteTint_x
+/*0x05b4*/ unsigned int             LastPrimaryUseTime;
+/*0x05b8*/ unsigned int             RespawnTimer;                 // its actually TimeOfDeath...TimeStamp of when RespawnWnd will close - 0 when you're alive
+/*0x05bc*/ int                      NpcTintIndex;
+/*0x05c0*/ int64_t                  HPCurrent;
+/*0x05c8*/ SPAWNINFO*               pViewPlayer;
+/*0x05d0*/ float                    AnimationSpeedRelated;
+/*0x05d4*/ int                      ManaMax;
+/*0x05d8*/ unsigned int             LastRangedUsedTime;
+/*0x05e0*/ int64_t                  GuildID;
+/*0x05e8*/ bool                     bSwitchMoved;                 // true when a door moves near the spawn
+/*0x05ec*/ int                      SomeData[0x2];
+/*0x05f4*/ float                    RunSpeed;                     // 0.70 on runspeed 5...
+/*0x05f8*/ uint8_t                  FindBits;
+/*0x05f9*/ EqItemGuid               realEstateItemGuid;
+/*0x060c*/ unsigned int             MasterID;
+/*0x0610*/ float                    BearingToTarget;
+/*0x0618*/ void*                    pTouchingSwitch;              // need to get that in here : struct _EQSWITCH
+/*0x0620*/ float                    CameraOffset;
+/*0x0624*/ uint8_t                  IsPassenger;                  // if u are on a boat or airship or whatever
+/*0x0625*/ uint8_t                  FD;
+/*0x0628*/ int                      IsAttacking;                  // need to investigate
+/*0x062c*/ unsigned int             LastTick;
+/*0x0630*/ unsigned int             LastMealTime;                 // last time we eat or drank
+/*0x0638*/ CharacterZoneClient*     pCharacter;
+/*0x0640*/ unsigned int             CombatSkillUsed[0x2];
+/*0x0648*/ bool                     bOfflineMode;
+/*0x064c*/ int                      WarCry;
+/*0x0650*/ uint8_t                  GMRank;
+/*0x0654*/ unsigned int             EnduranceMax;
 
 // @end: PlayerZoneClient Members
 
-/*0x064c*/ TCircularBuffer<SDoCollisionMovementStats, MAX_MOVEMENT_STATS> MovementStats;
-/*0x0f68*/ PlayerClient*      WhoFollowing;                       // NULL if autofollow off
-/*0x0f70*/ unsigned int       GroupAssistNPC[MAX_GROUP_ASSISTS];
-/*0x0f74*/ unsigned int       RaidAssistNPC[MAX_RAID_ASSISTS];
-/*0x0f80*/ unsigned int       GroupMarkNPC[MAX_GROUP_MARK_TARGETS];
-/*0x0f8c*/ unsigned int       RaidMarkNPC[MAX_RAID_MARK_TARGETS];
-/*0x0f98*/ unsigned int       TargetOfTarget;
-/*0x0f9c*/ PZCPhysicsInfo     PZCLastPhysics;
+/*0x0658*/ TCircularBuffer<SDoCollisionMovementStats, MAX_MOVEMENT_STATS> MovementStats;
+/*0x0f70*/ PlayerClient*      WhoFollowing;                       // NULL if autofollow off
+/*0x0f78*/ unsigned int       GroupAssistNPC[MAX_GROUP_ASSISTS];
+/*0x0f7c*/ unsigned int       RaidAssistNPC[MAX_RAID_ASSISTS];
+/*0x0f88*/ unsigned int       GroupMarkNPC[MAX_GROUP_MARK_TARGETS];
+/*0x0f94*/ unsigned int       RaidMarkNPC[MAX_RAID_MARK_TARGETS];
+/*0x0fa0*/ unsigned int       TargetOfTarget;
+/*0x0fa4*/ PZCPhysicsInfo     PZCLastPhysics;
 /*0x0fc4*/ unsigned int       ParticleCastStartTime;
 /*0x0fc8*/ unsigned int       ParticleCastDuration;
 /*0x0fcc*/ int                ParticleVisualSpellNum;
@@ -705,8 +705,8 @@ public:
 // PlayerClient
 //============================================================================
 
-// @sizeof(PlayerClient) == 0x1F78 :: 2022-02-10 (live) @ 0x14031A09E
-constexpr size_t PlayerClient_size = 0x1F78;
+// @sizeof(PlayerClient) == 0x1f78 :: 2022-02-28 (test) @ 0x14031feae
+constexpr size_t PlayerClient_size = 0x1f78;
 
 class [[offsetcomments]] PlayerClient : public PlayerZoneClient
 {
@@ -772,7 +772,7 @@ public:
 /*0x1340*/ int               RightHolding;                 // Nothing=0 Other/Weapon=1 shield=2
 /*0x1344*/ int               LeftHolding;                  // old Holding
 /*0x1348*/ unsigned int      DeathAnimationFinishTime;
-/*0x134c*/ bool              bRemoveCorpseAfterDeathAnim;  // 0x1274 for sure used by /hidecorpse
+/*0x134c*/ bool              bRemoveCorpseAfterDeathAnim;  // used by /hidecorpse
 /*0x1350*/ unsigned int      LastBubblesTime;
 /*0x1354*/ unsigned int      LastBubblesTime1;
 /*0x1358*/ unsigned int      LastColdBreathTime;
