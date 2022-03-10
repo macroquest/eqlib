@@ -897,7 +897,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x210 :: 2022-02-28 (test) @ 0x14020a247
+// @sizeof(EQ_Spell) == 0x210 :: 2022-03-03 (live) @ 0x14020a0e7
 constexpr size_t EQ_Spell_size = 0x210;
 
 class [[offsetcomments]] EQ_Spell
@@ -1285,14 +1285,14 @@ constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocat
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
-/*0x00020*/ int            SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x40760*/ EQ_Spell*      MissingSpell;
-/*0x40768*/ SPELLCALCINFO* MissingSpellAffect;
-/*0x40770*/ SPELLCALCINFO* MissingSpellAffectAC;
-/*0x40778*/ int            MissingSpellCrc32;
-/*0x4077c*/ int            SpellFileCRC;
-/*0x40780*/ int            SpellAssocFileCRC;
-/*0x40784*/ int            SpellStackingFileCRC;
+/*0x00020*/ int              SpellsCrc32[TOTAL_SPELL_COUNT];
+/*0x40760*/ EQ_Spell*        MissingSpell;
+/*0x40768*/ SpellAffectData* MissingSpellAffect;
+/*0x40770*/ SpellAffectData* MissingSpellAffectAC;
+/*0x40778*/ int              MissingSpellCrc32;
+/*0x4077c*/ int              SpellFileCRC;
+/*0x40780*/ int              SpellAssocFileCRC;
+/*0x40784*/ int              SpellStackingFileCRC;
 /*0x40788*/ SpellRequirementAssociationManager ReqAssocManager;
 /*0x42930*/ HashTable<int, int> SpellGroups;
 /*0x42948*/
@@ -1303,7 +1303,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x39df60 :: 2022-02-28 (test) @ 0x1402a51d6
+// @sizeof(ClientSpellManager) == 0x39df60 :: 2022-03-03 (live) @ 0x1402a54f6
 constexpr size_t ClientSpellManager_size = 0x39df60;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager

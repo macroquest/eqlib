@@ -237,8 +237,8 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x358 :: 2022-02-28 (test) @ 0x14062C54E
-constexpr size_t CButtonWnd_size = 0x358;
+// @sizeof(CButtonWnd) == 0x348 :: 2022-03-03 (live) @ 0x14062c75e
+constexpr size_t CButtonWnd_size = 0x348;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd, public VeBaseReferenceCount
 {
@@ -3279,8 +3279,8 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x3a0 :: 2022-02-28 (test) @ 0x1401cc54a
-constexpr size_t CFindLocationWnd_size = 0x3a0;
+// @sizeof(CFindLocationWnd) == 0x390 :: 2022-03-03 (live) @ 0x1401cc46a
+constexpr size_t CFindLocationWnd_size = 0x390;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
 {
@@ -4248,8 +4248,8 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xa98:: 2022-02-28 (test) @ 0x14045d0da
-constexpr size_t CItemDisplayWnd_size = 0xa98;
+// @sizeof(CItemDisplayWnd) == 0xa88 :: 2022-03-03 (live) @ 0x14045d0ca
+constexpr size_t CItemDisplayWnd_size = 0xa88;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
 {
@@ -4434,8 +4434,8 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x430 :: 2022-02-28 (test) @ 0x1401cb83f
-constexpr size_t CKeyRingWnd_size = 0x430;
+// @sizeof(CKeyRingWnd) == 0x420 :: 2022-03-03 (live) @ 0x1401cb75f
+constexpr size_t CKeyRingWnd_size = 0x420;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -4502,8 +4502,8 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0x510 :: 2022-02-28 (test) @ 0x1401cbac1
-constexpr size_t CLootWnd_size = 0x510;
+// @sizeof(CLootWnd) == 0x500 :: 2022-03-03 (live) @ 0x1401cb9e1
+constexpr size_t CLootWnd_size = 0x500;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
@@ -4718,8 +4718,8 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x858 :: 2022-02-28 (test) @ 0x1401cb20b
-constexpr size_t CMapViewWnd_size = 0x858;
+// @sizeof(CMapViewWnd) == 0x838 :: 2022-03-03 (live) @ 0x1401cb12b
+constexpr size_t CMapViewWnd_size = 0x838;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
 {
