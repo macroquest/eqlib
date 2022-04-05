@@ -422,9 +422,9 @@ FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnWidth(int) const, CListWnd__GetColum
 #ifdef CListWnd__SetColumnWidth_x
 FUNCTION_AT_ADDRESS(void, CListWnd::SetColumnWidth(int, int), CListWnd__SetColumnWidth);
 #endif
-#ifdef CListWnd__ShiftColumnSeparator_x
-FUNCTION_AT_ADDRESS(void, CListWnd::ShiftColumnSeparator(int, int), CListWnd__ShiftColumnSeparator);
-#endif
+//#ifdef CListWnd__ShiftColumnSeparator_x
+//FUNCTION_AT_ADDRESS(void, CListWnd::ShiftColumnSeparator(int, int), CListWnd__ShiftColumnSeparator);
+//#endif
 #ifdef CListWnd__GetColumnMinWidth_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnMinWidth(int) const, CListWnd__GetColumnMinWidth);
 #endif
@@ -759,9 +759,9 @@ FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardPastSpaces(CXStr&, int*
 #ifdef CStmlWnd__FastForwardPastSpacesAndQuotes_x
 FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardPastSpacesAndQuotes(CXStr&, int*), CStmlWnd__FastForwardPastSpacesAndQuotes);
 #endif
-#ifdef CStmlWnd__GetNextTagPiece_x
-FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::GetNextTagPiece(const CXStr&, CXStr*, int*, bool (*)(unsigned short), bool), CStmlWnd__GetNextTagPiece);
-#endif
+//#ifdef CStmlWnd__GetNextTagPiece_x
+//FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::GetNextTagPiece(const CXStr&, CXStr*, int*, bool (*)(unsigned short), bool), CStmlWnd__GetNextTagPiece);
+//#endif
 #ifdef CStmlWnd__IsCharacterNotQuotes_x
 FUNCTION_AT_ADDRESS(bool __cdecl, CStmlWnd::IsCharacterNotQuotes(unsigned short), CStmlWnd__IsCharacterNotQuotes);
 #endif
@@ -774,9 +774,9 @@ FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardToEndOfTag(const CXStr&
 #ifdef CStmlWnd__InitializeTempVariables_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeTempVariables(SParseVariables*, CXRect), CStmlWnd__InitializeTempVariables);
 #endif
-#ifdef CStmlWnd__InitializeWindowVariables_x
-FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeWindowVariables(), CStmlWnd__InitializeWindowVariables);
-#endif
+//#ifdef CStmlWnd__InitializeWindowVariables_x
+//FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeWindowVariables(), CStmlWnd__InitializeWindowVariables);
+//#endif
 #ifdef CStmlWnd__ResetTempVariablesForNewLine_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::ResetTempVariablesForNewLine(SParseVariables*), CStmlWnd__ResetTempVariablesForNewLine);
 #endif
@@ -816,9 +816,9 @@ FUNCTION_AT_ADDRESS(void, CStmlWnd::CompleteParse(), CStmlWnd__CompleteParse);
 #ifdef CStmlWnd__StripFirstSTMLLines_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::StripFirstSTMLLines(int), CStmlWnd__StripFirstSTMLLines);
 #endif
-#ifdef CStmlWnd__CanBreakAtCharacter_x
-FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
-#endif
+//#ifdef CStmlWnd__CanBreakAtCharacter_x
+//FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
+//#endif
 #ifdef CStmlWnd__UpdateHistoryString_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::UpdateHistoryString(int32_t, const CXStr&), CStmlWnd__UpdateHistoryString);
 #endif
@@ -854,9 +854,9 @@ FUNCTION_AT_ADDRESS(bool, CTabWnd::SetPage(CPageWnd*, bool, bool), CTabWnd__SetP
 #ifdef CTabWnd__InsertPage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::InsertPage(CPageWnd*, int), CTabWnd__InsertPage);
 #endif
-#ifdef CTabWnd__SetPageRect_x
-FUNCTION_AT_ADDRESS(void, CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageRect);
-#endif
+//#ifdef CTabWnd__SetPageRect_x
+//FUNCTION_AT_ADDRESS(void, CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageRect);
+//#endif
 #ifdef CTabWnd__UpdatePage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::UpdatePage(), CTabWnd__UpdatePage);
 #endif
@@ -872,6 +872,8 @@ FUNCTION_AT_ADDRESS(int, CTabWnd::DrawTab(int) const, CTabWnd__DrawTab);
 #ifdef CTabWnd__DrawCurrentPage_x
 FUNCTION_AT_ADDRESS(int, CTabWnd::DrawCurrentPage() const, CTabWnd__DrawCurrentPage);
 #endif
+
+FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
 
 //void CTabWnd::InsertPage(CPageWnd* pPageWnd, int position)
 //{
@@ -2835,9 +2837,6 @@ FUNCTION_AT_ADDRESS(CXStr*, CTargetWnd::GetBuffCaster(int), CTargetWnd__GetBuffC
 
 #ifdef CTaskWnd__UpdateTaskTimers_x
 FUNCTION_AT_ADDRESS(int, CTaskWnd::UpdateTaskTimers(unsigned long), CTaskWnd__UpdateTaskTimers);
-#endif
-#ifdef CTaskWnd__ConfirmAbandonTask_x
-FUNCTION_AT_ADDRESS(void, CTaskWnd::ConfirmAbandonTask(int), CTaskWnd__ConfirmAbandonTask);
 #endif
 
 //============================================================================

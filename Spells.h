@@ -893,12 +893,12 @@ constexpr int MAX_SPELL_REAGENTS = 4;
 struct [[offsetcomments]] SpellAffectData
 {
 /*0x00*/ int     Slot = 0;
-/*0x08*/ int32_t Base = 0;
-/*0x10*/ int32_t Base2 = 0;
-/*0x18*/ int32_t Max = 0;
-/*0x20*/ int     Calc = 0;
-/*0x24*/ int     Attrib = SPA_NOSPELL;
-/*0x28*/
+/*0x04*/ int32_t Base = 0;
+/*0x08*/ int32_t Base2 = 0;
+/*0x0c*/ int32_t Max = 0;
+/*0x10*/ int     Calc = 0;
+/*0x14*/ int     Attrib = SPA_NOSPELL;
+/*0x18*/
 };
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
@@ -1154,8 +1154,8 @@ SIZE_CHECK(EQ_Spell, EQ_Spell_size);
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
 public:
-/*0x0248*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
-/*0x21a8*/
+/*0x0230*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
+/*0x11e0*/
 };
 
 enum EEffectActor
@@ -1256,8 +1256,8 @@ class [[offsetcomments]] EQSpellExtra
 {
 public:
 /*0x00*/ OldSpellEffect*    OldSpellEff;
-/*0x08*/ NewSpellEffect*    NewSpellEff;
-/*0x10*/
+/*0x04*/ NewSpellEffect*    NewSpellEff;
+/*0x08*/
 };
 
 //Matching stack group ID rules
@@ -1289,17 +1289,17 @@ constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocat
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
-/*0x00020*/ int              SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x40760*/ EQ_Spell*        MissingSpell;
-/*0x40768*/ SpellAffectData* MissingSpellAffect;
-/*0x40770*/ SpellAffectData* MissingSpellAffectAC;
-/*0x40778*/ int              MissingSpellCrc32;
-/*0x4077c*/ int              SpellFileCRC;
-/*0x40780*/ int              SpellAssocFileCRC;
-/*0x40784*/ int              SpellStackingFileCRC;
-/*0x40788*/ SpellRequirementAssociationManager ReqAssocManager;
-/*0x42930*/ HashTable<int, int> SpellGroups;
-/*0x42948*/
+/*0x00014*/ int              SpellsCrc32[TOTAL_SPELL_COUNT];
+/*0x40754*/ EQ_Spell*        MissingSpell;
+/*0x40758*/ SpellAffectData* MissingSpellAffect;
+/*0x4075c*/ SpellAffectData* MissingSpellAffectAC;
+/*0x40760*/ int              MissingSpellCrc32;
+/*0x40764*/ int              SpellFileCRC;
+/*0x40768*/ int              SpellAssocFileCRC;
+/*0x4076c*/ int              SpellStackingFileCRC;
+/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;
+/*0x41950*/ HashTable<int, int> SpellGroups;
+/*0x41960*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1327,11 +1327,11 @@ public:
 	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffectEmpty(bool);
 
 
-/*0x042948*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
-/*0x0c37c8*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
-/*0x29c248*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
-/*0x39df48*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
-/*0x39df60*/
+/*0x041960*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
+/*0x0820a0*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
+/*0x16e5e0*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
+/*0x1ef460*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
+/*0x1ef470*/
 };
 
 inline namespace deprecated {
@@ -1345,15 +1345,15 @@ class [[offsetcomments]] MercenaryAbilityEffectsDefinition
 {
 public:
 /*0x00*/ void*     vfTable;
-/*0x08*/ int       ID;
-/*0x0c*/ int       AbilityID;
-/*0x10*/ int       FromID;
-/*0x14*/ int       Base;
-/*0x18*/ int       Base2;
-/*0x1c*/ int       LevelMod;
-/*0x20*/ int       Cap;
-/*0x24*/ int       Slot;
-/*0x28*/
+/*0x04*/ int       ID;
+/*0x08*/ int       AbilityID;
+/*0x0c*/ int       FromID;
+/*0x10*/ int       Base;
+/*0x14*/ int       Base2;
+/*0x18*/ int       LevelMod;
+/*0x1c*/ int       Cap;
+/*0x20*/ int       Slot;
+/*0x24*/
 };
 
 struct [[offsetcomments]] FocusEffectData
@@ -1368,8 +1368,8 @@ struct [[offsetcomments]] FocusEffectData
 struct [[offsetcomments]] CachedFocusAbility
 {
 /*0x00*/ FocusEffectData*   pEffectData;
-/*0x08*/ int                Percent;
-/*0x0c*/
+/*0x04*/ int                Percent;
+/*0x08*/
 };
 
 class [[offsetcomments]] SpellCache
@@ -1411,16 +1411,16 @@ public:
 	};
 
 /*0x00*/ HashTable<EffectCache>*                    pCachedEffects;
-/*0x08*/ bool                                       bCachedSpellEffects;
-/*0x10*/ HashTable<AltEffectCache>*                 pCachedAltAbilityEffects;
-/*0x18*/ bool                                       bCachedAltEffects;
-/*0x20*/ HashTable<EffectCache>*                    pCachedLimitedEffects;
-/*0x28*/ bool                                       bCachedLimitedEffects;
-/*0x30*/ HashTable<CachedFocusItem, int64_t>        CachedFocusItems;
-/*0x48*/ HashTable<CachedFocusEffect, int64_t>      CachedFocusEffects;
-/*0x60*/ HashTable<CachedFocusAbility, int64_t>     CachedFocusAbilities;
-/*0x78*/ HashTable<CachedFocusMercAbility, int64_t> CachedFocusMercAbilities;
-/*0x90*/
+/*0x04*/ bool                                       bCachedSpellEffects;
+/*0x08*/ HashTable<AltEffectCache>*                 pCachedAltAbilityEffects;
+/*0x0c*/ bool                                       bCachedAltEffects;
+/*0x10*/ HashTable<EffectCache>*                    pCachedLimitedEffects;
+/*0x14*/ bool                                       bCachedLimitedEffects;
+/*0x18*/ HashTable<CachedFocusItem, int64_t>        CachedFocusItems;
+/*0x28*/ HashTable<CachedFocusEffect, int64_t>      CachedFocusEffects;
+/*0x38*/ HashTable<CachedFocusAbility, int64_t>     CachedFocusAbilities;
+/*0x48*/ HashTable<CachedFocusMercAbility, int64_t> CachedFocusMercAbilities;
+/*0x58*/
 };
 
 constexpr int NUM_SLOTDATA = 6;

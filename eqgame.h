@@ -634,6 +634,7 @@
 #define CTextureFont__DrawWrappedText1_x                           0x889950
 #define CTextureFont__DrawWrappedText2_x                           0x889A50
 #define CTextureFont__GetTextExtent_x                              0x8898D0
+#define CTextureFont__GetHeight_x                                  0x0
 
 // CXMLDataManager
 #define CXMLDataManager__GetXMLData_x                              0x8929A0
@@ -729,6 +730,7 @@
 #define PcBase__GetNonArchivedOwnedRealEstates_x                   0x7C95F0
 #define PcClient__AlertInventoryChanged_x                          0x577C80
 #define PcClient__GetConLevel_x                                    0x577CB0
+#define PcClient__GetMeleeSpellFromSkillIndex_x                    0x0
 #define PcClient__HasLoreItem_x                                    0x57AE30
 #define PcZoneClient__GetItemRecastTimer_x                         0x580600
 #define PcZoneClient__RemoveMyAffect_x                             0x57FA50

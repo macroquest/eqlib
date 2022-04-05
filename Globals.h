@@ -131,6 +131,7 @@ EQLIB_VAR uintptr_t __DrawHandler;
 EQLIB_VAR uintptr_t __gpbCommandEvent;
 EQLIB_VAR uintptr_t __Guilds;
 EQLIB_VAR uintptr_t __gWorld;
+EQLIB_VAR uintptr_t __HandleMouseWheel;
 EQLIB_VAR uintptr_t __heqmain;
 EQLIB_VAR uintptr_t __HotkeyPage;
 EQLIB_VAR uintptr_t __HWnd;

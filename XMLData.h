@@ -514,20 +514,20 @@ class [[offsetcomments]] CXMLSOMElement
 {
 public:
 /*0x00*/ CXStr elementName;
-/*0x08*/ CXStr typeRef;
-/*0x10*/ CXStr typeRefClassName;
-/*0x18*/ CXStr typeRefItemName;
-/*0x20*/ int minOccurs;
-/*0x24*/ int maxOccurs;
-/*0x28*/ CXStr defaultValue;
-/*0x30*/ bool internal;
+/*0x04*/ CXStr typeRef;
+/*0x08*/ CXStr typeRefClassName;
+/*0x0c*/ CXStr typeRefItemName;
+/*0x10*/ int minOccurs;
+/*0x14*/ int maxOccurs;
+/*0x18*/ CXStr defaultValue;
+/*0x1c*/ bool internal;
 
-/*0x31*/ bool isArrayC;
-/*0x32*/ bool isEnumC;
-/*0x38*/ CXStr typeNameC;
-/*0x40*/ CXStr fieldNameC;
-/*0x48*/ CXStr streamNameC;
-/*0x50*/
+/*0x1d*/ bool isArrayC;
+/*0x1e*/ bool isEnumC;
+/*0x20*/ CXStr typeNameC;
+/*0x24*/ CXStr fieldNameC;
+/*0x28*/ CXStr streamNameC;
+/*0x2c*/
 };
 
 class [[offsetcomments]] CXMLSOMElementType
@@ -545,19 +545,19 @@ public:
 	}
 
 /*0x00*/ CXStr typeName;
-/*0x08*/ CXStr superType;
-/*0x10*/ ArrayClass2<CXMLSOMAttributeType> attributeTypes;
-/*0x30*/ ArrayClass2<CXMLSOMElement> elements;
-/*0x50*/ ArrayClass2<CXStr> itemList;
+/*0x04*/ CXStr superType;
+/*0x08*/ ArrayClass2<CXMLSOMAttributeType> attributeTypes;
+/*0x24*/ ArrayClass2<CXMLSOMElement> elements;
+/*0x40*/ ArrayClass2<CXStr> itemList;
 
-/*0x70*/ CXStr classNameC;
-/*0x78*/ CXStr baseClassNameC;
+/*0x5c*/ CXStr classNameC;
+/*0x60*/ CXStr baseClassNameC;
 
-/*0x80*/ CXStr jsName;
+/*0x64*/ CXStr jsName;
 
-/*0x88*/ CXStr sourceFile;
-/*0x90*/ int sourceLine;
-/*0x94*/
+/*0x68*/ CXStr sourceFile;
+/*0x6c*/ int sourceLine;
+/*0x70*/
 };
 
 enum EXMLSOMNodeType
@@ -571,14 +571,14 @@ class [[offsetcomments]] CXMLSOMNode
 {
 public:
 /*0x00*/ EXMLSOMNodeType nodeType;
-/*0x08*/ CXStr nodeName;
-/*0x10*/ CXStr nodeValue;
-/*0x18*/ ArrayClass2<CXMLSOMAttribute> attributeList;
-/*0x38*/ ArrayClass2<CXMLSOMNodePtr> nodeList;
-/*0x58*/ CXStr sourceFile;
-/*0x60*/ int sourceLine;
-/*0x64*/ int refCount;
-/*0x68*/
+/*0x04*/ CXStr nodeName;
+/*0x08*/ CXStr nodeValue;
+/*0x0c*/ ArrayClass2<CXMLSOMAttribute> attributeList;
+/*0x28*/ ArrayClass2<CXMLSOMNodePtr> nodeList;
+/*0x44*/ CXStr sourceFile;
+/*0x48*/ int sourceLine;
+/*0x4c*/ int refCount;
+/*0x50*/
 };
 
 // this is an intrusive reference counted pointer of CXMLSOMNode
@@ -640,13 +640,13 @@ public:
 
 	uint32_t GetObjectId() const { return GetObjectId(nClassIdx, nItemIdx); }
 
-/*0x08*/ int            nRefCount = 0;
-/*0x0c*/ int            nClassIdx = 0;
-/*0x10*/ int            nItemIdx = 0;
-/*0x14*/ int            nVersion = -1;
-/*0x18*/ CXStr          sClassName;
-/*0x20*/ CXStr          sItemName;
-/*0x28*/
+/*0x04*/ int            nRefCount = 0;
+/*0x08*/ int            nClassIdx = 0;
+/*0x0c*/ int            nItemIdx = 0;
+/*0x10*/ int            nVersion = -1;
+/*0x14*/ CXStr          sClassName;
+/*0x18*/ CXStr          sItemName;
+/*0x1c*/
 	// "Legacy" names for these fields.
 	ALT_MEMBER_GETTER(UIType, nClassIdx, Type);
 	ALT_MEMBER_GETTER(CXStr, sClassName, TypeName);
@@ -752,11 +752,11 @@ class [[offsetcomments]] CXMLDataClass
 {
 public:
 /*0x00*/ CXStr               className;
-/*0x08*/ CXStr               superTypeName;
-/*0x10*/ int                 classIdx = -1;
-/*0x14*/ int                 superTypeIdx = -1;
-/*0x18*/ CXMLDataPtrArray    items;
-/*0x38*/
+/*0x04*/ CXStr               superTypeName;
+/*0x08*/ int                 classIdx = -1;
+/*0x0c*/ int                 superTypeIdx = -1;
+/*0x10*/ CXMLDataPtrArray    items;
+/*0x2c*/
 	CXMLData* GetItemByName(const CXStr& itemName) const;
 	CXMLData* GetItemByIndex(int itemIdx) const;
 };
@@ -768,8 +768,8 @@ class [[offsetcomments]] CXMLEnumInfo
 {
 public:
 /*0x00*/ CXStr               enumTypeName;
-/*0x08*/ ArrayClass2<CXStr>  enumValue;
-/*0x28*/
+/*0x04*/ ArrayClass2<CXStr>  enumValue;
+/*0x20*/
 };
 using CXMLEnumInfoArray = ArrayClass2<CXMLEnumInfo>;
 
@@ -779,9 +779,9 @@ class [[offsetcomments]] CXMLSymbolItem
 {
 public:
 /*0x00*/ CXStr          itemString;
-/*0x08*/ bool           declared = false;
-/*0x09*/ bool           valid = false;
-/*0x0c*/
+/*0x04*/ bool           declared = false;
+/*0x05*/ bool           valid = false;
+/*0x08*/
 };
 using CXMLSymbolItemArray = ArrayClass2<CXMLSymbolItem>;
 
@@ -791,10 +791,10 @@ class [[offsetcomments]] CXMLSymbolClass
 {
 public:
 /*0x00*/ CXStr               sClass;
-/*0x08*/ CXMLSymbolItemArray items;
-/*0x28*/ CHashCXStrInt32     itemsHashes;
-/*0x48*/ bool                valid = false;
-/*0x4c*/
+/*0x04*/ CXMLSymbolItemArray items;
+/*0x20*/ CHashCXStrInt32     itemsHashes;
+/*0x3c*/ bool                valid = false;
+/*0x40*/
 };
 using CXMLSymbolClassArray = ArrayClass2<CXMLSymbolClass>;
 
@@ -806,9 +806,9 @@ public:
 	CXMLSymbolTable();
 	virtual ~CXMLSymbolTable();
 
-/*0x08*/ CXMLSymbolClassArray classes;
-/*0x28*/ CHashCXStrInt32      hashes;
-/*0x48*/
+/*0x04*/ CXMLSymbolClassArray classes;
+/*0x20*/ CHashCXStrInt32      hashes;
+/*0x3c*/
 };
 
 //----------------------------------------------------------------------------
@@ -820,13 +820,13 @@ public:
 	CXMLDataManager();
 	virtual ~CXMLDataManager();
 
-/*0x08*/ CHashCXStrInt32       enumTypeHashes;
-/*0x28*/ CXMLEnumInfoArray     enumArray;
-/*0x48*/ CHashCXStrCXMLDataPtr classItemHashes;
-/*0x68*/ CXMLDataClassArray    dataArray;
-/*0x88*/ CXMLSymbolTable       symbolTable;
-/*0xd0*/ CXStr                 errorString;
-/*0xd8*/
+/*0x04*/ CHashCXStrInt32       enumTypeHashes;
+/*0x20*/ CXMLEnumInfoArray     enumArray;
+/*0x3c*/ CHashCXStrCXMLDataPtr classItemHashes;
+/*0x58*/ CXMLDataClassArray    dataArray;
+/*0x74*/ CXMLSymbolTable       symbolTable;
+/*0xb0*/ CXStr                 errorString;
+/*0xb4*/
 
 	EQLIB_OBJECT int GetClassIdx(CXStr className) const;
 	EQLIB_OBJECT CXStr GetClassName(int classIdx) const;
@@ -875,8 +875,8 @@ public:
 	EQLIB_OBJECT virtual ~CParamClass();
 
 	// XML Data
-/*0x28*/ CXStr Item;
-/*0x30*/
+/*0x1c*/ CXStr Item;
+/*0x20*/
 };
 
 //============================================================================
@@ -887,11 +887,11 @@ public:
 	EQLIB_OBJECT virtual ~CParamRGB();
 
 	// XML Data
-/*0x30*/ int nAlpha = 255;
-/*0x34*/ int nR = 0;
-/*0x38*/ int nG = 0;
-/*0x3c*/ int nB = 0;
-/*0x40*/
+/*0x20*/ int nAlpha = 255;
+/*0x24*/ int nR = 0;
+/*0x28*/ int nG = 0;
+/*0x2c*/ int nB = 0;
+/*0x30*/
 };
 
 //============================================================================
@@ -902,11 +902,11 @@ public:
 	EQLIB_OBJECT virtual ~CParamTextRGB();
 
 	// XML Data
-/*0x30*/ int nAlpha = 255;
-/*0x34*/ int nR = 255;
-/*0x38*/ int nG = 255;
-/*0x3c*/ int nB = 255;
-/*0x40*/
+/*0x20*/ int nAlpha = 255;
+/*0x24*/ int nR = 255;
+/*0x28*/ int nG = 255;
+/*0x2c*/ int nB = 255;
+/*0x30*/
 };
 
 //============================================================================
@@ -917,9 +917,9 @@ public:
 	EQLIB_OBJECT virtual ~CParamPoint();
 
 	// XML Data
-/*0x28*/ int nX = 0;
-/*0x2c*/ int nY = 0;
-/*0x30*/
+/*0x1c*/ int nX = 0;
+/*0x20*/ int nY = 0;
+/*0x24*/
 };
 
 //============================================================================
@@ -930,9 +930,9 @@ public:
 	EQLIB_OBJECT virtual ~CParamSize();
 
 	// XML Data
-/*0x28*/ int nCX = 0;
-/*0x2c*/ int nCY = 0;
-/*0x30*/
+/*0x1c*/ int nCX = 0;
+/*0x20*/ int nCY = 0;
+/*0x24*/
 };
 
 //============================================================================
@@ -943,19 +943,19 @@ public:
 	EQLIB_OBJECT virtual ~CParamButtonDrawTemplate();
 
 	// These are the IDs of the Ui2DAnimation that was loaded previously.
-/*0x30*/ uint32_t nUi2DAnimation_Normal = 0;
-/*0x34*/ uint32_t nUi2DAnimation_Pressed = 0;
-/*0x38*/ uint32_t nUi2DAnimation_Flyby = 0;
-/*0x3c*/ uint32_t nUi2DAnimation_Disabled = 0;
-/*0x40*/ uint32_t nUi2DAnimation_PressedFlyby = 0;
-/*0x44*/ uint32_t nUi2DAnimation_PressedDisabled = 0;
-/*0x48*/ uint32_t nUi2DAnimation_NormalDecal = 0;
-/*0x4c*/ uint32_t nUi2DAnimation_PressedDecal = 0;
-/*0x50*/ uint32_t nUi2DAnimation_FlybyDecal = 0;
-/*0x54*/ uint32_t nUi2DAnimation_DisabledDecal = 0;
-/*0x58*/ uint32_t nUi2DAnimation_PressedFlybyDecal = 0;
-/*0x5c*/ uint32_t nUi2DAnimation_PressedDisabledDecal = 0;
-/*0x60*/
+/*0x20*/ uint32_t nUi2DAnimation_Normal = 0;
+/*0x24*/ uint32_t nUi2DAnimation_Pressed = 0;
+/*0x28*/ uint32_t nUi2DAnimation_Flyby = 0;
+/*0x2c*/ uint32_t nUi2DAnimation_Disabled = 0;
+/*0x30*/ uint32_t nUi2DAnimation_PressedFlyby = 0;
+/*0x34*/ uint32_t nUi2DAnimation_PressedDisabled = 0;
+/*0x38*/ uint32_t nUi2DAnimation_NormalDecal = 0;
+/*0x3c*/ uint32_t nUi2DAnimation_PressedDecal = 0;
+/*0x40*/ uint32_t nUi2DAnimation_FlybyDecal = 0;
+/*0x44*/ uint32_t nUi2DAnimation_DisabledDecal = 0;
+/*0x48*/ uint32_t nUi2DAnimation_PressedFlybyDecal = 0;
+/*0x4c*/ uint32_t nUi2DAnimation_PressedDisabledDecal = 0;
+/*0x50*/
 };
 
 //============================================================================
@@ -965,35 +965,35 @@ public:
 	EQLIB_OBJECT CParamScreenPiece();
 	EQLIB_OBJECT virtual ~CParamScreenPiece();
 
-/*0x030*/ CXStr sScreenID;
-/*0x038*/ int nFont = 3;
-/*0x03c*/ bool bRelativePosition = true;
-/*0x040*/ CParamPoint Location;
-/*0x070*/ CParamSize Size;
-/*0x0a0*/ bool bAutoStretch = false;
-/*0x0a1*/ bool bAutoStretchVertical = false;
-/*0x0a2*/ bool bAutoStretchHorizontal = false;
-/*0x0a3*/ bool bTopAnchorToTop = true;
-/*0x0a4*/ bool bLeftAnchorToLeft = true;
-/*0x0a5*/ bool bBottomAnchorToTop = true;
-/*0x0a6*/ bool bRightAnchorToLeft = true;
-/*0x0a8*/ int nTopAnchorOffset = 0;
-/*0x0ac*/ int nBottomAnchorOffset = 0;
-/*0x0b0*/ int nLeftAnchorOffset = 0;
-/*0x0b4*/ int nRightAnchorOffset = 0;
-/*0x0b8*/ int nMinVSize = 0;
-/*0x0bc*/ int nMinHSize = 0;
-/*0x0c0*/ int nMaxVSize = 0;
-/*0x0c4*/ int nMaxHSize = 0;
-/*0x0c8*/ CXStr sText;
-/*0x0d0*/ CParamTextRGB TextColor;
-/*0x110*/ CParamRGB DisabledColor;
-/*0x150*/ bool bUseInLayoutHorizontal = true;
-/*0x151*/ bool bUseInLayoutVertical = true;
-/*0x158*/ CParamRGB BackgroundTextureTint;
-/*0x198*/ CParamRGB DisabledBackgroundTextureTint; // 0x134
-/*0x1d8*/ CXMLSOMCursorArray cursor;
-/*0x1f8*/
+/*0x020*/ CXStr sScreenID;
+/*0x024*/ int nFont = 3;
+/*0x028*/ bool bRelativePosition = true;
+/*0x02c*/ CParamPoint Location;
+/*0x050*/ CParamSize Size;
+/*0x074*/ bool bAutoStretch = false;
+/*0x075*/ bool bAutoStretchVertical = false;
+/*0x076*/ bool bAutoStretchHorizontal = false;
+/*0x077*/ bool bTopAnchorToTop = true;
+/*0x078*/ bool bLeftAnchorToLeft = true;
+/*0x079*/ bool bBottomAnchorToTop = true;
+/*0x07a*/ bool bRightAnchorToLeft = true;
+/*0x07c*/ int nTopAnchorOffset = 0;
+/*0x080*/ int nBottomAnchorOffset = 0;
+/*0x084*/ int nLeftAnchorOffset = 0;
+/*0x088*/ int nRightAnchorOffset = 0;
+/*0x08c*/ int nMinVSize = 0;
+/*0x090*/ int nMinHSize = 0;
+/*0x094*/ int nMaxVSize = 0;
+/*0x098*/ int nMaxHSize = 0;
+/*0x09c*/ CXStr sText;
+/*0x0a0*/ CParamTextRGB TextColor;
+/*0x0d0*/ CParamRGB DisabledColor;
+/*0x100*/ bool bUseInLayoutHorizontal = true;
+/*0x101*/ bool bUseInLayoutVertical = true;
+/*0x104*/ CParamRGB BackgroundTextureTint;
+/*0x134*/ CParamRGB DisabledBackgroundTextureTint; // 0x134
+/*0x164*/ CXMLSOMCursorArray cursor;
+/*0x180*/
 };
 
 //============================================================================
@@ -1003,19 +1003,19 @@ public:
 	EQLIB_OBJECT CParamControl();
 	EQLIB_OBJECT virtual ~CParamControl();
 
-/*0x1f8*/ bool bStyle_VScroll = false;
-/*0x1f9*/ bool bStyle_HScroll = false;
-/*0x1fa*/ bool bStyle_AutoVScroll = false;
-/*0x1fb*/ bool bStyle_AutoHScroll = false;
-/*0x1fc*/ bool bStyle_Transparent = false;
-/*0x1fd*/ bool bStyle_TransparentControl = false;
-/*0x1fe*/ bool bStyle_Border = false;
-/*0x1ff*/ bool bStyle_Tooltip = true;
-/*0x200*/ CXStr sTooltipReference;
-/*0x208*/ CXStr sEQType;
-/*0x210*/ uint32_t nWindowDrawTemplate_DrawTemplate = 0;
-/*0x214*/ uint32_t nLayoutStrategy_Layout = 0;
-/*0x218*/
+/*0x180*/ bool bStyle_VScroll = false;
+/*0x181*/ bool bStyle_HScroll = false;
+/*0x182*/ bool bStyle_AutoVScroll = false;
+/*0x183*/ bool bStyle_AutoHScroll = false;
+/*0x184*/ bool bStyle_Transparent = false;
+/*0x185*/ bool bStyle_TransparentControl = false;
+/*0x186*/ bool bStyle_Border = false;
+/*0x187*/ bool bStyle_Tooltip = true;
+/*0x188*/ CXStr sTooltipReference;
+/*0x18c*/ CXStr sEQType;
+/*0x190*/ uint32_t nWindowDrawTemplate_DrawTemplate = 0;
+/*0x194*/ uint32_t nLayoutStrategy_Layout = 0;
+/*0x198*/
 };
 
 //============================================================================
@@ -1025,28 +1025,28 @@ public:
 	EQLIB_OBJECT CParamButton();
 	EQLIB_OBJECT virtual ~CParamButton();
 
-/*0x218*/ bool bStyle_Checkbox = false;
-/*0x220*/ CXStr sRadioGroup;
-/*0x228*/ CXStr sText;
-/*0x230*/ CParamRGB MouseoverColor;
-/*0x270*/ CParamRGB PressedColor;
-/*0x2b0*/ bool bUseCustomMouseoverColor = false;
-/*0x2b1*/ bool bUseCustomDisabledColor = false;
-/*0x2b2*/ bool bUseCustomPressedColor = false;
-/*0x2b3*/ bool bNoWrap = false;
-/*0x2b4*/ bool bTextAlignCenter = false;
-/*0x2b5*/ bool bTextAlignRight = false;
-/*0x2b6*/ bool bTextAlighVCenter = false;
-/*0x2b8*/ int TextOffsetX = 0;
-/*0x2bc*/ int TextOffsetY = 0;
-/*0x2c0*/ CParamButtonDrawTemplate ButtonDrawTemplate;
-/*0x320*/ uint32_t nButtonDrawTemplate_Template = 0;
-/*0x328*/ CXStr sSoundPressed;
-/*0x330*/ CXStr sSoundUp;
-/*0x338*/ CXStr sSoundFlyby;
-/*0x340*/ CParamPoint DecalOffset;
-/*0x370*/ CParamSize DecalSize;
-/*0x3a0*/
+/*0x198*/ bool bStyle_Checkbox = false;
+/*0x19c*/ CXStr sRadioGroup;
+/*0x1a0*/ CXStr sText;
+/*0x1a4*/ CParamRGB MouseoverColor;
+/*0x1d4*/ CParamRGB PressedColor;
+/*0x204*/ bool bUseCustomMouseoverColor = false;
+/*0x205*/ bool bUseCustomDisabledColor = false;
+/*0x206*/ bool bUseCustomPressedColor = false;
+/*0x207*/ bool bNoWrap = false;
+/*0x208*/ bool bTextAlignCenter = false;
+/*0x209*/ bool bTextAlignRight = false;
+/*0x20a*/ bool bTextAlighVCenter = false;
+/*0x20c*/ int TextOffsetX = 0;
+/*0x210*/ int TextOffsetY = 0;
+/*0x214*/ CParamButtonDrawTemplate ButtonDrawTemplate;
+/*0x264*/ uint32_t nButtonDrawTemplate_Template = 0;
+/*0x268*/ CXStr sSoundPressed;
+/*0x26c*/ CXStr sSoundUp;
+/*0x270*/ CXStr sSoundFlyby;
+/*0x274*/ CParamPoint DecalOffset;
+/*0x298*/ CParamSize DecalSize;
+/*0x2bc*/
 };
 
 //============================================================================

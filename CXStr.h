@@ -80,11 +80,11 @@ struct [[offsetcomments]] CStrRep
 	// is dynamic and manually allocated.
 	union
 	{
-	/*0x18*/ char utf8[4];
-	/*0x18*/ Unicode16 unicode[2];
-	/*0x18*/ CStrRep* next;
+	/*0x14*/ char utf8[4];
+	/*0x14*/ Unicode16 unicode[2];
+	/*0x14*/ CStrRep* next;
 	};
-/*0x20*/
+/*0x18*/
 };
 
 namespace internal {

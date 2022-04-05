@@ -225,6 +225,7 @@ INITIALIZE_EQGAME_OFFSET(__do_loot);
 INITIALIZE_EQGAME_OFFSET(__gpbCommandEvent);
 INITIALIZE_EQGAME_OFFSET(__Guilds);
 INITIALIZE_EQGAME_OFFSET(__gWorld);
+INITIALIZE_EQGAME_OFFSET(__HandleMouseWheel);
 INITIALIZE_EQGAME_OFFSET(__heqmain);
 INITIALIZE_EQGAME_OFFSET(__HWnd);
 INITIALIZE_EQGAME_OFFSET(__LabelCache);
@@ -284,7 +285,6 @@ INITIALIZE_EQGAME_OFFSET(pinstKeypressHandler);
 #endif
 INITIALIZE_EQGAME_OFFSET(pinstLocalPC);
 INITIALIZE_EQGAME_OFFSET(pinstLocalPlayer);
-INITIALIZE_EQGAME_OFFSET(pinstMercenaryStats);
 INITIALIZE_EQGAME_OFFSET(pinstModelPlayer);
 INITIALIZE_EQGAME_OFFSET(pinstRenderInterface);
 INITIALIZE_EQGAME_OFFSET(pinstPlayerPath);
@@ -714,7 +714,9 @@ INITIALIZE_EQGAME_OFFSET(CTextureAnimation__SetCurCell);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText1);
 INITIALIZE_EQGAME_OFFSET(CTextureFont__DrawWrappedText2);
+#if defined(CTextureFont__GetHeight_x)
 INITIALIZE_EQGAME_OFFSET(CTextureFont__GetHeight);
+#endif
 INITIALIZE_EQGAME_OFFSET(CTextureFont__GetTextExtent);
 INITIALIZE_EQGAME_OFFSET(CTribute__GetActiveFavorCost);
 INITIALIZE_EQGAME_OFFSET(CUnSerializeBuffer__GetString);
@@ -845,7 +847,9 @@ INITIALIZE_EQGAME_OFFSET(PcBase__GetItemContainedRealEstateIds);
 INITIALIZE_EQGAME_OFFSET(PcBase__GetNonArchivedOwnedRealEstates);
 INITIALIZE_EQGAME_OFFSET(PcClient__AlertInventoryChanged);
 INITIALIZE_EQGAME_OFFSET(PcClient__GetConLevel);
+#if defined(PcClient__GetMeleeSpellFromSkillIndex_x)
 INITIALIZE_EQGAME_OFFSET(PcClient__GetMeleeSpellFromSkillIndex);
+#endif
 INITIALIZE_EQGAME_OFFSET(PcClient__HasLoreItem);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__BandolierSwap);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__CanEquipItem);
@@ -1240,8 +1244,8 @@ void InitializeEQGameOffsets()
 	pSpellSets                      = &pEverQuestInfo->spellLoadouts[0];
 	gpAutoFire                      = (BYTE*)&pEverQuestInfo->bAutoRangeAttack;
 
-	static_assert(instEQZoneInfo_x - pinstEverQuestInfo_x == offsetof(EverQuestinfo, ZoneInfo),
-		"Mismatch between instEQZoneInfo and ZoneInfo struct member");
+	//static_assert(instEQZoneInfo_x - pinstEverQuestInfo_x == offsetof(EverQuestinfo, ZoneInfo),
+	//	"Mismatch between instEQZoneInfo and ZoneInfo struct member");
 #pragma warning(suppress: 4996)
 	EQADDR_ZONETYPE                 = (uint8_t*)&pEverQuestInfo->ZoneInfo.OutDoor;
 #pragma warning(suppress: 4996)

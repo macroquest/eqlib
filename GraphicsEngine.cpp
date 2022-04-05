@@ -242,9 +242,9 @@ FUNCTION_AT_ADDRESS(void, CDisplay::DDrawUpdateDisplay(), CDisplay__DDrawUpdateD
 #ifdef CDisplay__SetViewActor_x
 FUNCTION_AT_ADDRESS(void, CDisplay::SetViewActor(CActorInterface*), CDisplay__SetViewActor);
 #endif
-#ifdef CDisplay__SetRenderWindow_x
-FUNCTION_AT_ADDRESS(void, CDisplay::SetRenderWindow(int mode), CDisplay__SetRenderWindow);
-#endif
+//#ifdef CDisplay__SetRenderWindow_x
+//FUNCTION_AT_ADDRESS(void, CDisplay::SetRenderWindow(int mode), CDisplay__SetRenderWindow);
+//#endif
 #ifdef CDisplay__ToggleScreenshotMode_x
 FUNCTION_AT_ADDRESS(void, CDisplay::ToggleScreenshotMode(), CDisplay__ToggleScreenshotMode);
 #endif

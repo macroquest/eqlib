@@ -121,8 +121,8 @@ ItemDefinition::ItemDefinition()
 	memset(Name, 0, sizeof(Name));
 	memset(LoreName, 0, sizeof(LoreName));
 	memset(AdvancedLoreName, 0, sizeof(AdvancedLoreName));
-	IDFile = 0;
-	IDFile2 = 0;
+	IDFile[0] = 0;
+	IDFile2[0] = 0;
 	ItemNumber = 0;
 	EquipSlots = 0;
 	Cost = 0;

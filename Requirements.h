@@ -36,7 +36,7 @@ public:
 	};
 
 /*0x00*/ HashTable<FileStat*> FileStats;
-/*0x18*/
+/*0x10*/
 };
 
 enum ReqType
@@ -64,12 +64,12 @@ public:
 	virtual void UnSerialize(CUnSerializeBuffer&) {}
 	virtual int LoadRequirementAssociationsFromFile(const char*, bool) { return 0; }
 
-/*0x020*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
-/*0x038*/ char               AssocFilename[512];
-/*0x238*/ ReqType            LastFailReason;
-/*0x23c*/ int                LastFailGroupID;
-/*0x240*/ int                LastFailReqID;
-/*0x244*/
+/*0x014*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
+/*0x024*/ char               AssocFilename[512];
+/*0x224*/ ReqType            LastFailReason;
+/*0x228*/ int                LastFailGroupID;
+/*0x22c*/ int                LastFailReqID;
+/*0x230*/
 };
 
 } // namespace eqlib

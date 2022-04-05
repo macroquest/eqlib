@@ -57,31 +57,31 @@ public:
 /*0x20*/ int                 GroupID;                            // ID of the AA group (/alt activate id)
 /*0x24*/ int                 CurrentRank;                        // GroupLevel the current rank of this AA first rank is 1 etc
 /*0x28*/ ArrayClass<int>     RequiredGroups;                     // array of required groups
-/*0x40*/ ArrayClass<int>     RequiredGroupLevels;                // array of required ranks for those groups
-/*0x58*/ int                 Type;                               // 1 General 2 Archetype 3 Class 4 special 5 focus
-/*0x5c*/ int                 SpellID;                            // -1 for no Spell
-/*0x60*/ bool                bRefund;
-/*0x68*/ ArrayClass<int>     TimerIds;                           // list of timer ids
-/*0x80*/ int                 ReuseTimer;                         // in seconds
-/*0x84*/ int                 Classes;                            // Classes/2 is the actual value we want.
-/*0x88*/ int                 MaxRank;                            // so like x/25, this is the 25
-/*0x8c*/ int                 TotalPoints;
-/*0x90*/ int                 PreviousGroupAbilityId;             // -1 if none, although sometimes it can be -1 when there is ...
-/*0x94*/ int                 NextGroupAbilityId;                 // ID of the next rank
-/*0x98*/ bool                QuestOnly;                          // vet AA, quest AA, item, etc
-/*0x9c*/ int                 Charges;                            // charges on expendable AAs (limited use aa's)
-/*0xa0*/ bool                bIgnoreDeLevel;                     // still usable after de-leveling?
-/*0xa4*/ int                 Expansion;
-/*0xa8*/ int                 DisplayCategory;                    // 7 is expendable, -1 none
-/*0xac*/ bool                bShroud;                            // shrouds are also called "templates"
-/*0xad*/ bool                bBetaOnlyAbility;
-/*0xae*/ bool                bResetOnDeath;                      // true for lay on hands for example.
-/*0xaf*/ bool                bAutogrant;                         // true if its an autogrant ability? or if auto grant is enabled? need to check cause this could be useful
-/*0xb0*/ int                 AutoGrantAssociationId;             // Usually the same as normal expansion if enabled
-/*0xb4*/ int                 Unknown0x98;
-/*0xb8*/ int                 Unknown0x9C;
-/*0xc0*/ EQList<AltAbilityEffectData> PersistentEffects;
-/*0xe0*/
+/*0x38*/ ArrayClass<int>     RequiredGroupLevels;                // array of required ranks for those groups
+/*0x48*/ int                 Type;                               // 1 General 2 Archetype 3 Class 4 special 5 focus
+/*0x4c*/ int                 SpellID;                            // -1 for no Spell
+/*0x50*/ bool                bRefund;
+/*0x54*/ ArrayClass<int>     TimerIds;                           // list of timer ids
+/*0x64*/ int                 ReuseTimer;                         // in seconds
+/*0x68*/ int                 Classes;                            // Classes/2 is the actual value we want.
+/*0x6c*/ int                 MaxRank;                            // so like x/25, this is the 25
+/*0x70*/ int                 TotalPoints;
+/*0x74*/ int                 PreviousGroupAbilityId;             // -1 if none, although sometimes it can be -1 when there is ...
+/*0x78*/ int                 NextGroupAbilityId;                 // ID of the next rank
+/*0x7c*/ bool                QuestOnly;                          // vet AA, quest AA, item, etc
+/*0x80*/ int                 Charges;                            // charges on expendable AAs (limited use aa's)
+/*0x84*/ bool                bIgnoreDeLevel;                     // still usable after de-leveling?
+/*0x88*/ int                 Expansion;
+/*0x8c*/ int                 DisplayCategory;                    // 7 is expendable, -1 none
+/*0x90*/ bool                bShroud;                            // shrouds are also called "templates"
+/*0x91*/ bool                bBetaOnlyAbility;
+/*0x92*/ bool                bResetOnDeath;                      // true for lay on hands for example.
+/*0x93*/ bool                bAutogrant;                         // true if its an autogrant ability? or if auto grant is enabled? need to check cause this could be useful
+/*0x94*/ int                 AutoGrantAssociationId;             // Usually the same as normal expansion if enabled
+/*0x98*/ int                 Unknown0x98;
+/*0x9c*/ int                 Unknown0x9C;
+/*0xa0*/ EQList<AltAbilityEffectData> PersistentEffects;
+/*0xb0*/
 
 	ALT_MEMBER_GETTER(int, GroupID, ID);
 	ALT_MEMBER_GETTER(int, nShortName2, nShorterName);
@@ -103,8 +103,8 @@ public:
 	EQLIB_OBJECT CAltAbilityData* GetAAByGroupId(int nGroupId);
 
 /*0x000*/ RequirementAssociationManager reqAssocManager;
-/*0x248*/ HashTable<CAltAbilityData*>* abilities;
-/*0x250*/
+/*0x230*/ HashTable<CAltAbilityData*>* abilities;
+/*0x234*/
 };
 
 //============================================================================

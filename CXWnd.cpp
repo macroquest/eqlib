@@ -377,9 +377,9 @@ FUNCTION_AT_ADDRESS(bool, CXWnd::IsReallyVisible() const, CXWnd__IsReallyVisible
 #ifdef CXWnd__DoAllDrawing_x
 FUNCTION_AT_ADDRESS(int, CXWnd::DoAllDrawing() const, CXWnd__DoAllDrawing);
 #endif
-#ifdef CXWnd__DrawChildren_x
-FUNCTION_AT_ADDRESS(int, CXWnd::DrawChildren() const, CXWnd__DrawChildren);
-#endif
+//#ifdef CXWnd__DrawChildren_x
+//FUNCTION_AT_ADDRESS(int, CXWnd::DrawChildren() const, CXWnd__DrawChildren);
+//#endif
 #ifdef CXWnd__Center_x
 FUNCTION_AT_ADDRESS(void, CXWnd::Center(), CXWnd__Center);
 #endif
@@ -392,9 +392,9 @@ FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenClipRect() const, CXWnd__GetScreenCl
 #ifdef CXWnd__IsDescendantOf_x
 FUNCTION_AT_ADDRESS(bool, CXWnd::IsDescendantOf(CXWnd const*) const, CXWnd__IsDescendantOf);
 #endif
-#ifdef CXWnd__GetBorderFrame_x
-FUNCTION_AT_ADDRESS(CTAFrameDraw const*, CXWnd::GetBorderFrame() const, CXWnd__GetBorderFrame);
-#endif
+//#ifdef CXWnd__GetBorderFrame_x
+//FUNCTION_AT_ADDRESS(CTAFrameDraw const*, CXWnd::GetBorderFrame() const, CXWnd__GetBorderFrame);
+//#endif
 #ifdef CXWnd__GetScreenRect_x
 FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenRect() const, CXWnd__GetScreenRect);
 #endif

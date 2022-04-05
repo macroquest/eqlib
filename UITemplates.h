@@ -40,19 +40,19 @@ public:
 	EQLIB_OBJECT CXSize GetSize() const;
 
 /*0x00*/ CXStr                    strName;
-/*0x08*/ CTextureAnimation*       ptaNormal = nullptr;
-/*0x10*/ CTextureAnimation*       ptaPressed = nullptr;
-/*0x18*/ CTextureAnimation*       ptaFlyby = nullptr;
-/*0x20*/ CTextureAnimation*       ptaDisabled = nullptr;
-/*0x28*/ CTextureAnimation*       ptaPressedFlyby = nullptr;
-/*0x30*/ CTextureAnimation*       ptaPressedDisabled = nullptr;
-/*0x38*/ CTextureAnimation*       ptaNormalDecal = nullptr;
-/*0x40*/ CTextureAnimation*       ptaPressedDecal = nullptr;
-/*0x48*/ CTextureAnimation*       ptaFlybyDecal = nullptr;
-/*0x50*/ CTextureAnimation*       ptaDisabledDecal = nullptr;
-/*0x58*/ CTextureAnimation*       ptaPressedFlybyDecal = nullptr;
-/*0x60*/ CTextureAnimation*       ptaPressedDisabledDecal = nullptr;
-/*0x68*/
+/*0x04*/ CTextureAnimation*       ptaNormal = nullptr;
+/*0x08*/ CTextureAnimation*       ptaPressed = nullptr;
+/*0x0c*/ CTextureAnimation*       ptaFlyby = nullptr;
+/*0x10*/ CTextureAnimation*       ptaDisabled = nullptr;
+/*0x14*/ CTextureAnimation*       ptaPressedFlyby = nullptr;
+/*0x18*/ CTextureAnimation*       ptaPressedDisabled = nullptr;
+/*0x1c*/ CTextureAnimation*       ptaNormalDecal = nullptr;
+/*0x20*/ CTextureAnimation*       ptaPressedDecal = nullptr;
+/*0x24*/ CTextureAnimation*       ptaFlybyDecal = nullptr;
+/*0x28*/ CTextureAnimation*       ptaDisabledDecal = nullptr;
+/*0x2c*/ CTextureAnimation*       ptaPressedFlybyDecal = nullptr;
+/*0x30*/ CTextureAnimation*       ptaPressedDisabledDecal = nullptr;
+/*0x34*/
 };
 
 //============================================================================
@@ -66,13 +66,13 @@ class [[offsetcomments]] CGaugeDrawTemplate
 public:
 /*0x00*/ CXStr                    strName;
 
-/*0x08*/ CTextureAnimation*       ptaBackground = nullptr;
-/*0x10*/ CTextureAnimation*       ptaFill = nullptr;
-/*0x18*/ CTextureAnimation*       ptaLines = nullptr;
-/*0x20*/ CTextureAnimation*       ptaLinesFill = nullptr;
-/*0x28*/ CTextureAnimation*       ptaEndCapLeft = nullptr;
-/*0x30*/ CTextureAnimation*       ptaEndCapRight = nullptr;
-/*0x38*/
+/*0x04*/ CTextureAnimation*       ptaBackground = nullptr;
+/*0x08*/ CTextureAnimation*       ptaFill = nullptr;
+/*0x0c*/ CTextureAnimation*       ptaLines = nullptr;
+/*0x10*/ CTextureAnimation*       ptaLinesFill = nullptr;
+/*0x14*/ CTextureAnimation*       ptaEndCapLeft = nullptr;
+/*0x18*/ CTextureAnimation*       ptaEndCapRight = nullptr;
+/*0x1c*/
 };
 
 //============================================================================
@@ -86,10 +86,10 @@ class [[offsetcomments]] CSpellGemDrawTemplate
 public:
 /*0x00*/ CXStr                    strName;
 
-/*0x08*/ CTextureAnimation*       ptaBackground = nullptr;
-/*0x10*/ CTextureAnimation*       ptaHolder = nullptr;
-/*0x18*/ CTextureAnimation*       ptaHighlight = nullptr;
-/*0x20*/
+/*0x04*/ CTextureAnimation*       ptaBackground = nullptr;
+/*0x08*/ CTextureAnimation*       ptaHolder = nullptr;
+/*0x0c*/ CTextureAnimation*       ptaHighlight = nullptr;
+/*0x10*/
 };
 
 
@@ -104,11 +104,11 @@ class [[offsetcomments]] CSliderDrawTemplate
 public:
 /*0x00*/ CXStr                    strName;
 
-/*0x08*/ CButtonDrawTemplate      bdtThumb;
-/*0x70*/ CTextureAnimation*       ptaBackground = nullptr;
-/*0x78*/ CTextureAnimation*       ptaEndCapRight = nullptr;
-/*0x80*/ CTextureAnimation*       ptaEndCapLeft = nullptr;
-/*0x88*/
+/*0x04*/ CButtonDrawTemplate      bdtThumb;
+/*0x38*/ CTextureAnimation*       ptaBackground = nullptr;
+/*0x3c*/ CTextureAnimation*       ptaEndCapRight = nullptr;
+/*0x40*/ CTextureAnimation*       ptaEndCapLeft = nullptr;
+/*0x44*/
 };
 
 //============================================================================
@@ -121,14 +121,14 @@ class [[offsetcomments]] CScrollbarTemplate
 	FORCE_SYMBOLS;
 
 public:
-/*0x000*/ CXStr                       strName;
+/*0x00*/ CXStr                       strName;
 
-/*0x008*/ CButtonDrawTemplate         bdtUp;
-/*0x070*/ CButtonDrawTemplate         bdtDown;
-/*0x0d8*/ CTAFrameDraw                frameThumb;
-/*0x160*/ CUITextureInfo              tiMiddle;
-/*0x180*/ D3DCOLOR                    colorMiddleTint = 0;
-/*0x184*/
+/*0x04*/ CButtonDrawTemplate         bdtUp;
+/*0x38*/ CButtonDrawTemplate         bdtDown;
+/*0x6c*/ CTAFrameDraw                frameThumb;
+/*0xb8*/ CUITextureInfo              tiMiddle;
+/*0xd0*/ D3DCOLOR                    colorMiddleTint = 0;
+/*0xd4*/
 };
 
 //============================================================================
@@ -161,18 +161,18 @@ class [[offsetcomments]] CXWndDrawTemplate
 public:
 /*0x000*/ CXStr                       strName;
 
-/*0x008*/ CUITextureInfo              tiBackground;
-/*0x028*/ int                         nBackgroundDrawType = eDrawTile;
-/*0x030*/ CScrollbarTemplate          sbtVScroll;
-/*0x1b8*/ CScrollbarTemplate          sbtHScroll;
-/*0x340*/ CButtonDrawTemplate         bdtCloseBox;
-/*0x3a8*/ CButtonDrawTemplate         bdtQMarkBox;
-/*0x410*/ CButtonDrawTemplate         bdtMinimizeBox;
-/*0x478*/ CButtonDrawTemplate         bdtMaximizeBox;
-/*0x4e0*/ CButtonDrawTemplate         bdtTileBox;
-/*0x548*/ CTAFrameDraw                frameBorder;
-/*0x5d0*/ CTAFrameDraw                frameTitlebar;
-/*0x658*/
+/*0x004*/ CUITextureInfo              tiBackground;
+/*0x01c*/ int                         nBackgroundDrawType = eDrawTile;
+/*0x020*/ CScrollbarTemplate          sbtVScroll;
+/*0x0f4*/ CScrollbarTemplate          sbtHScroll;
+/*0x1c8*/ CButtonDrawTemplate         bdtCloseBox;
+/*0x1fc*/ CButtonDrawTemplate         bdtQMarkBox;
+/*0x230*/ CButtonDrawTemplate         bdtMinimizeBox;
+/*0x264*/ CButtonDrawTemplate         bdtMaximizeBox;
+/*0x298*/ CButtonDrawTemplate         bdtTileBox;
+/*0x2cc*/ CTAFrameDraw                frameBorder;
+/*0x318*/ CTAFrameDraw                frameTitlebar;
+/*0x364*/
 };
 
 //============================================================================
@@ -193,36 +193,36 @@ public:
 	EQLIB_OBJECT bool IsType(uint32_t type) const;
 	EQLIB_OBJECT uint32_t GetUltimateType() const;
 
-/*0x08*/ ArrayClass2<uint32_t> arRuntimeTypes;
-/*0x28*/ CXStr               strName;
-/*0x30*/ uint32_t            uParamObjectId = 0;
-/*0x38*/ CXStr               strScreenId;
-/*0x40*/ uint32_t            nFont = 0;
-/*0x44*/ bool                bRelativePosition = true;
-/*0x45*/ bool                bAutoStretchVertical = false;
-/*0x46*/ bool                bAutoStretchHorizontal = false;
-/*0x47*/ bool                bTopAnchorToTop = true;
-/*0x48*/ bool                bBottomAnchorToTop = true;
-/*0x49*/ bool                bLeftAnchorToLeft = true;
-/*0x4a*/ bool                bRightAnchorToLeft = true;
-/*0x4c*/ int                 nTopOffset = 0;
-/*0x50*/ int                 nBottomOffset = 0;
-/*0x54*/ int                 nLeftOffset = 0;
-/*0x58*/ int                 nRightOffset = 0;
-/*0x5c*/ int                 nMinVSize = 0;
-/*0x60*/ int                 nMinHSize = 0;
-/*0x64*/ int                 nMaxVSize = 0;
-/*0x68*/ int                 nMaxHSize = 0;
-/*0x6c*/ CXRect              rect;
-/*0x80*/ CXStr               strText;
-/*0x88*/ D3DCOLOR            colorText = 0;
-/*0x8c*/ D3DCOLOR            colorDisabled = 0;
-/*0x90*/ D3DCOLOR            colorEnabled = 0;
-/*0x94*/ bool                bUseInLayoutHorizontal = true;
-/*0x95*/ bool                bUseInLayoutVertical = true;
-/*0x98*/ D3DCOLOR            colorBackgroundTextureTint = 0;
-/*0x9c*/ D3DCOLOR            colorDisabledBackgroundTextureTint = 0;
-/*0xa0*/
+/*0x04*/ ArrayClass2<uint32_t> arRuntimeTypes;
+/*0x20*/ CXStr               strName;
+/*0x24*/ uint32_t            uParamObjectId = 0;
+/*0x28*/ CXStr               strScreenId;
+/*0x2c*/ uint32_t            nFont = 0;
+/*0x30*/ bool                bRelativePosition = true;
+/*0x31*/ bool                bAutoStretchVertical = false;
+/*0x32*/ bool                bAutoStretchHorizontal = false;
+/*0x33*/ bool                bTopAnchorToTop = true;
+/*0x34*/ bool                bBottomAnchorToTop = true;
+/*0x35*/ bool                bLeftAnchorToLeft = true;
+/*0x36*/ bool                bRightAnchorToLeft = true;
+/*0x38*/ int                 nTopOffset = 0;
+/*0x3c*/ int                 nBottomOffset = 0;
+/*0x40*/ int                 nLeftOffset = 0;
+/*0x44*/ int                 nRightOffset = 0;
+/*0x48*/ int                 nMinVSize = 0;
+/*0x4c*/ int                 nMinHSize = 0;
+/*0x50*/ int                 nMaxVSize = 0;
+/*0x54*/ int                 nMaxHSize = 0;
+/*0x58*/ CXRect              rect;
+/*0x68*/ CXStr               strText;
+/*0x6c*/ D3DCOLOR            colorText = 0;
+/*0x70*/ D3DCOLOR            colorDisabled = 0;
+/*0x74*/ D3DCOLOR            colorEnabled = 0;
+/*0x78*/ bool                bUseInLayoutHorizontal = true;
+/*0x79*/ bool                bUseInLayoutVertical = true;
+/*0x7c*/ D3DCOLOR            colorBackgroundTextureTint = 0;
+/*0x80*/ D3DCOLOR            colorDisabledBackgroundTextureTint = 0;
+/*0x84*/
 };
 
 //============================================================================
@@ -237,8 +237,8 @@ public:
 	EQLIB_OBJECT CStaticScreenPieceTemplate(CStaticScreenPieceTemplate*);
 	EQLIB_OBJECT CStaticScreenPieceTemplate(CParamStaticScreenPiece*);
 
-/*0xa0*/ bool                     bAutoDraw = true;
-/*0xa4*/
+/*0x84*/ bool                     bAutoDraw = true;
+/*0x88*/
 };
 
 //============================================================================
@@ -255,12 +255,12 @@ public:
 	EQLIB_OBJECT CLayoutStrategyTemplate(CParamLayoutStrategy*, uint32_t type);
 	virtual ~CLayoutStrategyTemplate() {}
 
-/*0x08*/ int                      nPadding = 0;
-/*0x0c*/ uint32_t                 nType = 0;
-/*0x10*/ CXStr                    strName;
-/*0x18*/ bool                     bResizeHorizontal = false;
-/*0x19*/ bool                     bResizeVertical = false;
-/*0x1c*/
+/*0x04*/ int                      nPadding = 0;
+/*0x08*/ uint32_t                 nType = 0;
+/*0x0c*/ CXStr                    strName;
+/*0x10*/ bool                     bResizeHorizontal = false;
+/*0x11*/ bool                     bResizeVertical = false;
+/*0x14*/
 };
 
 //============================================================================
@@ -292,14 +292,14 @@ public:
 	EQLIB_OBJECT CControlTemplate(CParamControl*);
 	EQLIB_OBJECT CControlTemplate();
 
-/*0xa0*/ uint32_t                 uStyleBits = 0;
-/*0xa4*/ uint8_t                  bSizableMask = 0;
-/*0xa5*/ bool                     bEscapable = true;
-/*0xa8*/ CXStr                    strTooltip;
-/*0xb0*/ CXWndDrawTemplate*       pDrawTemplate = nullptr;
-/*0xb8*/ CXStr                    strController;
-/*0xc0*/ CLayoutStrategyTemplate* pLayoutStrategyTemplate = nullptr;
-/*0xc8*/
+/*0x84*/ uint32_t                 uStyleBits = 0;
+/*0x88*/ uint8_t                  bSizableMask = 0;
+/*0x89*/ bool                     bEscapable = true;
+/*0x8c*/ CXStr                    strTooltip;
+/*0x90*/ CXWndDrawTemplate*       pDrawTemplate = nullptr;
+/*0x94*/ CXStr                    strController;
+/*0x98*/ CLayoutStrategyTemplate* pLayoutStrategyTemplate = nullptr;
+/*0x9c*/
 };
 
 //============================================================================
@@ -313,19 +313,19 @@ class [[offsetcomments]] CButtonTemplate : public CControlTemplate
 public:
 	EQLIB_OBJECT CButtonTemplate(CParamButton*);
 
-/*0x0c8*/ bool                     bCheckbox = false;
-/*0x0d0*/ CXStr                    strRadioGroup;
-/*0x0d8*/ CXStr                    strText;
-/*0x0e0*/ bool                     bTextAlignCenter = true;
-/*0x0e1*/ bool                     bTextAlignRight = false;
-/*0x0e2*/ bool                     bTextAlignVCenter = true;
-/*0x0e8*/ CButtonDrawTemplate      bdt;
-/*0x150*/ CXStr                    strSoundPressed;
-/*0x158*/ CXStr                    strSoundUp;
-/*0x160*/ CXStr                    strSoundFlyby;
-/*0x168*/ CXPoint                  ptDecalOffset;
-/*0x170*/ CXSize                   sizeDecalSize;
-/*0x178*/
+/*0x9c*/ bool                     bCheckbox = false;
+/*0xa0*/ CXStr                    strRadioGroup;
+/*0xa4*/ CXStr                    strText;
+/*0xa8*/ bool                     bTextAlignCenter = true;
+/*0xa9*/ bool                     bTextAlignRight = false;
+/*0xaa*/ bool                     bTextAlignVCenter = true;
+/*0xac*/ CButtonDrawTemplate      bdt;
+/*0xe0*/ CXStr                    strSoundPressed;
+/*0xe4*/ CXStr                    strSoundUp;
+/*0xe8*/ CXStr                    strSoundFlyby;
+/*0xec*/ CXPoint                  ptDecalOffset;
+/*0xf4*/ CXSize                   sizeDecalSize;
+/*0xfc*/
 };
 
 //============================================================================
@@ -387,13 +387,13 @@ public:
 	EQLIB_OBJECT CPageTemplate(CParamPage*);
 	EQLIB_OBJECT CPageTemplate();
 
-/*0x0c8*/ ArrayClass<CScreenPieceTemplate*> arPieces;
-/*0x0e0*/ CXStr                             strTabText;
-/*0x0e8*/ D3DCOLOR                          crTabText = 0;
-/*0x0ec*/ D3DCOLOR                          crTabTextActive = 0;
-/*0x0f0*/ CTextureAnimation*                ptaTabIcon = nullptr;
-/*0x0f8*/ CTextureAnimation*                ptaTabIconActive = nullptr;
-/*0x100*/
+/*0x9c*/ ArrayClass<CScreenPieceTemplate*> arPieces;
+/*0xac*/ CXStr                             strTabText;
+/*0xb0*/ D3DCOLOR                          crTabText = 0;
+/*0xb4*/ D3DCOLOR                          crTabTextActive = 0;
+/*0xb8*/ CTextureAnimation*                ptaTabIcon = nullptr;
+/*0xbc*/ CTextureAnimation*                ptaTabIconActive = nullptr;
+/*0xc0*/
 };
 
 class [[offsetcomments]] CScreenTemplate : public CControlTemplate
@@ -401,8 +401,8 @@ class [[offsetcomments]] CScreenTemplate : public CControlTemplate
 public:
 	EQLIB_OBJECT CScreenTemplate(CParamScreen*);
 
-/*0xc8*/ ArrayClass<CScreenPieceTemplate*> Pieces;
-/*0xe0*/
+/*0x9c*/ ArrayClass<CScreenPieceTemplate*> Pieces;
+/*0xac*/
 };
 
 class CSliderTemplate
@@ -422,8 +422,8 @@ class [[offsetcomments]] CStaticAnimationTemplate : public CStaticScreenPieceTem
 public:
 	EQLIB_OBJECT CStaticAnimationTemplate(CParamStaticAnimation*);
 
-/*0xa8*/ CTextureAnimation* ptaTextureAnimation;
-/*0xb0*/
+/*0x88*/ CTextureAnimation* ptaTextureAnimation;
+/*0x8c*/
 };
 
 class CStaticFrameTemplate

@@ -98,9 +98,9 @@ inline namespace deprecated
 	{
 	public:
 	/*0x00*/ ITEMBASEARRAY* pItems;
-	/*0x08*/ size_t         Size;
-	/*0x10*/ unsigned int   Capacity;
-	/*0x14*/
+	/*0x04*/ size_t         Size;
+	/*0x08*/ unsigned int   Capacity;
+	/*0x0c*/
 	};
 }
 
@@ -724,10 +724,10 @@ protected:
 /*0x00*/ uint32_t                m_size;
 /*0x04*/ ItemContainerInstance   m_type;
 /*0x08*/ ItemArray               m_items;
-/*0x20*/ uint8_t                 m_atDepth = 0;
-/*0x22*/ short                   m_slots[ItemIndex::MAX_INVENTORY_DEPTH - 1];
-/*0x26*/ bool                    m_bDynamic;
-/*0x28*/
+/*0x14*/ uint8_t                 m_atDepth = 0;
+/*0x16*/ short                   m_slots[ItemIndex::MAX_INVENTORY_DEPTH - 1];
+/*0x1a*/ bool                    m_bDynamic;
+/*0x1c*/
 
 public:
 	ALT_MEMBER_GETTER(uint32_t, m_size, Size);
@@ -951,160 +951,160 @@ public:
 /*0x000*/ char                Name[ITEM_NAME_LEN];
 /*0x040*/ char                LoreName[LORE_NAME_LEN];
 /*0x090*/ char                AdvancedLoreName[32];
-/*0x0b0*/ int                 IDFile;
-/*0x0b4*/ int                 IDFile2;
-/*0x0b8*/ int                 ItemNumber;                        // recordnum
-/*0x0bc*/ int                 EquipSlots;                        // its position, where it can be equipped
-/*0x0c0*/ int                 Cost;
-/*0x0c4*/ int                 IconNumber;
-/*0x0c8*/ uint8_t             eGMRequirement;                    // this is an unmapped enum
-/*0x0c9*/ bool                bPoofOnDeath;
-/*0x0cc*/ int                 Weight;
-/*0x0d0*/ bool                NoRent;                            // 0=temp, 1=default
-/*0x0d1*/ bool                IsDroppable;                       // 0=no drop, 1=can drop
-/*0x0d2*/ bool                Attuneable;
-/*0x0d3*/ bool                Heirloom;
-/*0x0d4*/ bool                Collectible;
-/*0x0d5*/ bool                NoDestroy;
-/*0x0d6*/ bool                bNoNPC;
-/*0x0d7*/ bool                NoZone;
-/*0x0d8*/ int                 MakerID;
-/*0x0dc*/ bool                NoGround;
-/*0x0dd*/ bool                bNoLoot;
-/*0x0de*/ bool                MarketPlace;
-/*0x0df*/ bool                bFreeSlot;
-/*0x0e0*/ bool                bAutoUse;
-/*0x0e4*/ int                 Unknown0x0e4;
-/*0x0e8*/ uint8_t             Size;
-/*0x0e9*/ uint8_t             Type;
-/*0x0ea*/ bool                TradeSkills;
-/*0x0ec*/ int                 Lore;                              // -1=Lore 0=Not Lore >=1=Lore Group
-/*0x0f0*/ int                 LoreEquipped;                      // check me
-/*0x0f4*/ bool                Artifact;
-/*0x0f5*/ bool                Summoned;
-/*0x0f6*/ char                SvCold;
-/*0x0f7*/ char                SvFire;
-/*0x0f8*/ char                SvMagic;
-/*0x0f9*/ char                SvDisease;
-/*0x0fa*/ char                SvPoison;
-/*0x0fb*/ char                SvCorruption;
-/*0x0fc*/ char                STR;
-/*0x0fd*/ char                STA;
-/*0x0fe*/ char                AGI;
-/*0x0ff*/ char                DEX;
-/*0x100*/ char                CHA;
-/*0x101*/ char                INT;
-/*0x102*/ char                WIS;
-/*0x104*/ int                 HP;
-/*0x108*/ int                 Mana;
-/*0x10c*/ int                 AC;
-/*0x110*/ int                 RequiredLevel;
-/*0x114*/ int                 RecommendedLevel;
-/*0x118*/ int                 SkillModType;
-/*0x11c*/ int                 SkillModValue;
-/*0x120*/ int                 SkillModMax;
-/*0x124*/ int                 SkillModBonus;
-/*0x128*/ int                 BaneDMGRace;
-/*0x12c*/ int                 BaneDMGBodyType;
-/*0x130*/ int                 BaneDMGBodyTypeValue;
-/*0x134*/ int                 BaneDMGRaceValue;
-/*0x138*/ int                 InstrumentType;
-/*0x13c*/ int                 InstrumentMod;
-/*0x140*/ int                 Classes;
-/*0x144*/ int                 Races;
-/*0x148*/ int                 Deity;
-/*0x14c*/ uint32_t            MaterialTintIndex;
-/*0x150*/ bool                Magic;
-/*0x151*/ uint8_t             Light;
-/*0x152*/ uint8_t             Delay;
-/*0x153*/ uint8_t             ElementalFlag;              // used to be called DmgBonusType;
-/*0x154*/ uint8_t             ElementalDamage;            // used to be called DmgBonusVal
-/*0x155*/ uint8_t             Range;
-/*0x158*/ int                 Damage;                     // BaseDamage
-/*0x15c*/ int                 BackstabDamage;
-/*0x160*/ int                 HeroicSTR;
-/*0x164*/ int                 HeroicINT;
-/*0x168*/ int                 HeroicWIS;
-/*0x16c*/ int                 HeroicAGI;
-/*0x170*/ int                 HeroicDEX;
-/*0x174*/ int                 HeroicSTA;
-/*0x178*/ int                 HeroicCHA;
-/*0x17c*/ int                 HealAmount;
-/*0x180*/ int                 SpellDamage;
-/*0x184*/ int                 MinLuck;
-/*0x188*/ int                 MaxLuck;
-/*0x18c*/ int                 Prestige;
-/*0x190*/ uint8_t             ItemClass;                  // eItemClass
-/*0x194*/ ArmorProperties     ArmorProps;
-/*0x1a8*/ ItemSocketData      AugData;
-/*0x1d8*/ int                 AugType;
-/*0x1dc*/ uint32_t            AugSkinTypeMask;
-/*0x1e0*/ int                 AugRestrictions;
-/*0x1e4*/ int                 SolventItemID;              // ID# of Solvent (Augs only)
-/*0x1e8*/ uint32_t            LDTheme;
-/*0x1ec*/ int                 LDCost;
-/*0x1f0*/ int                 LDType;
-/*0x1f4*/ int                 PointBuyBackPercent;
-/*0x1f8*/ int                 NeedAdventureCompleted;
-/*0x1fc*/ char                CharmFile[32];
-/*0x21c*/ float               MerchantGreedMod;
-/*0x220*/ ItemSpellData       SpellData;
-/*0x52c*/ int                 DmgBonusSkill;              // SkillMinDamageMod;
-/*0x530*/ int                 DmgBonusValue;              // MinDamageMod;
-/*0x534*/ int                 ScriptID;
-/*0x538*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
-/*0x53c*/ uint8_t             ContainerType;
-/*0x53d*/ uint8_t             Slots;
-/*0x53e*/ uint8_t             SizeCapacity;
-/*0x53f*/ uint8_t             WeightReduction;
-/*0x540*/ uint8_t             BookType;                   // 0=note, !0=book
-/*0x541*/ int8_t              BookLang;
-/*0x542*/ char                BookFile[30];
-/*0x560*/ int                 Favor;                      // Tribute Value
-/*0x564*/ int                 GuildFavor;
-/*0x568*/ bool                bIsFVNoDrop;
-/*0x56c*/ int                 Endurance;
-/*0x570*/ int                 Attack;
-/*0x574*/ int                 HPRegen;
-/*0x578*/ int                 ManaRegen;
-/*0x57c*/ int                 EnduranceRegen;
-/*0x580*/ int                 Haste;
-/*0x584*/ int                 AnimationOverride;
-/*0x588*/ int                 PaletteTintIndex;
-/*0x58c*/ bool                bNoPetGive;
-/*0x58d*/ bool                bSomeProfile;
-/*0x590*/ int                 StackSize;
-/*0x594*/ bool                bNoStorage;
-/*0x598*/ int                 MaxPower;
-/*0x59c*/ int                 Purity;
-/*0x5a0*/ int                 RightClickScriptID;
-/*0x5a4*/ int                 ItemLaunchScriptID;
-/*0x5a8*/ bool                QuestItem;
-/*0x5a9*/ bool                Expendable;
-/*0x5ac*/ int                 Clairvoyance;
-/*0x5b0*/ int                 SubClass;
-/*0x5b4*/ bool                bLoginRegReqItem;
-/*0x5b8*/ int                 Placeable;
-/*0x5bc*/ bool                bPlaceableIgnoreCollisions;
-/*0x5c0*/ int                 PlacementType;              // todo: this is an enum need to figure out.
-/*0x5c4*/ int                 RealEstateDefID;
-/*0x5c8*/ float               PlaceableScaleRangeMin;
-/*0x5cc*/ float               PlaceableScaleRangeMax;
-/*0x5d0*/ int                 RealEstateUpkeepID;
-/*0x5d4*/ int                 MaxPerRealEstate;
-/*0x5d8*/ char                HousepetFileName[32];
-/*0x5f8*/ int                 TrophyBenefitID;
-/*0x5fc*/ bool                bDisablePlacementRotation;
-/*0x5fd*/ bool                bDisableFreePlacement;
-/*0x600*/ int                 NpcRespawnInterval;
-/*0x604*/ float               PlaceableDefScale;
-/*0x608*/ float               PlaceableDefHeading;
-/*0x60c*/ float               PlaceableDefPitch;
-/*0x610*/ float               PlaceableDefRoll;
-/*0x614*/ bool                bInteractiveObject;
-/*0x615*/ uint8_t             SocketSubClassCount;
-/*0x618*/ int                 SocketSubClass[10];
-/*0x640*/
+/*0x0b0*/ char                IDFile[30];
+/*0x0ce*/ char                IDFile2[30];
+/*0x0ec*/ int                 ItemNumber;                        // recordnum
+/*0x0f0*/ int                 EquipSlots;                        // its position, where it can be equipped
+/*0x0f4*/ int                 Cost;
+/*0x0f8*/ int                 IconNumber;
+/*0x0fc*/ uint8_t             eGMRequirement;                    // this is an unmapped enum
+/*0x0fd*/ bool                bPoofOnDeath;
+/*0x100*/ int                 Weight;
+/*0x104*/ bool                NoRent;                            // 0=temp, 1=default
+/*0x105*/ bool                IsDroppable;                       // 0=no drop, 1=can drop
+/*0x106*/ bool                Attuneable;
+/*0x107*/ bool                Heirloom;
+/*0x108*/ bool                Collectible;
+/*0x109*/ bool                NoDestroy;
+/*0x10a*/ bool                bNoNPC;
+/*0x10b*/ bool                NoZone;
+/*0x10c*/ int                 MakerID;
+/*0x110*/ bool                NoGround;
+/*0x111*/ bool                bNoLoot;
+/*0x112*/ bool                MarketPlace;
+/*0x113*/ bool                bFreeSlot;
+/*0x114*/ bool                bAutoUse;
+/*0x118*/ int                 Unknown0x0e4;
+/*0x11c*/ uint8_t             Size;
+/*0x11d*/ uint8_t             Type;
+/*0x11e*/ bool                TradeSkills;
+/*0x120*/ int                 Lore;                              // -1=Lore 0=Not Lore >=1=Lore Group
+/*0x124*/ int                 LoreEquipped;                      // check me
+/*0x128*/ bool                Artifact;
+/*0x129*/ bool                Summoned;
+/*0x12a*/ char                SvCold;
+/*0x12b*/ char                SvFire;
+/*0x12c*/ char                SvMagic;
+/*0x12d*/ char                SvDisease;
+/*0x12e*/ char                SvPoison;
+/*0x12f*/ char                SvCorruption;
+/*0x130*/ char                STR;
+/*0x131*/ char                STA;
+/*0x132*/ char                AGI;
+/*0x133*/ char                DEX;
+/*0x134*/ char                CHA;
+/*0x135*/ char                INT;
+/*0x136*/ char                WIS;
+/*0x138*/ int                 HP;
+/*0x13c*/ int                 Mana;
+/*0x140*/ int                 AC;
+/*0x144*/ int                 RequiredLevel;
+/*0x148*/ int                 RecommendedLevel;
+/*0x14c*/ int                 SkillModType;
+/*0x150*/ int                 SkillModValue;
+/*0x154*/ int                 SkillModMax;
+/*0x158*/ int                 SkillModBonus;
+/*0x15c*/ int                 BaneDMGRace;
+/*0x160*/ int                 BaneDMGBodyType;
+/*0x164*/ int                 BaneDMGBodyTypeValue;
+/*0x168*/ int                 BaneDMGRaceValue;
+/*0x16c*/ int                 InstrumentType;
+/*0x170*/ int                 InstrumentMod;
+/*0x174*/ int                 Classes;
+/*0x178*/ int                 Races;
+/*0x17c*/ int                 Deity;
+/*0x180*/ uint32_t            MaterialTintIndex;
+/*0x184*/ bool                Magic;
+/*0x185*/ uint8_t             Light;
+/*0x186*/ uint8_t             Delay;
+/*0x187*/ uint8_t             ElementalFlag;              // used to be called DmgBonusType;
+/*0x188*/ uint8_t             ElementalDamage;            // used to be called DmgBonusVal
+/*0x189*/ uint8_t             Range;
+/*0x18c*/ int                 Damage;                     // BaseDamage
+/*0x190*/ int                 BackstabDamage;
+/*0x194*/ int                 HeroicSTR;
+/*0x198*/ int                 HeroicINT;
+/*0x19c*/ int                 HeroicWIS;
+/*0x1a0*/ int                 HeroicAGI;
+/*0x1a4*/ int                 HeroicDEX;
+/*0x1a8*/ int                 HeroicSTA;
+/*0x1ac*/ int                 HeroicCHA;
+/*0x1b0*/ int                 HealAmount;
+/*0x1b4*/ int                 SpellDamage;
+/*0x1b8*/ int                 MinLuck;
+/*0x1bc*/ int                 MaxLuck;
+/*0x1c0*/ int                 Prestige;
+/*0x1c4*/ uint8_t             ItemClass;                  // eItemClass
+/*0x1c8*/ ArmorProperties     ArmorProps;
+/*0x1dc*/ ItemSocketData      AugData;
+/*0x20c*/ int                 AugType;
+/*0x210*/ uint32_t            AugSkinTypeMask;
+/*0x214*/ int                 AugRestrictions;
+/*0x218*/ int                 SolventItemID;              // ID# of Solvent (Augs only)
+/*0x21c*/ uint32_t            LDTheme;
+/*0x220*/ int                 LDCost;
+/*0x224*/ int                 LDType;
+/*0x228*/ int                 PointBuyBackPercent;
+/*0x22c*/ int                 NeedAdventureCompleted;
+/*0x230*/ char                CharmFile[32];
+/*0x250*/ float               MerchantGreedMod;
+/*0x254*/ ItemSpellData       SpellData;
+/*0x560*/ int                 DmgBonusSkill;              // SkillMinDamageMod;
+/*0x564*/ int                 DmgBonusValue;              // MinDamageMod;
+/*0x568*/ int                 ScriptID;
+/*0x56c*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
+/*0x570*/ uint8_t             ContainerType;
+/*0x571*/ uint8_t             Slots;
+/*0x572*/ uint8_t             SizeCapacity;
+/*0x573*/ uint8_t             WeightReduction;
+/*0x574*/ uint8_t             BookType;                   // 0=note, !0=book
+/*0x575*/ int8_t              BookLang;
+/*0x576*/ char                BookFile[30];
+/*0x594*/ int                 Favor;                      // Tribute Value
+/*0x598*/ int                 GuildFavor;
+/*0x59c*/ bool                bIsFVNoDrop;
+/*0x5a0*/ int                 Endurance;
+/*0x5a4*/ int                 Attack;
+/*0x5a8*/ int                 HPRegen;
+/*0x5ac*/ int                 ManaRegen;
+/*0x5b0*/ int                 EnduranceRegen;
+/*0x5b4*/ int                 Haste;
+/*0x5b8*/ int                 AnimationOverride;
+/*0x5bc*/ int                 PaletteTintIndex;
+/*0x5c0*/ bool                bNoPetGive;
+/*0x5c1*/ bool                bSomeProfile;
+/*0x5c4*/ int                 StackSize;
+/*0x5c8*/ bool                bNoStorage;
+/*0x5cc*/ int                 MaxPower;
+/*0x5d0*/ int                 Purity;
+/*0x5d4*/ int                 RightClickScriptID;
+/*0x5d8*/ int                 ItemLaunchScriptID;
+/*0x5dc*/ bool                QuestItem;
+/*0x5dd*/ bool                Expendable;
+/*0x5e0*/ int                 Clairvoyance;
+/*0x5e4*/ int                 SubClass;
+/*0x5e8*/ bool                bLoginRegReqItem;
+/*0x5ec*/ int                 Placeable;
+/*0x5f0*/ bool                bPlaceableIgnoreCollisions;
+/*0x5f4*/ int                 PlacementType;              // todo: this is an enum need to figure out.
+/*0x5f8*/ int                 RealEstateDefID;
+/*0x5fc*/ float               PlaceableScaleRangeMin;
+/*0x600*/ float               PlaceableScaleRangeMax;
+/*0x604*/ int                 RealEstateUpkeepID;
+/*0x608*/ int                 MaxPerRealEstate;
+/*0x60c*/ char                HousepetFileName[32];
+/*0x62c*/ int                 TrophyBenefitID;
+/*0x630*/ bool                bDisablePlacementRotation;
+/*0x631*/ bool                bDisableFreePlacement;
+/*0x634*/ int                 NpcRespawnInterval;
+/*0x638*/ float               PlaceableDefScale;
+/*0x63c*/ float               PlaceableDefHeading;
+/*0x640*/ float               PlaceableDefPitch;
+/*0x644*/ float               PlaceableDefRoll;
+/*0x648*/ bool                bInteractiveObject;
+/*0x649*/ uint8_t             SocketSubClassCount;
+/*0x64c*/ int                 SocketSubClass[10];
+/*0x674*/
 
 	EQLIB_OBJECT ItemDefinition();
 
@@ -1206,47 +1206,46 @@ class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildIt
 {
 public:
 // @start: ItemBase Members
-/*0x018*/ int                   OrnamentationIcon;
-/*0x01c*/ bool                  bCollected;
-/*0x020*/ int                   StackCount;
-/*0x024*/ int                   ActorTag2;
-/*0x028*/ unsigned int          Tint;
-/*0x030*/ CXStr                 ConvertItemName;
-/*0x038*/ int                   NoteStatus;
-/*0x040*/ ItemContainer         Contents;
-/*0x068*/ int64_t               Price;
-/*0x070*/ int                   ConvertItemID;
-/*0x074*/ int                   ScriptIndex;
-/*0x078*/ int                   ActorTag1;
-/*0x07c*/ unsigned int          NewArmorID;
-/*0x080*/ int                   ID;
-/*0x084*/ EqItemGuid            ItemGUID;
-/*0x098*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x0b0*/ int                   Open;
-/*0x0b4*/ int                   Luck;
-/*0x0b8*/ int                   MerchantQuantity;
-/*0x0bc*/ int                   Power;
-/*0x0c0*/ int                   ArmorType;
-/*0x0c4*/ bool                  bCopied;
-/*0x0c8*/ int64_t               MerchantSlot;
-/*0x0d0*/ bool                  bRankDisabled;
-/*0x0d4*/ int                   Charges;
-/*0x0d8*/ bool                  bRealEstateItemPlaceable;
-/*0x0e0*/ ITEMINFO*             Item1;
-/*0x0e8*/ int                   RealEstateID;
-/*0x0f0*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x100*/ bool                  bConvertable;
-/*0x108*/ SoeUtil::String       SaveString;
-/*0x120*/ bool                  bItemNeedsUpdate;
-/*0x121*/ bool                  bDisableAugTexture;
-/*0x124*/ int                   AugFlag;
-/*0x128*/ unsigned int          LastCastTime;
-/*0x130*/ int64_t               DontKnow;
-/*0x138*/ unsigned int          RespawnTime;
-/*0x13c*/ ItemGlobalIndex       GlobalIndex;
-/*0x148*/ unsigned int          ItemHash;
-/*0x14c*/ int                   NoDropFlag;
-/*0x150*/
+/*0x0c*/ int                   MerchantQuantity;
+/*0x10*/ unsigned int          Tint;
+/*0x14*/ EqItemGuid            ItemGUID;
+/*0x26*/ bool                  bRealEstateItemPlaceable;
+/*0x28*/ int                   NoteStatus;
+/*0x2c*/ int                   ConvertItemID;
+/*0x30*/ unsigned int          NewArmorID;
+/*0x34*/ CXStr                 SaveString;
+/*0x38*/ bool                  bItemNeedsUpdate;
+/*0x3c*/ int                   RealEstateID;
+/*0x40*/ int64_t               MerchantSlot;
+/*0x48*/ int                   StackCount;
+/*0x50*/ int64_t               Price;
+/*0x58*/ int                   AugFlag;
+/*0x60*/ int64_t               DontKnow;
+/*0x68*/ int                   Charges;
+/*0x6c*/ CXStr                 ConvertItemName;
+/*0x70*/ int                   NoDropFlag;
+/*0x74*/ bool                  bDisableAugTexture;
+/*0x78*/ int                   ArmorType;
+/*0x7c*/ int                   Open;
+/*0x80*/ ITEMINFO*             Item1;
+/*0x84*/ int                   ActorTag2;
+/*0x88*/ ItemEvolutionDataPtr  pEvolutionData;
+/*0x90*/ bool                  bConvertable;
+/*0x94*/ int                   ScriptIndex;
+/*0x98*/ int64_t               Unknown1;
+/*0xa0*/ unsigned int          ItemHash;
+/*0xa4*/ int                   OrnamentationIcon;
+/*0xa8*/ unsigned int          LastCastTime;
+/*0xac*/ int                   ID;
+/*0xb0*/ bool                  bRankDisabled;
+/*0xb4*/ int                   ActorTag1;
+/*0xb8*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0xc8*/ ItemContainer         Contents;
+/*0xe4*/ bool                  bCollected;
+/*0xe8*/ ItemGlobalIndex       GlobalIndex;
+/*0xf4*/ int                   Power;
+/*0xf8*/ int                   Luck;
+/*0xfc*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT ItemBase();
@@ -1387,8 +1386,8 @@ public:
 	__declspec(property(get = get_Item2)) ItemDefinition* Item2;
 };
 
-// @sizeof(ItemClient) == 0x168 :: 2022-06-13 (live) @ 0x140260a6a
-constexpr size_t ItemClient_size = 0x168;
+// @sizeof(ItemClient) == 0x150 :: 2022-03-03 (live) @ 0x1402e0bda
+constexpr size_t ItemClient_size = 0x150;
 
 class [[offsetcomments]] ItemClient : public ItemBase
 {
@@ -1400,9 +1399,9 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
-/*0x150*/ ItemDefinitionPtr SharedItemDef;
-/*0x160*/ CXStr             ClientString;
-/*0x168*/
+/*0x100*/ ItemDefinitionPtr SharedItemDef;
+/*0x108*/ CXStr             ClientString;
+/*0x10c*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);
@@ -1416,32 +1415,32 @@ using EQ_Item DEPRECATE("Use ItemClient instead (or make sure the conversion is 
 // 20101012 - ieatacid
 struct [[offsetcomments]] INVENTORY
 {
-/*0x000*/ ItemClient* Charm;
-/*0x008*/ ItemClient* LeftEar;
-/*0x010*/ ItemClient* Head;
-/*0x018*/ ItemClient* Face;
-/*0x020*/ ItemClient* RightEar;
-/*0x028*/ ItemClient* Neck;
-/*0x030*/ ItemClient* Shoulders;
-/*0x038*/ ItemClient* Arms;
-/*0x040*/ ItemClient* Back;
-/*0x048*/ ItemClient* LeftWrist;
-/*0x050*/ ItemClient* RightWrist;
-/*0x058*/ ItemClient* Range;
-/*0x060*/ ItemClient* Hands;
-/*0x068*/ ItemClient* Primary;
-/*0x070*/ ItemClient* Secondary;
-/*0x078*/ ItemClient* LeftFinger;
-/*0x080*/ ItemClient* RightFinger;
-/*0x088*/ ItemClient* Chest;
-/*0x090*/ ItemClient* Legs;
-/*0x098*/ ItemClient* Feet;
-/*0x0a0*/ ItemClient* Waist;
-/*0x0a8*/ ItemClient* PowerSource;
-/*0x0b0*/ ItemClient* Ammo;
-/*0x0b8*/ ItemClient* Pack[NUM_BAG_SLOTS];
-/*0x118*/ ItemClient* Cursor;
-/*0x120*/
+/*0x00*/ ItemClient* Charm;
+/*0x04*/ ItemClient* LeftEar;
+/*0x08*/ ItemClient* Head;
+/*0x0c*/ ItemClient* Face;
+/*0x10*/ ItemClient* RightEar;
+/*0x14*/ ItemClient* Neck;
+/*0x18*/ ItemClient* Shoulders;
+/*0x1c*/ ItemClient* Arms;
+/*0x20*/ ItemClient* Back;
+/*0x24*/ ItemClient* LeftWrist;
+/*0x28*/ ItemClient* RightWrist;
+/*0x2c*/ ItemClient* Range;
+/*0x30*/ ItemClient* Hands;
+/*0x34*/ ItemClient* Primary;
+/*0x38*/ ItemClient* Secondary;
+/*0x3c*/ ItemClient* LeftFinger;
+/*0x40*/ ItemClient* RightFinger;
+/*0x44*/ ItemClient* Chest;
+/*0x48*/ ItemClient* Legs;
+/*0x4c*/ ItemClient* Feet;
+/*0x50*/ ItemClient* Waist;
+/*0x54*/ ItemClient* PowerSource;
+/*0x58*/ ItemClient* Ammo;
+/*0x5c*/ ItemClient* Pack[NUM_BAG_SLOTS];
+/*0x84*/ ItemClient* Cursor;
+/*0x88*/
 };
 
 using PINVENTORY DEPRECATE("Use INVENTORY* instead of PINVENTORY") = INVENTORY*;

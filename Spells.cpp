@@ -256,7 +256,7 @@ int ClientSpellManager::GetSpellStackingGroupRank(int) { return 0; }
 ESpellStackingRules ClientSpellManager::GetSpellStackingGroupRule(int) { return ESSR_None; }
 SpellAffectData* ClientSpellManager::GetSpellAffect(int) { return nullptr; }
 EQ_Spell* ClientSpellManager::GetSpellByID(int) { return nullptr; }
-bool ClientSpellManager::GetSpellAffectEmpty(bool) { return false; }
+SpellAffectData* ClientSpellManager::GetSpellAffectEmpty(bool) { return nullptr; }
 
 //============================================================================
 // Misc
