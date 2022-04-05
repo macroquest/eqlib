@@ -85,7 +85,8 @@ class ArrayClass2 : public CDynamicArrayBase
 /*0x0c*/ int m_binShift;
 /*0x10*/ T** m_array;
 /*0x14*/ int m_binCount;
-/*0x18*/
+/*0x18*/ bool m_valid;
+/*0x1c*/
 
 public:
 	using value_type = T;
@@ -105,6 +106,7 @@ public:
 		m_array = nullptr;
 		m_length = 0;
 		m_binCount = 0;
+		m_valid = true;
 	}
 
 	ArrayClass2(const ArrayClass2& rhs) : ArrayClass2()
@@ -1961,7 +1963,8 @@ public:
 /*0x18*/ int ChunkShift;
 /*0x1C*/ ET** Chunks;
 /*0x20*/ int ChunkAlloc;
-/*0x24*/
+/*0x24*/ bool bValid;
+/*0x28*/
 };
 
 // we dont need a fully implemented version. this does the job just fine

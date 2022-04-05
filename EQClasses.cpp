@@ -217,6 +217,7 @@ FUNCTION_AT_ADDRESS(const char*, CDBStr::GetString(int, eDatabaseStringType type
 //============================================================================
 // CDistillerInfo
 //============================================================================
+#if defined(CDistillerInfo__Instance_x)
 
 #ifdef CDistillerInfo__GetIDFromRecordNum_x
 FUNCTION_AT_ADDRESS(int, CDistillerInfo::GetIDFromRecordNum(int ID, bool bWhat), CDistillerInfo__GetIDFromRecordNum);
@@ -224,6 +225,8 @@ FUNCTION_AT_ADDRESS(int, CDistillerInfo::GetIDFromRecordNum(int ID, bool bWhat),
 #ifdef CDistillerInfo__Instance_x
 FUNCTION_AT_ADDRESS(CDistillerInfo&, CDistillerInfo::Instance(), CDistillerInfo__Instance);
 #endif
+
+#endif // defined(CDistillerInfo__Instance_x)
 
 //============================================================================
 // CGuild
@@ -1265,6 +1268,10 @@ FUNCTION_AT_ADDRESS(bool, KeyCombo::GetScanCodeFromVirtualKey(unsigned int, unsi
 FUNCTION_AT_ADDRESS(bool, KeyCombo::GetPrintableLetterFromVirtualKey(unsigned int, unsigned int, bool, bool, unsigned short*) const, KeyCombo__GetPrintableLetterFromVirtualKey);
 #endif
 
+#if defined(KeyCombo__GetTextDescription_x) && !defined(_M_AMD64)
+FUNCTION_AT_ADDRESS(CXStr, KeyCombo::GetTextDescription() const, KeyCombo__GetTextDescription);
+#endif
+
 //============================================================================
 // KeypressHandler
 //============================================================================
@@ -1341,6 +1348,8 @@ FUNCTION_AT_ADDRESS(bool, LootFiltersManager::SetItemLootFilter(int, int, const 
 //============================================================================
 // MercenaryAlternateAdvancementManagerClient
 //============================================================================
+
+#if HAS_MERCENARY_AA
 
 const char* MercenaryAbilitiesData::GetNameString() const
 {
@@ -1531,6 +1540,8 @@ bool MercenaryAlternateAdvancementManagerClient::CanTrainAbility(int abilityId) 
 
 FUNCTION_AT_ADDRESS(MercenaryAlternateAdvancementManagerClient&, MercenaryAlternateAdvancementManagerClient::Instance(), MercenaryAlternateAdvancementManagerClient__Instance);
 FUNCTION_AT_ADDRESS(void, MercenaryAlternateAdvancementManagerClient::BuyAbility(int abilityId, bool trainAll, bool unk), MercenaryAlternateAdvancementManagerClient__BuyAbility);
+
+#endif // HAS_MERCENARY_AA
 
 //============================================================================
 // Mp3Manager

@@ -429,6 +429,7 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_NPC_SPEECH                     343 // 88 - npc dialogue
 #define USERCOLOR_NPC_SPEECH_TO_YOU              344 // 89 - npc dialogue to you
 #define USERCOLOR_GUILD_MSG                      345 // 90 - guild messages
+#if IS_EXPANSION_LEVEL(EXPANSION_LEVEL_ROF + 1)
 #define USERCOLOR_MERCENARY_GRP                  346 // 91 - mercenary tells group
 #define USERCOLOR_ACHIEVEMENT                    347 // 92 - Achievement Links
 #define USERCOLOR_ACHIEVEMENT_EMOTE              348 // 93 - Emote achievement messages
@@ -469,6 +470,7 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_DISCIPLINES_OTHER              383 // 128 - Combat Abilities / Disciplines (Others)
 #define USERCOLOR_ITEM_STAT_POSITIVE             384 // 129 - Item Stat Positive
 #define USERCOLOR_ITEM_STAT_NEGATIVE             385 // 130 - Item Stat Negative
+#endif
 
 constexpr int NUM_CHAT_FILTERS = 59;
 constexpr int NUM_CHAT_COLORFILTERS = 143;
@@ -553,15 +555,15 @@ constexpr int NUM_HOTBUTTON_PAGES = 10;
 constexpr int HOTBUTTONS_PER_PAGE = 12;
 
 // KeypressHandler__HandleKeyUp_x has this one
-constexpr int nEQMappableCommands = 546;
+constexpr int nEQMappableCommands = 500;
 
 // found using __BindList_x
 constexpr int nNormalEQMappableCommands = nEQMappableCommands - 22;
 
-constexpr int MAX_PC_LEVEL = 120;
+constexpr int MAX_PC_LEVEL = 105;
 constexpr int MAX_NPC_LEVEL = 200;
 constexpr int MAX_SPELL_LEVEL = 255;
-constexpr int NUM_SPELL_GEMS = 14;
+constexpr int NUM_SPELL_GEMS = 12;
 constexpr int NUM_SPELL_SETS = 30;
 
 constexpr int NUM_HOTBUTTON_SETS = 100;
@@ -569,7 +571,7 @@ constexpr int NUM_GROUP_ROLE_SETS = 10;
 constexpr int NUM_XTARGET_SETS = 10;
 
 constexpr int NUM_RACES = 17;
-constexpr int NUM_BLOCKED_BUFFS = 40;
+constexpr int NUM_BLOCKED_BUFFS = 30;
 
 // The number of lbuffs that are displayable in the buffs window. Also used to
 // hold these buffs in the profile.

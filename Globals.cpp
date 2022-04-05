@@ -76,7 +76,7 @@ DIKEYID gDiKeyID[] = {
 
 const char* gDiKeyName[256];
 
-ServerID ServerIDArray[ServerID::NumServers] = {
+ServerID ServerIDArray[(int)ServerID::NumServers] = {
 	ServerID::Test,
 	ServerID::Antonius,
 	ServerID::Bertox,
@@ -183,6 +183,7 @@ const char* szExpansions[NUM_EXPANSIONS + 1] = {
 	"House of Thule",
 	"Veil of Alaris",
 	"Rain of Fear",
+#if IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF)
 	"Call of the Forsaken",
 	"The Darkened Sea",
 	"The Broken Mirror",
@@ -191,6 +192,7 @@ const char* szExpansions[NUM_EXPANSIONS + 1] = {
 	"The Burning Lands",
 	"Torment of Velious",
 	"Claws of Veeshan",
+#endif
 #if IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
 	"Terror of Luclin",
 #endif
@@ -208,7 +210,11 @@ static_assert(lengthof(szExpansions) - 1 == NUM_EXPANSIONS,
 //
 // eqgame.exe Offsets
 
+#if defined(__ActualVersionBuild_x)
 INITIALIZE_EQGAME_OFFSET(__ActualVersionBuild);
+#else
+
+#endif
 INITIALIZE_EQGAME_OFFSET(__ActualVersionDate);
 INITIALIZE_EQGAME_OFFSET(__ActualVersionTime);
 INITIALIZE_EQGAME_OFFSET(__BindList);
@@ -229,7 +235,9 @@ INITIALIZE_EQGAME_OFFSET(__ScreenMode);
 INITIALIZE_EQGAME_OFFSET(__ServerHost);
 INITIALIZE_EQGAME_OFFSET(__SubscriptionType);
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRate);
+#if defined(__ThrottleFrameRateEnd_x)
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRateEnd);
+#endif
 INITIALIZE_EQGAME_OFFSET(EQObject_Top);
 INITIALIZE_EQGAME_OFFSET(g_eqCommandStates);
 INITIALIZE_EQGAME_OFFSET(instCRaid);
@@ -265,12 +273,18 @@ INITIALIZE_EQGAME_OFFSET(pinstDZMember);
 INITIALIZE_EQGAME_OFFSET(pinstDZTimerInfo);
 INITIALIZE_EQGAME_OFFSET(pinstEqLogin);
 INITIALIZE_EQGAME_OFFSET(pinstEQSoundManager);
+#if defined(pinstEQSpellStrings_x)
 INITIALIZE_EQGAME_OFFSET(pinstEQSpellStrings);
+#endif
 INITIALIZE_EQGAME_OFFSET(pinstEQSuiteTextureLoader);
 INITIALIZE_EQGAME_OFFSET(pinstEverQuestInfo);
 INITIALIZE_EQGAME_OFFSET(pinstItemIconCache);
+#if defined(pinstKeypressHandler_x)
+INITIALIZE_EQGAME_OFFSET(pinstKeypressHandler);
+#endif
 INITIALIZE_EQGAME_OFFSET(pinstLocalPC);
 INITIALIZE_EQGAME_OFFSET(pinstLocalPlayer);
+INITIALIZE_EQGAME_OFFSET(pinstMercenaryStats);
 INITIALIZE_EQGAME_OFFSET(pinstModelPlayer);
 INITIALIZE_EQGAME_OFFSET(pinstRenderInterface);
 INITIALIZE_EQGAME_OFFSET(pinstPlayerPath);
@@ -290,7 +304,9 @@ INITIALIZE_EQGAME_OFFSET(pinstWorldData);
 
 INITIALIZE_EQGAME_OFFSET(__MemChecker0);
 INITIALIZE_EQGAME_OFFSET(__MemChecker1);
+#if defined(__MemChecker4_x)
 INITIALIZE_EQGAME_OFFSET(__MemChecker4);
+#endif
 INITIALIZE_EQGAME_OFFSET(__EncryptPad0);
 INITIALIZE_EQGAME_OFFSET(DI8__Main);
 INITIALIZE_EQGAME_OFFSET(DI8__Keyboard);
@@ -337,12 +353,16 @@ INITIALIZE_EQGAME_OFFSET(AltAdvManager__IsAbilityReady);
 INITIALIZE_EQGAME_OFFSET(CAAWnd__ShowAbility);
 INITIALIZE_EQGAME_OFFSET(CAAWnd__Update);
 INITIALIZE_EQGAME_OFFSET(CAAWnd__UpdateSelected);
+#if HAS_ADVANCED_LOOT
 INITIALIZE_EQGAME_OFFSET(CAdvancedLootWnd__AddPlayerToList);
 INITIALIZE_EQGAME_OFFSET(CAdvancedLootWnd__DoAdvLootAction);
 INITIALIZE_EQGAME_OFFSET(CAdvancedLootWnd__DoSharedAdvLootAction);
 INITIALIZE_EQGAME_OFFSET(CAdvancedLootWnd__UpdateMasterLooter);
+#endif
+#if HAS_MERCENARY_AA
 INITIALIZE_EQGAME_OFFSET(CAltAbilityData__GetMercCurrentRank);
 INITIALIZE_EQGAME_OFFSET(CAltAbilityData__GetMercMaxRank);
+#endif
 INITIALIZE_EQGAME_OFFSET(CBankWnd__WndNotification);
 INITIALIZE_EQGAME_OFFSET(CBarterSearchWnd__UpdateInventoryList);
 INITIALIZE_EQGAME_OFFSET(CBarterSearchWnd__WndNotification);
@@ -377,7 +397,6 @@ INITIALIZE_EQGAME_OFFSET(CComboWnd__GetCurChoiceText);
 INITIALIZE_EQGAME_OFFSET(CComboWnd__GetItemCount);
 INITIALIZE_EQGAME_OFFSET(CComboWnd__GetListRect);
 INITIALIZE_EQGAME_OFFSET(CComboWnd__InsertChoice);
-INITIALIZE_EQGAME_OFFSET(CComboWnd__InsertChoiceAtIndex);
 INITIALIZE_EQGAME_OFFSET(CComboWnd__SetChoice);
 INITIALIZE_EQGAME_OFFSET(CComboWnd__SetColors);
 INITIALIZE_EQGAME_OFFSET(CContainerMgr__CloseContainer);
@@ -415,8 +434,10 @@ INITIALIZE_EQGAME_OFFSET(CDisplay__ToggleScreenshotMode);
 INITIALIZE_EQGAME_OFFSET(CDisplay__TrueDistance);
 INITIALIZE_EQGAME_OFFSET(CDisplay__WriteTextHD2);
 INITIALIZE_EQGAME_OFFSET(CDisplay__ZoneMainUI);
+#if defined(CDistillerInfo__Instance_x) // FIXME: emulator
 INITIALIZE_EQGAME_OFFSET(CDistillerInfo__GetIDFromRecordNum);
 INITIALIZE_EQGAME_OFFSET(CDistillerInfo__Instance);
+#endif
 INITIALIZE_EQGAME_OFFSET(CEditBaseWnd__SetSel);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__DrawCaret);
 INITIALIZE_EQGAME_OFFSET(CEditWnd__EnsureCaretVisible);
@@ -453,16 +474,20 @@ INITIALIZE_EQGAME_OFFSET(CEverQuest__IssuePetCommand);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__LeftClickedOnPlayer);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__LMouseUp);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__OutputTextToLog);
+#if defined(CEverQuest__ReportSuccessfulHeal_x)
 INITIALIZE_EQGAME_OFFSET(CEverQuest__ReportSuccessfulHeal);
+#endif
 INITIALIZE_EQGAME_OFFSET(CEverQuest__ReportSuccessfulHit);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__RightClickedOnPlayer);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__RMouseUp);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__SetGameState);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__trimName);
 INITIALIZE_EQGAME_OFFSET(CEverQuest__UPCNotificationFlush);
+#if HAS_FIND_ITEM_WINDOW
 INITIALIZE_EQGAME_OFFSET(CFindItemWnd__PickupSelectedItem);
 INITIALIZE_EQGAME_OFFSET(CFindItemWnd__Update);
 INITIALIZE_EQGAME_OFFSET(CFindItemWnd__WndNotification);
+#endif
 INITIALIZE_EQGAME_OFFSET(CGaugeWnd__Draw);
 INITIALIZE_EQGAME_OFFSET(CGroupWnd__UpdateDisplay);
 INITIALIZE_EQGAME_OFFSET(CGroupWnd__WndNotification);
@@ -484,12 +509,18 @@ INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__FindAffectSlot);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetAdjustedSkill);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetBaseSkill);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetCastingTimeModifier);
+#if defined(CharacterZoneClient__GetCurrentMod_x)
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetCurrentMod);
+#endif
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetCursorItemCount);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetEnduranceRegen);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetFirstEffectSlot);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetFocusCastingTimeModifier);
+#if defined(CharacterZoneClient__GetFocusDurationMod_x)
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetFocusDurationMod);
+#endif
+INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetFocusRangeModifier);
+INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetFocusReuseMod);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetHPRegen);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetItemCountInInventory);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetItemCountWorn);
@@ -498,7 +529,9 @@ INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetManaRegen);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetMaxEffects);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetModCap);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetOpenEffectSlot);
+#if defined(CharacterZoneClient__GetPctModAndMin_x)
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetPctModAndMin);
+#endif
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetPCSpellAffect);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__HasSkill);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__IsStackBlocked);
@@ -511,7 +544,9 @@ INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__RemovePCAffectex);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__SpellDuration);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__TotalEffect);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__UseSkill);
+#if defined(ChatManagerClient__Instance_x)
 INITIALIZE_EQGAME_OFFSET(ChatManagerClient__Instance);
+#endif
 INITIALIZE_EQGAME_OFFSET(CHelpWnd__SetFile);
 INITIALIZE_EQGAME_OFFSET(CHotButton__SetButtonSize);
 INITIALIZE_EQGAME_OFFSET(CHotButton__SetCheck);
@@ -528,10 +563,14 @@ INITIALIZE_EQGAME_OFFSET(CInvSlotWnd__HandleLButtonUp);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayManager__CreateWindowInstance);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__InsertAugmentRequest);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__RemoveAugmentRequest);
+#if HAS_ITEM_CONVERT_BUTTON
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__RequestConvertItem);
+#endif
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__SetItem);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__UpdateStrings);
+#if HAS_KEYRING_WINDOW
 INITIALIZE_EQGAME_OFFSET(CKeyRingWnd__ExecuteRightClick);
+#endif
 INITIALIZE_EQGAME_OFFSET(CLabel__UpdateText);
 INITIALIZE_EQGAME_OFFSET(CLargeDialogWnd__Open);
 INITIALIZE_EQGAME_OFFSET(ClientSOIManager__GetSingleton);
@@ -596,7 +635,9 @@ INITIALIZE_EQGAME_OFFSET(CMerchantWnd__SelectBuySellSlot);
 INITIALIZE_EQGAME_OFFSET(COptionsWnd__FillChatFilterList);
 INITIALIZE_EQGAME_OFFSET(CPacketScrambler__hton);
 INITIALIZE_EQGAME_OFFSET(CPacketScrambler__ntoh);
+#if HAS_TABBED_CHAT
 INITIALIZE_EQGAME_OFFSET(CPageWnd__FlashTab);
+#endif
 INITIALIZE_EQGAME_OFFSET(CPageWnd__SetTabText);
 INITIALIZE_EQGAME_OFFSET(CQuantityWnd__Open);
 INITIALIZE_EQGAME_OFFSET(CResolutionHandler__GetWindowedStyle);
@@ -722,10 +763,11 @@ INITIALIZE_EQGAME_OFFSET(CXWndManager__RemoveWnd);
 INITIALIZE_EQGAME_OFFSET(DrawNetStatus);
 INITIALIZE_EQGAME_OFFSET(EQ_LoadingS__Array);
 INITIALIZE_EQGAME_OFFSET(EQ_LoadingS__SetProgressBar);
-INITIALIZE_EQGAME_OFFSET(EQ_Spell__GetSpellAffectByIndex);
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__GetSpellAffectBySlot);
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__GetSpellLevelNeeded);
+#if defined(EQ_Spell__IsDegeneratingLevelMod_x)
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__IsDegeneratingLevelMod);
+#endif
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__IsSPAIgnoredByStacking);
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__IsSPAStacking);
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__SpellAffectBase);
@@ -742,10 +784,14 @@ INITIALIZE_EQGAME_OFFSET(EqSoundManager__PlayScriptMp3);
 INITIALIZE_EQGAME_OFFSET(EqSoundManager__SoundAssistPlay);
 INITIALIZE_EQGAME_OFFSET(EqSoundManager__WaveInstancePlay);
 INITIALIZE_EQGAME_OFFSET(EqSoundManager__WavePlay);
+#if defined(pinstEQSpellStrings_x) // FIXME: Added 2018-02-21
 INITIALIZE_EQGAME_OFFSET(EQSpellStrings__GetString);
+#endif
 INITIALIZE_EQGAME_OFFSET(EQSwitch__UseSwitch);
+#if HAS_FACTION_WINDOW
 INITIALIZE_EQGAME_OFFSET(FactionManagerClient__HandleFactionMessage);
 INITIALIZE_EQGAME_OFFSET(FactionManagerClient__Instance);
+#endif
 INITIALIZE_EQGAME_OFFSET(FreeTargetTracker__CastSpell);
 INITIALIZE_EQGAME_OFFSET(IconCache__GetIcon);
 INITIALIZE_EQGAME_OFFSET(ItemBase__CanGemFitInSlot);
@@ -753,9 +799,13 @@ INITIALIZE_EQGAME_OFFSET(ItemBase__CreateItemTagString);
 INITIALIZE_EQGAME_OFFSET(ItemBase__GetImageNum);
 INITIALIZE_EQGAME_OFFSET(ItemBase__GetItemValue);
 INITIALIZE_EQGAME_OFFSET(ItemBase__IsEmpty);
+#if HAS_KEYRING_WINDOW
 INITIALIZE_EQGAME_OFFSET(ItemBase__IsKeyRingItem);
+#endif
 INITIALIZE_EQGAME_OFFSET(ItemBase__IsLore);
+#if HAS_LORE_EQUIPPED
 INITIALIZE_EQGAME_OFFSET(ItemBase__IsLoreEquipped);
+#endif
 INITIALIZE_EQGAME_OFFSET(ItemBase__ValueSellMerchant);
 INITIALIZE_EQGAME_OFFSET(ItemClient__CanDrop);
 INITIALIZE_EQGAME_OFFSET(ItemClient__CanGoInBag);
@@ -765,19 +815,25 @@ INITIALIZE_EQGAME_OFFSET(KeyCombo__GetTextDescription);
 INITIALIZE_EQGAME_OFFSET(KeypressHandler__AttachAltKeyToEqCommand);
 INITIALIZE_EQGAME_OFFSET(KeypressHandler__AttachKeyToEqCommand);
 INITIALIZE_EQGAME_OFFSET(KeypressHandler__ClearCommandStateArray);
+#if defined(KeypressHandler__Get_x)
 INITIALIZE_EQGAME_OFFSET(KeypressHandler__Get);
+#endif
 INITIALIZE_EQGAME_OFFSET(KeypressHandler__HandleKeyDown);
 INITIALIZE_EQGAME_OFFSET(KeypressHandler__HandleKeyUp);
 INITIALIZE_EQGAME_OFFSET(KeypressHandler__SaveKeymapping);
+#if HAS_ADVANCED_LOOT
 INITIALIZE_EQGAME_OFFSET(LootFiltersManager__AddItemLootFilter);
 INITIALIZE_EQGAME_OFFSET(LootFiltersManager__GetItemFilterData);
 INITIALIZE_EQGAME_OFFSET(LootFiltersManager__RemoveItemLootFilter);
 INITIALIZE_EQGAME_OFFSET(LootFiltersManager__SetItemLootFilter);
+#endif
 INITIALIZE_EQGAME_OFFSET(MapViewMap__Clear);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__SetZoom);
 INITIALIZE_EQGAME_OFFSET(MapViewMap__vftable);
+#if HAS_MERCENARY_AA
 INITIALIZE_EQGAME_OFFSET(MercenaryAlternateAdvancementManagerClient__BuyAbility);
 INITIALIZE_EQGAME_OFFSET(MercenaryAlternateAdvancementManagerClient__Instance);
+#endif
 INITIALIZE_EQGAME_OFFSET(msg_new_text);
 INITIALIZE_EQGAME_OFFSET(msg_spell_worn_off);
 INITIALIZE_EQGAME_OFFSET(msgTokenText);
@@ -803,7 +859,9 @@ INITIALIZE_EQGAME_OFFSET(PcZoneClient__HasAlternateAbility);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__RemoveBuffEffect);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__RemoveMyAffect);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__RemovePetEffect);
+#if HAS_ADVANCED_LOOT
 INITIALIZE_EQGAME_OFFSET(pinstLootFiltersManager);
+#endif
 INITIALIZE_EQGAME_OFFSET(PlayerBase__CanSee);
 INITIALIZE_EQGAME_OFFSET(PlayerBase__CanSee1);
 INITIALIZE_EQGAME_OFFSET(PlayerBase__GetVisibilityLineSegment);
@@ -813,7 +871,9 @@ INITIALIZE_EQGAME_OFFSET(PlayerClient__ChangeBoneStringSprite);
 INITIALIZE_EQGAME_OFFSET(PlayerClient__GetPcClient);
 INITIALIZE_EQGAME_OFFSET(PlayerClient__SetNameSpriteState);
 INITIALIZE_EQGAME_OFFSET(PlayerClient__SetNameSpriteTint);
+#if defined(PlayerManagerBase__PrepForDestroyPlayer_x)
 INITIALIZE_EQGAME_OFFSET(PlayerManagerBase__PrepForDestroyPlayer);
+#endif
 INITIALIZE_EQGAME_OFFSET(PlayerManagerClient__CreatePlayer);
 INITIALIZE_EQGAME_OFFSET(PlayerManagerClient__GetPlayerFromPartialName);
 INITIALIZE_EQGAME_OFFSET(PlayerManagerClient__GetSpawnByID);
@@ -922,9 +982,17 @@ ForeignPointer<SGraphicsEngine>                  pGraphicsEngine;
 ForeignPointer<CItemDisplayManager>              pItemDisplayManager;
 ForeignPointer<CSpellDisplayManager>             pSpellDisplayManager;
 ComputedPointer<EQGroundItemListManager>         pItemList([]{ return &EQGroundItemListManager::Instance(); });
+#if defined(KeypressHandler__Get_x)
 ComputedPointer<KeypressHandler>                 pKeypressHandler([]{ return &KeypressHandler::Get(); });
+#elif defined (pinstKeypressHandler_x)
+ForeignPointer<KeypressHandler>                  pKeypressHandler;
+#endif
+#if HAS_ADVANCED_LOOT
 ForeignPointer<LootFiltersManager>               pLootFiltersManager;
+#endif
+#if HAS_MERCENARY_AA
 ComputedPointer<MercenaryAlternateAdvancementManagerClient> pMercAltAbilities([]{ return &MercenaryAlternateAdvancementManagerClient::Instance(); });
+#endif
 ForeignPointer<CMercenaryManager>                pMercInfo;
 ForeignPointer<CMercenaryManager>                pMercManager;
 ComputedPointer<CPlayerPointManager>             pPlayerPointManager([]{ return pLocalPC ? (PlayerPointManager*)&pLocalPC->PointManager : nullptr; });
@@ -1020,7 +1088,9 @@ ForeignPointer<CSidlScreenWnd>                   pItemFuseWnd;
 ForeignPointer<CSidlScreenWnd>                   pItemOverflowWnd;
 ForeignPointer<CJournalCatWnd>                   pJournalCatWnd;
 ForeignPointer<CJournalTextWnd>                  pJournalTextWnd;
+#if HAS_KEYRING_WINDOW
 ForeignPointer<CKeyRingWnd>                      pKeyRingWnd;
+#endif // HAS_KEYRING_WINDOW
 ForeignPointer<CLargeDialogWnd>                  pLargeDialog;
 ForeignPointer<CSidlScreenWnd>                   pLayoutCopyWnd;
 ForeignPointer<CSidlScreenWnd>                   pLFGuildWnd;
@@ -1212,12 +1282,19 @@ void InitializeEQGameOffsets()
 	pDZMember                       = pinstDZMember;
 	pDZTimerInfo                    = pinstDZTimerInfo;
 	pEqSoundManager                 = pinstEQSoundManager;
+#if defined(pinstEQSpellStrings_x)
 	pEQSpellStrings                 = pinstEQSpellStrings;
+#endif
 	pEverQuest                      = pinstCEverQuest;
 	pGraphicsEngine                 = pinstSGraphicsEngine;
 	pInvSlotMgr                     = pinstCInvSlotMgr;
 	pItemDisplayManager             = pinstCItemDisplayManager;
+#if defined (pinstKeypressHandler_x)
+	pKeypressHandler                = pinstKeypressHandler;
+#endif
+#if HAS_ADVANCED_LOOT
 	pLootFiltersManager             = pinstLootFiltersManager;
+#endif
 #pragma warning(suppress: 4996)
 	pMercInfo                       = pinstCMercenaryClientManager;    // deprecated
 	pMercManager                    = pinstCMercenaryClientManager;

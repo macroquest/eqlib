@@ -893,9 +893,9 @@ constexpr int MAX_SPELL_REAGENTS = 4;
 struct [[offsetcomments]] SpellAffectData
 {
 /*0x00*/ int     Slot = 0;
-/*0x08*/ int64_t Base = 0;
-/*0x10*/ int64_t Base2 = 0;
-/*0x18*/ int64_t Max = 0;
+/*0x08*/ int32_t Base = 0;
+/*0x10*/ int32_t Base2 = 0;
+/*0x18*/ int32_t Max = 0;
 /*0x20*/ int     Calc = 0;
 /*0x24*/ int     Attrib = SPA_NOSPELL;
 /*0x28*/
@@ -1324,7 +1324,7 @@ public:
 	EQLIB_OBJECT virtual ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
 	EQLIB_OBJECT virtual EQ_Spell* GetSpellByID(int SpellID);
 	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffect(int index);
-	EQLIB_OBJECT virtual bool GetSpellAffectEmpty(bool);
+	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffectEmpty(bool);
 
 
 /*0x042948*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960

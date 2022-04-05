@@ -108,9 +108,9 @@ public:
 };
 
 //============================================================================
-
 // Mercenary AltAbilities
 
+#if HAS_MERCENARY_AA
 
 class [[offsetcomments]] MercenaryAbilityReq
 {
@@ -182,5 +182,7 @@ public:
 /*0x8f0*/ HashList<MercenaryAbilityGroup, AbilitiesSize>        MercenaryAbilityGroups;
 /*0xb10*/
 };
+
+#endif // HAS_MERCENARY_AA
 
 } // namespace eqlib

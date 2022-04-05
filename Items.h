@@ -67,7 +67,7 @@ enum ItemContainerInstance
 	eItemContainerOther                          = 24,
 	eItemContainerMercenaryItems                 = 25,
 	eItemContainerViewModMercenaryItems          = 26,
-	eItemContainerMountKeyRingItems              = 27,
+	eItemContainerMountKeyRingItems              = 27, // FIXME: Emulator
 	eItemContainerViewModMountKeyRingItems       = 28,
 	eItemContainerIllusionKeyRingItems           = 29,
 	eItemContainerViewModIllusionKeyRingItems    = 30,
@@ -1300,7 +1300,8 @@ public:
 	inline bool CanWear(int slot) const { return (GetItemDefinition()->EquipSlots & (1 << slot)) != 0; }
 	inline bool IsWearable() const { return GetItemDefinition()->EquipSlots != 0; }
 
-	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag = true);
+	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag);
+	EQLIB_OBJECT char* CreateItemTagString(char*, int);
 
 	EQLIB_OBJECT ItemPtr CreateItemClient(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT bool CanDrop(bool bDisplayText = false, bool bIncludeContainedItems = true, bool bAllowOverrideNoDropCheck = false, bool bCantDropIfContainingRealEstate = true) const;

@@ -148,6 +148,16 @@ FUNCTION_AT_ADDRESS(unsigned char, EQ_Spell::GetSpellLevelNeeded(EQClass) const,
 FUNCTION_AT_ADDRESS(int, EQ_Spell::SpellAffectBase(int) const, EQ_Spell__SpellAffectBase);
 #endif
 
+const SpellAffectData* EQ_Spell::GetSpellAffectByIndex(int index) const
+{
+	if (index < 0 || index >= NumEffects)
+	{
+		return pSpellMgr->GetSpellAffectEmpty(index == 0 && ID == 0);
+	}
+
+	return pSpellMgr->GetSpellAffect(index + CalcIndex);
+}
+
 //============================================================================
 // EQ_Affect
 //============================================================================

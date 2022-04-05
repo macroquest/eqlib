@@ -142,7 +142,9 @@ EQLIB_VAR uintptr_t __ScreenMode;
 EQLIB_VAR uintptr_t __ServerHost;
 EQLIB_VAR uintptr_t __SubscriptionType;
 EQLIB_VAR uintptr_t __ThrottleFrameRate;
+#if defined(__ThrottleFrameRateEnd_x)
 EQLIB_VAR uintptr_t __ThrottleFrameRateEnd;
+#endif
 EQLIB_VAR uintptr_t EQObject_Top;
 EQLIB_VAR uintptr_t g_eqCommandStates;
 EQLIB_VAR uintptr_t instCRaid;
@@ -177,10 +179,15 @@ EQLIB_VAR uintptr_t pinstDZMember;
 EQLIB_VAR uintptr_t pinstDZTimerInfo;
 EQLIB_VAR uintptr_t pinstEqLogin;
 EQLIB_VAR uintptr_t pinstEQSoundManager;
+#if defined(pinstEQSpellStrings_x)
 EQLIB_VAR uintptr_t pinstEQSpellStrings;
+#endif
 EQLIB_VAR uintptr_t pinstEQSuiteTextureLoader;
 EQLIB_VAR uintptr_t pinstEverQuestInfo;
 EQLIB_VAR uintptr_t pinstItemIconCache;
+#if defined(pinstKeypressHandler_x)
+EQLIB_VAR uintptr_t pinstKeypressHandler;
+#endif
 EQLIB_VAR uintptr_t pinstLocalPC;
 EQLIB_VAR uintptr_t pinstLocalPlayer;
 EQLIB_VAR uintptr_t pinstModelPlayer;
@@ -202,7 +209,9 @@ EQLIB_VAR uintptr_t pinstWorldData;
 
 EQLIB_VAR uintptr_t __MemChecker0;
 EQLIB_VAR uintptr_t __MemChecker1;
+#if defined(__MemChecker4_x)
 EQLIB_VAR uintptr_t __MemChecker4;
+#endif
 EQLIB_VAR uintptr_t __EncryptPad0;
 EQLIB_VAR uintptr_t DI8__Keyboard;
 EQLIB_VAR uintptr_t DI8__Main;
@@ -291,7 +300,6 @@ EQLIB_VAR uintptr_t CComboWnd__GetCurChoiceText;
 EQLIB_VAR uintptr_t CComboWnd__GetItemCount;
 EQLIB_VAR uintptr_t CComboWnd__GetListRect;
 EQLIB_VAR uintptr_t CComboWnd__InsertChoice;
-EQLIB_VAR uintptr_t CComboWnd__InsertChoiceAtIndex;
 EQLIB_VAR uintptr_t CComboWnd__SetChoice;
 EQLIB_VAR uintptr_t CComboWnd__SetColors;
 EQLIB_VAR uintptr_t CContainerMgr__CloseContainer;
@@ -331,8 +339,10 @@ EQLIB_VAR uintptr_t CDisplay__ToggleScreenshotMode;
 EQLIB_VAR uintptr_t CDisplay__TrueDistance;
 EQLIB_VAR uintptr_t CDisplay__WriteTextHD2;
 EQLIB_VAR uintptr_t CDisplay__ZoneMainUI;
+#if defined(CDistillerInfo__Instance_x)
 EQLIB_VAR uintptr_t CDistillerInfo__GetIDFromRecordNum;
 EQLIB_VAR uintptr_t CDistillerInfo__Instance;
+#endif
 EQLIB_VAR uintptr_t CEditBaseWnd__SetSel;
 EQLIB_VAR uintptr_t CEditWnd__DrawCaret;
 EQLIB_VAR uintptr_t CEditWnd__EnsureCaretVisible;
@@ -402,12 +412,18 @@ EQLIB_VAR uintptr_t CharacterZoneClient__FindAffectSlot;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetAdjustedSkill;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetBaseSkill;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetCastingTimeModifier;
+#if defined(CharacterZoneClient__GetCurrentMod_x)
 EQLIB_VAR uintptr_t CharacterZoneClient__GetCurrentMod;
+#endif
 EQLIB_VAR uintptr_t CharacterZoneClient__GetCursorItemCount;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetEnduranceRegen;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetFirstEffectSlot;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetFocusCastingTimeModifier;
+#if defined(CharacterZoneClient__GetFocusDurationMod_x)
 EQLIB_VAR uintptr_t CharacterZoneClient__GetFocusDurationMod;
+#endif
+EQLIB_VAR uintptr_t CharacterZoneClient__GetFocusRangeModifier;
+EQLIB_VAR uintptr_t CharacterZoneClient__GetFocusReuseMod;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetHPRegen;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetItemCountInInventory;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetItemCountWorn;
@@ -416,7 +432,9 @@ EQLIB_VAR uintptr_t CharacterZoneClient__GetManaRegen;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetMaxEffects;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetModCap;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetOpenEffectSlot;
+#if defined(CharacterZoneClient__GetPctModAndMin_x)
 EQLIB_VAR uintptr_t CharacterZoneClient__GetPctModAndMin;
+#endif
 EQLIB_VAR uintptr_t CharacterZoneClient__GetPCSpellAffect;
 EQLIB_VAR uintptr_t CharacterZoneClient__HasSkill;
 EQLIB_VAR uintptr_t CharacterZoneClient__IsStackBlocked;
@@ -643,7 +661,6 @@ EQLIB_VAR uintptr_t CXWndManager__RemoveWnd;
 EQLIB_VAR uintptr_t DrawNetStatus;
 EQLIB_VAR uintptr_t EQ_LoadingS__Array;
 EQLIB_VAR uintptr_t EQ_LoadingS__SetProgressBar;
-EQLIB_VAR uintptr_t EQ_Spell__GetSpellAffectByIndex;
 EQLIB_VAR uintptr_t EQ_Spell__GetSpellAffectBySlot;
 EQLIB_VAR uintptr_t EQ_Spell__GetSpellLevelNeeded;
 EQLIB_VAR uintptr_t EQ_Spell__IsDegeneratingLevelMod;
@@ -663,7 +680,9 @@ EQLIB_VAR uintptr_t EqSoundManager__PlayScriptMp3;
 EQLIB_VAR uintptr_t EqSoundManager__SoundAssistPlay;
 EQLIB_VAR uintptr_t EqSoundManager__WaveInstancePlay;
 EQLIB_VAR uintptr_t EqSoundManager__WavePlay;
+#if defined(pinstEQSpellStrings_x)
 EQLIB_VAR uintptr_t EQSpellStrings__GetString;
+#endif
 EQLIB_VAR uintptr_t EQSwitch__UseSwitch;
 EQLIB_VAR uintptr_t FactionManagerClient__HandleFactionMessage;
 EQLIB_VAR uintptr_t FactionManagerClient__Instance;
@@ -690,10 +709,12 @@ EQLIB_VAR uintptr_t KeypressHandler__Get;
 EQLIB_VAR uintptr_t KeypressHandler__HandleKeyDown;
 EQLIB_VAR uintptr_t KeypressHandler__HandleKeyUp;
 EQLIB_VAR uintptr_t KeypressHandler__SaveKeymapping;
+#if HAS_ADVANCED_LOOT
 EQLIB_VAR uintptr_t LootFiltersManager__AddItemLootFilter;
 EQLIB_VAR uintptr_t LootFiltersManager__GetItemFilterData;
 EQLIB_VAR uintptr_t LootFiltersManager__RemoveItemLootFilter;
 EQLIB_VAR uintptr_t LootFiltersManager__SetItemLootFilter;
+#endif
 EQLIB_VAR uintptr_t MapViewMap__Clear;
 EQLIB_VAR uintptr_t MapViewMap__SetZoom;
 EQLIB_VAR uintptr_t MapViewMap__vftable;
@@ -725,7 +746,9 @@ EQLIB_VAR uintptr_t PcZoneClient__HasCombatAbility;
 EQLIB_VAR uintptr_t PcZoneClient__RemoveBuffEffect;
 EQLIB_VAR uintptr_t PcZoneClient__RemoveMyAffect;
 EQLIB_VAR uintptr_t PcZoneClient__RemovePetEffect;
+#if HAS_ADVANCED_LOOT
 EQLIB_VAR uintptr_t pinstLootFiltersManager;
+#endif
 EQLIB_VAR uintptr_t PlayerBase__CanSee;
 EQLIB_VAR uintptr_t PlayerBase__CanSee1;
 EQLIB_VAR uintptr_t PlayerBase__GetVisibilityLineSegment;
@@ -847,16 +870,26 @@ EQLIB_VAR ForeignPointer<CDisplay>                   pDisplay;
 EQLIB_VAR ForeignPointer<DynamicZonePlayerInfo>      pDZMember;
 EQLIB_VAR ForeignPointer<DynamicZoneClientTimerData> pDZTimerInfo;
 EQLIB_VAR ForeignPointer<EqSoundManager>             pEqSoundManager;
+#if defined(pinstEQSpellStrings_x)
 EQLIB_VAR ForeignPointer<EQSpellStrings>             pEQSpellStrings;
+#endif
 EQLIB_VAR ForeignPointer<CEverQuest, EVERQUEST>      pEverQuest;
 EQLIB_VAR ForeignPointer<SGraphicsEngine>            pGraphicsEngine;
 EQLIB_VAR ForeignPointer<CInvSlotMgr>                pInvSlotMgr;
 EQLIB_VAR ForeignPointer<CItemDisplayManager>        pItemDisplayManager;
 EQLIB_VAR ForeignPointer<CSpellDisplayManager>       pSpellDisplayManager;
 EQLIB_VAR ComputedPointer<EQGroundItemListManager>   pItemList;
+#if defined(KeypressHandler__Get_x)
 EQLIB_VAR ComputedPointer<KeypressHandler>           pKeypressHandler;
+#elif defined (pinstKeypressHandler_x)
+EQLIB_VAR ForeignPointer<KeypressHandler>            pKeypressHandler;
+#endif
+#if HAS_ADVANCED_LOOT
 EQLIB_VAR ForeignPointer<LootFiltersManager>         pLootFiltersManager;
+#endif
+#if HAS_MERCENARY_AA
 EQLIB_VAR ComputedPointer<MercenaryAlternateAdvancementManagerClient> pMercAltAbilities;
+#endif
 EQLIB_VAR ForeignPointer<CMercenaryManager>          pMercInfo DEPRECATE("Use pMercManager instead of pMercInfo");
 EQLIB_VAR ForeignPointer<CMercenaryManager>          pMercManager;
 EQLIB_VAR ComputedPointer<CPlayerPointManager>       pPlayerPointManager;
@@ -955,7 +988,9 @@ EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pItemFuseWnd;
 EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pItemOverflowWnd;
 EQLIB_VAR ForeignPointer<CJournalCatWnd>             pJournalCatWnd;
 EQLIB_VAR ForeignPointer<CJournalTextWnd>            pJournalTextWnd;
+#if HAS_KEYRING_WINDOW
 EQLIB_VAR ForeignPointer<CKeyRingWnd>                pKeyRingWnd;
+#endif // HAS_KEYRING_WINDOW
 EQLIB_VAR ForeignPointer<CLargeDialogWnd>            pLargeDialog;
 EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pLayoutCopyWnd;
 EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pLFGuildWnd;

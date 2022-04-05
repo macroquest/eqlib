@@ -341,11 +341,19 @@ void ItemBase::UpdateItemDefinition()
 	Contents.SetSize(containerSlots);
 }
 
-#ifdef ItemBase__CreateItemTagString_x
-FUNCTION_AT_ADDRESS(char*, ItemBase::CreateItemTagString(char*, int, bool), ItemBase__CreateItemTagString);
-#endif
+FUNCTION_AT_ADDRESS(char*, ItemBase::CreateItemTagString(char*, int), ItemBase__CreateItemTagString);
+
+char* ItemBase::CreateItemTagString(char* buffer, int size, bool unused)
+{
+	UNUSED(unused);
+	return CreateItemTagString(buffer, size);
+}
+
 #ifdef ItemBase__GetImageNum_x
 FUNCTION_AT_ADDRESS(int, ItemBase::GetImageNum() const, ItemBase__GetImageNum);
+#endif
+#ifdef ItemClient__CreateItemClient_x
+FUNCTION_AT_ADDRESS(ItemPtr, ItemBase::CreateItemClient(CUnSerializeBuffer& buffer), ItemClient__CreateItemClient);
 #endif
 #ifdef ItemClient__CanDrop_x
 FUNCTION_AT_ADDRESS(bool, ItemBase::CanDrop(bool, bool, bool, bool) const, ItemClient__CanDrop);
@@ -365,12 +373,14 @@ FUNCTION_AT_ADDRESS(int, ItemBase::ValueSellMerchant(float, int) const, ItemBase
 #ifdef ItemBase__CanGemFitInSlot_x
 FUNCTION_AT_ADDRESS(int, ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, ItemBase__CanGemFitInSlot);
 #endif
-#ifdef ItemBase__IsLoreEquipped_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsLoreEquipped(bool bIncludeSockets) const, ItemBase__IsLoreEquipped);
-#endif
 #ifdef ItemBase__IsLore_x
 FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
 #endif
+
+bool ItemBase::IsLoreEquipped(bool) const
+{
+	return false;
+}
 
 //----------------------------------------------------------------------------
 

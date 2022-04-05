@@ -769,7 +769,7 @@ struct [[offsetcomments]] SListWndCell
 struct [[offsetcomments]] SListWndLine
 {
 /*0x000*/ ArrayClass<SListWndCell> Cells;
-/*0x018*/ uint64_t                Data = 0;
+/*0x018*/ uint32_t                Data = 0;
 /*0x020*/ int                     Height = -1;
 /*0x024*/ bool                    bSelected = false;
 /*0x025*/ bool                    bEnabled = true;
@@ -786,10 +786,10 @@ public:
 /*0x00*/ int                      SortCol;
 /*0x08*/ const SListWndLine&      ListWndLine1;
 /*0x10*/ CXStr                    StrLabel1;
-/*0x18*/ uint64_t                 Data1;
+/*0x18*/ uint32_t                 Data1;
 /*0x20*/ const SListWndLine&      ListWndLine2;
 /*0x28*/ CXStr                    StrLabel2;
-/*0x30*/ uint64_t                 Data2;
+/*0x30*/ uint32_t                 Data2;
 /*0x38*/ int                      SortResult;
 /*0x3c*/
 };
@@ -808,7 +808,7 @@ struct [[offsetcomments]] SListWndColumn
 /*0x08*/ CXSize                   TextureSize;
 /*0x10*/ CXPoint                  TextureOffset;
 /*0x18*/ CXStr                    StrLabel;
-/*0x20*/ uint64_t                 Data = 0;
+/*0x20*/ uint32_t                 Data = 0;
 /*0x28*/ uint32_t                 Flags = 0;
 /*0x2c*/ uint32_t                 Type = CellTypeTextIcon; // ECellType
 /*0x30*/ CTextureAnimation*       pTextureAnim = nullptr;
@@ -855,6 +855,9 @@ class [[offsetcomments]] CListWnd : public CXWnd
 public:
 	EQLIB_OBJECT CListWnd(CXWnd*, uint32_t, const CXRect&);
 	virtual ~CListWnd();
+
+	// The datatype used for storing custom data in a list item.
+	using UserDataType = uint32_t;
 
 	//----------------------------------------------------------------------------
 	// virtuals
@@ -912,12 +915,14 @@ public:
 		bool bResizeable = false, CXSize TextureSize = {}, CXPoint TextureOffset = {});
 	EQLIB_OBJECT int AddColumn(const CXStr& Label, int Width, uint32_t Flags, uint32_t Type = CellTypeTextIcon);
 	EQLIB_OBJECT int AddLine(SListWndLine*);
-	EQLIB_OBJECT int AddString(const CXStr& Str, COLORREF Color, uint64_t Data = 0, const CTextureAnimation* pTa = nullptr, const char* TooltipStr = nullptr);
-	int AddString(const CXStr& str, mq::MQColor Color, uint64_t Data = 0, const CTextureAnimation* pTA = nullptr, const char* TooltipStr = nullptr)
+
+	EQLIB_OBJECT int AddString(const CXStr& Str, COLORREF Color, uint32_t Data = 0, const CTextureAnimation* pTa = nullptr, const char* TooltipStr = nullptr);
+	int AddString(const CXStr& str, mq::MQColor Color, uint32_t Data = 0, const CTextureAnimation* pTA = nullptr, const char* TooltipStr = nullptr)
 	{
 		return AddString(str, Color.ToARGB(), Data, pTA, TooltipStr);
 	}
-	EQLIB_OBJECT int AddString(const char* Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr = nullptr);
+	EQLIB_OBJECT int AddString(const char* Str, COLORREF Color, uint32_t Data, const CTextureAnimation* pTa, const char* TooltipStr = nullptr);
+
 	EQLIB_OBJECT int GetColumnJustification(int) const;
 	EQLIB_OBJECT int GetColumnMinWidth(int) const;
 	EQLIB_OBJECT CXStr GetColumnTooltip(int) const;
@@ -926,7 +931,7 @@ public:
 	EQLIB_OBJECT int GetCurSel() const;
 	EQLIB_OBJECT int GetItemHeight(int) const;
 	EQLIB_OBJECT uint32_t GetColumnFlags(int) const;
-	EQLIB_OBJECT uint64_t GetItemData(int) const;
+	EQLIB_OBJECT uint32_t GetItemData(int) const;
 	EQLIB_OBJECT COLORREF GetItemColor(int, int) const;
 	EQLIB_OBJECT void CalculateFirstVisibleLine();
 	EQLIB_OBJECT void CalculateLineHeights();
@@ -947,7 +952,7 @@ public:
 	EQLIB_OBJECT void SetCurSel(int);
 	EQLIB_OBJECT void SetItemColor(int, int, unsigned long);
 	void SetItemColor(int row, int col, mq::MQColor color) { SetItemColor(row, col, color.ToARGB()); }
-	EQLIB_OBJECT void SetItemData(int ID, uint64_t Data);
+	EQLIB_OBJECT void SetItemData(int ID, uint32_t Data);
 	EQLIB_OBJECT void SetItemText(int ID, int SubID, const CXStr& Text);
 	EQLIB_OBJECT void ShiftColumnSeparator(int, int);
 	EQLIB_OBJECT void ToggleSel(int);
@@ -4453,6 +4458,7 @@ public:
 //============================================================================
 // CKeyRingWnd
 //============================================================================
+#if HAS_KEYRING_WINDOW
 
 // @sizeof(CKeyRingWnd) == 0x428 :: 2022-06-13 (live) @ 0x1401583f7
 constexpr size_t CKeyRingWnd_size = 0x428;
@@ -4504,6 +4510,8 @@ public:
 };
 
 SIZE_CHECK(CKeyRingWnd, CKeyRingWnd_size);
+
+#endif // HAS_KEYRING_WINDOW
 
 //============================================================================
 // CLargeDialogWnd

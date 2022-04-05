@@ -119,6 +119,9 @@ namespace eqlib::detail{
 	}                                                                                              \
 	FUNCTION_CHECKS_ON()
 
+#define FORWARD_FUNCTION_TO_VTABLE2(a, b, c, d, e) \
+	FORWARD_FUNCTION_TO_VTABLE(a, b, c, e)
+
 #define FUNCTION_AT_VIRTUAL_TABLE_ADDRESS(rettype, function, address, offset)                      \
 	FUNCTION_CHECKS_OFF()                                                                          \
 	__declspec(noinline) rettype function {                                                        \
@@ -150,6 +153,14 @@ namespace eqlib::detail{
 	__declspec(naked) RetType Function                                                   \
 	{                                                                                    \
 		using VFT = Class::VirtualFunctionTable;                                         \
+		__asm mov eax, [Class::sm_vftable]                                               \
+		__asm jmp dword ptr [eax]VFT.Member                                              \
+	}
+
+#define FORWARD_FUNCTION_TO_VTABLE2(RetType, Function, Class, Base, Member)              \
+	__declspec(naked) RetType Function                                                   \
+	{                                                                                    \
+		using VFT = Base::VirtualFunctionTable;                                          \
 		__asm mov eax, [Class::sm_vftable]                                               \
 		__asm jmp dword ptr [eax]VFT.Member                                              \
 	}
@@ -205,7 +216,7 @@ namespace eqlib::detail{
     type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type (&name)[size];
 
-#define SIZE_CHECKS_ENABLED 1
+#define SIZE_CHECKS_ENABLED 0
 
 #if defined(COMMENT_UPDATER) || !defined(_DEBUG) || SIZE_CHECKS_ENABLED == 0
 #define SIZE_CHECK(type, expectedSize)

@@ -123,7 +123,6 @@ class CItemDisplayWnd;
 class CJournalCatWnd;
 class CJournalNPCWnd;
 class CJournalTextWnd;
-class CKeyRingWnd;
 class CLabel;
 class CLabelTemplate;
 class CLargeDialogWnd;
@@ -372,6 +371,11 @@ struct STempTableRow;
 struct zoneHeader;
 struct EQLogin;
 struct MercenaryInfo;
+
+#if HAS_KEYRING_WINDOW
+class CKeyRingWnd;
+#endif
+
 
 class CRaid;
 using EQRAID = CRaid;

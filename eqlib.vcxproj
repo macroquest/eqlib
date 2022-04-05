@@ -93,7 +93,6 @@
     </ClCompile>
     <Link>
       <BaseAddress>0x03400000</BaseAddress>
-      <ModuleDefinitionFile>AssemblyFunctions.def</ModuleDefinitionFile>
       <AdditionalDependencies>fmt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -118,7 +117,6 @@
     </ClCompile>
     <Link>
       <BaseAddress>0x03400000</BaseAddress>
-      <ModuleDefinitionFile>AssemblyFunctions.def</ModuleDefinitionFile>
       <AdditionalDependencies>fmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -226,8 +224,8 @@
   </ItemGroup>
   <ItemGroup>
     <NASM Include="AssemblyFunctions.asm">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </NASM>
     <NASM Include="AssemblyFunctions64.asm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>

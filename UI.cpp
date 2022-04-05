@@ -125,20 +125,20 @@ FORWARD_FUNCTION_TO_VTABLE(uint32_t, CButtonWnd::GetCoolDownTimeRemaining() cons
 FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::ClearCoolDownCompletionTime(), CButtonWnd, ClearCoolDownCompletionTime);
 
 // Overridden virtuals
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::Draw(), CButtonWnd, Draw);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::DrawTooltipAtPoint(const CXPoint& pos, const CXStr& tooltip) const, CButtonWnd, DrawTooltipAtPoint);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonDown(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonUp(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonHeld(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, HandleLButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonDown(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonUp(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonHeld(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleRButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, HandleRButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::HandleMouseMove(const CXPoint&, uint32_t), CButtonWnd, HandleMouseMove);
-FORWARD_FUNCTION_TO_VTABLE(int, CButtonWnd::OnProcessFrame(), CButtonWnd, OnProcessFrame);
-FORWARD_FUNCTION_TO_VTABLE(bool, CButtonWnd::IsPointTransparent(const CXPoint& point) const, CButtonWnd, IsPointTransparent);
-FORWARD_FUNCTION_TO_VTABLE(void, CButtonWnd::SetAttributesFromSidl(CParamScreenPiece*), CButtonWnd, SetAttributesFromSidl);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::Draw(), CButtonWnd, CXWnd, Draw);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::DrawTooltipAtPoint(const CXPoint& pos, const CXStr& tooltip) const, CButtonWnd, CXWnd, DrawTooltipAtPoint);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleLButtonDown(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonDown);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleLButtonUp(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonUp);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleLButtonHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleLButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleRButtonDown(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonDown);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleRButtonUp(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonUp);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleRButtonHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleRButtonUpAfterHeld(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleRButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::HandleMouseMove(const CXPoint&, uint32_t), CButtonWnd, CXWnd, HandleMouseMove);
+FORWARD_FUNCTION_TO_VTABLE2(int, CButtonWnd::OnProcessFrame(), CButtonWnd, CXWnd, OnProcessFrame);
+FORWARD_FUNCTION_TO_VTABLE2(bool, CButtonWnd::IsPointTransparent(const CXPoint& point) const, CButtonWnd, CXWnd, IsPointTransparent);
+FORWARD_FUNCTION_TO_VTABLE2(void, CButtonWnd::SetAttributesFromSidl(CParamScreenPiece*), CButtonWnd, CXWnd, SetAttributesFromSidl);
 
 //============================================================================
 // CCheckBoxWnd
@@ -260,6 +260,8 @@ FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexPrintableToTagged(int), CEditWnd_
 FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexTaggedToPrintable(int), CEditWnd__ConvertIndexTaggedToPrintable);
 #endif
 
+FUNCTION_AT_ADDRESS(CXPoint, CEditWnd::GetCharIndexPt(int) const, CEditWnd__GetCharIndexPt);
+
 CXPoint CEditWnd::GetCaretPt() const
 {
 	if (bAnchorAtStart)
@@ -366,29 +368,29 @@ FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::Unknown0x188(int a, int b) const, CLis
 FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::Sort(bool unstable), CListWnd, Sort);
 
 // overrides
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::Draw(), CListWnd, Draw);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawBackground() const, CListWnd, DrawBackground);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawTooltip(const CXWnd* wnd) const, CListWnd, DrawTooltip);
-FORWARD_FUNCTION_TO_VTABLE(HCURSOR, CListWnd::GetCursorToDisplay() const, CListWnd, GetCursorToDisplay);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleLButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleLButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleRButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, HandleRButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::HandleMouseMove(const CXPoint& pos, uint32_t flags), CListWnd, HandleMouseMove);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::WndNotification(CXWnd* sender, uint32_t message, void* data), CListWnd, WndNotification);
-FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::OnWndNotification(), CListWnd, OnWndNotification);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnMove(const CXRect& rect), CListWnd, OnMove);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnResize(int w, int h), CListWnd, OnResize);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnVScroll(EScrollCode code, int pos), CListWnd, OnVScroll);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::OnHScroll(EScrollCode code, int pos), CListWnd, OnHScroll);
-//FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetHitTestRect(int code) const, CListWnd, GetHitTestRect);
-//FORWARD_FUNCTION_TO_VTABLE(CXRect, CListWnd::GetClientClipRect() const, CListWnd, GetClientClipRect);
-FORWARD_FUNCTION_TO_VTABLE(CXWnd*, CListWnd::GetChildWndAt(const CXPoint& pos, bool, bool) const, CListWnd, GetChildWndAt);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::SetVScrollPos(int pos), CListWnd, SetVScrollPos);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::Draw(), CListWnd, CXWnd, Draw);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::DrawBackground() const, CListWnd, CXWnd, DrawBackground);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::DrawTooltip(const CXWnd* wnd) const, CListWnd, CXWnd, DrawTooltip);
+FORWARD_FUNCTION_TO_VTABLE2(HCURSOR, CListWnd::GetCursorToDisplay() const, CListWnd, CXWnd, GetCursorToDisplay);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleLButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonDown);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleLButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonUp);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleLButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleLButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleLButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleRButtonDown(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonDown);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleRButtonUp(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonUp);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleRButtonHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleRButtonUpAfterHeld(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleRButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::HandleMouseMove(const CXPoint& pos, uint32_t flags), CListWnd, CXWnd, HandleMouseMove);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::WndNotification(CXWnd* sender, uint32_t message, void* data), CListWnd, CXWnd, WndNotification);
+FORWARD_FUNCTION_TO_VTABLE2(void, CListWnd::OnWndNotification(), CListWnd, CXWnd, OnWndNotification);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::OnMove(const CXRect& rect), CListWnd, CXWnd, OnMove);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::OnResize(int w, int h), CListWnd, CXWnd, OnResize);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::OnVScroll(EScrollCode code, int pos), CListWnd, CXWnd, OnVScroll);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::OnHScroll(EScrollCode code, int pos), CListWnd, CXWnd, OnHScroll);
+FORWARD_FUNCTION_TO_VTABLE2(CXRect, CListWnd::GetHitTestRect(int code) const, CListWnd, CXWnd, GetHitTestRect);
+FORWARD_FUNCTION_TO_VTABLE2(CXRect, CListWnd::GetClientClipRect() const, CListWnd, CXWnd, GetClientClipRect);
+FORWARD_FUNCTION_TO_VTABLE2(CXWnd*, CListWnd::GetChildWndAt(const CXPoint& pos, bool, bool) const, CListWnd, CXWnd, GetChildWndAt);
+FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::SetVScrollPos(int pos), CListWnd, CXWnd, SetVScrollPos);
 
 #ifdef CListWnd__CListWnd_x
 CONSTRUCTOR_AT_ADDRESS(CListWnd::CListWnd(CXWnd*, uint32_t, CXRect const&), CListWnd__CListWnd);
@@ -403,10 +405,10 @@ FUNCTION_AT_ADDRESS(int, CListWnd::GetCurSel() const, CListWnd__GetCurSel);
 FUNCTION_AT_ADDRESS(int, CListWnd::GetCurCol() const, CListWnd__GetCurCol);
 #endif
 #ifdef CListWnd__GetItemData_x
-FUNCTION_AT_ADDRESS(uint64_t, CListWnd::GetItemData(int) const, CListWnd__GetItemData);
+FUNCTION_AT_ADDRESS(uint32_t, CListWnd::GetItemData(int) const, CListWnd__GetItemData);
 #endif
 #ifdef CListWnd__GetItemText_x
-//FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
+FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
 #endif
 #ifdef CListWnd__GetItemColor_x
 FUNCTION_AT_ADDRESS(unsigned long, CListWnd::GetItemColor(int, int) const, CListWnd__GetItemColor);
@@ -448,7 +450,7 @@ FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetColumnAnimationMouseO
 FUNCTION_AT_ADDRESS(int, CListWnd::AddLine(SListWndLine*), CListWnd__AddLine);
 #endif
 #ifdef CListWnd__AddString_x
-FUNCTION_AT_ADDRESS(int, CListWnd::AddString(const CXStr& Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr), CListWnd__AddString);
+FUNCTION_AT_ADDRESS(int, CListWnd::AddString(const CXStr& Str, COLORREF Color, uint32_t Data, const CTextureAnimation* pTa, const char* TooltipStr), CListWnd__AddString);
 #endif
 #ifdef CListWnd__RemoveString_x
 FUNCTION_AT_ADDRESS(void, CListWnd::RemoveString(int), CListWnd__RemoveString);
@@ -490,7 +492,7 @@ FUNCTION_AT_ADDRESS(void, CListWnd::CalculateCustomWindowPositions(), CListWnd__
 FUNCTION_AT_ADDRESS(void, CListWnd::SetItemWnd(int Index, int SubItem, CXWnd* pWnd), CListWnd__SetItemWnd);
 #endif
 #ifdef CListWnd__SetItemData_x
-FUNCTION_AT_ADDRESS(void, CListWnd::SetItemData(int, uint64_t), CListWnd__SetItemData);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetItemData(int, uint32_t), CListWnd__SetItemData);
 #endif
 #ifdef CListWnd__SetItemText_x
 FUNCTION_AT_ADDRESS(void, CListWnd::SetItemText(int, int, const CXStr&), CListWnd__SetItemText);
@@ -529,7 +531,7 @@ FUNCTION_AT_ADDRESS(void, CListWnd::CalculateFirstVisibleLine(), CListWnd__Calcu
 FUNCTION_AT_ADDRESS(void, CListWnd::EnsureVisible(int), CListWnd__EnsureVisible);
 #endif
 #ifdef CListWnd__GetItemRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
+FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
 #endif
 #ifdef CListWnd__CloseAndUpdateEditWindow_x
 FUNCTION_AT_ADDRESS(void, CListWnd::CloseAndUpdateEditWindow(), CListWnd__CloseAndUpdateEditWindow);
@@ -585,7 +587,7 @@ void CListWnd::GetItemAtPoint(const CXPoint& p, int* outRow, int* outCol) const
 	}
 }
 
-int CListWnd::AddString(const char* Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr)
+int CListWnd::AddString(const char* Str, COLORREF Color, uint32_t Data, const CTextureAnimation* pTa, const char* TooltipStr)
 {
 	return AddString(CXStr(Str), Color, Data, pTa, TooltipStr);
 }
@@ -829,6 +831,9 @@ FUNCTION_AT_ADDRESS(void, CStmlWnd::GoToBackHistoryLink(), CStmlWnd__GoToBackHis
 #ifdef CStmlWnd__CanGoBackward_x
 FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
 #endif
+
+FUNCTION_AT_ADDRESS(CXStr, CStmlWnd::MakeWndNotificationTag(uint32_t, const CXStr&, const CXStr&), CStmlWnd__MakeWndNotificationTag);
+FUNCTION_AT_ADDRESS(CXStr, STMLToText(const CXStr&, bool), __STMLToText);
 
 //============================================================================
 // CTabWnd
@@ -2017,6 +2022,8 @@ ItemGlobalIndex CInvSlot::GetItemLocation() const
 	return ItemGlobalIndex();
 }
 
+FUNCTION_AT_ADDRESS(ItemPtr, CInvSlot::GetItem(), CInvSlot__GetItemBase);
+
 //============================================================================
 // CInvSlotMgr
 //============================================================================
@@ -2102,6 +2109,7 @@ FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::UpdateStrings(), CSpellDisplayWnd__U
 //============================================================================
 // CKeyRingWnd
 //============================================================================
+#if HAS_KEYRING_WINDOW
 
 #ifdef CKeyRingWnd__ExecuteRightClick_x
 FUNCTION_AT_ADDRESS(int, CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, const ItemPtr& pItem, int index), CKeyRingWnd__ExecuteRightClick);
@@ -2114,6 +2122,7 @@ CListWnd* CKeyRingWnd::GetKeyRingList(KeyRingType type) const
 
 	return pList[type];
 }
+#endif // HAS_KEYRING_WINDOW
 
 //============================================================================
 // CLootWnd
@@ -2172,12 +2181,12 @@ FUNCTION_AT_ADDRESS(void, CMapViewWnd::DeactivateAutoMapping(), CMapViewWnd__Dea
 #endif
 
 // MapViewMap virtual override implementations
-FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::PostDraw(), MapViewMap, PostDraw);
-FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleLButtonDown(const CXPoint&, uint32_t), MapViewMap, HandleLButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleLButtonUp(const CXPoint&, uint32_t), MapViewMap, HandleLButtonUp);
-FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), MapViewMap, HandleLButtonUpAfterHeld);
-FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleRButtonDown(const CXPoint&, uint32_t), MapViewMap, HandleRButtonDown);
-FORWARD_FUNCTION_TO_VTABLE(int, MapViewMap::HandleWheelMove(const CXPoint&, int, uint32_t), MapViewMap, HandleWheelMove);
+FORWARD_FUNCTION_TO_VTABLE2(int, MapViewMap::PostDraw(), MapViewMap, CXWnd, PostDraw);
+FORWARD_FUNCTION_TO_VTABLE2(int, MapViewMap::HandleLButtonDown(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleLButtonDown);
+FORWARD_FUNCTION_TO_VTABLE2(int, MapViewMap::HandleLButtonUp(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleLButtonUp);
+FORWARD_FUNCTION_TO_VTABLE2(int, MapViewMap::HandleLButtonUpAfterHeld(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleLButtonUpAfterHeld);
+FORWARD_FUNCTION_TO_VTABLE2(int, MapViewMap::HandleRButtonDown(const CXPoint&, uint32_t), MapViewMap, CXWnd, HandleRButtonDown);
+FORWARD_FUNCTION_TO_VTABLE2(int, MapViewMap::HandleWheelMove(const CXPoint&, int, uint32_t), MapViewMap, CXWnd, HandleWheelMove);
 
 #ifdef MapViewMap__MapViewMap_x
 CONSTRUCTOR_AT_ADDRESS(MapViewMap::MapViewMap(), MapViewMap__MapViewMap);
@@ -3330,7 +3339,9 @@ static std::unordered_multimap<std::string_view, ForeignPointer<CSidlScreenWnd>&
 	{ "ItemOverflowWnd",                        pItemOverflowWnd },
 	{ "JournalCatWnd",                          pJournalCatWnd },
 	{ "JournalNPCWnd",                          pJournalTextWnd },
+#if HAS_KEYRING_WINDOW
 	{ "KeyRingWnd",                             pKeyRingWnd },
+#endif
 	{ "LargeDialogWindow",                      pLargeDialog },
 	{ "LayoutCopyWindow",                       pLayoutCopyWnd },
 	{ "LFGuildWnd",                             pLFGuildWnd },

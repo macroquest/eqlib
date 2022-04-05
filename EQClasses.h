@@ -359,12 +359,16 @@ public:
 	static EQLIB_OBJECT ChatManagerClient& Instance();
 };
 
+#if defined(CDistillerInfo__Instance_x)
+
 class CDistillerInfo
 {
 public:
-	static EQLIB_OBJECT CDistillerInfo &Instance();
+	static EQLIB_OBJECT CDistillerInfo& Instance();
 	EQLIB_OBJECT int GetIDFromRecordNum(int ID, bool bWhat);
 };
+
+#endif // defined(CDistillerInfo__Instance_x)
 
 struct [[offsetcomments]] TARGETRING
 {
