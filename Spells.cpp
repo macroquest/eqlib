@@ -233,5 +233,19 @@ void EQ_Affect::PopulateFromSpell(const EQ_Spell* pSpell)
 	}
 }
 
+//============================================================================
+// ClientSpellManager
+//============================================================================
+
+bool ClientSpellManager::LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName) { return false; }
+bool ClientSpellManager::LoadSpellStackingData(const char*) { return false; }
+bool ClientSpellManager::DoesMeetRequirement(PlayerZoneClient*, int) { return false; }
+void ClientSpellManager::PrintFailedRequirementString(int, int) {}
+int ClientSpellManager::GetSpellStackingGroupID(int) { return 0; }
+int ClientSpellManager::GetSpellStackingGroupRank(int) { return 0; }
+ESpellStackingRules ClientSpellManager::GetSpellStackingGroupRule(int) { return ESSR_None; }
+SpellAffectData* ClientSpellManager::GetSpellAffect(int) { return nullptr; }
+EQ_Spell* ClientSpellManager::GetSpellByID(int) { return nullptr; }
+bool ClientSpellManager::GetSpellAffectEmpty(bool) { return false; }
 
 } // namespace eqlib

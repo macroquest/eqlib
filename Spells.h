@@ -926,21 +926,24 @@ public:
 	EQLIB_OBJECT static bool IsSPAStacking(int Spa);
 	EQLIB_OBJECT static bool IsSPAIgnoredByStacking(int Spa);
 
-	EQLIB_OBJECT bool IsNoDispell() const { return NoDispell; }
-	EQLIB_OBJECT bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
-	EQLIB_OBJECT int GetNoOverwrite() const { return NoOverwrite; }
-	EQLIB_OBJECT bool IsShortEffectDuration() const { return DurationWindow; }
-	EQLIB_OBJECT bool GetIsSkillSpell() const { return IsSkill; }
+	inline bool IsNoDispell() const { return NoDispell; }
+	inline bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
+	inline int GetNoOverwrite() const { return NoOverwrite; }
+	inline bool IsShortEffectDuration() const { return DurationWindow; }
+	inline bool GetIsSkillSpell() const { return IsSkill; }
 
-	// TODO: Move to cpp
 	inline bool IsLullSpell() const
 	{
-		for (int i = 0; i < NumEffects; ++i)
+		for (int i = 0; i < GetNumEffects(); ++i)
 		{
-			const SpellAffectData* spellAffect = GetSpellAffectByIndex(i);
+			int attrib = GetEffectAttrib(i);
 
-			if (spellAffect->Attrib == SPA_NPC_AGGRO || spellAffect->Attrib == SPA_NPC_AGGRO_RADIUS || spellAffect->Attrib == SPA_NPC_HELP_RADIUS)
+			if (attrib == SPA_NPC_AGGRO
+				|| attrib == SPA_NPC_AGGRO_RADIUS
+				|| attrib == SPA_NPC_HELP_RADIUS)
+			{
 				return true;
+			}
 		}
 
 		return false;
@@ -970,12 +973,12 @@ public:
 
 	inline bool IsBeneficialSpellUsedDetrimentally() const
 	{
-		const SpellAffectData* spellAffect = GetSpellAffectByIndex(0);
+		int attrib = GetEffectAttrib(0);
 
-		return spellAffect->Attrib == SPA_NPC_WIPE_HATE_LIST
-			|| spellAffect->Attrib == SPA_NPC_AGGRO_RADIUS
-			|| spellAffect->Attrib == SPA_NPC_FACTION
-			|| spellAffect->Attrib == SPA_DISPEL_MAGIC
+		return attrib == SPA_NPC_WIPE_HATE_LIST
+			|| attrib == SPA_NPC_AGGRO_RADIUS
+			|| attrib == SPA_NPC_FACTION
+			|| attrib == SPA_DISPEL_MAGIC
 			|| IsLullSpell();
 	}
 
@@ -1145,6 +1148,8 @@ using PSPELL = EQ_Spell*;
 #pragma pack(pop) // EQ_Spell
 
 SIZE_CHECK(EQ_Spell, EQ_Spell_size);
+
+//----------------------------------------------------------------------------
 
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {

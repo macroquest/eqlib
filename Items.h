@@ -1300,6 +1300,7 @@ public:
 	inline bool IsWearable() const { return GetItemDefinition()->EquipSlots != 0; }
 
 	EQLIB_OBJECT char* CreateItemTagString(char*, int, bool bFlag = true);
+
 	EQLIB_OBJECT ItemPtr CreateItemClient(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT bool CanDrop(bool bDisplayText = false, bool bIncludeContainedItems = true, bool bAllowOverrideNoDropCheck = false, bool bCantDropIfContainingRealEstate = true) const;
 	EQLIB_OBJECT int GetImageNum() const;
@@ -1323,6 +1324,7 @@ public:
 	inline int GetAccuracy() const { return 0; }
 	inline int GetAvoidance() const { return 0; }
 	inline int GetCombatEffects() const { return 0; }
+	inline int GetDamageShieldMitigation() const { return 0; }
 	inline int GetDamShield() const { return 0; }
 	inline int GetDoTShielding() const { return 0; }
 	inline int GetShielding() const { return 0; }
@@ -1363,23 +1365,18 @@ public:
 	inline const ItemGlobalIndex& GetGlobalIndex() const { return GlobalIndex; }
 
 	// Compatibility properties for ItemEvolutionData
-	DEPRECATE("Use pEvolutionData->GroupID instead of EvolvingGroupID")
 	inline int get_EvolvingGroupID() { return pEvolutionData ? pEvolutionData->GroupID : 0; }
 	__declspec(property(get = get_EvolvingGroupID)) int GroupID;
 
-	DEPRECATE("Use pEvolutionData->EvolvingCurrentLevel instead of EvolvingCurrentLevel")
 	inline int get_EvolvingCurrentLevel() { return pEvolutionData ? pEvolutionData->EvolvingCurrentLevel : 0; }
 	__declspec(property(get = get_EvolvingCurrentLevel)) int EvolvingCurrentLevel;
 
-	DEPRECATE("Use pEvolutionData->EvolvingExpPct instead of EvolvingExpPct")
 	inline double get_EvolvingExpPct() { return pEvolutionData ? pEvolutionData->EvolvingExpPct : 0.0; }
 	__declspec(property(get = get_EvolvingExpPct)) double EvolvingExpPct;
 
-	DEPRECATE("Use pEvolutionData->EvolvingMaxLevel instead of EvolvingMaxLevel")
 	inline int get_EvolvingMaxLevel() { return pEvolutionData ? pEvolutionData->EvolvingMaxLevel : 0; }
 	__declspec(property(get = get_EvolvingMaxLevel)) int EvolvingMaxLevel;
 
-	DEPRECATE("Use pEvolutionData->LastEquipped instead of LastEquipped")
 	inline int get_LastEquipped() { return pEvolutionData ? pEvolutionData->LastEquipped : 0; }
 	__declspec(property(get = get_LastEquipped)) int LastEquipped;
 
