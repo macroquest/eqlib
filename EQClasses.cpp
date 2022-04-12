@@ -1183,17 +1183,6 @@ FUNCTION_AT_ADDRESS(CTextureAnimation*, IconCache::GetIcon(int), IconCache__GetI
 #endif
 
 //============================================================================
-// ItemBase
-//============================================================================
-
-#ifdef ItemBase__IsLoreEquipped_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsLoreEquipped(bool bIncludeSockets) const, ItemBase__IsLoreEquipped);
-#endif
-#ifdef ItemBase__IsLore_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
-#endif
-
-//============================================================================
 // JournalNPC
 //============================================================================
 

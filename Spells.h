@@ -879,6 +879,15 @@ enum eSpellTargetType : uint8_t
 	TargetType_TargetBeneficial = 52,
 };
 
+enum eSpellStringType
+{
+	SpellStringCastByMe,
+	SpellStringCastByOther,
+	SpellStringCastOnYou,
+	SpellStringCastOnAnother,
+	SpellStringWearOff,
+};
+
 constexpr int MAX_SPELL_REAGENTS = 4;
 
 struct [[offsetcomments]] SpellAffectData
@@ -996,8 +1005,8 @@ public:
 /*0x030*/ int                  ReagentID[MAX_SPELL_REAGENTS]; // ReagentId1-ReagentId4d
 /*0x040*/ int                  ReagentCount[MAX_SPELL_REAGENTS]; // ReagentCount1-ReagentCount4
 /*0x050*/ int                  NoExpendReagent[MAX_SPELL_REAGENTS];
-/*0x060*/ int                  CalcIndex = 0;
-/*0x064*/ int                  NumEffects = 0;
+/*0x060*/ int                  CalcIndex = 0;                 // SpellAffectsStartIndex
+/*0x064*/ int                  NumEffects = 0;                // SpellAffectsCount
 /*0x068*/ int                  DescriptionIndex = 0;
 /*0x06c*/ int                  ResistAdj = 0;
 /*0x070*/ int                  Deity = 0;
@@ -1116,29 +1125,19 @@ public:
 	ALT_MEMBER_ALIAS_DEPRECATED(bool, NoDispell, NoDisspell, "NoDisspell is misspelled, use IsNoDispell() instead")
 
 	// Currently necessary because of MQ2DataTypes
-	EQLIB_OBJECT EQ_Spell()
-	{
-		for (int i = 0; i < MAX_SPELL_REAGENTS; ++i)
-		{
-			ReagentID[i] = 0;
-			ReagentCount[i] = 0;
-			NoExpendReagent[i] = 0;
-		}
-
-		for (int i = 0; i < MAX_CLASSES; ++i)
-		{
-			ClassLevel[i] = 0;
-		}
-
-		memset(Name, 0, sizeof(Name));
-		memset(Extra, 0, sizeof(Extra));
-	}
-
+	EQLIB_OBJECT EQ_Spell();
 	EQLIB_OBJECT ~EQ_Spell() = default;
 
 	DEPRECATE("Data property is not needed, use Spell directly.")
 	EQLIB_OBJECT EQ_Spell& get_Data() { return *this; }
 	__declspec(property(get = get_Data)) EQ_Spell& Data;
+
+	inline int GetNumEffects() const { return NumEffects; }
+	EQLIB_OBJECT int GetEffectAttrib(int index) const;
+	EQLIB_OBJECT int64_t GetEffectBase(int index) const;
+	EQLIB_OBJECT int64_t GetEffectBase2(int index) const;
+	EQLIB_OBJECT int64_t GetEffectMax(int index) const;
+	EQLIB_OBJECT int GetEffectCalc(int index) const;
 };
 using SPELL = EQ_Spell;
 using PSPELL = EQ_Spell*;
@@ -1488,5 +1487,11 @@ inline namespace deprecated {
 	using PSPELLBUFF DEPRECATE("Use EQ_Affect* instead of PSPELLBUFF") = EQ_Affect*;
 	using SPELLBUFF = EQ_Affect;
 }
+
+class EQSpellStrings
+{
+public:
+	EQLIB_OBJECT const char* GetString(int SpellID, int StrIndex);
+};
 
 } // namespace eqlib

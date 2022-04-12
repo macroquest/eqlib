@@ -24,6 +24,84 @@ namespace eqlib {
 // EQ_Spell
 //============================================================================
 
+EQ_Spell::EQ_Spell()
+{
+	for (int i = 0; i < MAX_SPELL_REAGENTS; ++i)
+	{
+		ReagentID[i] = 0;
+		ReagentCount[i] = 0;
+		NoExpendReagent[i] = 0;
+	}
+
+	for (int i = 0; i < MAX_CLASSES; ++i)
+	{
+		ClassLevel[i] = 0;
+	}
+
+	memset(Name, 0, sizeof(Name));
+	memset(Extra, 0, sizeof(Extra));
+}
+
+int EQ_Spell::GetEffectAttrib(int index) const
+{
+	if (pSpellMgr
+		&& index >= 0 && index < GetNumEffects())
+	{
+		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
+			return affectData->Attrib;
+	}
+
+	return 0;
+}
+
+int64_t EQ_Spell::GetEffectBase(int index) const
+{
+	if (pSpellMgr
+		&& index >= 0 && index < GetNumEffects())
+	{
+		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
+			return affectData->Base;
+	}
+
+	return 0;
+}
+
+int64_t EQ_Spell::GetEffectBase2(int index) const
+{
+	if (pSpellMgr
+		&& index >= 0 && index < GetNumEffects())
+	{
+		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
+			return affectData->Base2;
+	}
+
+	return 0;
+}
+
+int64_t EQ_Spell::GetEffectMax(int index) const
+{
+	if (pSpellMgr
+		&& index >= 0 && index < GetNumEffects())
+	{
+		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
+			return affectData->Max;
+}
+
+	return 0;
+}
+
+int EQ_Spell::GetEffectCalc(int index) const
+{
+	if (pSpellMgr
+		&& index >= 0 && index < GetNumEffects())
+	{
+		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
+			return affectData->Calc;
+	}
+
+	return 0;
+}
+
 #ifdef EQ_Spell__IsStackableDot_x
 FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsStackableDot() const, EQ_Spell__IsStackableDot);
 #endif

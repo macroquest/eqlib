@@ -18,7 +18,7 @@
 // eqgame.exe offsets
 //
 
-#define __ClientName                                              "eqgame"
+#define __ClientDate                                               20220303u
 #define __ExpectedVersionDate                                     "Mar  3 2022"
 #define __ExpectedVersionTime                                     "10:52:30"
 #define __ActualVersionDate_x                                      0x1408C50B8

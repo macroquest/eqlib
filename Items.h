@@ -80,7 +80,7 @@ enum ItemContainerInstance
 	eItemContainerOverflow                       = 37,
 	eItemContainerDragonHoard                    = 38,
 
-	eNumItemContainers                           = 37,
+	eNumItemContainers,
 };
 
 EQLIB_API const char* GetNameForContainerInstance(ItemContainerInstance container);
@@ -827,15 +827,15 @@ enum ItemSpellTypes
 	ItemSpellType_Keyring DEPRECATE("Use ItemSpellType_Blessing instead of ItemSpellType_Keyring") = ItemSpellType_Blessing,
 
 	// Two names for the same thing...
-	eActivatableSpell = 0,
-	eProcSpell = 1,
-	eWornSpell = 2,
-	eFocusSpell = 3,
-	eScrollSpell = 4,
-	eFocus2Spell = 5,
-	eMountSpell = 6,
-	eIllusionSpell = 7,
-	eFamiliarSpell = 8,
+	eActivatableSpell = ItemSpellType_Clicky,
+	eProcSpell = ItemSpellType_Proc,
+	eWornSpell = ItemSpellType_Worn,
+	eFocusSpell = ItemSpellType_Focus,
+	eScrollSpell = ItemSpellType_Scroll,
+	eFocus2Spell = ItemSpellType_Focus2,
+	eMountSpell = ItemSpellType_Blessing,
+	eIllusionSpell = ItemSpellType_Blessing,
+	eFamiliarSpell = ItemSpellType_Blessing,
 };
 using eItemSpellType = ItemSpellTypes;
 
@@ -1116,6 +1116,9 @@ public:
 	inline uint8_t get_ItemType() { return ItemClass; }
 	__declspec(property(get = get_ItemType)) uint8_t ItemType;
 
+	inline int GetMinLuck() const { return MinLuck; }
+	inline int GetMaxLuck() const { return MaxLuck; }
+
 	ItemSpellData::SpellData* GetSpellData(ItemSpellTypes type) { return SpellData.GetSpellData(type); }
 
 	// Moved ITEMSPELLS into ItemSpellData, this provides access to the original members
@@ -1315,6 +1318,36 @@ public:
 
 		return false;
 	}
+
+	// Old modifiers - in the live client these are all now focus/spell effects or heroic stats instead.
+	inline int GetAccuracy() const { return 0; }
+	inline int GetAvoidance() const { return 0; }
+	inline int GetCombatEffects() const { return 0; }
+	inline int GetDamShield() const { return 0; }
+	inline int GetDoTShielding() const { return 0; }
+	inline int GetShielding() const { return 0; }
+	inline int GetSpellShield() const { return 0; }
+	inline int GetStrikeThrough() const { return 0; }
+	inline int GetStunResist() const { return 0; }
+
+	// Heroic resists - in the live client these no longer exist
+	inline int GetHeroicSvMagic() const { return 0; }
+	inline int GetHeroicSvFire() const { return 0; }
+	inline int GetHeroicSvCold() const { return 0; }
+	inline int GetHeroicSvDisease() const { return 0; }
+	inline int GetHeroicSvPoison() const { return 0; }
+	inline int GetHeroicSvCorruption() const { return 0; }
+
+	// Convertible Item and Collection fields
+	inline bool IsCollected() const { return bCollected; }
+	inline bool IsConvertible() const { return bConvertable; }
+	inline int GetConvertItemID() const { return ConvertItemID; }
+	inline CXStr GetConvertItemName() const { return ConvertItemName; }
+
+	// Luck Accessors
+	inline int GetLuck() const { return Luck; }
+	inline int GetMinLuck() const { return GetItemDefinition()->GetMinLuck(); }
+	inline int GetMaxLuck() const { return GetItemDefinition()->GetMaxLuck(); }
 
 	// Helpers for item spells
 	ItemSpellData::SpellData* GetSpellData(ItemSpellTypes spellType) { return GetItemDefinition()->GetSpellData(spellType); }
