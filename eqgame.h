@@ -63,7 +63,7 @@
 #define __pulTurnLeft_x                                            0x140BB8F3C
 #define __pulStrafeLeft_x                                          0x140BB8F40
 #define __pulStrafeRight_x                                         0x140BB8F44
-#define __LastTell_x                                               0x140BBA430
+#define __LastTell_x                                               0x140BB97B0
 #define __ServerName_x                                             0x140BEE088
 #define __DoAbilityList_x                                          0x140BEE0C8
 #define __SocialChangedList_x                                      0x140BEE110
