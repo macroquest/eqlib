@@ -1220,6 +1220,7 @@ public:
 /*0x058*/ int                   StackCount;
 /*0x060*/ int64_t               Price;
 /*0x068*/ int                   AugFlag;
+/*0x06c*/ unsigned int          RespawnTime;
 /*0x070*/ int64_t               DontKnow;
 /*0x078*/ int                   Charges;
 /*0x080*/ CXStr                 ConvertItemName;
@@ -1232,13 +1233,13 @@ public:
 /*0x0a8*/ ItemEvolutionDataPtr  pEvolutionData;
 /*0x0b8*/ bool                  bConvertable;
 /*0x0bc*/ int                   ScriptIndex;
-/*0x0c0*/ int64_t               Unknown1;
-/*0x0c8*/ unsigned int          ItemHash;
-/*0x0cc*/ int                   OrnamentationIcon;
-/*0x0d0*/ unsigned int          LastCastTime;
-/*0x0d4*/ int                   ID;
-/*0x0d8*/ bool                  bRankDisabled;
-/*0x0dc*/ int                   ActorTag1;
+/*0x0c0*/ bool                  bCopied;
+/*0x0c4*/ unsigned int          ItemHash;
+/*0x0c8*/ int                   OrnamentationIcon;
+/*0x0cc*/ unsigned int          LastCastTime;
+/*0x0d0*/ int                   ID;
+/*0x0d4*/ bool                  bRankDisabled;
+/*0x0d8*/ int                   ActorTag1;
 /*0x0e0*/ ArrayClass<uint32_t>  RealEstateArray;
 /*0x0f8*/ ItemContainer         Contents;
 /*0x120*/ bool                  bCollected;
