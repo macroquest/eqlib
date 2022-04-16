@@ -1302,22 +1302,6 @@ public:
 	EQLIB_OBJECT bool SetItemLootFilter(int ItemID, int IconID, const char* ItemName, int FilterTypes, bool bKeepRndSetting = false, bool bScrollToIt = false);
 };
 
-
-enum eSpellStringType
-{
-	SpellStringCastByMe,
-	SpellStringCastByOther,
-	SpellStringCastOnYou,
-	SpellStringCastOnAnother,
-	SpellStringWearOff,
-};
-
-class EQSpellStrings
-{
-public:
-	EQLIB_OBJECT const char* GetString(int SpellID, int StrIndex);
-};
-
 enum InstanceType
 {
 	InstanceTypeWave,

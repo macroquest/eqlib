@@ -368,6 +368,12 @@ FUNCTION_AT_ADDRESS(int, ItemBase::ValueSellMerchant(float, int) const, ItemBase
 #ifdef ItemBase__CanGemFitInSlot_x
 FUNCTION_AT_ADDRESS(int, ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, ItemBase__CanGemFitInSlot);
 #endif
+#ifdef ItemBase__IsLoreEquipped_x
+FUNCTION_AT_ADDRESS(bool, ItemBase::IsLoreEquipped(bool bIncludeSockets) const, ItemBase__IsLoreEquipped);
+#endif
+#ifdef ItemBase__IsLore_x
+FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
+#endif
 
 //----------------------------------------------------------------------------
 

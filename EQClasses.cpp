@@ -321,21 +321,6 @@ FUNCTION_AT_ADDRESS(ClientAuraManager*, ClientAuraManager::GetSingleton(), Clien
 #endif
 
 //============================================================================
-// ClientSpellManager
-//============================================================================
-
-bool ClientSpellManager::LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName) { return false; }
-bool ClientSpellManager::LoadSpellStackingData(const char*) { return false; }
-bool ClientSpellManager::DoesMeetRequirement(PlayerZoneClient*, int) { return false; }
-void ClientSpellManager::PrintFailedRequirementString(int, int) {}
-int ClientSpellManager::GetSpellStackingGroupID(int) { return 0; }
-int ClientSpellManager::GetSpellStackingGroupRank(int) { return 0; }
-ESpellStackingRules ClientSpellManager::GetSpellStackingGroupRule(int) { return ESSR_None; }
-SpellAffectData* ClientSpellManager::GetSpellAffect(int) { return nullptr; }
-EQ_Spell* ClientSpellManager::GetSpellByID(int) { return nullptr; }
-bool ClientSpellManager::GetSpellAffectEmpty(bool) { return false; }
-
-//============================================================================
 // ConversationJournal
 //============================================================================
 
@@ -1180,17 +1165,6 @@ FUNCTION_AT_ADDRESS(IconCache::~IconCache(), IconCache__dIconCache);
 #endif
 #ifdef IconCache__GetIcon_x
 FUNCTION_AT_ADDRESS(CTextureAnimation*, IconCache::GetIcon(int), IconCache__GetIcon);
-#endif
-
-//============================================================================
-// ItemBase
-//============================================================================
-
-#ifdef ItemBase__IsLoreEquipped_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsLoreEquipped(bool bIncludeSockets) const, ItemBase__IsLoreEquipped);
-#endif
-#ifdef ItemBase__IsLore_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
 #endif
 
 //============================================================================
