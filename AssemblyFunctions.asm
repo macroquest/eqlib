@@ -8,8 +8,6 @@ extern _CXWnd__dCXWnd
 extern _CSidlScreenWnd__CSidlScreenWnd1
 extern _CSidlScreenWnd__CSidlScreenWnd2
 extern _CSidlScreenWnd__dCSidlScreenWnd
-extern _MapViewMap__MapViewMap
-extern _MapViewMap__dMapViewMap
 extern _ItemClient__dItemClient
 
 section .text
@@ -48,7 +46,6 @@ export ??0CSidlScreenWnd@eqlib@@QAE@PAVCXWnd@1@ABVCXStr@1@HHPAD@Z
 	mov eax, [_CSidlScreenWnd__CSidlScreenWnd1]
 	jmp eax
 
-
 ;---------------------------------------------------------------------------------------
 
 ; public: virtual __thiscall eqlib::CSidlScreenWnd::~CSidlScreenWnd(void) proc near
@@ -64,8 +61,9 @@ export ??1CSidlScreenWnd@eqlib@@UAE@XZ
 global ??0MapViewMap@eqlib@@QAE@XZ
 export ??0MapViewMap@eqlib@@QAE@XZ
 ??0MapViewMap@eqlib@@QAE@XZ:
-	mov eax, [_MapViewMap__MapViewMap]
-	jmp eax
+	mov eax, ecx
+	ret
+
 
 ;---------------------------------------------------------------------------------------
 
@@ -73,8 +71,8 @@ export ??0MapViewMap@eqlib@@QAE@XZ
 global ??1MapViewMap@eqlib@@UAE@XZ
 export ??1MapViewMap@eqlib@@UAE@XZ
 ??1MapViewMap@eqlib@@UAE@XZ:
-	mov eax, [_MapViewMap__dMapViewMap]
-	jmp eax
+	mov eax, ecx
+	ret
 
 ;---------------------------------------------------------------------------------------
 

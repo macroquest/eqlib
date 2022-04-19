@@ -18,20 +18,20 @@
 // eqmain.dll offsets
 //
 
-#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x18009F1F0
-#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x1800201B0
-#define EQMain__CXWndManager__GetCursorToDisplay_x                 0x18008DE90
-#define EQMain__LoginController__GiveTime_x                        0x18001BAC0
-#define EQMain__LoginController__Shutdown_x                        0x18001C2C0
-#define EQMain__LoginServerAPI__JoinServer_x                       0x18001D490
-#define EQMain__WndProc_x                                          0x180011270
+#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x180086F20
+#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x18001AD30
+//#define EQMain__CXWndManager__GetCursorToDisplay_x                 0x0          // inlined into CXWndManager::DrawCursor
+#define EQMain__LoginController__GiveTime_x                        0x180016640
+#define EQMain__LoginController__Shutdown_x                        0x180016E40
+#define EQMain__LoginServerAPI__JoinServer_x                       0x180018010
+#define EQMain__WndProc_x                                          0x18000BE00
 
-#define EQMain__pinstCEQSuiteTextureLoader_x                       0x1801B3D60
-#define EQMain__pinstCLoginViewManager_x                           0x1801BCD98
-#define EQMain__pinstCXWndManager_x                                0x1803C0910
-#define EQMain__pinstCSidlManager_x                                0x1803C0920
-#define EQMain__pinstLoginController_x                             0x1801BCDA0
-#define EQMain__pinstLoginServerAPI_x                              0x1801BCD80
+#define EQMain__pinstCEQSuiteTextureLoader_x                       0x18016A7E0
+#define EQMain__pinstCLoginViewManager_x                           0x180173648
+#define EQMain__pinstCXWndManager_x                                0x180376410
+#define EQMain__pinstCSidlManager_x                                0x180376420
+#define EQMain__pinstLoginController_x                             0x180173650
+#define EQMain__pinstLoginServerAPI_x                              0x180173630
 
 #if __has_include("../private/eqmain-private.h")
 #include "../private/eqmain-private.h"

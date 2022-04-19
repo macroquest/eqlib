@@ -237,7 +237,7 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x340 :: 2022-03-15 (test) @ 0x14062ba9e
+// @sizeof(CButtonWnd) == 0x340 :: 2022-04-14 (test) @ 0x140541f0e
 constexpr size_t CButtonWnd_size = 0x340;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd, public VeBaseReferenceCount
@@ -412,7 +412,9 @@ public:
 	EQLIB_OBJECT void SetChoice(int index);
 	EQLIB_OBJECT int GetItemCount();
 	EQLIB_OBJECT void DeleteAll();
+
 	EQLIB_OBJECT CXRect GetTextRect() const;
+	EQLIB_OBJECT CXRect GetButtonRect() const;
 
 	EQLIB_OBJECT int GetCurChoice() const;
 	EQLIB_OBJECT CXStr GetCurChoiceText() const;
@@ -603,9 +605,10 @@ class [[offsetcomments]] CGaugeWnd : public CXWnd
 {
 public:
 	EQLIB_OBJECT CGaugeWnd(CXWnd*, uint32_t, const CXRect&, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, int, unsigned long, unsigned long, bool, int, int, int, int);
-	EQLIB_OBJECT CXRect CalcFillRect(CXRect*, int) const;
-	EQLIB_OBJECT CXRect CalcLinesFillRect(CXRect*, int) const;
 	EQLIB_OBJECT void SpecialToolTip();
+
+	EQLIB_OBJECT CXRect CalcFillRect(CXRect rect, int value) const;
+	EQLIB_OBJECT CXRect CalcLinesFillRect(CXRect rect, int value) const;
 
 	// virtual
 	EQLIB_OBJECT ~CGaugeWnd();
@@ -921,7 +924,6 @@ public:
 	EQLIB_OBJECT int GetColumnWidth(int) const;
 	EQLIB_OBJECT int GetCurCol() const;
 	EQLIB_OBJECT int GetCurSel() const;
-	EQLIB_OBJECT int GetItemAtPoint(const CXPoint& pt) const;
 	EQLIB_OBJECT int GetItemHeight(int) const;
 	EQLIB_OBJECT uint32_t GetColumnFlags(int) const;
 	EQLIB_OBJECT uint64_t GetItemData(int) const;
@@ -935,7 +937,6 @@ public:
 	EQLIB_OBJECT void EnableLine(int Index, bool bVal);
 	EQLIB_OBJECT void EnsureVisible(int);
 	EQLIB_OBJECT void ExtendSel(int);
-	EQLIB_OBJECT void GetItemAtPoint(const CXPoint& pt, int* ID, int* SubItem) const;
 	EQLIB_OBJECT void InsertLine(int ID, SListWndLine* rEntry);
 	EQLIB_OBJECT void RemoveLine(int);
 	EQLIB_OBJECT void RemoveString(int);
@@ -956,6 +957,10 @@ public:
 	EQLIB_OBJECT CXWnd* GetItemWnd(int Index, int SubItem = 0) const;
 	EQLIB_OBJECT void SetItemIcon(int Index, int SubItem, const CTextureAnimation* pTA);
 	EQLIB_OBJECT void CalculateCustomWindowPositions();
+
+	EQLIB_OBJECT int GetItemAtPoint(const CXPoint& pt) const;
+	EQLIB_OBJECT void GetItemAtPoint(const CXPoint& pt, int* ID, int* SubItem) const;
+
 
 	inline int GetColumnCount() const { return Columns.GetLength(); }
 
@@ -1344,17 +1349,16 @@ public:
 	// functions we have offsets for
 	EQLIB_OBJECT int DrawCurrentPage() const;
 	EQLIB_OBJECT int DrawTab(int) const;
+	EQLIB_OBJECT void UpdatePage();
+
+	EQLIB_OBJECT void SetPageRect(const CXRect&);
+	EQLIB_OBJECT bool SetPage(CPageWnd*, bool bNotifyParent = true, bool bBringToTop = true);
+	EQLIB_OBJECT CPageWnd* GetPageFromTabPoint(CXPoint) const;
+
+	EQLIB_OBJECT CXRect GetPageClientRect() const;
 	EQLIB_OBJECT CXRect GetPageInnerRect() const;
 	EQLIB_OBJECT CXRect GetTabInnerRect(int) const;
 	EQLIB_OBJECT CXRect GetTabRect(int) const;
-	EQLIB_OBJECT void SetPageRect(const CXRect&);
-	EQLIB_OBJECT void UpdatePage();
-
-	// functions we don't have offsets for.
-	EQLIB_OBJECT CXRect GetPageClientRect() const;
-	EQLIB_OBJECT bool SetPage(CPageWnd*, bool bNotifyParent = true, bool bBringToTop = true);
-	EQLIB_OBJECT bool IndexInBounds(int) const;
-	EQLIB_OBJECT CPageWnd* GetPageFromTabPoint(CXPoint) const;
 
 	int GetNumTabs() const { return PageArray.GetLength(); }
 	int GetCurrentTabIndex() const { return CurTabIndex; }
@@ -1365,6 +1369,11 @@ public:
 	EQLIB_OBJECT void SetPage(int index, bool bNotifyParent = true, bool bBringToTop = true, bool bSomething = false);
 	EQLIB_OBJECT void InsertPage(CPageWnd* pPageWnd, int position = -1); // defaults to the last tab
 	EQLIB_OBJECT void RemovePage(CPageWnd* pPageWnd);
+
+	inline bool IsValidIndex(int index) const
+	{
+		return index >= 0 && index < GetNumTabs();
+	}
 
 
 	//----------------------------------------------------------------------------
@@ -3236,6 +3245,7 @@ public:
 /*0x2c0*/ uint32_t            Unknown2;
 /*0x2c4*/ uint32_t            Timestamp;
 /*0x2c8*/ uint32_t            Counter;
+/*0x2c8*/ ItemContainer       Container;
 /*0x2d0*/ HashTable<ItemRecord, int> Items;
 /*0x2e8*/ HashTable<SoeUtil::String, int> ItemNames;     // just a guess, likely inaccurate.
 /*0x300*/ CStaticAnimationTemplate* FIW_ClassAnim;
@@ -3279,7 +3289,7 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x388 :: 2022-03-15 (test) @ 0x1401cc45a
+// @sizeof(CFindLocationWnd) == 0x388 :: 2022-04-14 (test) @ 0x140158CC5
 constexpr size_t CFindLocationWnd_size = 0x388;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
@@ -3884,6 +3894,15 @@ public:
 	EQLIB_OBJECT char* GetGuildMotd();
 	EQLIB_OBJECT char* GetGuildMotdAuthor();
 	EQLIB_OBJECT const char* GetGuildName(int64_t, char* buffer, bool* found, bool) const;
+	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
+	EQLIB_OBJECT void DeleteAllMembers();
+	EQLIB_OBJECT void DemoteMember(GuildMember*);
+	EQLIB_OBJECT void HandleGuildMessage(connection_t*, uint32_t, char*, uint32_t);
+	EQLIB_OBJECT void SendPublicCommentChange(char*, char*);
+	EQLIB_OBJECT void SetGuildMotd(guildmotdSet*);
+
+	EQLIB_OBJECT int64_t GetGuildIndex(const char*);
+
 	inline const char* GetGuildName(int64_t guildId) const
 	{
 		char buffer[64] = { 0 };
@@ -3891,13 +3910,7 @@ public:
 
 		return GetGuildName(guildId, buffer, &found, true);
 	}
-	EQLIB_OBJECT int64_t GetGuildIndex(const char*);
-	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
-	EQLIB_OBJECT void DeleteAllMembers();
-	EQLIB_OBJECT void DemoteMember(GuildMember*);
-	EQLIB_OBJECT void HandleGuildMessage(connection_t*, uint32_t, char*, uint32_t);
-	EQLIB_OBJECT void SendPublicCommentChange(char*, char*);
-	EQLIB_OBJECT void SetGuildMotd(guildmotdSet*);
+
 
 	// private
 	EQLIB_OBJECT void AddGuildMember(GuildMember*);
@@ -4248,7 +4261,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xa80 :: 2022-03-15 (test) @ 0x14045ceda
+// @sizeof(CItemDisplayWnd) == 0xa80 :: 2022-04-14 (test) @ 0x1403AF204
 constexpr size_t CItemDisplayWnd_size = 0xa80;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4434,7 +4447,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x418 :: 2022-03-15 (test) @ 0x1401cb74f
+// @sizeof(CKeyRingWnd) == 0x418 :: 2022-04-14 (test) @ 0x140157FB7
 constexpr size_t CKeyRingWnd_size = 0x418;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4502,7 +4515,7 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0x4f8 :: 2022-03-15 (test) @ 0x1401cb9d1
+// @sizeof(CLootWnd) == 0x4f8 :: 2022-04-14 (test) @ 0x140158235
 constexpr size_t CLootWnd_size = 0x4f8;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4718,7 +4731,7 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x828 :: 2022-03-15 (test) @ 0x1401cb11b
+// @sizeof(CMapViewWnd) == 0x828 :: 2022-04-14 (test) @ 0x1401579AB
 constexpr size_t CMapViewWnd_size = 0x828;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5741,14 +5754,18 @@ inline namespace deprecated {
 // CTaskWnd
 //============================================================================
 
-class CTaskWnd : public CSidlScreenWnd
+class CTaskWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
 public:
 	CTaskWnd(CXWnd*);
 	virtual ~CTaskWnd();
 
 	EQLIB_OBJECT int UpdateTaskTimers(unsigned long fasttime);
-	EQLIB_OBJECT void ConfirmAbandonTask(int taskId);
+
+	void ConfirmAbandonTask(int taskId)
+	{
+		DialogResponse(100 /* abandon task */, 4 /* yes */, (void*)(intptr_t)taskId);
+	}
 };
 
 //============================================================================
@@ -6256,7 +6273,7 @@ public:
 	// defined methods
 
 	EQLIB_OBJECT CButtonDrawTemplate* FindButtonDrawTemplate(uint32_t id) const;
-	EQLIB_OBJECT CButtonDrawTemplate* FindButtonDrawTemplate(const CXStr& name) const;
+	EQLIB_OBJECT CButtonDrawTemplate* FindButtonDrawTemplate(std::string_view name) const;
 
 	EQLIB_OBJECT CXMLParamManager* GetParamManager();
 

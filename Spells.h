@@ -906,7 +906,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x210 :: 2022-03-15 (test) @ 0x14020a0a7
+// @sizeof(EQ_Spell) == 0x210 :: 2022-04-14 (test) @ 0x140198897
 constexpr size_t EQ_Spell_size = 0x210;
 
 class [[offsetcomments]] EQ_Spell
@@ -1307,7 +1307,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x39df60 :: 2022-03-15 (test) @ 0x1402a5266
+// @sizeof(ClientSpellManager) == 0x39df60 :: 2022-04-14 (test) @ 0x14021e5b6
 constexpr size_t ClientSpellManager_size = 0x39df60;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
@@ -1498,5 +1498,8 @@ class EQSpellStrings
 public:
 	EQLIB_OBJECT const char* GetString(int SpellID, int StrIndex);
 };
+
+// Returns true if the given spell Id is a resurrection sickness spell
+EQLIB_VAR bool IsResEffectSpell(int spellID);
 
 } // namespace eqlib

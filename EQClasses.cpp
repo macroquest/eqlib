@@ -28,14 +28,6 @@
 namespace eqlib {
 
 //============================================================================
-// Global Functions
-//============================================================================
-
-#ifdef __IsResEffectSpell_x
-FUNCTION_AT_ADDRESS(bool, IsResEffectSpell(int), __IsResEffectSpell);
-#endif
-
-//============================================================================
 // AchievementManager
 //============================================================================
 
@@ -246,9 +238,6 @@ FUNCTION_AT_ADDRESS(char*, CGuild::GetGuildMotdAuthor(), CGuild__GetGuildMotdAut
 #ifdef CGuild__GetGuildName_x
 FUNCTION_AT_ADDRESS(const char*, CGuild::GetGuildName(int64_t, char*, bool*, bool) const, CGuild__GetGuildName);
 #endif
-#ifdef CGuild__GetGuildIndex_x
-FUNCTION_AT_ADDRESS(int64_t, CGuild::GetGuildIndex(const char*), CGuild__GetGuildIndex);
-#endif
 #ifdef CGuild__ValidGuildName_x
 FUNCTION_AT_ADDRESS(bool, CGuild::ValidGuildName(int), CGuild__ValidGuildName);
 #endif
@@ -303,6 +292,12 @@ FUNCTION_AT_ADDRESS(void, CGuild::ChangeGuildMemberName(char*), CGuild__ChangeGu
 #ifdef CGuild__FindMemberByName_x
 FUNCTION_AT_ADDRESS(GuildMember*, CGuild::FindMemberByName(const char*), CGuild__FindMemberByName);
 #endif
+
+int64_t CGuild::GetGuildIndex(const char* name)
+{
+	// TODO: implement me
+	return 0;
+}
 
 //============================================================================
 // ChatManagerClient

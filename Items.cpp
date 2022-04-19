@@ -170,7 +170,6 @@ ItemDefinition::ItemDefinition()
 	AC = 0;
 	RequiredLevel = 0;
 	RecommendedLevel = 0;
-	RecommendedSkill = 0;
 	SkillModType = 0;
 	SkillModValue = 0;
 	SkillModMax = 0;
@@ -228,7 +227,7 @@ ItemDefinition::ItemDefinition()
 
 	DmgBonusSkill = 0;
 	DmgBonusValue = 0;
-	CharmFileID = 0;
+	ScriptID = 0;
 	FoodDuration = 0;
 	ContainerType = 0;
 	Slots = 0;
@@ -250,12 +249,10 @@ ItemDefinition::ItemDefinition()
 	PaletteTintIndex = 0;
 	bNoPetGive = false;
 	bSomeProfile = false;
-	SomeIDFlag = 0;
 	StackSize = 1;
 	bNoStorage = false;
 	MaxPower = 0;
 	Purity = 0;
-	bIsEpic = false;
 	RightClickScriptID = -1;
 	ItemLaunchScriptID = -1;
 	QuestItem = false;

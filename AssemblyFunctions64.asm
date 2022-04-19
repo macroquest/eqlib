@@ -5,8 +5,6 @@
 
 extern CInvSlotWnd__CInvSlotWnd
 extern CMapViewWnd__CMapViewWnd
-extern MapViewMap__MapViewMap
-extern MapViewMap__dMapViewMap
 extern CChatWindow__CChatWindow
 ;extern ItemClient__ItemClient
 extern ItemClient__dItemClient
@@ -36,16 +34,16 @@ export ??0CMapViewWnd@eqlib@@QEAA@PEAVCXWnd@1@@Z
 global ??0MapViewMap@eqlib@@QEAA@XZ
 export ??0MapViewMap@eqlib@@QEAA@XZ
 ??0MapViewMap@eqlib@@QEAA@XZ:
-	mov rax, [qword MapViewMap__MapViewMap]
-	jmp rax
+	mov rax, rcx
+	ret
 
 ;---------------------------------------------------------------------------------------
 
 global ??1MapViewMap@eqlib@@UEAA@XZ
 export ??1MapViewMap@eqlib@@UEAA@XZ
 ??1MapViewMap@eqlib@@UEAA@XZ:
-	mov rax, [qword MapViewMap__dMapViewMap]
-	jmp rax
+	mov rax, rcx
+	ret
 
 ;---------------------------------------------------------------------------------------
 
@@ -745,7 +743,6 @@ export ?AddHistory@CChatWindow@eqlib@@QEAAXVCXStr@2@@Z
 ; CComboWnd
 
 extern CComboWnd__GetListRect
-extern CComboWnd__GetTextRect
 
 
 ; public: class eqlib::CXRect eqlib::CComboWnd::GetListRect(bool)const
@@ -753,13 +750,6 @@ global ?GetListRect@CComboWnd@eqlib@@QEBA?AVCXRect@2@_N@Z
 export ?GetListRect@CComboWnd@eqlib@@QEBA?AVCXRect@2@_N@Z
 ?GetListRect@CComboWnd@eqlib@@QEBA?AVCXRect@2@_N@Z:
 	jmp [rel CComboWnd__GetListRect]
-
-
-; public: class eqlib::CXRect eqlib::CComboWnd::GetTextRect(void)const
-global ?GetTextRect@CComboWnd@eqlib@@QEBA?AVCXRect@2@XZ
-export ?GetTextRect@CComboWnd@eqlib@@QEBA?AVCXRect@2@XZ
-?GetTextRect@CComboWnd@eqlib@@QEBA?AVCXRect@2@XZ:
-	jmp [rel CComboWnd__GetTextRect]
 
 
 ;---------------------------------------------------------------------------------------
@@ -790,28 +780,6 @@ global ?ReplaceSelection@CEditWnd@eqlib@@QEAA_NVCXStr@2@_N@Z
 export ?ReplaceSelection@CEditWnd@eqlib@@QEAA_NVCXStr@2@_N@Z
 ?ReplaceSelection@CEditWnd@eqlib@@QEAA_NVCXStr@2@_N@Z:
 	jmp [rel CEditWnd__ReplaceSelection]
-
-
-;---------------------------------------------------------------------------------------
-;---------------------------------------------------------------------------------------
-; CGaugeWnd
-
-extern CGaugeWnd__CalcFillRect
-extern CGaugeWnd__CalcLinesFillRect
-
-
-; public: class eqlib::CXRect eqlib::CGaugeWnd::CalcFillRect(class eqlib::CXRect *, int)const
-global ?CalcFillRect@CGaugeWnd@eqlib@@QEBA?AVCXRect@2@PEAV32@H@Z
-export ?CalcFillRect@CGaugeWnd@eqlib@@QEBA?AVCXRect@2@PEAV32@H@Z
-?CalcFillRect@CGaugeWnd@eqlib@@QEBA?AVCXRect@2@PEAV32@H@Z:
-	jmp [rel CGaugeWnd__CalcFillRect]
-
-
-; public: class eqlib::CXRect eqlib::CGaugeWnd::CalcLinesFillRect(class eqlib::CXRect *, int)const
-global ?CalcLinesFillRect@CGaugeWnd@eqlib@@QEBA?AVCXRect@2@PEAV32@H@Z
-export ?CalcLinesFillRect@CGaugeWnd@eqlib@@QEBA?AVCXRect@2@PEAV32@H@Z
-?CalcLinesFillRect@CGaugeWnd@eqlib@@QEBA?AVCXRect@2@PEAV32@H@Z:
-	jmp [rel CGaugeWnd__CalcLinesFillRect]
 
 
 ;---------------------------------------------------------------------------------------
@@ -973,8 +941,6 @@ export ?SetSTMLText@CStmlWnd@eqlib@@QEAAXVCXStr@2@_NPEAUSLinkInfo@2@@Z
 ; CTabWnd
 
 extern CTabWnd__GetTabRect
-extern CTabWnd__GetTabInnerRect
-extern CTabWnd__GetPageInnerRect
 
 
 ; public: class eqlib::CXRect eqlib::CTabWnd::GetTabRect(int)const
@@ -982,19 +948,6 @@ global ?GetTabRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@H@Z
 export ?GetTabRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@H@Z
 ?GetTabRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@H@Z:
 	jmp [rel CTabWnd__GetTabRect]
-
-
-; public: class eqlib::CXRect eqlib::CTabWnd::GetTabInnerRect(int)const
-global ?GetTabInnerRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@H@Z
-export ?GetTabInnerRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@H@Z
-?GetTabInnerRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@H@Z:
-	jmp [rel CTabWnd__GetTabInnerRect]
-
-; public: class eqlib::CXRect eqlib::CTabWnd::GetPageInnerRect(void)const
-global ?GetPageInnerRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@XZ
-export ?GetPageInnerRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@XZ
-?GetPageInnerRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@XZ:
-	jmp [rel CTabWnd__GetPageInnerRect]
 
 
 ;---------------------------------------------------------------------------------------

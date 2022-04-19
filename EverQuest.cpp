@@ -400,9 +400,6 @@ FUNCTION_AT_ADDRESS(void, CEverQuest::StartNetworkGame(struct HWND__*, struct HI
 #ifdef CEverQuest__GetZoneInfoFromNetwork_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::GetZoneInfoFromNetwork(char*), CEverQuest__GetZoneInfoFromNetwork);
 #endif
-#ifdef CEverQuest__EnterZone_x
-FUNCTION_AT_ADDRESS(void, CEverQuest::EnterZone(struct HWND__*), CEverQuest__EnterZone);
-#endif
 #ifdef CEverQuest__Surname_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::Surname(char*), CEverQuest__Surname);
 #endif
@@ -459,9 +456,6 @@ FUNCTION_AT_ADDRESS(void, CEverQuest::CreateInitialActors(), CEverQuest__CreateI
 #endif
 #ifdef CEverQuest__CreateTargetIndicator_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::CreateTargetIndicator(int Slot, PSPELL pSpell, const ItemGlobalIndex& ItemLoc, ItemSpellTypes spelltype), CEverQuest__CreateTargetIndicator);
-#endif
-#ifdef CEverQuest__DeleteTargetIndicator_x
-FUNCTION_AT_ADDRESS(int, CEverQuest::DeleteTargetIndicator(), CEverQuest__DeleteTargetIndicator);
 #endif
 #ifdef CEverQuest__GetSndDriver_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::GetSndDriver(), CEverQuest__GetSndDriver);
@@ -556,6 +550,12 @@ FUNCTION_AT_ADDRESS(void, CEverQuest::loadCustom(), CEverQuest__loadCustom);
 #ifdef CEverQuest__initCustom_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::initCustom(), CEverQuest__initCustom);
 #endif
+
+void CEverQuest::DeleteTargetIndicator()
+{
+	eqDelete(freeTargetTracker);
+	freeTargetTracker = nullptr;
+}
 
 //============================================================================
 // EverQuestInfo

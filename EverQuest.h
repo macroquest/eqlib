@@ -43,106 +43,114 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x3a8 :: 2022-03-15 (test) @ 0x140219701
-constexpr size_t zoneHeader_size = 0x3a8;
+// size of zoneHeader is the distance from this byte to the zoneHeader
+// @sizeof(zoneHeader) == 0x2a4 :: 2022-04-14 (test) @ 0x1401A8E87
+constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
 {
-/*0x000*/ char         CharacterName[0x40];
-/*0x040*/ char         ShortName[0x80];
-/*0x0c0*/ char         LongName[0x80];
-/*0x140*/ char         ZoneDesc[0x5][0x1e];  //zone description strings
-/*0x1d6*/ BYTE         FogOnOff; // (usually FF)
-/*0x1d8*/ ARGBCOLOR    FogRed;
-/*0x1dc*/ ARGBCOLOR    FogGreen;
-/*0x1e0*/ ARGBCOLOR    FogBlue;
-/*0x1e4*/ float        FogStart[0x4]; //fog distance
-/*0x1f4*/ float        FogEnd[0x4];
-/*0x204*/ float        ZoneGravity;
-/*0x208*/ EOutDoor     OutDoor;//this is what we want instead of ZoneType, see the enum
-/*0x209*/ BYTE         RainChance[0x4];//no u cant change these to dwords cause then u screw up 4 byte padding
-/*0x20d*/ BYTE         RainDuration[0x4];
-/*0x211*/ BYTE         SnowChance[0x4];
-/*0x215*/ BYTE         SnowDuration[0x4];
-/*0x219*/ char         ZoneTimeZone;   //in hours from worldserver, can be negative
-/*0x21a*/ BYTE         SkyType;   //1 means active
-/*0x21c*/ int          WaterMidi;   //which midi to play while underwater
-/*0x220*/ int          DayMidi;
-/*0x224*/ int          NightMidi;
-/*0x228*/ float        ZoneExpModifier;    //This has been nerfed ..now reads 1.0 for all zones
-/*0x22c*/ float        SafeYLoc;
-/*0x230*/ float        SafeXLoc;
-/*0x234*/ float        SafeZLoc;
-/*0x238*/ float        SafeHeading;
-/*0x23c*/ float        Ceiling;
-/*0x240*/ float        Floor;
-/*0x244*/ float        MinClip;
-/*0x248*/ float        MaxClip;
-/*0x24c*/ int          ForageLow; //Forage skill level needed to get stuff
-/*0x250*/ int          ForageMedium;
-/*0x254*/ int          ForageHigh;
-/*0x258*/ int          FishingLow; //Fishing skill level needed to get stuff
-/*0x25c*/ int          FishingMedium;
-/*0x260*/ int          FishingHigh;
-/*0x264*/ int          SkyRelated; //0-24 i think
-/*0x268*/ uint32_t     GraveyardTimer; //minutes until corpse(s) pops to graveyard
-/*0x26c*/ int          ScriptIDHour;
-/*0x270*/ int          ScriptIDMinute;
-/*0x274*/ int          ScriptIDTick;
-/*0x278*/ int          ScriptIDOnPlayerDeath;
-/*0x27c*/ int          ScriptIDOnNPCDeath;
-/*0x280*/ int          ScriptIDPlayerEnteringZone;
-/*0x284*/ int          ScriptIDOnZonePop;
-/*0x288*/ int          ScriptIDNPCLoot;
-/*0x28c*/ int          ScriptIDAdventureFailed;
-/*0x290*/ int          CanExploreTasks;
-/*0x294*/ int          NewEngineZone;
-/*0x298*/ int          ScriptIDOnFishing;
-/*0x29c*/ int          ScriptIDOnForage;
-/*0x2a0*/ char         SkyString[0x20]; //if empty no sky, ive only seen this as the zone name
-/*0x2c0*/ char         WeatherString[0x20]; //if empty no weather
-/*0x2e0*/ char         SkyString2[0x20]; //if SkyString is empty this is checked
-/*0x300*/ int          SkyRelated2; //0-24
-/*0x304*/ char         WeatherString2[0x20]; //if empty no weather
-/*0x324*/ float        WeatherChangeTime;
-/*0x328*/ int          Climate;
-/*0x32c*/ int          NPCAgroMaxDist; //the distance needed for an npc to lose agro after an attack
-/*0x330*/ int          FilterID; //found in the teleport table
-/*0x334*/ int          ZoneID;
-/*0x338*/ int          ScriptNPCReceivedanItem;
-/*0x33c*/ bool         bCheck;
-/*0x340*/ int          ScriptIDSomething;
-/*0x344*/ int          ScriptIDSomething2;
-/*0x348*/ int          ScriptIDSomething3;
-/*0x34c*/ bool         bNoBuffExpiration;//this is checked serverside so no, u cant and shouldn't set this if u value your account
-/*0x350*/ int          LavaDamage; //before resists
-/*0x354*/ int          MinLavaDamage; //after resists
-/*0x358*/ bool         bDisallowManaStone; //can a manastone be used here?
-/*0x359*/ bool         bNoBind;
-/*0x35a*/ bool         bNoAttack;
-/*0x35b*/ bool         bNoCallOfHero;
-/*0x35c*/ bool         bNoFlux;
-/*0x35d*/ bool         bNoFear;
-/*0x35e*/ bool         bNoEncumber;
-/*0x360*/ int          FastRegenHP;//not exactly sure how these work but ome zones have these set
-/*0x364*/ int          FastRegenMana;
-/*0x368*/ int          FastRegenEndurance;
-/*0x36c*/ EPlace       CanPlaceCampsite;
-/*0x370*/ EPlace       CanPlaceGuildBanner;
-/*0x374*/ float        FogDensity;
-/*0x378*/ bool         bAdjustGamma;
-/*0x37c*/ int          TimeStringID;
-/*0x380*/ bool         bNoMercenaries;
-/*0x384*/ int          FishingRelated;
-/*0x388*/ int          ForageRelated;
-/*0x38c*/ bool         bNoLevitate;
-/*0x390*/ float        BloomIntensity;
-/*0x394*/ bool         bNoPlayerLight;
-/*0x398*/ int          GroupLvlExpRelated;
-/*0x39c*/ BYTE         PrecipitationType;
-/*0x3a0*/ uint32_t     Unknown0x3a0;
-/*0x3a4*/ bool         bAllowPVP;
-/*0x3a8*/
+/*0x000*/ char         ShortName[128];
+/*0x080*/ char         LongName[128];
+/*0x100*/ char         WeatherType[32];
+/*0x120*/ char         WeatherTypeOverride[32];
+/*0x140*/ char         SkyType[32];
+/*0x160*/ char         SkyTypeOverride[32];
+/*0x180*/ EOutDoor     OutDoor;
+/*0x184*/ int          ZoneID;                    // unique "design" id for this zone
+/*0x188*/ float        ZoneExpModifier;
+/*0x18c*/ int          GroupLvlExpRelated;
+/*0x18c*/ int          FilterID;
+/*0x18c*/ int          Unknown1;
+/*0x198*/ float        FogDensity;
+/*0x19c*/ float        FogStart[4];
+/*0x1ac*/ float        FogEnd[4];
+/*0x1bc*/ uint8_t      FogRed[4];
+/*0x1c0*/ uint8_t      FogGreen[4];
+/*0x1c4*/ uint8_t      FogBlue[4];
+/*0x1c8*/ uint8_t      RainChance[4];
+/*0x1cc*/ uint8_t      RainDuration[4];
+/*0x1d0*/ uint8_t      SnowPercentage[4];
+/*0x1d4*/ uint8_t      SnowChance[4];
+/*0x1d8*/ uint8_t      PrecipitationType;
+/*0x1dc*/ float        BloomIntensity;
+/*0x1e0*/ float        ZoneGravity;
+/*0x1e4*/ int          LavaDamage;
+/*0x1e8*/ int          MinLavaDamage;
+/*0x1ec*/ int          TimeStringID;
+/*0x1f0*/ int          Unknown3;
+/*0x1f4*/ int          SkyLock;
+/*0x1f8*/ int          SkyLockOverride;
+/*0x1fc*/ float        SafeYLoc;
+/*0x200*/ float        SafeXLoc;
+/*0x204*/ float        SafeZLoc;
+/*0x208*/ float        SafeHeading;
+/*0x20c*/ float        Ceiling;
+/*0x210*/ float        Floor;
+/*0x214*/ float        MinClip;
+/*0x218*/ float        MaxClip;
+/*0x21c*/ int          FallThroughWorldTeleportID;
+/*0x220*/ int          Unknown4;
+/*0x224*/ int          ScriptIDHour;
+/*0x228*/ int          ScriptIDMinute;
+/*0x22c*/ int          ScriptIDTick;
+/*0x230*/ int          ScriptIDOnPlayerDeath;
+/*0x234*/ int          ScriptIDOnNPCDeath;
+/*0x238*/ int          ScriptIDPlayerEnteringZone;
+/*0x23c*/ int          ScriptIDOnZonePop;
+/*0x240*/ int          ScriptIDNPCLoot;
+/*0x244*/ int          Unknown4b;
+/*0x248*/ int          ScriptIDOnFishing;
+/*0x24c*/ int          ScriptIDOnForage;
+/*0x250*/ int          Unknown4c;
+/*0x254*/ int          NPCAgroMaxDist; //the distance needed for an npc to lose agro after an attack
+/*0x258*/ int          ForageLow;
+/*0x25c*/ int          ForageMedium;
+/*0x260*/ int          ForageHigh;
+/*0x264*/ int          ForageSpecial;
+/*0x268*/ int          FishingLow;
+/*0x26c*/ int          FishingMedium;
+/*0x270*/ int          FishingHigh;
+/*0x274*/ int          FishingRelated;
+/*0x278*/ EPlace       CanPlaceCampsite;
+/*0x27c*/ EPlace       CanPlaceGuildBanner;
+/*0x280*/ int          Unknown4d;
+/*0x284*/ int          FastRegenHP;
+/*0x288*/ int          FastRegenMana;
+/*0x28c*/ int          FastRegenEndurance;
+/*0x290*/ bool         NewEngineZone;
+/*0x291*/ bool         SkyEnabled;
+/*0x292*/ bool         FogOnOff;
+/*0x293*/ bool         ClimateType;
+/*0x294*/ bool         bNoPlayerLight;
+/*0x295*/ bool         bUnknown5;
+/*0x296*/ bool         bNoAttack;
+/*0x297*/ bool         bAllowPVP;
+/*0x298*/ bool         bNoEncumber;
+/*0x299*/ bool         bUnknowns6[2];
+/*0x29b*/ bool         bNoLevitate;
+/*0x29c*/ bool         bNoBuffExpiration;
+/*0x29d*/ bool         bDisallowManaStone;
+/*0x29e*/ bool         bNoBind;
+/*0x29f*/ bool         bNoCallOfTheHero;
+/*0x2a0*/ bool         bUnknown8;
+/*0x2a1*/ bool         bNoFear;
+/*0x2a1*/ bool         bUnknown9;
+/*0x2a4*/
+
+	// these need to be figured out:
+// /*0x219*/ char         ZoneTimeZone;   //in hours from worldserver, can be negative
+// /*0x268*/ uint32_t     GraveyardTimer; //minutes until corpse(s) pops to graveyard
+// /*0x28c*/ int          ScriptIDAdventureFailed;
+// /*0x290*/ int          CanExploreTasks;
+// /*0x324*/ float        WeatherChangeTime;
+// /*0x338*/ int          ScriptNPCReceivedanItem;
+// /*0x33c*/ bool         bCheck;
+// /*0x340*/ int          ScriptIDSomething;
+// /*0x344*/ int          ScriptIDSomething2;
+// /*0x348*/ int          ScriptIDSomething3;
+// /*0x35c*/ bool         bNoFlux;
+// /*0x380*/ bool         bNoMercenaries;
+// /*0x3a8*/
 };
 using ZONEINFO = zoneHeader;
 using PZONEINFO = ZONEINFO*;
@@ -172,6 +180,24 @@ struct [[offsetcomments]] UsingSkill
 };
 using USINGSKILL = UsingSkill;
 using PUSINGSKILL = USINGSKILL*;
+
+
+class [[offsetcomments]] FreeTargetTracker
+{
+public:
+	EQLIB_OBJECT int CastSpell(const CVector3& pos);
+
+/*0x00*/ int             slot;           // the gem the spell below is memmed in... 0-11
+/*0x08*/ PSPELL          spell;
+/*0x10*/ ItemGlobalIndex itemLocation;
+/*0x1c*/ ItemSpellTypes  itemSpellType;
+/*0x20*/ float           rangeSquared;
+/*0x24*/ bool            cursorVisible;
+/*0x28*/
+};
+
+using CTargetRing DEPRECATE("Use FreeTargetTracker instead of CTargetRing") = CTargetRing;
+
 
 #pragma pack(push, 1)
 // fixme x64
@@ -289,8 +315,8 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x144*/ int        CharStatePending;
 /*0x148*/ char       PendingCharacterName[0x40];
 /*0x188*/ int        TutorialMode;
-/*0x18c*/ int        RMouseSecond;               // __RMouseHeldTime
-/*0x190*/ int        LMouseSecond;               // __LMouseHeldTime
+///*0x18c*/ int        RMouseSecond;               // __RMouseHeldTime
+///*0x190*/ int        LMouseSecond;               // __LMouseHeldTime
 /*0x194*/ UINT       RMouseDown;
 /*0x198*/ UINT       LMouseDown;
 /*0x19c*/ char       Unknown0x00198[0x40]; // fixme x64
@@ -341,7 +367,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x2dc*/ long       TargetY;
 /*0x2e0*/ long       TargetX;
 /*0x2e4*/ long       TargetZ;
-/*0x2e8*/ ZONEINFO   ZoneInfo;
+/*0x2e8*/ zoneHeader ZoneInfo;
 /*0x690*/ BYTE       ZDefined;
 /*0x694*/ int        TrackTimer;
 /*0x698*/ long       StartTrack;
@@ -388,6 +414,9 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x72d*/ bool       bAcceleratedServer;
 /*0x72e*/ bool       bProgressionServer;
 /*0x730*/ int        ProgressionOpenExpansions; // EQExpansionOwned
+
+/*0x000*/ bool       bHeroicCharacterFlag;
+
 /*0x734*/ bool       bIsDevServer;
 /*0x735*/ bool       bIsBetaServer;
 /*0x736*/ bool       bIsTestServer;
@@ -395,8 +424,15 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x738*/ bool       bUseMailSystem;
 /*0x739*/ bool       bIsEscapeServer;
 /*0x73a*/ bool       bIsTutorialEnabled;
+
+/*0x000*/ bool       bHeroicCharacterRelated;
+
 /*0x73b*/ bool       bCanCreateHeadStartCharacter;
 /*0x73c*/ bool       bCanCreateHeroicCharacter;
+
+/*0x000*/ int        nMonthlyClaim; // maybe
+/*0x000*/ int        MarketPlaceRelated; // maybe
+
 /*0x740*/ int        HeroicSlots;
 /*0x744*/ bool       bAutoIdentify;
 /*0x745*/ bool       bNameGen;
@@ -414,9 +450,9 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x764*/ int        OldRate2;
 /*0x768*/ float      StrafeRate;
 /*0x76c*/ int        SaveIndex;
-/*0x770*/ float      Unknown0x00760;
+/*0x770*/ float      moveDownSpeed;
 /*0x774*/ char       motd[1024];
-/*0xb74*/ char       motd2[1024];
+
 /*0xf74*/ int        hideAFK;
 /*0xf78*/ int        hideAFKPets;
 /*0xf7c*/ int        hideAFKMercs;
@@ -430,6 +466,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0xf8d*/ bool       bFastCamp;
 /*0xf8e*/ bool       bAdvLootGroupedByNPC;
 /*0xf90*/
+// theres still a lot more here
 };
 using EVERQUESTINFO = EverQuestinfo;
 using PEVERQUESTINFO = EVERQUESTINFO*;
@@ -540,11 +577,9 @@ public:
 	virtual ~CEverQuestBase() {}
 };
 
-class FreeTargetTracker;
 
-
-// @sizeof(CEverQuest) == 0x39708 :: 2022-03-15 (test) @ 0x14037d655
-constexpr size_t CEverQuest_size = 0x39708;
+// @sizeof(CEverQuest) == 0x396F8 :: 2022-04-14 (test) @ 0x1402EA300
+constexpr size_t CEverQuest_size = 0x396F8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
 {
@@ -553,7 +588,8 @@ public:
 	~CEverQuest();
 
 	EQLIB_OBJECT void CreateTargetIndicator(int Slot, EQ_Spell* pSpell, const ItemGlobalIndex& ItemLoc, ItemSpellTypes spelltype);
-	EQLIB_OBJECT int DeleteTargetIndicator();
+	EQLIB_OBJECT void DeleteTargetIndicator();
+
 	EQLIB_OBJECT bool IsInTypingMode();
 	EQLIB_OBJECT bool IsOkToTransact();
 	EQLIB_OBJECT bool ReadClientINIBool(char*, char*, bool);
@@ -637,7 +673,6 @@ public:
 	EQLIB_OBJECT void dsp_chat(const char* line, int color = 273, bool bLogIsOk = true, bool bConvertPercent = true, char* SomeStr = NULL);
 	EQLIB_OBJECT void dsp_chat(const char*, int, bool);
 	EQLIB_OBJECT void Emote();
-	EQLIB_OBJECT void EnterZone(HWND);
 	EQLIB_OBJECT int Follow(int);
 	EQLIB_OBJECT void FreeSwitches();
 	EQLIB_OBJECT void GetSndDriver();
@@ -773,22 +808,21 @@ public:
 /*0x00624*/ bool                  Unknown0x60c;
 /*0x00628*/ CPopDialogWnd*        CampDialog;
 /*0x00630*/ PickZoneTimerHandler  pickZoneTimerHandler;
-/*0x00648*/ UsingSkill            usingSkill;
-/*0x00658*/ PetitionStatus        petitionStatus[0x200];
-/*0x17658*/ int                   TotalQ;
-/*0x1765c*/ int                   TotalClientPetitions;
-/*0x17660*/ char                  ChatText[2112];
-/*0x17ea0*/ int                   TrimIdx;
-/*0x17ea4*/ char                  ChatChanged;
-/*0x17ea5*/ char                  Trim[64][2112];
-/*0x38ea8*/ int                   chat;
-/*0x38eac*/ int                   disconnected;
-/*0x38eb0*/ int                   Red;
-/*0x38eb4*/ int                   Green;
-/*0x38eb8*/ int                   Blue;
-/*0x38ec0*/ ArrayClass<CSINFO>    charSelectPlayerArray;
-/*0x38ed8*/ char                  Filler[0x830]; // more data
-/*0x39708*/
+/*0x00648*/ PetitionStatus        petitionStatus[0x200];
+/*0x17648*/ int                   TotalQ;
+/*0x1764c*/ int                   TotalClientPetitions;
+/*0x17650*/ char                  ChatText[2112];
+/*0x17e90*/ int                   TrimIdx;
+/*0x17e94*/ char                  ChatChanged;
+/*0x17e95*/ char                  Trim[64][2112];
+/*0x38e98*/ int                   chat;
+/*0x38e9c*/ int                   disconnected;
+/*0x38ea0*/ int                   Red;
+/*0x38ea4*/ int                   Green;
+/*0x38ea8*/ int                   Blue;
+/*0x38eb0*/ ArrayClass<CSINFO>    charSelectPlayerArray;
+/*0x38ec8*/ char                  Filler[0x830]; // more data
+/*0x396f8*/
 
 	ALT_MEMBER_GETTER(UniversalChatProxy*, chatService, ChatService);
 };

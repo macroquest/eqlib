@@ -862,6 +862,9 @@ int CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& 
 // PcClient
 //============================================================================
 
+#ifdef PcClient__GetMeleeSpellFromSkillIndex_x
+FUNCTION_AT_ADDRESS(EQ_Spell*, PcClient::GetMeleeSpellFromSkillIndex(int), PcClient__GetMeleeSpellFromSkillIndex);
+#endif
 
 //============================================================================
 // PcZoneClient

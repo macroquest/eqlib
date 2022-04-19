@@ -64,8 +64,8 @@ public:
 
 	T* begin() { return &m_array[0]; }
 	const T* begin() const { return &m_array[0]; }
-	T* end() { return &m_array[0] + m_count; }
-	const T* end() const { return &m_array[0] + m_count; }
+	T* end() { return &m_array[0] + m_size; }
+	const T* end() const { return &m_array[0] + m_size; }
 
 protected:
 	virtual T* Allocate(int amount, int* allocated, bool exact);
@@ -77,9 +77,10 @@ private:
 	void Copy(const T* data, int amount);
 
 private:
-	T* m_array = nullptr;
-	int m_size = 0;
-	int m_alloc = 0;
+/*0x08*/ T* m_array = nullptr;
+/*0x10*/ int m_size = 0;
+/*0x14*/ int m_alloc = 0;
+/*0x18*/
 };
 
 //============================================================================

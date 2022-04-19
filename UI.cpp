@@ -173,9 +173,6 @@ FUNCTION_AT_ADDRESS(int, CComboWnd::GetItemCount(), CComboWnd__GetItemCount);
 #ifdef CComboWnd__DeleteAll_x
 FUNCTION_AT_ADDRESS(void, CComboWnd::DeleteAll(), CComboWnd__DeleteAll);
 #endif
-#ifdef CComboWnd__GetTextRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetTextRect() const, CComboWnd__GetTextRect);
-#endif
 
 int CComboWnd::GetCurChoice() const
 {
@@ -186,6 +183,28 @@ CXStr CComboWnd::GetCurChoiceText() const
 {
 	return pListWnd->GetItemText(pListWnd->GetCurSel());
 }
+
+CXRect CComboWnd::GetTextRect() const
+{
+	CXRect rect = GetClientRect();
+	rect.right = GetButtonRect().left;
+	rect.top += (rect.GetHeight() - pFont->GetHeight()) / 2;
+
+	return rect;
+}
+
+CXRect CComboWnd::GetButtonRect() const
+{
+	CXRect rect = GetClientRect();
+
+	if (ButtonDrawTemplate.ptaNormal != nullptr)
+	{
+		rect.left = rect.right - ButtonDrawTemplate.ptaNormal->GetSize().cx;
+	}
+
+	return rect;
+}
+
 
 //============================================================================
 // CEditWnd
@@ -276,15 +295,31 @@ void CEditBaseWnd::SetMaxChars(int maxChars)
 #ifdef CGaugeWnd__CGaugeWnd_x
 FUNCTION_AT_ADDRESS(CGaugeWnd::CGaugeWnd(CXWnd*, uint32_t, CXRect, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, CTextureAnimation*, int, unsigned long, unsigned long, bool, int, int, int, int), CGaugeWnd__CGaugeWnd);
 #endif
-#ifdef CGaugeWnd__CalcFillRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcFillRect(CXRect*, int) const, CGaugeWnd__CalcFillRect);
-#endif
-#ifdef CGaugeWnd__CalcLinesFillRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CGaugeWnd::CalcLinesFillRect(CXRect*, int) const, CGaugeWnd__CalcLinesFillRect);
-#endif
 #ifdef CGaugeWnd__SpecialToolTip_x
 FUNCTION_AT_ADDRESS(void, CGaugeWnd::SpecialToolTip(), CGaugeWnd__SpecialToolTip);
 #endif
+
+CXRect CGaugeWnd::CalcFillRect(CXRect rect, int value) const
+{
+	if (value < 0)
+		value = 0;
+
+	float width = static_cast<float>(value) * 0.001f * rect.GetWidth();
+	rect.right = rect.left + static_cast<int>(width) + 1;
+
+	return rect;
+}
+
+CXRect CGaugeWnd::CalcLinesFillRect(CXRect rect, int value) const
+{
+	if (value < 0)
+		value = 0;
+	
+	float width = static_cast<float>((value - 1) % 200) * 0.005f * rect.GetWidth();
+	rect.right = rect.left + static_cast<int>(width);
+
+	return rect;
+}
 
 //============================================================================
 // CHotButton
@@ -372,9 +407,6 @@ FUNCTION_AT_ADDRESS(uint64_t, CListWnd::GetItemData(int) const, CListWnd__GetIte
 #endif
 #ifdef CListWnd__GetItemText_x
 //FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
-#endif
-#ifdef CListWnd__GetItemIcon_x
-FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetItemIcon(int, int) const, CListWnd__GetItemIcon);
 #endif
 #ifdef CListWnd__GetItemColor_x
 FUNCTION_AT_ADDRESS(unsigned long, CListWnd::GetItemColor(int, int) const, CListWnd__GetItemColor);
@@ -499,12 +531,6 @@ FUNCTION_AT_ADDRESS(void, CListWnd::EnsureVisible(int), CListWnd__EnsureVisible)
 #ifdef CListWnd__GetItemRect_x
 //FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
 #endif
-#ifdef CListWnd__GetItemAtPoint_x
-FUNCTION_AT_ADDRESS(int, CListWnd::GetItemAtPoint(const CXPoint&) const, CListWnd__GetItemAtPoint);
-#endif
-#ifdef CListWnd__GetItemAtPoint1_x
-FUNCTION_AT_ADDRESS(void, CListWnd::GetItemAtPoint(const CXPoint&, int*, int*) const, CListWnd__GetItemAtPoint1);
-#endif
 #ifdef CListWnd__CloseAndUpdateEditWindow_x
 FUNCTION_AT_ADDRESS(void, CListWnd::CloseAndUpdateEditWindow(), CListWnd__CloseAndUpdateEditWindow);
 #endif
@@ -517,6 +543,47 @@ FUNCTION_AT_ADDRESS(void, CListWnd::SetColors(unsigned long, unsigned long, unsi
 #ifdef CListWnd__GetHeaderRect_x
 FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetHeaderRect(int) const, CListWnd__GetHeaderRect);
 #endif
+
+int CListWnd::GetItemAtPoint(const CXPoint& p) const
+{
+	for (int row = FirstVisibleLine; row < ItemsArray.GetCount(); ++row)
+	{
+		for (int col = 0; col < Columns.GetCount(); ++col)
+		{
+			if (GetItemRect(row, col).ContainsPoint(p))
+				return row;
+		}
+	}
+
+	return -1;
+}
+
+void CListWnd::GetItemAtPoint(const CXPoint& p, int* outRow, int* outCol) const
+{
+	if (outRow != nullptr && outCol != nullptr)
+	{
+		for (int row = FirstVisibleLine; row < ItemsArray.GetCount(); ++row)
+		{
+			for (int col = 0; col < Columns.GetCount(); ++col)
+			{
+				if (GetItemRect(row, col).ContainsPoint(p))
+				{
+					*outRow = row;
+					*outCol = col;
+					return;
+				}
+			}
+		}
+	}
+	else if (outRow != nullptr)
+	{
+		*outRow = GetItemAtPoint(p);
+	}
+	else if (outCol != nullptr)
+	{
+		*outCol = -1;
+	}
+}
 
 int CListWnd::AddString(const char* Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr)
 {
@@ -573,6 +640,18 @@ CXStr CListWnd::GetColumnTooltip(int column) const
 		return Columns[column].Tooltip;
 
 	return CXStr();
+}
+
+const CTextureAnimation* CListWnd::GetItemIcon(int row, int col) const
+{
+	if (row < 0 || row >= ItemsArray.GetCount())
+		return nullptr;
+	
+	auto& line = ItemsArray[row];
+	if (col < 0 || col >= line.Cells.GetCount())
+		return nullptr;
+
+	return line.Cells[col].pTA;
 }
 
 //============================================================================
@@ -736,7 +815,7 @@ FUNCTION_AT_ADDRESS(void, CStmlWnd::CompleteParse(), CStmlWnd__CompleteParse);
 FUNCTION_AT_ADDRESS(void, CStmlWnd::StripFirstSTMLLines(int), CStmlWnd__StripFirstSTMLLines);
 #endif
 #ifdef CStmlWnd__CanBreakAtCharacter_x
-FUNCTION_AT_ADDRESS(bool, __cdecl CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
+FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
 #endif
 #ifdef CStmlWnd__UpdateHistoryString_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::UpdateHistoryString(int32_t, const CXStr&), CStmlWnd__UpdateHistoryString);
@@ -758,23 +837,8 @@ FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
 #ifdef CTabWnd__CTabWnd_x
 FUNCTION_AT_ADDRESS(CTabWnd::CTabWnd(CXWnd* pParent, UINT uId, RECT* rect, CTabBoxTemplate* pTabContents), CTabWnd__CTabWnd);
 #endif
-#ifdef CTabWnd__GetNumTabs_x
-//FUNCTION_AT_ADDRESS(int, CTabWnd::GetNumTabs() const, CTabWnd__GetNumTabs);
-#endif
-#ifdef CTabWnd__GetCurrentPage_x
-//FUNCTION_AT_ADDRESS(CPageWnd*, CTabWnd::GetCurrentPage() const, CTabWnd__GetCurrentPage);
-#endif
-#ifdef CTabWnd__GetTabRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
-#endif
-#ifdef CTabWnd__GetTabInnerRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabInnerRect(int) const, CTabWnd__GetTabInnerRect);
-#endif
 #ifdef CTabWnd__GetPageClientRect_x
 FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageClientRect() const, CTabWnd__GetPageClientRect);
-#endif
-#ifdef CTabWnd__GetPageInnerRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageInnerRect() const, CTabWnd__GetPageInnerRect);
 #endif
 #ifdef CTabWnd__SetPage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::SetPage(int, bool, bool, bool), CTabWnd__SetPage);
@@ -790,12 +854,6 @@ FUNCTION_AT_ADDRESS(void, CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageR
 #endif
 #ifdef CTabWnd__UpdatePage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::UpdatePage(), CTabWnd__UpdatePage);
-#endif
-#ifdef CTabWnd__GetPageFromTabIndex_x
-//FUNCTION_AT_ADDRESS(CPageWnd*, CTabWnd::GetPageFromTabIndex(int) const, CTabWnd__GetPageFromTabIndex);
-#endif
-#ifdef CTabWnd__GetCurrentTabIndex_x
-//FUNCTION_AT_ADDRESS(int, CTabWnd::GetCurrentTabIndex() const, CTabWnd__GetCurrentTabIndex);
 #endif
 #ifdef CTabWnd__IndexInBounds_x
 FUNCTION_AT_ADDRESS(bool, CTabWnd::IndexInBounds(int) const, CTabWnd__IndexInBounds);
@@ -889,6 +947,40 @@ CPageWnd* CTabWnd::GetPageFromTabIndex(int tabIndex) const
 CPageWnd* CTabWnd::GetCurrentPage() const
 {
 	return GetPageFromTabIndex(GetCurrentTabIndex());
+}
+
+CXRect CTabWnd::GetPageClientRect() const
+{
+	CXRect rect = PageRect;
+	rect = rect + GetClientRect().TopLeft();
+
+	return rect;
+}
+
+CXRect CTabWnd::GetPageInnerRect() const
+{
+	CXRect rect = GetPageClientRect();
+
+	rect.left += pPageBorder->GetAnimation(CTAFrameDraw::FrameDraw_LeftTop)->GetSize().cx;
+	rect.top += pPageBorder->GetAnimation(CTAFrameDraw::FrameDraw_Top)->GetSize().cy;
+	rect.right -= pPageBorder->GetAnimation(CTAFrameDraw::FrameDraw_RightTop)->GetSize().cx;
+	rect.bottom -= pPageBorder->GetAnimation(CTAFrameDraw::FrameDraw_Bottom)->GetSize().cy;
+
+	return rect;
+}
+
+CXRect CTabWnd::GetTabInnerRect(int tabIndex) const
+{
+	CXRect rect = GetTabRect(tabIndex);
+
+	if (IsValidIndex(tabIndex))
+	{
+		rect.top += pTabBorder->GetAnimation(CTAFrameDraw::FrameDraw_Top)->GetSize().cy;
+		rect.left += pTabBorder->GetAnimation(CTAFrameDraw::FrameDraw_Left)->GetSize().cx;
+		rect.right -= pTabBorder->GetAnimation(CTAFrameDraw::FrameDraw_Right)->GetSize().cy;
+	}
+
+	return rect;
 }
 
 //============================================================================
@@ -1334,9 +1426,31 @@ FUNCTION_AT_ADDRESS(int, CColorPickerWnd::Open(CXWnd* pwndCaller, D3DCOLOR Curre
 // CCombatSkillsSelectWnd
 //============================================================================
 
-#ifdef CCombatSkillsSelectWnd__ShouldDisplayThisSkill_x
-FUNCTION_AT_ADDRESS(bool, CCombatSkillsSelectWnd::ShouldDisplayThisSkill(int), CCombatSkillsSelectWnd__ShouldDisplayThisSkill);
-#endif
+bool CCombatSkillsSelectWnd::ShouldDisplayThisSkill(int skillIdx)
+{
+	EQ_Spell* pSpell = pLocalPC->GetMeleeSpellFromSkillIndex(skillIdx);
+	if (!pSpell)
+	{
+		return true;
+	}
+
+	for (int index = 0; index < NUM_COMBAT_ABILITIES; ++index)
+	{
+		if (skillIdx != index)
+		{
+			EQ_Spell* pOther = pLocalPC->GetMeleeSpellFromSkillIndex(index);
+
+			if (pOther != nullptr
+				&& pSpell->SpellGroup == pOther->SpellGroup
+				&& pSpell->SpellRank == pOther->SpellRank)
+			{
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
 
 //============================================================================
 // CCompassWnd
@@ -2173,10 +2287,40 @@ FUNCTION_AT_ADDRESS(int, MapViewMap::GetMinZ(), MapViewMap__GetMinZ);
 #ifdef MapViewMap__GetMaxZ_x
 FUNCTION_AT_ADDRESS(int, MapViewMap::GetMaxZ(), MapViewMap__GetMaxZ);
 #endif
-#ifdef MapViewMap__GetWorldCoordinates_x
-FUNCTION_AT_ADDRESS(void, MapViewMap::GetWorldCoordinates(CVector3&), MapViewMap__GetWorldCoordinates);
-#endif
 
+void MapViewMap::GetWorldCoordinates(CVector3& point)
+{
+	CXRect clientRect = GetClientRect();
+
+	point.X -= clientRect.left + panOffsetX;
+	point.Y -= clientRect.top + panOffsetY;
+
+	if (zoom == 1.0f)
+	{
+		point.X -= scaleDiffX;
+		point.Y -= scaleDiffY;
+	}
+	else
+	{
+		point.X -= clientRect.GetWidth() / 2.0f;
+		point.Y -= clientRect.GetHeight() / 2.0f;
+	}
+
+	point.X /= mapViewScaleX;
+	point.Y /= mapViewScaleY;
+
+	if (zoom != 1.0f)
+	{
+		point.X = (point.X + lineOffsetX) / zoom;
+		point.Y = (point.Y + lineOffsetY) / zoom;
+	}
+
+	float tempY = -(point.X - mapViewMaxX);
+	float tempX = -(point.Y - mapViewMaxY);
+
+	point.X = tempX;
+	point.Y = tempY;
+}
 
 //============================================================================
 // CMerchantWnd
@@ -2996,9 +3140,6 @@ FUNCTION_AT_ADDRESS(int, CChatWindow::WndNotification(CXWnd*, uint32_t, void*), 
 #ifdef CSidlManagerBase__FindButtonDrawTemplate_x
 FUNCTION_AT_ADDRESS(CButtonDrawTemplate*, CSidlManagerBase::FindButtonDrawTemplate(uint32_t) const, CSidlManagerBase__FindButtonDrawTemplate);
 #endif
-#ifdef CSidlManagerBase__FindButtonDrawTemplate1_x
-FUNCTION_AT_ADDRESS(CButtonDrawTemplate*, CSidlManagerBase::FindButtonDrawTemplate(const CXStr& Name) const, CSidlManagerBase__FindButtonDrawTemplate1);
-#endif
 #ifdef CSidlManagerBase__FindAnimation1_x
 FUNCTION_AT_ADDRESS(CTextureAnimation*, CSidlManagerBase::FindAnimation(const CXStr&) const, CSidlManagerBase__FindAnimation1);
 #endif
@@ -3021,6 +3162,22 @@ FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWnd(CXWnd* pwndParent, CCon
 CXMLParamManager* CSidlManagerBase::GetParamManager()
 {
 	return &XMLDataMgr;
+}
+
+CButtonDrawTemplate* CSidlManagerBase::FindButtonDrawTemplate(std::string_view Name) const
+{
+	if (Name.empty())
+		return nullptr;
+
+	for (int i = 0; i  < ButtonDrawTemplateArray.GetLength(); ++i)
+	{
+		CButtonDrawTemplate* pTemplate = ButtonDrawTemplateArray[i];
+
+		if (mq::string_equals(pTemplate->strName, Name))
+			return pTemplate;
+	}
+
+	return nullptr;
 }
 
 //============================================================================
