@@ -925,6 +925,8 @@ public:
 		return GetEffect(0);
 	}
 
+	EQ_Affect& GetTempEffect(int nBuffSlot) { GetCurrentBaseProfile().GetTempEffect(nBuffSlot); }
+
 	int GetEffectSlot(EQ_Affect* effect)
 	{
 		for (int nBuffSlot = 0; nBuffSlot < MAX_TOTAL_BUFFS; ++nBuffSlot)
