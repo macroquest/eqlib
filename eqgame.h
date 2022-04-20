@@ -256,7 +256,7 @@
 #define CharacterZoneClient__GetPctModAndMin_x                     0x14009FCB0
 #define CharacterZoneClient__HasSkill_x                            0x1400C58C0
 #define CharacterZoneClient__IsStackBlocked_x                      0x1400AEBB0
-#define CharacterZoneClient__MakeMeVisible_x                       0x1400BADE0
+#define CharacterZoneClient__MakeMeVisible_x                       0x1400C9B40
 #define CharacterZoneClient__Max_Endurance_x                       0x1402927F0  // PcZoneClient::Max_Endurance
 #define CharacterZoneClient__Max_HP_x                              0x1400C9E80
 #define CharacterZoneClient__Max_Mana_x                            0x1402929E0  // PcZoneclient::Max_Mana
