@@ -139,6 +139,7 @@
     <ClInclude Include="Allocator.h" />
     <ClInclude Include="AltAbilities.h" />
     <ClInclude Include="base\Color.h" />
+    <ClInclude Include="BuildType.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Containers.h" />

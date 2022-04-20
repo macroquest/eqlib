@@ -915,15 +915,8 @@ public:
 	int GetWisdom() const { return WIS; }
 	int GetLuck() const { return LCK; }
 
-	EQ_Affect& GetEffect(int nBuffSlot)
-	{
-		if (nBuffSlot >= 0 && nBuffSlot < NUM_LONG_BUFFS)
-			return GetCurrentBaseProfile().GetEffect(nBuffSlot);
-		if (nBuffSlot >= NUM_LONG_BUFFS && NUM_LONG_BUFFS + NUM_TEMP_BUFFS)
-			return GetCurrentBaseProfile().GetTempEffect(nBuffSlot - NUM_LONG_BUFFS);
-		// ??
-		return GetEffect(0);
-	}
+	EQ_Affect& GetEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetEffect(nBuffSlot); }
+	EQ_Affect& GetTempEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetTempEffect(nBuffSlot); }
 
 	EQ_Affect& GetTempEffect(int nBuffSlot) { GetCurrentBaseProfile().GetTempEffect(nBuffSlot); }
 
@@ -1500,7 +1493,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x31e8 :: 2022-03-03 (live) @ 0x1402a3b8e
+// @sizeof(PcClient) == 0x31e8 :: 2022-04-14 (test) @ 0x14023000E
 constexpr size_t PcClient_size = 0x31e8;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
@@ -1574,6 +1567,7 @@ public:
 	EQLIB_OBJECT unsigned long GetCombatAbilityTimer(int, int);
 	EQLIB_OBJECT void GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>& Out, bool bCurrentProfileOnly = false, bool bIncludeAltStorage = true, bool bIncludeArchived = true);
 	EQLIB_OBJECT void GetNonArchivedOwnedRealEstates(ArrayClass<int>& output);
+	EQLIB_OBJECT EQ_Spell* GetMeleeSpellFromSkillIndex(int skillIdx);
 
 	//----------------------------------------------------------------------------
 	// Deprecated properties

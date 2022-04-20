@@ -1701,10 +1701,10 @@ public:
 		Node*     pHashNext;
 	};
 
-/*0x04*/ int    m_count = 0;
-/*0x08*/ Node*  m_pHead = nullptr;
-/*0x0c*/ Node*  m_pTail = nullptr;
-/*0x10*/ Node*  m_table[TableSize];
+/*0x08*/ int    m_count = 0;
+/*0x10*/ Node*  m_pHead = nullptr;
+/*0x18*/ Node*  m_pTail = nullptr;
+/*0x20*/ Node*  m_table[TableSize];
 
 	HashListMap()
 	{

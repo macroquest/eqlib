@@ -542,7 +542,7 @@ struct [[offsetcomments]] CTaskElement
 
 const int MAX_TASK_ELEMENTS = 20;
 
-// @sizeof(CTaskEntry) == 0x3d60 :: 2022-03-03 (live) @ 0x1401aa0fb
+// @sizeof(CTaskEntry) == 0x3d60 :: 2022-04-14 (test) @ 0x140048784
 constexpr size_t CTaskEntry_size = 0x3d60;
 
 struct [[offsetcomments]] CTaskEntry
@@ -1139,7 +1139,7 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2022-03-03 (live) @ 0x14028fb29
+// @sizeof(EQWorldData) == 0x1f88 :: 2022-04-14 (test) @ 0x140213F7B
 constexpr size_t EQWorldData_size = 0x1f88;
 
 class [[offsetcomments]] EQWorldData
@@ -1652,7 +1652,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x353780 :: 2022-03-03 (live) @ 0x14028fc43
+// @sizeof(SkillManager) == 0x353780 :: 2022-04-14 (test) @ 0x14021409C
 constexpr size_t SkillManager_size = 0x353780;
 
 class [[offsetcomments]] SkillManager
@@ -1702,22 +1702,6 @@ struct [[offsetcomments]] tp_coords
 /*0x20*/
 };
 
-
-class [[offsetcomments]] FreeTargetTracker
-{
-public:
-	EQLIB_OBJECT int CastSpell(const CVector3& pos);
-
-/*0x00*/ int             slot;           // the gem the spell below is memmed in... 0-11
-/*0x08*/ PSPELL          spell;
-/*0x10*/ ItemGlobalIndex itemLocation;
-/*0x1c*/ ItemSpellTypes  itemSpellType;
-/*0x20*/ float           rangeSquared;
-/*0x24*/ bool            cursorVisible;
-/*0x28*/
-};
-
-using CTargetRing DEPRECATE("Use FreeTargetTracker instead of CTargetRing") = CTargetRing;
 
 class CTargetIndicatorSettings;
 

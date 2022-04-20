@@ -248,4 +248,15 @@ SpellAffectData* ClientSpellManager::GetSpellAffect(int) { return nullptr; }
 EQ_Spell* ClientSpellManager::GetSpellByID(int) { return nullptr; }
 bool ClientSpellManager::GetSpellAffectEmpty(bool) { return false; }
 
+//============================================================================
+// Misc
+//============================================================================
+
+bool IsResEffectSpell(int spellID)
+{
+	return spellID == 756        // Resurrection Sickness
+		|| spellID == 13087      // Revival Sickness
+		|| spellID == 5249;      // Resurrection Sickness
+}
+
 } // namespace eqlib
