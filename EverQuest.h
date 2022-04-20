@@ -44,96 +44,96 @@ enum EPlace
 };
 
 // size of zoneHeader is the distance from this byte to the zoneHeader
-// @sizeof(zoneHeader) == 0x2a4 :: 2022-04-14 (test) @ 0x1401A8E87
+// @sizeof(zoneHeader) == 0x2a4 :: 2022-04-15 (live) @ 0x140B74AA8
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
 {
-/*0x000*/ char         ShortName[128];
-/*0x080*/ char         LongName[128];
+/*0x040*/ char         ShortName[128];
+/*0x0c0*/ char         LongName[128];
 /*0x100*/ char         WeatherType[32];
 /*0x120*/ char         WeatherTypeOverride[32];
-/*0x140*/ char         SkyType[32];
+/*0x21a*/ char         SkyType[32];
 /*0x160*/ char         SkyTypeOverride[32];
-/*0x180*/ EOutDoor     OutDoor;
-/*0x184*/ int          ZoneID;                    // unique "design" id for this zone
-/*0x188*/ float        ZoneExpModifier;
-/*0x18c*/ int          GroupLvlExpRelated;
-/*0x190*/ int          FilterID;
+/*0x208*/ EOutDoor     OutDoor;
+/*0x334*/ int          ZoneID;                    // unique "design" id for this zone
+/*0x228*/ float        ZoneExpModifier;
+/*0x398*/ int          GroupLvlExpRelated;
+/*0x330*/ int          FilterID;
 /*0x194*/ int          Unknown1;
-/*0x198*/ float        FogDensity;
-/*0x19c*/ float        FogStart[4];
-/*0x1ac*/ float        FogEnd[4];
-/*0x1bc*/ uint8_t      FogRed[4];
-/*0x1c0*/ uint8_t      FogGreen[4];
-/*0x1c4*/ uint8_t      FogBlue[4];
-/*0x1c8*/ uint8_t      RainChance[4];
-/*0x1cc*/ uint8_t      RainDuration[4];
+/*0x374*/ float        FogDensity;
+/*0x1e4*/ float        FogStart[4];
+/*0x1f4*/ float        FogEnd[4];
+/*0x1d8*/ uint8_t      FogRed[4];
+/*0x1dc*/ uint8_t      FogGreen[4];
+/*0x1e0*/ uint8_t      FogBlue[4];
+/*0x209*/ uint8_t      RainChance[4];
+/*0x20d*/ uint8_t      RainDuration[4];
 /*0x1d0*/ uint8_t      SnowPercentage[4];
-/*0x1d4*/ uint8_t      SnowChance[4];
-/*0x1d8*/ uint8_t      PrecipitationType;
-/*0x1dc*/ float        BloomIntensity;
-/*0x1e0*/ float        ZoneGravity;
-/*0x1e4*/ int          LavaDamage;
-/*0x1e8*/ int          MinLavaDamage;
-/*0x1ec*/ int          TimeStringID;
+/*0x211*/ uint8_t      SnowChance[4];
+/*0x39c*/ uint8_t      PrecipitationType;
+/*0x390*/ float        BloomIntensity;
+/*0x204*/ float        ZoneGravity;
+/*0x350*/ int          LavaDamage;
+/*0x354*/ int          MinLavaDamage;
+/*0x37c*/ int          TimeStringID;
 /*0x1f0*/ int          Unknown3;
 /*0x1f4*/ int          SkyLock;
 /*0x1f8*/ int          SkyLockOverride;
-/*0x1fc*/ float        SafeYLoc;
-/*0x200*/ float        SafeXLoc;
-/*0x204*/ float        SafeZLoc;
-/*0x208*/ float        SafeHeading;
-/*0x20c*/ float        Ceiling;
-/*0x210*/ float        Floor;
-/*0x214*/ float        MinClip;
-/*0x218*/ float        MaxClip;
+/*0x22c*/ float        SafeYLoc;
+/*0x230*/ float        SafeXLoc;
+/*0x234*/ float        SafeZLoc;
+/*0x238*/ float        SafeHeading;
+/*0x23c*/ float        Ceiling;
+/*0x240*/ float        Floor;
+/*0x244*/ float        MinClip;
+/*0x248*/ float        MaxClip;
 /*0x21c*/ int          FallThroughWorldTeleportID;
 /*0x220*/ int          Unknown4;
-/*0x224*/ int          ScriptIDHour;
-/*0x228*/ int          ScriptIDMinute;
-/*0x22c*/ int          ScriptIDTick;
-/*0x230*/ int          ScriptIDOnPlayerDeath;
-/*0x234*/ int          ScriptIDOnNPCDeath;
-/*0x238*/ int          ScriptIDPlayerEnteringZone;
-/*0x23c*/ int          ScriptIDOnZonePop;
-/*0x240*/ int          ScriptIDNPCLoot;
+/*0x26c*/ int          ScriptIDHour;
+/*0x270*/ int          ScriptIDMinute;
+/*0x274*/ int          ScriptIDTick;
+/*0x278*/ int          ScriptIDOnPlayerDeath;
+/*0x27c*/ int          ScriptIDOnNPCDeath;
+/*0x280*/ int          ScriptIDPlayerEnteringZone;
+/*0x284*/ int          ScriptIDOnZonePop;
+/*0x288*/ int          ScriptIDNPCLoot;
 /*0x244*/ int          Unknown4b;
-/*0x248*/ int          ScriptIDOnFishing;
-/*0x24c*/ int          ScriptIDOnForage;
+/*0x298*/ int          ScriptIDOnFishing;
+/*0x29c*/ int          ScriptIDOnForage;
 /*0x250*/ int          Unknown4c;
-/*0x254*/ int          NPCAgroMaxDist; //the distance needed for an npc to lose agro after an attack
-/*0x258*/ int          ForageLow;
-/*0x25c*/ int          ForageMedium;
-/*0x260*/ int          ForageHigh;
+/*0x32c*/ int          NPCAgroMaxDist; //the distance needed for an npc to lose agro after an attack
+/*0x24c*/ int          ForageLow;
+/*0x250*/ int          ForageMedium;
+/*0x254*/ int          ForageHigh;
 /*0x264*/ int          ForageSpecial;
-/*0x268*/ int          FishingLow;
-/*0x26c*/ int          FishingMedium;
-/*0x270*/ int          FishingHigh;
-/*0x274*/ int          FishingRelated;
-/*0x278*/ EPlace       CanPlaceCampsite;
-/*0x27c*/ EPlace       CanPlaceGuildBanner;
+/*0x258*/ int          FishingLow;
+/*0x25c*/ int          FishingMedium;
+/*0x260*/ int          FishingHigh;
+/*0x384*/ int          FishingRelated;
+/*0x36c*/ EPlace       CanPlaceCampsite;
+/*0x370*/ EPlace       CanPlaceGuildBanner;
 /*0x280*/ int          Unknown4d;
-/*0x284*/ int          FastRegenHP;
-/*0x288*/ int          FastRegenMana;
-/*0x28c*/ int          FastRegenEndurance;
-/*0x290*/ bool         NewEngineZone;
+/*0x360*/ int          FastRegenHP;
+/*0x364*/ int          FastRegenMana;
+/*0x368*/ int          FastRegenEndurance;
+/*0x294*/ bool         NewEngineZone;
 /*0x291*/ bool         SkyEnabled;
-/*0x292*/ bool         FogOnOff;
+/*0x1d6*/ bool         FogOnOff;
 /*0x293*/ bool         ClimateType;
-/*0x294*/ bool         bNoPlayerLight;
+/*0x394*/ bool         bNoPlayerLight;
 /*0x295*/ bool         bUnknown5;
-/*0x296*/ bool         bNoAttack;
-/*0x297*/ bool         bAllowPVP;
-/*0x298*/ bool         bNoEncumber;
+/*0x35a*/ bool         bNoAttack;
+/*0x3a4*/ bool         bAllowPVP;
+/*0x3a8*/ bool         bNoEncumber;
 /*0x299*/ bool         bUnknowns6[2];
-/*0x29b*/ bool         bNoLevitate;
-/*0x29c*/ bool         bNoBuffExpiration;
-/*0x29d*/ bool         bDisallowManaStone;
-/*0x29e*/ bool         bNoBind;
+/*0x38c*/ bool         bNoLevitate;
+/*0x34c*/ bool         bNoBuffExpiration;
+/*0x358*/ bool         bDisallowManaStone;
+/*0x359*/ bool         bNoBind;
 /*0x29f*/ bool         bNoCallOfTheHero;
 /*0x2a0*/ bool         bUnknown8;
-/*0x2a1*/ bool         bNoFear;
+/*0x35d*/ bool         bNoFear;
 /*0x2a2*/ bool         bUnknown9;
 /*0x2a4*/
 
@@ -519,8 +519,8 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396F8 :: 2022-04-14 (test) @ 0x1402EA300
-constexpr size_t CEverQuest_size = 0x396F8;
+// @sizeof(CEverQuest) == 0x396f8 :: 2022-04-15 (live) @ 0x1402ea870
+constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
 {

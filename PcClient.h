@@ -918,8 +918,6 @@ public:
 	EQ_Affect& GetEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetEffect(nBuffSlot); }
 	EQ_Affect& GetTempEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetTempEffect(nBuffSlot); }
 
-	EQ_Affect& GetTempEffect(int nBuffSlot) { GetCurrentBaseProfile().GetTempEffect(nBuffSlot); }
-
 	int GetEffectSlot(EQ_Affect* effect)
 	{
 		for (int nBuffSlot = 0; nBuffSlot < MAX_TOTAL_BUFFS; ++nBuffSlot)
@@ -1493,7 +1491,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x31e8 :: 2022-04-14 (test) @ 0x14023000E
+// @sizeof(PcClient) == 0x31e8 :: 2022-04-15 (live) @ 0x1402305ee
 constexpr size_t PcClient_size = 0x31e8;
 
 class [[offsetcomments]] PcClient : public PcZoneClient

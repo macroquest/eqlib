@@ -1113,7 +1113,7 @@ struct [[offsetcomments]] EQLogin
 };
 
 
-constexpr uint32_t EQ_ASSIST          = 0x2529;        // 2022-03-03 (live) @ 0x140252E54
+//constexpr uint32_t EQ_ASSIST          = 0x2529;        // 2022-03-03 (live) @ 0x140252E54
 
 // FIXME: Find a place for this
 constexpr uint32_t EQ_LoadingS__ArraySize = 0x5a;      // EQ_LoadingS__SetProgressBar_x+76
