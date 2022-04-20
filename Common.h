@@ -652,9 +652,11 @@ inline bool operator==(const EqGuid& a, const EqGuid& b)
 
 namespace eqlib
 {
-	class EnumKeyTypeRace;
-	using EQRace = SoeUtil::StrongType<int, EnumKeyTypeRace>;
+	//class EnumKeyTypeRace;
+	//using EQRace = SoeUtil::StrongType<int, EnumKeyTypeRace>;
+	using EQRace = int;
 
-	class EnumKeyTypeClass;
-	using EQClass = SoeUtil::StrongType<int, EnumKeyTypeClass>;
+	//class EnumKeyTypeClass;
+	//using EQClass = SoeUtil::StrongType<int, EnumKeyTypeClass>;
+	using EQClass = int;
 }

@@ -608,7 +608,7 @@ public:
 /*0x0fc8*/ unsigned int       ParticleCastStartTime;
 /*0x0fcc*/ unsigned int       ParticleCastDuration;
 /*0x0fd0*/ int                ParticleVisualSpellNum;
-/*0x0fd8*/ ActorClient        mActorClient; // fd8
+/*0x0fd8*/ ActorClient        mActorClient;
 /*0x11e8*/ PlayerAnimationBase* pAnimation;
 /*0x11f0*/ float              MeleeRadius;                        // used by GetMeleeRange
 /*0x11f4*/ unsigned int       CollisionCounter;
