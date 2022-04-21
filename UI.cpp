@@ -1442,7 +1442,7 @@ bool CCombatSkillsSelectWnd::ShouldDisplayThisSkill(int skillIdx)
 
 			if (pOther != nullptr
 				&& pSpell->SpellGroup == pOther->SpellGroup
-				&& pSpell->SpellRank == pOther->SpellRank)
+				&& pSpell->SpellRank < pOther->SpellRank)
 			{
 				return false;
 			}
