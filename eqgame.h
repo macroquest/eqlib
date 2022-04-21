@@ -743,7 +743,6 @@
 
 // KeyPressHandler
 #define KeypressHandler__Get_x                                     0x140265CA0
-#define pinstKeyPressHandler_x                                     0x140BE0E14
 #define KeypressHandler__AttachAltKeyToEqCommand_x                 0x1402658A0
 #define KeypressHandler__AttachKeyToEqCommand_x                    0x140265910
 #define KeypressHandler__ClearCommandStateArray_x                  0x140265C30  // KeypressHandler::Flush

@@ -1236,7 +1236,7 @@ public:
 class [[offsetcomments]] KeypressHandler
 {
 public:
-	static KeypressHandler& Get();
+	EQLIB_OBJECT static KeypressHandler& Get();
 
 	EQLIB_OBJECT KeypressHandler();
 	EQLIB_OBJECT ~KeypressHandler();
