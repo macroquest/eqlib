@@ -33,44 +33,44 @@
 
 // EverQuestInfo
 #define pinstEverQuestInfo_x                                       0x140B74610
-#define __ScreenX_x                                                0x140B74620 // flip flopped?
-#define __ScreenY_x                                                0x140B74624
-#define __ScreenXMax_x                                             0x140B74628
-#define __ScreenYMax_x                                             0x140B7462C
-#define __InChatMode_x                                             0x140B74658
-#define __RunWalkState_x                                           0x140B7465C
-#define DI8__Mouse_Copy_x                                          0x140B7466C
-#define __MouseLook_x                                              0x140B746DD
-#define __NetStatusToggle_x                                        0x140B746DC
-#define __pulAutoRun_x                                             0x140B746F8
-#define __Clicks_x                                                 0x140B7470C
-#define __RMouseHeldTime_x                                         0x140B74760 // EverQuest.rMouseDown
-#define __LMouseHeldTime_x                                         0x140B74764 // EverQuest.lMouseDown
-#define instEQZoneInfo_x                                           0x140B74804
-#define __ZoneType_x                                               0x140B749C8 // zoneHdr.outdoor
-#define __ShiftKeyDown_x                                           0x140B74AE6 // EverQuest.isPressedShift
-#define __AutoSkillArray_x                                         0x140B75114
-#define __RangeAttackReady_x                                       0x140B74F54
-#define __AttackOnAssist_x                                         0x140B750A8
-#define __ShowNames_x                                              0x140B750C0
-#define __PCNames_x                                                0x140B75238
-#define __UseTellWindows_x                                         0x140B752A9
-#define __pulForward_x                                             0x140B75302 // keyDwn[NUM_COMMANDS_ALL] NUM_COMMANDS_ALL = 546
-#define __pulBackward_x                                            0x140B75303
-#define __pulTurnRight_x                                           0x140B75304
-#define __pulTurnLeft_x                                            0x140B75305
-#define __pulStrafeLeft_x                                          0x140B75306
-#define __pulStrafeRight_x                                         0x140B75307
-#define __LastTell_x                                               0x140B75522
-#define __ServerName_x                                             0x140B76228
-#define __DoAbilityList_x                                          0x140B76268
-#define __SocialChangedList_x                                      0x140B762B0
-#define __Socials_x                                                0x140B76328
-#define __Inviter_x                                                0x140BDF710
-#define __Attack_x                                                 0x140BDF753
-#define __Autofire_x                                               0x140BDF754
-#define EverQuest__Cameras_x                                       0x140B752B8  // part of EverQuestInfo
-#define EverQuestinfo__IsItemPending_x                             0x140BDF758  // part of EverQuestInfo
+#define __ScreenX_x                                                0x140B74620 // EverQuestinfo.Render_MinX
+#define __ScreenY_x                                                0x140B74624 // EverQuestinfo.Render_MinY
+#define __ScreenXMax_x                                             0x140B74628 // EverQuestinfo.Render_MaxX
+#define __ScreenYMax_x                                             0x140B7462C // EverQuestinfo.Render_MaxY
+#define __InChatMode_x                                             0x140B74658 // EverQuestinfo.Keyboardmode
+#define __RunWalkState_x                                           0x140B7465C // EverQuestinfo.Runmode
+#define DI8__Mouse_Copy_x                                          0x140B7466C // EverQuestinfo.MouseX
+#define __MouseLook_x                                              0x140B746DD // EverQuestinfo.MouseLook
+#define __NetStatusToggle_x                                        0x140B746E0 // EverQuestinfo.bNetstat
+#define __pulAutoRun_x                                             0x140B746F8 // EverQuestinfo.AutoRun
+#define __Clicks_x                                                 0x140B7470C // EverQuestinfo.OldMouseButtons
+#define __RMouseHeldTime_x                                         0x140B74760 // EverQuestinfo.rMouseDown
+#define __LMouseHeldTime_x                                         0x140B74764 // EverQuestinfo.lMouseDown
+#define instEQZoneInfo_x                                           0x140B74804 // EverQuestinfo.zoneHdr
+#define __ZoneType_x                                               0x140B74984 // EverQuestinfo.zoneHdr.outdoor
+#define __ShiftKeyDown_x                                           0x140B74AE6 // EverQuestinfo.isPressedShift
+#define __AutoSkillArray_x                                         0x140B75114 // EverQuestinfo.autoSkills
+#define __RangeAttackReady_x                                       0x140B74F54 // EverQuestinfo.primaryAttackReady. or secondary?
+#define __AttackOnAssist_x                                         0x140B750A9 // EverQuestinfo.attackOnAssist
+#define __ShowNames_x                                              0x140B750C0 // EverQuestinfo.gameOptions.showNames
+#define __PCNames_x                                                0x140B7521D // EverQuestinfo.gameOptions.pcNames
+#define __UseTellWindows_x                                         0x140B752AD // EverQuestinfo.gamEOptions.useTellWindows
+#define __pulForward_x                                             0x140B75302 // EverQuestinfo.keyDown + 2
+#define __pulBackward_x                                            0x140B75303 // EverQuestinfo.keyDown + 3
+#define __pulTurnRight_x                                           0x140B75304 // EverQuestinfo.keyDown + 4
+#define __pulTurnLeft_x                                            0x140B75305 // EverQuestinfo.keyDown + 5
+#define __pulStrafeLeft_x                                          0x140B75306 // EverQuestinfo.keyDown + 6
+#define __pulStrafeRight_x                                         0x140B75307 // EverQuestinfo.keyDown + 7
+#define __LastTell_x                                               0x140B75522 // EverQuestinfo.LastTellFromList
+#define __ServerName_x                                             0x140B76228 // EverQuestinfo.WorldServerShortName
+#define __DoAbilityList_x                                          0x140B76268 // EverQuestinfo.combatSkill
+#define __SocialChangedList_x                                      0x140B762B0 // EverQuestinfo.bSocialChanged
+#define __Socials_x                                                0x140B76328 // EverQuestinfo.socials
+#define __Inviter_x                                                0x140BDF710 // EverQuestinfo.inviter
+#define __Attack_x                                                 0x140BDF753 // EverQuestinfo.autoAttack
+#define __Autofire_x                                               0x140BDF754 // EverQuestinfo.autoRangeAttack
+#define EverQuest__Cameras_x                                       0x140B752B8 // EverQuestinfo.cameras
+#define EverQuestinfo__IsItemPending_x                             0x140BDF758 // EverQuestinfo.itemPending
 
 
 // Misc Globals

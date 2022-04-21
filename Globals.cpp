@@ -1190,7 +1190,7 @@ void InitializeEQGameOffsets()
 	gpbUseTellWindows               = (bool*)__UseTellWindows;
 	gpMouseEventTime                = (DWORD*)__MouseEventTime;
 	gpPCNames                       = (DWORD*)__PCNames;
-	gpShiftKeyDown                  = (BYTE*)__ShiftKeyDown; // addr+1=ctrl, addr+2=alt
+	gpShiftKeyDown                  = (BYTE*)__ShiftKeyDown;
 	gpShowNames                     = (DWORD*)__ShowNames;
 	pDynamicZone                    = (CDynamicZone*)instDynamicZone;
 	pEQLogin                        = (EQLogin*)pinstEqLogin;
