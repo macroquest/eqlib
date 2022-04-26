@@ -897,7 +897,7 @@ char*                  gpbRangedAttackReady      = nullptr;
 char*                  gpbShowNetStatus          = nullptr;
 bool*                  gpbUseTellWindows         = nullptr;
 DWORD*                 gpMouseEventTime          = nullptr;
-DWORD*                 gpPCNames                 = nullptr;
+bool*                  gpPCNames                 = nullptr;
 BYTE*                  gpShiftKeyDown            = nullptr; // addr+1=ctrl, addr+2=alt
 DWORD*                 gpShowNames               = nullptr;
 CDynamicZone*          pDynamicZone              = nullptr;
@@ -1189,7 +1189,7 @@ void InitializeEQGameOffsets()
 	gpbShowNetStatus                = (char*)__NetStatusToggle;
 	gpbUseTellWindows               = (bool*)__UseTellWindows;
 	gpMouseEventTime                = (DWORD*)__MouseEventTime;
-	gpPCNames                       = (DWORD*)__PCNames;
+	gpPCNames                       = (bool*)__PCNames;
 	gpShiftKeyDown                  = (BYTE*)__ShiftKeyDown;
 	gpShowNames                     = (DWORD*)__ShowNames;
 	pDynamicZone                    = (CDynamicZone*)instDynamicZone;

@@ -824,7 +824,7 @@ EQLIB_VAR char*                                      gpbRangedAttackReady;
 EQLIB_VAR char*                                      gpbShowNetStatus;
 EQLIB_VAR bool*                                      gpbUseTellWindows;
 EQLIB_VAR DWORD*                                     gpMouseEventTime;
-EQLIB_VAR DWORD*                                     gpPCNames;
+EQLIB_VAR bool*                                      gpPCNames;
 EQLIB_VAR BYTE*                                      gpShiftKeyDown;
 EQLIB_VAR DWORD*                                     gpShowNames;
 EQLIB_VAR CDynamicZone*                              pDynamicZone;
