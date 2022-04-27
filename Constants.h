@@ -716,7 +716,7 @@ enum eInventorySlot
 	InvSlot_Cursor = InvSlot_Held,
 	InvSlot_NumInvSlots = InvSlot_Held,      // held is not technically an item in the inventory (its the cursor)
 
-	// Somebody typeo'd this a long time ago.
+	// Somebody typo'd this a long time ago.
 	InvSlot_LastBagsLot DEPRECATE("Use InvSlot_LastBagSlot instead") = InvSlot_LastBagSlot,
 };
 
