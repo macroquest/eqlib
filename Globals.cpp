@@ -211,51 +211,25 @@ static_assert(lengthof(szExpansions) - 1 == NUM_EXPANSIONS,
 INITIALIZE_EQGAME_OFFSET(__ActualVersionBuild);
 INITIALIZE_EQGAME_OFFSET(__ActualVersionDate);
 INITIALIZE_EQGAME_OFFSET(__ActualVersionTime);
-INITIALIZE_EQGAME_OFFSET(__Attack);
-INITIALIZE_EQGAME_OFFSET(__Autofire);
-INITIALIZE_EQGAME_OFFSET(__AutoSkillArray);
 INITIALIZE_EQGAME_OFFSET(__BindList);
-INITIALIZE_EQGAME_OFFSET(__Clicks);
 INITIALIZE_EQGAME_OFFSET(__CommandList);
 INITIALIZE_EQGAME_OFFSET(__CurrentMapLabel);
 INITIALIZE_EQGAME_OFFSET(__CurrentSocial);
 INITIALIZE_EQGAME_OFFSET(__do_loot);
-INITIALIZE_EQGAME_OFFSET(__DoAbilityList);
 INITIALIZE_EQGAME_OFFSET(__gpbCommandEvent);
 INITIALIZE_EQGAME_OFFSET(__Guilds);
 INITIALIZE_EQGAME_OFFSET(__gWorld);
 INITIALIZE_EQGAME_OFFSET(__heqmain);
 INITIALIZE_EQGAME_OFFSET(__HWnd);
-INITIALIZE_EQGAME_OFFSET(__InChatMode);
-INITIALIZE_EQGAME_OFFSET(__Inviter);
 INITIALIZE_EQGAME_OFFSET(__LabelCache);
-INITIALIZE_EQGAME_OFFSET(__LastTell);
-INITIALIZE_EQGAME_OFFSET(__LMouseHeldTime);
 INITIALIZE_EQGAME_OFFSET(__LoginName);
 INITIALIZE_EQGAME_OFFSET(__Mouse);
 INITIALIZE_EQGAME_OFFSET(__MouseEventTime);
-INITIALIZE_EQGAME_OFFSET(__MouseLook);
-INITIALIZE_EQGAME_OFFSET(__NetStatusToggle);
-INITIALIZE_EQGAME_OFFSET(__PCNames);
-INITIALIZE_EQGAME_OFFSET(__RangeAttackReady);
-INITIALIZE_EQGAME_OFFSET(__RMouseHeldTime);
-INITIALIZE_EQGAME_OFFSET(__RunWalkState);
 INITIALIZE_EQGAME_OFFSET(__ScreenMode);
-INITIALIZE_EQGAME_OFFSET(__ScreenX);
-INITIALIZE_EQGAME_OFFSET(__ScreenXMax);
-INITIALIZE_EQGAME_OFFSET(__ScreenY);
-INITIALIZE_EQGAME_OFFSET(__ScreenYMax);
 INITIALIZE_EQGAME_OFFSET(__ServerHost);
-INITIALIZE_EQGAME_OFFSET(__ServerName);
-INITIALIZE_EQGAME_OFFSET(__ShiftKeyDown);
-INITIALIZE_EQGAME_OFFSET(__ShowNames);
-INITIALIZE_EQGAME_OFFSET(__SocialChangedList);
-INITIALIZE_EQGAME_OFFSET(__Socials);
 INITIALIZE_EQGAME_OFFSET(__SubscriptionType);
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRate);
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRateEnd);
-INITIALIZE_EQGAME_OFFSET(__UseTellWindows);
-INITIALIZE_EQGAME_OFFSET(__ZoneType);
 INITIALIZE_EQGAME_OFFSET(EQObject_Top);
 INITIALIZE_EQGAME_OFFSET(g_eqCommandStates);
 INITIALIZE_EQGAME_OFFSET(instCRaid);
@@ -304,7 +278,6 @@ INITIALIZE_EQGAME_OFFSET(pinstSGraphicsEngine);
 INITIALIZE_EQGAME_OFFSET(pinstSkillMgr);
 INITIALIZE_EQGAME_OFFSET(pinstSpawnManager);
 INITIALIZE_EQGAME_OFFSET(pinstSpellManager);
-INITIALIZE_EQGAME_OFFSET(pinstSpellSets);
 INITIALIZE_EQGAME_OFFSET(pinstStringTable);
 INITIALIZE_EQGAME_OFFSET(pinstSwitchManager);
 INITIALIZE_EQGAME_OFFSET(pinstTarget);
@@ -322,7 +295,6 @@ INITIALIZE_EQGAME_OFFSET(__EncryptPad0);
 INITIALIZE_EQGAME_OFFSET(DI8__Main);
 INITIALIZE_EQGAME_OFFSET(DI8__Keyboard);
 INITIALIZE_EQGAME_OFFSET(DI8__Mouse);
-INITIALIZE_EQGAME_OFFSET(DI8__Mouse_Copy);
 INITIALIZE_EQGAME_OFFSET(DI8__Mouse_Check);
 
 INITIALIZE_EQGAME_OFFSET(__CastRay);
@@ -772,8 +744,6 @@ INITIALIZE_EQGAME_OFFSET(EqSoundManager__WaveInstancePlay);
 INITIALIZE_EQGAME_OFFSET(EqSoundManager__WavePlay);
 INITIALIZE_EQGAME_OFFSET(EQSpellStrings__GetString);
 INITIALIZE_EQGAME_OFFSET(EQSwitch__UseSwitch);
-INITIALIZE_EQGAME_OFFSET(EverQuest__Cameras);
-INITIALIZE_EQGAME_OFFSET(EverQuestinfo__IsItemPending);
 INITIALIZE_EQGAME_OFFSET(FactionManagerClient__HandleFactionMessage);
 INITIALIZE_EQGAME_OFFSET(FactionManagerClient__Instance);
 INITIALIZE_EQGAME_OFFSET(FreeTargetTracker__CastSpell);
@@ -868,62 +838,55 @@ INITIALIZE_EQGAME_OFFSET(ZoneGuideManagerClient__Instance);
 // Instance Pointers
 //----------------------------------------------------------------------------
 
-BYTE*                  EQADDR_ATTACK             = nullptr;
 CMDLIST*               EQADDR_CMDLIST            = nullptr;
 IDirectInputDevice8A** EQADDR_DIKEYBOARD         = nullptr;
 uintptr_t              EQADDR_DIMAIN             = 0;
 IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
 POINT*                 EQADDR_DIMOUSECHECK       = nullptr;
-POINT*                 EQADDR_DIMOUSECOPY        = nullptr;
-int*                   EQADDR_DOABILITYLIST      = nullptr;
 void*                  EQADDR_GWORLD             = nullptr;
-char*                  EQADDR_LASTTELL           = nullptr;
 uintptr_t              EQADDR_HWND               = 0;
 MQMouseInfo*           EQADDR_MOUSE              = nullptr;
-MOUSECLICK*            EQADDR_MOUSECLICK         = nullptr;
-BYTE*                  EQADDR_NOTINCHATMODE      = nullptr;
-BYTE*                  EQADDR_RUNWALKSTATE       = nullptr;
 char*                  EQADDR_SERVERHOST         = nullptr;
-char*                  EQADDR_SERVERNAME         = nullptr;
 uintptr_t*             EQADDR_SUBSCRIPTIONTYPE   = nullptr;
-BYTE*                  EQADDR_ZONETYPE           = nullptr;
 char**                 EQMappableCommandList     = nullptr;
 BYTE*                  EQbCommandStates          = nullptr;
 HMODULE*               ghEQMainInstance          = nullptr;
-BYTE*                  gpAutoFire                = nullptr;
-AUTOSKILL*             gpAutoSkill               = nullptr;
 DWORD*                 gpbCommandEvent           = nullptr;
-char*                  gpbRangedAttackReady      = nullptr;
-char*                  gpbShowNetStatus          = nullptr;
-bool*                  gpbUseTellWindows         = nullptr;
 DWORD*                 gpMouseEventTime          = nullptr;
-bool*                  gpPCNames                 = nullptr;
-BYTE*                  gpShiftKeyDown            = nullptr; // addr+1=ctrl, addr+2=alt
-DWORD*                 gpShowNames               = nullptr;
 CDynamicZone*          pDynamicZone              = nullptr;
 EQLogin*               pEQLogin                  = nullptr;
 CTribute*              pTribute                  = nullptr;
 CTribute*              pEQMisc                   = nullptr;
 CEQSuiteTextureLoader* pEQSuiteTextureLoader     = nullptr;
-EverQuestinfo*         pEverQuestInfo            = nullptr;
 INT*                   pgCurrentSocial           = nullptr;
 CGuild*                pGuild                    = nullptr;
 CGuild*                pGuildList                = nullptr;
-char*                  pMouseLook                = nullptr;
 CRaid*                 pRaid                     = nullptr;
 DWORD*                 pScreenMode               = nullptr;
-DWORD*                 pScreenX                  = nullptr;
-DWORD*                 pScreenXMax               = nullptr;
-DWORD*                 pScreenY                  = nullptr;
-DWORD*                 pScreenYMax               = nullptr;
-EQSOCIALCHANGED*       pSocialChangedList        = nullptr;
-EQSOCIAL*              pSocialList               = nullptr;
 SpellLoadout*          pSpellSets                = nullptr;
 CTaskManager*          pTaskManager              = nullptr;
 BYTE*                  pTributeActive            = nullptr;
 ZONEINFO*              pZoneInfo                 = nullptr;
 SoeUtil::String*       pExceptionSubmissionEndpoint = nullptr;
 LabelCache*            g_labelCache              = nullptr;
+
+// pEverQuestInfo pointers
+EverQuestinfo*         pEverQuestInfo            = nullptr;
+int*                   pScreenX                  = nullptr;
+int*                   pScreenY                  = nullptr;
+int*                   pScreenXMax               = nullptr;
+int*                   pScreenYMax               = nullptr;
+uint8_t*               pMouseLook                = nullptr;
+bool*                  gpbShowNetStatus          = nullptr;
+bool*                  gpShiftKeyDown            = nullptr; // addr+1=ctrl, addr+2=alt
+EQSOCIAL*              pSocialList               = nullptr;
+uint8_t*               EQADDR_NOTINCHATMODE      = nullptr;
+uint8_t*               EQADDR_RUNWALKSTATE       = nullptr;
+uint8_t*               EQADDR_ZONETYPE           = nullptr;
+char*                  EQADDR_SERVERNAME         = nullptr;
+int*                   EQADDR_DOABILITYLIST      = nullptr;
+BYTE*                  EQADDR_ATTACK             = nullptr;
+BYTE*                  gpAutoFire                = nullptr;
 
 ForeignPointer<PcClient>                         pCharData;          // deprecated
 ForeignPointer<PcClient>                         pPCData;            // deprecated
@@ -1160,62 +1123,65 @@ void InitializeEQGameOffsets()
 	}
 
 	// Raw pointers (value types in eq)
-	EQADDR_ATTACK                   = (BYTE*)__Attack;
 	EQADDR_CMDLIST                  = (PCMDLIST)__CommandList;
 	EQADDR_DIKEYBOARD               = (IDirectInputDevice8A**)DI8__Keyboard;
 	EQADDR_DIMAIN                   = DI8__Main;
 	EQADDR_DIMOUSE                  = (IDirectInputDevice8A**)DI8__Mouse;
 	EQADDR_DIMOUSECHECK             = (PPOINT)DI8__Mouse_Check;
-	EQADDR_DIMOUSECOPY              = (PPOINT)DI8__Mouse_Copy;
-	EQADDR_DOABILITYLIST            = (int*)__DoAbilityList;
 	EQADDR_GWORLD                   = (void*)__gWorld;
 	EQADDR_HWND                     = __HWnd;
-	EQADDR_LASTTELL                 = (char*)__LastTell;
 	EQADDR_MOUSE                    = (MQMouseInfo*)__Mouse;
-	EQADDR_MOUSECLICK               = (PMOUSECLICK)__Clicks;
-	EQADDR_NOTINCHATMODE            = (BYTE*)__InChatMode;
-	EQADDR_RUNWALKSTATE             = (BYTE*)__RunWalkState;
 	EQADDR_SERVERHOST               = (char*)__ServerHost;
-	EQADDR_SERVERNAME               = (char*)__ServerName;
 	EQADDR_SUBSCRIPTIONTYPE         = (uintptr_t*)__SubscriptionType;
-	EQADDR_ZONETYPE                 = (BYTE*)__ZoneType;
 	EQbCommandStates                = (BYTE*)g_eqCommandStates;
 	EQMappableCommandList           = (char**)__BindList;
 	ghEQMainInstance                = (HINSTANCE*)__heqmain;
-	gpAutoFire                      = (BYTE*)__Autofire;
-	gpAutoSkill                     = (AUTOSKILL*)__AutoSkillArray;
 	gpbCommandEvent                 = (DWORD*)__gpbCommandEvent;
-	gpbRangedAttackReady            = (char*)__RangeAttackReady;
-	gpbShowNetStatus                = (char*)__NetStatusToggle;
-	gpbUseTellWindows               = (bool*)__UseTellWindows;
 	gpMouseEventTime                = (DWORD*)__MouseEventTime;
-	gpPCNames                       = (bool*)__PCNames;
-	gpShiftKeyDown                  = (BYTE*)__ShiftKeyDown;
-	gpShowNames                     = (DWORD*)__ShowNames;
 	pDynamicZone                    = (CDynamicZone*)instDynamicZone;
 	pEQLogin                        = (EQLogin*)pinstEqLogin;
 	pTribute                        = (CTribute*)instTribute;
 #pragma warning(suppress: 4996)
 	pEQMisc                         = (CTribute*)instTribute;
 	pEQSuiteTextureLoader           = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
-	pEverQuestInfo                  = (EverQuestinfo*)pinstEverQuestInfo;
 	pgCurrentSocial                 = (INT*)__CurrentSocial;
 	pGuild                          = (CGuild*)__Guilds;
 #pragma warning(suppress: 4996)
 	pGuildList                      = (CGuild*)__Guilds;
-	pMouseLook                      = (char*)__MouseLook;
 	pRaid                           = (CRaid*)instCRaid;
 	pScreenMode                     = (DWORD*)__ScreenMode;
-	pScreenX                        = (DWORD*)__ScreenX;
-	pScreenXMax                     = (DWORD*)__ScreenXMax;
-	pScreenY                        = (DWORD*)__ScreenY;
-	pScreenYMax                     = (DWORD*)__ScreenYMax;
-	pSocialChangedList              = (EQSOCIALCHANGED*)__SocialChangedList;
-	pSocialList                     = (EQSOCIAL*)__Socials;
-	pSpellSets                      = (SpellLoadout*)pinstSpellSets;
 	pTaskManager                    = (CTaskManager*)pinstCTaskManager;
 	pTributeActive                  = (BYTE*)instTributeActive;
 	pZoneInfo                       = (ZONEINFO*)instEQZoneInfo;
+
+	pEverQuestInfo = (EverQuestinfo*)pinstEverQuestInfo;
+
+	// pEverQuestInfo pointers - to be phased out.
+	pScreenX                        = &pEverQuestInfo->Render_MinX;
+	pScreenY                        = &pEverQuestInfo->Render_MinY;
+	pScreenXMax                     = &pEverQuestInfo->Render_MaxX;
+	pScreenYMax                     = &pEverQuestInfo->Render_MaxY;
+	EQADDR_NOTINCHATMODE            = (uint8_t*)&pEverQuestInfo->KeyboardMode;
+	EQADDR_RUNWALKSTATE             = &pEverQuestInfo->RunMode;
+	pMouseLook                      = &pEverQuestInfo->MouseLook;
+	gpbShowNetStatus                = &pEverQuestInfo->bNetstat;
+	gpShiftKeyDown                  = &pEverQuestInfo->bIsPressedShift;
+	pSocialList                     = &pEverQuestInfo->socials[0][0];
+	pSpellSets                      = &pEverQuestInfo->spellLoadouts[0];
+	gpAutoFire                      = (BYTE*)&pEverQuestInfo->bAutoRangeAttack;
+
+	static_assert(instEQZoneInfo_x - pinstEverQuestInfo_x == offsetof(EverQuestinfo, ZoneInfo),
+		"Mismatch between instEQZoneInfo and ZoneInfo struct member");
+#pragma warning(suppress: 4996)
+	EQADDR_ZONETYPE                 = (uint8_t*)&pEverQuestInfo->ZoneInfo.OutDoor;
+#pragma warning(suppress: 4996)
+	EQADDR_SERVERNAME               = pEverQuestInfo->WorldServerShortname;
+#pragma warning(suppress: 4996)
+	EQADDR_DOABILITYLIST            = &pEverQuestInfo->combatSkill[0];
+#pragma warning(suppress: 4996)
+	EQADDR_ATTACK                   = (BYTE*)&pEverQuestInfo->bAutoAttack;
+
+	CDisplay::cameraType            = (int*)CDisplay__cameraType;
 
 	// Spawn/Char pointers
 #pragma warning(suppress: 4996)

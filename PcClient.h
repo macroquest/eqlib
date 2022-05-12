@@ -642,33 +642,6 @@ public:
 /*0x1a8*/
 };
 
-// User owns the "Merchant" Perk which grants 2 additional inventory slots.
-constexpr int EQFeature_MerchantPerk = 2012274;
-
-struct [[offsetcomments]] ClaimData
-{
-/*0x00*/ int featureId;
-/*0x04*/ int count;
-/*0x08*/
-};
-
-class [[offsetcomments]] ClaimDataCollection
-{
-public:
-/*0x00*/ ArrayClass<ClaimData> claimData;
-/*0x18*/
-
-	bool CanConsumeFeature(int featureId)
-	{
-		for (int i = 0; i < claimData.GetCount(); ++i)
-		{
-			if (claimData[i].featureId == featureId)
-				return claimData[i].count > 0;
-		}
-		return false;
-	}
-};
-
 class [[offsetcomments]] MercenaryAbilityInfo
 {
 public:

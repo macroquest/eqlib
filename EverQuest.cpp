@@ -558,14 +558,6 @@ void CEverQuest::DeleteTargetIndicator()
 }
 
 //============================================================================
-// EverQuestInfo
-//============================================================================
-
-#ifdef _EverQuestinfo__SetAutoAttack_x
-FUNCTION_AT_ADDRESS(void, _EverQuestinfo::SetAutoAttack(bool), _EverQuestinfo__SetAutoAttack);
-#endif
-
-//============================================================================
 //============================================================================
 
 } // namespace eqlib

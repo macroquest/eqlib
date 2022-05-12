@@ -24,6 +24,8 @@ namespace eqlib {
 // CDisplay
 //============================================================================
 
+int* CDisplay::cameraType = nullptr;
+
 #ifdef CDisplay__MoveMissile_x
 FUNCTION_AT_ADDRESS(int, CDisplay::MoveMissile(EQMissile*), CDisplay__MoveMissile);
 #endif

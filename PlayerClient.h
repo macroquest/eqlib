@@ -314,17 +314,17 @@ public:
 struct [[offsetcomments]] PZCPhysicsInfo
 {
 // @start: PZCPhysicsInfo Members
-/*0x18*/ int Heading : 12;
-/*0x14*/ float DeltaZ;
-/*0x0c*/ int ZHeading : 12;
-/*0x18*/ int DeltaHeading : 10;
-/*0x00*/ float X;
-/*0x08*/ float Y;
-/*0x18*/ int Acceleration : 10;
-/*0x1c*/ float DeltaX;
-/*0x20*/ float Z;
-/*0x04*/ float DeltaY;
-
+/*0x00*/ int Heading : 12;
+/*0x04*/ float DeltaZ;
+/*0x08*/ int ZHeading : 12;
+/*0x08*/ int DeltaHeading : 10;
+/*0x0c*/ float X;
+/*0x10*/ float Y;
+/*0x14*/ int Acceleration : 10;
+/*0x18*/ float DeltaX;
+/*0x1c*/ float Z;
+/*0x20*/ float DeltaY;
+/*0x24*/
 // @end: PZCPhysicsInfo Members
 };
 
@@ -494,7 +494,7 @@ public:
 /*0x022d*/ uint8_t                  FishingEvent;
 /*0x0230*/ int                      CurrIOState;
 /*0x0234*/ int                      PetID;
-/*0x0238*/ unsigned int             CombatSkillTicks[0x2];
+/*0x0238*/ unsigned int             CombatSkillTicks[CONCURRENT_SKILLS];
 /*0x0240*/ uint8_t                  HmmWhat;
 /*0x0244*/ unsigned int             LastRefresh;                  // last 18 sec tick
 /*0x0248*/ int                      RealEstateItemId;
@@ -540,7 +540,7 @@ public:
 /*0x0424*/ int                      SomeData[0x2];
 /*0x042c*/ int                      IsAttacking;                  // need to investigate
 /*0x0430*/ unsigned int             LastCastTime;
-/*0x0434*/ unsigned int             CombatSkillUsed[0x2];
+/*0x0434*/ unsigned int             CombatSkillUsed[CONCURRENT_SKILLS];
 /*0x043c*/ bool                     Linkdead;
 /*0x0440*/ int                      LastCastNum;
 /*0x0444*/ unsigned int             NextSwim;
@@ -575,7 +575,7 @@ public:
 /*0x0548*/ unsigned int             TimeStamp;                    // updates all the time including when on a mount
 /*0x054c*/ char                     Title[0x80];
 /*0x05cc*/ unsigned int             LastSecondaryUseTime;
-/*0x05d0*/ uint8_t                  IsPassenger;                  // if u are on a boat or airship or whatever
+/*0x05d0*/ uint8_t                  IsPassenger;
 /*0x05d1*/ bool                     bSummoned;                    // by a PC or by anyone? need to investigate
 /*0x05d8*/ int64_t                  GuildID;
 /*0x05e0*/ void*                    pRaceGenderInfo;              // todo this is not a void* so... map the CRaceGenderInfo class

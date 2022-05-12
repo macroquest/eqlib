@@ -1613,13 +1613,6 @@ inline namespace deprecated {
 	using EQMisc DEPRECATE("Use CTribute instead of EQMisc") = CTribute;
 }
 
-struct AUTOSKILL
-{
-	int Skill[CONCURRENT_SKILLS];
-};
-using PAUTOSKILL = AUTOSKILL*;
-
-
 enum eSkillCombatType
 {
 	SCT_NonCombat,

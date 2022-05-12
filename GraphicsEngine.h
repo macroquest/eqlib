@@ -1097,6 +1097,8 @@ public:
 	EQLIB_OBJECT void InitGameUI();
 	EQLIB_OBJECT void InitNewUI();
 
+	EQLIB_OBJECT static int* cameraType;
+
 	// Most of these need verification
 /*0x0000*/ int                    ErrorFlag;
 /*0x0004*/ uint8_t                BFog;
