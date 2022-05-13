@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -942,7 +942,7 @@ public:
 	}
 };
 
-// @sizeof(ItemDefinition) == 0x640 :: 2022-04-14 (test) @ 0x1401ce2fd
+// @sizeof(ItemDefinition) == 0x640 :: 2022-04-15 (live) @ 0x1401ce8fd
 constexpr size_t ItemDefinition_size = 0x640;
 
 class [[offsetcomments]] ItemDefinition
@@ -1206,46 +1206,46 @@ class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildIt
 {
 public:
 // @start: ItemBase Members
-/*0x018*/ int                   RealEstateID;
-/*0x020*/ ItemContainer         Contents;
-/*0x048*/ int                   Power;
-/*0x04c*/ unsigned int          LastCastTime;
-/*0x050*/ bool                  bConvertable;
-/*0x054*/ int                   ID;
-/*0x058*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x068*/ int                   OrnamentationIcon;
-/*0x06c*/ bool                  bItemNeedsUpdate;
-/*0x070*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x088*/ int                   NoteStatus;
-/*0x08c*/ unsigned int          NewArmorID;
-/*0x090*/ unsigned int          RespawnTime;
-/*0x094*/ ItemGlobalIndex       GlobalIndex;
-/*0x0a0*/ bool                  bCollected;
-/*0x0a4*/ int                   ConvertItemID;
-/*0x0a8*/ int                   ScriptIndex;
-/*0x0b0*/ CXStr                 SaveString;
-/*0x0b8*/ int                   AugFlag;
-/*0x0bc*/ EqItemGuid            ItemGUID;
-/*0x0d0*/ int                   Open;
-/*0x0d8*/ CXStr                 ConvertItemName;
-/*0x0e0*/ bool                  bCopied;
-/*0x0e4*/ int                   StackCount;
-/*0x0e8*/ int                   Charges;
-/*0x0ec*/ int                   MerchantQuantity;
-/*0x0f0*/ unsigned int          ItemHash;
-/*0x0f4*/ bool                  bRealEstateItemPlaceable;
-/*0x0f8*/ int                   Luck;
-/*0x0fc*/ bool                  bDisableAugTexture;
-/*0x100*/ unsigned int          Tint;
-/*0x104*/ int                   ActorTag2;
-/*0x108*/ bool                  bRankDisabled;
+/*0x018*/ CXStr                 ConvertItemName;
+/*0x020*/ bool                  bConvertable;
+/*0x024*/ unsigned int          NewArmorID;
+/*0x028*/ CXStr                 SaveString;
+/*0x030*/ int                   ActorTag1;
+/*0x034*/ bool                  bCollected;
+/*0x038*/ int                   RealEstateID;
+/*0x03c*/ int                   Luck;
+/*0x040*/ int                   MerchantQuantity;
+/*0x044*/ bool                  bRealEstateItemPlaceable;
+/*0x048*/ int                   Open;
+/*0x04c*/ int                   Power;
+/*0x050*/ int                   NoDropFlag;
+/*0x054*/ EqItemGuid            ItemGUID;
+/*0x068*/ int                   ScriptIndex;
+/*0x06c*/ int                   StackCount;
+/*0x070*/ int64_t               DontKnow;
+/*0x078*/ int                   OrnamentationIcon;
+/*0x07c*/ int                   ConvertItemID;
+/*0x080*/ bool                  bDisableAugTexture;
+/*0x088*/ ItemEvolutionDataPtr  pEvolutionData;
+/*0x098*/ unsigned int          LastCastTime;
+/*0x09c*/ bool                  bRankDisabled;
+/*0x0a0*/ unsigned int          Tint;
+/*0x0a4*/ bool                  bItemNeedsUpdate;
+/*0x0a8*/ int                   Charges;
+/*0x0b0*/ ItemContainer         Contents;
+/*0x0d8*/ int                   ActorTag2;
+/*0x0dc*/ unsigned int          RespawnTime;
+/*0x0e0*/ int                   NoteStatus;
+/*0x0e4*/ bool                  bCopied;
+/*0x0e8*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0x100*/ ITEMINFO*             Item1;
+/*0x108*/ unsigned int          ItemHash;
 /*0x110*/ int64_t               Price;
-/*0x118*/ int64_t               DontKnow;
-/*0x120*/ int                   NoDropFlag;
-/*0x124*/ int                   ArmorType;
-/*0x128*/ ITEMINFO*             Item1;
-/*0x130*/ int64_t               MerchantSlot;
-/*0x138*/ int                   ActorTag1;
+/*0x118*/ int                   AugFlag;
+/*0x120*/ int64_t               MerchantSlot;
+/*0x128*/ ItemGlobalIndex       GlobalIndex;
+/*0x134*/ int                   ID;
+/*0x138*/ int                   ArmorType;
 /*0x13c*/
 // @end: ItemBase Members
 
@@ -1386,7 +1386,7 @@ public:
 	__declspec(property(get = get_Item2)) ItemDefinition* Item2;
 };
 
-// @sizeof(ItemClient) == 0x158 :: 2022-04-14 (test) @ 0x1402606ba
+// @sizeof(ItemClient) == 0x158 :: 2022-04-15 (live) @ 0x140260c5a
 constexpr size_t ItemClient_size = 0x158;
 
 class [[offsetcomments]] ItemClient : public ItemBase

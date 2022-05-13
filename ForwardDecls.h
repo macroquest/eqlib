@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -342,7 +342,6 @@ class UdpConnection;
 class UniversalChatProxy;
 class Wave3dInstance;
 class WaveInstance;
-struct AUTOSKILL;
 struct CDynamicZone;
 struct CMDLIST;
 struct connection_t;
@@ -352,7 +351,8 @@ struct DynamicZoneClientTimerData;
 struct DynamicZonePlayerInfo;
 struct EQMERCALTABILITIES;
 struct EQMissileHitinfo;
-struct EQSOCIAL;
+struct EQSocial;
+using EQSOCIAL = EQSocial;
 struct EQSOCIALCHANGED;
 struct GuildMember;
 struct MapViewLabel;

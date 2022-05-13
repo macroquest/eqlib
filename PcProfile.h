@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -300,7 +300,7 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x8a10 :: 2022-04-14 (test) @ 0x14059cad4
+// @sizeof(PcProfile) == 0x8a10 :: 2022-04-15 (live) @ 0x14059d774
 constexpr size_t PcProfile_size = 0x8a10;
 
 class [[offsetcomments]] PcProfile : public BaseProfile

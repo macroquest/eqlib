@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -411,6 +411,8 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_ITEM_STAT_POSITIVE             384 // 129 - Item Stat Positive
 #define USERCOLOR_ITEM_STAT_NEGATIVE             385 // 130 - Item Stat Negative
 
+constexpr int NUM_CHAT_FILTERS = 59;
+constexpr int NUM_CHAT_COLORFILTERS = 143;
 
 #define DEITY_Bertoxxulous                       201
 #define DEITY_BrellSerilis                       202
@@ -447,8 +449,21 @@ enum UIType;
 constexpr int CMD_MQ = 1;
 constexpr int CMD_EQ = 2;
 
-#define LASTFIND_NOTFOUND                        96
-#define LASTFIND_PRIMARY                         97
+// Commonly used Keybind Commands. These can be found via FindMappableCommand.
+enum KeybindCommand
+{
+	CMD_AUTORUN = 0,
+	CMD_JUMP,
+	CMD_FORWARD,
+	CMD_BACK,
+	CMD_RIGHT,
+	CMD_LEFT,
+	CMD_STRAFE_LEFT,
+	CMD_STRAFE_RIGHT,
+
+	CMD_DUCK = 12,
+	CMD_RUN_WALK = 308,
+};
 
 constexpr int CHAT_SAY                         = 0x0001;
 constexpr int CHAT_TELL                        = 0x0002;
@@ -466,6 +481,18 @@ constexpr int EQ_MAX_LASTNAME                  = 32;
 constexpr int EQ_MAX_STATION_ID                = 32;
 constexpr int EQ_ACTOR_TAG                     = 64;
 
+constexpr int NUM_REPLY_NAMES = 50;
+
+constexpr int NUM_SOCIAL_PAGES = 10;
+constexpr int SOCIALS_PER_PAGE = 12;
+constexpr int SOCIAL_NAME_LEN = 16;
+constexpr int SOCIAL_NUM_LINES = 5;
+constexpr int SOCIAL_LINE_LEN = 256;
+
+constexpr int NUM_HOTBUTTON_WINDOWS = 11;
+constexpr int NUM_HOTBUTTON_PAGES = 10;
+constexpr int HOTBUTTONS_PER_PAGE = 12;
+
 // KeypressHandler__HandleKeyUp_x has this one
 constexpr int nEQMappableCommands = 546;
 
@@ -477,6 +504,10 @@ constexpr int MAX_NPC_LEVEL = 200;
 constexpr int MAX_SPELL_LEVEL = 255;
 constexpr int NUM_SPELL_GEMS = 14;
 constexpr int NUM_SPELL_SETS = 30;
+
+constexpr int NUM_HOTBUTTON_SETS = 100;
+constexpr int NUM_GROUP_ROLE_SETS = 10;
+constexpr int NUM_XTARGET_SETS = 10;
 
 constexpr int NUM_RACES = 17;
 constexpr int NUM_BLOCKED_BUFFS = 40;
@@ -716,7 +747,7 @@ enum eInventorySlot
 	InvSlot_Cursor = InvSlot_Held,
 	InvSlot_NumInvSlots = InvSlot_Held,      // held is not technically an item in the inventory (its the cursor)
 
-	// Somebody typeo'd this a long time ago.
+	// Somebody typo'd this a long time ago.
 	InvSlot_LastBagsLot DEPRECATE("Use InvSlot_LastBagSlot instead") = InvSlot_LastBagSlot,
 };
 
@@ -952,6 +983,7 @@ constexpr int EQ_OVERHEAD_CAM = 1;
 constexpr int EQ_CHASE_CAM = 2;
 constexpr int EQ_USER_CAM_1 = 3;
 constexpr int EQ_USER_CAM_2 = 4;
+constexpr int EQ_MAX_CAMERAS = 9;
 
 // Spell targeting types
 constexpr int TT_PBAE = 4;

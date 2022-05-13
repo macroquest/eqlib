@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -237,7 +237,7 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x340 :: 2022-04-14 (test) @ 0x140541f0e
+// @sizeof(CButtonWnd) == 0x340 :: 2022-04-15 (live) @ 0x1405428ee
 constexpr size_t CButtonWnd_size = 0x340;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd, public VeBaseReferenceCount
@@ -3209,6 +3209,9 @@ public:
 // CFindItemWnd
 //============================================================================
 
+// @sizeof(CFindItemWnd) == 0x3d8 :: 2022-04-15 (live) @ 0x140158497
+constexpr size_t CFindItemWnd_size = 0x3d8;
+
 class [[offsetcomments]] CFindItemWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -3273,6 +3276,8 @@ public:
 /*0x3d8*/
 };
 
+SIZE_CHECK(CFindItemWnd, CFindItemWnd_size);
+
 //============================================================================
 // CFindLocationWnd
 //============================================================================
@@ -3289,7 +3294,7 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x388 :: 2022-04-14 (test) @ 0x140158CC5
+// @sizeof(CFindLocationWnd) == 0x388 :: 2022-04-15 (live) @ 0x140158c55
 constexpr size_t CFindLocationWnd_size = 0x388;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
@@ -4261,7 +4266,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xa80 :: 2022-04-14 (test) @ 0x1403AF204
+// @sizeof(CItemDisplayWnd) == 0xa80 :: 2022-04-15 (live) @ 0x1403af6e4
 constexpr size_t CItemDisplayWnd_size = 0xa80;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4447,7 +4452,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x418 :: 2022-04-14 (test) @ 0x140157FB7
+// @sizeof(CKeyRingWnd) == 0x418 :: 2022-04-15 (live) @ 0x140157f47
 constexpr size_t CKeyRingWnd_size = 0x418;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4515,7 +4520,7 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0x4f8 :: 2022-04-14 (test) @ 0x140158235
+// @sizeof(CLootWnd) == 0x4f8 :: 2022-04-15 (live) @ 0x1401581c5
 constexpr size_t CLootWnd_size = 0x4f8;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4731,7 +4736,7 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x828 :: 2022-04-14 (test) @ 0x1401579AB
+// @sizeof(CMapViewWnd) == 0x828 :: 2022-04-15 (live) @ 0x14015793b
 constexpr size_t CMapViewWnd_size = 0x828;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5131,14 +5136,17 @@ class [[offsetcomments]] COverseerWnd : public CSidlScreenWnd
 {
 public:
 };
+
+
 //============================================================================
 // CPetInfoWnd
 //============================================================================
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
+// @sizeof(CPetInfoWnd) == 0xcc0 :: 2022-04-15 (live) @ 0x1401573DC
+constexpr size_t CPetInfoWnd_size = 0xcc0;
 
-// CPetInfoWindow_size: 0xcd0
 class [[offsetcomments]] CPetInfoWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -5190,6 +5198,8 @@ inline namespace deprecated {
 	using EQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd instead of EQPETINFOWINDOW") = CPetInfoWnd;
 	using PEQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd* instead of PEQPETINFOWINDOW") = CPetInfoWnd*;
 }
+
+SIZE_CHECK(CPetInfoWnd, CPetInfoWnd_size);
 
 //============================================================================
 // CPlayerNotesWnd

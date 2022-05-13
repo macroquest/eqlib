@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -640,33 +640,6 @@ public:
 /*0x068*/ int          BuffIDs[NUM_LONG_BUFFS];
 /*0x110*/ StatCounter  Statistics[S_LastStat];
 /*0x1a8*/
-};
-
-// User owns the "Merchant" Perk which grants 2 additional inventory slots.
-constexpr int EQFeature_MerchantPerk = 2012274;
-
-struct [[offsetcomments]] ClaimData
-{
-/*0x00*/ int featureId;
-/*0x04*/ int count;
-/*0x08*/
-};
-
-class [[offsetcomments]] ClaimDataCollection
-{
-public:
-/*0x00*/ ArrayClass<ClaimData> claimData;
-/*0x18*/
-
-	bool CanConsumeFeature(int featureId)
-	{
-		for (int i = 0; i < claimData.GetCount(); ++i)
-		{
-			if (claimData[i].featureId == featureId)
-				return claimData[i].count > 0;
-		}
-		return false;
-	}
 };
 
 class [[offsetcomments]] MercenaryAbilityInfo
@@ -1491,7 +1464,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x31e8 :: 2022-04-14 (test) @ 0x14023000E
+// @sizeof(PcClient) == 0x31e8 :: 2022-04-15 (live) @ 0x1402305ee
 constexpr size_t PcClient_size = 0x31e8;
 
 class [[offsetcomments]] PcClient : public PcZoneClient

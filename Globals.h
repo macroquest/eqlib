@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -122,16 +122,11 @@ constexpr int MAX_HOTBUTTON_WNDS = 12;
 EQLIB_VAR uintptr_t __ActualVersionBuild;
 EQLIB_VAR uintptr_t __ActualVersionDate;
 EQLIB_VAR uintptr_t __ActualVersionTime;
-EQLIB_VAR uintptr_t __Attack;
-EQLIB_VAR uintptr_t __Autofire;
-EQLIB_VAR uintptr_t __AutoSkillArray;
 EQLIB_VAR uintptr_t __BindList;
-EQLIB_VAR uintptr_t __Clicks;
 EQLIB_VAR uintptr_t __CommandList;
 EQLIB_VAR uintptr_t __CurrentMapLabel;
 EQLIB_VAR uintptr_t __CurrentSocial;
 EQLIB_VAR uintptr_t __do_loot;
-EQLIB_VAR uintptr_t __DoAbilityList;
 EQLIB_VAR uintptr_t __DrawHandler;
 EQLIB_VAR uintptr_t __gpbCommandEvent;
 EQLIB_VAR uintptr_t __Guilds;
@@ -139,36 +134,15 @@ EQLIB_VAR uintptr_t __gWorld;
 EQLIB_VAR uintptr_t __heqmain;
 EQLIB_VAR uintptr_t __HotkeyPage;
 EQLIB_VAR uintptr_t __HWnd;
-EQLIB_VAR uintptr_t __InChatMode;
-EQLIB_VAR uintptr_t __Inviter;
 EQLIB_VAR uintptr_t __LabelCache;
-EQLIB_VAR uintptr_t __LastTell;
-EQLIB_VAR uintptr_t __LMouseHeldTime;
 EQLIB_VAR uintptr_t __LoginName;
 EQLIB_VAR uintptr_t __Mouse;
 EQLIB_VAR uintptr_t __MouseEventTime;
-EQLIB_VAR uintptr_t __MouseLook;
-EQLIB_VAR uintptr_t __NetStatusToggle;
-EQLIB_VAR uintptr_t __PCNames;
-EQLIB_VAR uintptr_t __RangeAttackReady;
-EQLIB_VAR uintptr_t __RMouseHeldTime;
-EQLIB_VAR uintptr_t __RunWalkState;
 EQLIB_VAR uintptr_t __ScreenMode;
-EQLIB_VAR uintptr_t __ScreenX;
-EQLIB_VAR uintptr_t __ScreenXMax;
-EQLIB_VAR uintptr_t __ScreenY;
-EQLIB_VAR uintptr_t __ScreenYMax;
 EQLIB_VAR uintptr_t __ServerHost;
-EQLIB_VAR uintptr_t __ServerName;
-EQLIB_VAR uintptr_t __ShiftKeyDown;
-EQLIB_VAR uintptr_t __ShowNames;
-EQLIB_VAR uintptr_t __Socials;
-EQLIB_VAR uintptr_t __SocialChangedList;
 EQLIB_VAR uintptr_t __SubscriptionType;
 EQLIB_VAR uintptr_t __ThrottleFrameRate;
 EQLIB_VAR uintptr_t __ThrottleFrameRateEnd;
-EQLIB_VAR uintptr_t __UseTellWindows;
-EQLIB_VAR uintptr_t __ZoneType;
 EQLIB_VAR uintptr_t EQObject_Top;
 EQLIB_VAR uintptr_t g_eqCommandStates;
 EQLIB_VAR uintptr_t instCRaid;
@@ -216,7 +190,6 @@ EQLIB_VAR uintptr_t pinstSGraphicsEngine;
 EQLIB_VAR uintptr_t pinstSkillMgr;
 EQLIB_VAR uintptr_t pinstSpawnManager;
 EQLIB_VAR uintptr_t pinstSpellManager;
-EQLIB_VAR uintptr_t pinstSpellSets;
 EQLIB_VAR uintptr_t pinstStringTable;
 EQLIB_VAR uintptr_t pinstSwitchManager;
 EQLIB_VAR uintptr_t pinstTarget;
@@ -234,7 +207,6 @@ EQLIB_VAR uintptr_t __EncryptPad0;
 EQLIB_VAR uintptr_t DI8__Keyboard;
 EQLIB_VAR uintptr_t DI8__Main;
 EQLIB_VAR uintptr_t DI8__Mouse_Check;
-EQLIB_VAR uintptr_t DI8__Mouse_Copy;
 EQLIB_VAR uintptr_t DI8__Mouse;
 
 EQLIB_VAR uintptr_t __CastRay;
@@ -693,8 +665,6 @@ EQLIB_VAR uintptr_t EqSoundManager__WaveInstancePlay;
 EQLIB_VAR uintptr_t EqSoundManager__WavePlay;
 EQLIB_VAR uintptr_t EQSpellStrings__GetString;
 EQLIB_VAR uintptr_t EQSwitch__UseSwitch;
-EQLIB_VAR uintptr_t EverQuest__Cameras;
-EQLIB_VAR uintptr_t EverQuestinfo__IsItemPending;
 EQLIB_VAR uintptr_t FactionManagerClient__HandleFactionMessage;
 EQLIB_VAR uintptr_t FactionManagerClient__Instance;
 EQLIB_VAR uintptr_t FreeTargetTracker__CastSpell;
@@ -795,55 +765,31 @@ EQLIB_VAR uintptr_t ZoneGuideManagerClient__Instance;
 //----------------------------------------------------------------------------
 
 // Raw pointers (value types in eq)
-EQLIB_VAR BYTE*                                      EQADDR_ATTACK;
 EQLIB_VAR CMDLIST*                                   EQADDR_CMDLIST;
 EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIKEYBOARD;
 EQLIB_VAR uintptr_t                                  EQADDR_DIMAIN;
 EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIMOUSE;
 EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECHECK;
-EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECOPY;
-EQLIB_VAR int*                                       EQADDR_DOABILITYLIST;
 EQLIB_VAR void*                                      EQADDR_GWORLD;
 EQLIB_VAR uintptr_t                                  EQADDR_HWND;
-EQLIB_VAR char*                                      EQADDR_LASTTELL;
 EQLIB_VAR MQMouseInfo*                               EQADDR_MOUSE;
-EQLIB_VAR MOUSECLICK*                                EQADDR_MOUSECLICK;
-EQLIB_VAR BYTE*                                      EQADDR_NOTINCHATMODE;
-EQLIB_VAR BYTE*                                      EQADDR_RUNWALKSTATE;
 EQLIB_VAR char*                                      EQADDR_SERVERHOST;
-EQLIB_VAR char*                                      EQADDR_SERVERNAME;
 EQLIB_VAR uintptr_t*                                 EQADDR_SUBSCRIPTIONTYPE;
-EQLIB_VAR BYTE*                                      EQADDR_ZONETYPE;
 EQLIB_VAR char**                                     EQMappableCommandList;
 EQLIB_VAR BYTE*                                      EQbCommandStates;
 EQLIB_VAR HMODULE*                                   ghEQMainInstance;
-EQLIB_VAR BYTE*                                      gpAutoFire;
-EQLIB_VAR AUTOSKILL*                                 gpAutoSkill;
 EQLIB_VAR DWORD*                                     gpbCommandEvent;
-EQLIB_VAR char*                                      gpbRangedAttackReady;
-EQLIB_VAR char*                                      gpbShowNetStatus;
-EQLIB_VAR bool*                                      gpbUseTellWindows;
 EQLIB_VAR DWORD*                                     gpMouseEventTime;
-EQLIB_VAR DWORD*                                     gpPCNames;
-EQLIB_VAR BYTE*                                      gpShiftKeyDown;
-EQLIB_VAR DWORD*                                     gpShowNames;
 EQLIB_VAR CDynamicZone*                              pDynamicZone;
 EQLIB_VAR CTribute*                                  pTribute;
 EQLIB_VAR CTribute*                                  pEQMisc DEPRECATE("Use pTribute instead of pEQMisc");
 EQLIB_VAR CEQSuiteTextureLoader*                     pEQSuiteTextureLoader;
-EQLIB_VAR EverQuestinfo*                             pEverQuestInfo;
 EQLIB_VAR INT*                                       pgCurrentSocial;
 EQLIB_VAR CGuild*                                    pGuild;
 EQLIB_VAR CGuild*                                    pGuildList DEPRECATE("Use pGuild instead of pGuildList");
-EQLIB_VAR char*                                      pMouseLook;
 EQLIB_VAR CRaid*                                     pRaid;
 EQLIB_VAR DWORD*                                     pScreenMode;
-EQLIB_VAR DWORD*                                     pScreenX;
-EQLIB_VAR DWORD*                                     pScreenXMax;
-EQLIB_VAR DWORD*                                     pScreenY;
-EQLIB_VAR DWORD*                                     pScreenYMax;
-EQLIB_VAR EQSOCIALCHANGED*                           pSocialChangedList;
-EQLIB_VAR EQSOCIAL*                                  pSocialList;
+
 EQLIB_VAR SpellLoadout*                              pSpellSets;
 EQLIB_VAR CTaskManager*                              pTaskManager;
 EQLIB_VAR BYTE*                                      pTributeActive;
@@ -851,6 +797,26 @@ EQLIB_VAR ZONEINFO*                                  pZoneInfo;
 EQLIB_VAR SoeUtil::String*                           pExceptionSubmissionEndpoint;
 EQLIB_VAR EQLogin*                                   pEQLogin;
 EQLIB_VAR LabelCache*                                g_labelCache;
+
+// pEverQuestInfo pointers
+EQLIB_VAR EverQuestinfo*                             pEverQuestInfo;
+EQLIB_VAR int*                                       pScreenX;
+EQLIB_VAR int*                                       pScreenY;
+EQLIB_VAR int*                                       pScreenXMax;
+EQLIB_VAR int*                                       pScreenYMax;
+EQLIB_VAR uint8_t*                                   pMouseLook;
+EQLIB_VAR bool*                                      gpbShowNetStatus;
+EQLIB_VAR bool*                                      gpShiftKeyDown;
+EQLIB_VAR EQSOCIAL*                                  pSocialList;
+EQLIB_VAR BYTE*                                      gpAutoFire;
+
+EQLIB_VAR uint8_t*                                   EQADDR_NOTINCHATMODE;
+EQLIB_VAR uint8_t*                                   EQADDR_RUNWALKSTATE;
+EQLIB_VAR uint8_t*                                   EQADDR_ZONETYPE DEPRECATE("Use pZoneInfo->ZoneType instead dof EQADDR_ZONETYPE");
+EQLIB_VAR char*                                      EQADDR_SERVERNAME DEPRECATE("Use GetServerShortName() instead of EQADDR_SERVERNAME");
+EQLIB_VAR int*                                       EQADDR_DOABILITYLIST DEPRECATE("Use pEverQuestInfo->combatSkill instead of EQADDR_DOABILITYLIST");
+EQLIB_VAR BYTE*                                      EQADDR_ATTACK DEPRECATE("Use pEverQuestInfo->bAutoAttack instead of EQADDR_ATTACK");
+
 
 // Spawn/Char related
 EQLIB_VAR ForeignPointer<PcClient>                   pCharData /*DEPRECATE("Use pLocalPC instead of pCharData")*/;
@@ -1080,16 +1046,11 @@ EQLIB_VAR ForeignPointer<CRender>                    g_pDrawHandler;
 #define ScreenY (*pScreenY)
 #define ScreenYMax (*pScreenYMax)
 #define bMouseLook (*pMouseLook)
-#define gAutoFire (*gpAutoFire)
-#define gAutoSkill (*gpAutoSkill)
 #define gbCommandEvent (*gpbCommandEvent)
-#define gbRangedAttackReady (*gpbRangedAttackReady)
 #define gbShowNetStatus (*gpbShowNetStatus)
 #define gCurrentSocial (*pgCurrentSocial)
 #define gMouseEventTime (*gpMouseEventTime)
-#define gPCNames (*gpPCNames)
 #define gShiftKeyDown (*gpShiftKeyDown)
-#define gShowNames (*gpShowNames)
 
 // TODO: These should just be turned into regular functions like the rest
 using fEQNewUIINI            = char* (*)();
@@ -1168,9 +1129,9 @@ EQLIB_API uint32_t GetStringCRC(std::string_view);
 
 //----------------------------------------------------------------------------
 // FIXME: Remove these macros
-#define indoor (((*EQADDR_ZONETYPE) == 0) || ((*EQADDR_ZONETYPE) == 3) || ((*EQADDR_ZONETYPE) == 4))
-#define outdoor (((*EQADDR_ZONETYPE) == 1) || ((*EQADDR_ZONETYPE) == 2) || ((*EQADDR_ZONETYPE) == 5))
-#define bindable (((*EQADDR_ZONETYPE) == 2) || ((*EQADDR_ZONETYPE) == 3) || ((*EQADDR_ZONETYPE) == 4))
+//#define indoor (((*EQADDR_ZONETYPE) == 0) || ((*EQADDR_ZONETYPE) == 3) || ((*EQADDR_ZONETYPE) == 4))
+//#define outdoor (((*EQADDR_ZONETYPE) == 1) || ((*EQADDR_ZONETYPE) == 2) || ((*EQADDR_ZONETYPE) == 5))
+//#define bindable (((*EQADDR_ZONETYPE) == 2) || ((*EQADDR_ZONETYPE) == 3) || ((*EQADDR_ZONETYPE) == 4))
 
 //----------------------------------------------------------------------------
 

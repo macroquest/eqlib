@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -18,12 +18,12 @@
 // eqmain.dll offsets
 //
 
-#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x180086F20
-#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x18001AD30
+#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x1800877E0
+#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x18001AD40
 //#define EQMain__CXWndManager__GetCursorToDisplay_x                 0x0          // inlined into CXWndManager::DrawCursor
-#define EQMain__LoginController__GiveTime_x                        0x180016640
-#define EQMain__LoginController__Shutdown_x                        0x180016E40
-#define EQMain__LoginServerAPI__JoinServer_x                       0x180018010
+#define EQMain__LoginController__GiveTime_x                        0x180016650
+#define EQMain__LoginController__Shutdown_x                        0x180016E50
+#define EQMain__LoginServerAPI__JoinServer_x                       0x180018020
 #define EQMain__WndProc_x                                          0x18000BE00
 
 #define EQMain__pinstCEQSuiteTextureLoader_x                       0x18016A7E0

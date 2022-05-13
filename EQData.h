@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -187,12 +187,6 @@ struct MOUSESPOOF
 	MOUSESPOOF*        pNext;
 };
 
-struct MOUSECLICK {
-	BYTE Confirm[8];         // DO NOT WRITE TO THIS BYTE
-	BYTE Click[8];          // Left = 0, Right = 1, etc
-};
-using PMOUSECLICK = MOUSECLICK*;
-
 struct [[offsetcomments]] LEADERABILITIES
 {
 	FORCE_SYMBOLS;
@@ -216,9 +210,11 @@ struct [[offsetcomments]] LEADERABILITIES
 };
 using PLEADERABILITIES = LEADERABILITIES*;
 
-struct [[offsetcomments]] EQCAMERABASE
+class [[offsetcomments]] EQCamera
 {
 	FORCE_SYMBOLS
+
+public:
 
 /*0x00*/ void* vftable;
 /*0x08*/ float Y;
@@ -242,7 +238,9 @@ struct [[offsetcomments]] EQCAMERABASE
 /*0x4a*/ bool  bSkipFrame;
 /*0x4c*/
 };
-using PEQCAMERABASE = EQCAMERABASE*;
+
+using EQCAMERABASE DEPRECATE("Use EQCamera instead of EQCAMERABASE") = EQCamera;
+using PEQCAMERABASE DEPRECATE("Use EQCamera* instead of PEQCAMERABASE") = EQCamera*;
 
 #define MODEL_LABEL                              0
 #define MODEL_LABELINFO                          1
@@ -287,12 +285,12 @@ enum InvisibleTypes
 #define STANDSTATE_FEIGN                         0x73
 #define STANDSTATE_DEAD                          0x78
 
-constexpr int MAX_SPELL_LOADOUT_NAME = 24;
+constexpr int MAX_LOADOUT_NAME = 25;
 
 struct [[offsetcomments]] SpellLoadout
 {
 /*0x00*/ int  SpellId[NUM_SPELL_GEMS];
-/*0x38*/ char Name[MAX_SPELL_LOADOUT_NAME + 1];
+/*0x38*/ char Name[MAX_LOADOUT_NAME];
 /*0x51*/ bool inuse;
 /*0x52*/ bool changed;
 /*0x54*/
@@ -302,6 +300,42 @@ inline namespace deprecated {
 	using SPELLFAVORITE DEPRECATE("Use SpellLoadout instead of SPELLFAVORITE") = SpellLoadout;
 	using PSPELLFAVORITE DEPRECATE("Use SpellLoadout* instead of PSPELLFAVORITE") = SpellLoadout*;
 }
+
+constexpr int MAX_HOTBUTTON_LOADOUT_NAME = 32;
+
+struct [[offsetcomments]] HotButtonLoadout
+{
+/*0x00*/ char Name[MAX_HOTBUTTON_LOADOUT_NAME];
+/*0x20*/ bool inuse;
+/*0x21*/ bool changed;
+/*0x24*/ uint16_t padding;
+/*0x24*/
+};
+
+struct [[offsetcomments]] PlayerRoleLoadout
+{
+/*0x00*/ int roles;
+/*0x04*/ char name[128];
+/*0x84*/
+};
+
+struct [[offsetcomments]] GroupRoleLoadout
+{
+/*0x000*/ PlayerRoleLoadout players[MAX_GROUP_SIZE];
+/*0x318*/ char name[MAX_LOADOUT_NAME];
+/*0x331*/ bool inuse;
+/*0x332*/ bool changed;
+/*0x334*/
+};
+
+struct [[offsetcomments]] TargetSetLoadout
+{
+/*0x000*/ char name[MAX_LOADOUT_NAME];
+/*0x019*/ char storedString[1500];
+/*0x5f5*/ bool inuse;
+/*0x5f6*/ bool changed;
+/*0x5f8*/
+};
 
 struct [[offsetcomments]] CMDLIST
 {
@@ -316,22 +350,26 @@ struct [[offsetcomments]] CMDLIST
 };
 using PCMDLIST = CMDLIST*;
 
-struct [[offsetcomments]] EQSOCIAL
+struct [[offsetcomments]] EQSocial
 {
-/*0x000*/ char Name[0x10];
-/*0x010*/ char Line[0x5][0x100];
+/*0x000*/ char Name[SOCIAL_NAME_LEN];
+/*0x010*/ char Line[SOCIAL_NUM_LINES][SOCIAL_LINE_LEN];
 /*0x510*/ BYTE Color;
 /*0x514*/ UINT TimerBegin;
 /*0x518*/ UINT TimerDuration;
 /*0x51c*/
 };
-using PEQSOCIAL = EQSOCIAL*;
+using EQSOCIAL = EQSocial;
+using PEQSOCIAL = EQSocial*;
 
-struct EQSOCIALCHANGED
+struct [[offsetcomments]] HotButtonData
 {
-	bool bChanged[10][12];
+	// needs to be mapped out
+/*0x00*/ void*     unknown[23];
+/*0xb8*/
+	// 0xa0 iconType
+	// 0xa4 iconSlot
 };
-using PEQSOCIALCHANGED = EQSOCIALCHANGED*;
 
 struct [[offsetcomments]] EQFRIENDSLIST
 {
@@ -1113,7 +1151,35 @@ struct [[offsetcomments]] EQLogin
 };
 
 
-constexpr uint32_t EQ_ASSIST          = 0x2529;        // 2022-03-03 (live) @ 0x140252E54
+// User owns the "Merchant" Perk which grants 2 additional inventory slots.
+constexpr int EQFeature_MerchantPerk = 2012274;
+
+struct [[offsetcomments]] ClaimData
+{
+/*0x00*/ int featureId;
+/*0x04*/ int count;
+/*0x08*/
+};
+
+class [[offsetcomments]] ClaimDataCollection
+{
+public:
+/*0x00*/ ArrayClass<ClaimData> claimData;
+/*0x18*/
+
+	bool CanConsumeFeature(int featureId)
+	{
+		for (int i = 0; i < claimData.GetCount(); ++i)
+		{
+			if (claimData[i].featureId == featureId)
+				return claimData[i].count > 0;
+		}
+		return false;
+	}
+};
+
+
+//constexpr uint32_t EQ_ASSIST          = 0x2529;        // 2022-03-03 (live) @ 0x140252E54
 
 // FIXME: Find a place for this
 constexpr uint32_t EQ_LoadingS__ArraySize = 0x5a;      // EQ_LoadingS__SetProgressBar_x+76

@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -556,14 +556,6 @@ void CEverQuest::DeleteTargetIndicator()
 	eqDelete(freeTargetTracker);
 	freeTargetTracker = nullptr;
 }
-
-//============================================================================
-// EverQuestInfo
-//============================================================================
-
-#ifdef _EverQuestinfo__SetAutoAttack_x
-FUNCTION_AT_ADDRESS(void, _EverQuestinfo::SetAutoAttack(bool), _EverQuestinfo__SetAutoAttack);
-#endif
 
 //============================================================================
 //============================================================================

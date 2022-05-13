@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -542,7 +542,7 @@ struct [[offsetcomments]] CTaskElement
 
 const int MAX_TASK_ELEMENTS = 20;
 
-// @sizeof(CTaskEntry) == 0x3d60 :: 2022-04-14 (test) @ 0x140048784
+// @sizeof(CTaskEntry) == 0x3d60 :: 2022-04-15 (live) @ 0x140048784
 constexpr size_t CTaskEntry_size = 0x3d60;
 
 struct [[offsetcomments]] CTaskEntry
@@ -1139,7 +1139,7 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2022-04-14 (test) @ 0x140213F7B
+// @sizeof(EQWorldData) == 0x1f88 :: 2022-04-15 (live) @ 0x14021456b
 constexpr size_t EQWorldData_size = 0x1f88;
 
 class [[offsetcomments]] EQWorldData
@@ -1613,13 +1613,6 @@ inline namespace deprecated {
 	using EQMisc DEPRECATE("Use CTribute instead of EQMisc") = CTribute;
 }
 
-struct AUTOSKILL
-{
-	int Skill[CONCURRENT_SKILLS];
-};
-using PAUTOSKILL = AUTOSKILL*;
-
-
 enum eSkillCombatType
 {
 	SCT_NonCombat,
@@ -1652,7 +1645,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x353780 :: 2022-04-14 (test) @ 0x14021409C
+// @sizeof(SkillManager) == 0x353780 :: 2022-04-15 (live) @ 0x14021468c
 constexpr size_t SkillManager_size = 0x353780;
 
 class [[offsetcomments]] SkillManager

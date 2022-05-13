@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2021 MacroQuest Authors
+ * Copyright (C) 2002-2022 MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -205,7 +205,7 @@ namespace eqlib::detail{
     type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type (&name)[size];
 
-#define SIZE_CHECKS_ENABLED 0
+#define SIZE_CHECKS_ENABLED 1
 
 #if defined(COMMENT_UPDATER) || !defined(_DEBUG) || SIZE_CHECKS_ENABLED == 0
 #define SIZE_CHECK(type, expectedSize)
