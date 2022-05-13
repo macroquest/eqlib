@@ -5159,6 +5159,8 @@ public:
 	EQLIB_OBJECT void SetShowOnSummon(bool);
 	EQLIB_OBJECT void Update();
 
+	inline int GetMaxBuffs() const { return MAX_TOTAL_BUFFS; }
+
 	//----------------------------------------------------------------------------
 	// data members
 
@@ -5732,6 +5734,8 @@ public:
 	EQLIB_OBJECT CXStr* GetBuffCaster(int SpellID);
 	EQLIB_OBJECT void RefreshTargetBuffs(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT void HandleBuffRemoveRequest(CXWnd* pWnd);
+
+	inline int GetMaxBuffs() const { return MAX_TOTAL_BUFFS; }
 
 	//----------------------------------------------------------------------------
 	// data members
