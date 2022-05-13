@@ -206,7 +206,7 @@ public:
 	// Can be used to access both short and long buffs
 	const EQ_Affect& GetEffect(uint32_t index) const
 	{
-		if (index >= MAX_TOTAL_BUFFS)
+		if ((int)index >= Buffs.GetSize())
 			return Buffs[0];
 
 		return Buffs[index];
@@ -216,7 +216,7 @@ public:
 	const EQ_Affect& GetTempEffect(uint32_t index) const { return GetEffect(index + NUM_LONG_BUFFS); }
 	EQ_Affect& GetTempEffect(uint32_t index) { return GetEffect(index + NUM_LONG_BUFFS); }
 
-	int GetMaxEffects() const { return MAX_TOTAL_BUFFS; }
+	int GetMaxEffects() const { return Buffs.GetSize(); }
 
 	// Buffs array was converted to a dynamic array on 2022-04-14. Instead of relying on the memory layout of the buffs,
 	// plugin authors should instead call GetEffect, GetTempEffect, and GetMaxEffects() as necessary.r
@@ -300,8 +300,8 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x8a10 :: 2022-04-15 (live) @ 0x14059d774
-constexpr size_t PcProfile_size = 0x8a10;
+// @sizeof(PcProfile) == 0x6a28:: 2022-05-09 (test) @ 0x140591644
+constexpr size_t PcProfile_size = 0x6a28;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
 {
@@ -340,24 +340,24 @@ public:
 /*0x69a7*/ uint8_t                               Beard;
 /*0x69a8*/ uint8_t                               OldFace;
 /*0x69ac*/ int                                   AAPoints;
-/*0x69b0*/ char                                  PocketPetSaveString[0x2000];            // 0x1000 in older clients
-/*0x89b0*/ CXStr                                 ItemBuffer;
-/*0x89b8*/ uint32_t                              LastShield;
-/*0x89bc*/ bool                                  bSneak;
-/*0x89bd*/ bool                                  bHide;
-/*0x89c0*/ int                                   AAPointsSpent;
-/*0x89c4*/ int                                   AAPointsAssigned[6];                    // none, general, arch, class, special, focus, merc
-/*0x89e0*/ PetObjectData*                        pPetData;
-/*0x89e8*/ int                                   PrimaryActor;
-/*0x89ec*/ int                                   SecondaryActor;
-/*0x89f0*/ bool                                  bUseTemplateFaction;
-/*0x89f4*/ int                                   TitlePrefixID;
-/*0x89f8*/ int                                   TitleSuffixID;
-/*0x89fc*/ bool                                  bAreHandsMagic;
-/*0x8a00*/ int                                   SoleEnabledZoneID;
-/*0x8a04*/ int                                   NewBodyTint;
-/*0x8a08*/ int                                   CurrentMercenaryIndex;
-/*0x8a0c*/
+/*0x69b0*/ SoeUtil::String                       PocketPetSaveString;
+/*0x69c8*/ CXStr                                 ItemBuffer;
+/*0x69d0*/ uint32_t                              LastShield;
+/*0x69d4*/ bool                                  bSneak;
+/*0x69d5*/ bool                                  bHide;
+/*0x69d8*/ int                                   AAPointsSpent;
+/*0x69dc*/ int                                   AAPointsAssigned[6];                    // none, general, arch, class, special, focus, merc
+/*0x69f8*/ PetObjectData*                        pPetData;
+/*0x6a00*/ int                                   PrimaryActor;
+/*0x6a04*/ int                                   SecondaryActor;
+/*0x6a08*/ bool                                  bUseTemplateFaction;
+/*0x6a0c*/ int                                   TitlePrefixID;
+/*0x6a10*/ int                                   TitleSuffixID;
+/*0x6a14*/ bool                                  bAreHandsMagic;
+/*0x6a18*/ int                                   SoleEnabledZoneID;
+/*0x6a1c*/ int                                   NewBodyTint;
+/*0x6a20*/ int                                   CurrentMercenaryIndex;
+/*0x6a24*/
 };
 
 inline namespace deprecated {
