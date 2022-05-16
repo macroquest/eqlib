@@ -14,11 +14,18 @@
 
 #pragma once
 
+//----------------------------------------------------------------------------
+// Defines the EverQuest build type (LIVE, TEST, etc)
+//----------------------------------------------------------------------------
+
+#define TEST
+
+
+//----------------------------------------------------------------------------
+#if !defined(RC_INVOKED)
+
 #include "Expansions.h"
 #include "eqgame.h"
-
-// Defines the EverQuest build type (LIVE, TEST, etc)
-#define TEST
 
 // Defines the expansion level of this build.
 #define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_TOL
@@ -63,3 +70,7 @@
 
 // Tabbed chat was added on March 13, 2019
 #define HAS_TABBED_CHAT IS_CLIENT_DATE(20190313)
+
+
+//----------------------------------------------------------------------------
+#endif // !RC_INVOKED
