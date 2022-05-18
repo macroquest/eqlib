@@ -524,7 +524,12 @@ constexpr int NUM_SONG_BUFFS = 30;
 constexpr int MAX_BUFF_ICONS = 42;
 
 // Number of temporary buffs stored in the profile.
-constexpr int NUM_TEMP_BUFFS = 55;
+// This is the number of songs + 1 (for active combat discipline)
+constexpr int NUM_TEMP_BUFFS = NUM_SONG_BUFFS + 1;
+
+// Old number for temp buffs included NPC buffs because of shared code.
+constexpr int NUM_TEMP_BUFFS_NPC = 55;
+
 // this is misnamed, the "Short buffs" in the profile is simply just all temporary buffs
 // not necessary the short buffs window. You'll also note that its 55 instead of 30...
 constexpr int NUM_SHORT_BUFFS = NUM_TEMP_BUFFS;
@@ -533,6 +538,10 @@ constexpr int NUM_SHORT_BUFFS = NUM_TEMP_BUFFS;
 // displayable on the screen in the buffs+shortbuffs ui. NPCs can have more buffs/debuffs
 // that players, that is where this total value comes from.
 constexpr int MAX_TOTAL_BUFFS = NUM_LONG_BUFFS + NUM_TEMP_BUFFS;
+
+// Holds the total number of buffs for an NPC (target / pet)
+constexpr int MAX_TOTAL_BUFFS_NPC = NUM_LONG_BUFFS + NUM_TEMP_BUFFS_NPC;
+
 constexpr int NUM_BUFF_SLOTS = MAX_TOTAL_BUFFS;
 
 constexpr int MAX_MEMORIZED_SPELLS = 18;

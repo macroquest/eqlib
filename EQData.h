@@ -308,7 +308,7 @@ struct [[offsetcomments]] HotButtonLoadout
 /*0x00*/ char Name[MAX_HOTBUTTON_LOADOUT_NAME];
 /*0x20*/ bool inuse;
 /*0x21*/ bool changed;
-/*0x24*/ uint16_t padding;
+/*0x22*/ uint16_t padding;
 /*0x24*/
 };
 
