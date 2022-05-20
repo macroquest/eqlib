@@ -336,7 +336,7 @@
 #define CEverQuest__CreateTargetIndicator_x                        0x140219A40
 #define CEverQuest__DoTellWindow_x                                 0x1400D7290 // ChatManagerClient__DisplayTellText
 #define CEverQuest__OutputTextToLog_x                              0x1400D7B50 // ChatManagerClient__WriteTextToLogFile
-#define CEverQuest__DropHeldItemOnGround_x                         0x14022B6D0
+#define CEverQuest__DropHeldItemOnGround_x                         0x140224450
 #define CEverQuest__dsp_chat_x                                     0x1400D6DB0 // ChatManagerClient__DisplayChatText
 #define CEverQuest__trimName_x                                     0x14024D9C0
 #define CEverQuest__Emote_x                                        0x140224DB0
