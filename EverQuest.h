@@ -67,7 +67,7 @@ enum EPlace
 };
 
 // size of zoneHeader is the distance from this byte to the zoneHeader
-// @sizeof(zoneHeader) == 0x2a4 :: 2022-05-09 (test) @ 0x140b73928
+// @sizeof(zoneHeader) == 0x2a4 :: 2022-05-24 (test) @ 0x140b74928
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -709,7 +709,7 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2022-05-09 (test) @ 0x1402e7680
+// @sizeof(CEverQuest) == 0x396f8 :: 2022-05-24 (test) @ 0x1402e7430
 constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
