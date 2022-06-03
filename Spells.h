@@ -889,19 +889,22 @@ enum eSpellStringType
 };
 
 constexpr int MAX_SPELL_REAGENTS = 4;
+constexpr int MAX_EFFECT_SLOTS = 12;
 
 struct [[offsetcomments]] SpellAffectData
 {
 /*0x00*/ int     Slot = 0;
-/*0x04*/ int32_t Base = 0;
-/*0x08*/ int32_t Base2 = 0;
-/*0x0c*/ int32_t Max = 0;
-/*0x10*/ int     Calc = 0;
-/*0x14*/ int     Attrib = SPA_NOSPELL;
-/*0x18*/
+/*0x08*/ int64_t Base = 0;
+/*0x10*/ int64_t Base2 = 0;
+/*0x18*/ int64_t Max = 0;
+/*0x20*/ int     Calc = 0;
+/*0x24*/ int     Attrib = SPA_NOSPELL;
+/*0x28*/
 };
+
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
+
 
 #pragma pack(push)
 #pragma pack(1)
@@ -919,7 +922,6 @@ public:
 	EQLIB_OBJECT unsigned char SpellAffects(int) const;                  // this one takes an attrib(soe calls it affect) and returns the index for it...
 	EQLIB_OBJECT unsigned char GetSpellLevelNeeded(EQClass) const;       // takes a Class, druid for example is 6
 	EQLIB_OBJECT int SpellAffectBase(int) const;                         // takes a SPA, returns the first matching base it finds for it
-	EQLIB_OBJECT const SpellAffectData* GetSpellAffectBySlot(int Slot) const;
 	EQLIB_OBJECT const SpellAffectData* GetSpellAffectByIndex(int Index) const;
 	EQLIB_OBJECT static bool IsDegeneratingLevelMod(int);
 
@@ -992,7 +994,6 @@ public:
 		return !IsBeneficialSpell() || NoRemove;
 	}
 
-
 /*0x000*/ float                Range = 0.0f;
 /*0x004*/ float                AERange = 0.0f;
 /*0x008*/ float                PushBack = 0.0f;
@@ -1000,132 +1001,163 @@ public:
 /*0x010*/ uint32_t             CastTime = 0;
 /*0x014*/ uint32_t             RecoveryTime = 0;
 /*0x018*/ uint32_t             RecastTime = 0;
-/*0x01c*/ uint32_t             DurationType = 0;              // DurationFormula on Lucy
+/*0x01c*/ uint32_t             DurationType = 0;                    // DurationFormula on Lucy
 /*0x020*/ uint32_t             DurationCap = 0;
 /*0x024*/ uint32_t             AEDuration = 0;
 /*0x028*/ int                  ManaCost = 0;
-/*0x02c*/ float                Unknown0x02C = 0;
-/*0x030*/ int                  ReagentID[MAX_SPELL_REAGENTS]; // ReagentId1-ReagentId4d
-/*0x040*/ int                  ReagentCount[MAX_SPELL_REAGENTS]; // ReagentCount1-ReagentCount4
-/*0x050*/ int                  NoExpendReagent[MAX_SPELL_REAGENTS];
-/*0x060*/ int                  CalcIndex = 0;                 // SpellAffectsStartIndex
-/*0x064*/ int                  NumEffects = 0;                // SpellAffectsCount
-/*0x068*/ int                  DescriptionIndex = 0;
-/*0x06c*/ int                  ResistAdj = 0;
-/*0x070*/ int                  Deity = 0;
-/*0x074*/ int                  spaindex = 0;
-/*0x078*/ int                  SpellAnim = 0;
-/*0x07c*/ int                  SpellIcon = 0;
-/*0x080*/ int                  DurationParticleEffect = 0;
-/*0x084*/ int                  NPCUsefulness = 0;
-/*0x088*/ int                  ID = 0;
-/*0x08c*/ int                  Autocast = 0;                  // SpellID of spell to instacast on caster when current spell lands on target
-/*0x090*/ int                  Category = 0;
-/*0x094*/ int                  Subcategory = 0;
-/*0x098*/ int                  Subcategory2 = 0;
-/*0x09c*/ int                  HateMod = 0;                   // Additional hate
-/*0x0a0*/ int                  ResistPerLevel = 0;
-/*0x0a4*/ int                  ResistCap = 0;
-/*0x0a8*/ int                  EnduranceCost = 0;             // CA Endurance Cost
-/*0x0ac*/ int                  EnduranceValue = 0;            // Unsure
-/*0x0b0*/ int                  ReuseTimerIndex = 0;           // ID of combat timer, i think.
-/*0x0b4*/ int                  EnduranceUpkeep = 0;
-/*0x0b8*/ int                  HateGenerated = 0;             // Hate override
-/*0x0bc*/ int                  HitCountType = 0;
-/*0x0c0*/ int                  HitCount = 0;
-/*0x0c4*/ int                  ConeStartAngle = 0;
-/*0x0c8*/ int                  ConeEndAngle = 0;
-/*0x0cc*/ int                  PvPResistBase = 0;
-/*0x0d0*/ int                  PvPCalc = 0;
-/*0x0d4*/ int                  PvPResistCap = 0;
-/*0x0d8*/ uint32_t             PvPDuration = 0;               // DurationType for PVP
-/*0x0dc*/ uint32_t             PvPDurationCap = 0;
-/*0x0e0*/ int                  PCNPCOnlyFlag = 0;
-/*0x0e4*/ int                  NPCMemCategory = 0;
-/*0x0e8*/ int                  SpellGroup = 0;
-/*0x0ec*/ int                  SpellSubGroup = 0;
-/*0x0f0*/ int                  SpellRank = 0;
-/*0x0f4*/ int                  SpellClass = 0;
-/*0x0f8*/ int                  SpellSubClass = 0;
-/*0x0fc*/ int                  SpellReqAssociationID = 0;
-/*0x100*/ int                  CasterRequirementID = 0;
-/*0x104*/ int                  MaxResist = 0;
-/*0x108*/ int                  MinResist = 0;
-/*0x10c*/ int                  MinSpreadTime = 0;
-/*0x110*/ int                  MaxSpreadTime = 0;
-/*0x114*/ int                  SpreadRadius = 0;
-/*0x118*/ int                  BaseEffectsFocusCap = 0;       // song cap, maybe other things?
-/*0x11c*/ int                  CritChanceOverride = 0;
-/*0x120*/ int                  MaxTargets = 0;                // how many targets a spell will affect
-/*0x124*/ uint32_t             AIValidTargets = 0;
-/*0x128*/ int                  BaseEffectsFocusOffset = 0;
-/*0x12c*/ float                BaseEffectsFocusSlope = 1.0f;
-/*0x130*/ CVector2             DistanceModStart = { 0, 0 };
-/*0x138*/ CVector2             DistanceModEnd = { 0, 0 };
-/*0x140*/ int                  Unknown1 = -1;
-/*0x144*/ float                MinRange = 0.0f;
-/*0x148*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
-/*0x149*/ bool                 Feedbackable = false;
-/*0x14a*/ bool                 Reflectable = false;
-/*0x14b*/ bool                 NoPartialSave = false;
-/*0x14c*/ bool                 NoResist = false;
-/*0x14d*/ bool                 UsesPersistentParticles = false;
-/*0x14e*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
-/*0x14f*/ bool                 Uninterruptable = false;
-/*0x150*/ bool                 NotStackableDot = false;
-/*0x151*/ bool                 Deletable = false;
-/*0x152*/ bool                 BypassRegenCheck = false;
-/*0x153*/ bool                 CanCastInCombat = false;
-/*0x154*/ bool                 CanCastOutOfCombat = false;
-/*0x155*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
-/*0x156*/ bool                 OnlyDuringFastRegen = false;
-/*0x157*/ bool                 CastNotStanding = false;
-/*0x158*/ bool                 CanMGB = false;
-/*0x159*/ bool                 NoDispell = false;
-/*0x15a*/ bool                 AffectInanimate = false;       // ldon trap spells etc
-/*0x15b*/ bool                 IsSkill = false;
-/*0x15c*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
-/*0x15d*/ bool                 bShowDoTMessage = false;
-/*0x15e*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
-/*0x182*/ uint8_t              LightType = 0;
-/*0x183*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x184*/ uint8_t              Resist = 0;                    // enum eResistType
-/*0x185*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
-/*0x186*/ uint8_t              CastDifficulty = 0;
-/*0x187*/ uint8_t              Skill = 0;
-/*0x188*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
-/*0x189*/ uint8_t              Environment = 0;
-/*0x18a*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
-/*0x18b*/ uint8_t              CastingAnim = 0;
-/*0x18c*/ uint8_t              AnimVariation = 0;
-/*0x18d*/ uint8_t              TargetAnim = 0;
-/*0x18e*/ uint8_t              TravelType = 0;
-/*0x18f*/ uint8_t              CancelOnSit = 0;
-/*0x190*/ bool                 CountdownHeld = false;
-/*0x191*/ char                 Name[64];
-/*0x1d1*/ int                  ActorTagId = 0;
-/*0x1d5*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
-/*0x1f5*/ bool                 ShowWearOffMessage = false;
-/*0x1f6*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
-/*0x1f7*/ bool                 SneakAttack = false;
-/*0x1f8*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
-/*0x1f9*/ bool                 NoHate = false;
-/*0x1fa*/ bool                 StacksWithSelf = false;
-/*0x1fb*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
-/*0x1fc*/ bool                 NoBuffBlock = false;
-/*0x1fd*/ int                  Scribable = 1;                 // int?
-/*0x201*/ bool                 NoStripOnDeath = false;
-/*0x202*/ bool                 NoRemove = false;              // spell can't be clicked off?
-/*0x203*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
-/*0x207*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
-/*0x20b*/ uint8_t              CRC32Marker = 0;
-/*0x20c*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
-/*0x210*/
+/*0x02c*/ int                  Base[MAX_EFFECT_SLOTS];              // Base1-Base12
+/*0x05c*/ int                  Base2[MAX_EFFECT_SLOTS];             // SpellID of spell for added effects
+/*0x08c*/ int                  Max[MAX_EFFECT_SLOTS];               // Max1-Max12
+/*0x0bc*/ int                  ReagentID[MAX_SPELL_REAGENTS];       // ReagentId1-ReagentId4d
+/*0x0cc*/ int                  ReagentCount[MAX_SPELL_REAGENTS];    // ReagentCount1-ReagentCount4
+/*0x0dc*/ int                  NoExpendReagent[MAX_SPELL_REAGENTS];
+/*0x0ec*/ int                  Calc[MAX_EFFECT_SLOTS];              // Calc1-Calc12
+/*0x11c*/ int                  Attrib[MAX_EFFECT_SLOTS];            // Attrib1-Attrib12
+/*0x14c*/ int                  BookIcon = 0;
+/*0x150*/ int                  GemIcon = 0;
+/*0x154*/ int                  DescriptionIndex = 0;
+/*0x158*/ int                  ResistAdj = 0;
+/*0x15c*/ int                  Deity = 0;
+/*0x160*/ int                  spaindex = 0;
+/*0x164*/ int                  SpellAnim = 0;
+/*0x168*/ int                  SpellIcon = 0;
+/*0x16c*/ int                  DurationParticleEffect = 0;
+/*0x170*/ int                  NPCUsefulness = 0;
+/*0x174*/ int                  ID = 0;
+/*0x178*/ int                  Autocast = 0;                  // SpellID of spell to instacast on caster when current spell lands on target
+/*0x17c*/ int                  Category = 0;
+/*0x180*/ int                  Subcategory = 0;
+/*0x184*/ int                  Subcategory2 = 0;
+/*0x188*/ int                  HateMod = 0;                   // Additional hate
+/*0x18c*/ int                  ResistPerLevel = 0;
+/*0x190*/ int                  ResistCap = 0;
+/*0x194*/ int                  EnduranceCost = 0;             // CA Endurance Cost
+/*0x198*/ int                  ReuseTimerIndex = 0;           // ID of combat timer, i think.
+/*0x19c*/ int                  EnduranceUpkeep = 0;
+/*0x1a0*/ int                  HateGenerated = 0;             // Hate override
+/*0x1a4*/ int                  HitCountType = 0;
+/*0x1a8*/ int                  HitCount = 0;
+/*0x1ac*/ int                  ConeStartAngle = 0;
+/*0x1b0*/ int                  ConeEndAngle = 0;
+/*0x1b4*/ int                  PvPResistBase = 0;
+/*0x1b8*/ int                  PvPCalc = 0;
+/*0x1bc*/ int                  PvPResistCap = 0;
+/*0x1c0*/ uint32_t             PvPDuration = 0;               // DurationType for PVP
+/*0x1c4*/ uint32_t             PvPDurationCap = 0;
+/*0x1c8*/ int                  GlobalGroup = 0;
+/*0x1cc*/ int                  PCNPCOnlyFlag = 0;
+/*0x1d0*/ int                  NPCMemCategory = 0;
+/*0x1d4*/ int                  SpellGroup = 0;
+/*0x1d8*/ int                  SpellSubGroup = 0;
+/*0x1dc*/ int                  SpellRank = 0;
+/*0x1e0*/ int                  SpellClass = 0;
+/*0x1e4*/ int                  SpellSubClass = 0;
+/*0x1e8*/ int                  SpellReqAssociationID = 0;
+/*0x1ec*/ int                  CasterRequirementID = 0;
+/*0x1f0*/ int                  MaxResist = 0;
+/*0x1f4*/ int                  MinResist = 0;
+/*0x1f8*/ int                  MinSpreadTime = 0;
+/*0x1fc*/ int                  MaxSpreadTime = 0;
+/*0x200*/ int                  SpreadRadius = 0;
+/*0x204*/ int                  BaseEffectsFocusCap = 0;       // song cap, maybe other things?
+/*0x208*/ int                  CritChanceOverride = 0;
+/*0x20c*/ int                  MaxTargets = 0;                // how many targets a spell will affect
+/*0x210*/ uint32_t             AIValidTargets = 0;
+/*0x214*/ int                  BaseEffectsFocusOffset = 0;
+/*0x218*/ float                BaseEffectsFocusSlope = 1.0f;
+/*0x21c*/ CVector2             DistanceModStart = { 0, 0 };
+/*0x224*/ CVector2             DistanceModEnd = { 0, 0 };
+/*0x22c*/ float                MinRange = 0.0f;
+/*0x230*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
+/*0x231*/ bool                 Feedbackable = false;
+/*0x232*/ bool                 Reflectable = false;
+/*0x233*/ bool                 NoPartialSave = false;
+/*0x234*/ bool                 NoResist = false;
+/*0x235*/ bool                 UsesPersistentParticles = false;
+/*0x236*/ bool                 SmallTargetsOnly = false;
+/*0x237*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
+/*0x238*/ bool                 Uninterruptable = false;
+/*0x239*/ bool                 NotStackableDot = false;
+/*0x23a*/ bool                 Deletable = false;
+/*0x23b*/ bool                 BypassRegenCheck = false;
+/*0x23c*/ bool                 CanCastInCombat = false;
+/*0x23d*/ bool                 CanCastOutOfCombat = false;
+/*0x23e*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
+/*0x23f*/ bool                 OnlyDuringFastRegen = false;
+/*0x240*/ bool                 CastNotStanding = false;
+/*0x241*/ bool                 CanMGB = false;
+/*0x242*/ bool                 NoDispell = false;
+/*0x243*/ bool                 AffectInanimate = false;       // ldon trap spells etc
+/*0x244*/ bool                 IsSkill = false;
+/*0x245*/ bool                 ShowDoTMessage = false;
+/*0x246*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
+/*0x26a*/ uint8_t              LightType = 0;
+/*0x26b*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
+/*0x26c*/ uint8_t              Resist = 0;                    // enum eResistType
+/*0x26d*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
+/*0x26e*/ uint8_t              CastDifficulty = 0;
+/*0x26f*/ uint8_t              Skill = 0;
+/*0x270*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
+/*0x271*/ uint8_t              Environment = 0;
+/*0x272*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
+/*0x273*/ uint8_t              CastingAnim = 0;
+/*0x274*/ uint8_t              AnimVariation = 0;
+/*0x275*/ uint8_t              TargetAnim = 0;
+/*0x276*/ uint8_t              TravelType = 0;
+/*0x277*/ uint8_t              CancelOnSit = 0;
+/*0x278*/ bool                 CountdownHeld = false;
+/*0x279*/ char                 Name[64];
+/*0x2b9*/ char                 Target[32];
+/*0x2d9*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
+/*0x2f9*/ char                 CastByMe[96];
+/*0x359*/ char                 CastByOther[96];
+/*0x3b9*/ char                 CastOnYou[96];
+/*0x419*/ char                 CastOnAnother[96];
+/*0x479*/ char                 WearOff[96];
+/*0x4d9*/ bool                 ShowWearOffMessage = false;
+/*0x4da*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
+/*0x4db*/ bool                 SneakAttack = false;
+/*0x4dc*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
+/*0x4dd*/ bool                 NoHate = false;
+/*0x4de*/ bool                 StacksWithSelf = false;
+/*0x4df*/ bool                 NoBuffBlock = false;
+/*0x4e0*/ int                  Scribable = 1;                 // int?
+/*0x4e4*/ bool                 NoStripOnDeath = false;
+/*0x4e5*/ bool                 NoRemove = false;              // spell can't be clicked off?
+/*0x4e6*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
+/*0x4ea*/ uint8_t              CRC32Marker = 0;
+/*0x4eb*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
+/*0x4f0*/
 
 	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")
 	ALT_MEMBER_ALIAS_DEPRECATED(int, EnduranceUpkeep, EndurUpkeep, "EndurUpkeep has been replaced with EnduranceUpkeep.")
 	ALT_MEMBER_ALIAS_DEPRECATED(uint32_t, PvPDurationCap, PvPDurationValue1, "PvPDurationValue1 has been replaced with PvPDurationCap")
 	ALT_MEMBER_ALIAS_DEPRECATED(bool, NoDispell, NoDisspell, "NoDisspell is misspelled, use IsNoDispell() instead")
+
+	ALT_MEMBER_GETTER(bool, ShowDoTMessage, bShowDoTMessage);
+	ALT_MEMBER_GETTER(bool, CastDifficulty, FizzleAdj);
+	ALT_MEMBER_GETTER(bool, CountdownHeld, IsCountdownHeld);
+	ALT_MEMBER_GETTER(bool, NPCChanceofKnowingSpell, NPCNoCast);
+	ALT_MEMBER_GETTER(bool, NoHate, NoDetrimentalSpellAggro);
+
+	int get_NumEffects() const { return MAX_EFFECT_SLOTS; }
+	__declspec(property(get = get_NumEffects)) int NumEffects;
+
+	// Fields that aren't available in emu
+	bool get_CannotBeScribed() const { return false; }
+	__declspec(property(get = get_CannotBeScribed)) bool CannotBeScribed;
+
+	int get_ActorTagId() const { return 0; }
+	__declspec(property(get = get_ActorTagId)) int ActorTagId;
+
+	float get_DistanceMod() const { return 0.0f; }
+	__declspec(property(get = get_DistanceMod)) float DistanceMod;
+
+	bool get_StacksWithDiscs() const { return false; }
+	__declspec(property(get = get_StacksWithDiscs)) bool bStacksWithDiscs;
+
+	int get_CalcIndex() const { return -1; }
+	__declspec(property(get = get_CalcIndex)) int CalcIndex;
 
 	// Currently necessary because of MQ2DataTypes
 	EQLIB_OBJECT EQ_Spell();
@@ -1135,7 +1167,7 @@ public:
 	EQLIB_OBJECT EQ_Spell& get_Data() { return *this; }
 	__declspec(property(get = get_Data)) EQ_Spell& Data;
 
-	inline int GetNumEffects() const { return NumEffects; }
+	inline int GetNumEffects() const { return MAX_EFFECT_SLOTS; }
 	EQLIB_OBJECT int GetEffectAttrib(int index) const;
 	EQLIB_OBJECT int64_t GetEffectBase(int index) const;
 	EQLIB_OBJECT int64_t GetEffectBase2(int index) const;
@@ -1153,9 +1185,9 @@ SIZE_CHECK(EQ_Spell, EQ_Spell_size);
 
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
-public:
-/*0x0230*/ HashList<HashList<HashList<int, 10>, 10>, 1000> ReqAssData;
-/*0x11e0*/
+public:                                                                      // 2bf48
+/*0x230*/ HashList<HashList<HashList<int, 10>, 10>, 200> ReqAssocData;
+/*0x560*/
 };
 
 enum EEffectActor
@@ -1283,23 +1315,20 @@ struct [[offsetcomments]] StackingGroupData
 /*0x0c*/
 };
 
-constexpr int TOTAL_SPELL_COUNT = 66000;           // # of spells allocated in memory (09/07/2021 test 6C944E)
-constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocated in mem (09/07/2021 test 6C948E)
+constexpr int TOTAL_SPELL_COUNT = 45001;           // # of spells allocated in memory (09/07/2021 test 6C944E)
+constexpr int TOTAL_SPELL_AFFECT_COUNT = 15000;    // # of spell affects allocated in mem (09/07/2021 test 6C948E)
 
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
 /*0x00014*/ int              SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x40754*/ EQ_Spell*        MissingSpell;
-/*0x40758*/ SpellAffectData* MissingSpellAffect;
-/*0x4075c*/ SpellAffectData* MissingSpellAffectAC;
-/*0x40760*/ int              MissingSpellCrc32;
-/*0x40764*/ int              SpellFileCRC;
-/*0x40768*/ int              SpellAssocFileCRC;
-/*0x4076c*/ int              SpellStackingFileCRC;
-/*0x40770*/ SpellRequirementAssociationManager ReqAssocManager;
-/*0x41950*/ HashTable<int, int> SpellGroups;
-/*0x41960*/
+/*0x2bf38*/ EQ_Spell*        MissingSpell;
+/*0x2bf3c*/ int              MissingSpellCrc32;
+/*0x2bf40*/ int              SpellFileCRC;
+/*0x2bf44*/ int              SpellAssocFileCRC;
+/*0x2bf48*/ RequirementAssociationManager ReqAssocManager;
+/*0x2c170*/ HashTable<int, int> SpellGroups;
+/*0x2c180*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1307,8 +1336,8 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x39df60 :: 2022-06-13 (live) @ 0x14021e966
-constexpr size_t ClientSpellManager_size = 0x39df60;
+// @sizeof(ClientSpellManager) == 0xafeec :: 2013-05-10 (emu) @ 0x51C3F1
+constexpr size_t ClientSpellManager_size = 0xafeec;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
@@ -1316,22 +1345,30 @@ public:
 	// virtuals
 	EQLIB_OBJECT virtual ~ClientSpellManager();
 	EQLIB_OBJECT virtual bool LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName);
-	EQLIB_OBJECT virtual bool LoadSpellStackingData(const char* StackingFileName);
 	EQLIB_OBJECT virtual bool DoesMeetRequirement(PlayerZoneClient* pPlayer, int SpellAssocID);
-	EQLIB_OBJECT virtual void PrintFailedRequirementString(int StrToken, int StringID);
-	EQLIB_OBJECT virtual int GetSpellStackingGroupID(int SpellID);
-	EQLIB_OBJECT virtual int GetSpellStackingGroupRank(int SpellID);
-	EQLIB_OBJECT virtual ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
 	EQLIB_OBJECT virtual EQ_Spell* GetSpellByID(int SpellID);
-	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffect(int index);
-	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffectEmpty(bool);
 
+	EQLIB_OBJECT bool LoadSpellStackingData(const char* StackingFileName);
+	EQLIB_OBJECT void PrintFailedRequirementString(int StrToken, int StringID);
+	EQLIB_OBJECT int GetSpellStackingGroupID(int SpellID);
+	EQLIB_OBJECT int GetSpellStackingGroupRank(int SpellID);
+	EQLIB_OBJECT ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
 
-/*0x041960*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
-/*0x0820a0*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
-/*0x16e5e0*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
-/*0x1ef460*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
-/*0x1ef470*/
+	EQLIB_OBJECT SpellAffectData* GetSpellAffect(const EQ_Spell* pSpell, int slot);
+	EQLIB_OBJECT SpellAffectData* GetSpellAffectEmpty(bool);
+
+	// Accessors for EQ spell data
+	EQLIB_OBJECT int GetSpellAttrib(EQ_Spell* pSpell, int index) const;
+	EQLIB_OBJECT int GetSpellBase(EQ_Spell* pSpell, int index) const;
+	EQLIB_OBJECT int GetSpellBase2(EQ_Spell* pSpell, int index) const;
+	EQLIB_OBJECT int GetSpellMax(EQ_Spell* pSpell, int index) const;
+	EQLIB_OBJECT int GetSpellCalc(EQ_Spell* pSpell, int index) const;
+
+	bool AllSpellsLoaded() const { return Spells[TOTAL_SPELL_COUNT - 1] != nullptr; }
+
+/*0x2c180*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960        0x2c180
+/*0x580a4*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0       0x580a4
+/*0xafeec*/
 };
 
 inline namespace deprecated {
@@ -1446,8 +1483,8 @@ public:
 	// Populate all slot data from a specified spell.
 	EQLIB_OBJECT void PopulateFromSpell(const EQ_Spell* pSpell);
 
-/*0x00*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)
-/*0x60*/ EqGuid    CasterGuid;
+/*0x00*/ EqGuid    CasterGuid;
+/*0x08*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)
 /*0x68*/ uint32_t  Flags;
 /*0x6c*/ int       SpellID;                      // -1 or 0 for no spell..
 /*0x70*/ int       Duration;

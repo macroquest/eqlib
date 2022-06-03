@@ -662,7 +662,9 @@ EQLIB_VAR uintptr_t CXWndManager__RemoveWnd;
 EQLIB_VAR uintptr_t DrawNetStatus;
 EQLIB_VAR uintptr_t EQ_LoadingS__Array;
 EQLIB_VAR uintptr_t EQ_LoadingS__SetProgressBar;
+#ifdef EQ_Spell__GetSpellAffectBySlot_x
 EQLIB_VAR uintptr_t EQ_Spell__GetSpellAffectBySlot;
+#endif
 EQLIB_VAR uintptr_t EQ_Spell__GetSpellLevelNeeded;
 EQLIB_VAR uintptr_t EQ_Spell__IsDegeneratingLevelMod;
 EQLIB_VAR uintptr_t EQ_Spell__IsSPAIgnoredByStacking;

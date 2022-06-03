@@ -103,8 +103,8 @@ public:
 	EQLIB_OBJECT CAltAbilityData* GetAAByGroupId(int nGroupId);
 
 /*0x000*/ RequirementAssociationManager reqAssocManager;
-/*0x230*/ HashTable<CAltAbilityData*>* abilities;
-/*0x234*/
+/*0x228*/ HashTable<CAltAbilityData*>* abilities;
+/*0x22c*/
 };
 
 //============================================================================

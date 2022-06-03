@@ -121,14 +121,16 @@ ItemDefinition::ItemDefinition()
 	memset(Name, 0, sizeof(Name));
 	memset(LoreName, 0, sizeof(LoreName));
 	memset(AdvancedLoreName, 0, sizeof(AdvancedLoreName));
-	IDFile[0] = 0;
-	IDFile2[0] = 0;
+	memset(IDFile, 0, sizeof(IDFile));
+	memset(IDFile2, 0, sizeof(IDFile));
 	ItemNumber = 0;
 	EquipSlots = 0;
 	Cost = 0;
 	IconNumber = 0;
 	eGMRequirement = 0;
 	bPoofOnDeath = false;
+	Unknown0x0100 = 0;
+	Unknown0x0104 = 0;
 	Weight = 0;
 	NoRent = false;
 	IsDroppable = false;
@@ -136,20 +138,14 @@ ItemDefinition::ItemDefinition()
 	Heirloom = false;
 	Collectible = false;
 	NoDestroy = false;
-	bNoNPC = false;
 	NoZone = false;
 	MakerID = 0;
 	NoGround = false;
-	bNoLoot = false;
 	MarketPlace = false;
-	bFreeSlot = false;
-	bAutoUse = false;
-	Unknown0x0e4 = -1;
 	Size = 0;
 	Type = 0;
 	TradeSkills = false;
 	Lore = 0;
-	LoreEquipped = 0;
 	Artifact = false;
 	Summoned = false;
 	SvCold = 0;
@@ -192,6 +188,7 @@ ItemDefinition::ItemDefinition()
 	Range = 0;
 	Damage = 0;
 	BackstabDamage = 0;
+	DamageShieldMitigation = 0;
 	HeroicSTR = 0;
 	HeroicINT = 0;
 	HeroicWIS = 0;
@@ -199,10 +196,14 @@ ItemDefinition::ItemDefinition()
 	HeroicDEX = 0;
 	HeroicSTA = 0;
 	HeroicCHA = 0;
+	HeroicSvMagic = 0;
+	HeroicSvFire = 0;
+	HeroicSvCold = 0;
+	HeroicSvDisease = 0;
+	HeroicSvPoison = 0;
+	HeroicSvCorruption = 0;
 	HealAmount = 0;
 	SpellDamage = 0;
-	MinLuck = 0;
-	MaxLuck = 0;
 	Prestige = 0;
 	ItemClass = 0;
 	ArmorProps.type = 0;
@@ -218,16 +219,26 @@ ItemDefinition::ItemDefinition()
 	LDTheme = 0;
 	LDCost = 0;
 	LDType = 0;
-	PointBuyBackPercent = 0;
-	NeedAdventureCompleted = 0;
+	Unknown0x0238 = 0;
+	Unknown0x023c = 0;
+	memset(FactionModType, 0, sizeof(FactionModType));
+	memset(FactionModValue, 0, sizeof(FactionModValue));
 	memset(CharmFile, 0, sizeof(CharmFile));
 	MerchantGreedMod = 0.0f;
 
 	// TODO: Init ITEMSPELLS
 
+	CombatEffects = 0;
+	Shielding = 0;
+	StunResist = 0;
+	DoTShielding = 0;
+	StrikeThrough = 0;
 	DmgBonusSkill = 0;
 	DmgBonusValue = 0;
-	ScriptID = 0;
+	SpellShield = 0;
+	Avoidance = 0;
+	Accuracy = 0;
+	CharmFileID = 0;
 	FoodDuration = 0;
 	ContainerType = 0;
 	Slots = 0;
@@ -245,10 +256,14 @@ ItemDefinition::ItemDefinition()
 	ManaRegen = 0;
 	EnduranceRegen = 0;
 	Haste = 0;
+	DamShield = 0;
 	AnimationOverride = -1;
 	PaletteTintIndex = 0;
 	bNoPetGive = false;
 	bSomeProfile = false;
+	bPotionBeltAllowed = false;
+	NumPotionSlots = 0;
+	SomeIDFlag = 0;
 	StackSize = 1;
 	bNoStorage = false;
 	MaxPower = 0;
@@ -290,14 +305,11 @@ ItemBase::ItemBase()
 	: Contents(0, eItemContainerOther)
 {
 	ScriptIndex = 0;
-	bCollected = false;
+	bCopied = true;
 	bRankDisabled = false;
 	bDisableAugTexture = false;
-	Luck = 0;
 	ID = 0;
 	MerchantSlot = 0;
-	ConvertItemID = 0;
-	DontKnow = 0;
 	NoDropFlag = 0;
 	LastCastTime = 0;
 	Power = 0;
@@ -310,7 +322,6 @@ ItemBase::ItemBase()
 	Price = 0;
 	Open = 0;
 	NoteStatus = 0;
-	bConvertable = false;
 	Tint = 0;
 	ArmorType = 0;
 	AugFlag = 0;
@@ -318,6 +329,16 @@ ItemBase::ItemBase()
 	RealEstateID = -1;
 	Charges = 0;
 	Item1 = nullptr;
+	EvolvingExpPct = 0.0;
+	EvolvingMaxLevel = 0;
+	memset(ActorTag1, 0, sizeof(ActorTag1));
+	memset(ActorTag2, 0, sizeof(ActorTag2));
+	GroupID = 0;
+	LastEquipped = 0;
+	EvolvingCurrentLevel = 0;
+	IsEvolvingItem = false;
+	EvolvingExpOn = false;
+	ItemColor = 0;
 }
 
 ItemDefinition* ItemBase::GetItemDefinition() const
@@ -376,11 +397,6 @@ FUNCTION_AT_ADDRESS(int, ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bo
 #ifdef ItemBase__IsLore_x
 FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
 #endif
-
-bool ItemBase::IsLoreEquipped(bool) const
-{
-	return false;
-}
 
 //----------------------------------------------------------------------------
 

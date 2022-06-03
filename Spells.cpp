@@ -17,15 +17,25 @@
 #include "EQLib.h"
 #include "Spells.h"
 
+#include <unordered_map>
+
 namespace eqlib {
 
-	
 //============================================================================
 // EQ_Spell
 //============================================================================
 
 EQ_Spell::EQ_Spell()
 {
+	for (int i = 0; 0 < MAX_EFFECT_SLOTS; ++i)
+	{
+		Base[i] = 0;
+		Base2[i] = 0;
+		Max[i] = 0;
+		Calc[i] = 0;
+		Attrib[i] = 0;
+	}
+
 	for (int i = 0; i < MAX_SPELL_REAGENTS; ++i)
 	{
 		ReagentID[i] = 0;
@@ -39,66 +49,55 @@ EQ_Spell::EQ_Spell()
 	}
 
 	memset(Name, 0, sizeof(Name));
+	memset(Target, 0, sizeof(Target));
 	memset(Extra, 0, sizeof(Extra));
+	memset(CastByMe, 0, sizeof(CastByMe));
+	memset(CastByOther, 0, sizeof(CastByOther));
+	memset(CastOnYou, 0, sizeof(CastOnYou));
+	memset(CastOnAnother, 0, sizeof(CastOnAnother));
+	memset(WearOff, 0, sizeof(WearOff));
+}
+
+const SpellAffectData* EQ_Spell::GetSpellAffectByIndex(int index) const
+{
+	if (index < 0 || index >= MAX_EFFECT_SLOTS)
+		return pSpellMgr->GetSpellAffectEmpty(index == 0 && ID == 0);
+
+	return pSpellMgr->GetSpellAffect(this, index);
 }
 
 int EQ_Spell::GetEffectAttrib(int index) const
 {
-	if (pSpellMgr
-		&& index >= 0 && index < GetNumEffects())
-	{
-		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
-			return affectData->Attrib;
-	}
-
+	if (index >= 0 && index < MAX_EFFECT_SLOTS)
+		return Attrib[index];
 	return 0;
 }
 
 int64_t EQ_Spell::GetEffectBase(int index) const
 {
-	if (pSpellMgr
-		&& index >= 0 && index < GetNumEffects())
-	{
-		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
-			return affectData->Base;
-	}
-
+	if (index >= 0 && index < MAX_EFFECT_SLOTS)
+		return Base[index];
 	return 0;
 }
 
 int64_t EQ_Spell::GetEffectBase2(int index) const
 {
-	if (pSpellMgr
-		&& index >= 0 && index < GetNumEffects())
-	{
-		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
-			return affectData->Base2;
-	}
-
+	if (index >= 0 && index < MAX_EFFECT_SLOTS)
+		return Base2[index];
 	return 0;
 }
 
 int64_t EQ_Spell::GetEffectMax(int index) const
 {
-	if (pSpellMgr
-		&& index >= 0 && index < GetNumEffects())
-	{
-		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
-			return affectData->Max;
-}
-
+	if (index >= 0 && index < MAX_EFFECT_SLOTS)
+		return Max[index];
 	return 0;
 }
 
 int EQ_Spell::GetEffectCalc(int index) const
 {
-	if (pSpellMgr
-		&& index >= 0 && index < GetNumEffects())
-	{
-		if (SpellAffectData* affectData = pSpellMgr->GetSpellAffect(CalcIndex + index))
-			return affectData->Calc;
-	}
-
+	if (index >= 0 && index < MAX_EFFECT_SLOTS)
+		return Calc[index];
 	return 0;
 }
 
@@ -147,16 +146,6 @@ FUNCTION_AT_ADDRESS(unsigned char, EQ_Spell::GetSpellLevelNeeded(EQClass) const,
 #ifdef EQ_Spell__SpellAffectBase_x
 FUNCTION_AT_ADDRESS(int, EQ_Spell::SpellAffectBase(int) const, EQ_Spell__SpellAffectBase);
 #endif
-
-const SpellAffectData* EQ_Spell::GetSpellAffectByIndex(int index) const
-{
-	if (index < 0 || index >= NumEffects)
-	{
-		return pSpellMgr->GetSpellAffectEmpty(index == 0 && ID == 0);
-	}
-
-	return pSpellMgr->GetSpellAffect(index + CalcIndex);
-}
 
 //============================================================================
 // EQ_Affect
@@ -227,11 +216,10 @@ void EQ_Affect::PopulateFromSpell(const EQ_Spell* pSpell)
 	// remaining on a debuff.
 	for (int index = 0; index < pSpell->NumEffects && dataIndex < NUM_SLOTDATA; ++index)
 	{
-		auto affect = pSpell->GetSpellAffectByIndex(index); // this cannot be null if we are < NumEffects
-		if (affect->Max != 0)
+		if (pSpell->Max[index] != 0)
 		{
-			SlotData[dataIndex].Slot = affect->Slot;
-			SlotData[dataIndex].Value = affect->Max;
+			SlotData[dataIndex].Slot = index;
+			SlotData[dataIndex].Value = pSpell->Max[index];
 			dataIndex++;
 		}
 	}
@@ -247,6 +235,75 @@ void EQ_Affect::PopulateFromSpell(const EQ_Spell* pSpell)
 // ClientSpellManager
 //============================================================================
 
+template <class T>
+inline void hash_combine(std::size_t& seed, const T& v)
+{
+	std::hash<T> hasher;
+	seed ^= hasher(v) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+}
+
+struct pair_hash
+{
+	template <class T1, class T2>
+	std::size_t operator () (const std::pair<T1, T2>& p) const
+	{
+		size_t hash = 0;
+		hash_combine(hash, std::hash<T1>{}(p.first));
+		hash_combine(hash, std::hash<T2>{}(p.second));
+
+		return hash;
+	}
+};
+
+static std::unordered_map<std::pair<const EQ_Spell*, int>, SpellAffectData, pair_hash> s_affectDataMap;
+static SpellAffectData s_emptyAffectData;
+static SpellAffectData s_emptyAffectDataAC = { 0, 0, 0, 0, 0, 1 };
+
+int ClientSpellManager::GetSpellAttrib(EQ_Spell* pSpell, int index) const
+{
+	if (index < 0)
+		index = 0;
+
+	if (pSpell)
+	{
+		if (index < pSpell->GetNumEffects())
+		{
+			return pSpell->Attrib[index];
+		}
+	}
+
+	return 0;
+}
+
+SpellAffectData* ClientSpellManager::GetSpellAffect(const EQ_Spell* pSpell, int slot)
+{
+	if (!pSpell || slot < 0 || slot >= pSpell->GetNumEffects())
+		return &s_emptyAffectData;
+
+	auto key = std::make_pair(pSpell, slot);
+
+	auto iter = s_affectDataMap.find(key);
+	if (iter == s_affectDataMap.end())
+	{
+		SpellAffectData& data = s_affectDataMap[key];
+		data.Slot = slot;
+		data.Base = pSpell->Base[slot];
+		data.Base2 = pSpell->Base2[slot];
+		data.Max = pSpell->Max[slot];
+		data.Calc = pSpell->Calc[slot];
+		data.Attrib = pSpell->Attrib[slot];
+
+		return &data;
+	}
+
+	return &iter->second;
+}
+
+SpellAffectData* ClientSpellManager::GetSpellAffectEmpty(bool ac)
+{
+	return ac ? &s_emptyAffectDataAC : &s_emptyAffectData;
+}
+
 bool ClientSpellManager::LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName) { return false; }
 bool ClientSpellManager::LoadSpellStackingData(const char*) { return false; }
 bool ClientSpellManager::DoesMeetRequirement(PlayerZoneClient*, int) { return false; }
@@ -254,9 +311,7 @@ void ClientSpellManager::PrintFailedRequirementString(int, int) {}
 int ClientSpellManager::GetSpellStackingGroupID(int) { return 0; }
 int ClientSpellManager::GetSpellStackingGroupRank(int) { return 0; }
 ESpellStackingRules ClientSpellManager::GetSpellStackingGroupRule(int) { return ESSR_None; }
-SpellAffectData* ClientSpellManager::GetSpellAffect(int) { return nullptr; }
 EQ_Spell* ClientSpellManager::GetSpellByID(int) { return nullptr; }
-SpellAffectData* ClientSpellManager::GetSpellAffectEmpty(bool) { return nullptr; }
 
 //============================================================================
 // Misc

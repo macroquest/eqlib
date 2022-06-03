@@ -823,8 +823,6 @@
 #define EQ_Spell__GetSpellLevelNeeded_x                            0x4AF700
 #define EQ_Spell__SpellAffects_x                                   0x4AF770
 #define EQ_Spell__SpellAffectBase_x                                0x4AF7A0
-#define EQ_Spell__GetSpellAffectBySlot_x                           0x8DC7D2
-//#define EQ_Spell__GetSpellAffectByIndex_x                          0x0
 #define EQ_Spell__IsSPAStacking_x                                  0x4ACE40
 #define EQ_Spell__IsSPAIgnoredByStacking_x                         0x4ACA70
 //#define EQ_Spell__IsDegeneratingLevelMod_x                         0x0

@@ -51,7 +51,7 @@ enum ReqType
 	// there are like 72 more of these...
 };
 
-// size: 0x248
+// size: 0x228
 
 class [[offsetcomments]] RequirementAssociationManager : public FileStatMgr
 {
@@ -59,17 +59,15 @@ public:
 	RequirementAssociationManager();
 	EQLIB_OBJECT virtual ~RequirementAssociationManager() {}
 
-	virtual void ClearAllRequirementAssociationsData() {}
-	virtual void Serialize(CSerializeBuffer&) {}
-	virtual void UnSerialize(CUnSerializeBuffer&) {}
-	virtual int LoadRequirementAssociationsFromFile(const char*, bool) { return 0; }
+	//virtual void ClearAllRequirementAssociationsData() {}
+	//virtual void Serialize(CSerializeBuffer&) {}
+	//virtual void UnSerialize(CUnSerializeBuffer&) {}
+	//virtual int LoadRequirementAssociationsFromFile(const char*, bool) { return 0; }
 
 /*0x014*/ HashTable<HashTable<DoublyLinkedList<int>*>*> Requirements;
 /*0x024*/ char               AssocFilename[512];
 /*0x224*/ ReqType            LastFailReason;
-/*0x228*/ int                LastFailGroupID;
-/*0x22c*/ int                LastFailReqID;
-/*0x230*/
+/*0x228*/
 };
 
 } // namespace eqlib

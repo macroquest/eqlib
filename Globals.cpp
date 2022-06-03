@@ -765,7 +765,9 @@ INITIALIZE_EQGAME_OFFSET(CXWndManager__RemoveWnd);
 INITIALIZE_EQGAME_OFFSET(DrawNetStatus);
 INITIALIZE_EQGAME_OFFSET(EQ_LoadingS__Array);
 INITIALIZE_EQGAME_OFFSET(EQ_LoadingS__SetProgressBar);
+#ifdef EQ_Spell__GetSpellAffectBySlot_x
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__GetSpellAffectBySlot);
+#endif
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__GetSpellLevelNeeded);
 #if defined(EQ_Spell__IsDegeneratingLevelMod_x)
 INITIALIZE_EQGAME_OFFSET(EQ_Spell__IsDegeneratingLevelMod);
