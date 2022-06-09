@@ -1446,8 +1446,8 @@ public:
 	// Populate all slot data from a specified spell.
 	EQLIB_OBJECT void PopulateFromSpell(const EQ_Spell* pSpell);
 
-/*0x00*/ EqGuid    CasterGuid;
-/*0x08*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)
+/*0x00*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)
+/*0x60*/ EqGuid    CasterGuid;
 /*0x68*/ uint32_t  Flags;
 /*0x6c*/ int       SpellID;                      // -1 or 0 for no spell..
 /*0x70*/ int       Duration;
