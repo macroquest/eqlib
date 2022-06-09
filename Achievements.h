@@ -96,7 +96,7 @@ public:
 	virtual void Serialize(CSerializeBuffer&) const {}
 	virtual void UnSerialize(CUnSerializeBuffer&) {}
 
-	bool HasParent() const { return parentId != -1; }
+	bool HasParent() const { return parentId > 0; }
 	bool HasChildren() const { return !childCategories.IsEmpty(); }
 
 	int GetChildrenCount() const { return childCategories.GetCount(); }
