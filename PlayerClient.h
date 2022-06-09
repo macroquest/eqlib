@@ -456,7 +456,7 @@ public:
 	// all still exist.
 	EQLIB_OBJECT bool IsAMount();
 	EQLIB_OBJECT bool MyFeetAreOnGround();
-	EQLIB_OBJECT bool HasProperty(unsigned int, int, int);
+	EQLIB_OBJECT bool HasProperty(int, int = 0, int = 0);
 	EQLIB_OBJECT bool IsTargetable();
 	EQLIB_OBJECT bool CanSee(const PlayerBase&);
 	EQLIB_OBJECT bool CanSee(const CVector3& pos);
