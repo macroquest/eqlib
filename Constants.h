@@ -58,6 +58,8 @@ enum PlayerClass
 	GM_Enchanter = 33,
 	GM_Beastlord = 34,
 	GM_Berserker = 35,
+	GM_First = GM_Warrior,
+	GM_Last = GM_Berserker,
 
 	Class_Banker = 40,
 	Class_Merchant = 41,
@@ -75,11 +77,17 @@ enum PlayerClass
 	Class_FellowshipMaster = 69,
 	Class_PointMerchant = 70,
 	Class_MercenaryMerchant = 71,
-	Class_RealEstateMrchant = 72,
+	Class_RealEstateMerchant = 72,
 	Class_LoyaltyMerchant = 73,
+	Class_TributeMaster2 = 74,
 
 	TotalPlayerClasses = Berserker,
 	TotalClasses = TotalPlayerClasses + 1,
+
+	// Special MQ-only values
+	MQClass_CampFire = 253,
+	MQClass_Banner = 254,
+	MQClass_Aura = 255,
 };
 
 constexpr int MAX_PLAYER_CLASSES = Berserker;
@@ -96,6 +104,54 @@ constexpr int MAX_CLASSES = GM_Berserker;
 #define BI_TRIGGER                               2
 #define BI_TRAP                                  4
 #define BI_TIMER                                 8
+
+enum CharacterProperty
+{
+	CharacterProperty_None = 0,
+	CharacterProperty_Humanoid = 1,
+	CharacterProperty_Lycanthrope = 2, // Deprecated
+	CharacterProperty_Undead = 3,
+	CharacterProperty_Giant = 4,
+	CharacterProperty_Construct = 5,
+	CharacterProperty_Extraplanar = 6,
+	CharacterProperty_Magical = 7,
+	CharacterProperty_SummonedUndead = 8,  // now: Summoned Pet
+	CharacterProperty_BaneGiant = 9, // Deprecated
+	CharacterProperty_BaneColdain = 10, // Deprecated
+	CharacterProperty_Untargetable = 11,
+	CharacterProperty_Vampire = 12, // Deprecated
+	CharacterProperty_AtenhaRa = 13, // Deprecated
+	CharacterProperty_GreaterAkheva = 14,
+	CharacterProperty_KhatiSha = 15, // Deprecated
+	CharacterProperty_Seru = 16, // Deprecated
+	CharacterProperty_Greig = 17, // Deprecated
+	CharacterProperty_DrazNurakk = 18,
+	CharacterProperty_Zek = 19,
+	CharacterProperty_Luggald = 20, // Deprecated
+	CharacterProperty_Animal = 21,
+	CharacterProperty_Insect = 22, // Deprecated
+	CharacterProperty_Monster = 23, // Deprecated
+	CharacterProperty_Elemental = 24, // Deprecated
+	CharacterProperty_Plant = 25,
+	CharacterProperty_Dragon = 26,
+	CharacterProperty_SummonedElemental = 27, // Deprecated
+	CharacterProperty_SummonedCreature = 28, // Deprecated
+	CharacterProperty_PuffDragon = 29,
+	CharacterProperty_BaneDragon = 30, // Deprecated
+	CharacterProperty_Familiar = 31,
+	CharacterProperty_NoCorpse = 32,
+	CharacterProperty_Cursed = 33,
+	CharacterProperty_Muramite = 34, // Deprecated
+	CharacterProperty_MonsterSummoning = 64,
+
+	CharacterProperty_Utility = 100,
+	CharacterProperty_Trap,
+	CharacterProperty_Companion,
+	CharacterProperty_Suicide,
+
+	CharacterProperty_Last,
+};
+
 
 constexpr int MAX_LANGUAGES = 32;
 

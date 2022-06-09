@@ -470,7 +470,7 @@ FUNCTION_AT_ADDRESS(PlayerClient*, PlayerManagerClient::CreatePlayer(CUnSerializ
 //============================================================================
 
 #ifdef PlayerBase__HasProperty_x
-FUNCTION_AT_ADDRESS(bool, PlayerBase::HasProperty(unsigned int, int, int), PlayerBase__HasProperty);
+FUNCTION_AT_ADDRESS(bool, PlayerBase::HasProperty(int, int, int), PlayerBase__HasProperty);
 #endif
 #ifdef PlayerBase__GetVisibilityLineSegment_x
 //FUNCTION_AT_ADDRESS(CLineSegment, PlayerBase::GetVisibilityLineSegment(const PlayerBase&, unsigned int), PlayerBase__GetVisibilityLineSegment);
