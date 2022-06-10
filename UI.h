@@ -1676,51 +1676,53 @@ public:
 /*0x2e8*/ CButtonWnd*               pPersonalSetBtn;         // ADLW_PLLSetBtn
 /*0x2f0*/ CComboWnd*                pPersonalSetCombo;       // ADLW_PLLSetCmbo
 /*0x2f8*/ CButtonWnd*               pLootAllBtn;             // ADLW_PLL_LootAllBtn
-/*0x300*/ CXWnd*                    pCLLWnd;                 // ADLW_CLLWnd
-/*0x308*/ CListWnd*                 pConstructLootList;      // ADLW_CLLList
-/*0x310*/ CButtonWnd*               pConstructSetBtn;        // ADLW_CLLSetBtn
-/*0x318*/ CComboWnd*                pConstructSetCombo;      // ADLW_CLLSetCmbo
-/*0x320*/ CCheckBoxWnd*             pApplyFiltersChk;        // ADLW_ApplyFiltersCheck
-/*0x328*/ CCheckBoxWnd*             pGroupedByNpcChk;        // ADLW_GroupedByNpcCheckbox
-/*0x330*/ CButtonWnd*               pEditFiltersBtn;         // ADLW_EditFitlersBtn
-/*0x338*/ CButtonWnd*               pLootSettingsBtn;        // ADLW_LootSettingsBtn
-/*0x340*/ CLabelWnd*                pCalculatedMasterLooter; // ADLW_CalculatedMasterLooter
-/*0x348*/ CButtonWnd*               pItemBtnTemplate;        // ADLW_ItemBtnTemplate
-/*0x350*/ CButtonWnd*               pStatusTemplate;         // ADLW_StatusTemplate
-/*0x358*/ CButtonWnd*               pNeverBtnTemplate;       // ADLW_NvrBtnTemplate
-/*0x360*/ CButtonWnd*               pLootBtnTemplate;        // ADLW_LootBtnTemplate
-/*0x368*/ CButtonWnd*               pLeaveBtnTemplate;       // ADLW_LeaveBtnTemplate
-/*0x370*/ CButtonWnd*               pFreeGrabBtnTemplate;    // ADLW_FreeGrabBtnTemplate
-/*0x378*/ CCheckBoxWnd*             pCheckBoxTemplate;       // ADLW_CheckBoxTemplate
-/*0x380*/ CButtonWnd*               pTextLinkTemplate;       // ADLW_TextLinkTemplate
-/*0x388*/ CButtonWnd*               pManageBtnTemplate;      // ADLW_ManageBtnTemplate
-/*0x390*/ CButtonWnd*               pActionBtnTemplate;      // ADLW_ActionBtnTemplate
-/*0x398*/ int                       PLLNPCColumnWidth;
-/*0x39c*/ int                       CLLNPCColumnWidth;
-/*0x3a0*/ int                       CLLRNDColumnWidth;
-/*0x3a4*/ int                       CLLManageColumnWidth;
-/*0x3a8*/ int                       CLLActionColumnWidth;
-/*0x3ac*/ int                       PLLANColumnWidth;
-/*0x3b0*/ int                       PLLAGColumnWidth;
-/*0x3b4*/ int                       PLLNeverColumnWidth;
-/*0x3b8*/ int                       CLLANColumnWidth;
-/*0x3bc*/ int                       CLLAGColumnWidth;
-/*0x3c0*/ int                       CLLNeverColumnWidth;
-/*0x3c8*/ AdvancedLootItemList*     pCLootList;
-/*0x3d0*/ AdvancedLootItemList*     pPLootList;
-/*0x3d8*/ uint32_t                  LastUpdateTime;
-/*0x3dc*/ uint32_t                  LastTransactionCheck;
-/*0x3e0*/ bool                      bPopupPending;
-/*0x3e4*/ int                       Unknown1;
-/*0x3e8*/ int                       Unknown2;
-/*0x3ec*/ bool                      bFirstTimeShowingCLL;
-/*0x3f0*/ int                       TotalLootCount;
-/*0x3f4*/ bool                      bAutoInventoryQuantity;
-/*0x3f8*/ int                       CLLActionMenu;
-/*0x3fc*/ int                       CLLActionMenuQty;
-/*0x400*/ int                       PLLActionMenu;
-/*0x404*/ bool                      bUnknown3;
-/*0x408*/
+/*0x300*/ CButtonWnd*               pLeaveAllBtn;            // ADLW_PLL_LeaveAllBtn
+/*0x308*/ CXWnd*                    pCLLWnd;                 // ADLW_CLLWnd
+/*0x310*/ CListWnd*                 pConstructLootList;      // ADLW_CLLList
+/*0x318*/ CButtonWnd*               pConstructSetBtn;        // ADLW_CLLSetBtn
+/*0x320*/ CComboWnd*                pConstructSetCombo;      // ADLW_CLLSetCmbo
+/*0x328*/ CButtonWnd*               pContructLeaveAllBtn;    // ADLW_CLL_LeaveAllBtn
+/*0x330*/ CCheckBoxWnd*             pApplyFiltersChk;        // ADLW_ApplyFiltersCheck
+/*0x338*/ CCheckBoxWnd*             pGroupedByNpcChk;        // ADLW_GroupedByNpcCheckbox
+/*0x340*/ CButtonWnd*               pEditFiltersBtn;         // ADLW_EditFitlersBtn
+/*0x348*/ CButtonWnd*               pLootSettingsBtn;        // ADLW_LootSettingsBtn
+/*0x350*/ CLabelWnd*                pCalculatedMasterLooter; // ADLW_CalculatedMasterLooter
+/*0x358*/ CButtonWnd*               pItemBtnTemplate;        // ADLW_ItemBtnTemplate
+/*0x360*/ CButtonWnd*               pStatusTemplate;         // ADLW_StatusTemplate
+/*0x368*/ CButtonWnd*               pNeverBtnTemplate;       // ADLW_NvrBtnTemplate
+/*0x370*/ CButtonWnd*               pLootBtnTemplate;        // ADLW_LootBtnTemplate
+/*0x378*/ CButtonWnd*               pLeaveBtnTemplate;       // ADLW_LeaveBtnTemplate
+/*0x380*/ CButtonWnd*               pFreeGrabBtnTemplate;    // ADLW_FreeGrabBtnTemplate
+/*0x388*/ CCheckBoxWnd*             pCheckBoxTemplate;       // ADLW_CheckBoxTemplate
+/*0x390*/ CButtonWnd*               pTextLinkTemplate;       // ADLW_TextLinkTemplate
+/*0x398*/ CButtonWnd*               pManageBtnTemplate;      // ADLW_ManageBtnTemplate
+/*0x3a0*/ CButtonWnd*               pActionBtnTemplate;      // ADLW_ActionBtnTemplate
+/*0x3a8*/ int                       PLLNPCColumnWidth;
+/*0x3ac*/ int                       CLLNPCColumnWidth;
+/*0x3b0*/ int                       CLLRNDColumnWidth;
+/*0x3b4*/ int                       CLLManageColumnWidth;
+/*0x3b8*/ int                       CLLActionColumnWidth;
+/*0x3bc*/ int                       PLLANColumnWidth;
+/*0x3c0*/ int                       PLLAGColumnWidth;
+/*0x3c4*/ int                       PLLNeverColumnWidth;
+/*0x3c8*/ int                       CLLANColumnWidth;
+/*0x3cc*/ int                       CLLAGColumnWidth;
+/*0x3d0*/ int                       CLLNeverColumnWidth;
+/*0x3d8*/ AdvancedLootItemList*     pCLootList;
+/*0x3e0*/ AdvancedLootItemList*     pPLootList;
+/*0x3e8*/ uint32_t                  LastUpdateTime;
+/*0x3ec*/ uint32_t                  LastTransactionCheck;
+/*0x3f0*/ bool                      bPopupPending;
+/*0x3f4*/ int                       Unknown1;
+/*0x3f8*/ int                       Unknown2;
+/*0x3fc*/ bool                      bFirstTimeShowingCLL;
+/*0x400*/ int                       TotalLootCount;
+/*0x404*/ bool                      bAutoInventoryQuantity;
+/*0x408*/ int                       CLLActionMenu;
+/*0x40c*/ int                       CLLActionMenuQty;
+/*0x410*/ int                       PLLActionMenu;
+/*0x414*/ bool                      bUnknown3;
+/*0x418*/
 };
 
 inline namespace deprecated {
