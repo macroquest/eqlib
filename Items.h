@@ -1399,9 +1399,9 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
-/*0x148*/ ItemDefinitionPtr SharedItemDef;
-/*0x158*/ CXStr             ClientString;
-/*0x160*/
+/*0x150*/ ItemDefinitionPtr SharedItemDef;
+/*0x160*/ CXStr             ClientString;
+/*0x168*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);
