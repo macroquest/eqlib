@@ -909,8 +909,8 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x210 :: 2022-06-13 (live) @ 0x140198de7
-constexpr size_t EQ_Spell_size = 0x210;
+// @sizeof(EQ_Spell) == 0x4ed :: 2013-05-10 (emu) @ 0x4AFB06
+constexpr size_t EQ_Spell_size = 0x4ed;
 
 class [[offsetcomments]] EQ_Spell
 {
@@ -1185,7 +1185,7 @@ SIZE_CHECK(EQ_Spell, EQ_Spell_size);
 
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
-public:                                                                      // 2bf48
+public:
 /*0x230*/ HashList<HashList<HashList<int, 10>, 10>, 200> ReqAssocData;
 /*0x560*/
 };
@@ -1315,8 +1315,8 @@ struct [[offsetcomments]] StackingGroupData
 /*0x0c*/
 };
 
-constexpr int TOTAL_SPELL_COUNT = 45001;           // # of spells allocated in memory (09/07/2021 test 6C944E)
-constexpr int TOTAL_SPELL_AFFECT_COUNT = 15000;    // # of spell affects allocated in mem (09/07/2021 test 6C948E)
+constexpr int TOTAL_SPELL_COUNT = 45001;
+constexpr int TOTAL_SPELL_AFFECT_COUNT = 15000;
 
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
@@ -1465,11 +1465,11 @@ constexpr int NUM_SLOTDATA = 6;
 struct [[offsetcomments]] SlotData
 {
 /*0x00*/ int Slot;
-/*0x08*/ int64_t Value;
-/*0x10*/
+/*0x08*/ int32_t Value;
+/*0x0c*/
 };
 
-constexpr size_t EQ_Affect_size = 0x98;
+constexpr size_t EQ_Affect_size = 0x58;
 
 class [[offsetcomments]] EQ_Affect
 {
@@ -1483,24 +1483,21 @@ public:
 	// Populate all slot data from a specified spell.
 	EQLIB_OBJECT void PopulateFromSpell(const EQ_Spell* pSpell);
 
-/*0x00*/ EqGuid    CasterGuid;
-/*0x08*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)
-/*0x68*/ uint32_t  Flags;
-/*0x6c*/ int       SpellID;                      // -1 or 0 for no spell..
-/*0x70*/ int       Duration;
-/*0x74*/ int       InitialDuration;
-/*0x78*/ int       HitCount;
-/*0x7c*/ int       ViralTimer;                   // not 100% sure this is correct
-/*0x80*/ float     Modifier;                     // Bard song modifier, 1.0 is default BaseDmgMod
-/*0x84*/ float     Y;                            // Referenced by SPA 441 (distance removal)
-/*0x88*/ float     X;
-/*0x8c*/ float     Z;
-/*0x90*/ uint8_t   Type;
-/*0x91*/ uint8_t   Level;                        // casterlevel
-/*0x92*/ uint8_t   ChargesRemaining;             // dont think this is used anymore.
-/*0x93*/ uint8_t   Activatable;                  // dont think this is used anymore. We used to think this was DamageShield
-/*0x94*/ uint32_t  Unknown0x64;                  // not 100% sure this is correct it could be ViralTimer
-/*0x98*/
+/*0x00*/ uint8_t   Type;
+/*0x01*/ uint8_t   Level;                        // casterlevel
+/*0x02*/ uint8_t   ChargesRemaining;             // dont think this is used anymore.
+/*0x03*/ uint8_t   Activatable;                  // dont think this is used anymore. We used to think this was DamageShield
+/*0x04*/ float     Modifier;                     // Bard song modifier, 1.0 is default BaseDmgMod
+/*0x08*/ int       SpellID;                      // -1 or 0 for no spell..
+/*0x0c*/ int       Duration;
+/*0x10*/ int       CasterID;
+/*0x14*/ int       HitCount;
+/*0x18*/ float     Y;                            // Referenced by SPA 441 (distance removal)
+/*0x1c*/ float     X;
+/*0x20*/ float     Z;
+/*0x24*/ uint32_t  Flags;
+/*0x28*/ SlotData  SlotData[NUM_SLOTDATA];       // used for book keeping of various effects (debuff counter, rune/vie damage remaining)
+/*0x58*/
 
 	EQ_Affect()
 	{
@@ -1508,9 +1505,7 @@ public:
 		Flags = 0;
 		SpellID = 0;
 		Duration = 0;
-		InitialDuration = 0;
 		HitCount = 0;
-		ViralTimer = 0;
 		Modifier = 1.0f;
 		Y = 0;
 		X = 0;
@@ -1519,8 +1514,22 @@ public:
 		Level = 0;
 		ChargesRemaining = 0;
 		Activatable = 0;
-		Unknown0x64 = 0;
 	}
+
+	// Fields that don't yet exist.
+	int get_EmptyValue() const { return 0; }
+	__declspec(property(get = get_EmptyValue)) int ViralTimer;
+	__declspec(property(get = get_EmptyValue)) int InitialDuration;
+
+	EqGuid get_CasterGuid() const {
+		EqGuid guid;
+		guid.UniqueEntityID = CasterID;
+		return guid;
+	}
+	void put_CasterGuid(const EqGuid& guid) {
+		CasterID = guid.UniqueEntityID;
+	}
+	__declspec(property(get = get_CasterGuid, put = put_CasterGuid)) EqGuid CasterGuid;
 };
 
 SIZE_CHECK(EQ_Affect, EQ_Affect_size);

@@ -131,62 +131,62 @@ public:
 /*0x0030*/ ItemContainer                         TributeBenefitItems;
 /*0x004c*/ ItemContainer                         TrophyTributeBenefitItems;
 /*0x0068*/ EQ_Affect                             Buffs[NUM_LONG_BUFFS + NUM_SHORT_BUFFS];
-/*0x2bc0*/ int                                   SpellBook[NUM_BOOK_SLOTS];
-/*0x3d40*/ int                                   MemorizedSpells[MAX_MEMORIZED_SPELLS];
-/*0x3d88*/ int                                   Skill[NUM_SKILLS];
-/*0x3f18*/ int                                   InnateSkill[NUM_INNATE];
-/*0x3f7c*/ ArmorProperties                       ArmorProps[9];
-/*0x4030*/ uint32_t                              CharacterTint[9];
-/*0x4054*/ int8_t                                Gender;
-/*0x4058*/ int                                   Race;
-/*0x405c*/ int                                   Class;
-/*0x4060*/ CharacterPropertyHash                 properties;
-/*0x4070*/ int                                   Level;
-/*0x4074*/ int                                   Mana;
-/*0x4078*/ int                                   Endurance;
-/*0x4080*/ int64_t                               BaseHP;
-/*0x4088*/ int                                   BaseSTR;
-/*0x408c*/ int                                   BaseSTA;
-/*0x4090*/ int                                   BaseCHA;
-/*0x4094*/ int                                   BaseDEX;
-/*0x4098*/ int                                   BaseINT;
-/*0x409c*/ int                                   BaseAGI;
-/*0x40a0*/ int                                   BaseWIS;
-/*0x40a4*/ int8_t                                Face;
-/*0x40a8*/ int                                   Plat;
-/*0x40ac*/ int                                   Gold;
-/*0x40b0*/ int                                   Silver;
-/*0x40b4*/ int                                   Copper;
-/*0x40b8*/ int                                   CursorPlat;
-/*0x40bc*/ int                                   CursorGold;
-/*0x40c0*/ int                                   CursorSilver;
-/*0x40c4*/ int                                   CursorCopper;
-/*0x40c8*/ int                                   _max_allowed_spell_slots;
-/*0x40cc*/ int                                   practices;
-/*0x40d0*/ int                                   height;
-/*0x40d4*/ int                                   width;
-/*0x40d8*/ int                                   length;
-/*0x40dc*/ int                                   view_height;
-/*0x40e0*/ char                                  texture_type;
-/*0x40e1*/ char                                  m_armorMat;
-/*0x40e2*/ char                                  m_armorVariation;
-/*0x40e3*/ char                                  headType;
-/*0x40e4*/ int                                   DisciplineTimer;
-/*0x40e8*/ uint32_t                              MendTimer;
-/*0x40ec*/ int                                   ForageTimer;
-/*0x40f0*/ int                                   thirstlevel;
-/*0x40f4*/ int                                   hungerlevel;
-/*0x40f8*/ eProfileType                          profileType;
-/*0x40fc*/ int                                   Shrouded;                               // templateId
-/*0x4100*/ int                                   systemId;
-/*0x4104*/ int                                   designId;
-/*0x4108*/ int                                   InventorySlotBitmask;
-/*0x410c*/ uint32_t                              CurrentProgressionID;
-/*0x4110*/ uint8_t                               Unknown0x3c28[0x58];
-/*0x4168*/ int                                   ParentId;
-/*0x416c*/ int                                   TattooIndex;
-/*0x4170*/ int                                   FacialAttachmentIndex;
-/*0x4174*/ //BaseProfile
+/*0x1980*/ int                                   SpellBook[NUM_BOOK_SLOTS];
+/*0x2b00*/ int                                   MemorizedSpells[MAX_MEMORIZED_SPELLS];
+/*0x2b48*/ int                                   Skill[NUM_SKILLS];
+/*0x2cd8*/ int                                   InnateSkill[NUM_INNATE];
+/*0x2d3c*/ ArmorProperties                       ArmorProps[9];
+/*0x2df0*/ uint32_t                              CharacterTint[9];
+/*0x2e14*/ int8_t                                Gender;
+/*0x2e18*/ int                                   Race;
+/*0x2e1c*/ int                                   Class;
+/*0x2e20*/ CharacterPropertyHash                 properties;
+/*0x2e30*/ int                                   Level;
+/*0x2e34*/ int                                   Mana;
+/*0x2e38*/ int                                   Endurance;
+/*0x2e40*/ int64_t                               BaseHP;
+/*0x2e48*/ int                                   BaseSTR;
+/*0x2e4c*/ int                                   BaseSTA;
+/*0x2e50*/ int                                   BaseCHA;
+/*0x2e54*/ int                                   BaseDEX;
+/*0x2e58*/ int                                   BaseINT;
+/*0x2e5c*/ int                                   BaseAGI;
+/*0x2e60*/ int                                   BaseWIS;
+/*0x2e64*/ int8_t                                Face;
+/*0x2e68*/ int                                   Plat;
+/*0x2e6c*/ int                                   Gold;
+/*0x2e70*/ int                                   Silver;
+/*0x2e74*/ int                                   Copper;
+/*0x2e78*/ int                                   CursorPlat;
+/*0x2e7c*/ int                                   CursorGold;
+/*0x2e80*/ int                                   CursorSilver;
+/*0x2e84*/ int                                   CursorCopper;
+/*0x2e88*/ int                                   _max_allowed_spell_slots;
+/*0x2e8c*/ int                                   practices;
+/*0x2e90*/ int                                   height;
+/*0x2e94*/ int                                   width;
+/*0x2e98*/ int                                   length;
+/*0x2e9c*/ int                                   view_height;
+/*0x2ea0*/ char                                  texture_type;
+/*0x2ea1*/ char                                  m_armorMat;
+/*0x2ea2*/ char                                  m_armorVariation;
+/*0x2ea3*/ char                                  headType;
+/*0x2ea4*/ int                                   DisciplineTimer;
+/*0x2ea8*/ uint32_t                              MendTimer;
+/*0x2eac*/ int                                   ForageTimer;
+/*0x2eb0*/ int                                   thirstlevel;
+/*0x2eb4*/ int                                   hungerlevel;
+/*0x2eb8*/ eProfileType                          profileType;
+/*0x2ebc*/ int                                   Shrouded;                               // templateId
+/*0x2ec0*/ int                                   systemId;
+/*0x2ec4*/ int                                   designId;
+/*0x2ec8*/ int                                   InventorySlotBitmask;
+/*0x2ecc*/ uint32_t                              CurrentProgressionID;
+/*0x2ed0*/ uint8_t                               Unknown0x3c28[0x58];
+/*0x2f28*/ int                                   ParentId;
+/*0x2f2c*/ int                                   TattooIndex;
+/*0x2f30*/ int                                   FacialAttachmentIndex;
+/*0x2f34*/ //BaseProfile
 
 	// This expects parameter of type eInventorySlot
 	inline ItemPtr GetInventorySlot(int invSlot) const { return InventoryContainer.GetItem(invSlot); }
@@ -308,56 +308,56 @@ class [[offsetcomments]] PcProfile : public BaseProfile
 	FORCE_SYMBOLS;
 
 public:
-/*0x4178*/ WorldLocation                         BoundLocations[5];
-/*0x41dc*/ ArmorProperties                       ArmorType[22];
-/*0x4394*/ AbilityInfo                           AAList[AA_CHAR_MAX_REAL];                         // AlternateAbilities
-/*0x51a4*/ uint32_t                              BodyColor[9];
-/*0x51c8*/ int                                   FactionTable[2048];
-/*0x71c8*/ int                                   CombatAbilities[NUM_COMBAT_ABILITIES];            // KnownCombatAbilities
-/*0x7678*/ uint32_t                              SpellRecastTimer[15];
-/*0x76b4*/ uint32_t                              CombatAbilityTimers[25];
-/*0x7718*/ TList<CombatAbilityTimer>             CombatAbilityTimersList;
-/*0x7720*/ uint32_t                              LinkedSpellTimers[25];                            // we used to call this CombatAbilityTimes
-/*0x7784*/ uint32_t                              ItemRecastTimers[100];
-/*0x7914*/ uint32_t                              AATimers[100];
-/*0x7aa4*/ BandolierSet                          Bandolier[MAX_BANDOLIER_ITEMS];
-/*0x93a4*/ BenefitSelection                      ActiveTributeBenefits[5];
-/*0x93cc*/ BenefitSelection                      ActiveTrophyTributeBenefits[10];
-/*0x941c*/ ItemContainer                         GuildTributeBenefitItems;
-/*0x9438*/ ItemContainer                         GuildTrophyTributeBenefitItems;
-/*0x9454*/ ArrayClass<CXStr>                     MercenarySaveStrings;
-/*0x9464*/ AssociatedNPCSaveStringNode*          PetSaveString;
-/*0x9468*/ int                                   Deity;
-/*0x946c*/ bool                                  bPVPFlag;
-/*0x946d*/ uint8_t                               HighestLevel;
-/*0x9470*/ int                                   Drunkenness;                            // inebriation
-/*0x9474*/ uint8_t                               HairColor;
-/*0x9475*/ uint8_t                               BeardColor;
-/*0x9478*/ int                                   NpcTintIndex;
-/*0x947c*/ uint8_t                               LeftEye;
-/*0x947d*/ uint8_t                               RightEye;
-/*0x947e*/ uint8_t                               Hair;
-/*0x947f*/ uint8_t                               Beard;
-/*0x9480*/ uint8_t                               OldFace;
-/*0x9484*/ int                                   AAPoints;
-/*0x9488*/ char                                  PocketPetSaveString[0x2000];            // 0x1000 in older clients
-/*0xb488*/ CXStr                                 ItemBuffer;
-/*0xb48c*/ uint32_t                              LastShield;
-/*0xb490*/ bool                                  bSneak;
-/*0xb491*/ bool                                  bHide;
-/*0xb494*/ int                                   AAPointsSpent;
-/*0xb498*/ int                                   AAPointsAssigned[6];                    // none, general, arch, class, special, focus, merc
-/*0xb4b0*/ PetObjectData*                        pPetData;
-/*0xb4b4*/ int                                   PrimaryActor;
-/*0xb4b8*/ int                                   SecondaryActor;
-/*0xb4bc*/ bool                                  bUseTemplateFaction;
-/*0xb4c0*/ int                                   TitlePrefixID;
-/*0xb4c4*/ int                                   TitleSuffixID;
-/*0xb4c8*/ bool                                  bAreHandsMagic;
-/*0xb4cc*/ int                                   SoleEnabledZoneID;
-/*0xb4d0*/ int                                   NewBodyTint;
-/*0xb4d4*/ int                                   CurrentMercenaryIndex;
-/*0xb4d8*/
+/*0x2f38*/ WorldLocation                         BoundLocations[5];
+/*0x2f9c*/ ArmorProperties                       ArmorType[22];
+/*0x3154*/ AbilityInfo                           AAList[AA_CHAR_MAX_REAL];                         // AlternateAbilities
+/*0x3f64*/ uint32_t                              BodyColor[9];
+/*0x3f88*/ int                                   FactionTable[2048];
+/*0x5f88*/ int                                   CombatAbilities[NUM_COMBAT_ABILITIES];            // KnownCombatAbilities
+/*0x6438*/ uint32_t                              SpellRecastTimer[15];
+/*0x6474*/ uint32_t                              CombatAbilityTimers[25];
+/*0x64d8*/ TList<CombatAbilityTimer>             CombatAbilityTimersList;
+/*0x64e0*/ uint32_t                              LinkedSpellTimers[25];                            // we used to call this CombatAbilityTimes
+/*0x6544*/ uint32_t                              ItemRecastTimers[100];
+/*0x66d4*/ uint32_t                              AATimers[100];
+/*0x6864*/ BandolierSet                          Bandolier[MAX_BANDOLIER_ITEMS];
+/*0x8164*/ BenefitSelection                      ActiveTributeBenefits[5];
+/*0x818c*/ BenefitSelection                      ActiveTrophyTributeBenefits[10];
+/*0x81dc*/ ItemContainer                         GuildTributeBenefitItems;
+/*0x81f8*/ ItemContainer                         GuildTrophyTributeBenefitItems;
+/*0x8214*/ ArrayClass<CXStr>                     MercenarySaveStrings;
+/*0x8224*/ AssociatedNPCSaveStringNode*          PetSaveString;
+/*0x8228*/ int                                   Deity;
+/*0x822c*/ bool                                  bPVPFlag;
+/*0x822d*/ uint8_t                               HighestLevel;
+/*0x8230*/ int                                   Drunkenness;                            // inebriation
+/*0x8234*/ uint8_t                               HairColor;
+/*0x8235*/ uint8_t                               BeardColor;
+/*0x8238*/ int                                   NpcTintIndex;
+/*0x823c*/ uint8_t                               LeftEye;
+/*0x823d*/ uint8_t                               RightEye;
+/*0x823e*/ uint8_t                               Hair;
+/*0x823f*/ uint8_t                               Beard;
+/*0x8240*/ uint8_t                               OldFace;
+/*0x8244*/ int                                   AAPoints;
+/*0x8248*/ char                                  PocketPetSaveString[0x2000];            // 0x1000 in older clients
+/*0xa248*/ CXStr                                 ItemBuffer;
+/*0xa24c*/ uint32_t                              LastShield;
+/*0xa250*/ bool                                  bSneak;
+/*0xa251*/ bool                                  bHide;
+/*0xa254*/ int                                   AAPointsSpent;
+/*0xa258*/ int                                   AAPointsAssigned[6];                    // none, general, arch, class, special, focus, merc
+/*0xa270*/ PetObjectData*                        pPetData;
+/*0xa274*/ int                                   PrimaryActor;
+/*0xa278*/ int                                   SecondaryActor;
+/*0xa27c*/ bool                                  bUseTemplateFaction;
+/*0xa280*/ int                                   TitlePrefixID;
+/*0xa284*/ int                                   TitleSuffixID;
+/*0xa288*/ bool                                  bAreHandsMagic;
+/*0xa28c*/ int                                   SoleEnabledZoneID;
+/*0xa290*/ int                                   NewBodyTint;
+/*0xa294*/ int                                   CurrentMercenaryIndex;
+/*0xa298*/
 };
 
 inline namespace deprecated {

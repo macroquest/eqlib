@@ -153,7 +153,7 @@ FUNCTION_AT_ADDRESS(int, EQ_Spell::SpellAffectBase(int) const, EQ_Spell__SpellAf
 
 void EQ_Affect::Reset()
 {
-	CasterGuid = EqGuid();
+	CasterID = 0;
 	for (eqlib::SlotData& data : this->SlotData)
 	{
 		data.Slot = -1;
@@ -162,9 +162,7 @@ void EQ_Affect::Reset()
 	Flags = 0;
 	SpellID = 0;
 	Duration = 0;
-	InitialDuration = 0;
 	HitCount = 0;
-	ViralTimer = 0;
 	Modifier = 1.0f;
 	Y = 0;
 	X = 0;
@@ -173,7 +171,6 @@ void EQ_Affect::Reset()
 	Level = 0;
 	ChargesRemaining = 0;
 	Activatable = 0;
-	Unknown0x64 = 0;
 }
 
 int64_t EQ_Affect::GetAffectData(int slot) const
@@ -194,7 +191,7 @@ void EQ_Affect::SetAffectData(int slot, int64_t value)
 	{
 		if (data.Slot == slot)
 		{
-			data.Value = value;
+			data.Value = static_cast<int32_t>(value);
 			return;
 		}
 
@@ -206,7 +203,6 @@ void EQ_Affect::SetAffectData(int slot, int64_t value)
 void EQ_Affect::PopulateFromSpell(const EQ_Spell* pSpell)
 {
 	Duration = pSpell->DurationCap;
-	InitialDuration = pSpell->DurationCap;
 	SpellID = pSpell->ID;
 
 	int dataIndex = 0;
