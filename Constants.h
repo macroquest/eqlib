@@ -191,6 +191,7 @@ constexpr int EQR_BANNER4                              = 557;
 
 constexpr int EQR_CAMPSITE                             = 567;
 constexpr int EQR_TCGBANNER                            = 586;
+constexpr int EQR_BANNER_10TH_ANNIV                    = 628;
 constexpr int EQR_OEQ_SKELETON                         = 802;
 constexpr int EQR_SOL_SKELETON                         = 803;
 
