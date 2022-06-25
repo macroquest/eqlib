@@ -92,8 +92,8 @@ struct [[offsetcomments]] zoneHeader
 /*0x1c4*/ uint8_t      FogBlue[4];
 /*0x1c8*/ uint8_t      RainChance[4];
 /*0x1cc*/ uint8_t      RainDuration[4];
-/*0x1d0*/ uint8_t      SnowPercentage[4];
-/*0x1d4*/ uint8_t      SnowChance[4];
+/*0x1d0*/ uint8_t      SnowChance[4];
+/*0x1d4*/ uint8_t      SnowDuration[4];
 /*0x1d8*/ uint8_t      PrecipitationType;
 /*0x1dc*/ float        BloomIntensity;
 /*0x1e0*/ float        ZoneGravity;
@@ -173,6 +173,7 @@ struct [[offsetcomments]] zoneHeader
 // /*0x348*/ int          ScriptIDSomething3;
 // /*0x35c*/ bool         bNoFlux;
 // /*0x380*/ bool         bNoMercenaries;
+// /*0x000*/ int WaterMidi, DayMidi, NightMidi;
 // /*0x3a8*/
 
 	inline bool IsIndoor() {

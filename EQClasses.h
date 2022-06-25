@@ -366,20 +366,6 @@ public:
 	EQLIB_OBJECT int GetIDFromRecordNum(int ID, bool bWhat);
 };
 
-struct [[offsetcomments]] TARGETRING
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ DWORD         Gem;                      // the gem the spell below is memmed in... 0-11
-/*0x08*/ PSPELL        thespell;
-/*0x10*/ ItemGlobalIndex ItemLoc;
-/*0x1c*/ ItemSpellTypes SpellType;
-/*0x20*/ float         SquaredRange;
-/*0x24*/ bool          bCursorVisible;
-/*0x28*/
-};
-using PTARGETRING = TARGETRING*;
-
 class JournalCategory;
 
 class ConversationJournal
