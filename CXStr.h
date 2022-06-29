@@ -1523,6 +1523,37 @@ public:
 		return sv.find(t, pos);
 	}
 
+	size_t rfind(const CXStr& str, size_type pos = 0) const noexcept
+	{
+		std::string_view sv{ *this };
+		return sv.rfind(std::string_view{ str }, pos);
+	}
+
+	size_t rfind(const char* s, size_t pos, size_t count) const
+	{
+		std::string_view sv{ *this };
+		return sv.rfind(s, pos, count);
+	}
+
+	size_t rfind(const char* s, size_type pos = 0) const
+	{
+		std::string_view sv{ *this };
+		return sv.rfind(s, pos);
+	}
+
+	size_t rfind(char ch, size_type pos = 0) const noexcept
+	{
+		std::string_view sv{ *this };
+		return sv.rfind(ch, pos);
+	}
+
+	template <typename T, typename = is_string_view_ish<T>>
+	size_t rfind(const T& t, size_t pos = 0) const noexcept
+	{
+		std::string_view sv{ *this };
+		return sv.rfind(t, pos);
+	}
+
 	int GetLength() const { return static_cast<int>(m_data ? m_data->length : 0); }
 	char GetChar(int pos) const;
 	char16_t GetUnicode(int pos) const;
