@@ -1465,8 +1465,8 @@ constexpr int NUM_SLOTDATA = 6;
 struct [[offsetcomments]] SlotData
 {
 /*0x00*/ int Slot;
-/*0x08*/ int32_t Value;
-/*0x0c*/
+/*0x04*/ int32_t Value;
+/*0x08*/
 };
 
 constexpr size_t EQ_Affect_size = 0x58;

@@ -41,6 +41,9 @@
 // AdvancedLoot was released on March 25, 2015
 #define HAS_ADVANCED_LOOT IS_CLIENT_DATE(20150325)
 
+// Autoskills was added April 19, 2017
+#define HAS_AUTOSKILLS IS_CLIENT_DATE(201704019)
+
 // Faction window was added in The Burning Lands expansion
 #define HAS_FACTION_WINDOW IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBL)
 

@@ -101,7 +101,7 @@ public:
 	virtual bool AboutToHide() override;
 	virtual int RequestDockInfo(EDockAction action, CXWnd* wnd, CXRect* rect) override;
 	virtual CXStr GetTooltip() const override;
-	virtual void Unknown0x0EC() override;
+	//virtual void Unknown0x0EC() override;
 	virtual int HitTest(const CXPoint& pos, int* result) const override;
 	virtual CXRect GetHitTestRect(int code) const override;
 	virtual CXRect GetInnerRect() const override;
@@ -217,7 +217,7 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, AboutToShow, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, AboutToHide, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, RequestDockInfo, (EDockAction action, CXWnd* wnd, CXRect* rect));
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXStr, GetTooltip, () const);
-IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, void, Unknown0x0EC, ());
+//IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, void, Unknown0x0EC, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, HitTest, (const CXPoint& pos, int* result) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetHitTestRect, (int code) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetInnerRect, () const);

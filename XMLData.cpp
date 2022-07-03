@@ -233,6 +233,7 @@ CParamRGB::~CParamRGB()
 
 //----------------------------------------------------------------------------
 
+#if 0 // emu
 CParamTextRGB::CParamTextRGB()
 {
 	nClassIdx = UI_TextRGB;
@@ -242,6 +243,7 @@ CParamTextRGB::CParamTextRGB()
 CParamTextRGB::~CParamTextRGB()
 {
 }
+#endif
 
 //----------------------------------------------------------------------------
 

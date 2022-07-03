@@ -99,7 +99,6 @@ FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::AboutToShow(), CXWnd, AboutToShow);
 FORWARD_FUNCTION_TO_VTABLE(bool, CXWnd::AboutToHide(), CXWnd, AboutToHide);
 // RequestDockInfo
 // GetTooltip
-FORWARD_FUNCTION_TO_VTABLE(void, CXWnd::Unknown0x0EC(), CXWnd, Unknown0x0EC);
 FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::HitTest(const CXPoint&, int*) const, CXWnd, HitTest);
 FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetHitTestRect(int) const, CXWnd, GetHitTestRect);
 FORWARD_FUNCTION_TO_VTABLE(CXRect, CXWnd::GetInnerRect() const, CXWnd, GetInnerRect);
@@ -240,7 +239,7 @@ const char* UITypeToString(UIType type)
 	case UI_Unknown: return "CXWnd";           // a dynamically created CXWnd can have this type
 	case UI_Class: return "Class";
 	case UI_RGB: return "RGB";
-	case UI_TextRGB: return "TextRGB";
+	//case UI_TextRGB: return "TextRGB";
 	case UI_Point: return "Point";
 	case UI_Size: return "Size";
 	case UI_TextureInfo: return "TextureInfo";
@@ -271,6 +270,7 @@ const char* UITypeToString(UIType type)
 	case UI_Button: return "Button";
 	case UI_Gauge: return "Gauge";
 	case UI_SpellGem: return "SpellGem";
+	case UI_HtmlComponent: return "HtmlComponent";
 	case UI_InvSlot: return "InvSlot";
 	case UI_EditBox: return "Editbox";
 	case UI_Slider: return "Slider";

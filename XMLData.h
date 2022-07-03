@@ -39,37 +39,38 @@ enum UIType
 	UI_Unknown = -1,
 	UI_Class = 0,
 	UI_RGB = 1,
-	UI_TextRGB = 2,
-	UI_Point = 3,
-	UI_Size = 4,
-	UI_TextureInfo = 5,
-	UI_Frame = 6,
-	UI_Ui2DAnimation = 7,
-	UI_ButtonDrawTemplate = 8,
-	UI_GaugeDrawTemplate = 9,
-	UI_SpellGemDrawTemplate = 10,
-	UI_FrameTemplate = 11,
-	UI_ScrollbarDrawTemplate = 12,
-	UI_WindowDrawTemplate = 13,
-	UI_SliderDrawTemplate = 14,
-	UI_ScreenPiece = 15,
-	UI_StaticScreenPiece = 16,
-	UI_StaticAnimation = 17,
-	UI_StaticTintedBlendAnimation = 18,
-	UI_StaticText = 19,
-	UI_StaticFrame = 20,
-	UI_StaticHeader = 21,
-	UI_LayoutStrategy = 22,
-	UI_LayoutVertical = 23,
-	UI_LayoutHorizontal = 24,
-	UI_Control = 25,
-	UI_TemplateAssoc = 26,
-	UI_TemplateScreen = 27,
-	UI_ListboxColumn = 28,
-	UI_Listbox = 29,
-	UI_Button = 30,
-	UI_Gauge = 31,
-	UI_SpellGem = 32,
+	//UI_TextRGB = 2, // emu
+	UI_Point = 2,
+	UI_Size = 3,
+	UI_TextureInfo = 4,
+	UI_Frame = 5,
+	UI_Ui2DAnimation = 6,
+	UI_ButtonDrawTemplate = 7,
+	UI_GaugeDrawTemplate = 8,
+	UI_SpellGemDrawTemplate = 9,
+	UI_FrameTemplate = 10,
+	UI_ScrollbarDrawTemplate = 11,
+	UI_WindowDrawTemplate = 12,
+	UI_SliderDrawTemplate = 13,
+	UI_ScreenPiece = 14,
+	UI_StaticScreenPiece = 15,
+	UI_StaticAnimation = 16,
+	UI_StaticTintedBlendAnimation = 17,
+	UI_StaticText = 18,
+	UI_StaticFrame = 19,
+	UI_StaticHeader = 20,
+	UI_LayoutStrategy = 21,
+	UI_LayoutVertical = 22,
+	UI_LayoutHorizontal = 23,
+	UI_Control = 24,
+	UI_TemplateAssoc = 25,
+	UI_TemplateScreen = 26,
+	UI_ListboxColumn = 27,
+	UI_Listbox = 28,
+	UI_Button = 29,
+	UI_Gauge = 30,
+	UI_SpellGem = 31,
+	UI_HtmlComponent = 32, // emu
 	UI_InvSlot = 33,
 	UI_EditBox = 34,
 	UI_Slider = 35,
@@ -895,6 +896,7 @@ public:
 };
 
 //============================================================================
+#if 0 // emu
 class [[offsetcomments]] CParamTextRGB : public CParamClass
 {
 public:
@@ -908,6 +910,7 @@ public:
 /*0x2c*/ int nB = 255;
 /*0x30*/
 };
+#endif
 
 //============================================================================
 class [[offsetcomments]] CParamPoint : public CParam
@@ -986,12 +989,12 @@ public:
 /*0x094*/ int nMaxVSize = 0;
 /*0x098*/ int nMaxHSize = 0;
 /*0x09c*/ CXStr sText;
-/*0x0a0*/ CParamTextRGB TextColor;
+/*0x0a0*/ CParamRGB TextColor;
 /*0x0d0*/ CParamRGB DisabledColor;
 /*0x100*/ bool bUseInLayoutHorizontal = true;
 /*0x101*/ bool bUseInLayoutVertical = true;
 /*0x104*/ CParamRGB BackgroundTextureTint;
-/*0x134*/ CParamRGB DisabledBackgroundTextureTint; // 0x134
+/*0x134*/ CParamRGB DisabledBackgroundTextureTint;
 /*0x164*/ CXMLSOMCursorArray cursor;
 /*0x180*/
 };

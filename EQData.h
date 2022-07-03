@@ -301,15 +301,15 @@ inline namespace deprecated {
 	using PSPELLFAVORITE DEPRECATE("Use SpellLoadout* instead of PSPELLFAVORITE") = SpellLoadout*;
 }
 
-constexpr int MAX_HOTBUTTON_LOADOUT_NAME = 32;
+constexpr int MAX_HOTBUTTON_LOADOUT_NAME = 25;
 
 struct [[offsetcomments]] HotButtonLoadout
 {
 /*0x00*/ char Name[MAX_HOTBUTTON_LOADOUT_NAME];
-/*0x20*/ bool inuse;
-/*0x21*/ bool changed;
-/*0x22*/ uint16_t padding;
-/*0x24*/
+/*0x19*/ bool inuse;
+/*0x1a*/ bool changed;
+/*0x1c*/ int id;
+/*0x20*/
 };
 
 struct [[offsetcomments]] PlayerRoleLoadout
@@ -391,10 +391,9 @@ struct [[offsetcomments]] RaidMember
 /*0x89*/ bool      GroupLeader;
 /*0x8a*/ bool      RaidMainAssist;
 /*0x8b*/ bool      RaidMarker;
-/*0x8c*/ int       MasterLooter;
+/*0x8c*/ int       MasterLooter; // emu ??
 /*0x90*/ int       GroupNumber;
-/*0x94*/ BYTE      Unknown0x94[0x8];            // i guess new master looter is in here...
-/*0x9c*/
+/*0x94*/
 };
 
 using RaidPlayer DEPRECATE("Use RaidMember instead of RaidPlayer") = RaidMember;
@@ -480,26 +479,26 @@ public:
 	//EQLIB_OBJECT void SetLootTypeResponse(SCRaidMessage*);
 	//EQLIB_OBJECT void UpdateLevelAverage();
 
-/*0x0000*/ RaidData          raidData;
-/*0x00dc*/ int               unknown1[2];
-/*0x00e4*/ bool              locations[MAX_RAID_SIZE];
-/*0x012c*/ RaidMember        raidMembers[MAX_RAID_SIZE];
-/*0x2d0c*/ int               raidId;
-/*0x2d10*/ int               RaidMemberCount;
-/*0x2d14*/ char              RaidLeaderName[EQ_MAX_NAME];
-/*0x2d54*/ char              RaidMOTD[MAX_RAID_MOTD];
-/*0x3154*/ char              Inviter[EQ_MAX_NAME];
-/*0x3194*/ eRaidState        raidState;
-/*0x3198*/ int               raidId2;
-/*0x319c*/ bool              bCreateRaidInvite;
-/*0x319d*/ bool              IsRaidLeader;
-/*0x31a0*/ DWORD             RaidTarget;
-/*0x31a4*/ eRaidLootType     LootType;
-/*0x31a8*/ char              RaidLooters[MAX_RAID_LOOTERS][EQ_MAX_NAME];
-/*0x3668*/ DWORD             levelTotal;                   // Average level of raid members
-/*0x366c*/ bool              Locked;
-/*0x366d*/ bool              bGroupOnInvite;
-/*0x3670*/
+/*0x0000*/ uint8_t           unknown[0x218];
+/*0x0218*/ bool              locations[MAX_RAID_SIZE];
+/*0x0260*/ RaidMember        raidMembers[MAX_RAID_SIZE];
+/*0x2c00*/ int               raidId;
+/*0x2c04*/ int               RaidMemberCount;
+/*0x2c08*/ char              RaidLeaderName[EQ_MAX_NAME];
+/*0x2c48*/ char              RaidMOTD[MAX_RAID_MOTD];
+/*0x3048*/ char              Inviter[EQ_MAX_NAME];
+/*0x3088*/ uint8_t           unknown2[0x400];
+/*0x3488*/ eRaidState        raidState;
+/*0x348c*/ int               raidId2;
+/*0x3490*/ bool              bCreateRaidInvite;
+/*0x3491*/ bool              IsRaidLeader;
+/*0x3494*/ DWORD             RaidTarget;
+/*0x3498*/ eRaidLootType     LootType;
+/*0x349c*/ char              RaidLooters[MAX_RAID_LOOTERS][EQ_MAX_NAME];
+/*0x395c*/ DWORD             levelTotal;                   // Average level of raid members
+/*0x3960*/ bool              Locked;
+/*0x3961*/ bool              bGroupOnInvite;
+/*0x3964*/
 
 	ALT_MEMBER_GETTER_ARRAY(bool, MAX_RAID_SIZE, locations, RaidMemberUsed);
 
@@ -711,14 +710,17 @@ struct [[offsetcomments]] CDynamicZone : public PopDialogHandler
 /*0x04a*/ char         LeaderName[0x40];
 /*0x08a*/ char         DZName[0x80];
 /*0x10c*/ int          MaxPlayers;
-/*0x110*/ int          MinPlayers;
-/*0x114*/ DynamicZonePlayerInfo* pFirstMember;
-/*0x118*/ DynamicZoneClientTimerData* pFirstTimer;
-/*0x11c*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
-/*0x12c*/
+/*0x110*/ DynamicZonePlayerInfo* pFirstMember;
+/*0x114*/ DynamicZoneClientTimerData* pFirstTimer;
+/*0x118*/ HashTable<DynamicZoneClientSwitchInfo> Switches;
+/*0x128*/
+
 	ALT_MEMBER_GETTER_ARRAY(char, 0x40, LeaderName, Name);
 	ALT_MEMBER_GETTER_ARRAY(char, 0x80, DZName, ExpeditionName);
 	ALT_MEMBER_GETTER(DynamicZonePlayerInfo*, pFirstMember, pMemberList);
+
+	int get_MinPlayers() const { return 0; } // not available on emu
+	__declspec(property(get = get_MinPlayers)) int MinPlayers;
 };
 
 inline namespace deprecated {
@@ -1179,7 +1181,7 @@ public:
 };
 
 
-//constexpr uint32_t EQ_ASSIST          = 0x2529;        // 2022-03-03 (live) @ 0x140252E54
+//constexpr uint32_t EQ_ASSIST          = 0x4478;
 
 // FIXME: Find a place for this
 constexpr uint32_t EQ_LoadingS__ArraySize = 0x5a;      // EQ_LoadingS__SetProgressBar_x+76

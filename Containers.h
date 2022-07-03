@@ -48,7 +48,7 @@ class EQLIB_OBJECT CDynamicArrayBase
 {
 protected:
 /*0x00*/    int m_length = 0;
-/*0x08*/
+/*0x04*/
 
 public:
 	// two names for the same thing
@@ -405,10 +405,10 @@ private:
 template <typename T>
 class ArrayClass : public CDynamicArrayBase
 {
-/*0x08*/ T* m_array = nullptr;
-/*0x10*/ int m_alloc = 0;
-/*0x04*/ bool m_isValid = true;
-/*0x18*/
+/*0x04*/ T* m_array = nullptr;
+/*0x08*/ int m_alloc = 0;
+/*0x0c*/ bool m_isValid = true;
+/*0x10*/
 
 public:
 	ArrayClass()

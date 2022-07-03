@@ -472,7 +472,7 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_ITEM_STAT_NEGATIVE             385 // 130 - Item Stat Negative
 #endif
 
-constexpr int NUM_CHAT_FILTERS = 59;
+constexpr int NUM_CHAT_FILTERS = 34;
 constexpr int NUM_CHAT_COLORFILTERS = 143;
 
 #define DEITY_Bertoxxulous                       201
@@ -564,7 +564,7 @@ constexpr int MAX_PC_LEVEL = 105;
 constexpr int MAX_NPC_LEVEL = 200;
 constexpr int MAX_SPELL_LEVEL = 255;
 constexpr int NUM_SPELL_GEMS = 12;
-constexpr int NUM_SPELL_SETS = 30;
+constexpr int NUM_SPELL_SETS = 10;
 
 constexpr int NUM_HOTBUTTON_SETS = 100;
 constexpr int NUM_GROUP_ROLE_SETS = 10;

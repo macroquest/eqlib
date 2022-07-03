@@ -31,7 +31,8 @@ struct AltAbilityEffectData
 	int slot;
 };
 
-// size: 0xb0 (0x5c67b0 live 20212-08-17)
+// @sizeof(CAltAbilityData) == 0xa8 :: 2013-05-10 (emu) @ 0x4C2CDF
+
 class [[offsetcomments]] CAltAbilityData
 {
 public:
@@ -78,10 +79,8 @@ public:
 /*0x92*/ bool                bResetOnDeath;                      // true for lay on hands for example.
 /*0x93*/ bool                bAutogrant;                         // true if its an autogrant ability? or if auto grant is enabled? need to check cause this could be useful
 /*0x94*/ int                 AutoGrantAssociationId;             // Usually the same as normal expansion if enabled
-/*0x98*/ int                 Unknown0x98;
-/*0x9c*/ int                 Unknown0x9C;
-/*0xa0*/ EQList<AltAbilityEffectData> PersistentEffects;
-/*0xb0*/
+/*0x98*/ EQList<AltAbilityEffectData> PersistentEffects;
+/*0xa8*/
 
 	ALT_MEMBER_GETTER(int, GroupID, ID);
 	ALT_MEMBER_GETTER(int, nShortName2, nShorterName);

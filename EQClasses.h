@@ -79,7 +79,7 @@ using PAggroMeterListEntry DEPRECATE("Use AggroMeterListEntry* instead of PAggro
 using AGGRODATA DEPRECATE("Use AggroMeterListEntry instead of AGGRODATA") = AggroMeterListEntry;
 using PAGGRODATA DEPRECATE("Use AggroMeterListEntry* instead of PAGGRODATA") = AggroMeterListEntry*;
 
-constexpr int MAX_AGGRO_METER_SIZE = 30;
+constexpr int MAX_AGGRO_METER_SIZE = 27; // emu
 
 class [[offsetcomments]] AggroMeterManagerClient
 {
@@ -87,10 +87,10 @@ public:
 	static EQLIB_OBJECT AggroMeterManagerClient& Instance();
 
 /*0x00*/ AggroMeterListEntry aggroData[MAX_AGGRO_METER_SIZE];
-/*0xf0*/ uint32_t AggroLockID;                     // this can be 0, I dont know what it is...
-/*0xf4*/ uint32_t AggroTargetID;                   // this is id of whoever we are fighting
-/*0xf8*/ uint32_t AggroSecondaryID;                // this is id of whoever the npc is fighting
-/*0xfc*/
+/*0xd8*/ uint32_t AggroLockID;                     // this can be 0, I dont know what it is...
+/*0xdc*/ uint32_t AggroTargetID;                   // this is id of whoever we are fighting
+/*0xe0*/ uint32_t AggroSecondaryID;                // this is id of whoever the npc is fighting
+/*0xe4*/
 };
 
 using AGGROINFO DEPRECATE("Use AggroMeterManagerClient instead of AGGROINFO") = AggroMeterManagerClient;
@@ -104,8 +104,8 @@ struct [[offsetcomments]] LabelCache_AggroData
 
 /*0x000*/ int           AggroMostHatedName[64];
 /*0x100*/ int           AggroHatePct[MAX_AGGRO_METER_SIZE];
-/*0x178*/ int           AggroMyHatePct;
-/*0x17c*/ };
+/*0x16c*/ int           AggroMyHatePct;
+/*0x170*/ };
 
 struct [[offsetcomments]] LabelCache
 {
@@ -148,70 +148,76 @@ struct [[offsetcomments]] LabelCache
 /*0x180*/ int   HeroicWis;
 /*0x184*/ int   HeroicInt;
 /*0x188*/ int   HeroicCha;
-/*0x18c*/ int   MaxStr;
-/*0x190*/ int   MaxSta;
-/*0x194*/ int   MaxDex;
-/*0x198*/ int   MaxAgi;
-/*0x19c*/ int   MaxWis;
-/*0x1a0*/ int   MaxInt;
-/*0x1a4*/ int   MaxCha;
-/*0x1a8*/ int   MaxResistPoison;
-/*0x1ac*/ int   MaxResistDisease;
-/*0x1b0*/ int   MaxResistCorruption;
-/*0x1b4*/ int   MaxResistFire;
-/*0x1b8*/ int   MaxResistCold;
-/*0x1bc*/ int   MaxResistMagic;
-/*0x1c0*/ int   HP;
-/*0x1c4*/ int   MaxHP;
-/*0x1c8*/ float HPPct;
-/*0x1cc*/ int   Mana;
-/*0x1d0*/ int   MaxMana;
-/*0x1d4*/ float ManaPct;
-/*0x1d8*/ int   Endurance;
-/*0x1dc*/ int   MaxEndurance;
-/*0x1e0*/ float EndurancePct;
-/*0x1e4*/ int   Mitigation;
-/*0x1e8*/ int   Evasion;
-/*0x1ec*/ int   Attack;
-/*0x1f0*/ int   Accuracy;
-/*0x1f4*/ int   Weight;
-/*0x1f8*/ int   MaxWeight;
-/*0x1fc*/ float ExpPct;
-/*0x200*/ float AAExpPct;
-/*0x204*/ int   AAPoints;
-/*0x208*/ int   AASiphon;
-/*0x20c*/ int   Haste;
-/*0x210*/ int   HPRegen;
-/*0x214*/ int   ManaRegen;
-/*0x218*/ int   EnduranceRegen;
-/*0x21c*/ int   SpellShield;
-/*0x220*/ int   CombatEfficiency;
-/*0x224*/ int   Shielding;
-/*0x228*/ int   DmgShielding;
-/*0x22c*/ int   DoTShielding;
-/*0x230*/ int   DmgShieldMitigation;
-/*0x234*/ int   Avoidance;
-/*0x238*/ int   AccuracyBonus;
-/*0x23c*/ int   StunResist;
-/*0x240*/ int   StrikeThrough;
-/*0x244*/ int   HealAmount;
-/*0x248*/ int   SpellDamage;
-/*0x24c*/ int   Clairvoyance;
-/*0x250*/ int   SkillDmgBash;
-/*0x254*/ int   SkillDmgBackstab;
-/*0x258*/ int   SkillDmgDragonPunch;
-/*0x25c*/ int   SkillDmgEagleStrike;
-/*0x260*/ int   SkillDmgFlyingKick;
-/*0x264*/ int   SkillDmgKick;
-/*0x268*/ int   SkillDmgRoundKick;
-/*0x26c*/ int   SkillDmgTigerClaw;
-/*0x270*/ int   SkillDmgFrenzy;
-/*0x274*/ int   Unused1;
-/*0x278*/ int   LoyaltyTokens;
-/*0x27c*/ int   ParcelCount;
-/*0x280*/ int   CurrentLoyaltyVelocity;
-/*0x284*/ int   OverflowCount;
-/*0x288*/ int   Luck;
+/*0x18c*/ int   HeroicResistPoison;
+/*0x190*/ int   HeroicResistDisease;
+/*0x194*/ int   HeroicResistCorruption;
+/*0x198*/ int   HeroicResistFire;
+/*0x19c*/ int   HeroicResistCold;
+/*0x1a0*/ int   HeroicResistMagic;
+/*0x1a4*/ int   MaxStr;
+/*0x1a8*/ int   MaxSta;
+/*0x1ac*/ int   MaxDex;
+/*0x1b0*/ int   MaxAgi;
+/*0x1b4*/ int   MaxWis;
+/*0x1b8*/ int   MaxInt;
+/*0x1bc*/ int   MaxCha;
+/*0x1c0*/ int   MaxResistPoison;
+/*0x1c4*/ int   MaxResistDisease;
+/*0x1c8*/ int   MaxResistCorruption;
+/*0x1cc*/ int   MaxResistFire;
+/*0x1d0*/ int   MaxResistCold;
+/*0x1d4*/ int   MaxResistMagic;
+/*0x1d8*/ int   HP;
+/*0x1dc*/ int   MaxHP;
+/*0x1e0*/ int   HPPct;
+/*0x1e4*/ int   Mana;
+/*0x1e8*/ int   MaxMana;
+/*0x1ec*/ int   ManaPct;
+/*0x1f0*/ int   Endurance;
+/*0x1f4*/ int   MaxEndurance;
+/*0x1f8*/ int   EndurancePct;
+/*0x1fc*/ int   AC; // emu
+///*0x1e4*/ int   Mitigation;
+///*0x1e8*/ int   Evasion;
+/*0x200*/ int   Attack;
+///*0x1f0*/ int   Accuracy;
+/*0x204*/ int   Weight;
+/*0x208*/ int   MaxWeight;
+/*0x20c*/ int   ExpPct;
+/*0x210*/ int   AAExpPct;
+/*0x214*/ int   AAPoints;
+/*0x218*/ int   AASiphon;
+/*0x21c*/ int   Haste;
+/*0x220*/ int   HPRegen;
+/*0x224*/ int   ManaRegen;
+/*0x228*/ int   EnduranceRegen;
+/*0x22c*/ int   SpellShield;
+/*0x230*/ int   CombatEfficiency;
+/*0x234*/ int   Shielding;
+/*0x238*/ int   DmgShielding;
+/*0x23c*/ int   DoTShielding;
+/*0x240*/ int   DmgShieldMitigation;
+/*0x244*/ int   Avoidance;
+/*0x248*/ int   AccuracyBonus;
+/*0x24c*/ int   StunResist;
+/*0x250*/ int   StrikeThrough;
+/*0x254*/ int   HealAmount;
+/*0x258*/ int   SpellDamage;
+/*0x25c*/ int   Clairvoyance;
+/*0x260*/ int   SkillDmgBash;
+/*0x264*/ int   SkillDmgBackstab;
+/*0x268*/ int   SkillDmgDragonPunch;
+/*0x26c*/ int   SkillDmgEagleStrike;
+/*0x270*/ int   SkillDmgFlyingKick;
+/*0x274*/ int   SkillDmgKick;
+/*0x278*/ int   SkillDmgRoundKick;
+/*0x27c*/ int   SkillDmgTigerClaw;
+/*0x280*/ int   SkillDmgFrenzy;
+/*0x284*/ int   CurrentLoyaltyVelocity;
+/*0x288*/ int   LoyaltyTokens;
+///*0x27c*/ int   ParcelCount;
+///*0x284*/ int   OverflowCount;
+///*0x288*/ int   Luck;
 /*0x28c*/ char  TargetName[256];
 /*0x38c*/ int   TargetHPPct;
 /*0x390*/ char  PetName[128];
@@ -235,49 +241,50 @@ struct [[offsetcomments]] LabelCache
 /*0x8b0*/ int   RaidLeaderExPct;               // no longer used
 /*0x8b4*/ char  TargetOfTargetName[64];
 /*0x8f4*/ int   ExtendedTargetHPPct[MAX_EXTENDED_TARGET_SIZE];
-/*0x950*/ int   ExtendedTargetManaPct[MAX_EXTENDED_TARGET_SIZE];
-/*0x9ac*/ int   ExtendedTargetEndurancePct[MAX_EXTENDED_TARGET_SIZE];
-/*0xa08*/ char  AggroTargetName[64];
-/*0xa48*/ char  AggroMostHatedName[64];
-/*0xa88*/ char  AggroMostHatedNameNoLock[64];
-/*0xac8*/ int   AggroHatePct[MAX_AGGRO_METER_SIZE];
-/*0xb40*/ int   AggroMyHatePct;
-/*0xb44*/ int   AggroMostHatedPct;
-/*0xb48*/ float MercenaryAAExperiencePct;
-/*0xb4c*/ int   MercenaryAAPoints;
-/*0xb50*/ int   MercenaryAAPointsSpent;
-/*0xb54*/ int   MercenaryHP;
-/*0xb58*/ int   MercenaryMaxHP;
-/*0xb5c*/ int   MercenaryMana;
-/*0xb60*/ int   MercenaryMaxMana;
-/*0xb64*/ int   MercenaryEndurance;
-/*0xb68*/ int   MercenaryMaxEndurance;
-/*0xb6c*/ int   MercenaryMitigation;
-/*0xb70*/ int   MercenaryEvasion;
-/*0xb74*/ int   MercenaryAttack;
-/*0xb78*/ int   MercenaryAccuracy;
-/*0xb7c*/ int   MercenaryHaste;
-/*0xb80*/ int   MercenaryStr;
-/*0xb84*/ int   MercenarySta;
-/*0xb88*/ int   MercenaryInt;
-/*0xb8c*/ int   MercenaryWis;
-/*0xb90*/ int   MercenaryAgi;
-/*0xb94*/ int   MercenaryDex;
-/*0xb98*/ int   MercenaryCha;
-/*0xb9c*/ int   MercenaryHeroicStr;
-/*0xba0*/ int   MercenaryHeroicSta;
-/*0xba4*/ int   MercenaryHeroicInt;
-/*0xba8*/ int   MercenaryHeroicWis;
-/*0xbac*/ int   MercenaryHeroicAgi;
-/*0xbb0*/ int   MercenaryHeroicDex;
-/*0xbb4*/ int   MercenaryHeroicCha;
-/*0xbb8*/ int   MercenaryCombatHPRegen;
-/*0xbbc*/ int   MercenaryCombatManaRegen;
-/*0xbc0*/ int   MercenaryCombatEnduranceRegen;
-/*0xbc4*/ int   MercenaryHealAmount;
-/*0xbc8*/ int   MercenarySpellDamage;
-/*0xbcc*/ char  PowerSourcePercent[8];
-/*0xbd4*/ bool  HasMercenary;
+/*0x944*/ int   ExtendedTargetManaPct[MAX_EXTENDED_TARGET_SIZE];
+/*0x994*/ int   ExtendedTargetEndurancePct[MAX_EXTENDED_TARGET_SIZE];
+/*0x9e4*/ char  AggroTargetName[64]; // __GroupAggro
+/*0xa24*/ char  AggroMostHatedName[64];
+/*0xa64*/ char  AggroMostHatedNameNoLock[64]; // __TargetAggroHolder
+/*0xaa4*/ int   AggroHatePct[MAX_AGGRO_METER_SIZE];
+/*0xb10*/ int   AggroMyHatePct;
+/*0xb14*/ int   AggroMostHatedPct;
+/*0xb18*/ char  SubscriptionDaysLeft[128];
+/*0xb98*/ ///*0xb48*/ float MercenaryAAExperiencePct;
+///*0xb4c*/ int   MercenaryAAPoints;
+///*0xb50*/ int   MercenaryAAPointsSpent;
+///*0xb54*/ int   MercenaryHP;
+///*0xb58*/ int   MercenaryMaxHP;
+///*0xb5c*/ int   MercenaryMana;
+///*0xb60*/ int   MercenaryMaxMana;
+///*0xb64*/ int   MercenaryEndurance;
+///*0xb68*/ int   MercenaryMaxEndurance;
+///*0xb6c*/ int   MercenaryMitigation;
+///*0xb70*/ int   MercenaryEvasion;
+///*0xb74*/ int   MercenaryAttack;
+///*0xb78*/ int   MercenaryAccuracy;
+///*0xb7c*/ int   MercenaryHaste;
+///*0xb80*/ int   MercenaryStr;
+///*0xb84*/ int   MercenarySta;
+///*0xb88*/ int   MercenaryInt;
+///*0xb8c*/ int   MercenaryWis;
+///*0xb90*/ int   MercenaryAgi;
+///*0xb94*/ int   MercenaryDex;
+///*0xb98*/ int   MercenaryCha;
+///*0xb9c*/ int   MercenaryHeroicStr;
+///*0xba0*/ int   MercenaryHeroicSta;
+///*0xba4*/ int   MercenaryHeroicInt;
+///*0xba8*/ int   MercenaryHeroicWis;
+///*0xbac*/ int   MercenaryHeroicAgi;
+///*0xbb0*/ int   MercenaryHeroicDex;
+///*0xbb4*/ int   MercenaryHeroicCha;
+///*0xbb8*/ int   MercenaryCombatHPRegen;
+///*0xbbc*/ int   MercenaryCombatManaRegen;
+///*0xbc0*/ int   MercenaryCombatEnduranceRegen;
+///*0xbc4*/ int   MercenaryHealAmount;
+///*0xbc8*/ int   MercenarySpellDamage;
+///*0xbcc*/ char  PowerSourcePercent[8];
+///*0xbd4*/ bool  HasMercenary;
 /*0xbd8*/
 };
 
@@ -359,7 +366,7 @@ public:
 	static EQLIB_OBJECT ChatManagerClient& Instance();
 };
 
-#if defined(CDistillerInfo__Instance_x)
+#if defined(CDistillerInfo__Instance_x) // emu
 
 class CDistillerInfo
 {
@@ -369,20 +376,6 @@ public:
 };
 
 #endif // defined(CDistillerInfo__Instance_x)
-
-struct [[offsetcomments]] TARGETRING
-{
-	FORCE_SYMBOLS;
-
-/*0x00*/ DWORD         Gem;                      // the gem the spell below is memmed in... 0-11
-/*0x04*/ PSPELL        thespell;
-/*0x08*/ ItemGlobalIndex ItemLoc;
-/*0x14*/ ItemSpellTypes SpellType;
-/*0x18*/ float         SquaredRange;
-/*0x1c*/ bool          bCursorVisible;
-/*0x20*/
-};
-using PTARGETRING = TARGETRING*;
 
 class JournalCategory;
 
@@ -529,52 +522,54 @@ enum TaskSystemType
 struct [[offsetcomments]] CTaskElement
 {
 /*0x000*/ TaskType           Type;
-/*0x004*/ char               TargetName[0x40];
-/*0x044*/ char               ZoneID[0x40];
-/*0x084*/ char               TargetZoneID[0x40];
-/*0x0c4*/ int                RequiredCount;
-/*0x0c8*/ bool               bOptional;
-/*0x0cc*/ TaskGroupType      ElementGroup;
-/*0x0d0*/ int                DZSwitchID;
-/*0x0d4*/ char               ElementDescriptionOverride[0x80];
-/*0x154*/ CXStr              ItemNameList;
-/*0x158*/ CXStr              SkillIDList;
-/*0x15c*/ CXStr              SpellIDList;
-/*0x160*/ CXStr              TaskTitle;
-/*0x164*/
+/*0x004*/ TaskGroupType      GroupType;
+/*0x008*/ char               TargetName[0x40];
+/*0x048*/ char               ZoneID[0x40];
+/*0x088*/ char               TargetZoneID[0x40];
+/*0x0c8*/ int                RequiredCount;
+/*0x0cc*/ bool               bOptional;
+/*0x0d0*/ int                ElementGroup;
+/*0x0d4*/ int                DZSwitchID;
+/*0x0d8*/ char               ElementDescriptionOverride[0x80];
+/*0x158*/ CXStr              ItemNameList;
+/*0x15c*/ CXStr              SkillIDList;
+/*0x160*/ CXStr              SpellIDList;
+/*0x164*/ CXStr              TaskTitle;
+/*0x168*/
 };
 
 const int MAX_TASK_ELEMENTS = 20;
 
-// @sizeof(CTaskEntry) == 0x3d60 :: 2022-06-13 (live) @ 0x140048784
-constexpr size_t CTaskEntry_size = 0x3d60;
+// @sizeof(CTaskEntry) == 0x3bfc :: 2013-05-10 (emu) @ 0x48185C
+constexpr size_t CTaskEntry_size = 0x3bfc;
 
 struct [[offsetcomments]] CTaskEntry
 {
 /*0x0000*/ int               TaskID;
 /*0x0004*/ float             RewardAdjustment;
-/*0x0008*/ char              TaskTitle[0x40];
+/*0x0008*/ char              TaskTitle[64];
 /*0x0048*/ int               DurationSeconds;
-/*0x004c*/ char              StartText[0xFa0];
-/*0x0fec*/ bool              bShowReward;
-/*0x0ff0*/ int               RewardCash;
-/*0x0ff4*/ int               RewardExp;
-/*0x0ff8*/ int               RewardPoints;
-/*0x0ffc*/ int               RewardFactionID;
-/*0x1000*/ int               RewardFactionAmount;
-/*0x1004*/ CXStr             RewardItemTag;
-/*0x1008*/ CTaskElement      Elements[MAX_TASK_ELEMENTS];
-/*0x2bd8*/ TaskSystemType    TaskSystem;
-/*0x2bdc*/ int               PointType;
-/*0x2be0*/ bool              StartTextCompiled;
-/*0x2be1*/ char              RawStartText[0xFa0];
-/*0x3b81*/ bool              bElementsReceived;
-/*0x3b84*/ eqtime_t          TimeCompleted;
-/*0x3b88*/ ArrayClass<MonsterMissionTemplate> MonsterTemplates;
-/*0x3b98*/ bool              bTemplateSelectionLocked;
-/*0x3b99*/ bool              bHasRewardSet;
-/*0x3b9c*/ SoeUtil::String   UnknownString;
-/*0x3bac*/
+/*0x004c*/ int               DurationCode;
+/*0x0050*/ char              StartText[4000];
+/*0x0ff0*/ bool              bShowReward;
+/*0x0ff4*/ int               RewardCash;
+/*0x0ff8*/ int               RewardExp;
+/*0x0ffc*/ int               RewardPoints;
+/*0x1000*/ char              RewardFactionName[96];
+///*0x0ffc*/ int               RewardFactionID; // emu has name instead of id
+/*0x1060*/ int               RewardFactionAmount;
+/*0x1064*/ CXStr             RewardItemTag;
+/*0x1068*/ CTaskElement      Elements[MAX_TASK_ELEMENTS];
+/*0x2c88*/ TaskSystemType    TaskSystem;
+/*0x2c8c*/ int               PointType;
+/*0x2c90*/ bool              StartTextCompiled;
+/*0x2c91*/ char              RawStartText[4000];
+/*0x3c31*/ bool              bElementsReceived;
+/*0x3c34*/ eqtime_t          TimeCompleted;
+/*0x3c38*/ ArrayClass<MonsterMissionTemplate> MonsterTemplates;
+/*0x3c48*/ bool              bTemplateSelectionLocked;
+/*0x3c49*/ bool              bHasRewardSet;
+/*0x3c4c*/
 };
 
 SIZE_CHECK(CTaskEntry, CTaskEntry_size);
@@ -602,14 +597,15 @@ class [[offsetcomments]] CTaskManager : public PopDialogHandler
 {
 public:
 /*0x000004*/ CTaskEntry                TaskEntries[MAX_TASK_ENTRIES];
-/*0x003bb0*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
-/*0x06fe2c*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
-/*0x0739d8*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
-/*0x12e170*/ int                       AddPlayerID;
-/*0x12e174*/ bool                      bAddPlayerIsSwap;
-/*0x12e175*/ char                      AddPlayerSwapeeName[0x40];
-/*0x12e1b8*/ SharedTaskClientPlayerInfo* pFirstMember;
-/*0x12e1bc*/
+/*0x003c50*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
+/*0x0710ec*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
+/*0x074d38*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
+/*0x131410*/ CTaskEntry                UnknownQuestEntries[MAX_QUEST_ENTRIES];
+/*0x19e8ac*/ int                       AddPlayerID;
+/*0x19e8b0*/ bool                      bAddPlayerIsSwap;
+/*0x19e8b1*/ char                      AddPlayerSwapeeName[0x40];
+/*0x19e8f4*/ SharedTaskClientPlayerInfo* pFirstMember;
+/*0x19e8f8*/
 
 	EQLIB_OBJECT CTaskManager(CXWnd*);
 
@@ -842,6 +838,8 @@ public:
 
 //============================================================================
 
+#if HAS_FACTION_WINDOW
+
 class [[offsetcomments]] FactionManagerClient
 {
 public:
@@ -851,6 +849,8 @@ public:
 	EQLIB_OBJECT static FactionManagerClient& Instance();
 	EQLIB_OBJECT void HandleFactionMessage(UINT MessageID, char* pData, unsigned int DataLength);
 };
+
+#endif
 
 EQLIB_OBJECT char* build_token_string_PARAM(char* pBuffer, int token,
 	const char* param0 = nullptr,
@@ -1025,9 +1025,7 @@ public:
 /*0xd7*/ bool          bHeadingChanged;
 /*0xd8*/ bool          bAllowCorpseDrag;
 /*0xdc*/ int           RealEstateDoorID;
-/*0xe0*/ float         unknownFloat1;
-/*0xe4*/ float         unknownFloat2;
-/*0xe8*/
+/*0xe0*/
 	ALT_MEMBER_GETTER_DEPRECATED(CActorInterface*, pActor, pSwitch, "Use pActor instead of pSwitch");
 };
 using DOOR = EQSwitch;
@@ -1133,8 +1131,8 @@ public:
 /*0x1c8*/ int                VirtMemLoad;
 /*0x1cc*/ int                ActiveMercenaries;
 /*0x1d0*/ int                SuspendedMercenaries;
-/*0x1d4*/ int                Unknown0x1D4;
-/*0x1d8*/
+/*0x1d4*/ int                Unknown0x1D4[9];
+/*0x1f8*/
 };
 
 inline namespace deprecated {
@@ -1143,8 +1141,8 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2022-06-13 (live) @ 0x1402143a5
-constexpr size_t EQWorldData_size = 0x1f88;
+// @sizeof(EQWorldData) == 0xfc0 :: 2013-05-10 (emu) @ 0x535FB6
+constexpr size_t EQWorldData_size = 0xfc0;
 
 class [[offsetcomments]] EQWorldData
 {
@@ -1201,8 +1199,7 @@ public:
 /*0x018*/ eqtime_t                        LastTime;
 /*0x01c*/ uint32_t                        NextMercenaryId;
 /*0x020*/ EQZoneInfo*                     ZoneArray[MAX_ZONES];
-/*0xfc0*/ HashTable<SoeUtil::String, int> ZoneNameHash;
-/*0xfd0*/
+/*0xfc0*/
 };
 
 SIZE_CHECK(EQWorldData, EQWorldData_size);
@@ -1268,6 +1265,8 @@ public:
 /*0x1194*/
 };
 
+#if HAS_ADVANCED_LOOT
+
 enum LootFilterOp
 {
 	LootFilterOp_Load = 0,
@@ -1305,6 +1304,8 @@ public:
 	EQLIB_OBJECT bool RemoveItemLootFilter(int ItemID, int FilterTypes = 0);
 	EQLIB_OBJECT bool SetItemLootFilter(int ItemID, int IconID, const char* ItemName, int FilterTypes, bool bKeepRndSetting = false, bool bScrollToIt = false);
 };
+
+#endif
 
 enum InstanceType
 {
@@ -1648,9 +1649,8 @@ public:
 using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
-
-// @sizeof(SkillManager) == 0x353780 :: 2022-06-13 (live) @ 0x1402144c6
-constexpr size_t SkillManager_size = 0x353780;
+// @sizeof(SkillManager) == 0x2c68ac :: 2013-05-10 (emu) @ 0x5360D3
+constexpr size_t SkillManager_size = 0x2c68ac;
 
 class [[offsetcomments]] SkillManager
 {
@@ -1664,18 +1664,18 @@ public:
 	EQLIB_OBJECT bool IsAvailable(int);
 	EQLIB_OBJECT bool IsCombatSkill(int);
 
+	// 363
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;
 /*0x000190*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
 /*0x174c10*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
 /*0x2e9690*/ char      SkillCapsFilename[MAX_PATH];
-/*0x2e9794*/ HashListSet<EQ_Skill, NUM_SKILLS> SkillHash;
-/*0x2e9934*/ UINT      SkillLastUsed[NUM_SKILLS];
-/*0x2e9ac4*/ UINT      SkillTimerDuration[NUM_SKILLS];
-/*0x2e9c54*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
-/*0x2e9c5c*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
-/*0x2e9c64*/ bool      bSkillCanUse[NUM_SKILLS];
-/*0x2e9cc8*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
-/*0x2e9ccc*/
+/*0x2e9794*/ UINT      SkillLastUsed[NUM_SKILLS];
+/*0x2e9924*/ UINT      SkillTimerDuration[NUM_SKILLS];
+/*0x2e9ab4*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
+/*0x2e9abc*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
+/*0x2e9ac4*/ bool      bSkillCanUse[NUM_SKILLS];
+/*0x2e9b28*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
+/*0x2e9b2c*/
 };
 using CSkillMgr = SkillManager;
 using SKILLMGR = SkillManager;

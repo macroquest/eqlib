@@ -33,6 +33,8 @@
 
 // EverQuestInfo
 #define pinstEverQuestInfo_x                                       0xDDF618
+#define instEQZoneInfo_x                                           0xDDF8F0
+
 #define __ScreenX_x                                                0xDDF624
 #define __ScreenY_x                                                0xDDF620
 #define __ScreenXMax_x                                             0xDDF628
@@ -46,7 +48,6 @@
 #define __Clicks_x                                                 0xDDF734
 #define __RMouseHeldTime_x                                         0xDDF79C
 #define __LMouseHeldTime_x                                         0xDDF7A0
-#define instEQZoneInfo_x                                           0xDDF8F0
 #define __ZoneType_x                                               0xDDFAF8
 #define __ShiftKeyDown_x                                           0xDDFD00
 #define __RangeAttackReady_x                                       0xDE0864
