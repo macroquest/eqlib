@@ -833,9 +833,9 @@ enum eIniFlags
 	eIniFlag_All                     = 0xffffffff
 };
 
-// @sizeof(CSidlScreenWnd) == 0x1d8 :: 2013-05-10 (emu) @ 0x5B9B4D
-constexpr size_t CSidlScreenWnd_size = 0x1d8;
-constexpr size_t CSidlScreenWnd_vftable_size = 0x180;
+// @sizeof(CSidlScreenWnd) == 0x220 :: 2013-05-10 (emu) @ 0x5B9B4D
+constexpr size_t CSidlScreenWnd_size = 0x220;
+constexpr size_t CSidlScreenWnd_vftable_size = 0x17c;
 
 class [[offsetcomments]] CSidlScreenWnd : public CXWnd
 {

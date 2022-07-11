@@ -836,17 +836,20 @@ public:
 /*0x00d*/ uint8_t     HairStyle;
 /*0x00e*/ uint8_t     FacialHair;
 /*0x010*/ int         Race;
-/*0x014*/ int         RaceOverride;
-/*0x018*/ int         Class;
-/*0x01c*/ uint8_t     Gender;
-/*0x01d*/ char        ActorDef[0x40];
-/*0x060*/ uint32_t    ArmorColor[9];
-/*0x084*/ bool        bShowHelm;
-/*0x088*/ int         Heritage;                 // drakkin only face setting
-/*0x08c*/ int         Tattoo;                   // drakkin only face setting
-/*0x090*/ int         Details;                  // drakkin only face setting
-/*0x094*/ EQUIPMENT   ActorEquipment;
-/*0x148*/
+/*0x014*/ uint8_t     Class;
+/*0x015*/ uint8_t     Gender;
+/*0x016*/ char        ActorDef[0x40];
+/*0x058*/ uint32_t    ArmorColor[9];
+/*0x07c*/ bool        bShowHelm;
+/*0x080*/ int         Heritage;                 // drakkin only face setting
+/*0x084*/ int         Tattoo;                   // drakkin only face setting
+/*0x088*/ int         Details;                  // drakkin only face setting
+/*0x08c*/ EQUIPMENT   ActorEquipment;
+/*0x140*/
+
+	// No race override - always returns zero (invalid race).
+	int get_RaceOverride() const { return 0; }
+	__declspec(property(get = get_RaceOverride)) int RaceOverride;
 };
 
 //============================================================================
@@ -856,6 +859,7 @@ public:
 class CBoneGroupInterface;
 class CLightInterface;
 
+// Size: 0x1b4
 
 class [[offsetcomments]] ActorClient : public ActorBase
 {
@@ -865,24 +869,24 @@ public:
 	virtual int Reset(const char*, bool) { return 0; };
 	virtual bool IsActorUsingNewStyleModel() { return false; }
 
-/*0x148*/ int                      LeftEyeMaterialIndex;
-/*0x14c*/ int                      RightEyeMaterialIndex;
-/*0x150*/ CParticlePointInterface* pParticlePoints[10];
-/*0x178*/ CBoneGroupInterface*     pLowerBones;
-/*0x17c*/ CBoneGroupInterface*     pUpperBones;
-/*0x180*/ CActorInterface*         pActor;
-/*0x184*/ CLightInterface*         pLight;
-/*0x188*/ ActorAnimation*          pActorAnimation;
-/*0x18c*/ TList<CObjectGroupStageInstance> StageInstances;
-/*0x194*/ bool                     bActiveTransition;
-/*0x198*/ unsigned int             CurrentStage;
-/*0x19c*/ float                    ZOffset;
-/*0x1a0*/ CVector3                 AdjustedLoc;
-/*0x1ac*/ bool                     bReplacedStaticObject;
-/*0x1b0*/ int                      PartialFaceNumber;
-/*0x1b4*/ bool                     bNewArmorDisabled;
-/*0x1b8*/ CActorApplicationData*   pApplicationData;
-/*0x1bc*/
+/*0x140*/ int                      LeftEyeMaterialIndex;
+/*0x144*/ int                      RightEyeMaterialIndex;
+/*0x148*/ CParticlePointInterface* pParticlePoints[10];
+/*0x170*/ CBoneGroupInterface*     pLowerBones;
+/*0x174*/ CBoneGroupInterface*     pUpperBones;
+/*0x178*/ CActorInterface*         pActor;
+/*0x17c*/ CLightInterface*         pLight;
+/*0x180*/ ActorAnimation*          pActorAnimation;
+/*0x184*/ TList<CObjectGroupStageInstance> StageInstances;
+/*0x18c*/ bool                     bActiveTransition;
+/*0x190*/ unsigned int             CurrentStage;
+/*0x194*/ float                    ZOffset;
+/*0x198*/ CVector3                 AdjustedLoc;
+/*0x1a4*/ bool                     bReplacedStaticObject;
+/*0x1a8*/ int                      PartialFaceNumber;
+/*0x1ac*/ bool                     bNewArmorDisabled;
+/*0x1b0*/ CActorApplicationData*   pApplicationData;
+/*0x1b4*/
 
 	ALT_MEMBER_GETTER_DEPRECATED(CActorInterface*, pActor, pcactorex, "Use pActor instead of pcactorex");
 };

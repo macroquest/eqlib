@@ -534,8 +534,7 @@ struct [[offsetcomments]] CTaskElement
 /*0x158*/ CXStr              ItemNameList;
 /*0x15c*/ CXStr              SkillIDList;
 /*0x160*/ CXStr              SpellIDList;
-/*0x164*/ CXStr              TaskTitle;
-/*0x168*/
+/*0x164*/
 };
 
 const int MAX_TASK_ELEMENTS = 20;
@@ -560,16 +559,16 @@ struct [[offsetcomments]] CTaskEntry
 /*0x1060*/ int               RewardFactionAmount;
 /*0x1064*/ CXStr             RewardItemTag;
 /*0x1068*/ CTaskElement      Elements[MAX_TASK_ELEMENTS];
-/*0x2c88*/ TaskSystemType    TaskSystem;
-/*0x2c8c*/ int               PointType;
-/*0x2c90*/ bool              StartTextCompiled;
-/*0x2c91*/ char              RawStartText[4000];
-/*0x3c31*/ bool              bElementsReceived;
-/*0x3c34*/ eqtime_t          TimeCompleted;
-/*0x3c38*/ ArrayClass<MonsterMissionTemplate> MonsterTemplates;
-/*0x3c48*/ bool              bTemplateSelectionLocked;
-/*0x3c49*/ bool              bHasRewardSet;
-/*0x3c4c*/
+/*0x2c38*/ TaskSystemType    TaskSystem; // 2c38
+/*0x2c3c*/ int               PointType;
+/*0x2c40*/ bool              StartTextCompiled;
+/*0x2c41*/ char              RawStartText[4000]; // 2c41
+/*0x3be1*/ bool              bElementsReceived;
+/*0x3be4*/ eqtime_t          TimeCompleted;
+/*0x3be8*/ ArrayClass<MonsterMissionTemplate> MonsterTemplates;
+/*0x3bf8*/ bool              bTemplateSelectionLocked;
+/*0x3bf9*/ bool              bHasRewardSet;
+/*0x3bfc*/
 };
 
 SIZE_CHECK(CTaskEntry, CTaskEntry_size);
@@ -597,15 +596,15 @@ class [[offsetcomments]] CTaskManager : public PopDialogHandler
 {
 public:
 /*0x000004*/ CTaskEntry                TaskEntries[MAX_TASK_ENTRIES];
-/*0x003c50*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
-/*0x0710ec*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
-/*0x074d38*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
-/*0x131410*/ CTaskEntry                UnknownQuestEntries[MAX_QUEST_ENTRIES];
-/*0x19e8ac*/ int                       AddPlayerID;
-/*0x19e8b0*/ bool                      bAddPlayerIsSwap;
-/*0x19e8b1*/ char                      AddPlayerSwapeeName[0x40];
-/*0x19e8f4*/ SharedTaskClientPlayerInfo* pFirstMember;
-/*0x19e8f8*/
+/*0x003c00*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
+/*0x07078c*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
+/*0x074388*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
+/*0x12fac0*/ CTaskEntry                UnknownQuestEntries[MAX_QUEST_ENTRIES];
+/*0x19c64c*/ int                       AddPlayerID;
+/*0x19c650*/ bool                      bAddPlayerIsSwap;
+/*0x19c651*/ char                      AddPlayerSwapeeName[0x40];
+/*0x19c694*/ SharedTaskClientPlayerInfo* pFirstMember;
+/*0x19c698*/
 
 	EQLIB_OBJECT CTaskManager(CXWnd*);
 
@@ -1667,15 +1666,15 @@ public:
 	// 363
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;
 /*0x000190*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x174c10*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x2e9690*/ char      SkillCapsFilename[MAX_PATH];
-/*0x2e9794*/ UINT      SkillLastUsed[NUM_SKILLS];
-/*0x2e9924*/ UINT      SkillTimerDuration[NUM_SKILLS];
-/*0x2e9ab4*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
-/*0x2e9abc*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
-/*0x2e9ac4*/ bool      bSkillCanUse[NUM_SKILLS];
-/*0x2e9b28*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
-/*0x2e9b2c*/
+/*0x1632d0*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
+/*0x2c6410*/ char      SkillCapsFilename[MAX_PATH];
+/*0x2c6514*/ uint32_t  SkillLastUsed[NUM_SKILLS];
+/*0x2c66a4*/ uint32_t  SkillTimerDuration[NUM_SKILLS];
+/*0x2c6834*/ uint32_t  CombatSkillLastUsed[CONCURRENT_SKILLS];
+/*0x2c683c*/ uint32_t  CombatSkillDuration[CONCURRENT_SKILLS];
+/*0x2c6844*/ bool      bSkillCanUse[NUM_SKILLS];
+/*0x2c68a8*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
+/*0x2c68ac*/
 };
 using CSkillMgr = SkillManager;
 using SKILLMGR = SkillManager;

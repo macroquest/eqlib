@@ -727,8 +727,8 @@ protected:
 /*0x14*/ uint8_t                 m_atDepth = 0;
 /*0x16*/ short                   m_slots[ItemIndex::MAX_INVENTORY_DEPTH - 1];
 /*0x1a*/ bool                    m_bDynamic;
-/*0x1c*/
-
+/*0x1c*/ uint32_t                Uknown0xc0[7];
+/*0x38*/
 public:
 	ALT_MEMBER_GETTER(uint32_t, m_size, Size);
 	ALT_MEMBER_GETTER(ItemContainerInstance, m_type, Spec);
@@ -819,12 +819,14 @@ enum ItemSpellTypes
 	ItemSpellType_Focus,
 	ItemSpellType_Scroll,
 	ItemSpellType_Focus2,
-	ItemSpellType_Mount,
-	ItemSpellType_Illusion,
-	ItemSpellType_Familiar,
 	ItemSpellType_Max,
 
-	ItemSpellType_Blessing = ItemSpellType_Mount, // invalid
+	// Map these other clickable effects to clicky since they don't exist in this version
+	ItemSpellType_Mount = ItemSpellType_Clicky,
+	ItemSpellType_Illusion = ItemSpellType_Clicky,
+	ItemSpellType_Familiar = ItemSpellType_Clicky,
+	ItemSpellType_Blessing = ItemSpellType_Clicky,
+
 	// Renamed to Blessing.
 	ItemSpellType_Keyring DEPRECATE("Use ItemSpellType_Blessing instead of ItemSpellType_Keyring") = ItemSpellType_Blessing,
 
@@ -835,9 +837,9 @@ enum ItemSpellTypes
 	eFocusSpell = ItemSpellType_Focus,
 	eScrollSpell = ItemSpellType_Scroll,
 	eFocus2Spell = ItemSpellType_Focus2,
-	eMountSpell = ItemSpellType_Mount,
-	eIllusionSpell = ItemSpellType_Illusion,
-	eFamiliarSpell = ItemSpellType_Familiar,
+	eMountSpell = ItemSpellType_Clicky,
+	eIllusionSpell = ItemSpellType_Clicky,
+	eFamiliarSpell = ItemSpellType_Clicky,
 };
 using eItemSpellType = ItemSpellTypes;
 
@@ -893,8 +895,8 @@ public:
 	};
 
 /*0x000*/ SpellData Spells[ItemSpellType_Max];
-/*0x384*/ uint32_t  SkillMask[5];               // bit field for each skill required to use
-/*0x398*/
+/*0x258*/ uint32_t  SkillMask[5];               // bit field for each skill required to use
+/*0x26c*/
 
 	// Convenience accessors
 	inline int GetSpellId(ItemSpellTypes type) const { return type < ItemSpellType_Max ? Spells[type].SpellID : 0; }
@@ -1056,75 +1058,75 @@ public:
 /*0x260*/ char                CharmFile[32];
 /*0x280*/ float               MerchantGreedMod;
 /*0x284*/ ItemSpellData       SpellData;
-/*0x61c*/ int                 CombatEffects;
-/*0x620*/ int                 Shielding;
-/*0x624*/ int                 StunResist;
-/*0x628*/ int                 DoTShielding;
-/*0x62c*/ int                 StrikeThrough;
-/*0x630*/ int                 DmgBonusSkill;              // SkillMinDamageMod;
-/*0x634*/ int                 DmgBonusValue;              // MinDamageMod;
-/*0x638*/ int                 SpellShield;
-/*0x63c*/ int                 Avoidance;
-/*0x640*/ int                 Accuracy;
-/*0x644*/ int                 CharmFileID;
-/*0x648*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
-/*0x64c*/ uint8_t             ContainerType;
-/*0x64d*/ uint8_t             Slots;
-/*0x64e*/ uint8_t             SizeCapacity;
-/*0x64f*/ uint8_t             WeightReduction;
-/*0x650*/ uint8_t             BookType;                   // 0=note, !0=book
-/*0x651*/ int8_t              BookLang;
-/*0x652*/ char                BookFile[30];
-/*0x670*/ int                 Favor;                      // Tribute Value
-/*0x674*/ int                 GuildFavor;
-/*0x678*/ bool                bIsFVNoDrop;
-/*0x67c*/ int                 Endurance;
-/*0x680*/ int                 Attack;
-/*0x684*/ int                 HPRegen;
-/*0x688*/ int                 ManaRegen;
-/*0x68c*/ int                 EnduranceRegen;
-/*0x690*/ int                 Haste;
-/*0x694*/ int                 DamShield;
-/*0x698*/ int                 AnimationOverride;
-/*0x69c*/ int                 PaletteTintIndex;
-/*0x6a0*/ bool                bNoPetGive;
-/*0x6a1*/ bool                bSomeProfile;
-/*0x6a2*/ bool                bPotionBeltAllowed;
-/*0x6a4*/ int                 NumPotionSlots;
-/*0x6a8*/ int                 SomeIDFlag;
-/*0x6ac*/ int                 StackSize;
-/*0x6b0*/ bool                bNoStorage;
-/*0x6b4*/ int                 MaxPower;
-/*0x6b8*/ int                 Purity;
-/*0x6bc*/ bool                bIsEpic;
-/*0x6c0*/ int                 RightClickScriptID;
-/*0x6c4*/ int                 ItemLaunchScriptID;
-/*0x6c8*/ bool                QuestItem;
-/*0x6c9*/ bool                Expendable;
-/*0x6cc*/ int                 Clairvoyance;
-/*0x6d0*/ int                 SubClass;
-/*0x6d4*/ bool                bLoginRegReqItem;
-/*0x6d8*/ int                 Placeable;
-/*0x6dc*/ bool                bPlaceableIgnoreCollisions;
-/*0x6e0*/ int                 PlacementType;              // todo: this is an enum need to figure out.
-/*0x6e4*/ int                 RealEstateDefID;
-/*0x6e8*/ float               PlaceableScaleRangeMin;
-/*0x6ec*/ float               PlaceableScaleRangeMax;
-/*0x6f0*/ int                 RealEstateUpkeepID;
-/*0x6f4*/ int                 MaxPerRealEstate;
-/*0x6f8*/ char                HousepetFileName[32];
-/*0x718*/ int                 TrophyBenefitID;
-/*0x71c*/ bool                bDisablePlacementRotation;
-/*0x71d*/ bool                bDisableFreePlacement;
-/*0x720*/ int                 NpcRespawnInterval;
-/*0x724*/ float               PlaceableDefScale;
-/*0x728*/ float               PlaceableDefHeading;
-/*0x72c*/ float               PlaceableDefPitch;
-/*0x730*/ float               PlaceableDefRoll;
-/*0x734*/ bool                bInteractiveObject;
-/*0x735*/ uint8_t             SocketSubClassCount;
-/*0x738*/ int                 SocketSubClass[10];
-/*0x760*/
+/*0x4f0*/ int                 CombatEffects;
+/*0x4f4*/ int                 Shielding;
+/*0x4f8*/ int                 StunResist;
+/*0x4fc*/ int                 DoTShielding;
+/*0x500*/ int                 StrikeThrough;
+/*0x504*/ int                 DmgBonusSkill;              // SkillMinDamageMod;
+/*0x508*/ int                 DmgBonusValue;              // MinDamageMod;
+/*0x50c*/ int                 SpellShield;
+/*0x510*/ int                 Avoidance;
+/*0x514*/ int                 Accuracy;
+/*0x518*/ int                 CharmFileID;
+/*0x51c*/ int                 FoodDuration;               // 0-5 snack 6-20 meal 21-30 hearty 31-40 banquet 41-50 feast 51-60 enduring 60- miraculous
+/*0x520*/ uint8_t             ContainerType;
+/*0x521*/ uint8_t             Slots;
+/*0x522*/ uint8_t             SizeCapacity;
+/*0x523*/ uint8_t             WeightReduction;
+/*0x524*/ uint8_t             BookType;                   // 0=note, !0=book
+/*0x525*/ int8_t              BookLang;
+/*0x526*/ char                BookFile[30];
+/*0x544*/ int                 Favor;                      // Tribute Value
+/*0x548*/ int                 GuildFavor;
+/*0x54c*/ bool                bIsFVNoDrop;
+/*0x550*/ int                 Endurance;
+/*0x554*/ int                 Attack;
+/*0x558*/ int                 HPRegen;
+/*0x55c*/ int                 ManaRegen;
+/*0x560*/ int                 EnduranceRegen;
+/*0x564*/ int                 Haste;
+/*0x568*/ int                 DamShield;
+/*0x56c*/ int                 AnimationOverride;
+/*0x570*/ int                 PaletteTintIndex;
+/*0x574*/ bool                bNoPetGive;
+/*0x575*/ bool                bSomeProfile;
+/*0x576*/ bool                bPotionBeltAllowed;
+/*0x578*/ int                 NumPotionSlots;
+/*0x57c*/ int                 SomeIDFlag;
+/*0x580*/ int                 StackSize;
+/*0x584*/ bool                bNoStorage;
+/*0x588*/ int                 MaxPower;
+/*0x58c*/ int                 Purity;
+/*0x590*/ bool                bIsEpic;
+/*0x594*/ int                 RightClickScriptID;
+/*0x598*/ int                 ItemLaunchScriptID;
+/*0x59c*/ bool                QuestItem;
+/*0x59d*/ bool                Expendable;
+/*0x5a0*/ int                 Clairvoyance;
+/*0x5a4*/ int                 SubClass;
+/*0x5a8*/ bool                bLoginRegReqItem;
+/*0x5ac*/ int                 Placeable;
+/*0x5b0*/ bool                bPlaceableIgnoreCollisions;
+/*0x5b4*/ int                 PlacementType;              // todo: this is an enum need to figure out.
+/*0x5b8*/ int                 RealEstateDefID;
+/*0x5bc*/ float               PlaceableScaleRangeMin;
+/*0x5c0*/ float               PlaceableScaleRangeMax;
+/*0x5c4*/ int                 RealEstateUpkeepID;
+/*0x5c8*/ int                 MaxPerRealEstate;
+/*0x5cc*/ char                HousepetFileName[32];
+/*0x5ec*/ int                 TrophyBenefitID;
+/*0x5f0*/ bool                bDisablePlacementRotation;
+/*0x5f1*/ bool                bDisableFreePlacement;
+/*0x5f4*/ int                 NpcRespawnInterval;
+/*0x5f8*/ float               PlaceableDefScale;
+/*0x5fc*/ float               PlaceableDefHeading;
+/*0x600*/ float               PlaceableDefPitch;
+/*0x604*/ float               PlaceableDefRoll;
+/*0x608*/ bool                bInteractiveObject;
+/*0x609*/ uint8_t             SocketSubClassCount;
+/*0x60c*/ int                 SocketSubClass[10];
+/*0x634*/
 
 	EQLIB_OBJECT ItemDefinition();
 
@@ -1242,7 +1244,6 @@ public:
 /*0x098*/ int                   StackCount;
 /*0x09c*/ ItemDefinition*       Item1;
 /*0x0a0*/ ItemContainer         Contents;
-/*0x0bc*/ uint32_t              Uknown0xc0[7];
 /*0x0d8*/ EqItemGuid            ItemGUID;
 /*0x0ec*/ int                   GroupID;
 /*0x0f0*/ int                   ArmorType;

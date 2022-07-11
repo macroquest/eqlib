@@ -44,6 +44,9 @@
 // Autoskills was added April 19, 2017
 #define HAS_AUTOSKILLS IS_CLIENT_DATE(201704019)
 
+// Dragon Hoard was added with the Claws of Veeshan Expansion
+#define HAS_DRAGON_HOARD IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COV)
+
 // Faction window was added in The Burning Lands expansion
 #define HAS_FACTION_WINDOW IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBL)
 
@@ -67,12 +70,18 @@
 // Mercenary AA was added with the Call of the Forsaken expansion.
 #define HAS_MERCENARY_AA IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF)
 
+// Mercenary Inventory added with the Call of the Forsaken expansion.
+#define HAS_MERCENARY_INVENTORY IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF)
+
 // Merchants Perk adds two extra inventory slots. This came out right before
 // Torment of Luclin.
 #define HAS_MERCHANTS_PERK IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
 
 // Tabbed chat was added on March 13, 2019
 #define HAS_TABBED_CHAT IS_CLIENT_DATE(20190313)
+
+// Teleportation Keyring added with Terror of Luclin expansion
+#define HAS_TELEPORTATION_KEYRING IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
 
 
 //----------------------------------------------------------------------------

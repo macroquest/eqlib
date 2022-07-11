@@ -29,7 +29,6 @@ CGroupMemberBase::CGroupMemberBase()
 	, Level(0)
 	, bIsOffline(false)
 	, OnlineTimestamp(0)
-	, UniquePlayerID(0)
 {
 	ClearRoles();
 }
@@ -1045,32 +1044,21 @@ FUNCTION_AT_ADDRESS(void, PcClient::InitializeNewPCVariables(int), EQ_PC__Initia
 
 //----------------------------------------------------------------------------
 
-ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
-{
-	if (type == eMount)
-		return MountKeyRingItems;
-	if (type == eIllusion)
-		return IllusionKeyRingItems;
-	if (type == eFamiliar)
-		return FamiliarKeyRingItems;
-	if (type == eHeroForge)
-		return HeroForgeKeyRingItems;
-	if (type == eTeleportationItem)
-		return TeleportationKeyRingItems;
-
-	return MountKeyRingItems;
-}
-
-const MercenaryAbilityInfo* PcBase::GetMercenaryAbilityInfo(int abilityId) const
-{
-	for (const MercenaryAbilityInfo* info : MercenaryAbilities)
-	{
-		if (info->Index == abilityId)
-			return info;
-	}
-
-	return nullptr;
-}
+//ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
+//{
+//	if (type == eMount)
+//		return MountKeyRingItems;
+//	if (type == eIllusion)
+//		return IllusionKeyRingItems;
+//	if (type == eFamiliar)
+//		return FamiliarKeyRingItems;
+//	if (type == eHeroForge)
+//		return HeroForgeKeyRingItems;
+//	if (type == eTeleportationItem)
+//		return TeleportationKeyRingItems;
+//
+//	return MountKeyRingItems;
+//}
 
 int PcZoneClient::GetMaxAirSupply() const
 {

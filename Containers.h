@@ -1848,10 +1848,10 @@ public:
  	enum { TheSize = ((_Size == 0) ? 1 : _Size) };
 
 /*0x00*/ void* vfTable;
-/*0x08*/ size_t DynSize;
-/*0x10*/ size_t MaxDynSize;
-/*0x18*/ size_t Count;
-/*0x20*/
+/*0x04*/ size_t DynSize;
+/*0x08*/ size_t MaxDynSize;
+/*0x0c*/ size_t Count;
+/*0x10*/
 	union
 	{
 		Node *Table[TheSize];

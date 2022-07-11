@@ -1093,40 +1093,41 @@ public:
 /*0x246*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
 /*0x26a*/ uint8_t              LightType = 0;
 /*0x26b*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x26c*/ uint8_t              Resist = 0;                    // enum eResistType
-/*0x26d*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
-/*0x26e*/ uint8_t              CastDifficulty = 0;
-/*0x26f*/ uint8_t              Skill = 0;
-/*0x270*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
-/*0x271*/ uint8_t              Environment = 0;
-/*0x272*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
-/*0x273*/ uint8_t              CastingAnim = 0;
-/*0x274*/ uint8_t              AnimVariation = 0;
-/*0x275*/ uint8_t              TargetAnim = 0;
-/*0x276*/ uint8_t              TravelType = 0;
-/*0x277*/ uint8_t              CancelOnSit = 0;
-/*0x278*/ bool                 CountdownHeld = false;
-/*0x279*/ char                 Name[64];
-/*0x2b9*/ char                 Target[32];
-/*0x2d9*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
-/*0x2f9*/ char                 CastByMe[96];
-/*0x359*/ char                 CastByOther[96];
-/*0x3b9*/ char                 CastOnYou[96];
-/*0x419*/ char                 CastOnAnother[96];
-/*0x479*/ char                 WearOff[96];
-/*0x4d9*/ bool                 ShowWearOffMessage = false;
-/*0x4da*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
-/*0x4db*/ bool                 SneakAttack = false;
-/*0x4dc*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
-/*0x4dd*/ bool                 NoHate = false;
-/*0x4de*/ bool                 StacksWithSelf = false;
-/*0x4df*/ bool                 NoBuffBlock = false;
-/*0x4e0*/ int                  Scribable = 1;                 // int?
-/*0x4e4*/ bool                 NoStripOnDeath = false;
-/*0x4e5*/ bool                 NoRemove = false;              // spell can't be clicked off?
-/*0x4e6*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
-/*0x4ea*/ uint8_t              CRC32Marker = 0;
-/*0x4eb*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
+/*0x26c*/ uint8_t              Activated;                     // emu
+/*0x26d*/ uint8_t              Resist = 0;                    // enum eResistType
+/*0x26e*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
+/*0x26f*/ uint8_t              CastDifficulty = 0;
+/*0x270*/ uint8_t              Skill = 0;
+/*0x271*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
+/*0x272*/ uint8_t              Environment = 0;
+/*0x273*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
+/*0x274*/ uint8_t              CastingAnim = 0;
+/*0x275*/ uint8_t              AnimVariation = 0;
+/*0x276*/ uint8_t              TargetAnim = 0;
+/*0x277*/ uint8_t              TravelType = 0;
+/*0x278*/ uint8_t              CancelOnSit = 0;
+/*0x279*/ bool                 CountdownHeld = false;
+/*0x27a*/ char                 Name[64];
+/*0x2ba*/ char                 Target[32];
+/*0x2da*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
+/*0x2fa*/ char                 CastByMe[96];
+/*0x35a*/ char                 CastByOther[96];
+/*0x3ba*/ char                 CastOnYou[96];
+/*0x41a*/ char                 CastOnAnother[96];
+/*0x47a*/ char                 WearOff[96];
+/*0x4da*/ bool                 ShowWearOffMessage = false;
+/*0x4db*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
+/*0x4dc*/ bool                 SneakAttack = false;
+/*0x4dd*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
+/*0x4de*/ bool                 NoHate = false;
+/*0x4df*/ bool                 StacksWithSelf = false;
+/*0x4e0*/ bool                 NoBuffBlock = false;
+/*0x4e1*/ bool                 Scribable = 1;
+/*0x4e2*/ bool                 NoStripOnDeath = false;
+/*0x4e3*/ bool                 NoRemove = false;              // spell can't be clicked off?
+/*0x4e4*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
+/*0x4e8*/ uint8_t              CRC32Marker = 0;
+/*0x4e9*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
 /*0x4f0*/
 
 	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")

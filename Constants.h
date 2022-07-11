@@ -560,7 +560,7 @@ constexpr int nEQMappableCommands = 500;
 // found using __BindList_x
 constexpr int nNormalEQMappableCommands = nEQMappableCommands - 22;
 
-constexpr int MAX_PC_LEVEL = 105;
+constexpr int MAX_PC_LEVEL = 100;
 constexpr int MAX_NPC_LEVEL = 200;
 constexpr int MAX_SPELL_LEVEL = 255;
 constexpr int NUM_SPELL_GEMS = 12;
@@ -586,10 +586,10 @@ constexpr int MAX_BUFF_ICONS = 42;
 
 // Number of temporary buffs stored in the profile.
 // This is the number of songs + 1 (for active combat discipline)
-constexpr int NUM_TEMP_BUFFS = NUM_SONG_BUFFS + 1;
+constexpr int NUM_TEMP_BUFFS = 55;
 
 // Old number for temp buffs included NPC buffs because of shared code.
-constexpr int NUM_TEMP_BUFFS_NPC = 55;
+constexpr int NUM_TEMP_BUFFS_NPC = NUM_TEMP_BUFFS;
 
 // this is misnamed, the "Short buffs" in the profile is simply just all temporary buffs
 // not necessary the short buffs window. You'll also note that its 55 instead of 30...
@@ -605,7 +605,7 @@ constexpr int MAX_TOTAL_BUFFS_NPC = 400;
 
 constexpr int NUM_BUFF_SLOTS = MAX_TOTAL_BUFFS;
 
-constexpr int MAX_MEMORIZED_SPELLS = 18;
+constexpr int MAX_MEMORIZED_SPELLS = 16;
 
 // need to find this one
 constexpr int NUM_ALT_ABILITIES_ARRAY = 503;
@@ -620,7 +620,7 @@ constexpr int AA_CHAR_MAX = 245;
 constexpr int AA_CHAR_MAX_REAL = 300;
 
 // found in CSpellBookWnd__GetBookSlot_x
-constexpr int NUM_BOOK_SLOTS = 1120;
+constexpr int NUM_BOOK_SLOTS = 720;
 constexpr int NUM_COMBAT_ABILITIES = 300;
 constexpr int NUM_SKILLS = 100;
 constexpr int NUM_INNATE = 25;
@@ -1008,35 +1008,36 @@ enum ePetCommandType
 	PCT_ToggleFollow,
 	PCT_ToggleGuard,
 	PCT_ToggleSit,
-	PCT_SitOn,
-	PCT_SitOff,
+	//PCT_SitOn,
+	//PCT_SitOff,
 	PCT_ToggleStop,
-	PCT_StopOn,
-	PCT_StopOff,
+	//PCT_StopOn,
+	//PCT_StopOff,
+	PCT_ToggleRegroup,
 	PCT_ToggleTaunt,
-	PCT_TauntOn,
-	PCT_TauntOff,
+	//PCT_TauntOn,
+	//PCT_TauntOff,
 	PCT_ToggleHold,
-	PCT_HoldOn,
-	PCT_HoldOff,
+	//PCT_HoldOn,
+	//PCT_HoldOff,
 	PCT_ToggleGHold,
-	PCT_GHoldOn,
-	PCT_GHoldOff,
+	//PCT_GHoldOn,
+	//PCT_GHoldOff,
 	PCT_ToggleSpellHold,
-	PCT_SpellHoldOn,
-	PCT_SpellHoldOff,
+	//PCT_SpellHoldOn,
+	//PCT_SpellHoldOff,
 	PCT_ToggleFocus,
-	PCT_FocusOn,
-	PCT_FocusOff,
+	//PCT_FocusOn,
+	//PCT_FocusOff,
 	PCT_FeignDeath,
 	PCT_BackOff,
 	PCT_GetLost,
 	PCT_TargetPet,
-	PCT_ToggleRegroup,
-	PCT_RegroupOn,
-	PCT_RegroupOff,
-	PCT_Something,
-	PCT_Something2,
+	//PCT_RegroupOn,
+	//PCT_RegroupOff,
+	//PCT_Something,
+	//PCT_Something2,
+	NumPetCommands,
 	PCT_DoNothing
 };
 
@@ -1064,7 +1065,7 @@ constexpr int TT_SPLASH = 45;
 
 // Mercs
 constexpr int MERC_ALT_ABILITY_COUNT = 12;
-constexpr int EQ_MAX_MERCENARIES = 11;
+constexpr int EQ_MAX_MERCENARIES = 10;
 
 // Groups
 constexpr int MAX_GROUP_SIZE = 6;
