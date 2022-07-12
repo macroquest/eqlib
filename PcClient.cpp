@@ -855,7 +855,7 @@ int CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& 
 
 	GetPctModAndMin(pSpell, SPA_FOCUS_RANGE_MOD, pOutItem, pctMod, minVal, false);
 
-	return static_cast<int>(pSpell->Range * minVal / 100);
+	return static_cast<int>(pSpell->Range * static_cast<float>(minVal) / 100);
 }
 
 //============================================================================
