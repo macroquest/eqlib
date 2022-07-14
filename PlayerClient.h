@@ -697,6 +697,10 @@ public:
 	EQLIB_OBJECT bool DoAttack(BYTE slot, BYTE skill, PlayerZoneClient* Target, bool bSomething = false, bool bAuto = false, bool bDontknow = false);
 
 	EQLIB_OBJECT static PlayerZoneClient* GetClosestPlayerFromPartialName(const char* name, PlayerZoneClient* player, int maxPlayerType = 1);
+
+	// AARank is no longer with us
+	int get_AARank() const { return 0; }
+	__declspec(property(get = get_AARank)) int AARank;
 };
 
 //============================================================================
