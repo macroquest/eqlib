@@ -334,6 +334,7 @@ INITIALIZE_EQGAME_OFFSET(__GetLabelFromEQ);
 INITIALIZE_EQGAME_OFFSET(__GetXTargetType);
 INITIALIZE_EQGAME_OFFSET(__HeadingDiff);
 INITIALIZE_EQGAME_OFFSET(__HelpPath);
+INITIALIZE_EQGAME_OFFSET(__InitMouse);
 INITIALIZE_EQGAME_OFFSET(__msgTokenTextParam);
 INITIALIZE_EQGAME_OFFSET(__NewUIINI);
 INITIALIZE_EQGAME_OFFSET(__ProcessGameEvents);
@@ -849,9 +850,6 @@ INITIALIZE_EQGAME_OFFSET(PcBase__GetItemContainedRealEstateIds);
 INITIALIZE_EQGAME_OFFSET(PcBase__GetNonArchivedOwnedRealEstates);
 INITIALIZE_EQGAME_OFFSET(PcClient__AlertInventoryChanged);
 INITIALIZE_EQGAME_OFFSET(PcClient__GetConLevel);
-#if defined(PcClient__GetMeleeSpellFromSkillIndex_x)
-INITIALIZE_EQGAME_OFFSET(PcClient__GetMeleeSpellFromSkillIndex);
-#endif
 INITIALIZE_EQGAME_OFFSET(PcClient__HasLoreItem);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__BandolierSwap);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__CanEquipItem);
@@ -1426,7 +1424,7 @@ bool InitializeEQMainOffsets()
 		EQMain__pinstCXWndManager = FixEQMainOffset(EQMain__pinstCXWndManager_x);
 		EQMain__pinstLoginController = FixEQMainOffset(EQMain__pinstLoginController_x);
 		EQMain__pinstLoginServerAPI = FixEQMainOffset(EQMain__pinstLoginServerAPI_x);
-		EQMain__pinstLoginClient = EQMain__pinstCLoginViewManager - 8;
+		EQMain__pinstLoginClient = EQMain__pinstCLoginViewManager - sizeof(uintptr_t);
 
 		if (EQMain__LoginController__GiveTime)
 		{

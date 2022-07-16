@@ -6480,7 +6480,7 @@ public:
 	Type GetType() const { return m_type; }
 	bool IsChanged() const { return m_changed; }
 
-	virtual CascadeItemCommand* GetAsCommand() { return nullptr; }
+	//virtual CascadeItemCommand* GetAsCommand() { return nullptr; }
 
 protected:
 /*0x04*/ Type m_type;

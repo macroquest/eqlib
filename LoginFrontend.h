@@ -88,16 +88,16 @@ struct [[offsetcomments]] EQClientServerData
 /*0x04*/ CXStr         ServerName;
 /*0x08*/ CXStr         HostName;
 /*0x0c*/ CXStr         ServerIP;
-/*0x10*/ int           ExternalPort;
-/*0x14*/ int           InternalPort;
-/*0x18*/ Date          DateCreated;
-/*0x38*/ int           Flags;
-/*0x3c*/ int           ServerType;
-/*0x40*/ CXStr         LanguageCode;
-/*0x44*/ CXStr         CountryCode;
-/*0x48*/ eServerStatus StatusFlags;
-/*0x4c*/ int           PopulationRanking;
-/*0x50*/
+///*0x10*/ int           ExternalPort;
+///*0x14*/ int           InternalPort;
+/*0x10*/ Date          DateCreated;
+/*0x30*/ int           Flags;
+/*0x34*/ int           ServerType;
+/*0x38*/ CXStr         LanguageCode;
+/*0x3c*/ CXStr         CountryCode;
+/*0x40*/ eServerStatus StatusFlags;
+/*0x44*/ int           PopulationRanking;
+/*0x48*/
 };
 
 class [[offsetcomments]] LoginServerCallback
@@ -218,7 +218,7 @@ public:
 /*0x0d0*/ bool                    isLoggingIn;
 /*0x0d4*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
 /*0x0f8*/ EQLS::EQClientServerData QuickConnectServer;
-/*0x148*/
+/*0x140*/
 };
 
 //----------------------------------------------------------------------------

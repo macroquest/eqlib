@@ -35,6 +35,12 @@ constexpr uintptr_t EQGamePreferredAddress = 0x140000000;
 constexpr uintptr_t EQGamePreferredAddress = 0x400000;
 #endif // defined(_M_AMD64)
 
+#if defined(_M_AMD64)
+constexpr uintptr_t EQLibraryPreferredAddress = 0x180000000;
+#else
+constexpr uintptr_t EQLibraryPreferredAddress = 0x10000000;
+#endif
+
 // the base address of eqgame.exe
 EQLIB_VAR uintptr_t EQGameBaseAddress;
 
@@ -55,19 +61,19 @@ EQLIB_VAR uintptr_t Kernel32BaseAddress;
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQGameOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x140000000) + EQGameBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQGamePreferredAddress) + EQGameBaseAddress;
 }
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQGraphicsOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180000000) + EQGraphicsBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQLibraryPreferredAddress) + EQGraphicsBaseAddress;
 }
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQMainOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180000000) + EQMainBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQLibraryPreferredAddress) + EQMainBaseAddress;
 }
 
 #define INITIALIZE_EQGAME_OFFSET(var) uintptr_t var = FixEQGameOffset(var##_x)
@@ -240,6 +246,7 @@ EQLIB_VAR uintptr_t __GetLabelFromEQ;
 EQLIB_VAR uintptr_t __GetXTargetType;
 EQLIB_VAR uintptr_t __HeadingDiff;
 EQLIB_VAR uintptr_t __HelpPath;
+EQLIB_VAR uintptr_t __InitMouse;
 EQLIB_VAR uintptr_t __msgTokenTextParam;
 EQLIB_VAR uintptr_t __NewUIINI;
 EQLIB_VAR uintptr_t __ProcessGameEvents;
@@ -734,7 +741,6 @@ EQLIB_VAR uintptr_t PcBase__GetItemContainedRealEstateIds;
 EQLIB_VAR uintptr_t PcBase__GetNonArchivedOwnedRealEstates;
 EQLIB_VAR uintptr_t PcClient__AlertInventoryChanged;
 EQLIB_VAR uintptr_t PcClient__GetConLevel;
-EQLIB_VAR uintptr_t PcClient__GetMeleeSpellFromSkillIndex;
 EQLIB_VAR uintptr_t PcClient__HasLoreItem;
 EQLIB_VAR uintptr_t PcZoneClient__BandolierSwap;
 EQLIB_VAR uintptr_t PcZoneClient__CanEquipItem;

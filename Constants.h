@@ -523,7 +523,7 @@ enum KeybindCommand
 	CMD_STRAFE_RIGHT,
 
 	CMD_DUCK = 12,
-	CMD_RUN_WALK = 308,
+	CMD_RUN_WALK = 284,
 };
 
 constexpr int CHAT_SAY                         = 0x0001;

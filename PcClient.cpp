@@ -864,9 +864,20 @@ int CharacterZoneClient::GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pIt
 // PcClient
 //============================================================================
 
-#ifdef PcClient__GetMeleeSpellFromSkillIndex_x
-FUNCTION_AT_ADDRESS(EQ_Spell*, PcClient::GetMeleeSpellFromSkillIndex(int), PcClient__GetMeleeSpellFromSkillIndex);
-#endif
+EQ_Spell* PcClient::GetMeleeSpellFromSkillIndex(int index)
+{
+	if (index >= 0 && index < NUM_COMBAT_ABILITIES)
+	{
+		int meleeSpell = GetCombatAbility(index);
+
+		if (meleeSpell > 0)
+		{
+			return pSpellMgr->GetSpellByID(meleeSpell);
+		}
+	}
+
+	return nullptr;
+}
 
 //============================================================================
 // PcZoneClient
