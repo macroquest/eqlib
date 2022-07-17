@@ -364,8 +364,7 @@ FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawHeader() const, CListWnd, DrawHead
 FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::DrawItem(int index, int, int) const, CListWnd, DrawItem);
 FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::DeleteAll(), CListWnd, DeleteAll);
 FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::Compare(const SListWndLine&, const SListWndLine&) const, CListWnd, Compare);
-FORWARD_FUNCTION_TO_VTABLE(int, CListWnd::Unknown0x188(int a, int b) const, CListWnd, Unknown0x188);
-FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::Sort(bool unstable), CListWnd, Sort);
+FORWARD_FUNCTION_TO_VTABLE(void, CListWnd::Sort(), CListWnd, Sort);
 
 // overrides
 FORWARD_FUNCTION_TO_VTABLE2(int, CListWnd::Draw(), CListWnd, CXWnd, Draw);

@@ -870,8 +870,7 @@ public:
 	EQLIB_OBJECT virtual int DrawItem(int index, int, int) const;
 	EQLIB_OBJECT virtual void DeleteAll();
 	EQLIB_OBJECT virtual int Compare(const SListWndLine&, const SListWndLine&) const;
-	EQLIB_OBJECT virtual int Unknown0x188(int a, int b) const;
-	EQLIB_OBJECT virtual void Sort(bool unstable = true);
+	EQLIB_OBJECT virtual void Sort();
 
 	// overrides
 	EQLIB_OBJECT virtual int Draw() override;
@@ -897,6 +896,11 @@ public:
 	EQLIB_OBJECT virtual CXRect GetClientClipRect() const override;
 	EQLIB_OBJECT virtual CXWnd* GetChildWndAt(const CXPoint& pos, bool, bool) const override;
 	EQLIB_OBJECT virtual int SetVScrollPos(int pos) override;
+
+	// Emu Combatibility Functions
+	inline void Sort(bool) {
+		Sort();
+	}
 
 	//----------------------------------------------------------------------------
 	// methods
@@ -1013,7 +1017,6 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x1d8*/ int                 Unknown0x1f0;
 /*0x1dc*/ ArrayClass<SListWndLine> ItemsArray;
 /*0x1ec*/ ArrayClass<SListWndColumn> Columns;
 /*0x1fc*/ int                 CurSel;
@@ -1056,7 +1059,6 @@ public:
 	/*0x178*/ void* DrawItem;
 	/*0x17c*/ void* DeleteAll;
 	/*0x180*/ void* Compare;
-	/*0x184*/ void* Unknown0x188;
 	/*0x188*/ void* Sort;
 	/*0x18c*/
 	};
