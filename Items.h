@@ -1359,13 +1359,7 @@ public:
 
 	void UpdateItemDefinition();
 
-	//----------------------------------------------------------------------------
-	// DEPRECATED METHODS
-
-	DEPRECATE("Use GetItemLocation instead of GetGlobalIndex")
-	inline const ItemGlobalIndex& GetGlobalIndex() const { return GlobalIndex; }
-
-	// Compatibility properties for ItemEvolutionData
+	// Compatibility for evolving item data.
 	inline int get_EvolvingGroupID() { return pEvolutionData ? pEvolutionData->GroupID : 0; }
 	__declspec(property(get = get_EvolvingGroupID)) int GroupID;
 
@@ -1380,6 +1374,17 @@ public:
 
 	inline int get_LastEquipped() { return pEvolutionData ? pEvolutionData->LastEquipped : 0; }
 	__declspec(property(get = get_LastEquipped)) int LastEquipped;
+
+	// Create ItemEvolutionData. Intended for use with MQ2LinkDB, to create an item that can be used
+	// to create an item link from.
+	void PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct);
+	void ResetItemEvolutionData();
+
+	//----------------------------------------------------------------------------
+	// DEPRECATED METHODS
+
+	DEPRECATE("Use GetItemLocation instead of GetGlobalIndex")
+		inline const ItemGlobalIndex& GetGlobalIndex() const { return GlobalIndex; }
 
 	DEPRECATE("Use GetItemDefinition() instead of accessing Item2 directly")
 	inline ItemDefinition* get_Item2() { return GetItemDefinition(); }

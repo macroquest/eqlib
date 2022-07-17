@@ -174,6 +174,7 @@ struct [[offsetcomments]] zoneHeader
 // /*0x35c*/ bool         bNoFlux;
 // /*0x380*/ bool         bNoMercenaries;
 // /*0x000*/ int WaterMidi, DayMidi, NightMidi;
+// /*0x000*/ bool bAdjustGamma
 // /*0x3a8*/
 
 	inline bool IsIndoor() {
