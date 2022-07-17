@@ -1014,7 +1014,7 @@ FUNCTION_AT_ADDRESS(int, PcClient::GetAlternateAbilityId(int), PcBase__GetAltern
 FUNCTION_AT_ADDRESS(int, PcClient::GetCombatAbility(int), PcBase__GetCombatAbility);
 #endif
 #ifdef PcBase__GetCombatAbilityTimer_x
-FUNCTION_AT_ADDRESS(unsigned long, PcClient::GetCombatAbilityTimer(int, int), PcBase__GetCombatAbilityTimer);
+FUNCTION_AT_ADDRESS(uint32_t, PcClient::_GetCombatAbilityTimer(int), PcBase__GetCombatAbilityTimer);
 #endif
 #ifdef PcClient__HasLoreItem_x
 FUNCTION_AT_ADDRESS(bool, PcClient::HasLoreItem(const ItemPtr&, bool, bool, bool, bool), PcClient__HasLoreItem);

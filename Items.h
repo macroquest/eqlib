@@ -1374,16 +1374,21 @@ public:
 
 	void UpdateItemDefinition();
 
+	// Compatibility for evolving item data.
+	// Exposes the properties as if they are part of an ItemEvolutionData object
+	ItemEvolutionData GetEvolvingItemData() const;
+	__declspec(property(get = GetEvolvingItemData)) ItemEvolutionDataPtr pEvolutionData;
+
+	// Create ItemEvolutionData. Intended for use with MQ2LinkDB, to create an item that can be used
+	// to create an item link from.
+	void PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct);
+	void ResetItemEvolutionData();
+
 	//----------------------------------------------------------------------------
 	// DEPRECATED METHODS
 
 	DEPRECATE("Use GetItemLocation instead of GetGlobalIndex")
 	inline const ItemGlobalIndex& GetGlobalIndex() const { return GlobalIndex; }
-
-	// Compatibility for evolving item data.
-	// Exposes the properties as if they are part of an ItemEvolutionData object
-	ItemEvolutionData GetEvolvingItemData() const;
-	__declspec(property(get = GetEvolvingItemData)) ItemEvolutionDataPtr pEvolutionData;
 
 	DEPRECATE("Use GetItemDefinition() instead of accessing Item2 directly")
 	inline ItemDefinition* get_Item2() { return GetItemDefinition(); }
@@ -1448,8 +1453,9 @@ struct ItemEvolutionData
 	__declspec(property(get = get_LastEquipped)) int LastEquipped;
 
 private:
-	/*0x00*/ ItemPtr m_item;
-/*0x04*/ };
+/*0x00*/ ItemPtr m_item;
+/*0x04*/
+};
 
 inline ItemEvolutionData ItemBase::GetEvolvingItemData() const
 {

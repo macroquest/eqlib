@@ -61,6 +61,9 @@
 // The initial key ring was added with TBM, which included the Illusion items.
 #define HAS_KEYRING_WINDOW IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBM)
 
+// Group Leadership Experience was introduced in Gates of Discord and removed Feb 19, 2014.
+#define HAS_LEADERSHIP_EXPERIENCE (IS_EXPANSION_LEVEL(EXPANSION_LEVEL_GOD) && !IS_CLIENT_DATE(20140219))
+
 // Lore Equipped is a flag that was added in the TBL expansion
 #define HAS_LORE_EQUIPPED IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBL)
 
@@ -83,6 +86,13 @@
 // Teleportation Keyring added with Terror of Luclin expansion
 #define HAS_TELEPORTATION_KEYRING IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
 
+//----------------------------------------------------------------------------
+// Legacy Defines
+
+// If this expansion level is only up to ROF, then flag this as an ROF2EMU build
+#if !IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF) && IS_EXPANSION_LEVEL(EXPANSION_LEVEL_ROF)
+#define ROF2EMU
+#endif
 
 //----------------------------------------------------------------------------
 #endif // !RC_INVOKED

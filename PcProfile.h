@@ -317,7 +317,7 @@ public:
 /*0x44d8*/ int                                   FactionTable[2048];
 /*0x64d8*/ int                                   CombatAbilities[NUM_COMBAT_ABILITIES];            // KnownCombatAbilities
 /*0x6988*/ uint32_t                              SpellRecastTimer[13];
-/*0x69bc*/ uint32_t                              CombatAbilityTimers[20];
+/*0x69bc*/ uint32_t                              CombatAbilityTimers[NUM_COMBAT_ABILITY_TIMERS];
 ///*0x6a28*/ TList<CombatAbilityTimer>             CombatAbilityTimersList;
 /*0x6a0c*/ uint32_t                              LinkedSpellTimers[20];
 /*0x6a5c*/ uint32_t                              ItemRecastTimers[100];

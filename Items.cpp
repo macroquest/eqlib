@@ -398,6 +398,24 @@ FUNCTION_AT_ADDRESS(int, ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bo
 FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
 #endif
 
+void ItemBase::PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct)
+{
+	EvolvingMaxLevel = maxLevel;
+	EvolvingCurrentLevel = currentLevel;
+	GroupID = groupId;
+	EvolvingExpPct = expPct;
+	LastEquipped = lastEquipped;
+}
+
+void ItemBase::ResetItemEvolutionData()
+{
+	EvolvingMaxLevel = 0;
+	EvolvingCurrentLevel = 0;
+	GroupID = 0;
+	EvolvingExpPct = 0.0;
+	LastEquipped = 0;
+}
+
 //----------------------------------------------------------------------------
 
 ItemClient::ItemClient()

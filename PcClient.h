@@ -1608,10 +1608,24 @@ public:
 	EQLIB_OBJECT void SetFatigue(int);
 	EQLIB_OBJECT void UnpackMyNetPC(char*, int);
 	EQLIB_OBJECT void AlertInventoryChanged();
-	EQLIB_OBJECT unsigned long GetCombatAbilityTimer(int, int);
 	EQLIB_OBJECT void GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>& Out, bool bCurrentProfileOnly = false, bool bIncludeAltStorage = true, bool bIncludeArchived = true);
 	EQLIB_OBJECT void GetNonArchivedOwnedRealEstates(ArrayClass<int>& output);
 	EQLIB_OBJECT EQ_Spell* GetMeleeSpellFromSkillIndex(int skillIdx);
+
+	// Emu Compatibility Helpers
+private:
+	EQLIB_OBJECT uint32_t _GetCombatAbilityTimer(int);
+
+public:
+	uint32_t GetCombatAbilityTimer(int index, int spellGroup = 0) const
+	{
+		UNUSED(spellGroup);
+
+		if (index >= 0 && index < NUM_COMBAT_ABILITY_TIMERS)
+			return GetCurrentPcProfile()->CombatAbilityTimers[index];
+
+		return 0;
+	}
 
 	//----------------------------------------------------------------------------
 	// Deprecated properties
