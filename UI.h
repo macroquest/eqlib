@@ -1017,37 +1017,37 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x1dc*/ ArrayClass<SListWndLine> ItemsArray;
-/*0x1ec*/ ArrayClass<SListWndColumn> Columns;
-/*0x1fc*/ int                 CurSel;
-/*0x200*/ int                 CurCol;
-/*0x204*/ int                 DownItem;
-/*0x208*/ int                 ScrollOffsetY;
-/*0x20c*/ int                 HeaderHeight;
-/*0x210*/ int                 FirstVisibleLine;
-/*0x214*/ int                 SortCol;
-/*0x218*/ bool                bSortAsc;
-/*0x219*/ bool                bFixedHeight;
-/*0x21a*/ bool                bOwnerDraw;
-/*0x21b*/ bool                bCalcHeights;
-/*0x21c*/ bool                bColumnSizable;
-/*0x220*/ int                 LineHeight;
-/*0x224*/ int                 ColumnSepDragged;
-/*0x228*/ int                 ColumnSepMouseOver;
-/*0x22c*/ COLORREF            HeaderText;
-/*0x230*/ COLORREF            Highlight;
-/*0x234*/ COLORREF            Selected;
-/*0x238*/ CUITextureInfo      BGHeader;
-/*0x250*/ COLORREF            BGHeaderTint;
-/*0x254*/ CTextureAnimation*  pRowSep;
-/*0x258*/ CTextureAnimation*  pColumnSep;
-/*0x25c*/ CEditBaseWnd*       pEditCell;
-/*0x260*/ IListItemDataHandler* pItemDataHandler;
-/*0x264*/ bool                bHasItemTooltips;
-/*0x268*/ CXRect              PrevInsideRect;
-/*0x278*/ uint32_t            ListWndStyle;
-/*0x27c*/ eqtime_t            LastVisibleTime;
-/*0x280*/
+/*0x1d8*/ ArrayClass<SListWndLine> ItemsArray;
+/*0x1e8*/ ArrayClass<SListWndColumn> Columns;
+/*0x1f8*/ int                 CurSel;
+/*0x1fc*/ int                 CurCol;
+/*0x200*/ int                 DownItem;
+/*0x204*/ int                 ScrollOffsetY;
+/*0x208*/ int                 HeaderHeight;
+/*0x20c*/ int                 FirstVisibleLine;
+/*0x210*/ int                 SortCol;
+/*0x214*/ bool                bSortAsc;
+/*0x215*/ bool                bFixedHeight;
+/*0x216*/ bool                bOwnerDraw;
+/*0x217*/ bool                bCalcHeights;
+/*0x218*/ bool                bColumnSizable;
+/*0x21c*/ int                 LineHeight;
+/*0x220*/ int                 ColumnSepDragged;
+/*0x224*/ int                 ColumnSepMouseOver;
+/*0x228*/ COLORREF            HeaderText;
+/*0x22c*/ COLORREF            Highlight;
+/*0x230*/ COLORREF            Selected;
+/*0x234*/ CUITextureInfo      BGHeader;
+/*0x24c*/ COLORREF            BGHeaderTint;
+/*0x250*/ CTextureAnimation*  pRowSep;
+/*0x254*/ CTextureAnimation*  pColumnSep;
+/*0x258*/ CEditBaseWnd*       pEditCell;
+/*0x25c*/ IListItemDataHandler* pItemDataHandler;
+/*0x260*/ bool                bHasItemTooltips;
+/*0x264*/ CXRect              PrevInsideRect;
+/*0x274*/ uint32_t            ListWndStyle;
+/*0x278*/ eqtime_t            LastVisibleTime;
+/*0x27c*/
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
@@ -1059,8 +1059,8 @@ public:
 	/*0x178*/ void* DrawItem;
 	/*0x17c*/ void* DeleteAll;
 	/*0x180*/ void* Compare;
-	/*0x188*/ void* Sort;
-	/*0x18c*/
+	/*0x184*/ void* Sort;
+	/*0x188*/
 	};
 
 	// points to the eq instance of the virtual function table for this class
@@ -3066,9 +3066,9 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x280*/ int          NumItems;
-/*0x284*/ int          Unknown0x28C;
-/*0x288*/
+/*0x27c*/ int          NumItems;
+/*0x280*/ int          Unknown0x28C;
+/*0x284*/
 };
 
 //============================================================================
@@ -4113,6 +4113,7 @@ inline namespace deprecated {
 
 class CInvSlotWnd;
 
+// @sizeof(CInvSlot) == 0x14 :: 2013-05-10 (emu) @ 0x697D3E
 class [[offsetcomments]] CInvSlot
 {
 public:
@@ -4153,10 +4154,11 @@ inline namespace deprecated {
 	using PEQINVSLOT DEPRECATE("Use CInvSlot* instead PEQINVSLOT") = CInvSlot*;
 }
 
-const int MAX_INV_SLOTS = 2304;
+const int MAX_INV_SLOTS = 2048;
 
 //----------------------------------------------------------------------------
 
+// @sizeof(CInvSlotMgr) == 0x2014 :: 2013-05-10 (emu) @ 0x49743A
 class [[offsetcomments]] CInvSlotMgr
 {
 public:
@@ -4182,13 +4184,12 @@ public:
 	// data members
 
 /*0x0004*/ CInvSlot*    SlotArray[MAX_INV_SLOTS]; // size 0x2400 //see 72E00F in Nov 06 2018 Test
-/*0x2404*/ int          TotalSlots;
-/*0x2408*/ unsigned int LastUpdate;
-/*0x240c*/ CInvSlot*    pSelectedItem;
-/*0x2410*/ CInvSlot*    pFindSelectedItem;
-/*0x2414*/ bool         bToggleBagsOpen;
-/*0x2415*/ bool         bToggleBankBagsOpen;
-/*0x2418*/
+/*0x2004*/ int          TotalSlots;
+/*0x2008*/ unsigned int LastUpdate;
+/*0x200c*/ CInvSlot*    pSelectedItem;
+/*0x2010*/ bool         bToggleBagsOpen;
+/*0x2011*/ bool         bToggleBankBagsOpen;
+/*0x2014*/
 };
 
 inline namespace deprecated {
@@ -4198,8 +4199,7 @@ inline namespace deprecated {
 
 //----------------------------------------------------------------------------
 
-// note that Invslot needs to be a short or pickupitem wont work
-// CInvSlotWnd_size: 0x2c8 (see 809E6C) in Dec 19 2019 Live
+// @sizeof(CInvSlotWnd) == 0x2ac :: 2013-05-10 (emu) @ 0x755A79
 class [[offsetcomments]] CInvSlotWnd : public CButtonWnd
 {
 	FORCE_SYMBOLS
@@ -4246,8 +4246,7 @@ public:
 /*0x2a0*/ D3DCOLOR           BGTintRollover;
 /*0x2a4*/ D3DCOLOR           BGTintNormal;
 /*0x2a8*/ int                LastTime;
-/*0x2ac*/ int                Unknown0x2cc;
-/*0x2b0*/
+/*0x2ac*/
 
 	inline bool IsHotButton() const { return bHotButton; }
 

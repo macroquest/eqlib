@@ -464,7 +464,6 @@ EQLIB_VAR uintptr_t CInvSlot__GetItemBase;
 EQLIB_VAR uintptr_t CInvSlot__HandleRButtonUp;
 EQLIB_VAR uintptr_t CInvSlot__SliderComplete;
 EQLIB_VAR uintptr_t CInvSlot__UpdateItem;
-EQLIB_VAR uintptr_t CInvSlotMgr__FindInvSlot;
 EQLIB_VAR uintptr_t CInvSlotMgr__MoveItem;
 EQLIB_VAR uintptr_t CInvSlotMgr__SelectSlot;
 EQLIB_VAR uintptr_t CInvSlotWnd__CInvSlotWnd;

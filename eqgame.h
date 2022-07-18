@@ -418,7 +418,6 @@
 #define CHotButton__SetCheck_x                                     0x54FBE0
 
 // CInvSlotMgr
-#define CInvSlotMgr__FindInvSlot_x                                 0x697E50
 #define CInvSlotMgr__MoveItem_x                                    0x698D80
 #define CInvSlotMgr__SelectSlot_x                                  0x697F00
 

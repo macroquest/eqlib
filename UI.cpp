@@ -2041,15 +2041,36 @@ FUNCTION_AT_ADDRESS(bool, CInvSlotMgr::MoveItem(const ItemGlobalIndex& from, con
 #ifdef CInvSlotMgr__CreateInvSlot_x
 FUNCTION_AT_ADDRESS(CInvSlot*, CInvSlotMgr::CreateInvSlot(CInvSlotWnd*), CInvSlotMgr__CreateInvSlot);
 #endif
-#ifdef CInvSlotMgr__FindInvSlot_x
-FUNCTION_AT_ADDRESS(CInvSlot*, CInvSlotMgr::FindInvSlot(int, int, ItemContainerInstance, bool), CInvSlotMgr__FindInvSlot);
-#endif
 #ifdef CInvSlotMgr__SelectSlot_x
 FUNCTION_AT_ADDRESS(void, CInvSlotMgr::SelectSlot(CInvSlot*), CInvSlotMgr__SelectSlot);
 #endif
 #ifdef CInvSlotMgr__UpdateSlots_x
 FUNCTION_AT_ADDRESS(void, CInvSlotMgr::UpdateSlots(), CInvSlotMgr__UpdateSlots);
 #endif
+
+CInvSlot* CInvSlotMgr::FindInvSlot(int topSlot, int subSlot /* = -1*/,
+	ItemContainerInstance location /* = eItemContainerPossessions*/, bool includeLinkedItems /*= true*/)
+{
+	UNUSED(includeLinkedItems);
+
+	if (topSlot < 0) return nullptr;
+
+	for (int i = 0; i < TotalSlots; ++i)
+	{
+		CInvSlot* invSlot = SlotArray[i];
+		if (invSlot && invSlot->pInvSlotWnd)
+		{
+			const ItemGlobalIndex& loc = invSlot->pInvSlotWnd->ItemLocation;
+
+			if (loc.GetLocation() == location && loc.GetTopSlot() == topSlot && loc.GetSlot(1) == subSlot)
+			{
+				return invSlot;
+			}
+		}
+	}
+
+	return nullptr;
+}
 
 //============================================================================
 // CInvSlot
