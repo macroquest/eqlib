@@ -762,7 +762,6 @@ struct [[offsetcomments]] SListWndCell
 /*0x08*/ COLORREF                 Color = RGB(255, 255, 255);
 /*0x0c*/ bool                     bOnlyDrawTexture = false;
 /*0x10*/ CXWnd*                   pWnd = nullptr;
-/*0x14*/ void*                    Unknown1 = nullptr;
 /*0x18*/
 };
 
@@ -776,8 +775,10 @@ struct [[offsetcomments]] SListWndLine
 /*0x01c*/ STreeData               Treedata;
 /*0x024*/ char                    TooltipText[256];
 /*0x124*/ bool                    bVisible = true;
-/*0x128*/ uint32_t                bIsSeparator = 0;
 /*0x12c*/
+
+	uint32_t get_bIsSeparator() const { return 0; }
+	__declspec(property(get = get_bIsSeparator)) uint32_t bIsSeparator;
 };
 
 class [[offsetcomments]] SListWndSortInfo
