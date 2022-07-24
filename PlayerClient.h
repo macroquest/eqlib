@@ -323,38 +323,30 @@ struct [[offsetcomments]] PZCPhysicsInfo
 // @end: PZCPhysicsInfo Members
 };
 
-struct HASHENTRY
-{
-	PlayerClient* spawn;
-	DWORD         key;                             // same as SpawnID for spawns
-	HASHENTRY*    next;
-};
-using PHASHENTRY = HASHENTRY*;
-
-struct HASHTABLE
-{
-    HASHENTRY** table;
-    int size;
-};
-using PHASHTABLE = HASHTABLE*;
-
 class [[offsetcomments]] PlayerManagerBase
 {
 public:
-	virtual ~PlayerManagerBase() {}
+	~PlayerManagerBase() {}
 	EQLIB_OBJECT PlayerClient* DestroyPlayer(PlayerClient*);
 
-/*0x04*/ DWORD         random;                   // rand() % 20000
-/*0x08*/ PlayerClient* FirstSpawn;
-/*0x0c*/ PlayerClient* LastSpawn;
-/*0x10*/ DWORD         unknown10;
-/*0x14*/ HASHTABLE*    SPHash;
-/*0x18*/
+/*0x00*/ uint32_t                  NextID;
+/*0x04*/ TList<PlayerClient>       PlayerList;
+/*0x0c*/ HashTable<PlayerClient*>* PlayerNameHashTable;
+/*0x10*/ HashTable<PlayerClient*>* PlayerIdHashTable;
+/*0x14*/
+
+	PlayerClient* get_FirstSpawn() const { return (PlayerClient*)PlayerList.GetFirstNode(); }
+	__declspec(property(get = get_FirstSpawn)) PlayerClient* FirstSpawn;
+
+	PlayerClient* get_LastSpawn() const { return (PlayerClient*)PlayerList.GetLastNode(); }
+	__declspec(property(get = get_LastSpawn)) PlayerClient* LastSpawn;
 };
 
 class PlayerManagerClient : public PlayerManagerBase
 {
 public:
+	virtual ~PlayerManagerClient() {}
+
 	//PlayerClient* GetPlayerFromPartialName(const char* szName, PlayerBase* = nullptr);
 	//PlayerClient* GetPlayerFromName(const char* szName);
 

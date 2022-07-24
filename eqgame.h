@@ -770,6 +770,7 @@
 #define PlayerManagerClient__GetPlayerFromPartialName_x            0x599710
 #define PlayerManagerClient__CreatePlayer_x                        0x599BD0
 #define PlayerManagerBase__PrepForDestroyPlayer_x                  0x8CF790
+#define PlayerManagerBase__DestroyAllPlayers_x                     0x8CF800
 
 // KeyPressHandler
 #define pinstKeypressHandler_x                                     0xE639B0
