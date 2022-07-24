@@ -1005,7 +1005,7 @@ FUNCTION_AT_ADDRESS(int, PcClient::numInParty(), EQ_PC__numInParty);
 FUNCTION_AT_ADDRESS(unsigned char, PcClient::AtSkillLimit(int), EQ_PC__AtSkillLimit);
 #endif
 #ifdef PcZoneClient__GetItemRecastTimer_x
-FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype), PcZoneClient__GetItemRecastTimer);
+FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::_GetItemRecastTimer(const ItemPtr& item), PcZoneClient__GetItemRecastTimer);
 #endif
 #ifdef PcBase__GetAlternateAbilityId_x
 FUNCTION_AT_ADDRESS(int, PcClient::GetAlternateAbilityId(int), PcBase__GetAlternateAbilityId);

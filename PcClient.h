@@ -1533,7 +1533,17 @@ public:
 	EQLIB_OBJECT void RemoveBuffEffect(int Index, int SpawnID);
 	EQLIB_OBJECT void BandolierSwap(int index);
 	EQLIB_OBJECT uint32_t GetLinkedSpellReuseTimer(int index);
-	EQLIB_OBJECT uint32_t GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype);
+
+private:
+	EQLIB_OBJECT uint32_t _GetItemRecastTimer(const ItemPtr& item);
+
+public:
+	uint32_t GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes eType = ItemSpellType_Clicky)
+	{
+		UNUSED(eType);
+		
+		return _GetItemRecastTimer(item);
+	}
 
 	// Unverified
 	EQLIB_OBJECT bool HasCombatAbility(int);
