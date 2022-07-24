@@ -119,7 +119,7 @@ FUNCTION_AT_ADDRESS(AggroMeterManagerClient&, AggroMeterManagerClient::Instance(
 //============================================================================
 
 #ifdef AltAdvManager__GetAAById_x
-FUNCTION_AT_ADDRESS(CAltAbilityData*, AltAdvManager::GetAAById(int, int), AltAdvManager__GetAAById);
+FUNCTION_AT_ADDRESS(CAltAbilityData*, AltAdvManager::GetAAById(int), AltAdvManager__GetAAById);
 #endif
 #ifdef AltAdvManager__IsAbilityReady_x
 FUNCTION_AT_ADDRESS(bool, AltAdvManager::IsAbilityReady(PcClient*, CAltAbilityData*, int*, int*), AltAdvManager__IsAbilityReady);

@@ -93,7 +93,15 @@ using PALTABILITY = CAltAbilityData*;
 class [[offsetcomments]] AltAdvManager
 {
 public:
-	EQLIB_OBJECT CAltAbilityData* GetAAById(int index, int level = -1);
+	EQLIB_OBJECT CAltAbilityData* GetAAById(int index);
+
+	inline CAltAbilityData* GetAAById(int index, int level)
+	{
+		UNUSED(level);
+
+		return GetAAById(index);
+	}
+
 	EQLIB_OBJECT bool IsAbilityReady(PcClient*, CAltAbilityData*, int* Refresh/*out*/ = nullptr, int* Timer/*out*/ = nullptr);
 	EQLIB_OBJECT uint32_t GetCalculatedTimer(PcClient*, CAltAbilityData*);
 	EQLIB_OBJECT bool CanSeeAbility(PcClient*, CAltAbilityData*, bool = true);
