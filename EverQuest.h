@@ -67,7 +67,7 @@ enum EPlace
 };
 
 // size of zoneHeader is the distance from this byte to the zoneHeader
-// @sizeof(zoneHeader) == 0x2a4 :: 2022-07-18 (test) @ 0x140b75948
+// @sizeof(zoneHeader) == 0x2a4 :: 2022-07-18 (live) @ 0x140b75948
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -174,6 +174,7 @@ struct [[offsetcomments]] zoneHeader
 // /*0x35c*/ bool         bNoFlux;
 // /*0x380*/ bool         bNoMercenaries;
 // /*0x000*/ int WaterMidi, DayMidi, NightMidi;
+// /*0x000*/ bool bAdjustGamma
 // /*0x3a8*/
 
 	inline bool IsIndoor() {
@@ -333,7 +334,7 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x6b158 :: 2022-07-18 (test) @ 0x140be0608
+// @sizeof(EverQuestinfo) == 0x6b158 :: 2022-07-18 (live) @ 0x140be0608
 constexpr size_t EverQuestinfo_size = 0x6b158;
 
 struct [[offsetcomments]] EverQuestinfo
@@ -717,7 +718,7 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2022-07-18 (test) @ 0x1402e7010
+// @sizeof(CEverQuest) == 0x396f8 :: 2022-07-18 (live) @ 0x1402e6df0
 constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler

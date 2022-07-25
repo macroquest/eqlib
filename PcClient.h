@@ -1414,6 +1414,8 @@ public:
 
 	// Stores information about purchased Mercenary Abilities
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
+	float GetMercAAExpPct() const { return (MercAAExp + 5) / 10.f; }
+	int64_t GetMercAAExp() const { return MercAAExp; }
 
 	int GetAirSupply() const { return AirSupply; }
 	int GetLevel() const { return GetCurrentPcProfile()->Level; }
@@ -1464,7 +1466,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x31e8 :: 2022-07-18 (test) @ 0x14023051e
+// @sizeof(PcClient) == 0x31e8 :: 2022-07-18 (live) @ 0x14023033e
 constexpr size_t PcClient_size = 0x31e8;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
@@ -1535,7 +1537,7 @@ public:
 	EQLIB_OBJECT void SetFatigue(int);
 	EQLIB_OBJECT void UnpackMyNetPC(char*, int);
 	EQLIB_OBJECT void AlertInventoryChanged();
-	EQLIB_OBJECT unsigned long GetCombatAbilityTimer(int, int);
+	EQLIB_OBJECT uint32_t GetCombatAbilityTimer(int, int);
 	EQLIB_OBJECT void GetItemContainedRealEstateIds(ArrayClass<ItemContainingRealEstate>& Out, bool bCurrentProfileOnly = false, bool bIncludeAltStorage = true, bool bIncludeArchived = true);
 	EQLIB_OBJECT void GetNonArchivedOwnedRealEstates(ArrayClass<int>& output);
 	EQLIB_OBJECT EQ_Spell* GetMeleeSpellFromSkillIndex(int skillIdx);

@@ -621,6 +621,7 @@ constexpr int AA_CHAR_MAX_REAL = 300;
 // found in CSpellBookWnd__GetBookSlot_x
 constexpr int NUM_BOOK_SLOTS = 1120;
 constexpr int NUM_COMBAT_ABILITIES = 300;
+constexpr int NUM_COMBAT_ABILITY_TIMERS = 25;
 constexpr int NUM_SKILLS = 100;
 constexpr int NUM_INNATE = 25;
 constexpr int CONCURRENT_SKILLS = 2;

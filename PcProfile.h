@@ -300,7 +300,7 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x6a28 :: 2022-07-18 (test) @ 0x140591ae4
+// @sizeof(PcProfile) == 0x6a28 :: 2022-07-18 (live) @ 0x140591e14
 constexpr size_t PcProfile_size = 0x6a28;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
@@ -315,7 +315,7 @@ public:
 /*0x26c0*/ int                                   FactionTable[2048];
 /*0x46c0*/ int                                   CombatAbilities[NUM_COMBAT_ABILITIES];            // KnownCombatAbilities
 /*0x4b70*/ uint32_t                              SpellRecastTimer[15];
-/*0x4bac*/ uint32_t                              CombatAbilityTimers[25];
+/*0x4bac*/ uint32_t                              CombatAbilityTimers[NUM_COMBAT_ABILITY_TIMERS];
 /*0x4c10*/ TList<CombatAbilityTimer>             CombatAbilityTimersList;
 /*0x4c20*/ uint32_t                              LinkedSpellTimers[25];                            // we used to call this CombatAbilityTimes
 /*0x4c84*/ uint32_t                              ItemRecastTimers[100];

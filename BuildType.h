@@ -18,7 +18,7 @@
 // Defines the EverQuest build type (LIVE, TEST, etc)
 //----------------------------------------------------------------------------
 
-#define TEST
+#define LIVE
 
 
 //----------------------------------------------------------------------------
@@ -41,6 +41,12 @@
 // AdvancedLoot was released on March 25, 2015
 #define HAS_ADVANCED_LOOT IS_CLIENT_DATE(20150325)
 
+// Autoskills was added April 19, 2017
+#define HAS_AUTOSKILLS IS_CLIENT_DATE(201704019)
+
+// Dragon Hoard was added with the Claws of Veeshan Expansion
+#define HAS_DRAGON_HOARD IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COV)
+
 // Faction window was added in The Burning Lands expansion
 #define HAS_FACTION_WINDOW IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBL)
 
@@ -55,6 +61,9 @@
 // The initial key ring was added with TBM, which included the Illusion items.
 #define HAS_KEYRING_WINDOW IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBM)
 
+// Group Leadership Experience was introduced in Gates of Discord and removed Feb 19, 2014.
+#define HAS_LEADERSHIP_EXPERIENCE (IS_EXPANSION_LEVEL(EXPANSION_LEVEL_GOD) && !IS_CLIENT_DATE(20140219))
+
 // Lore Equipped is a flag that was added in the TBL expansion
 #define HAS_LORE_EQUIPPED IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBL)
 
@@ -64,6 +73,9 @@
 // Mercenary AA was added with the Call of the Forsaken expansion.
 #define HAS_MERCENARY_AA IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF)
 
+// Mercenary Inventory added with the Call of the Forsaken expansion.
+#define HAS_MERCENARY_INVENTORY IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF)
+
 // Merchants Perk adds two extra inventory slots. This came out right before
 // Torment of Luclin.
 #define HAS_MERCHANTS_PERK IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
@@ -71,6 +83,16 @@
 // Tabbed chat was added on March 13, 2019
 #define HAS_TABBED_CHAT IS_CLIENT_DATE(20190313)
 
+// Teleportation Keyring added with Terror of Luclin expansion
+#define HAS_TELEPORTATION_KEYRING IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
+
+//----------------------------------------------------------------------------
+// Legacy Defines
+
+// If this expansion level is only up to ROF, then flag this as an ROF2EMU build
+#if !IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF) && IS_EXPANSION_LEVEL(EXPANSION_LEVEL_ROF)
+#define ROF2EMU
+#endif
 
 //----------------------------------------------------------------------------
 #endif // !RC_INVOKED

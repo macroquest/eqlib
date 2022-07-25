@@ -372,6 +372,23 @@ FUNCTION_AT_ADDRESS(bool, ItemBase::IsLoreEquipped(bool bIncludeSockets) const, 
 FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
 #endif
 
+void ItemBase::PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct)
+{
+	if (!pEvolutionData)
+		pEvolutionData = SoeUtil::MakeShared<ItemEvolutionData>();
+
+	pEvolutionData->EvolvingMaxLevel = maxLevel;
+	pEvolutionData->EvolvingCurrentLevel = currentLevel;
+	pEvolutionData->GroupID = groupId;
+	pEvolutionData->EvolvingExpPct = expPct;
+	pEvolutionData->LastEquipped = lastEquipped;
+}
+
+void ItemBase::ResetItemEvolutionData()
+{
+	pEvolutionData.reset();
+}
+
 //----------------------------------------------------------------------------
 
 ItemClient::ItemClient()

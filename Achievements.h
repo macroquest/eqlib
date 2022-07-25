@@ -221,8 +221,9 @@ public:
 /*0x80*/ int                      version = 0;
 /*0x84*/ int                      points = 0;
 /*0x88*/ int                      rewardSet = 0;
-/*0x8c*/ uint8_t                  unknown0x60 = 0; // maybe a bool?
-/*0x90*/
+/*0x8c*/ uint8_t                  unknown1 = 0; // maybe a bool?
+/*0x90*/ uint32_t                 unknown2 = 0;
+/*0x94*/
 };
 
 //----------------------------------------------------------------------------
