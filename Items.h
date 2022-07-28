@@ -981,20 +981,19 @@ public:
 /*0x0ec*/ int                 Lore;                              // -1=Lore 0=Not Lore >=1=Lore Group
 /*0x0f0*/ int                 LoreEquipped;                      // check me
 /*0x0f4*/ bool                Artifact;
-/*0x0f5*/ bool                Summoned;
-/*0x0f6*/ char                SvCold;
-/*0x0f7*/ char                SvFire;
-/*0x0f8*/ char                SvMagic;
-/*0x0f9*/ char                SvDisease;
-/*0x0fa*/ char                SvPoison;
-/*0x0fb*/ char                SvCorruption;
-/*0x0fc*/ char                STR;
-/*0x0fd*/ char                STA;
-/*0x0fe*/ char                AGI;
-/*0x0ff*/ char                DEX;
-/*0x100*/ char                CHA;
-/*0x101*/ char                INT;
-/*0x102*/ char                WIS;
+/*0x0f5*/ char                SvCold;
+/*0x0f6*/ char                SvFire;
+/*0x0f7*/ char                SvMagic;
+/*0x0f8*/ char                SvDisease;
+/*0x0f9*/ char                SvPoison;
+/*0x0fa*/ char                SvCorruption;
+/*0x0fb*/ char                STR;
+/*0x0fc*/ char                STA;
+/*0x0fd*/ char                AGI;
+/*0x0fe*/ char                DEX;
+/*0x0ff*/ char                CHA;
+/*0x100*/ char                INT;
+/*0x101*/ char                WIS;
 /*0x104*/ int                 HP;
 /*0x108*/ int                 Mana;
 /*0x10c*/ int                 AC;
@@ -1154,6 +1153,11 @@ public:
 	ALT_MEMBER_GETTER(uint8_t, ContainerType, Combine);
 
 	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")
+
+	// No longer present, but necessary for emu compatibility
+	static inline bool get_Summoned() { return false; }
+	static void set_Summoned(bool b) { }
+	__declspec(property(get = get_Summoned, put = set_Summoned)) bool Summoned;
 };
 
 SIZE_CHECK(ItemDefinition, ItemDefinition_size);
