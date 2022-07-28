@@ -833,7 +833,7 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetBaseSkill(int), CharacterZoneCl
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetCurrentMod(int index), CharacterZoneClient__GetCurrentMod);
 #endif
 #ifdef CharacterZoneClient__GetModCap_x
-FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetModCap(int index, bool bToggle), CharacterZoneClient__GetModCap);
+FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetModCap(int index), CharacterZoneClient__GetModCap);
 #endif
 
 FUNCTION_AT_VIRTUAL_ADDRESS(int, CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x40);

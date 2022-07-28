@@ -1043,7 +1043,8 @@ public:
 	EQLIB_OBJECT int GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2);
 	EQLIB_OBJECT int GetHPRegen(bool bIncItemsAndBuffs = true, bool* pOutIsBleeding = nullptr, bool bCombat = false);
 	EQLIB_OBJECT int GetManaRegen(bool bIncItemsAndBuffs = true, bool bCombat = true);
-	EQLIB_OBJECT int GetModCap(int index, bool bToggle = false);
+	EQLIB_OBJECT int GetModCap(int index);
+	inline int GetModCap(int index, bool bToggle) { UNUSED(bToggle); return GetModCap(index); }
 	EQLIB_OBJECT EQ_Affect* GetPCSpellAffect(int affectId, int* slotnum, int* spaslot = nullptr) const;
 	EQLIB_OBJECT int Max_Endurance(bool bCapAtMax = true);
 	EQLIB_OBJECT int Max_HP(int SpawnType, bool bCapAtMax = true);
