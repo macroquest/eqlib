@@ -3178,7 +3178,7 @@ FUNCTION_AT_ADDRESS(CScreenPieceTemplate*, CSidlManagerBase::FindScreenPieceTemp
 FUNCTION_AT_ADDRESS(CScreenPieceTemplate*, CSidlManagerBase::FindScreenPieceTemplate(const CXStr&) const, CSidlManagerBase__FindScreenPieceTemplate1);
 #endif
 #ifdef CSidlManagerBase__CreateXWndFromTemplate_x
-FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, CControlTemplate*, bool), CSidlManagerBase__CreateXWndFromTemplate);
+FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, CControlTemplate*), CSidlManagerBase__CreateXWndFromTemplate);
 #endif
 #ifdef CSidlManagerBase__CreateXWndFromTemplate1_x
 FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, const CXStr&), CSidlManagerBase__CreateXWndFromTemplate1);

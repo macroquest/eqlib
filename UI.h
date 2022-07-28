@@ -406,7 +406,9 @@ public:
 	//----------------------------------------------------------------------------
 	// methods
 
-	EQLIB_OBJECT CXRect GetListRect(bool) const;
+	EQLIB_OBJECT CXRect GetListRect() const;
+	inline CXRect GetListRect(bool) { return GetListRect(); }
+
 	EQLIB_OBJECT void SetColors(COLORREF norm, COLORREF highlight, COLORREF selected);
 	EQLIB_OBJECT int InsertChoice(const CXStr& text, uint32_t data = 0);
 	EQLIB_OBJECT void SetChoice(int index);
@@ -693,6 +695,7 @@ public:
 // CLabelWnd
 //============================================================================
 
+// size: 0x1e4
 class [[offsetcomments]] CLabelWnd : public CXWnd
 {
 public:
@@ -713,17 +716,21 @@ public:
 /*0x1da*/ bool         bAlignCenter;
 /*0x1dc*/ int          xOffset;
 /*0x1e0*/ bool         bResizeHeightToText;
-/*0x1e4*/ CXStr        PrependText;
-/*0x1e8*/ CXStr        Text;
-/*0x1ec*/ CXStr        AppendText;
-/*0x1f0*/ bool         bTextDirty;
-/*0x1f4*/
+/*0x1e4*/
+
+///*0x1e4*/ CXStr        PrependText;
+///*0x1e8*/ CXStr        Text;
+///*0x1ec*/ CXStr        AppendText;
+///*0x1f0*/ bool         bTextDirty;
+
+	__declspec(property(get = GetWindowText, put = SetWindowText)) CXStr Text;
 };
 
 //============================================================================
 // CLabel
 //============================================================================
 
+// size: 0x1e8
 class [[offsetcomments]] CLabel : public CLabelWnd
 {
 public:
@@ -735,8 +742,8 @@ public:
 	virtual void UpdateText() override;
 
 	// data members
-/*0x1f4*/ int          EQType;
-/*0x1f8*/
+/*0x1e4*/ int          EQType;
+/*0x1e8*/
 };
 
 inline namespace deprecated {
@@ -1081,6 +1088,7 @@ public:
 	CTextureAnimation* GetTabIcon() const { return pTATabIcon; }
 
 	EQLIB_OBJECT CXStr GetTabText(bool bShowFlashing = false) const;
+
 	EQLIB_OBJECT void SetTabText(CXStr&) const;
 	EQLIB_OBJECT void FlashTab(bool flash, int msTime) const;
 
@@ -3648,7 +3656,7 @@ public:
 // CGroupWnd
 //============================================================================
 
-// Sep 21 2018
+// Size: 0x3c8
 class [[offsetcomments]] CGroupWnd : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS
@@ -3692,23 +3700,26 @@ public:
 /*0x33c*/ CButtonWnd*        GroupTankButton[6];
 /*0x354*/ CButtonWnd*        GroupAssistButton[6];
 /*0x36c*/ CButtonWnd*        GroupPullerButton[6];
-/*0x384*/ CButtonWnd*        GroupMarkNPCButton[6];
-/*0x39c*/ CLabel*            AggroPercLabel[6];
-/*0x3b4*/ long               Timer;
-/*0x3b8*/ CContextMenu*      GroupContextMenu;
-/*0x3bc*/ bool               bPetbars;
-/*0x3bd*/ bool               bManabars;
-/*0x3be*/ bool               bEndurancebars;
-/*0x3bf*/ bool               bAggroPct;
-/*0x3c0*/ int                PetBarIndex;
-/*0x3c4*/ int                ManaBarIndex;
-/*0x3c8*/ int                EnduranceBarIndex;
-/*0x3cc*/ int                AggroPctIndex;
-/*0x3d0*/ int                RoleSeparatorID;
-/*0x3d4*/ int                RoleSelectMenu;
-/*0x3d8*/ int                RoleSelectMenuID;
-/*0x3dc*/ bool               bPlayerInvited;
-/*0x3e0*/
+/*0x384*/ CLabel*            AggroPercLabel[6];
+/*0x39c*/ long               Timer;
+/*0x3a0*/ CContextMenu*      GroupContextMenu;
+/*0x3a4*/ bool               bPetbars;
+/*0x3a5*/ bool               bManabars;
+/*0x3a6*/ bool               bEndurancebars;
+/*0x3a7*/ bool               bAggroPct;
+/*0x3a8*/ int                PetBarIndex;
+/*0x3ac*/ int                ManaBarIndex;
+/*0x3b0*/ int                EnduranceBarIndex;
+/*0x3b4*/ int                AggroPctIndex;
+/*0x3b8*/ int                RoleSeparatorID;
+/*0x3bc*/ int                RoleSelectMenu;
+/*0x3c0*/ int                RoleSelectMenuID;
+/*0x3c4*/ bool               bPlayerInvited;
+/*0x3c8*/
+
+	// GroupMarkNPCButton doesn't exist on the rof2 client
+	CButtonWnd* get_GroupMarkNPCButton(int) { return nullptr; }
+	__declspec(property(get = get_GroupMarkNPCButton)) CButtonWnd* GroupMarkNPCButton[];
 };
 
 //============================================================================
@@ -5654,6 +5665,7 @@ enum ESpellDisplayType
 	SpellDisplayType_TargetBuff,
 };
 
+// size: 0x258
 class [[offsetcomments]] CSpellDisplayWnd : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS
@@ -5670,16 +5682,16 @@ public:
 /*0x228*/ CStmlWnd*          pDescription;
 /*0x22c*/ CStmlWnd*          pName;
 /*0x230*/ CButtonWnd*        pIcon;
-/*0x234*/ SoeUtil::String    DescriptionText;
-/*0x244*/ SoeUtil::String    TitleText;
-/*0x254*/ bool               bActiveItem;
-/*0x258*/ CTextureAnimation* ptaBuffIcons;
-/*0x25c*/ CTextureAnimation* ptaDragIcons;
-/*0x260*/ bool               bFailed;
-/*0x264*/ ESpellDisplayType  SpellDisplayType;
-/*0x268*/ int                SpellID;
-/*0x26c*/ int                LastUpdateTime;
-/*0x270*/
+/*0x234*/ CXStr              DescriptionText;
+/*0x238*/ CXStr              TitleText;
+/*0x23c*/ bool               bActiveItem;
+/*0x240*/ CTextureAnimation* ptaBuffIcons;
+/*0x244*/ CTextureAnimation* ptaDragIcons;
+/*0x248*/ bool               bFailed;
+/*0x25c*/ ESpellDisplayType  SpellDisplayType;
+/*0x250*/ int                SpellID;
+/*0x254*/ int                LastUpdateTime;
+/*0x258*/
 };
 
 inline namespace deprecated {
@@ -6328,7 +6340,13 @@ public:
 
 	// this "bSomething" is a parameter passed through to CreateButtonWnd and CreateScreenWnd, which is then passed back through
 	// CreateXWndFromTemplate recursively... not sure where it is used yet. A couple non-xml source set it to 1.
-	EQLIB_OBJECT CXWnd* CreateXWndFromTemplate(CXWnd* pParent, CControlTemplate* pTemplate, bool bUnknown = false);
+	EQLIB_OBJECT CXWnd* CreateXWndFromTemplate(CXWnd* pParent, CControlTemplate* pTemplate);
+
+	inline CXWnd* CreateXWndFromTemplate(CXWnd* pParent, CControlTemplate* pTemplate, bool bUnknown)
+	{
+		UNUSED(bUnknown);
+		return CreateXWndFromTemplate(pParent, pTemplate);
+	}
 
 	// same as above but looks up a template by name.
 	EQLIB_OBJECT CXWnd* CreateXWndFromTemplate(CXWnd* pParent, const CXStr& name);
