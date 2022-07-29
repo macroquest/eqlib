@@ -778,7 +778,6 @@ EQLIB_VAR uintptr_t PlayerZoneClient__ChangeHeight;
 EQLIB_VAR uintptr_t PlayerZoneClient__DoAttack;
 EQLIB_VAR uintptr_t PlayerZoneClient__GetLevel;
 EQLIB_VAR uintptr_t PlayerZoneClient__IsValidTeleport;
-EQLIB_VAR uintptr_t PlayerZoneClient__LegalPlayerRace;
 EQLIB_VAR uintptr_t ProfileManager__GetCurrentProfile;
 EQLIB_VAR uintptr_t RealEstateManagerClient__Instance;
 EQLIB_VAR uintptr_t SpellManager__GetSpellByGroupAndRank;

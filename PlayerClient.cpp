@@ -480,9 +480,6 @@ FUNCTION_AT_ADDRESS(bool, PlayerBase::HasProperty(int, int, int), PlayerBase__Ha
 // PlayerZoneClient
 //============================================================================
 
-#ifdef PlayerZoneClient__LegalPlayerRace_x
-FUNCTION_AT_ADDRESS(bool, PlayerZoneClient::LegalPlayerRace(), PlayerZoneClient__LegalPlayerRace);
-#endif
 #ifdef PlayerZoneClient__GetLevel_x
 FUNCTION_AT_ADDRESS(unsigned char, PlayerZoneClient::GetLevel() const, PlayerZoneClient__GetLevel);
 #endif

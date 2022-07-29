@@ -885,7 +885,6 @@ INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__ChangeHeight);
 INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__DoAttack);
 INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__GetLevel);
 INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__IsValidTeleport);
-INITIALIZE_EQGAME_OFFSET(PlayerZoneClient__LegalPlayerRace);
 INITIALIZE_EQGAME_OFFSET(ProfileManager__GetCurrentProfile);
 INITIALIZE_EQGAME_OFFSET(RealEstateManagerClient__Instance);
 INITIALIZE_EQGAME_OFFSET(SpellManager__GetSpellByGroupAndRank);

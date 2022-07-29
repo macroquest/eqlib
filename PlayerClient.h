@@ -610,12 +610,10 @@ public:
 /*0x10b0*/ ArrayClass<bool>   PhysicsEffectsUpdated;
 /*0x10c0*/
 
-	EQLIB_OBJECT bool LegalPlayerRace();
-
-	EQLIB_OBJECT bool LegalPlayerRace(int race)
+	inline bool LegalPlayerRace(EQRace race = -1)
 	{
 		if (race == -1)
-			return LegalPlayerRace();
+			race = mActorClient.Race;
 
 		return race <= EQR_GNOME
 			|| race == EQR_IKSAR

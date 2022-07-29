@@ -762,7 +762,6 @@
 #define PlayerZoneClient__DoAttack_x                               0x5A5000
 #define PlayerZoneClient__GetLevel_x                               0x59FC90
 #define PlayerZoneClient__IsValidTeleport_x                        0x506A20
-#define PlayerZoneClient__LegalPlayerRace_x                        0x49DEB0
 
 // PlayerManagerClient
 #define PlayerManagerClient__GetSpawnByID_x                        0x5996E0
