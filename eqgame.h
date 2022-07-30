@@ -928,7 +928,7 @@
 #define ItemBase__IsLore_x                                         0x7B4B70
 //#define ItemBase__IsLoreEquipped_x                                 0x0
 
-#define MultipleItemMoveManager__ProcessMove_x                     0x5726F0
+#define MultipleItemMoveManager__ProcessMove_x                     0x572300
 
 // EQPlacedItemManager
 #define EQPlacedItemManager__Instance_x                            0x5061E0

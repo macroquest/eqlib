@@ -1593,11 +1593,12 @@ public:
 
 	struct MoveItem
 	{
-		ItemGlobalIndex        from;
-		ItemGlobalIndex        to;
-		int                    count = 0;
-		int                    flags = 0;
-		MoveSearchOptions      searchOptions = MoveSearchOptionNone;
+	/*0x00*/ ItemGlobalIndex        from;
+	/*0x0c*/ ItemGlobalIndex        to;
+	/*0x18*/ int                    count = 0;
+	/*0x1c*/ int                    flags = 0;
+	/*0x20*/ MoveSearchOptions      searchOptions = MoveSearchOptionNone;
+	/*0x24*/
 	};
 
 	using MoveItemArray = ArrayClass2<MoveItem>;

@@ -80,6 +80,9 @@
 // Torment of Luclin.
 #define HAS_MERCHANTS_PERK IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
 
+// Emu client technically supports this, but the server does not. Just gate it on a live expansion.
+#define HAS_MULTIPLE_ITEM_MOVE_MANAGER IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
+
 // Tabbed chat was added on March 13, 2019
 #define HAS_TABBED_CHAT IS_CLIENT_DATE(20190313)
 
