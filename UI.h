@@ -3924,7 +3924,7 @@ public:
 	EQLIB_OBJECT bool ValidGuildName(int);
 	EQLIB_OBJECT char* GetGuildMotd();
 	EQLIB_OBJECT char* GetGuildMotdAuthor();
-	EQLIB_OBJECT const char* GetGuildName(int64_t, char* buffer, bool* found, bool) const;
+	EQLIB_OBJECT const char* GetGuildName(uint32_t) const;
 	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
 	EQLIB_OBJECT void DeleteAllMembers();
 	EQLIB_OBJECT void DemoteMember(GuildMember*);
@@ -3933,14 +3933,6 @@ public:
 	EQLIB_OBJECT void SetGuildMotd(guildmotdSet*);
 
 	EQLIB_OBJECT int64_t GetGuildIndex(const char*);
-
-	inline const char* GetGuildName(int64_t guildId) const
-	{
-		char buffer[64] = { 0 };
-		bool found = false;
-
-		return GetGuildName(guildId, buffer, &found, true);
-	}
 
 
 	// private
