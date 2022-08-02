@@ -402,6 +402,7 @@ EQLIB_VAR uintptr_t CGaugeWnd__Draw;
 EQLIB_VAR uintptr_t CGroupWnd__UpdateDisplay;
 EQLIB_VAR uintptr_t CGroupWnd__WndNotification;
 EQLIB_VAR uintptr_t CGuild__FindMemberByName;
+EQLIB_VAR uintptr_t CGuild__GetGuildIndex;
 EQLIB_VAR uintptr_t CGuild__GetGuildName;
 EQLIB_VAR uintptr_t CharacterBase__GetItemByGlobalIndex;
 EQLIB_VAR uintptr_t CharacterBase__GetItemByGlobalIndex1;

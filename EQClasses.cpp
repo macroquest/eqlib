@@ -295,12 +295,9 @@ FUNCTION_AT_ADDRESS(void, CGuild::ChangeGuildMemberName(char*), CGuild__ChangeGu
 #ifdef CGuild__FindMemberByName_x
 FUNCTION_AT_ADDRESS(GuildMember*, CGuild::FindMemberByName(const char*), CGuild__FindMemberByName);
 #endif
-
-int64_t CGuild::GetGuildIndex(const char* name)
-{
-	// TODO: implement me
-	return 0;
-}
+#ifdef CGuild__GetGuildIndex_x
+FUNCTION_AT_ADDRESS(int, CGuild::GetGuildIndex(const char* name), CGuild__GetGuildIndex);
+#endif
 
 //============================================================================
 // ChatManagerClient

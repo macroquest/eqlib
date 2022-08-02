@@ -3924,7 +3924,6 @@ public:
 	EQLIB_OBJECT bool ValidGuildName(int);
 	EQLIB_OBJECT char* GetGuildMotd();
 	EQLIB_OBJECT char* GetGuildMotdAuthor();
-	EQLIB_OBJECT const char* GetGuildName(int) const;
 	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
 	EQLIB_OBJECT void DeleteAllMembers();
 	EQLIB_OBJECT void DemoteMember(GuildMember*);
@@ -3932,18 +3931,19 @@ public:
 	EQLIB_OBJECT void SendPublicCommentChange(char*, char*);
 	EQLIB_OBJECT void SetGuildMotd(guildmotdSet*);
 
-	EQLIB_OBJECT int64_t GetGuildIndex(const char*);
+	EQLIB_OBJECT int GetGuildIndex(const char*);
+	EQLIB_OBJECT const char* GetGuildName(int) const;
 
 	inline const char* GetGuildName(int64_t guildId, char*, bool*, bool) const
-    {
-        return GetGuildName(static_cast<int>(guildId));
-    }
+	{
+		return GetGuildName(static_cast<int>(guildId));
+	}
 
-    template <typename T, typename = std::enable_if<std::is_integral_v<T> && !std::is_same_v<T, int>>>
-    inline const char* GetGuildName(T guildId) const
-    {
-        return GetGuildName(static_cast<int>(guildId));
-    }
+	template <typename T, typename = std::enable_if<std::is_integral_v<T> && !std::is_same_v<T, int>>>
+	inline const char* GetGuildName(T guildId) const
+	{
+		return GetGuildName(static_cast<int>(guildId));
+	}
 
 	// private
 	EQLIB_OBJECT void AddGuildMember(GuildMember*);
