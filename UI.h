@@ -742,8 +742,8 @@ public:
 	virtual void UpdateText() override;
 
 	// data members
-/*0x1e4*/ int          EQType;
-/*0x1e8*/
+/*0x1f4*/ int          EQType;
+/*0x1f8*/
 };
 
 inline namespace deprecated {
@@ -769,7 +769,7 @@ struct [[offsetcomments]] SListWndCell
 /*0x08*/ COLORREF                 Color = RGB(255, 255, 255);
 /*0x0c*/ bool                     bOnlyDrawTexture = false;
 /*0x10*/ CXWnd*                   pWnd = nullptr;
-/*0x18*/
+/*0x14*/
 };
 
 struct [[offsetcomments]] SListWndLine
@@ -782,7 +782,7 @@ struct [[offsetcomments]] SListWndLine
 /*0x01c*/ STreeData               Treedata;
 /*0x024*/ char                    TooltipText[256];
 /*0x124*/ bool                    bVisible = true;
-/*0x12c*/
+/*0x128*/
 
 	uint32_t get_bIsSeparator() const { return 0; }
 	__declspec(property(get = get_bIsSeparator)) uint32_t bIsSeparator;
@@ -5690,7 +5690,7 @@ public:
 /*0x240*/ CTextureAnimation* ptaBuffIcons;
 /*0x244*/ CTextureAnimation* ptaDragIcons;
 /*0x248*/ bool               bFailed;
-/*0x25c*/ ESpellDisplayType  SpellDisplayType;
+/*0x24c*/ ESpellDisplayType  SpellDisplayType;
 /*0x250*/ int                SpellID;
 /*0x254*/ int                LastUpdateTime;
 /*0x258*/

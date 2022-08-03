@@ -837,9 +837,9 @@ enum ItemSpellTypes
 	eFocusSpell = ItemSpellType_Focus,
 	eScrollSpell = ItemSpellType_Scroll,
 	eFocus2Spell = ItemSpellType_Focus2,
-	eMountSpell = ItemSpellType_Clicky,
-	eIllusionSpell = ItemSpellType_Clicky,
-	eFamiliarSpell = ItemSpellType_Clicky,
+	eMountSpell = ItemSpellType_Mount,
+	eIllusionSpell = ItemSpellType_Illusion,
+	eFamiliarSpell = ItemSpellType_Familiar,
 };
 using eItemSpellType = ItemSpellTypes;
 
