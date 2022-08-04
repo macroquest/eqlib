@@ -704,6 +704,14 @@ public:
 	__declspec(property(get = get_AARank)) int AARank;
 };
 
+enum SeeInvisLevels {
+	SeeInvisLevels_All = 0,
+	SeeInvisLevels_Unead = 1,
+	SeeInvisLevels_Animal = 2,
+
+	SeeInvisLevels_Count,
+};
+
 //============================================================================
 // PlayerClient
 //============================================================================
@@ -925,6 +933,8 @@ public:
 	EQLIB_OBJECT bool SetNameSpriteTint();
 
 	EQLIB_OBJECT static PlayerClient* IsPlayerActor(CActorInterface*);
+
+	int GetSeeInvisLevel(int invisType) const { return SeeInvis[invisType]; }
 
 	DEPRECATE("PlayerClient: Use GetNext() instead of pNext")
 	__declspec(property(get = GetNext)) PlayerClient* pNext;

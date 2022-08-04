@@ -54,9 +54,19 @@
 // Ring of Scale expansion.
 #define HAS_FIND_ITEM_WINDOW IS_CLIENT_DATE(20170920)
 
+// Item effects for mount, illusion, familiar, etc were combined into "Blessing" effects
+// on September 7, 2021.
+#define HAS_ITEM_BLESSING_EFFECT IS_CLIENT_DATE(20210907)
+
 // Not sure when the Item Convert button was added to the Item Display window,
 // but the RoF client does not have it
 #define HAS_ITEM_CONVERT_BUTTON IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COTF)
+
+// "Collected" flag was added to the ItemDisplayWnd on April 20, 2016.
+#define HAS_ITEM_WINDOW_COLLECTED IS_CLIENT_DATE(20160420)
+
+// "Scribed" flag was added to the ItemDisplayWnd on November 16, 2016.
+#define HAS_ITEM_WINDOW_SCRIBED IS_CLIENT_DATE(20161116)
 
 // The initial key ring was added with TBM, which included the Illusion items.
 #define HAS_KEYRING_WINDOW IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TBM)
@@ -79,6 +89,9 @@
 // Merchants Perk adds two extra inventory slots. This came out right before
 // Torment of Luclin.
 #define HAS_MERCHANTS_PERK IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
+
+// Emu client technically supports this, but the server does not. Just gate it on a live expansion.
+#define HAS_MULTIPLE_ITEM_MOVE_MANAGER IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
 
 // Tabbed chat was added on March 13, 2019
 #define HAS_TABBED_CHAT IS_CLIENT_DATE(20190313)
