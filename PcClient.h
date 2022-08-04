@@ -1184,6 +1184,9 @@ public:
 	EQLIB_OBJECT void ReCachItemEffects();
 	EQLIB_OBJECT void ReCachSpellEffects();
 
+	// Status Bonuses
+	int GetDamageShieldBonus() const { return DamageShieldBonus; }
+
 	// DEPRECATED METHODS -- DO NOT USE
 
 	DEPRECATE("CanUseItem: First parameter no longer takes a double pointer. If you have a ItemClient* then just pass it in.\n"
@@ -1416,6 +1419,8 @@ public:
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
 	float GetMercAAExpPct() const { return (MercAAExp + 5) / 10.f; }
 	int64_t GetMercAAExp() const { return MercAAExp; }
+	int GetMercAAPoints() const { return MercAAPoints; }
+	int GetMercAAPointsSpent() const { return MercAAPointsSpent; }
 
 	int GetAirSupply() const { return AirSupply; }
 	int GetLevel() const { return GetCurrentPcProfile()->Level; }

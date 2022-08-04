@@ -238,4 +238,9 @@
       <Filter>Source Files</Filter>
     </NASM>
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="EQLib.natvis">
+      <Filter>Source Files</Filter>
+    </Natvis>
+  </ItemGroup>
 </Project>

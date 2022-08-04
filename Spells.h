@@ -1326,6 +1326,7 @@ public:
 	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffect(int index);
 	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffectEmpty(bool);
 
+	bool AllSpellsLoaded() const { return SpellStackingFileCRC != 0 && Spells[TOTAL_SPELL_COUNT - 1] != nullptr; }
 
 /*0x042948*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
 /*0x0c37c8*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
