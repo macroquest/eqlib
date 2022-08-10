@@ -753,12 +753,12 @@ enum eCharacterStatus : uint8_t {
 // .rdata:00000001408BA03C                 dd 6C0h
 
 // .text:00000001402FBF8A                 lea     rax, const PcClient::`vbtable'{for `CharacterZoneClient'}
-// .text:00000001402FBF91                 mov     [rcx+27F8h], rax
+// .text:00000001402FBF91                 mov     [rcx+2818h], rax
 
 // this is the offset of CharacterZoneClient + virtual base table:
-// CharacterZoneClient starts at 0x27F8 and we add 0x6C0 to give us 0x2EB8
+// CharacterZoneClient starts at 0x2818 and we add 0x6C0 to give us 0x2ED8
 
-class [[offsetcomments(0x2eb8)]] CharacterBase : public IFreeToPlayInfo
+class [[offsetcomments(0x2ed8)]] CharacterBase : public IFreeToPlayInfo
 {
 	// +0: vftable
 public:
@@ -907,7 +907,7 @@ public:
 };
 
 // The starting offset is the size of PcBase
-class [[offsetcomments(0x27f0)]] CharacterZoneClient : virtual public CharacterBase
+class [[offsetcomments(0x2810)]] CharacterZoneClient : virtual public CharacterBase
 {
 	virtual void vftableph() {};
 
@@ -1348,6 +1348,7 @@ public:
 /*0x2268*/ CXStr                                 OverrideMercName[EQ_MAX_MERCENARIES];
 /*0x22c0*/ bool                                  bCanRequestMercNameChange;
 /*0x22c8*/ PendingRewardList                     PendingRewards;
+/*0x2310*/ uint8_t                               WaitingRewards[0x20]; // type is unknown
 /*0x2310*/ uint32_t                              DowntimeReductionTime;
 /*0x2318*/ uint64_t                              DowntimeTimerStart;
 /*0x2320*/ float                                 ActivityValue;
@@ -1407,6 +1408,7 @@ public:
 /*0x2770*/ int                                   FreeToPlayUnlocks[31];
 /*0x27ec*/ // end PcBase / start CharacterZoneClient
 
+// 2818
 	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
 
@@ -1471,8 +1473,8 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x31e8 :: 2022-07-21 (test) @ 0x140230e8e
-constexpr size_t PcClient_size = 0x31e8;
+// @sizeof(PcClient) == 0x3208 :: 2022-08-08 (test) @ 0x14023125e
+constexpr size_t PcClient_size = 0x3208;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
@@ -1480,7 +1482,7 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2e58*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
+/*0x2e58*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null // 2e78
 /*0x2e60*/ bool                                  InCombat;
 /*0x2e64*/ uint32_t                              Downtime;
 /*0x2e68*/ uint32_t                              DowntimeStart;

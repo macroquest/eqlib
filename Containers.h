@@ -1614,14 +1614,14 @@ public:
 	Iterator end() { return Iterator(); }
 
 private:
-/*0x04*/ Node* m_pHead = 0;
-/*0x08*/ Node* m_pTail = 0;
-/*0x0c*/ Node* m_pCurObject = 0;
-/*0x10*/ Node* m_pCurObjectNext = 0;
-/*0x14*/ Node* m_pCurObjectPrev = 0;
-/*0x18*/ int m_numObjects = 0;
-/*0x1c*/ int m_refCount = 0;
-/*0x20*/
+/*0x08*/ Node* m_pHead = 0;
+/*0x10*/ Node* m_pTail = 0;
+/*0x18*/ Node* m_pCurObject = 0;
+/*0x20*/ Node* m_pCurObjectNext = 0;
+/*0x28*/ Node* m_pCurObjectPrev = 0;
+/*0x30*/ int m_numObjects = 0;
+/*0x34*/ int m_refCount = 0;
+/*0x38*/
 };
 
 #pragma endregion
