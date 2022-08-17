@@ -1381,8 +1381,8 @@ public:
 
 	// Create ItemEvolutionData. Intended for use with MQ2LinkDB, to create an item that can be used
 	// to create an item link from.
-	void PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct);
-	void ResetItemEvolutionData();
+	EQLIB_OBJECT void PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct);
+	EQLIB_OBJECT void ResetItemEvolutionData();
 
 	//----------------------------------------------------------------------------
 	// DEPRECATED METHODS
