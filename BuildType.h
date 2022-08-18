@@ -42,7 +42,7 @@
 #define HAS_ADVANCED_LOOT IS_CLIENT_DATE(20150325)
 
 // Autoskills was added April 19, 2017
-#define HAS_AUTOSKILLS IS_CLIENT_DATE(201704019)
+#define HAS_AUTOSKILLS IS_CLIENT_DATE(20170419)
 
 // Dragon Hoard was added with the Claws of Veeshan Expansion
 #define HAS_DRAGON_HOARD IS_EXPANSION_LEVEL(EXPANSION_LEVEL_COV)
