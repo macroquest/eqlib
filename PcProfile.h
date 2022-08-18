@@ -178,9 +178,9 @@ public:
 /*0x33f4*/ char                                  canEditFace;
 /*0x33f8*/ int                                   DisciplineTimer;
 /*0x33fc*/ uint32_t                              MendTimer;
-/*0x3400*/ int                                   ForageTimer;
-/*0x3404*/ int                                   thirstlevel;
-/*0x3408*/ int                                   hungerlevel;
+/*0x3400*/ int                                   thirstlevel;
+/*0x3404*/ int                                   hungerlevel;
+/*0x3408*/ int                                   potionCount;
 /*0x340c*/ eProfileType                          profileType;
 /*0x3410*/ int                                   Shrouded;                               // templateId
 /*0x3414*/ int                                   systemId;
