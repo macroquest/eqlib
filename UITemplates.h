@@ -221,8 +221,12 @@ public:
 /*0x78*/ bool                bUseInLayoutHorizontal = true;
 /*0x79*/ bool                bUseInLayoutVertical = true;
 /*0x7c*/ D3DCOLOR            colorBackgroundTextureTint = 0;
-/*0x80*/ D3DCOLOR            colorDisabledBackgroundTextureTint = 0;
-/*0x84*/
+/*0x80*/
+
+	D3DCOLOR get_colorDisabledBackgroundTextureTint() const { return 0; }
+	void put_colorDisabledBackgroundTextureTint(D3DCOLOR) {}
+	__declspec(property(get = get_colorDisabledBackgroundTextureTint, put = put_colorDisabledBackgroundTextureTint))
+		D3DCOLOR colorDisabledBackgroundTextureTint;
 };
 
 //============================================================================
@@ -237,8 +241,8 @@ public:
 	EQLIB_OBJECT CStaticScreenPieceTemplate(CStaticScreenPieceTemplate*);
 	EQLIB_OBJECT CStaticScreenPieceTemplate(CParamStaticScreenPiece*);
 
-/*0x84*/ bool                     bAutoDraw = true;
-/*0x88*/
+/*0x80*/ bool                     bAutoDraw = true;
+/*0x84*/
 };
 
 //============================================================================
@@ -292,14 +296,14 @@ public:
 	EQLIB_OBJECT CControlTemplate(CParamControl*);
 	EQLIB_OBJECT CControlTemplate();
 
-/*0x84*/ uint32_t                 uStyleBits = 0;
-/*0x88*/ uint8_t                  bSizableMask = 0;
-/*0x89*/ bool                     bEscapable = true;
-/*0x8c*/ CXStr                    strTooltip;
-/*0x90*/ CXWndDrawTemplate*       pDrawTemplate = nullptr;
-/*0x94*/ CXStr                    strController;
-/*0x98*/ CLayoutStrategyTemplate* pLayoutStrategyTemplate = nullptr;
-/*0x9c*/
+/*0x80*/ uint32_t                 uStyleBits = 0;
+/*0x84*/ uint8_t                  bSizableMask = 0;
+/*0x85*/ bool                     bEscapable = true;
+/*0x88*/ CXStr                    strTooltip;
+/*0x8c*/ CXWndDrawTemplate*       pDrawTemplate = nullptr;
+/*0x90*/ CXStr                    strController;
+/*0x94*/ CLayoutStrategyTemplate* pLayoutStrategyTemplate = nullptr;
+/*0x98*/
 };
 
 //============================================================================
@@ -313,19 +317,19 @@ class [[offsetcomments]] CButtonTemplate : public CControlTemplate
 public:
 	EQLIB_OBJECT CButtonTemplate(CParamButton*);
 
-/*0x9c*/ bool                     bCheckbox = false;
-/*0xa0*/ CXStr                    strRadioGroup;
-/*0xa4*/ CXStr                    strText;
-/*0xa8*/ bool                     bTextAlignCenter = true;
-/*0xa9*/ bool                     bTextAlignRight = false;
-/*0xaa*/ bool                     bTextAlignVCenter = true;
-/*0xac*/ CButtonDrawTemplate      bdt;
-/*0xe0*/ CXStr                    strSoundPressed;
-/*0xe4*/ CXStr                    strSoundUp;
-/*0xe8*/ CXStr                    strSoundFlyby;
-/*0xec*/ CXPoint                  ptDecalOffset;
-/*0xf4*/ CXSize                   sizeDecalSize;
-/*0xfc*/
+/*0x98*/ bool                     bCheckbox = false;
+/*0x9c*/ CXStr                    strRadioGroup;
+/*0xa0*/ CXStr                    strText;
+/*0xa4*/ bool                     bTextAlignCenter = true;
+/*0xa5*/ bool                     bTextAlignRight = false;
+/*0xa6*/ bool                     bTextAlignVCenter = true;
+/*0xa8*/ CButtonDrawTemplate      bdt;
+/*0xdc*/ CXStr                    strSoundPressed;
+/*0xe0*/ CXStr                    strSoundUp;
+/*0xe4*/ CXStr                    strSoundFlyby;
+/*0xe8*/ CXPoint                  ptDecalOffset;
+/*0xf0*/ CXSize                   sizeDecalSize;
+/*0xf8*/
 };
 
 //============================================================================
@@ -387,13 +391,13 @@ public:
 	EQLIB_OBJECT CPageTemplate(CParamPage*);
 	EQLIB_OBJECT CPageTemplate();
 
-/*0x9c*/ ArrayClass<CScreenPieceTemplate*> arPieces;
-/*0xac*/ CXStr                             strTabText;
-/*0xb0*/ D3DCOLOR                          crTabText = 0;
-/*0xb4*/ D3DCOLOR                          crTabTextActive = 0;
-/*0xb8*/ CTextureAnimation*                ptaTabIcon = nullptr;
-/*0xbc*/ CTextureAnimation*                ptaTabIconActive = nullptr;
-/*0xc0*/
+/*0x98*/ ArrayClass<CScreenPieceTemplate*> arPieces;
+/*0xa8*/ CXStr                             strTabText;
+/*0xac*/ D3DCOLOR                          crTabText = 0;
+/*0xb0*/ D3DCOLOR                          crTabTextActive = 0;
+/*0xb4*/ CTextureAnimation*                ptaTabIcon = nullptr;
+/*0xb8*/ CTextureAnimation*                ptaTabIconActive = nullptr;
+/*0xbc*/
 };
 
 class [[offsetcomments]] CScreenTemplate : public CControlTemplate
@@ -401,8 +405,8 @@ class [[offsetcomments]] CScreenTemplate : public CControlTemplate
 public:
 	EQLIB_OBJECT CScreenTemplate(CParamScreen*);
 
-/*0x9c*/ ArrayClass<CScreenPieceTemplate*> Pieces;
-/*0xac*/
+/*0x98*/ ArrayClass<CScreenPieceTemplate*> Pieces;
+/*0xa8*/
 };
 
 class CSliderTemplate
@@ -422,8 +426,8 @@ class [[offsetcomments]] CStaticAnimationTemplate : public CStaticScreenPieceTem
 public:
 	EQLIB_OBJECT CStaticAnimationTemplate(CParamStaticAnimation*);
 
-/*0x88*/ CTextureAnimation* ptaTextureAnimation;
-/*0x8c*/
+/*0x84*/ CTextureAnimation* ptaTextureAnimation;
+/*0x88*/
 };
 
 class CStaticFrameTemplate
