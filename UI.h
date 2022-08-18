@@ -603,6 +603,7 @@ public:
 // CGaugeWnd
 //============================================================================
 
+// size: 0x240
 class [[offsetcomments]] CGaugeWnd : public CXWnd
 {
 public:
@@ -636,14 +637,13 @@ public:
 /*0x204*/ int          LastFrameTarget;
 /*0x208*/ CXStr        GaugeTooltip;
 /*0x20c*/ int          TooltipVal;
-/*0x210*/ int          Unknown0x228;
-/*0x214*/ CGaugeDrawTemplate DrawTemplate;
-/*0x230*/ CTextObjectInterface* pTextObject;
-/*0x234*/ CXStr        NextDrawStr;
-/*0x238*/ bool         bSmooth;
-/*0x23c*/ int          TargetVal;
-/*0x240*/ bool         bUseTargetVal;
-/*0x244*/
+/*0x210*/ CGaugeDrawTemplate DrawTemplate;
+/*0x22c*/ CTextObjectInterface* pTextObject;
+/*0x230*/ CXStr        NextDrawStr;
+/*0x234*/ bool         bSmooth;
+/*0x238*/ int          TargetVal;
+/*0x23c*/ bool         bUseTargetVal;
+/*0x240*/
 };
 
 //============================================================================
@@ -742,8 +742,8 @@ public:
 	virtual void UpdateText() override;
 
 	// data members
-/*0x1f4*/ int          EQType;
-/*0x1f8*/
+/*0x1e4*/ int          EQType;
+/*0x1e8*/
 };
 
 inline namespace deprecated {
@@ -6176,10 +6176,10 @@ public:
 	//virtual void Unserialize(CUnserializeBuffer&);
 
 /*0x0004*/ ZoneGuideZone                     zones[ZONE_COUNT];
-/*0x9248*/ ArrayClass<ZoneGuideContinent>    continents;
-/*0x9258*/ ArrayClass<ZoneGuideZoneType>     zoneTypes;
-/*0x9268*/ ArrayClass<ZoneGuideTransferType> transferTypes;
-/*0x9278*/
+/*0x8404*/ ArrayClass<ZoneGuideContinent>    continents;
+/*0x8414*/ ArrayClass<ZoneGuideZoneType>     zoneTypes;
+/*0x8424*/ ArrayClass<ZoneGuideTransferType> transferTypes;
+/*0x8434*/
 
 	ZoneGuideZone* GetZone(EQZoneIndex zi)
 	{
@@ -6210,20 +6210,21 @@ public:
 
 using ZonePathArray = ArrayClass<ZonePathData>;
 
+// size: 0x8464
 class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
 {
 	FORCE_SYMBOLS;
 
 public:
-/*0x9278*/ ZonePathArray     activePath;
-/*0x9288*/ ZonePathArray     previewPath;
-/*0x9298*/ EQZoneIndex       currentZone;
-/*0x929c*/ int               heroesJourneyIndex;
-/*0x92a0*/ bool              zoneGuideDataSet;
-/*0x92a1*/ bool              includeBindZoneInPath;
-/*0x92a2*/ bool              autoFindActivePath;
-/*0x92a3*/ bool              findActivePath;
-/*0x92a4*/
+/*0x8434*/ bool              zoneGuideDataSet;
+/*0x8438*/ ZonePathArray     activePath;
+/*0x8448*/ ZonePathArray     previewPath;
+/*0x8458*/ EQZoneIndex       currentZone;
+/*0x845c*/ int               heroesJourneyIndex;
+/*0x8460*/ bool              includeBindZoneInPath;
+/*0x8461*/ bool              autoFindActivePath;
+/*0x8462*/ bool              findActivePath;
+/*0x8464*/
 
 	EQLIB_OBJECT static ZoneGuideManagerClient& Instance();
 };
