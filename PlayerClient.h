@@ -679,7 +679,12 @@ public:
 	EQLIB_OBJECT void SetRace(int);
 	EQLIB_OBJECT unsigned char GetLevel() const;
 
-	EQLIB_OBJECT bool DoAttack(BYTE slot, BYTE skill, PlayerZoneClient* Target, bool bSomething = false, bool bAuto = false, bool bDontknow = false);
+	EQLIB_OBJECT bool DoAttack(BYTE slot, BYTE skill, PlayerZoneClient* Target);
+
+	bool DoAttack(BYTE slot, BYTE skill, PlayerZoneClient* Target, bool, bool = false, bool = false)
+	{
+		return DoAttack(slot, skill, Target);
+	}
 
 	EQLIB_OBJECT static PlayerZoneClient* GetClosestPlayerFromPartialName(const char* name, PlayerZoneClient* player, int maxPlayerType = 1);
 };

@@ -119,7 +119,7 @@ FUNCTION_AT_ADDRESS(bool, PlayerBase::CanSee(const CVector3& pos), PlayerBase__C
 FUNCTION_AT_ADDRESS(unsigned int, EQPlayer::ModifyAttackSpeed(unsigned int, int), EQPlayer__ModifyAttackSpeed);
 #endif
 #ifdef PlayerZoneClient__DoAttack_x
-FUNCTION_AT_ADDRESS(bool, PlayerZoneClient::DoAttack(BYTE, BYTE, PlayerZoneClient*, bool, bool, bool), PlayerZoneClient__DoAttack);
+FUNCTION_AT_ADDRESS(bool, PlayerZoneClient::DoAttack(BYTE, BYTE, PlayerZoneClient*), PlayerZoneClient__DoAttack);
 #endif
 #ifdef EQPlayer__HandleAmmo_x
 FUNCTION_AT_ADDRESS(unsigned char, EQPlayer::HandleAmmo(), EQPlayer__HandleAmmo);
