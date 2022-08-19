@@ -605,7 +605,7 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::AntiTwinkAdj(EQ_Equipment*, int, i
 FUNCTION_AT_ADDRESS(unsigned char, CharacterZoneClient::GetSkillBaseDamage(unsigned char, EQPlayer*), CharacterZoneClient__GetSkillBaseDamage);
 #endif
 #ifdef CharacterZoneClient__UseSkill_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient::UseSkill(unsigned char skill, PlayerZoneClient* target, bool), CharacterZoneClient__UseSkill);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::UseSkill(unsigned char skill, PlayerZoneClient* target), CharacterZoneClient__UseSkill);
 #endif
 #ifdef CharacterZoneClient__DoIntimidationEvent_x
 FUNCTION_AT_ADDRESS(void, CharacterZoneClient::DoIntimidationEvent(), CharacterZoneClient__DoIntimidationEvent);

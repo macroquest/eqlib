@@ -2941,7 +2941,7 @@ inline namespace deprecated {
 	using PEQCONTAINERWINDOW DEPRECATE("Use CContainerWnd* instead of PEQCONTAINERWINDOW") = CContainerWnd*;
 }
 
-constexpr int MAX_CONTAINERS = 40;
+constexpr int MAX_CONTAINERS = 36;
 
 class [[offsetcomments]] CContainerMgr
 {
@@ -2970,14 +2970,14 @@ public:
 	// data members
 
 /*0x04*/ CContainerWnd*     pContainerWnds[MAX_CONTAINERS];
-/*0xa4*/ ArrayClass<CContainerWnd*> ContainerWndsToDelete;
-/*0xb4*/ ItemPtr            WorldContainer;
-/*0xb8*/ DWORD              WorldContainerSerialNumber;
-/*0xbc*/ int                WorldContainerRealEstateID;
-/*0xc0*/ int                WorldContainerRealEstateItemID;
-/*0xc4*/ DWORD              Timer;
-/*0xc8*/ bool               bShowDone;
-/*0xcc*/
+/*0x94*/ ArrayClass<CContainerWnd*> ContainerWndsToDelete;
+/*0xa4*/ ItemPtr            WorldContainer;
+/*0xa8*/ DWORD              WorldContainerSerialNumber;
+/*0xac*/ int                WorldContainerRealEstateID;
+/*0xb0*/ int                WorldContainerRealEstateItemID;
+/*0xb4*/ DWORD              Timer;
+/*0xb8*/ bool               bShowDone;
+/*0xbc*/
 
 	ItemClient* getter_pWorldContainer() { return WorldContainer.get(); }
 	__declspec(property(get = getter_pWorldContainer)) ItemClient* pWorldContainer;
