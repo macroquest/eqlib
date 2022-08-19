@@ -19,6 +19,9 @@
     <Filter Include="Header Files\eqstd">
       <UniqueIdentifier>{07e78fd2-2adc-450b-8432-d639c46d1e04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\eqdata">
+      <UniqueIdentifier>{ade88f9f-9650-49b4-ae51-5b53100a8f06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -164,6 +167,27 @@
     </ClInclude>
     <ClInclude Include="BuildType.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eqdata\actordef.h">
+      <Filter>Header Files\eqdata</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eqdata\combines.h">
+      <Filter>Header Files\eqdata</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eqdata\dikeys.h">
+      <Filter>Header Files\eqdata</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eqdata\factionnames.h">
+      <Filter>Header Files\eqdata</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eqdata\itemclasses.h">
+      <Filter>Header Files\eqdata</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eqdata\skills.h">
+      <Filter>Header Files\eqdata</Filter>
+    </ClInclude>
+    <ClInclude Include="..\eqdata\spelleffects.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

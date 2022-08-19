@@ -135,6 +135,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\eqdata\actordef.h" />
+    <ClInclude Include="..\eqdata\combines.h" />
+    <ClInclude Include="..\eqdata\dikeys.h" />
+    <ClInclude Include="..\eqdata\factionnames.h" />
+    <ClInclude Include="..\eqdata\itemclasses.h" />
+    <ClInclude Include="..\eqdata\skills.h" />
+    <ClInclude Include="..\eqdata\spelleffects.h" />
     <ClInclude Include="Achievements.h" />
     <ClInclude Include="Allocator.h" />
     <ClInclude Include="AltAbilities.h" />
