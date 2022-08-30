@@ -237,7 +237,7 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x358 :: 2022-08-15 (live) @ 0x140537a3e
+// @sizeof(CButtonWnd) == 0x358 :: 2022-08-26 (test) @ 0x1405380fe
 constexpr size_t CButtonWnd_size = 0x358;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd, public VeBaseReferenceCount
@@ -3211,7 +3211,7 @@ public:
 // CFindItemWnd
 //============================================================================
 
-// @sizeof(CFindItemWnd) == 0x3f0 :: 2022-08-15 (live) @ 0x140159d49
+// @sizeof(CFindItemWnd) == 0x3f0 :: 2022-08-26 (test) @ 0x140159ca9
 constexpr size_t CFindItemWnd_size = 0x3f0;
 
 class [[offsetcomments]] CFindItemWnd : public CSidlScreenWnd, public WndEventHandler
@@ -3296,7 +3296,7 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x3a0 :: 2022-08-15 (live) @ 0x14015a507
+// @sizeof(CFindLocationWnd) == 0x3a0 :: 2022-08-26 (test) @ 0x14015a467
 constexpr size_t CFindLocationWnd_size = 0x3a0;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
@@ -4268,7 +4268,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xa98 :: 2022-08-15 (live) @ 0x1403aedf4
+// @sizeof(CItemDisplayWnd) == 0xa98 :: 2022-08-26 (test) @ 0x1403af444
 constexpr size_t CItemDisplayWnd_size = 0xa98;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4454,7 +4454,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x430 :: 2022-08-15 (live) @ 0x1401597f5
+// @sizeof(CKeyRingWnd) == 0x430 :: 2022-08-26 (test) @ 0x140159755
 constexpr size_t CKeyRingWnd_size = 0x430;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4522,7 +4522,7 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0x510 :: 2022-08-15 (live) @ 0x140159a77
+// @sizeof(CLootWnd) == 0x510 :: 2022-08-26 (test) @ 0x1401599d7
 constexpr size_t CLootWnd_size = 0x510;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4738,7 +4738,7 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x858 :: 2022-08-15 (live) @ 0x1401591e6
+// @sizeof(CMapViewWnd) == 0x858 :: 2022-08-26 (test) @ 0x140159146
 constexpr size_t CMapViewWnd_size = 0x858;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5146,7 +5146,7 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-// @sizeof(CPetInfoWnd) == 0x2938 :: 2022-08-15 (live) @ 0x140158cac
+// @sizeof(CPetInfoWnd) == 0x2938 :: 2022-08-26 (test) @ 0x140158c0c
 constexpr size_t CPetInfoWnd_size = 0x2938;
 
 class [[offsetcomments]] CPetInfoWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5233,7 +5233,7 @@ enum ECombatState
 };
 
 
-// @sizeof(CPlayerWnd) == 0x408 :: 2022-08-15 (live) @ 0x14015961d
+// @sizeof(CPlayerWnd) == 0x408 :: 2022-08-26 (test) @ 0x14015957d
 constexpr size_t CPlayerWnd_size = 0x408;
 
 class [[offsetcomments]] CPlayerWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5728,7 +5728,7 @@ public:
 // CTargetWnd
 //============================================================================
 
-// @sizeof(CTargetWnd) == 0x410 :: 2022-08-15 (live) @ 0x1401594bb
+// @sizeof(CTargetWnd) == 0x410 :: 2022-08-26 (test) @ 0x14015941b
 constexpr size_t CTargetWnd_size = 0x410;
 
 class [[offsetcomments]] CTargetWnd : public CSidlScreenWnd, public WndEventHandler

@@ -942,7 +942,7 @@ public:
 	}
 };
 
-// @sizeof(ItemDefinition) == 0x640 :: 2022-08-15 (live) @ 0x1401d091d
+// @sizeof(ItemDefinition) == 0x640 :: 2022-08-26 (test) @ 0x1401d0dcd
 constexpr size_t ItemDefinition_size = 0x640;
 
 class [[offsetcomments]] ItemDefinition
@@ -1210,47 +1210,47 @@ class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildIt
 {
 public:
 // @start: ItemBase Members
-/*0x018*/ int                   Charges;
-/*0x01c*/ int                   ID;
-/*0x020*/ int                   RealEstateID;
-/*0x024*/ bool                  bConvertable;
-/*0x025*/ EqItemGuid            ItemGUID;
-/*0x038*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x050*/ bool                  bCollected;
-/*0x051*/ bool                  bRankDisabled;
-/*0x054*/ unsigned int          NewArmorID;
-/*0x058*/ int                   AugFlag;
-/*0x05c*/ int                   Power;
-/*0x060*/ ItemGlobalIndex       GlobalIndex;
+/*0x018*/ CXStr                 ConvertItemName;
+/*0x020*/ int64_t               DontKnow;
+/*0x028*/ int                   ActorTag1;
+/*0x02c*/ int                   ArmorType;
+/*0x030*/ int                   RealEstateID;
+/*0x034*/ int                   StackCount;
+/*0x038*/ int                   AugFlag;
+/*0x03c*/ EqItemGuid            ItemGUID;
+/*0x050*/ int                   ConvertItemID;
+/*0x058*/ int64_t               MerchantSlot;
+/*0x060*/ int                   OrnamentationIcon;
+/*0x064*/ unsigned int          Tint;
+/*0x068*/ bool                  bRankDisabled;
+/*0x069*/ bool                  bCopied;
+/*0x06c*/ int                   NoteStatus;
 /*0x070*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x080*/ int                   ActorTag1;
-/*0x084*/ int                   ActorTag2;
-/*0x088*/ bool                  bCopied;
-/*0x08c*/ int                   NoteStatus;
-/*0x090*/ int                   Open;
-/*0x094*/ bool                  bItemNeedsUpdate;
-/*0x098*/ ITEMINFO*             Item1;
-/*0x0a0*/ int                   OrnamentationIcon;
-/*0x0a4*/ int                   ArmorType;
-/*0x0a8*/ unsigned int          Tint;
-/*0x0ac*/ int                   ConvertItemID;
-/*0x0b0*/ int64_t               MerchantSlot;
-/*0x0b8*/ int                   ScriptIndex;
-/*0x0bc*/ unsigned int          RespawnTime;
-/*0x0c0*/ CXStr                 ConvertItemName;
-/*0x0c8*/ ItemContainer         Contents;
-/*0x0f0*/ unsigned int          ItemHash;
-/*0x0f8*/ int64_t               Price;
-/*0x100*/ bool                  bDisableAugTexture;
-/*0x104*/ int                   NoDropFlag;
-/*0x108*/ bool                  bRealEstateItemPlaceable;
-/*0x110*/ int64_t               DontKnow;
-/*0x118*/ SoeUtil::String       SaveString;
+/*0x080*/ bool                  bRealEstateItemPlaceable;
+/*0x088*/ SoeUtil::String       SaveString;
+/*0x0a0*/ unsigned int          ItemHash;
+/*0x0a8*/ ItemContainer         Contents;
+/*0x0d0*/ ItemGlobalIndex       GlobalIndex;
+/*0x0dc*/ bool                  bDisableAugTexture;
+/*0x0dd*/ bool                  bConvertable;
+/*0x0e0*/ int                   NoDropFlag;
+/*0x0e4*/ bool                  bItemNeedsUpdate;
+/*0x0e8*/ int64_t               Price;
+/*0x0f0*/ int                   ScriptIndex;
+/*0x0f4*/ unsigned int          LastCastTime;
+/*0x0f8*/ int                   MerchantQuantity;
+/*0x100*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0x118*/ int                   ActorTag2;
+/*0x11c*/ int                   Open;
+/*0x120*/ unsigned int          RespawnTime;
+/*0x124*/ bool                  bCollected;
+/*0x128*/ int                   Charges;
+/*0x12c*/ unsigned int          NewArmorID;
 /*0x130*/ int                   Luck;
-/*0x134*/ int                   StackCount;
-/*0x138*/ unsigned int          LastCastTime;
-/*0x13c*/ int                   MerchantQuantity;
-/*0x140*/
+/*0x134*/ int                   ID;
+/*0x138*/ ITEMINFO*             Item1;
+/*0x140*/ int                   Power;
+/*0x144*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT ItemBase();
@@ -1395,8 +1395,8 @@ public:
 	__declspec(property(get = get_Item2)) ItemDefinition* Item2;
 };
 
-// @sizeof(ItemClient) == 0x158 :: 2022-08-15 (live) @ 0x1402617ca
-constexpr size_t ItemClient_size = 0x158;
+// @sizeof(ItemClient) == 0x160 :: 2022-08-26 (test) @ 0x140261c7a
+constexpr size_t ItemClient_size = 0x160;
 
 class [[offsetcomments]] ItemClient : public ItemBase
 {
@@ -1408,9 +1408,9 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
-/*0x140*/ ItemDefinitionPtr SharedItemDef;
-/*0x150*/ CXStr             ClientString;
-/*0x158*/
+/*0x148*/ ItemDefinitionPtr SharedItemDef;
+/*0x158*/ CXStr             ClientString;
+/*0x160*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);
