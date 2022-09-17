@@ -12,7 +12,7 @@
  * GNU General Public License for more details.
  */
 
-// this file exists specifically to define the naked functions that error our when exceptions
+// this file exists specifically to define the naked functions that error out when exceptions
 // are enabled. We don't actually need exceptions for these functions because EQ will implement
 // the necessary exception handling mechanisms -- we just need to call into its functions.
 
@@ -29,9 +29,11 @@ namespace eqlib {
 
 // CListWnd
 #ifdef CListWnd__AddColumn1_x
-FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width, uint32_t Flags,
-	CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver, bool bResizeable,
-	CXSize TextureSize, CXPoint TextureOffset), CListWnd__AddColumn1);
+/* FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width, uint32_t Flags,
+ *	CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver, bool bResizeable,
+ *	CXSize TextureSize, CXPoint TextureOffset), CListWnd__AddColumn1);
+*/
+FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width, uint32_t Flags, CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver, bool bResizeable, CXSize TextureSize, CXPoint TextureOffset), CListWnd__AddColumn1);
 #endif
 
 // CEditWnd

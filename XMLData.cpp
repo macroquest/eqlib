@@ -133,15 +133,6 @@ UIType CXMLDataManager::GetWindowType(const CXWnd* wnd) const
 	return UI_Unknown;
 }
 
-
-#ifdef CXMLDataManager__IsDerivedFrom_x
-FUNCTION_AT_ADDRESS(bool, CXMLDataManager::IsDerivedFrom(int, int), CXMLDataManager__IsDerivedFrom);
-#endif
-
-#ifdef CXMLSOMDocumentBase__XMLRead_x
-FUNCTION_AT_ADDRESS(bool, CXMLSOMDocumentBase::XMLRead(const CXStr&, const CXStr&, const CXStr&), CXMLSOMDocumentBase__XMLRead);
-#endif
-
 //----------------------------------------------------------------------------
 
 CXMLData::CXMLData()

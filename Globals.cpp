@@ -1313,11 +1313,6 @@ ForeignPointer<LoginClient> g_pLoginClient;
 ForeignPointer<LoginController> g_pLoginController;
 ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 
-FUNCTION_AT_ADDRESS(int, CLoginViewManager::HandleLButtonUp(CXPoint&), EQMain__CLoginViewManager__HandleLButtonUp);
-FUNCTION_AT_ADDRESS(unsigned int, LoginServerAPI::JoinServer(int, void*, int), EQMain__LoginServerAPI__JoinServer);
-
-// We use CLoginViewManager to find the ServerInfo instance
-
 bool InitializeEQMainOffsets()
 {
 	if (*ghEQMainInstance)

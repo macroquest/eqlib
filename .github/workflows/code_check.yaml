@@ -1,0 +1,25 @@
+name: Code Check
+
+on:
+  push:
+    branches:
+      - live
+      - emu
+      - test
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.repository == 'macroquest/eqlib'
+    runs-on: windows-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: '1'
+      - name: Run check script
+        shell: pwsh
+        run: .\tools\scripts\check_eqlib.ps1 "$env:GITHUB_WORKSPACE"
