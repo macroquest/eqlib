@@ -362,42 +362,6 @@ void ItemBase::UpdateItemDefinition()
 	Contents.SetSize(containerSlots);
 }
 
-FUNCTION_AT_ADDRESS(char*, ItemBase::CreateItemTagString(char*, int), ItemBase__CreateItemTagString);
-
-char* ItemBase::CreateItemTagString(char* buffer, int size, bool unused)
-{
-	UNUSED(unused);
-	return CreateItemTagString(buffer, size);
-}
-
-#ifdef ItemBase__GetImageNum_x
-FUNCTION_AT_ADDRESS(int, ItemBase::GetImageNum() const, ItemBase__GetImageNum);
-#endif
-#ifdef ItemClient__CreateItemClient_x
-FUNCTION_AT_ADDRESS(ItemPtr, ItemBase::CreateItemClient(CUnSerializeBuffer& buffer), ItemClient__CreateItemClient);
-#endif
-#ifdef ItemClient__CanDrop_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::CanDrop(bool, bool, bool, bool) const, ItemClient__CanDrop);
-#endif
-#ifdef ItemBase__GetItemValue_x
-FUNCTION_AT_ADDRESS(int, ItemBase::GetItemValue(bool) const, ItemBase__GetItemValue);
-#endif
-#ifdef ItemBase__IsKeyRingItem_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsKeyRingItem(KeyRingType) const, ItemBase__IsKeyRingItem);
-#endif
-#ifdef ItemClient__CanGoInBag_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::CanGoInBag(const ItemPtr& pItem, int unused, bool mustbefalse) const, ItemClient__CanGoInBag);
-#endif
-#ifdef ItemBase__ValueSellMerchant_x
-FUNCTION_AT_ADDRESS(int, ItemBase::ValueSellMerchant(float, int) const, ItemBase__ValueSellMerchant);
-#endif
-#ifdef ItemBase__CanGemFitInSlot_x
-FUNCTION_AT_ADDRESS(int, ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, ItemBase__CanGemFitInSlot);
-#endif
-#ifdef ItemBase__IsLore_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
-#endif
-
 void ItemBase::PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct)
 {
 	EvolvingMaxLevel = maxLevel;
@@ -628,16 +592,5 @@ void EqItemGuid::UnSerialize(CUnSerializeBuffer& buffer)
 	buffer.ReadString(temp, lengthof(temp));
 	strcpy_s(this->guid, temp);
 }
-
-//----------------------------------------------------------------------------
-// MultipleItemMoveManager
-
-#ifdef MultipleItemMoveManager__ProcessMove_x
-FUNCTION_AT_ADDRESS(MultipleItemMoveManager::ErrorCodes,
-	MultipleItemMoveManager::ProcessMove(
-		PcZoneClient* pPC,
-		const MultipleItemMoveManager::MoveItemArray& moveItemList,
-		bool sendMoves, bool clientInitiated), MultipleItemMoveManager__ProcessMove);
-#endif
 
 } // namespace eqlib

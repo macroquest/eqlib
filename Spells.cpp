@@ -101,52 +101,6 @@ int EQ_Spell::GetEffectCalc(int index) const
 	return 0;
 }
 
-#ifdef EQ_Spell__IsStackableDot_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsStackableDot() const, EQ_Spell__IsStackableDot);
-#endif
-#ifdef EQ_Spell__IsStackable_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsStackable() const, EQ_Spell__IsStackable);
-#endif
-#ifdef EQ_Spell__GetSpellAffectBySlot_x
-FUNCTION_AT_ADDRESS(const SpellAffectData*, EQ_Spell::GetSpellAffectBySlot(int) const, EQ_Spell__GetSpellAffectBySlot);
-#endif
-#ifdef EQ_Spell__GetSpellAffectByIndex_x
-FUNCTION_AT_ADDRESS(const SpellAffectData*, EQ_Spell::GetSpellAffectByIndex(int) const, EQ_Spell__GetSpellAffectByIndex);
-#endif
-#ifdef EQ_Spell__IsSPAStacking_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsSPAStacking(int) , EQ_Spell__IsSPAStacking);
-#endif
-#ifdef EQ_Spell__IsSPAIgnoredByStacking_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsSPAIgnoredByStacking(int) , EQ_Spell__IsSPAIgnoredByStacking);
-#endif
-#ifdef EQ_Spell__IsNoRemove_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsNoRemove() const, EQ_Spell__IsNoRemove);
-#endif
-#ifdef EQ_Spell__IsDegeneratingLevelMod_x
-FUNCTION_AT_ADDRESS(bool, EQ_Spell::IsDegeneratingLevelMod(int) , EQ_Spell__IsDegeneratingLevelMod);
-#endif
-#ifdef EQ_Spell__SpellUsesDragonBreathEffect_x
-FUNCTION_AT_ADDRESS(int, EQ_Spell::SpellUsesDragonBreathEffect(), EQ_Spell__SpellUsesDragonBreathEffect);
-#endif
-#ifdef EQ_Spell__EQ_Spell_x
-FUNCTION_AT_ADDRESS(EQ_Spell::EQ_Spell(char*), EQ_Spell__EQ_Spell);
-#endif
-#ifdef EQ_Spell__dEQ_Spell_x
-FUNCTION_AT_ADDRESS(EQ_Spell::~EQ_Spell(), EQ_Spell__dEQ_Spell);
-#endif
-#ifdef EQ_Spell__SpellAffects_x
-FUNCTION_AT_ADDRESS(unsigned char, EQ_Spell::SpellAffects(int) const, EQ_Spell__SpellAffects);
-#endif
-#ifdef EQ_Spell__IsPermIllusionSpell_x
-FUNCTION_AT_ADDRESS(int, EQ_Spell::IsPermIllusionSpell() const, EQ_Spell__IsPermIllusionSpell);
-#endif
-#ifdef EQ_Spell__GetSpellLevelNeeded_x
-FUNCTION_AT_ADDRESS(unsigned char, EQ_Spell::GetSpellLevelNeeded(EQClass) const, EQ_Spell__GetSpellLevelNeeded);
-#endif
-#ifdef EQ_Spell__SpellAffectBase_x
-FUNCTION_AT_ADDRESS(int, EQ_Spell::SpellAffectBase(int) const, EQ_Spell__SpellAffectBase);
-#endif
-
 //============================================================================
 // EQ_Affect
 //============================================================================

@@ -203,6 +203,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="FunctionDefs.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="GraphicsEngine.cpp" />
     <ClCompile Include="Items.cpp" />
