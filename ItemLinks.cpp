@@ -22,8 +22,6 @@
 
 namespace eqlib {
 
-FUNCTION_AT_ADDRESS(void, ConvertItemTags(CXStr&, bool), __ConvertItemTags);
-
 // Used in ConvertItemTags, to be safe from change this could be imported from the game.
 // This can be found from within ConvertItemTags
 constexpr int TagSizes[ETAG_COUNT] = {
