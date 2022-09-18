@@ -105,7 +105,8 @@ struct [[offsetcomments]] LabelCache_AggroData
 /*0x000*/ int           AggroMostHatedName[64];
 /*0x100*/ int           AggroHatePct[MAX_AGGRO_METER_SIZE];
 /*0x16c*/ int           AggroMyHatePct;
-/*0x170*/ };
+/*0x170*/
+};
 
 struct [[offsetcomments]] LabelCache
 {

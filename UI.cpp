@@ -845,10 +845,7 @@ FUNCTION_AT_ADDRESS(CTabWnd::CTabWnd(CXWnd* pParent, UINT uId, RECT* rect, CTabB
 FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageClientRect() const, CTabWnd__GetPageClientRect);
 #endif
 #ifdef CTabWnd__SetPage_x
-FUNCTION_AT_ADDRESS(void, CTabWnd::SetPage(int, bool, bool, bool), CTabWnd__SetPage);
-#endif
-#ifdef CTabWnd__SetPage1_x
-FUNCTION_AT_ADDRESS(bool, CTabWnd::SetPage(CPageWnd*, bool, bool), CTabWnd__SetPage1);
+FUNCTION_AT_ADDRESS(void, CTabWnd::SetPage(int, bool), CTabWnd__SetPage);
 #endif
 #ifdef CTabWnd__InsertPage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::InsertPage(CPageWnd*, int), CTabWnd__InsertPage);
@@ -914,6 +911,21 @@ FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect)
 //	if (CurTabIndex == -1)
 //		SetPage(0, false, )
 //}
+
+void CTabWnd::SetPage(CPageWnd* pPageWnd, bool bNotifyParent, bool bBringToTop)
+{
+	UNUSED(bBringToTop);
+
+	int tabCount = GetNumTabs();
+
+	for (int i = 0; i < tabCount; ++i)
+	{
+		if (PageArray[i] == pPageWnd)
+		{
+			SetPage(i, bNotifyParent, bBringToTop);
+		}
+	}
+}
 
 void CTabWnd::RemovePage(CPageWnd* pPageWnd)
 {

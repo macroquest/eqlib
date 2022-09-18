@@ -1368,7 +1368,6 @@ public:
 	EQLIB_OBJECT void UpdatePage();
 
 	EQLIB_OBJECT void SetPageRect(const CXRect&);
-	EQLIB_OBJECT bool SetPage(CPageWnd*, bool bNotifyParent = true, bool bBringToTop = true);
 	EQLIB_OBJECT CPageWnd* GetPageFromTabPoint(CXPoint) const;
 
 	EQLIB_OBJECT CXRect GetPageClientRect() const;
@@ -1382,7 +1381,17 @@ public:
 	EQLIB_OBJECT CPageWnd* GetPageFromTabIndex(int tabIndex) const;
 	EQLIB_OBJECT CPageWnd* GetCurrentPage() const;
 
-	EQLIB_OBJECT void SetPage(int index, bool bNotifyParent = true, bool bBringToTop = true, bool bSomething = false);
+	EQLIB_OBJECT void SetPage(int index, bool bNotifyParent = true);
+	void SetPage(int index, bool bNotifyParent, bool bBringToTop, bool bSomething = false)
+	{
+		UNUSED(bBringToTop);
+		UNUSED(bSomething);
+
+		SetPage(index, bNotifyParent);
+	}
+	EQLIB_OBJECT void SetPage(CPageWnd*, bool bNotifyParent = true, bool bBringToTop = true);
+
+
 	EQLIB_OBJECT void InsertPage(CPageWnd* pPageWnd, int position = -1); // defaults to the last tab
 	EQLIB_OBJECT void RemovePage(CPageWnd* pPageWnd);
 
