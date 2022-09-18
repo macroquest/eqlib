@@ -308,7 +308,7 @@ FUNCTION_AT_ADDRESS(int, CharacterBase::IsExpansionFlag(int), CharacterBase__IsE
 //============================================================================
 
 #ifdef CharacterZoneClient__FindAffectSlot_x
-FUNCTION_AT_ADDRESS(EQ_Affect*, CharacterZoneClient::FindAffectSlot(int, PlayerClient*, int*, bool, int, EQ_Affect*, int), CharacterZoneClient__FindAffectSlot);
+FUNCTION_AT_ADDRESS(EQ_Affect*, CharacterZoneClient::FindAffectSlot(int, PlayerClient*, int*, bool, int, EQ_Affect*, int, bool), CharacterZoneClient__FindAffectSlot);
 #endif
 #ifdef CharacterZoneClient__GetMaxEffects_x
 FUNCTION_AT_ADDRESS(unsigned char, CharacterZoneClient::GetMaxEffects() const, CharacterZoneClient__GetMaxEffects);
