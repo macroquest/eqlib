@@ -4856,7 +4856,7 @@ enum eMerchantServices
 	ServiceCount
 };
 
-struct [[offsetcomments]] CONTENTDATA
+struct [[offsetcomments]] MerchantItemEntry
 {
 /*0x00*/ ItemPtr       pItem;
 /*0x08*/ int           Unknown;
@@ -4875,7 +4875,7 @@ public:
 /*0x20*/ CListWnd*       ItemsList;
 /*0x28*/ CPageWnd*       PurchasePage;
 /*0x30*/ bool            bListNeedsRefresh;
-/*0x38*/ SoeUtil::Array<CONTENTDATA> ItemContainer;
+/*0x38*/ SoeUtil::Array<MerchantItemEntry> ItemContainer;
 /*0x50*/ int             Unknown0x40;
 /*0x54*/ int             Unknown0x44;
 /*0x58*/ int             Unknown0x48;
@@ -4917,6 +4917,21 @@ public:
 	/*0x50*/ EQLIB_OBJECT virtual void Unknownv0x50() const;
 	/*0x54*/ EQLIB_OBJECT virtual void Unknownv0x54() const;
 	/*0x58*/ EQLIB_OBJECT virtual void Unknownv0x58() const;
+
+	int GetItemCount() const
+	{
+		return ItemContainer.GetSize();
+	}
+
+	ItemPtr GetItem(int index) const
+	{
+		if (index >= 0 && index < ItemContainer.GetSize())
+		{
+			return ItemContainer[index].pItem;
+		}
+
+		return ItemPtr();
+	}
 };
 
 // Size 0xa8 (0x7a331f) 2020-12-05
