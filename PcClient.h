@@ -649,6 +649,7 @@ public:
 };
 
 class [[offsetcomments]] LeadershipAbilities {
+public:
 /*0x00*/ int     MarkNPC;
 /*0x04*/ int     NPCHealth;
 /*0x08*/ int     Unknown0x8;
@@ -792,8 +793,9 @@ public:
 /*0x32e8*/ eCharacterStatus                      Status;
 /*0x32ec*/ EQZoneIndex                           currentZoneId;
 /*0x32f0*/ uint8_t                               standstate;
-/*0x32f4*/ RaidData                              raidData;
-/*0x33d0*/ uint8_t                               Unknown0x1e4[0x45c - 0x1e4]; // something else is at 0x248
+/*0x32f4*/ uint32_t                              unknown0x32f4;
+/*0x32f8*/ LeadershipAbilities                   ActiveAbilities;
+/*0x3334*/ uint8_t                               unknown0x3334[0x314];
 /*0x3648*/ int                                   ExpansionFlags;
 /*0x364c*/ bool                                  bSuperPKILL;
 /*0x364d*/ bool                                  bUnclone;

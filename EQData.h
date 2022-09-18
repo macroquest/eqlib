@@ -418,14 +418,14 @@ enum eRaidState : int32_t
 };
 
 
-struct [[offsetcomments]] RaidData
-{
-/*0x00*/ int      MainAssists[MAX_RAID_ASSISTS];
-/*0x0c*/ char     MainAssistNames[MAX_RAID_ASSISTS][EQ_MAX_NAME];
-/*0xcc*/ int      MainMarkers[MAX_RAID_ASSISTS];
-/*0xd8*/ int      MasterLooter;
-/*0xdc*/
-};
+//struct [[offsetcomments]] RaidData
+//{
+///*0x00*/ int      MainAssists[MAX_RAID_ASSISTS];
+///*0x0c*/ char     MainAssistNames[MAX_RAID_ASSISTS][EQ_MAX_NAME];
+///*0xcc*/ int      MainMarkers[MAX_RAID_ASSISTS];
+///*0xd8*/ int      MasterLooter;
+///*0xdc*/
+//};
 
 
 class [[offsetcomments]] CRaid
