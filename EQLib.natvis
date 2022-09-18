@@ -71,9 +71,6 @@
 		</Expand>
 	</Type>
 
-	<Type Name="eqlib::CXWnd">
-	</Type>
-
 	<Type Name="eqlib::ArrayClass&lt;*&gt;">
 		<DisplayString>{{size={m_length}}}</DisplayString>
 		<Expand>
@@ -141,17 +138,15 @@
 		</Expand>
 	</Type>
 
-	<Type Name="eqlib::VePointer&lt;*&gt;">
+	<!--<Type Name="eqlib::VePointer&lt;*&gt;">
+		<SmartPointer Usage="Minimal">m_pObject</SmartPointer>
 		<DisplayString Condition="m_pObject == 0">empty</DisplayString>
-		<DisplayString Condition="m_pObject != 0">VePointer {*m_pObject,na}</DisplayString>
-		<Expand>
-			<Item Condition="m_pObject != 0" Name="[ptr]">m_pObject</Item>
-		</Expand>
-	</Type>
+	</Type>-->
 
 	<Type Name="eqlib::VeArray&lt;*&gt;">
-		<DisplayString>{{Size={m_size} Capacity={m_capacity}}}</DisplayString>
+		<DisplayString>{{ size={m_size} }}</DisplayString>
 		<Expand>
+			<Item Name="[capacity]" ExcludeView="simple">m_capacity</Item>
 			<ArrayItems>
 				<Size>m_size</Size>
 				<ValuePointer>m_data</ValuePointer>
@@ -162,16 +157,18 @@
 	<Type Name="eqlib::ItemIndex">
 		<DisplayString>[{m_slots[0]}, {m_slots[1]}, {m_slots[2]}]</DisplayString>
 	</Type>
+
 	<Type Name="eqlib::ItemClient">
 		<DisplayString Condition="SharedItemDef.m_ptr != 0">[Item #{ID,d} {SharedItemDef.m_ptr->Name,s}]</DisplayString>
 	</Type>
 
+	<!--
 	<Type Name="eqlib::WindowOverride&lt;*, *&gt;">
 		<DisplayString>{ WindowText }</DisplayString>
 		<Expand>
 			<Item Name="[obj]">($T2*)this,nd</Item>
 		</Expand>
-	</Type>
+	</Type>-->
 
 	<!-- eqstd::map -->
 	<Type Name="eqstd::map&lt;*&gt;" ExcludeView="ShowElementsByIndex" Priority="MediumHigh">
@@ -202,5 +199,20 @@
 		<Expand>
 			<ExpandedItem>_Myval1</ExpandedItem>
 		</Expand>
+	</Type>
+
+	<Type Name="eqlib::CXWnd">
+		<Intrinsic Name="getSidlMgr" Expression="*eqlib!pSidlMgr.m_ptr" />
+		<Intrinsic Name="getParamManager" Expression="&amp;(getSidlMgr()->XMLDataMgr)" />
+		<Intrinsic Name="getXmlClassIndex" Expression="XMLIndex &gt;&gt; 16" />
+		<Intrinsic Name="getXmlItemIndex" Expression="XMLIndex &amp; 0xffff" />
+		<Intrinsic Name="getXmlData" Expression="getParamManager()->dataArray[getXmlClassIndex()].items[getXmlItemIndex()].m_xmlData" />
+		<DisplayString>{getXmlData()->sClassName,sb} {getXmlData()->sItemName}</DisplayString>
+		<!--<Expand>
+			<Item Name="XMLIndex">XMLIndex</Item>
+			<Item Name="Class Index">getXmlClassIndex()</Item>
+			<Item Name="Item Index">getXmlItemIndex()</Item>
+			<Item Name="test">getXmlData()</Item>
+		</Expand>-->
 	</Type>
 </AutoVisualizer>
