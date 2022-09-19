@@ -27,6 +27,7 @@ $lineNum = 0
 $functionDefs | ForEach-Object {
     $filename = $_
     $prevErrorCount = $errorCount
+    $lineNum = 0
     Get-Content $eqlibDir/$_ | ForEach-Object {
         $line = $_.Trim()
         $lineNum = $lineNum + 1
@@ -50,14 +51,14 @@ $functionDefs | ForEach-Object {
         elseif ($line -eq "namespace eqlib {" -Or $line -eq "}" -Or $line.StartsWith("} //")) {
             # Namespace
         }
-        elseif ($line.StartsWith("#ifdef") -Or $line -eq "#endif") {
+        elseif ($line.StartsWith("#if") -Or $line.StartsWith("#endif")) {
             # ifdefs
         }
         elseif ($line.StartsWith("FUNCTION_AT_ADDRESS") -Or $line.StartsWith("FUNCTION_AT_VIRTUAL_ADDRESS")) {
             # Function Defs
         }
         # ExceptionsDisabled
-        elseif ($line -eq "#if !defined(_M_AMD64)" -Or $line -eq "#endif // !defined(_M_AMD64)") {
+        elseif ($line -like "#if *!defined(_M_AMD64)") {
             # Expected if !defined
         }
         elseif ($line -eq "#pragma warning(disable : 4530)") {
