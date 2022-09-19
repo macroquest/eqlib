@@ -3187,6 +3187,8 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetModCap(int index, bool bToggle)
 
 FUNCTION_AT_ADDRESS(void, CharacterZoneClient::GetPctModAndMin(const EQ_Spell* pSpell, int spa, ItemPtr& pOutItem, int& outPctMod, int& outMin, bool wMins, bool evalOnly, bool all, CharacterZoneClient* caster), CharacterZoneClient__GetPctModAndMin);
 
+FUNCTION_AT_VIRTUAL_ADDRESS(int, CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x40);
+
 //----------------------------------------------------------------------------
 // PcClient
 //----------------------------------------------------------------------------
