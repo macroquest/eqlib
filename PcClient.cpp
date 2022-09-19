@@ -295,8 +295,6 @@ int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutI
 	return GetFocusReuseMod(pSpell, pOutItem);
 }
 
-FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& pOutItem), CharacterZoneClient__GetFocusRangeModifier);
-
 int CharacterZoneClient::GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2)
 {
 	UNUSED(spell);
@@ -307,6 +305,25 @@ int CharacterZoneClient::GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pIt
 	UNUSED(pOut2);
 
 	return 0;
+}
+
+//============================================================================
+// PcClient
+//============================================================================
+
+EQ_Spell* PcClient::GetMeleeSpellFromSkillIndex(int index)
+{
+	if (index >= 0 && index < NUM_COMBAT_ABILITIES)
+	{
+		int meleeSpell = GetCombatAbility(index);
+
+		if (meleeSpell > 0)
+		{
+			return pSpellMgr->GetSpellByID(meleeSpell);
+		}
+	}
+
+	return nullptr;
 }
 
 //============================================================================

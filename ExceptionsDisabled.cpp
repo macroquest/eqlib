@@ -32,7 +32,7 @@ namespace eqlib {
 /* FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width, uint32_t Flags,
  *	CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver, bool bResizeable,
  *	CXSize TextureSize, CXPoint TextureOffset), CListWnd__AddColumn1);
-*/
+ */
 FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width, uint32_t Flags, CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver, bool bResizeable, CXSize TextureSize, CXPoint TextureOffset), CListWnd__AddColumn1);
 #endif
 

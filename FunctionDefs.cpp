@@ -67,9 +67,9 @@ FUNCTION_AT_ADDRESS(bool, CXWnd::IsReallyVisible() const, CXWnd__IsReallyVisible
 #ifdef CXWnd__DoAllDrawing_x
 FUNCTION_AT_ADDRESS(int, CXWnd::DoAllDrawing() const, CXWnd__DoAllDrawing);
 #endif
-#ifdef CXWnd__DrawChildren_x
-FUNCTION_AT_ADDRESS(int, CXWnd::DrawChildren() const, CXWnd__DrawChildren);
-#endif
+//#ifdef CXWnd__DrawChildren_x
+//FUNCTION_AT_ADDRESS(int, CXWnd::DrawChildren() const, CXWnd__DrawChildren);
+//#endif
 #ifdef CXWnd__Center_x
 FUNCTION_AT_ADDRESS(void, CXWnd::Center(), CXWnd__Center);
 #endif
@@ -77,16 +77,16 @@ FUNCTION_AT_ADDRESS(void, CXWnd::Center(), CXWnd__Center);
 FUNCTION_AT_ADDRESS(void, CXWnd::Right(), CXWnd__Right);
 #endif
 #ifdef CXWnd__GetScreenClipRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenClipRect() const, CXWnd__GetScreenClipRect);
+FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenClipRect() const, CXWnd__GetScreenClipRect);
 #endif
 #ifdef CXWnd__IsDescendantOf_x
 FUNCTION_AT_ADDRESS(bool, CXWnd::IsDescendantOf(CXWnd const*) const, CXWnd__IsDescendantOf);
 #endif
-#ifdef CXWnd__GetBorderFrame_x
-FUNCTION_AT_ADDRESS(CTAFrameDraw const*, CXWnd::GetBorderFrame() const, CXWnd__GetBorderFrame);
-#endif
+//#ifdef CXWnd__GetBorderFrame_x
+//FUNCTION_AT_ADDRESS(CTAFrameDraw const*, CXWnd::GetBorderFrame() const, CXWnd__GetBorderFrame);
+//#endif
 #ifdef CXWnd__GetScreenRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenRect() const, CXWnd__GetScreenRect);
+FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenRect() const, CXWnd__GetScreenRect);
 #endif
 #ifdef CXWnd__Resize_x
 FUNCTION_AT_ADDRESS(int, CXWnd::Resize(int, int, bool, bool, bool), CXWnd__Resize);
@@ -130,7 +130,7 @@ FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::CalculateHSBRange(), CSidlScreenWnd__C
 FUNCTION_AT_ADDRESS(int, CSidlScreenWnd::DrawSidlPiece(CScreenPieceTemplate*, const CXRect&, const CXRect&) const, CSidlScreenWnd__DrawSidlPiece);
 #endif
 #ifdef CSidlScreenWnd__GetSidlPieceRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CSidlScreenWnd::GetSidlPieceRect(CScreenPieceTemplate*, const CXRect&) const, CSidlScreenWnd__GetSidlPieceRect);
+FUNCTION_AT_ADDRESS(CXRect, CSidlScreenWnd::GetSidlPieceRect(CScreenPieceTemplate*, const CXRect&) const, CSidlScreenWnd__GetSidlPieceRect);
 #endif
 #ifdef CSidlScreenWnd__AddButtonToRadioGroup_x
 FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::AddButtonToRadioGroup(CXStr, CButtonWnd*), CSidlScreenWnd__AddButtonToRadioGroup);
@@ -178,7 +178,7 @@ FUNCTION_AT_ADDRESS(int, CXWndManager::HandleKeyboardMsg(uint32_t, bool), CXWndM
 #endif
 
 //============================================================================
-// Function Addresses: EQClasses 
+// Function Addresses: EQClasses
 //============================================================================
 
 //----------------------------------------------------------------------------
@@ -200,7 +200,7 @@ FUNCTION_AT_ADDRESS(AggroMeterManagerClient&, AggroMeterManagerClient::Instance(
 //----------------------------------------------------------------------------
 
 #ifdef AltAdvManager__GetAAById_x
-FUNCTION_AT_ADDRESS(CAltAbilityData*, AltAdvManager::GetAAById(int, int), AltAdvManager__GetAAById);
+FUNCTION_AT_ADDRESS(CAltAbilityData*, AltAdvManager::GetAAById(int), AltAdvManager__GetAAById);
 #endif
 #ifdef AltAdvManager__IsAbilityReady_x
 FUNCTION_AT_ADDRESS(bool, AltAdvManager::IsAbilityReady(PcClient*, CAltAbilityData*, int*, int*), AltAdvManager__IsAbilityReady);
@@ -257,6 +257,7 @@ FUNCTION_AT_ADDRESS(const char*, CDBStr::GetString(int, eDatabaseStringType type
 //----------------------------------------------------------------------------
 // CDistillerInfo
 //----------------------------------------------------------------------------
+#ifdef CDistillerInfo__Instance_x
 
 #ifdef CDistillerInfo__GetIDFromRecordNum_x
 FUNCTION_AT_ADDRESS(int, CDistillerInfo::GetIDFromRecordNum(int ID, bool bWhat), CDistillerInfo__GetIDFromRecordNum);
@@ -264,6 +265,8 @@ FUNCTION_AT_ADDRESS(int, CDistillerInfo::GetIDFromRecordNum(int ID, bool bWhat),
 #ifdef CDistillerInfo__Instance_x
 FUNCTION_AT_ADDRESS(CDistillerInfo&, CDistillerInfo::Instance(), CDistillerInfo__Instance);
 #endif
+
+#endif // def CDistillerInfo__Instance_x
 
 //----------------------------------------------------------------------------
 // CGuild
@@ -276,7 +279,7 @@ FUNCTION_AT_ADDRESS(char*, CGuild::GetGuildMotd(), CGuild__GetGuildMotd);
 FUNCTION_AT_ADDRESS(char*, CGuild::GetGuildMotdAuthor(), CGuild__GetGuildMotdAuthor);
 #endif
 #ifdef CGuild__GetGuildName_x
-FUNCTION_AT_ADDRESS(const char*, CGuild::GetGuildName(int64_t, char*, bool*, bool) const, CGuild__GetGuildName);
+FUNCTION_AT_ADDRESS(const char*, CGuild::GetGuildName(int) const, CGuild__GetGuildName);
 #endif
 #ifdef CGuild__ValidGuildName_x
 FUNCTION_AT_ADDRESS(bool, CGuild::ValidGuildName(int), CGuild__ValidGuildName);
@@ -331,6 +334,9 @@ FUNCTION_AT_ADDRESS(void, CGuild::ChangeGuildMemberName(char*), CGuild__ChangeGu
 #endif
 #ifdef CGuild__FindMemberByName_x
 FUNCTION_AT_ADDRESS(GuildMember*, CGuild::FindMemberByName(const char*), CGuild__FindMemberByName);
+#endif
+#ifdef CGuild__GetGuildIndex_x
+FUNCTION_AT_ADDRESS(int, CGuild::GetGuildIndex(const char* name), CGuild__GetGuildIndex);
 #endif
 
 //----------------------------------------------------------------------------
@@ -1283,6 +1289,10 @@ FUNCTION_AT_ADDRESS(bool, KeyCombo::GetScanCodeFromVirtualKey(unsigned int, unsi
 FUNCTION_AT_ADDRESS(bool, KeyCombo::GetPrintableLetterFromVirtualKey(unsigned int, unsigned int, bool, bool, unsigned short*) const, KeyCombo__GetPrintableLetterFromVirtualKey);
 #endif
 
+#if defined(KeyCombo__GetTextDescription_x) && !defined(_M_AMD64)
+FUNCTION_AT_ADDRESS(CXStr, KeyCombo::GetTextDescription() const, KeyCombo__GetTextDescription);
+#endif
+
 //----------------------------------------------------------------------------
 // KeypressHandler
 //----------------------------------------------------------------------------
@@ -1360,8 +1370,10 @@ FUNCTION_AT_ADDRESS(bool, LootFiltersManager::SetItemLootFilter(int, int, const 
 // MercenaryAlternateAdvancementManagerClient
 //----------------------------------------------------------------------------
 
+#if HAS_MERCENARY_AA
 FUNCTION_AT_ADDRESS(MercenaryAlternateAdvancementManagerClient&, MercenaryAlternateAdvancementManagerClient::Instance(), MercenaryAlternateAdvancementManagerClient__Instance);
 FUNCTION_AT_ADDRESS(void, MercenaryAlternateAdvancementManagerClient::BuyAbility(int abilityId, bool trainAll, bool unk), MercenaryAlternateAdvancementManagerClient__BuyAbility);
+#endif // HAS_MERCENARY_AA
 
 //----------------------------------------------------------------------------
 // Mp3Manager
@@ -2410,9 +2422,9 @@ FUNCTION_AT_ADDRESS(void, CDisplay::DDrawUpdateDisplay(), CDisplay__DDrawUpdateD
 #ifdef CDisplay__SetViewActor_x
 FUNCTION_AT_ADDRESS(void, CDisplay::SetViewActor(CActorInterface*), CDisplay__SetViewActor);
 #endif
-#ifdef CDisplay__SetRenderWindow_x
-FUNCTION_AT_ADDRESS(void, CDisplay::SetRenderWindow(int mode), CDisplay__SetRenderWindow);
-#endif
+//#ifdef CDisplay__SetRenderWindow_x
+//FUNCTION_AT_ADDRESS(void, CDisplay::SetRenderWindow(int mode), CDisplay__SetRenderWindow);
+//#endif
 #ifdef CDisplay__ToggleScreenshotMode_x
 FUNCTION_AT_ADDRESS(void, CDisplay::ToggleScreenshotMode(), CDisplay__ToggleScreenshotMode);
 #endif
@@ -2570,6 +2582,10 @@ FUNCTION_AT_ADDRESS(void, CDisplay::MoveLight(struct T3D_POINTLIGHT*, struct _ph
 
 FUNCTION_AT_ADDRESS(void, ConvertItemTags(CXStr&, bool), __ConvertItemTags);
 
+#if !defined(_M_AMD64)
+FUNCTION_AT_ADDRESS(CXStr, CleanItemTags(const CXStr&, bool), __CleanItemTags);
+#endif
+
 //============================================================================
 // Function Addresses: Items
 //============================================================================
@@ -2578,11 +2594,13 @@ FUNCTION_AT_ADDRESS(void, ConvertItemTags(CXStr&, bool), __ConvertItemTags);
 // ItemBase / ItemClient
 //----------------------------------------------------------------------------
 
-#ifdef ItemBase__CreateItemTagString_x
-FUNCTION_AT_ADDRESS(char*, ItemBase::CreateItemTagString(char*, int, bool), ItemBase__CreateItemTagString);
-#endif
+FUNCTION_AT_ADDRESS(char*, ItemBase::CreateItemTagString(char*, int), ItemBase__CreateItemTagString);
+
 #ifdef ItemBase__GetImageNum_x
 FUNCTION_AT_ADDRESS(int, ItemBase::GetImageNum() const, ItemBase__GetImageNum);
+#endif
+#ifdef ItemClient__CreateItemClient_x
+FUNCTION_AT_ADDRESS(ItemPtr, ItemBase::CreateItemClient(CUnSerializeBuffer& buffer), ItemClient__CreateItemClient);
 #endif
 #ifdef ItemClient__CanDrop_x
 FUNCTION_AT_ADDRESS(bool, ItemBase::CanDrop(bool, bool, bool, bool) const, ItemClient__CanDrop);
@@ -2601,9 +2619,6 @@ FUNCTION_AT_ADDRESS(int, ItemBase::ValueSellMerchant(float, int) const, ItemBase
 #endif
 #ifdef ItemBase__CanGemFitInSlot_x
 FUNCTION_AT_ADDRESS(int, ItemBase::CanGemFitInSlot(const ItemPtr& pItem, int, bool, bool index) const, ItemBase__CanGemFitInSlot);
-#endif
-#ifdef ItemBase__IsLoreEquipped_x
-FUNCTION_AT_ADDRESS(bool, ItemBase::IsLoreEquipped(bool bIncludeSockets) const, ItemBase__IsLoreEquipped);
 #endif
 #ifdef ItemBase__IsLore_x
 FUNCTION_AT_ADDRESS(bool, ItemBase::IsLore(bool bIncludeSockets) const, ItemBase__IsLore);
@@ -2645,6 +2660,12 @@ FUNCTION_AT_ADDRESS(const char*, ExtendedTargetList::ExtendedTargetRoleName(uint
 // CharacterBase
 //----------------------------------------------------------------------------
 
+#ifdef CharacterBase__GetItemByGlobalIndex_x
+FUNCTION_AT_ADDRESS(ItemPtr, CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const, CharacterBase__GetItemByGlobalIndex);
+#endif
+#ifdef CharacterBase__GetItemByGlobalIndex1_x
+FUNCTION_AT_ADDRESS(ItemPtr, CharacterBase::GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex, ItemContainer::CheckDepthOptions Option) const, CharacterBase__GetItemByGlobalIndex1);
+#endif
 #ifdef CharacterBase__IsExpansionFlag_x
 FUNCTION_AT_ADDRESS(int, CharacterBase::IsExpansionFlag(int), CharacterBase__IsExpansionFlag);
 #endif
@@ -2654,7 +2675,7 @@ FUNCTION_AT_ADDRESS(int, CharacterBase::IsExpansionFlag(int), CharacterBase__IsE
 //----------------------------------------------------------------------------
 
 #ifdef CharacterZoneClient__FindAffectSlot_x
-FUNCTION_AT_ADDRESS(EQ_Affect*, CharacterZoneClient::FindAffectSlot(int, PlayerClient*, int*, bool, int, EQ_Affect*, int), CharacterZoneClient__FindAffectSlot);
+FUNCTION_AT_ADDRESS(EQ_Affect*, CharacterZoneClient::FindAffectSlot(int, PlayerClient*, int*, bool, int, EQ_Affect*, int, bool), CharacterZoneClient__FindAffectSlot);
 #endif
 #ifdef CharacterZoneClient__GetMaxEffects_x
 FUNCTION_AT_ADDRESS(unsigned char, CharacterZoneClient::GetMaxEffects() const, CharacterZoneClient__GetMaxEffects);
@@ -2951,7 +2972,7 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::AntiTwinkAdj(EQ_Equipment*, int, i
 FUNCTION_AT_ADDRESS(unsigned char, CharacterZoneClient::GetSkillBaseDamage(unsigned char, EQPlayer*), CharacterZoneClient__GetSkillBaseDamage);
 #endif
 #ifdef CharacterZoneClient__UseSkill_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient::UseSkill(unsigned char skill, PlayerZoneClient* target, bool), CharacterZoneClient__UseSkill);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::UseSkill(unsigned char skill, PlayerZoneClient* target), CharacterZoneClient__UseSkill);
 #endif
 #ifdef CharacterZoneClient__DoIntimidationEvent_x
 FUNCTION_AT_ADDRESS(void, CharacterZoneClient::DoIntimidationEvent(), CharacterZoneClient__DoIntimidationEvent);
@@ -3051,9 +3072,6 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusConserveRegChance(EQ_Spell
 #endif
 #ifdef CharacterZoneClient__GetFocusCastingTimeModifier_x
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusCastingTimeModifier(const EQ_Spell* pSpell, ItemPtr& pItemOut, bool bEvalOnly), CharacterZoneClient__GetFocusCastingTimeModifier);
-#endif
-#ifdef CharacterZoneClient__GetFocusDurationMod_x
-FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusDurationMod(const EQ_Spell* spell, ItemPtr& pItemOut, PlayerZoneClient* pCaster, int originalDuration, int* pOut1, int* pOut2), CharacterZoneClient__GetFocusDurationMod);
 #endif
 #ifdef CharacterZoneClient__GetFocusItem_x
 FUNCTION_AT_ADDRESS(EQ_Equipment*, CharacterZoneClient::GetFocusItem(EQ_Spell const*, int), CharacterZoneClient__GetFocusItem);
@@ -3182,19 +3200,14 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetBaseSkill(int), CharacterZoneCl
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetCurrentMod(int index), CharacterZoneClient__GetCurrentMod);
 #endif
 #ifdef CharacterZoneClient__GetModCap_x
-FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetModCap(int index, bool bToggle), CharacterZoneClient__GetModCap);
+FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetModCap(int index), CharacterZoneClient__GetModCap);
 #endif
-
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient::GetPctModAndMin(const EQ_Spell* pSpell, int spa, ItemPtr& pOutItem, int& outPctMod, int& outMin, bool wMins, bool evalOnly, bool all, CharacterZoneClient* caster), CharacterZoneClient__GetPctModAndMin);
 
 FUNCTION_AT_VIRTUAL_ADDRESS(int, CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x40);
 
-//----------------------------------------------------------------------------
-// PcClient
-//----------------------------------------------------------------------------
-#ifdef PcClient__GetMeleeSpellFromSkillIndex_x
-FUNCTION_AT_ADDRESS(EQ_Spell*, PcClient::GetMeleeSpellFromSkillIndex(int), PcClient__GetMeleeSpellFromSkillIndex);
-#endif
+FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusReuseMod(const EQ_Spell*, ItemPtr& pOutItem), CharacterZoneClient__GetFocusReuseMod)
+
+FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& pOutItem), CharacterZoneClient__GetFocusRangeModifier);
 
 //----------------------------------------------------------------------------
 // PcZoneClient
@@ -3211,6 +3224,9 @@ FUNCTION_AT_ADDRESS(void, PcZoneClient::RemovePetEffect(int), PcZoneClient__Remo
 #endif
 #ifdef PcZoneClient__HasAlternateAbility_x
 FUNCTION_AT_ADDRESS(bool, PcZoneClient::HasAlternateAbility(int aaindex, int*, bool, bool), PcZoneClient__HasAlternateAbility);
+#endif
+#ifdef PcZoneClient__GetItemByID_x
+FUNCTION_AT_ADDRESS(ItemPtr, PcZoneClient::GetItemByID(int itemid, ItemIndex*, bool allSlots), PcZoneClient__GetItemByID);
 #endif
 #ifdef PcZoneClient__CanEquipItem_x
 FUNCTION_AT_ADDRESS(bool, PcZoneClient::CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel), PcZoneClient__CanEquipItem);
@@ -3305,7 +3321,7 @@ FUNCTION_AT_ADDRESS(int, PcClient::numInParty(), EQ_PC__numInParty);
 FUNCTION_AT_ADDRESS(unsigned char, PcClient::AtSkillLimit(int), EQ_PC__AtSkillLimit);
 #endif
 #ifdef PcZoneClient__GetItemRecastTimer_x
-FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype), PcZoneClient__GetItemRecastTimer);
+FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::_GetItemRecastTimer(const ItemPtr& item), PcZoneClient__GetItemRecastTimer);
 #endif
 #ifdef PcBase__GetAlternateAbilityId_x
 FUNCTION_AT_ADDRESS(int, PcClient::GetAlternateAbilityId(int), PcBase__GetAlternateAbilityId);
@@ -3314,7 +3330,7 @@ FUNCTION_AT_ADDRESS(int, PcClient::GetAlternateAbilityId(int), PcBase__GetAltern
 FUNCTION_AT_ADDRESS(int, PcClient::GetCombatAbility(int), PcBase__GetCombatAbility);
 #endif
 #ifdef PcBase__GetCombatAbilityTimer_x
-FUNCTION_AT_ADDRESS(uint32_t, PcClient::GetCombatAbilityTimer(int, int), PcBase__GetCombatAbilityTimer);
+FUNCTION_AT_ADDRESS(uint32_t, PcClient::_GetCombatAbilityTimer(int), PcBase__GetCombatAbilityTimer);
 #endif
 #ifdef PcClient__HasLoreItem_x
 FUNCTION_AT_ADDRESS(bool, PcClient::HasLoreItem(const ItemPtr&, bool, bool, bool, bool), PcClient__HasLoreItem);
@@ -3467,7 +3483,7 @@ FUNCTION_AT_ADDRESS(bool, PlayerBase::CanSee(const CVector3& pos), PlayerBase__C
 FUNCTION_AT_ADDRESS(unsigned int, EQPlayer::ModifyAttackSpeed(unsigned int, int), EQPlayer__ModifyAttackSpeed);
 #endif
 #ifdef PlayerZoneClient__DoAttack_x
-FUNCTION_AT_ADDRESS(bool, PlayerZoneClient::DoAttack(BYTE, BYTE, PlayerZoneClient*, bool, bool, bool), PlayerZoneClient__DoAttack);
+FUNCTION_AT_ADDRESS(bool, PlayerZoneClient::DoAttack(BYTE, BYTE, PlayerZoneClient*), PlayerZoneClient__DoAttack);
 #endif
 #ifdef EQPlayer__HandleAmmo_x
 FUNCTION_AT_ADDRESS(unsigned char, EQPlayer::HandleAmmo(), EQPlayer__HandleAmmo);
@@ -3828,9 +3844,6 @@ FUNCTION_AT_ADDRESS(bool, PlayerBase::HasProperty(int, int, int), PlayerBase__Ha
 // PlayerZoneClient
 //----------------------------------------------------------------------------
 
-#ifdef PlayerZoneClient__LegalPlayerRace_x
-FUNCTION_AT_ADDRESS(bool, PlayerZoneClient::LegalPlayerRace(), PlayerZoneClient__LegalPlayerRace);
-#endif
 #ifdef PlayerZoneClient__GetLevel_x
 FUNCTION_AT_ADDRESS(unsigned char, PlayerZoneClient::GetLevel() const, PlayerZoneClient__GetLevel);
 #endif
@@ -4043,6 +4056,8 @@ FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexPrintableToTagged(int), CEditWnd_
 FUNCTION_AT_ADDRESS(int, CEditWnd::ConvertIndexTaggedToPrintable(int), CEditWnd__ConvertIndexTaggedToPrintable);
 #endif
 
+FUNCTION_AT_ADDRESS(CXPoint, CEditWnd::GetCharIndexPt(int) const, CEditWnd__GetCharIndexPt);
+
 //----------------------------------------------------------------------------
 // CGuageWnd
 //----------------------------------------------------------------------------
@@ -4082,6 +4097,9 @@ FUNCTION_AT_ADDRESS(void, CLabel::SetAlignRight(bool), CLabel__SetAlignRight);
 FUNCTION_AT_ADDRESS(void, CLabel::SetAlignCenter(bool), CLabel__SetAlignCenter);
 #endif
 
+//----------------------------------------------------------------------------
+// CListWnd
+//----------------------------------------------------------------------------
 
 #ifdef CListWnd__GetCurSel_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetCurSel() const, CListWnd__GetCurSel);
@@ -4090,10 +4108,10 @@ FUNCTION_AT_ADDRESS(int, CListWnd::GetCurSel() const, CListWnd__GetCurSel);
 FUNCTION_AT_ADDRESS(int, CListWnd::GetCurCol() const, CListWnd__GetCurCol);
 #endif
 #ifdef CListWnd__GetItemData_x
-FUNCTION_AT_ADDRESS(uint64_t, CListWnd::GetItemData(int) const, CListWnd__GetItemData);
+FUNCTION_AT_ADDRESS(uint32_t, CListWnd::GetItemData(int) const, CListWnd__GetItemData);
 #endif
 #ifdef CListWnd__GetItemText_x
-//FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
+FUNCTION_AT_ADDRESS(CXStr, CListWnd::GetItemText(int, int) const, CListWnd__GetItemText);
 #endif
 #ifdef CListWnd__GetItemColor_x
 FUNCTION_AT_ADDRESS(unsigned long, CListWnd::GetItemColor(int, int) const, CListWnd__GetItemColor);
@@ -4107,9 +4125,9 @@ FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnWidth(int) const, CListWnd__GetColum
 #ifdef CListWnd__SetColumnWidth_x
 FUNCTION_AT_ADDRESS(void, CListWnd::SetColumnWidth(int, int), CListWnd__SetColumnWidth);
 #endif
-#ifdef CListWnd__ShiftColumnSeparator_x
-FUNCTION_AT_ADDRESS(void, CListWnd::ShiftColumnSeparator(int, int), CListWnd__ShiftColumnSeparator);
-#endif
+//#ifdef CListWnd__ShiftColumnSeparator_x
+//FUNCTION_AT_ADDRESS(void, CListWnd::ShiftColumnSeparator(int, int), CListWnd__ShiftColumnSeparator);
+//#endif
 #ifdef CListWnd__GetColumnMinWidth_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetColumnMinWidth(int) const, CListWnd__GetColumnMinWidth);
 #endif
@@ -4135,7 +4153,7 @@ FUNCTION_AT_ADDRESS(CTextureAnimation const*, CListWnd::GetColumnAnimationMouseO
 FUNCTION_AT_ADDRESS(int, CListWnd::AddLine(SListWndLine*), CListWnd__AddLine);
 #endif
 #ifdef CListWnd__AddString_x
-FUNCTION_AT_ADDRESS(int, CListWnd::AddString(const CXStr& Str, COLORREF Color, uint64_t Data, const CTextureAnimation* pTa, const char* TooltipStr), CListWnd__AddString);
+FUNCTION_AT_ADDRESS(int, CListWnd::AddString(const CXStr& Str, COLORREF Color, uint32_t Data, const CTextureAnimation* pTa, const char* TooltipStr), CListWnd__AddString);
 #endif
 #ifdef CListWnd__RemoveString_x
 FUNCTION_AT_ADDRESS(void, CListWnd::RemoveString(int), CListWnd__RemoveString);
@@ -4177,7 +4195,7 @@ FUNCTION_AT_ADDRESS(void, CListWnd::CalculateCustomWindowPositions(), CListWnd__
 FUNCTION_AT_ADDRESS(void, CListWnd::SetItemWnd(int Index, int SubItem, CXWnd* pWnd), CListWnd__SetItemWnd);
 #endif
 #ifdef CListWnd__SetItemData_x
-FUNCTION_AT_ADDRESS(void, CListWnd::SetItemData(int, uint64_t), CListWnd__SetItemData);
+FUNCTION_AT_ADDRESS(void, CListWnd::SetItemData(int, uint32_t), CListWnd__SetItemData);
 #endif
 #ifdef CListWnd__SetItemText_x
 FUNCTION_AT_ADDRESS(void, CListWnd::SetItemText(int, int, const CXStr&), CListWnd__SetItemText);
@@ -4216,7 +4234,7 @@ FUNCTION_AT_ADDRESS(void, CListWnd::CalculateFirstVisibleLine(), CListWnd__Calcu
 FUNCTION_AT_ADDRESS(void, CListWnd::EnsureVisible(int), CListWnd__EnsureVisible);
 #endif
 #ifdef CListWnd__GetItemRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
+FUNCTION_AT_ADDRESS(CXRect, CListWnd::GetItemRect(int, int) const, CListWnd__GetItemRect);
 #endif
 #ifdef CListWnd__CloseAndUpdateEditWindow_x
 FUNCTION_AT_ADDRESS(void, CListWnd::CloseAndUpdateEditWindow(), CListWnd__CloseAndUpdateEditWindow);
@@ -4323,9 +4341,9 @@ FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardPastSpaces(CXStr&, int*
 #ifdef CStmlWnd__FastForwardPastSpacesAndQuotes_x
 FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardPastSpacesAndQuotes(CXStr&, int*), CStmlWnd__FastForwardPastSpacesAndQuotes);
 #endif
-#ifdef CStmlWnd__GetNextTagPiece_x
-FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::GetNextTagPiece(const CXStr&, CXStr*, int*, bool (*)(unsigned short), bool), CStmlWnd__GetNextTagPiece);
-#endif
+//#ifdef CStmlWnd__GetNextTagPiece_x
+//FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::GetNextTagPiece(const CXStr&, CXStr*, int*, bool (*)(unsigned short), bool), CStmlWnd__GetNextTagPiece);
+//#endif
 #ifdef CStmlWnd__IsCharacterNotQuotes_x
 FUNCTION_AT_ADDRESS(bool __cdecl, CStmlWnd::IsCharacterNotQuotes(unsigned short), CStmlWnd__IsCharacterNotQuotes);
 #endif
@@ -4338,9 +4356,9 @@ FUNCTION_AT_ADDRESS(unsigned short, CStmlWnd::FastForwardToEndOfTag(const CXStr&
 #ifdef CStmlWnd__InitializeTempVariables_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeTempVariables(SParseVariables*, CXRect), CStmlWnd__InitializeTempVariables);
 #endif
-#ifdef CStmlWnd__InitializeWindowVariables_x
-FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeWindowVariables(), CStmlWnd__InitializeWindowVariables);
-#endif
+//#ifdef CStmlWnd__InitializeWindowVariables_x
+//FUNCTION_AT_ADDRESS(void, CStmlWnd::InitializeWindowVariables(), CStmlWnd__InitializeWindowVariables);
+//#endif
 #ifdef CStmlWnd__ResetTempVariablesForNewLine_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::ResetTempVariablesForNewLine(SParseVariables*), CStmlWnd__ResetTempVariablesForNewLine);
 #endif
@@ -4380,9 +4398,9 @@ FUNCTION_AT_ADDRESS(void, CStmlWnd::CompleteParse(), CStmlWnd__CompleteParse);
 #ifdef CStmlWnd__StripFirstSTMLLines_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::StripFirstSTMLLines(int), CStmlWnd__StripFirstSTMLLines);
 #endif
-#ifdef CStmlWnd__CanBreakAtCharacter_x
-FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
-#endif
+//#ifdef CStmlWnd__CanBreakAtCharacter_x
+//FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanBreakAtCharacter(unsigned short), CStmlWnd__CanBreakAtCharacter);
+//#endif
 #ifdef CStmlWnd__UpdateHistoryString_x
 FUNCTION_AT_ADDRESS(void, CStmlWnd::UpdateHistoryString(int32_t, const CXStr&), CStmlWnd__UpdateHistoryString);
 #endif
@@ -4396,6 +4414,9 @@ FUNCTION_AT_ADDRESS(void, CStmlWnd::GoToBackHistoryLink(), CStmlWnd__GoToBackHis
 FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
 #endif
 
+FUNCTION_AT_ADDRESS(CXStr, CStmlWnd::MakeWndNotificationTag(uint32_t, const CXStr&, const CXStr&), CStmlWnd__MakeWndNotificationTag);
+FUNCTION_AT_ADDRESS(CXStr, STMLToText(const CXStr&, bool), __STMLToText);
+
 //----------------------------------------------------------------------------
 // CTabWnd
 //----------------------------------------------------------------------------
@@ -4407,17 +4428,14 @@ FUNCTION_AT_ADDRESS(CTabWnd::CTabWnd(CXWnd* pParent, UINT uId, RECT* rect, CTabB
 FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetPageClientRect() const, CTabWnd__GetPageClientRect);
 #endif
 #ifdef CTabWnd__SetPage_x
-FUNCTION_AT_ADDRESS(void, CTabWnd::SetPage(int, bool, bool, bool), CTabWnd__SetPage);
-#endif
-#ifdef CTabWnd__SetPage1_x
-FUNCTION_AT_ADDRESS(bool, CTabWnd::SetPage(CPageWnd*, bool, bool), CTabWnd__SetPage1);
+FUNCTION_AT_ADDRESS(void, CTabWnd::SetPage(int, bool), CTabWnd__SetPage);
 #endif
 #ifdef CTabWnd__InsertPage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::InsertPage(CPageWnd*, int), CTabWnd__InsertPage);
 #endif
-#ifdef CTabWnd__SetPageRect_x
-FUNCTION_AT_ADDRESS(void, CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageRect);
-#endif
+//#ifdef CTabWnd__SetPageRect_x
+//FUNCTION_AT_ADDRESS(void, CTabWnd::SetPageRect(const CXRect&), CTabWnd__SetPageRect);
+//#endif
 #ifdef CTabWnd__UpdatePage_x
 FUNCTION_AT_ADDRESS(void, CTabWnd::UpdatePage(), CTabWnd__UpdatePage);
 #endif
@@ -4433,6 +4451,8 @@ FUNCTION_AT_ADDRESS(int, CTabWnd::DrawTab(int) const, CTabWnd__DrawTab);
 #ifdef CTabWnd__DrawCurrentPage_x
 FUNCTION_AT_ADDRESS(int, CTabWnd::DrawCurrentPage() const, CTabWnd__DrawCurrentPage);
 #endif
+
+FUNCTION_AT_ADDRESS(CXRect, CTabWnd::GetTabRect(int) const, CTabWnd__GetTabRect);
 
 //----------------------------------------------------------------------------
 // CAAWnd
@@ -5417,6 +5437,8 @@ FUNCTION_AT_ADDRESS(void, CInvSlot::HandleLButtonUpAfterHeld(CXPoint), CInvSlot_
 FUNCTION_AT_ADDRESS(void, CInvSlot::HandleRButtonDown(CXPoint), CInvSlot__HandleRButtonDown);
 #endif
 
+FUNCTION_AT_ADDRESS(ItemPtr, CInvSlot::GetItem(), CInvSlot__GetItemBase);
+
 //----------------------------------------------------------------------------
 // CInvSlotMgr
 //----------------------------------------------------------------------------
@@ -5432,9 +5454,6 @@ FUNCTION_AT_ADDRESS(bool, CInvSlotMgr::MoveItem(const ItemGlobalIndex& from, con
 #endif
 #ifdef CInvSlotMgr__CreateInvSlot_x
 FUNCTION_AT_ADDRESS(CInvSlot*, CInvSlotMgr::CreateInvSlot(CInvSlotWnd*), CInvSlotMgr__CreateInvSlot);
-#endif
-#ifdef CInvSlotMgr__FindInvSlot_x
-FUNCTION_AT_ADDRESS(CInvSlot*, CInvSlotMgr::FindInvSlot(int, int, ItemContainerInstance, bool), CInvSlotMgr__FindInvSlot);
 #endif
 #ifdef CInvSlotMgr__SelectSlot_x
 FUNCTION_AT_ADDRESS(void, CInvSlotMgr::SelectSlot(CInvSlot*), CInvSlotMgr__SelectSlot);
@@ -5498,10 +5517,13 @@ FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::UpdateStrings(), CSpellDisplayWnd__U
 //----------------------------------------------------------------------------
 // CKeyRingWnd
 //----------------------------------------------------------------------------
+#if HAS_KEYRING_WINDOW
 
 #ifdef CKeyRingWnd__ExecuteRightClick_x
 FUNCTION_AT_ADDRESS(int, CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType, const ItemPtr& pItem, int index), CKeyRingWnd__ExecuteRightClick);
 #endif
+
+#endif // HAS_KEYRING_WINDOW
 
 //----------------------------------------------------------------------------
 // CLootWnd
@@ -6158,9 +6180,6 @@ FUNCTION_AT_ADDRESS(CXStr*, CTargetWnd::GetBuffCaster(int), CTargetWnd__GetBuffC
 #ifdef CTaskWnd__UpdateTaskTimers_x
 FUNCTION_AT_ADDRESS(int, CTaskWnd::UpdateTaskTimers(unsigned long), CTaskWnd__UpdateTaskTimers);
 #endif
-#ifdef CTaskWnd__ConfirmAbandonTask_x
-FUNCTION_AT_ADDRESS(void, CTaskWnd::ConfirmAbandonTask(int), CTaskWnd__ConfirmAbandonTask);
-#endif
 
 //----------------------------------------------------------------------------
 // CTextEntryWnd
@@ -6466,7 +6485,7 @@ FUNCTION_AT_ADDRESS(CScreenPieceTemplate*, CSidlManagerBase::FindScreenPieceTemp
 FUNCTION_AT_ADDRESS(CScreenPieceTemplate*, CSidlManagerBase::FindScreenPieceTemplate(const CXStr&) const, CSidlManagerBase__FindScreenPieceTemplate1);
 #endif
 #ifdef CSidlManagerBase__CreateXWndFromTemplate_x
-FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, CControlTemplate*, bool), CSidlManagerBase__CreateXWndFromTemplate);
+FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, CControlTemplate*), CSidlManagerBase__CreateXWndFromTemplate);
 #endif
 #ifdef CSidlManagerBase__CreateXWndFromTemplate1_x
 FUNCTION_AT_ADDRESS(CXWnd*, CSidlManagerBase::CreateXWndFromTemplate(CXWnd*, const CXStr&), CSidlManagerBase__CreateXWndFromTemplate1);

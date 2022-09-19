@@ -362,6 +362,12 @@ void ItemBase::UpdateItemDefinition()
 	Contents.SetSize(containerSlots);
 }
 
+char* ItemBase::CreateItemTagString(char* buffer, int size, bool unused)
+{
+	UNUSED(unused);
+	return CreateItemTagString(buffer, size);
+}
+
 void ItemBase::PopulateItemEvolutionData(int maxLevel, int currentLevel, int groupId, int lastEquipped, double expPct)
 {
 	EvolvingMaxLevel = maxLevel;

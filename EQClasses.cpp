@@ -148,16 +148,6 @@ const char* CAltAbilityData::GetShortName2() const
 }
 
 //============================================================================
-// CGuild
-//============================================================================
-
-int64_t CGuild::GetGuildIndex(const char* name)
-{
-	// TODO: implement me
-	return 0;
-}
-
-//============================================================================
 // EQItemList
 //============================================================================
 
@@ -371,6 +361,8 @@ bool MercenaryAlternateAdvancementManagerClient::CanTrainAbility(int abilityId) 
 
 	return false;
 }
+
+#endif // HAS_MERCENARY_AA
 
 //============================================================================
 // RealEstateManagerClient

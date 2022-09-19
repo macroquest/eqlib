@@ -171,7 +171,7 @@ CXRect CGaugeWnd::CalcLinesFillRect(CXRect rect, int value) const
 {
 	if (value < 0)
 		value = 0;
-	
+
 	float width = static_cast<float>((value - 1) % 200) * 0.005f * rect.GetWidth();
 	rect.right = rect.left + static_cast<int>(width);
 
@@ -543,7 +543,33 @@ ItemGlobalIndex CInvSlot::GetItemLocation() const
 	return ItemGlobalIndex();
 }
 
-FUNCTION_AT_ADDRESS(ItemPtr, CInvSlot::GetItem(), CInvSlot__GetItemBase);
+//============================================================================
+// CInvSlotMgr
+//============================================================================
+
+CInvSlot* CInvSlotMgr::FindInvSlot(int topSlot, int subSlot /* = -1*/,
+	ItemContainerInstance location /* = eItemContainerPossessions*/, bool includeLinkedItems /*= true*/)
+{
+	UNUSED(includeLinkedItems);
+
+	if (topSlot < 0) return nullptr;
+
+	for (int i = 0; i < TotalSlots; ++i)
+	{
+		CInvSlot* invSlot = SlotArray[i];
+		if (invSlot && invSlot->pInvSlotWnd)
+		{
+			const ItemGlobalIndex& loc = invSlot->pInvSlotWnd->ItemLocation;
+
+			if (loc.GetLocation() == location && loc.GetTopSlot() == topSlot && loc.GetSlot(1) == subSlot)
+			{
+				return invSlot;
+			}
+		}
+	}
+
+	return nullptr;
+}
 
 //============================================================================
 // CInvSlot
