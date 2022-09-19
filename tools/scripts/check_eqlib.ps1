@@ -53,7 +53,7 @@ $functionDefs | ForEach-Object {
         elseif ($line.StartsWith("#ifdef") -Or $line -eq "#endif") {
             # ifdefs
         }
-        elseif ($line.StartsWith("FUNCTION_AT_ADDRESS")) {
+        elseif ($line.StartsWith("FUNCTION_AT_ADDRESS") -Or $line.StartsWith("FUNCTION_AT_VIRTUAL_ADDRESS")) {
             # Function Defs
         }
         # ExceptionsDisabled
@@ -65,7 +65,7 @@ $functionDefs | ForEach-Object {
         }
         else {
             if ($errorCount -eq $prevErrorCount) {
-                Write-Host "$functionDefs should only include FUNCTION_AT_ADDRESS calls and surrounding items."
+                Write-Host "$functionDefs should only include FUNCTION_AT_<VIRTUAL_>ADDRESS calls and surrounding items."
             }
             $errorCount = $errorCount + 1
             Write-Host "$filename :: Issue on Line $lineNum :: $line"
@@ -85,9 +85,9 @@ if (($files | Measure-Object).Count -gt 0)
             Get-Content $_.FullName | ForEach-Object {
                 $lineNum = $lineNum + 1
                 $line = $_.Trim()
-                if ($line.StartsWith("FUNCTION_AT_ADDRESS") -And -Not ($line -like "*Exception to Separate Function Addresses*")) {
+                if (($line.StartsWith("FUNCTION_AT_ADDRESS") -Or $line.StartsWith("FUNCTION_AT_VIRTUAL_ADDRESS")) -And -Not ($line -like "*Exception to Separate Function Addresses*")) {
                     if ($prevErrorCount -eq $errorCount) {
-                        Write-Host "FUNCTION_AT_ADDRESS call found outside of $functionDefs"
+                        Write-Host "FUNCTION_AT_<VIRTUAL_>ADDRESS call found outside of $functionDefs"
                     }
                     $errorCount = $errorCount + 1
                     Write-Host "$filename :: Issue on Line $lineNum :: $line"

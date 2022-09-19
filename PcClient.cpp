@@ -289,8 +289,6 @@ const char* GetXtargetType(DWORD type)
 // CharacterZoneClient
 //============================================================================
 
-FUNCTION_AT_VIRTUAL_ADDRESS(int, CharacterZoneClient::CalculateInvisLevel(InvisibleTypes, bool bIncludeSos), 0x40);
-
 int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem, bool evalOnly)
 {
 	int pctMod = 0;
