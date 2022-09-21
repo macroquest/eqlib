@@ -339,14 +339,12 @@ struct [[offsetcomments]] TargetSetLoadout
 
 struct [[offsetcomments]] CMDLIST
 {
-/*0x00*/ DWORD LocalizedStringID;
-/*0x08*/ char* szName;
-/*0x10*/ char* szLocalized;
-/*0x18*/ void  (*fAddress)(PlayerClient*, char*);
-/*0x20*/ DWORD Restriction;
-/*0x24*/ DWORD Category;
-/*0x28*/ DWORD Flags;
-/*0x2c*/
+/*0x00*/ char* szName;
+/*0x08*/ void  (*fAddress)(PlayerClient*, char*);
+/*0x10*/ DWORD Restriction;
+/*0x14*/ DWORD Category;
+/*0x18*/ DWORD Flags;
+/*0x1c*/
 };
 using PCMDLIST = CMDLIST*;
 
