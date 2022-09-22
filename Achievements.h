@@ -217,7 +217,6 @@ public:
 /*0x68*/ CXStr                    name;
 /*0x70*/ CXStr                    description;
 /*0x78*/ int                      iconId = -1;
-/*0x7c*/ bool                     persistent = true;
 /*0x80*/ int                      version = 0;
 /*0x84*/ int                      points = 0;
 /*0x88*/ int                      rewardSet = 0;
