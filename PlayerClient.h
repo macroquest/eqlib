@@ -282,33 +282,31 @@ inline namespace deprecated {
 // PhysicsBase & PlayerPhysics
 //============================================================================
 
-class [[offsetcomments]] PhysicsBase
+class [[offsetcomments]] PhysicsBase // 1f00
 {
 public:
-/*0x00*/ void* vtable2;
-/*0x08*/ bool  bApplyGravity;
-/*0x0c*/
+	// just add a virtual to create a vtable
+	virtual float ClampZAccel(float zAccel) { return zAccel; }
 };
 
 class [[offsetcomments]] PlayerPhysics : public PhysicsBase
 {
 public:
-/*0x10*/ PlayerClient*    pSpawn;
-/*0x18*/ GravityBehavior  Levitate;
-// bobbing control
-/*0x1c*/ int              UpDownIndex;
-/*0x20*/ int              LeftRightIndex;
-/*0x24*/ int              UpDownSpeed;
-/*0x28*/ int              LeftRightSpeed;
-/*0x2c*/ float            LeftRightDist;
-/*0x30*/ float            UpDownDist;
+/*0x08*/ GravityBehavior Levitate;
+/*0x0c*/ int             UpDownIndex;
+/*0x10*/ int             LeftRightIndex;
+/*0x14*/ int             UpDownSpeed;
+/*0x18*/ int             LeftRightSpeed;
+/*0x1c*/ float           LeftRightDist;
+/*0x20*/ float           UpDownDist;
+/*0x28*/ PlayerClient*   pSpawn;
+/*0x30*/ bool            bApplyGravity;
 /*0x34*/
 };
 
 class PlayerPhysicsClient : public PlayerPhysics
 {
 public:
-/*0x1Fb8*/
 };
 
 struct [[offsetcomments]] PZCPhysicsInfo
