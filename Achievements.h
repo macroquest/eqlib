@@ -217,12 +217,12 @@ public:
 /*0x68*/ CXStr                    name;
 /*0x70*/ CXStr                    description;
 /*0x78*/ int                      iconId = -1;
-/*0x80*/ int                      version = 0;
-/*0x84*/ int                      points = 0;
-/*0x88*/ int                      rewardSet = 0;
-/*0x8c*/ uint8_t                  unknown1 = 0; // maybe a bool?
-/*0x90*/ uint32_t                 unknown2 = 0;
-/*0x94*/
+/*0x7c*/ int                      version = 0;
+/*0x80*/ int                      points = 0;
+/*0x84*/ int                      rewardSet = 0;
+/*0x88*/ uint8_t                  unknown1 = 0; // maybe a bool?
+/*0x8c*/ uint32_t                 unknown2 = 0;
+/*0x90*/
 };
 
 //----------------------------------------------------------------------------
