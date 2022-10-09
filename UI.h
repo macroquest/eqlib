@@ -408,6 +408,8 @@ public:
 
 	EQLIB_OBJECT CXRect GetListRect(bool) const;
 	EQLIB_OBJECT void SetColors(COLORREF norm, COLORREF highlight, COLORREF selected);
+	void SetColors(mq::MQColor norm, mq::MQColor highlight, mq::MQColor selected) { SetColors(norm.ToARGB(), highlight.ToARGB(), selected.ToARGB()); }
+
 	EQLIB_OBJECT int InsertChoice(const CXStr& text, uint32_t data = 0);
 	EQLIB_OBJECT void SetChoice(int index);
 	EQLIB_OBJECT int GetItemCount();
@@ -940,7 +942,6 @@ public:
 	EQLIB_OBJECT void InsertLine(int ID, SListWndLine* rEntry);
 	EQLIB_OBJECT void RemoveLine(int);
 	EQLIB_OBJECT void RemoveString(int);
-	EQLIB_OBJECT void SetColors(unsigned long, unsigned long, unsigned long);
 	EQLIB_OBJECT void SetColumnJustification(int, int);
 	EQLIB_OBJECT void SetColumnLabel(int, const CXStr&);
 	EQLIB_OBJECT void SetColumnWidth(int, int);
@@ -957,6 +958,10 @@ public:
 	EQLIB_OBJECT CXWnd* GetItemWnd(int Index, int SubItem = 0) const;
 	EQLIB_OBJECT void SetItemIcon(int Index, int SubItem, const CTextureAnimation* pTA);
 	EQLIB_OBJECT void CalculateCustomWindowPositions();
+
+	EQLIB_OBJECT void SetColors(COLORREF crNormal, COLORREF crHighlight, COLORREF crSelected);
+	inline void SetColors(mq::MQColor normal, mq::MQColor highlight, mq::MQColor selected) { SetColors(normal.ToARGB(), highlight.ToARGB(), selected.ToARGB()); }
+
 
 	EQLIB_OBJECT int GetItemAtPoint(const CXPoint& pt) const;
 	EQLIB_OBJECT void GetItemAtPoint(const CXPoint& pt, int* ID, int* SubItem) const;
