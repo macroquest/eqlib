@@ -4067,7 +4067,8 @@ public:
 	virtual int OnProcessFrame() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
-	EQLIB_OBJECT void DoHotButton(int Button, int AllowAutoRightClick, int something);
+	EQLIB_OBJECT void DoHotButton(int Button, int AllowAutoRightClick);
+	inline void DoHotButton(int Button, int AllowAutoRightClick, int unk) { DoHotButton(Button, AllowAutoRightClick); }
 	EQLIB_OBJECT void DoHotButtonRightClick(int);
 	EQLIB_OBJECT void UpdatePage();
 	EQLIB_OBJECT void SetCheck(bool checked);
@@ -5023,7 +5024,8 @@ public:
 	EQLIB_OBJECT void ClearMerchantSlot(int);
 	EQLIB_OBJECT void FinishBuyingItem(sell_msg*);
 	EQLIB_OBJECT void FinishSellingItem(sell_msg*);
-	EQLIB_OBJECT int SelectBuySellSlot(const ItemGlobalIndex&, int ListIndex = -1);
+	EQLIB_OBJECT int SelectBuySellSlot(const ItemGlobalIndex& index);
+	inline int SelectBuySellSlot(const ItemGlobalIndex& index, int ListIndex) { return SelectBuySellSlot(index); }
 	EQLIB_OBJECT void DisplayBuyOrSellPrice(const ItemPtr& item, bool buy);
 	EQLIB_OBJECT void HandleBuy(int);
 	EQLIB_OBJECT void HandleSell(int);

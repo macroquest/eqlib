@@ -92,7 +92,7 @@ FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenRect() const, CXWnd__GetScreenRect);
 FUNCTION_AT_ADDRESS(int, CXWnd::Resize(int, int, bool, bool, bool), CXWnd__Resize);
 #endif
 #ifdef CXWnd__SetParent_x
-FUNCTION_AT_ADDRESS(CXWnd*, CXWnd::SetParent(CXWnd*, bool), CXWnd__SetParent);
+FUNCTION_AT_ADDRESS(CXWnd*, CXWnd::SetParent(CXWnd*), CXWnd__SetParent);
 #endif
 #ifdef CXWnd__SetMouseOver_x
 FUNCTION_AT_ADDRESS(void, CXWnd::SetMouseOver(bool), CXWnd__SetMouseOver);
@@ -136,7 +136,7 @@ FUNCTION_AT_ADDRESS(CXRect, CSidlScreenWnd::GetSidlPieceRect(CScreenPieceTemplat
 FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::AddButtonToRadioGroup(CXStr, CButtonWnd*), CSidlScreenWnd__AddButtonToRadioGroup);
 #endif
 #ifdef CSidlScreenWnd__CreateChildrenFromSidl_x
-FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::CreateChildrenFromSidl(DWORD), CSidlScreenWnd__CreateChildrenFromSidl);
+FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::CreateChildrenFromSidl(), CSidlScreenWnd__CreateChildrenFromSidl);
 #endif
 #ifdef CSidlScreenWnd__StoreIniVis_x
 FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::StoreIniVis(), CSidlScreenWnd__StoreIniVis);
@@ -1812,7 +1812,7 @@ FUNCTION_AT_ADDRESS(void, CEverQuest::Invite(int), CEverQuest__Invite);
 FUNCTION_AT_ADDRESS(void, CEverQuest::doInvite(uint32_t, char*), CEverQuest__doInvite);
 #endif
 #ifdef CEverQuest__Follow_x
-FUNCTION_AT_ADDRESS(int, CEverQuest::Follow(int), CEverQuest__Follow);
+FUNCTION_AT_ADDRESS(int, CEverQuest::Follow(), CEverQuest__Follow);
 #endif
 #ifdef CEverQuest__Disband_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::Disband(), CEverQuest__Disband);
@@ -2157,7 +2157,7 @@ FUNCTION_AT_ADDRESS(void, CEverQuest::IssueLfgPlayerQuery(struct LfgPlayerQuery*
 FUNCTION_AT_ADDRESS(void, CEverQuest::IssueLfgGroupQuery(struct LfgGroupQuery*), CEverQuest__IssueLfgGroupQuery);
 #endif
 #ifdef CEverQuest__IssuePetCommand_x
-FUNCTION_AT_ADDRESS(void, CEverQuest::IssuePetCommand(ePetCommandType, int, bool, bool), CEverQuest__IssuePetCommand);
+FUNCTION_AT_ADDRESS(void, CEverQuest::IssuePetCommand(ePetCommandType, int, bool), CEverQuest__IssuePetCommand);
 #endif
 #ifdef CEverQuest__LootCorpse_x
 FUNCTION_AT_ADDRESS(int, CEverQuest::LootCorpse(EQPlayer*, int), CEverQuest__LootCorpse);
@@ -2237,7 +2237,7 @@ FUNCTION_AT_ADDRESS(int, CDisplay::ReplaceMaterial(char*, char*, T3D_HIERARCHICA
 FUNCTION_AT_ADDRESS(int, CDisplay::ReplaceCloakMaterials(int, T3D_HIERARCHICALSPRITEINSTANCE*, T3D_RGB*), CDisplay__ReplaceCloakMaterials);
 #endif
 #ifdef CDisplay__ReloadUI_x
-FUNCTION_AT_ADDRESS(void, CDisplay::ReloadUI(bool, bool), CDisplay__ReloadUI);
+FUNCTION_AT_ADDRESS(void, CDisplay::ReloadUI(bool), CDisplay__ReloadUI);
 #endif
 #ifdef CDisplay__FixHeading_x
 FUNCTION_AT_ADDRESS(float, CDisplay::FixHeading(float), CDisplay__FixHeading);
@@ -2717,7 +2717,7 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::CalcAffectChange(const EQ_Spell* s
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::CalcAffectChangeGeneric(const EQ_Spell* spell, BYTE, BYTE, const EQ_Affect*, int, bool), CharacterZoneClient__CalcAffectChangeGeneric);
 #endif
 #ifdef CharacterZoneClient__IsStackBlocked_x
-FUNCTION_AT_ADDRESS(bool, CharacterZoneClient::IsStackBlocked(const EQ_Spell*, PlayerClient*, EQ_Affect*, int, bool), CharacterZoneClient__IsStackBlocked);
+FUNCTION_AT_ADDRESS(bool, CharacterZoneClient::IsStackBlocked(const EQ_Spell*, PlayerClient*, EQ_Affect*, int), CharacterZoneClient__IsStackBlocked);
 #endif
 #ifdef CharacterZoneClient__CanUseMemorizedSpellSlot_x
 FUNCTION_AT_ADDRESS(bool, CharacterZoneClient::CanUseMemorizedSpellSlot(int), CharacterZoneClient__CanUseMemorizedSpellSlot);
@@ -3223,10 +3223,10 @@ FUNCTION_AT_ADDRESS(bool, PcZoneClient::HasCombatAbility(int), PcZoneClient__Has
 FUNCTION_AT_ADDRESS(void, PcZoneClient::RemovePetEffect(int), PcZoneClient__RemovePetEffect);
 #endif
 #ifdef PcZoneClient__HasAlternateAbility_x
-FUNCTION_AT_ADDRESS(bool, PcZoneClient::HasAlternateAbility(int aaindex, int*, bool, bool), PcZoneClient__HasAlternateAbility);
+FUNCTION_AT_ADDRESS(bool, PcZoneClient::HasAlternateAbility(int aaindex, int*, bool), PcZoneClient__HasAlternateAbility);
 #endif
 #ifdef PcZoneClient__GetItemByID_x
-FUNCTION_AT_ADDRESS(ItemPtr, PcZoneClient::GetItemByID(int itemid, ItemIndex*, bool allSlots), PcZoneClient__GetItemByID);
+FUNCTION_AT_ADDRESS(ItemPtr, PcZoneClient::GetItemByID(int itemid, ItemIndex*), PcZoneClient__GetItemByID);
 #endif
 #ifdef PcZoneClient__CanEquipItem_x
 FUNCTION_AT_ADDRESS(bool, PcZoneClient::CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel), PcZoneClient__CanEquipItem);
@@ -3985,7 +3985,7 @@ FUNCTION_AT_ADDRESS(void, CCheckBoxWnd::SetRadioLook(), CCheckBoxWnd__SetRadioLo
 //----------------------------------------------------------------------------
 
 #ifdef CComboWnd__GetListRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetListRect(bool) const, CComboWnd__GetListRect);
+FUNCTION_AT_ADDRESS(CXRect, CComboWnd::GetListRect() const, CComboWnd__GetListRect);
 #endif
 #ifdef CComboWnd__SetColors_x
 FUNCTION_AT_ADDRESS(void, CComboWnd::SetColors(COLORREF, COLORREF, COLORREF), CComboWnd__SetColors);
@@ -5338,7 +5338,7 @@ FUNCTION_AT_ADDRESS(CHotButtonWnd::CHotButtonWnd(CXWnd*), CHotButtonWnd__CHotBut
 FUNCTION_AT_ADDRESS(void, CHotButtonWnd::UpdatePage(), CHotButtonWnd__UpdatePage);
 #endif
 #ifdef CHotButtonWnd__DoHotButton_x
-FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButton(int, int, int), CHotButtonWnd__DoHotButton);
+FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButton(int, int), CHotButtonWnd__DoHotButton);
 #endif
 #ifdef CHotButtonWnd__DoHotButtonRightClick_x
 FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButtonRightClick(int), CHotButtonWnd__DoHotButtonRightClick);
@@ -5700,7 +5700,7 @@ FUNCTION_AT_ADDRESS(void, CMerchantWnd::HandleSell(int), CMerchantWnd__HandleSel
 FUNCTION_AT_ADDRESS(void, CMerchantWnd::UpdateBuySellButtons(), CMerchantWnd__UpdateBuySellButtons);
 #endif
 #ifdef CMerchantWnd__SelectBuySellSlot_x
-FUNCTION_AT_ADDRESS(int, CMerchantWnd::SelectBuySellSlot(const ItemGlobalIndex&, int Unknown), CMerchantWnd__SelectBuySellSlot);
+FUNCTION_AT_ADDRESS(int, CMerchantWnd::SelectBuySellSlot(const ItemGlobalIndex&), CMerchantWnd__SelectBuySellSlot);
 #endif
 #ifdef CMerchantWnd__DisplayBuyOrSellPrice_x
 FUNCTION_AT_ADDRESS(void, CMerchantWnd::DisplayBuyOrSellPrice(const ItemPtr& item, bool buy), CMerchantWnd__DisplayBuyOrSellPrice);

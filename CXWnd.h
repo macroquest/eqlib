@@ -393,7 +393,8 @@ public:
 	EQLIB_OBJECT const CTAFrameDraw* GetBorderFrame() const;
 	EQLIB_OBJECT CXRect GetScreenRect() const;
 	EQLIB_OBJECT int Resize(int Width, int Height, bool bUpdateLayout = true, bool bCompleteMoveOrResize = false, bool bMoveAutoStretch = false);
-	EQLIB_OBJECT CXWnd* SetParent(CXWnd*, bool);
+	EQLIB_OBJECT CXWnd* SetParent(CXWnd*);
+	inline CXWnd* SetParent(CXWnd* parent, bool) { return SetParent(parent); }
 	EQLIB_OBJECT void SetMouseOver(bool);
 	EQLIB_OBJECT void SetKeyTooltip(int, int);
 	EQLIB_OBJECT int SetFont(CTextureFont*);
@@ -892,7 +893,8 @@ public:
 	EQLIB_OBJECT int DrawSidlPiece(CScreenPieceTemplate*, const CXRect&, const CXRect&) const;
 	EQLIB_OBJECT void CalculateHSBRange();
 	EQLIB_OBJECT void CalculateVSBRange();
-	EQLIB_OBJECT void CreateChildrenFromSidl(DWORD = 0);
+	EQLIB_OBJECT void CreateChildrenFromSidl();
+	inline void CreateChildrenFromSidl(uint32_t) { CreateChildrenFromSidl(); }
 	EQLIB_OBJECT void EnableIniStorage(int, char*);
 	EQLIB_OBJECT void Init(int, const CXStr&, int, int, int);
 	EQLIB_OBJECT void LoadIniListWnd(CListWnd*, char*);

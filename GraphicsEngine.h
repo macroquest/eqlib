@@ -979,7 +979,8 @@ public:
 	EQLIB_OBJECT float GetFloorHeight(float X, float Y, float F, float Radius = 0.0f, const CVector3& CollisionVector = CVector3(-1, -1, 1), CActorApplicationData* pAppData = 0, EActorType eActorType = Undefined, float ZOffset = 1.0f);
 	EQLIB_OBJECT CActorInterface* GetClickedActor(int X, int Y, bool bClimbLadder, CVector3& outHitLocation, CVector3& outHitNormal);
 	EQLIB_OBJECT bool GetWorldFilePath(char*, const char*);
-	EQLIB_OBJECT void ReloadUI(bool, bool);
+	EQLIB_OBJECT void ReloadUI(bool useIni);
+	inline void ReloadUI(bool useIni, bool) { ReloadUI(useIni); }
 	EQLIB_OBJECT int is_3dON();
 	EQLIB_OBJECT float TrueDistance(float fromx, float fromy, float fromz, float tox, float toy, float toz, float zfactor);
 	EQLIB_OBJECT void SetViewActor(CActorInterface*);

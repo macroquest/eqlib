@@ -968,7 +968,8 @@ public:
 	EQLIB_OBJECT void dsp_chat(const char* line, int color = 273, bool bLogIsOk = true, bool bConvertPercent = true, char* SomeStr = NULL);
 	EQLIB_OBJECT void dsp_chat(const char*, int, bool);
 	EQLIB_OBJECT void Emote();
-	EQLIB_OBJECT int Follow(int);
+	EQLIB_OBJECT int Follow();
+	inline int Follow(int) { return Follow(); }
 	EQLIB_OBJECT void FreeSwitches();
 	EQLIB_OBJECT void GetSndDriver();
 	EQLIB_OBJECT void GetZoneInfoFromNetwork(char*);
@@ -987,7 +988,8 @@ public:
 	EQLIB_OBJECT void InviteOk(char*);
 	EQLIB_OBJECT void IssueLfgGroupQuery(LfgGroupQuery*);
 	EQLIB_OBJECT void IssueLfgPlayerQuery(LfgPlayerQuery*);
-	EQLIB_OBJECT void IssuePetCommand(ePetCommandType, int TargetID, bool bQuiet, bool bsomethingelse = 1);
+	EQLIB_OBJECT void IssuePetCommand(ePetCommandType, int TargetID, bool bQuiet);
+	inline void IssuePetCommand(ePetCommandType cmd, int targetId, bool quiet, bool) { IssuePetCommand(cmd, targetId, quiet); }
 	EQLIB_OBJECT void Kill(char*, char*);
 	EQLIB_OBJECT void LeaveBankMode(bool);
 	EQLIB_OBJECT void LeaveGuildMaster();

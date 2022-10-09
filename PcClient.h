@@ -1076,7 +1076,8 @@ public:
 	EQLIB_OBJECT bool HasSkill(int);
 	EQLIB_OBJECT EQ_Affect* FindAffectSlot(int SpellID, PlayerClient* Caster, int* slindex, bool bJustTest,
 		int CasterLevel = -1, EQ_Affect* BuffArray = nullptr, int BuffArraySize = 0, bool = true);
-	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, PlayerClient* pCaster, EQ_Affect* pEffecs = NULL, int EffectsSize = 0, bool bMessageOn = false);
+	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, PlayerClient* pCaster, EQ_Affect* pEffects = NULL, int EffectsSize = 0);
+	inline bool IsStackBlocked(const EQ_Spell* pSpell, PlayerClient* pCaster, EQ_Affect* pEffects, int EffectsSize, bool bMessageOn) { UNUSED(bMessageOn); return IsStackBlocked(pSpell, pCaster, pEffects, EffectsSize, bMessageOn); }
 	EQLIB_OBJECT int BardCastBard(const EQ_Spell* pSpell, signed int caster_class) const;
 	EQLIB_OBJECT unsigned char GetMaxEffects() const;
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
@@ -1219,7 +1220,7 @@ public:
 	EQLIB_OBJECT void InitMyLanguages();
 	EQLIB_OBJECT void InitSkills(unsigned char, unsigned int);
 	EQLIB_OBJECT void ItemSold(long);
-	EQLIB_OBJECT void ModifyCurHP(int64_t modification, PlayerZoneClient* resposibleplayer, int skilltype);
+	EQLIB_OBJECT void ModifyCurHP(int32_t modification, PlayerZoneClient* resposibleplayer, int skilltype);
 	EQLIB_OBJECT void NotifyPCAffectChange(int, int);
 	EQLIB_OBJECT void ProcessAllStats();
 	EQLIB_OBJECT void ProcessEnvironment();
@@ -1531,10 +1532,12 @@ public:
 	EQLIB_OBJECT bool DoCombatAbility(int spellID, bool allowLowerRank = true);
 	EQLIB_OBJECT int GetPcSkillLimit(int, bool = true);
 	EQLIB_OBJECT void RemovePetEffect(int);
-	EQLIB_OBJECT bool HasAlternateAbility(int aaindex, int* pIndex = nullptr, bool bProfile = false, bool bMerc = false);
+	EQLIB_OBJECT bool HasAlternateAbility(int aaindex, int* pIndex = nullptr, bool bProfile = false);
+	inline bool HasAlternateAbility(int aaindex, int* pIndex, bool bProfile, bool bMerc) { UNUSED(bMerc);  return HasAlternateAbility(aaindex, pIndex, bProfile); }
 	EQLIB_OBJECT bool CanEquipItem(const ItemPtr& pItem, int slotid, bool bOutputDebug, bool bUseRequiredLevel = false);
 	// If allSlots is false, only checks slots the user has perks for.
-	EQLIB_OBJECT ItemPtr GetItemByID(int itemid, ItemIndex* itemindex = nullptr, bool allSlots = false);
+	EQLIB_OBJECT ItemPtr GetItemByID(int itemid, ItemIndex* itemindex = nullptr);
+	inline ItemPtr GetItemByID(int itemid, ItemIndex* itemindex, bool allSlots) { UNUSED(allSlots);  return GetItemByID(itemid, itemindex); }
 	EQLIB_OBJECT ItemPtr GetItemByItemClass(int itemclass, ItemIndex* itemindex = nullptr);
 	EQLIB_OBJECT void RemoveBuffEffect(int Index, int SpawnID);
 	EQLIB_OBJECT void BandolierSwap(int index);
