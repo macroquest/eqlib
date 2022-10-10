@@ -663,7 +663,7 @@ inline namespace deprecated {
 	using PETITIONSTATUS DEPRECATE("Use PetitionStatus instead of PETITIONSTATUS") = PetitionStatus;
 }
 
-struct [[offsetcomments]] CSINFO
+struct [[offsetcomments]] CharSelectInfo
 {
 	/*0x000*/ char         Name[0x40];
 	/*0x040*/ int          Class;
@@ -707,7 +707,8 @@ struct [[offsetcomments]] CSINFO
 };
 
 inline namespace deprecated {
-	using PCSINFO DEPRECATE("Use CSINFO* instead of PCSINFO") = CSINFO*;
+	using CSINFO DEPRECATE("Use CharSelectInfo instead of CSINFO") = CharSelectInfo;
+	using PCSINFO DEPRECATE("Use CharSelectInfo* instead of PCSINFO") = CharSelectInfo*;
 }
 
 //============================================================================
@@ -961,7 +962,7 @@ public:
 /*0x38ea0*/ int                   Red;
 /*0x38ea4*/ int                   Green;
 /*0x38ea8*/ int                   Blue;
-/*0x38eb0*/ ArrayClass<CSINFO>    charSelectPlayerArray;
+/*0x38eb0*/ ArrayClass<CharSelectInfo> charSelectPlayerArray;
 /*0x38ec8*/ char                  Filler[0x830]; // more data
 /*0x396f8*/
 
