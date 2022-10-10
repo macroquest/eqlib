@@ -817,51 +817,49 @@ inline namespace deprecated {
 	using PETITIONSTATUS DEPRECATE("Use PetitionStatus instead of PETITIONSTATUS") = PetitionStatus;
 }
 
-struct [[offsetcomments]] CSINFO
+struct [[offsetcomments]] CharSelectInfo
 {
 /*0x000*/ char         Name[0x40];
 /*0x040*/ int          Class;
 /*0x044*/ int          Race;
-/*0x048*/ BYTE         Level;
-/*0x04c*/ int          Class2;
-/*0x050*/ int          Race2;
-/*0x054*/ int          CurZoneID;
-/*0x058*/ BYTE         Sex;
-/*0x059*/ BYTE         Face;
-/*0x05c*/ ArmorProperties ArmProp[9];
-/*0x110*/ DWORD        Tint[9];
-/*0x134*/ char         TextureType;
-/*0x135*/ char         ArmorMaterial;
-/*0x136*/ char         ArmorVariation;
-/*0x137*/ char         HeadType;
-/*0x138*/ int          TattooIndex;
-/*0x13c*/ int          FacialAttachmentIndex;
-/*0x140*/ int          Deity;
-/*0x144*/ int          PrimActor;
-/*0x148*/ int          SecdActor;
-/*0x14c*/ BYTE         HairColor;
-/*0x14d*/ BYTE         BeardColor;
-/*0x14e*/ BYTE         LeftEye;
-/*0x14f*/ BYTE         RightEye;
-/*0x150*/ BYTE         Hair;
-/*0x151*/ BYTE         Beard;
-/*0x152*/ bool         bCanGoHome;
-/*0x153*/ bool         bCanTutorial;
-/*0x154*/ int          ParentId;
-/*0x158*/ bool         bTooHighLevel;
-/*0x159*/ bool         bPreFTP;
-/*0x15c*/ long         SomethingLogin;
-/*0x160*/ bool         bUseable;
-/*0x161*/ bool         bHeroicCharacter;
-/*0x162*/ bool         bShrouded;
-/*0x164*/ int          Unknown0x164;
-/*0x168*/ int          Unknown0x168;
-/*0x16c*/ int          Unknown0x16c;
-/*0x170*/
+/*0x048*/ uint8_t      Level;
+/*0x049*/ uint8_t      Class2;
+/*0x04c*/ int          Race2;
+/*0x050*/ int          CurZoneID;
+/*0x054*/ uint8_t      Sex;
+/*0x055*/ uint8_t      Face;
+/*0x058*/ ArmorProperties ArmProp[9];
+/*0x10c*/ DWORD        Tint[9];
+/*0x130*/ char         TextureType;
+/*0x131*/ char         ArmorMaterial;
+/*0x132*/ char         ArmorVariation;
+/*0x133*/ char         HeadType;
+/*0x134*/ int          TattooIndex;
+/*0x138*/ int          FacialAttachmentIndex;
+/*0x13c*/ int          Deity;
+/*0x140*/ int          PrimActor;
+/*0x144*/ int          SecdActor;
+/*0x148*/ uint8_t      HairColor;
+/*0x149*/ uint8_t      BeardColor;
+/*0x14a*/ uint8_t      LeftEye;
+/*0x14b*/ uint8_t      RightEye;
+/*0x14c*/ uint8_t      Hair;
+/*0x14d*/ uint8_t      Beard;
+/*0x14e*/ bool         bCanGoHome;
+/*0x14f*/ bool         bCanTutorial;
+/*0x150*/ int          ParentId;
+/*0x154*/ bool         bTooHighLevel;
+/*0x155*/ bool         bPreFTP;
+/*0x158*/ long         SomethingLogin;
+/*0x15c*/ bool         bUseable;
+/*0x15d*/ bool         bHeroicCharacter;
+/*0x15e*/ bool         bShrouded;
+/*0x160*/
 };
 
 inline namespace deprecated {
-	using PCSINFO DEPRECATE("Use CSINFO* instead of PCSINFO") = CSINFO*;
+	using CSINFO DEPRECATE("Use CharSelectInfo instead of CSINFO") = CharSelectInfo;
+	using PCSINFO DEPRECATE("Use CharSelectInfo* instead of PCSINFO") = CharSelectInfo*;
 }
 
 //============================================================================
@@ -1079,48 +1077,45 @@ public:
 /*0x000a0*/ int                   ucpPort;
 /*0x000a4*/ char                  ucpPlayerName[256];
 /*0x001a4*/ char                  ucpTicket[256];
-/*0x002a4*/ UniversalChatProxy*   chatService;
+/*0x002a4*/ UniversalChatProxy*   chatService; // 2a4
 /*0x002a8*/ int64_t               ucNotificationStamp;
-/*0x002b0*/ bool                  ucNotificationEntering;
+/*0x002b0*/ bool                  ucNotificationEntering; // bJoinedChannel
 /*0x002b1*/ char                  ucNotificationPlayerName[256];
 /*0x003b1*/ char                  ucNotificationChannelName[10][48];
 /*0x00594*/ DWORD                 ucNotificationChannelNumber[10];
-/*0x005bc*/ int                   ucNotificationCount;
+/*0x005bc*/ int                   ucNotificationCount; // ChannelQty
 /*0x005c0*/ FreeTargetTracker*    freeTargetTracker;
 /*0x005c4*/ int                   WorldState;                   // 0 everything is fine, 1 we are getting disconnected 2 player not released from zone
 /*0x005c8*/ int                   GameState;
 /*0x005cc*/ bool                  bStopAreaProcessing;
 /*0x005cd*/ bool                  bRAFEnabled;
-/*0x005d0*/ int                   ClientOutOfDate;
-/*0x005d8*/ int64_t               ServerTimeSync;
-/*0x005e0*/ int64_t               ServerTimeBase;
-/*0x005e8*/ int64_t               ServerTimeLastReported;
-/*0x005f0*/ bool                  bServerTimeHasWrapped;
-/*0x005f4*/ float                 TargetCameraDistance;
-/*0x005f8*/ bool                  bUnknown0x5f0;
-/*0x005fc*/ int                   TotalCharacterSlots;
-/*0x00600*/ int                   MarketplaceCharacterSlots;
-/*0x00604*/ bool                  Unknown0x604;
-/*0x00608*/ int                   Unknown0x608;
-/*0x0060c*/ bool                  Unknown0x60c;
-/*0x00610*/ CPopDialogWnd*        CampDialog;
-/*0x00614*/ PickZoneTimerHandler  pickZoneTimerHandler;
-/*0x00624*/ PetitionStatus        petitionStatus[0x200];
-/*0x17624*/ int                   TotalQ;
-/*0x17628*/ int                   TotalClientPetitions;
-/*0x1762c*/ char                  ChatText[2112];
-/*0x17e6c*/ int                   TrimIdx;
-/*0x17e70*/ char                  ChatChanged;
-/*0x17e71*/ char                  Trim[64][2112];
-/*0x38e74*/ int                   chat;
-/*0x38e78*/ int                   disconnected;
-/*0x38e7c*/ int                   Red;
-/*0x38e80*/ int                   Green;
-/*0x38e84*/ int                   Blue;
-/*0x38e88*/ ArrayClass<CSINFO>    charSelectPlayerArray;
-/*0x38e98*/ char                  Filler[0x830]; // more data
-/*0x396c8*/
-
+/*0x005d0*/ int64_t               ServerTimeSync; // 5d0
+/*0x005d8*/ int64_t               ServerTimeBase;
+/*0x005e0*/ int64_t               ServerTimeLastReported;
+/*0x005e8*/ bool                  bServerTimeHasWrapped;
+/*0x005ec*/ float                 TargetCameraDistance;
+/*0x005f0*/ bool                  bUnknown0x5f0;
+/*0x005f4*/ int                   TotalCharacterSlots;
+/*0x005f8*/ int                   MarketplaceCharacterSlots;
+/*0x005fc*/ int                   Unknown0x608;
+/*0x00600*/ int                   UsingSkill;
+/*0x00604*/ void*                 UsingSkillTarget;
+/*0x00608*/ PetitionStatus        petitionStatus[0x200];
+/*0x17608*/ int                   TotalQ;
+/*0x1760c*/ int                   TotalClientPetitions;
+/*0x17610*/ char                  ChatText[2112];
+/*0x17e50*/ int                   TrimIdx;
+/*0x17e54*/ char                  ChatChanged;
+/*0x17e55*/ char                  Trim[64][2112];
+/*0x38e58*/ int                   chat;
+/*0x38e5c*/ int                   disconnected;
+/*0x38e60*/ int                   Red;
+/*0x38e64*/ int                   Green;
+/*0x38e68*/ int                   Blue;
+/*0x38e6c*/ ArrayClass<CharSelectInfo> charSelectPlayerArray;
+/*0x38e7c*/ char                  Filler[0x830]; // more data
+/*0x396ac*/
+	
 	ALT_MEMBER_GETTER(UniversalChatProxy*, chatService, ChatService);
 };
 
