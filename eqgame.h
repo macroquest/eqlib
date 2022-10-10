@@ -100,6 +100,7 @@
 #define __SubscriptionType_x                                       0xF9C298
 #define Teleport_Table_Size_x                                      0xDD25B4
 #define Teleport_Table_x                                           0xDD02E0
+#define __ExceptionFilter_x                                        0x5FA950
 
 ////
 //Section 1: Vital Offsets

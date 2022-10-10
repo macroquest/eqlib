@@ -5010,7 +5010,7 @@ public:
 /*0x284*/ CLabel*            NoteLabel;
 /*0x288*/ CEditWnd*          NoteEdit;
 /*0x28c*/ CListWnd*          ItemsList;
-/*0x290*/ CListWnd*          ItemsRecoveryList; 
+/*0x290*/ CListWnd*          ItemsRecoveryList;
 /*0x294*/ CListWnd*          ItemsMailList;
 /*0x298*/ CButtonWnd*        DoneButton;
 /*0x29c*/ CPageWnd*          PurchasePage;

@@ -133,7 +133,7 @@ EQLIB_VAR uintptr_t __CommandList;
 EQLIB_VAR uintptr_t __CurrentMapLabel;
 EQLIB_VAR uintptr_t __CurrentSocial;
 EQLIB_VAR uintptr_t __do_loot;
-EQLIB_VAR uintptr_t __DrawHandler;
+EQLIB_VAR uintptr_t __ExceptionFilter;
 EQLIB_VAR uintptr_t __gpbCommandEvent;
 EQLIB_VAR uintptr_t __Guilds;
 EQLIB_VAR uintptr_t __gWorld;
