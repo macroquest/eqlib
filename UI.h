@@ -5187,16 +5187,16 @@ public:
 /*0x2b8*/ CTextureAnimation* pGoodBuffBackground;               // PetBlueIconBackground
 /*0x2bc*/ CTextureAnimation* pBadBuffBackground;                // PetRedIconBackground
 /*0x2c0*/ CTextureAnimation* pBypassBuffBackground;             // YellowIconBackground
-/*0x2c4*/ CTextureAnimation* pBuffIcons[MAX_TOTAL_BUFFS];
-/*0x448*/ CButtonWnd*        pPetBuffBtns[MAX_TOTAL_BUFFS];     // PetBuff%d - was pWnd
-/*0x5cc*/ int                Buff[MAX_TOTAL_BUFFS];             // Spell ID# of each buff
+/*0x2c4*/ CTextureAnimation* pBuffIcons[MAX_TOTAL_BUFFS_NPC];
+/*0x448*/ CButtonWnd*        pPetBuffBtns[MAX_TOTAL_BUFFS_NPC]; // PetBuff%d - was pWnd
+/*0x5cc*/ int                Buff[MAX_TOTAL_BUFFS_NPC];         // Spell ID# of each buff
 /*0x750*/ HashTable<CXStr>   WhoCast;
 /*0x760*/ uint32_t           LastBuffDecTime;                   // last time buff counters were decremented
 /*0x764*/ bool               bHadPetLastTime;
 /*0x765*/ bool               bShowOnSummon;
 /*0x768*/ uint32_t           ListContextMenuID;
 /*0x76c*/ CXWnd*             pRequestingWnd;
-/*0x770*/ unsigned int       PetBuffTimer[MAX_TOTAL_BUFFS];     // duration until buff fades, in milliseconds
+/*0x770*/ unsigned int       PetBuffTimer[MAX_TOTAL_BUFFS_NPC]; // duration until buff fades, in milliseconds
 /*0x8f4*/ bool               bRemovedBuffBlockMenuItem;
 /*0x8f8*/ int                PetCommandSelectContextMenu;
 /*0x8fc*/ CXWnd*             LastClickedButton;

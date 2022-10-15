@@ -601,7 +601,7 @@ constexpr int NUM_SHORT_BUFFS = NUM_TEMP_BUFFS;
 constexpr int MAX_TOTAL_BUFFS = NUM_LONG_BUFFS + NUM_TEMP_BUFFS;
 
 // Holds the total number of buffs for an NPC (target / pet)
-constexpr int MAX_TOTAL_BUFFS_NPC = 400;
+constexpr int MAX_TOTAL_BUFFS_NPC = MAX_TOTAL_BUFFS;
 
 constexpr int NUM_BUFF_SLOTS = MAX_TOTAL_BUFFS;
 
