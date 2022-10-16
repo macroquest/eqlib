@@ -811,7 +811,7 @@ enum eItemEffectType : uint8_t
 	ItemEffectFamiliar
 };
 
-enum ItemSpellTypes
+enum ItemSpellTypes : uint8_t
 {
 	ItemSpellType_Clicky = 0,
 	ItemSpellType_Proc,
