@@ -498,8 +498,9 @@ private:
 
 private:
 /*0x08*/ T* m_data = "";
-/*0x08*/ int m_length = 0;
-/*0x0c*/ int m_space = 0;
+/*0x10*/ int m_length = 0;
+/*0x14*/ int m_space = 0;
+/*0x18*/
 };
 
 using String = IString<char>;
