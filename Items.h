@@ -823,19 +823,24 @@ enum ItemSpellTypes : uint8_t
 
 	ItemSpellType_Max,
 
+	// Aliases for compatibility
+	ItemSpellType_Mount = ItemSpellType_Blessing,
+	ItemSpellType_Illusion = ItemSpellType_Blessing,
+	ItemSpellType_Familiar = ItemSpellType_Blessing,
+
 	// Renamed to Blessing.
 	ItemSpellType_Keyring DEPRECATE("Use ItemSpellType_Blessing instead of ItemSpellType_Keyring") = ItemSpellType_Blessing,
 
-	// Two names for the same thing...
-	eActivatableSpell = ItemSpellType_Clicky,
-	eProcSpell = ItemSpellType_Proc,
-	eWornSpell = ItemSpellType_Worn,
-	eFocusSpell = ItemSpellType_Focus,
-	eScrollSpell = ItemSpellType_Scroll,
-	eFocus2Spell = ItemSpellType_Focus2,
-	eMountSpell = ItemSpellType_Blessing,
-	eIllusionSpell = ItemSpellType_Blessing,
-	eFamiliarSpell = ItemSpellType_Blessing,
+	// Two names for the same thing... don't use these.
+	eActivatableSpell DEPRECATE("Use ItemSpellType_Clicky instead of eActivatableSpell") = ItemSpellType_Clicky,
+	eProcSpell DEPRECATE("Use ItemSpellType_Proc instead of eProcSpell") = ItemSpellType_Proc,
+	eWornSpell DEPRECATE("Use ItemSpellType_Worn instead of eWornSpell") = ItemSpellType_Worn,
+	eFocusSpell DEPRECATE("Use ItemSpellType_Focus instead of eFocusSpell") = ItemSpellType_Focus,
+	eScrollSpell DEPRECATE("Use ItemSpellType_Scroll instead of eScrollSpell") = ItemSpellType_Scroll,
+	eFocus2Spell DEPRECATE("Use ItemSpellType_Focus2 instead of eFocus2Spell") = ItemSpellType_Focus2,
+	eMountSpell DEPRECATE("Use ItemSpellType_Mount instead of eMountSpell") = ItemSpellType_Mount,
+	eIllusionSpell DEPRECATE("Use ItemSpellType_Illusion instead of eIllusionSpell") = ItemSpellType_Illusion,
+	eFamiliarSpell DEPRECATE("Use ItemSpellType_Familiar instead of eFamiliarSpell") = ItemSpellType_Familiar,
 };
 using eItemSpellType = ItemSpellTypes;
 
