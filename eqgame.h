@@ -848,8 +848,8 @@
 #define CColorPickerWnd__Open_x                                    0x1403549B0
 
 // CDistillerInfo
-#define CDistillerInfo__GetIDFromRecordNum_x                       0x1405D5850  // Rename..?
-#define CDistillerInfo__Instance_x                                 0x1405D5960  // ItemDistillerManager__GetInstance
+#define CDistillerInfo__GetIDFromRecordNum_x                       0x1405D5960  // Rename..?
+#define CDistillerInfo__Instance_x                                 0x1405D5850  // ItemDistillerManager__GetInstance
 
 // CGroupWnd
 #define CGroupWnd__WndNotification_x                               0x140376BD0
