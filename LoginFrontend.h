@@ -218,9 +218,9 @@ public:
 /*0x16c*/ bool                    isLoggingIn;
 /*0x170*/ uint32_t                unknown1;
 /*0x174*/ uint32_t                unknown2;
-/*0x170*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
-/*0x1a8*/ EQLS::EQClientServerData QuickConnectServer;
-/*0x218*/
+/*0x178*/ DoublyLinkedList<EQLS::EQClientServerData*> ServerList;
+/*0x1b0*/ EQLS::EQClientServerData QuickConnectServer;
+/*0x220*/
 };
 
 //----------------------------------------------------------------------------
