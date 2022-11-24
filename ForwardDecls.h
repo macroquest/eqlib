@@ -249,6 +249,8 @@ class CTextureFont;
 class CTipWnd;
 class CTrackingWnd;
 class CTradeWnd;
+class CTradeskillDepotWnd;
+class CTradeskillWnd;
 class CTrainWnd;
 class CTreeViewWnd;
 class CTribute;

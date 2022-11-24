@@ -1023,6 +1023,7 @@ EQLIB_VAR ForeignPointer<CTextEntryWnd>              pTextEntryWnd;
 EQLIB_VAR ForeignPointer<CTipWnd>                    pTipOfDayWnd;
 EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pTitleWnd;
 EQLIB_VAR ForeignPointer<CTrackingWnd>               pTrackingWnd;
+EQLIB_VAR ForeignPointer<CTradeskillDepotWnd>        pTradeskillDepotWnd;
 EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pTradeskillWnd;
 EQLIB_VAR ForeignPointer<CTradeWnd>                  pTradeWnd;
 EQLIB_VAR ForeignPointer<CTrainWnd>                  pTrainWnd;

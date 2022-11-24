@@ -1085,6 +1085,7 @@ ForeignPointer<CTextEntryWnd>                    pTextEntryWnd;
 ForeignPointer<CTipWnd>                          pTipOfDayWnd;
 ForeignPointer<CSidlScreenWnd>                   pTitleWnd;
 ForeignPointer<CTrackingWnd>                     pTrackingWnd;
+ForeignPointer<CTradeskillDepotWnd>              pTradeskillDepotWnd;
 ForeignPointer<CSidlScreenWnd>                   pTradeskillWnd;
 ForeignPointer<CTradeWnd>                        pTradeWnd;
 ForeignPointer<CTrainWnd>                        pTrainWnd;

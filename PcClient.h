@@ -1228,187 +1228,188 @@ public:
 /*0x1550*/ ItemContainer                         HeroForgeKeyRingItems;
 /*0x1578*/ ItemContainer                         TeleportationKeyRingItems;
 /*0x15a0*/ ItemContainer                         DragonHoardItems;
-/*0x15c8*/ ItemContainer                         AltStorageItems;
-/*0x15f0*/ ItemContainer                         ArchivedDeletedItems;
-/*0x1618*/ ItemContainer                         MailItems;
-/*0x1640*/ MailItemsHash                         MailItemsData;
-/*0x1658*/ eqtime_t                              RecentMoves[1];
-/*0x1660*/ HashTable<DynamicZoneData>            CurrentDynamicZones;
-/*0x1678*/ HashTable<int>                        LearnedRecipes;
-/*0x1690*/ EQList<TradeskillRecipeCount*>        QualifyingRecipeCounts;
-/*0x16b0*/ HashTable<int>                        NonrepeatableQuests;
-/*0x16c8*/ HashTable<int>                        CompletedTasks;
-/*0x16e0*/ HashTable<int>                        CompletedTasks2;
-/*0x16f8*/ eqtime_t                              AlchemyTimestamp;
-/*0x1700*/ bool                                  bWhat;
-/*0x1701*/ bool                                  bSomethingHome;
-/*0x1704*/ uint32_t                              LoginTime;
-/*0x1708*/ EqGuid                                GuildID;
-/*0x1710*/ EqGuid                                FellowshipID;
-/*0x1718*/ SFellowship*                          pFellowship;
-/*0x1720*/ bool                                  GuildShowSprite;
-/*0x1728*/ eqtime_t                              CreationTime;
-/*0x1730*/ eqtime_t                              AccountCreationTime;
-/*0x1738*/ eqtime_t                              LastPlayedTime;
-/*0x1740*/ uint32_t                              MinutesPlayed;
-/*0x1744*/ uint8_t                               Anonymous;
-/*0x1745*/ bool                                  bGM;
-/*0x1746*/ bool                                  bGMStealth;
-/*0x1748*/ uint32_t                              AAExp;
-/*0x174c*/ uint8_t                               PercentEXPtoAA;
-/*0x1750*/ int                                   AirSupply;
-/*0x1754*/ uint32_t                              SerialNum;
-/*0x1758*/ bool                                  bNewCharacter;
-/*0x175c*/ int                                   TasksAssigned;
-/*0x1760*/ int                                   TasksCompleted;
-/*0x1764*/ long                                  TaskRequestTimer;
-/*0x1768*/ uint32_t                              UniquePlayerID;
-/*0x176c*/ WorldLocation                         DynamicZoneSafeReturnLocation;
-/*0x1780*/ DynamicZoneTimerData*                 pDZTimerRoot;
-/*0x1788*/ int                                   BenefitTimer;
-/*0x178c*/ int                                   TrophyBenefitTimer;
-/*0x1790*/ int64_t                               CareerFavor;
-/*0x1798*/ int64_t                               CurrFavor;
-/*0x17a0*/ bool                                  bBenefitsActive;
-/*0x17a1*/ bool                                  bTrophyBenefitsActive;
-/*0x17a2*/ bool                                  bHasResetStartingCity;
-/*0x17a3*/ bool                                  bIsHeadStartCharacter;
-/*0x17a4*/ int                                   PvPKills;
-/*0x17a8*/ int                                   PvPDeaths;
-/*0x17ac*/ int                                   PvPCurrentPoints;
-/*0x17b0*/ int                                   PvPTotalPointsEarned;
-/*0x17b4*/ int                                   PvPKillStreak;
-/*0x17b8*/ int                                   PvPDeathStreak;
-/*0x17bc*/ int                                   PvPCurrentStreak;
-/*0x17c0*/ PvPKill                               LastKill;
-/*0x1820*/ PvPDeath                              LastDeath;
-/*0x1878*/ HashTable<PvPKill24HourData>          PvPLast24HoursKillHash;
-/*0x1890*/ int                                   PvPInfamyLevel;
-/*0x1894*/ int                                   PvPVitality;
-/*0x1898*/ eqtime_t                              PvPLastInfamyTime;
-/*0x18a0*/ eqtime_t                              LastLastNameChange;
-/*0x18a8*/ int                                   LastNameChangePriv;
-/*0x18ac*/ uint32_t                              PvPLastVitalityTime;
-/*0x18b0*/ bool                                  bKeepItemsOnDeath;
-/*0x18b1*/ bool                                  bResetSpecializationSkills;
-/*0x18b4*/ int                                   GoodPointsAvailable;         // a.k.a. RadiantCrystals
-/*0x18b8*/ int                                   GoodTotalPointsEarned;
-/*0x18bc*/ int                                   EvilPointsAvailable;         // a.k.a. EbonCrystals
-/*0x18c0*/ int                                   EvilTotalPointsEarned;
-/*0x18c4*/ bool                                  bCanRequestNameChange;
-/*0x18c5*/ bool                                  bCanRequestNameChange2;
-/*0x18c6*/ bool                                  bCanRequestServerTransfer;
-/*0x18c7*/ bool                                  bIsCopied;
-/*0x18c8*/ eqtime_t                              ServerTransferGrantTime;
-/*0x18d0*/ bool                                  bCanRequestRaceChange;
-/*0x18d4*/ uint32_t                              LastAAResetTime;
-/*0x18d8*/ uint32_t                              LastMercAAResetTime;
-/*0x18dc*/ EQZoneIndex                           NewZoneID;
-/*0x18e0*/ int                                   NewAreaID;
-/*0x18e4*/ EAreaCorner                           eNewAreaCorner;
-/*0x18e8*/ EQZoneIndex                           PreviousZoneID;
-/*0x18ec*/ int                                   RealEstateZoneID;
-/*0x18f0*/ char                                  ServerCreated[32];
-/*0x1910*/ PCAdventureData                       AdventureData;
-/*0x1a08*/ PCSharedTaskData                      SharedTaskData;
-/*0x1aa0*/ TaskTimerData*                        pTaskTimerData;
-/*0x1aa8*/ PCQuestHistoryData                    QuestHistoryData;
-/*0x1dc8*/ PCStatistics                          PcStatistics;
-/*0x1f30*/ GroupMemberStats                      GroupStats;
-/*0x20d8*/ bool                                  bIsLfg;
-/*0x20dc*/ int                                   RaidId;
-/*0x20e0*/ int                                   GroupID;
-/*0x20e8*/ int64_t                               Exp;
-/*0x20f0*/ int                                   DaysEntitled;
-/*0x20f4*/ bool                                  bAutoConsentGroup;
-/*0x20f5*/ bool                                  bAutoConsentRaid;
-/*0x20f6*/ bool                                  bAutoConsentGuild;
-/*0x20f7*/ bool                                  bPrivateForEqPlayers;
-/*0x20f8*/ long                                  AchievementFilesModificationTime;
-/*0x20fc*/ char                                  StationID[EQ_MAX_STATION_ID];
-/*0x2120*/ EqGuid                                Guid;
-/*0x2128*/ bool                                  bBetaBuffed;
-/*0x212c*/ int                                   Unknown0x1ee4;
-/*0x2130*/ int                                   StartingCity;
-/*0x2134*/ int                                   MainLevel;
-/*0x2138*/ bool                                  bShowHelm;
-/*0x2140*/ int64_t                               LastTestCopyTime;
-/*0x2148*/ CPlayerPointManager                   PointManager;
-/*0x2168*/ PointSystemBase                       PointSystem; // 2178 ^
-/*0x2198*/ uint32_t                              LoyaltyVelocity;
-/*0x219c*/ uint32_t                              LoyaltyTokens;
-/*0x21a0*/ bool                                  bHasLoyaltyInfo;
-/*0x21a8*/ ArrayClass<int>                       OwnedRealEstates;
-/*0x21c0*/ ArrayClass<int>                       OwnedItemRealEstates;
-/*0x21d8*/ ArrayClass<int>                       ArchivedRealEstates;
-/*0x21f0*/ char                                  OverridePetName[EQ_MAX_NAME];
-/*0x2230*/ bool                                  bCanRequestPetNameChange;
-/*0x2231*/ char                                  OverrideFamiliarName[EQ_MAX_NAME];
-/*0x2271*/ bool                                  bCanRequestFamiliarNameChange;
-/*0x2278*/ CXStr                                 OverrideMercName[EQ_MAX_MERCENARIES];
-/*0x22d0*/ bool                                  bCanRequestMercNameChange;
-/*0x22d8*/ PendingRewardList                     PendingRewards;
-/*0x2320*/ uint8_t                               WaitingRewards[0x20]; // type is unknown
-/*0x2340*/ uint32_t                              DowntimeReductionTime;
-/*0x2348*/ uint64_t                              DowntimeTimerStart;
-/*0x2350*/ float                                 ActivityValue;
-/*0x2354*/ uint32_t                              NextItemId;
-/*0x2358*/ CXStr                                 SharedBank;                      // SharedVaultInstanceData
-/*0x2360*/ CXStr                                 BankBuffer;                      // BankInstanceData
-/*0x2368*/ CXStr                                 LimboBuffer;                     // LimboInstanceData
-/*0x2370*/ CXStr                                 MercenaryBuffer;                 // MercenaryInstanceData
-/*0x2378*/ CXStr                                 KeyRingBuffer[eKeyRingTypeCount];// MountKeyRingInstanceData
-/*0x23a0*/ CXStr                                 AltStorageBuffer;                // AltStorageInstanceData
-/*0x23a8*/ CXStr                                 OverflowBuffer;                  // ItemOverflow
-/*0x23b0*/ CXStr                                 DragonHoardBuffer;               // DragonHoardInstanceData
-/*0x23b8*/ bool                                  UnknownBool2370;
-/*0x23bc*/ int                                   Unknown0x2084;
-/*0x23c0*/ uint32_t                              AltStorageTimestamp;             // AltStorageTimestamp
-/*0x23c4*/ ELockoutCharacterReason               LockoutCharacterReason;
-/*0x23c8*/ HashTable<ProgressionExperience>      ProgressionExp;
-/*0x23e0*/ CXStr                                 ArchivedStorageBuffer;           // ArchiveStorageInstanceData
-/*0x23e8*/ CXStr                                 MailItemsBuffer;
-/*0x23f0*/ CXStr                                 MailItemsDataBuffer;
-/*0x23f8*/ int                                   MailItemsOverCapWarningCount;
-/*0x23fc*/ ItemIndex                             StatKeyRingItemIndex[eKeyRingTypeCount];
-/*0x241a*/ bool                                  UseAdvancedLooting;
-/*0x241b*/ bool                                  MasterLootCandidate;
-/*0x241c*/ bool                                  bIsCorrupted;
-/*0x2420*/ char*                                 pCorruptionReport;
-/*0x2428*/ char                                  InspectText[256];
-/*0x2528*/ HashTable<int>                        BlockedSpellsHash;
-/*0x2540*/ int                                   BlockedSpell[MAX_BLOCKED_SPELLS];
-/*0x25e0*/ HashTable<int>                        BlockedPetSpellsHash;
-/*0x25f8*/ int                                   BlockedPetSpell[MAX_BLOCKED_SPELLS_PET];
-/*0x2698*/ ClaimDataCollection                   ConsumableFeatures;
-/*0x26b0*/ bool                                  bGrantItemsRegistered;
-/*0x26b8*/ uint64_t                              CreatedGuildID;
-/*0x26c0*/ eqtime_t                              GuildCreateTime;
-/*0x26c8*/ CXStr                                 GuildCreateCharacter;
-/*0x26d0*/ bool                                  bInventoryUnserialized;
-/*0x26d1*/ bool                                  bAltStorageUnserialized;
-/*0x26d2*/ bool                                  bArchivedStorageUnserialized;
-/*0x26d3*/ bool                                  bMailUnserialized;
-/*0x26d4*/ bool                                  bPendingInventorySerialization;
-/*0x26d8*/ CXStr                                 BuyLines;
-/*0x26e0*/ ArrayClass<CXStr>                     OfflineTraderSoldItems;
-/*0x26f8*/ ArrayClass<CXStr>                     OfflineBuyerBoughtItems;
-/*0x2710*/ uint32_t                              Krono;
-/*0x2714*/ uint32_t                              CursorKrono;
-/*0x2718*/ int64_t                               MercAAExp;                    // divide this with 3.30f and you get the percent
-/*0x2720*/ int                                   MercAAPoints;                 // number of unspent merc AA points
-/*0x2724*/ int                                   MercAAPointsSpent;            // number of spent merc AA points
-/*0x2728*/ ArrayClass<MercenaryAbilityInfo*>     MercenaryAbilities;
-/*0x2740*/ AchievementTable                      CompletedAchievements;
-/*0x2758*/ AchievementSubComponentCountTable     CompletedEventBasedSubComponents;
-/*0x2770*/ AchievementSubComponentCountTable     OpenEventBasedSubComponents;
-/*0x2788*/ int                                   LastFellowshipJoin;
-/*0x2790*/ int64_t                               Vitality;
-/*0x2798*/ int64_t                               AAVitality;
-/*0x27a0*/ int                                   FreeToPlayUnlocks[31];
-/*0x281c*/ // end PcBase / start CharacterZoneClient
+/*0x15c8*/ ItemContainer                         PersonalTradeskillDepotItems;
+/*0x15f0*/ ItemContainer                         AltStorageItems;
+/*0x1618*/ ItemContainer                         ArchivedDeletedItems;
+/*0x1640*/ ItemContainer                         MailItems;
+/*0x1668*/ MailItemsHash                         MailItemsData;
+/*0x1680*/ eqtime_t                              RecentMoves[1];
+/*0x1688*/ HashTable<DynamicZoneData>            CurrentDynamicZones;
+/*0x16a0*/ HashTable<int>                        LearnedRecipes;
+/*0x16b8*/ EQList<TradeskillRecipeCount*>        QualifyingRecipeCounts;
+/*0x16d8*/ HashTable<int>                        NonrepeatableQuests;
+/*0x16f0*/ HashTable<int>                        CompletedTasks;
+/*0x1708*/ HashTable<int>                        CompletedTasks2;
+/*0x1720*/ eqtime_t                              AlchemyTimestamp;
+/*0x1728*/ bool                                  bWhat;
+/*0x1729*/ bool                                  bSomethingHome;
+/*0x172c*/ uint32_t                              LoginTime;
+/*0x1730*/ EqGuid                                GuildID;
+/*0x1738*/ EqGuid                                FellowshipID;
+/*0x1740*/ SFellowship*                          pFellowship;
+/*0x1748*/ bool                                  GuildShowSprite;
+/*0x1750*/ eqtime_t                              CreationTime;
+/*0x1758*/ eqtime_t                              AccountCreationTime;
+/*0x1760*/ eqtime_t                              LastPlayedTime;
+/*0x1768*/ uint32_t                              MinutesPlayed;
+/*0x176c*/ uint8_t                               Anonymous;
+/*0x176d*/ bool                                  bGM;
+/*0x176e*/ bool                                  bGMStealth;
+/*0x1770*/ uint32_t                              AAExp;
+/*0x1774*/ uint8_t                               PercentEXPtoAA;
+/*0x1778*/ int                                   AirSupply;
+/*0x177c*/ uint32_t                              SerialNum;
+/*0x1780*/ bool                                  bNewCharacter;
+/*0x1784*/ int                                   TasksAssigned;
+/*0x1788*/ int                                   TasksCompleted;
+/*0x178c*/ long                                  TaskRequestTimer;
+/*0x1790*/ uint32_t                              UniquePlayerID;
+/*0x1794*/ WorldLocation                         DynamicZoneSafeReturnLocation;
+/*0x17a8*/ DynamicZoneTimerData*                 pDZTimerRoot;
+/*0x17b0*/ int                                   BenefitTimer;
+/*0x17b4*/ int                                   TrophyBenefitTimer;
+/*0x17b8*/ int64_t                               CareerFavor;
+/*0x17c0*/ int64_t                               CurrFavor;
+/*0x17c8*/ bool                                  bBenefitsActive;
+/*0x17c9*/ bool                                  bTrophyBenefitsActive;
+/*0x17ca*/ bool                                  bHasResetStartingCity;
+/*0x17cb*/ bool                                  bIsHeadStartCharacter;
+/*0x17cc*/ int                                   PvPKills;
+/*0x17d0*/ int                                   PvPDeaths;
+/*0x17d4*/ int                                   PvPCurrentPoints;
+/*0x17d8*/ int                                   PvPTotalPointsEarned;
+/*0x17dc*/ int                                   PvPKillStreak;
+/*0x17e0*/ int                                   PvPDeathStreak;
+/*0x17e4*/ int                                   PvPCurrentStreak;
+/*0x17e8*/ PvPKill                               LastKill;
+/*0x1848*/ PvPDeath                              LastDeath;
+/*0x18a0*/ HashTable<PvPKill24HourData>          PvPLast24HoursKillHash;
+/*0x18b8*/ int                                   PvPInfamyLevel;
+/*0x18bc*/ int                                   PvPVitality;
+/*0x18c0*/ eqtime_t                              PvPLastInfamyTime;
+/*0x18c8*/ eqtime_t                              LastLastNameChange;
+/*0x18d0*/ int                                   LastNameChangePriv;
+/*0x18d4*/ uint32_t                              PvPLastVitalityTime;
+/*0x18d8*/ bool                                  bKeepItemsOnDeath;
+/*0x18d9*/ bool                                  bResetSpecializationSkills;
+/*0x18dc*/ int                                   GoodPointsAvailable;         // a.k.a. RadiantCrystals
+/*0x18e0*/ int                                   GoodTotalPointsEarned;
+/*0x18e4*/ int                                   EvilPointsAvailable;         // a.k.a. EbonCrystals
+/*0x18e8*/ int                                   EvilTotalPointsEarned;
+/*0x18ec*/ bool                                  bCanRequestNameChange;
+/*0x18ed*/ bool                                  bCanRequestNameChange2;
+/*0x18ee*/ bool                                  bCanRequestServerTransfer;
+/*0x18ef*/ bool                                  bIsCopied;
+/*0x18f0*/ eqtime_t                              ServerTransferGrantTime;
+/*0x18f8*/ bool                                  bCanRequestRaceChange;
+/*0x18fc*/ uint32_t                              LastAAResetTime;
+/*0x1900*/ uint32_t                              LastMercAAResetTime;
+/*0x1904*/ EQZoneIndex                           NewZoneID;
+/*0x1908*/ int                                   NewAreaID;
+/*0x190c*/ EAreaCorner                           eNewAreaCorner;
+/*0x1910*/ EQZoneIndex                           PreviousZoneID;
+/*0x1914*/ int                                   RealEstateZoneID;
+/*0x1918*/ char                                  ServerCreated[32];
+/*0x1938*/ PCAdventureData                       AdventureData;
+/*0x1a30*/ PCSharedTaskData                      SharedTaskData;
+/*0x1ac8*/ TaskTimerData*                        pTaskTimerData;
+/*0x1ad0*/ PCQuestHistoryData                    QuestHistoryData;
+/*0x1df0*/ PCStatistics                          PcStatistics;
+/*0x1f58*/ GroupMemberStats                      GroupStats;
+/*0x2100*/ bool                                  bIsLfg;
+/*0x2104*/ int                                   RaidId;
+/*0x2108*/ int                                   GroupID;
+/*0x2110*/ int64_t                               Exp;
+/*0x2118*/ int                                   DaysEntitled;
+/*0x211c*/ bool                                  bAutoConsentGroup;
+/*0x211d*/ bool                                  bAutoConsentRaid;
+/*0x211e*/ bool                                  bAutoConsentGuild;
+/*0x211f*/ bool                                  bPrivateForEqPlayers;
+/*0x2120*/ long                                  AchievementFilesModificationTime;
+/*0x2124*/ char                                  StationID[EQ_MAX_STATION_ID];
+/*0x2148*/ EqGuid                                Guid;
+/*0x2150*/ bool                                  bBetaBuffed;
+/*0x2154*/ int                                   Unknown0x1ee4;
+/*0x2158*/ int                                   StartingCity;
+/*0x215c*/ int                                   MainLevel;
+/*0x2160*/ bool                                  bShowHelm;
+/*0x2168*/ int64_t                               LastTestCopyTime;
+/*0x2170*/ CPlayerPointManager                   PointManager;
+/*0x2190*/ PointSystemBase                       PointSystem; // 2178 ^
+/*0x21c0*/ uint32_t                              LoyaltyVelocity;
+/*0x21c4*/ uint32_t                              LoyaltyTokens;
+/*0x21c8*/ bool                                  bHasLoyaltyInfo;
+/*0x21d0*/ ArrayClass<int>                       OwnedRealEstates;
+/*0x21e8*/ ArrayClass<int>                       OwnedItemRealEstates;
+/*0x2200*/ ArrayClass<int>                       ArchivedRealEstates;
+/*0x2218*/ char                                  OverridePetName[EQ_MAX_NAME];
+/*0x2258*/ bool                                  bCanRequestPetNameChange;
+/*0x2259*/ char                                  OverrideFamiliarName[EQ_MAX_NAME];
+/*0x2299*/ bool                                  bCanRequestFamiliarNameChange;
+/*0x22a0*/ CXStr                                 OverrideMercName[EQ_MAX_MERCENARIES];
+/*0x22f8*/ bool                                  bCanRequestMercNameChange;
+/*0x2300*/ PendingRewardList                     PendingRewards;
+/*0x2348*/ uint8_t                               WaitingRewards[0x20]; // type is unknown
+/*0x2368*/ uint32_t                              DowntimeReductionTime;
+/*0x2370*/ uint64_t                              DowntimeTimerStart;
+/*0x2378*/ float                                 ActivityValue;
+/*0x237c*/ uint32_t                              NextItemId;
+/*0x2380*/ CXStr                                 SharedBank;                      // SharedVaultInstanceData
+/*0x2388*/ CXStr                                 BankBuffer;                      // BankInstanceData
+/*0x2390*/ CXStr                                 LimboBuffer;                     // LimboInstanceData
+/*0x2398*/ CXStr                                 MercenaryBuffer;                 // MercenaryInstanceData
+/*0x23a0*/ CXStr                                 KeyRingBuffer[eKeyRingTypeCount];// MountKeyRingInstanceData
+/*0x23c8*/ CXStr                                 AltStorageBuffer;                // AltStorageInstanceData
+/*0x23d0*/ CXStr                                 OverflowBuffer;                  // ItemOverflow
+/*0x23d8*/ CXStr                                 DragonHoardBuffer;               // DragonHoardInstanceData
+/*0x23e0*/ CXStr                                 TradeskillDepotBuffer;           // PersonalTradeskillDepotInstanceData
+/*0x23e8*/ uint64_t                              Unknown23e8[2];
+/*0x23f8*/ uint32_t                              AltStorageTimestamp;             // AltStorageTimestamp
+/*0x23fc*/ ELockoutCharacterReason               LockoutCharacterReason;
+/*0x2400*/ HashTable<ProgressionExperience>      ProgressionExp;
+/*0x2418*/ CXStr                                 ArchivedStorageBuffer;           // ArchiveStorageInstanceData
+/*0x2420*/ CXStr                                 MailItemsBuffer;
+/*0x2428*/ CXStr                                 MailItemsDataBuffer;
+/*0x2430*/ int                                   MailItemsOverCapWarningCount;
+/*0x2434*/ ItemIndex                             StatKeyRingItemIndex[eKeyRingTypeCount];
+/*0x2452*/ bool                                  UseAdvancedLooting;
+/*0x2453*/ bool                                  MasterLootCandidate;
+/*0x2454*/ bool                                  bIsCorrupted;
+/*0x2458*/ char*                                 pCorruptionReport;
+/*0x2460*/ char                                  InspectText[256];
+/*0x2560*/ HashTable<int>                        BlockedSpellsHash;
+/*0x2578*/ int                                   BlockedSpell[MAX_BLOCKED_SPELLS];
+/*0x2618*/ HashTable<int>                        BlockedPetSpellsHash;
+/*0x2630*/ int                                   BlockedPetSpell[MAX_BLOCKED_SPELLS_PET];
+/*0x26d0*/ ClaimDataCollection                   ConsumableFeatures;
+/*0x26e8*/ bool                                  bGrantItemsRegistered;
+/*0x26f0*/ uint64_t                              CreatedGuildID;
+/*0x26f8*/ eqtime_t                              GuildCreateTime;
+/*0x2700*/ CXStr                                 GuildCreateCharacter;
+/*0x2708*/ bool                                  bInventoryUnserialized;
+/*0x2709*/ bool                                  bAltStorageUnserialized;
+/*0x270a*/ bool                                  bArchivedStorageUnserialized;
+/*0x270b*/ bool                                  bMailUnserialized;
+/*0x270c*/ bool                                  bPendingInventorySerialization;
+/*0x2710*/ CXStr                                 BuyLines;
+/*0x2718*/ ArrayClass<CXStr>                     OfflineTraderSoldItems;
+/*0x2730*/ ArrayClass<CXStr>                     OfflineBuyerBoughtItems;
+/*0x2748*/ uint32_t                              Krono;
+/*0x274c*/ uint32_t                              CursorKrono;
+/*0x2750*/ int64_t                               MercAAExp;                    // divide this with 3.30f and you get the percent
+/*0x2758*/ int                                   MercAAPoints;                 // number of unspent merc AA points
+/*0x275c*/ int                                   MercAAPointsSpent;            // number of spent merc AA points
+/*0x2760*/ ArrayClass<MercenaryAbilityInfo*>     MercenaryAbilities;
+/*0x2778*/ AchievementTable                      CompletedAchievements;
+/*0x2790*/ AchievementSubComponentCountTable     CompletedEventBasedSubComponents;
+/*0x27a8*/ AchievementSubComponentCountTable     OpenEventBasedSubComponents;
+/*0x27c0*/ int                                   LastFellowshipJoin;
+/*0x27c8*/ int64_t                               Vitality;
+/*0x27d0*/ int64_t                               AAVitality;
+/*0x27d8*/ int                                   FreeToPlayUnlocks[31];
+/*0x2854*/ // end PcBase / start CharacterZoneClient
 
-	// basis: 0x2828
+	// basis: 0x2860
 
 	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
@@ -1444,14 +1445,14 @@ class [[offsetcomments]] PcZoneClient : public PcBase, public CharacterZoneClien
 {
 /*0x285c*/ // vftable
 public:
-/*0x2e48*/ uint32_t                              Flags[3];
-/*0x2e54*/ uint32_t                              TransfersReceived;
-/*0x2e58*/ int                                   LastLanguageSpoken;
-/*0x2e5c*/ int                                   CurPowerSourceDrain;
-/*0x2e60*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
-/*0x2e80*/ uint32_t                              MomentumBalance;
-/*0x2e84*/ uint32_t                              LoyaltyRewardBalance;
-/*0x2e88*/
+/*0x2e80*/ uint32_t                              Flags[3];
+/*0x2e8c*/ uint32_t                              TransfersReceived;
+/*0x2e90*/ int                                   LastLanguageSpoken;
+/*0x2e94*/ int                                   CurPowerSourceDrain;
+/*0x2e98*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
+/*0x2eb8*/ uint32_t                              MomentumBalance;
+/*0x2ebc*/ uint32_t                              LoyaltyRewardBalance;
+/*0x2ec0*/
 
 	// Verified
 	EQLIB_OBJECT void DestroyHeldItemOrMoney();
@@ -1474,8 +1475,8 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3218 :: 2022-11-10 (live) @ 0x1402336be
-constexpr size_t PcClient_size = 0x3218;
+// @sizeof(PcClient) == 0x3250 :: 2022-11-22 (test) @ 0x140237a3e
+constexpr size_t PcClient_size = 0x3250;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
@@ -1483,20 +1484,20 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2e88*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null // 2e88
-/*0x2e90*/ bool                                  InCombat;
-/*0x2e94*/ uint32_t                              Downtime;
-/*0x2e98*/ uint32_t                              DowntimeStart;
-/*0x2e9c*/ bool                                  bOverrideAvatarProximity;
-/*0x2ea0*/ CGroup*                               Group;
-/*0x2ea8*/ bool                                  bIAmCreatingGroup;
-/*0x2eb0*/ ItemArray                             ItemsPendingID;
-/*0x2ec8*/ eParcelStatus                         ParcelStatus;
-/*0x2ecc*/ int                                   SubscriptionDays;
-/*0x2ed0*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
-/*0x2eda*/ bool                                  bPickZoneFewest;
-/*0x2edc*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
-/*0x2ee0*/
+/*0x2ec0*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null // 2e88
+/*0x2ec8*/ bool                                  InCombat;
+/*0x2ecc*/ uint32_t                              Downtime;
+/*0x2ed0*/ uint32_t                              DowntimeStart;
+/*0x2ed4*/ bool                                  bOverrideAvatarProximity;
+/*0x2ed8*/ CGroup*                               Group;
+/*0x2ee0*/ bool                                  bIAmCreatingGroup;
+/*0x2ee8*/ ItemArray                             ItemsPendingID;
+/*0x2f00*/ eParcelStatus                         ParcelStatus;
+/*0x2f04*/ int                                   SubscriptionDays;
+/*0x2f08*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
+/*0x2f12*/ bool                                  bPickZoneFewest;
+/*0x2f14*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
+/*0x2f18*/
 
 	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);  // cannot be null
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);

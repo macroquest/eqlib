@@ -237,8 +237,8 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x330 :: 2022-11-10 (live) @ 0x14053d31e
-constexpr size_t CButtonWnd_size = 0x330;
+// @sizeof(CButtonWnd) == 0x368 :: 2022-11-22 (test) @ 0x1405478ce
+constexpr size_t CButtonWnd_size = 0x368;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd, public VeBaseReferenceCount
 {
@@ -295,32 +295,32 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x250*/ int                   MouseButtonState;
-/*0x254*/ bool                  bPicture;
-/*0x258*/ CRadioGroup*          pGroup;
-/*0x260*/ bool                  Checked;
-/*0x261*/ bool                  bMouseOverLastFrame;
-/*0x264*/ CXPoint               DecalOffset;
-/*0x26c*/ CXSize                DecalSize;
-/*0x274*/ COLORREF              DecalTint;                // Color
-/*0x278*/ CXRect                TextOffsets;
-/*0x288*/ int                   TextModeBits;
-/*0x28c*/ COLORREF              Mouseover;
-/*0x290*/ COLORREF              Pressed;
-/*0x294*/ COLORREF              Disabled;
-/*0x298*/ unsigned int          CoolDownBeginTime;
-/*0x29c*/ unsigned int          CoolDownDuration;
-/*0x2a0*/ CXStr                 Indicator;
-/*0x2a8*/ unsigned int          IndicatorVal;
-/*0x2b0*/ CTextObjectInterface* pIndicatorTextObject;
-/*0x2b8*/ unsigned int          Unknown0x248;
-/*0x2c0*/ CButtonDrawTemplate   DrawTemplate;
-/*0x328*/ bool                  bAllowButtonClickThrough;
-/*0x329*/ bool                  bCoolDownDoDelayedStart;
-/*0x32a*/ bool                  bIsCheckbox;
-/*0x32b*/ bool                  bIsDrawLasso;
-/*0x32c*/ uint32_t              ButtonStyle;              // tbd
-/*0x330*/
+/*0x288*/ int                   MouseButtonState;
+/*0x28c*/ bool                  bPicture;
+/*0x290*/ CRadioGroup*          pGroup;
+/*0x298*/ bool                  Checked;
+/*0x299*/ bool                  bMouseOverLastFrame;
+/*0x29c*/ CXPoint               DecalOffset;
+/*0x2a4*/ CXSize                DecalSize;
+/*0x2ac*/ COLORREF              DecalTint;                // Color
+/*0x2b0*/ CXRect                TextOffsets;
+/*0x2c0*/ int                   TextModeBits;
+/*0x2c4*/ COLORREF              Mouseover;
+/*0x2c8*/ COLORREF              Pressed;
+/*0x2cc*/ COLORREF              Disabled;
+/*0x2d0*/ unsigned int          CoolDownBeginTime;
+/*0x2d4*/ unsigned int          CoolDownDuration;
+/*0x2d8*/ CXStr                 Indicator;
+/*0x2e0*/ unsigned int          IndicatorVal;
+/*0x2e8*/ CTextObjectInterface* pIndicatorTextObject;
+/*0x2f0*/ unsigned int          Unknown0x248;
+/*0x2f8*/ CButtonDrawTemplate   DrawTemplate;
+/*0x360*/ bool                  bAllowButtonClickThrough;
+/*0x361*/ bool                  bCoolDownDoDelayedStart;
+/*0x362*/ bool                  bIsCheckbox;
+/*0x363*/ bool                  bIsDrawLasso;
+/*0x364*/ uint32_t              ButtonStyle;              // tbd
+/*0x368*/
 
 	ALT_MEMBER_ALIAS(bool, Checked, bChecked);
 
@@ -374,8 +374,8 @@ public:
 	EQLIB_OBJECT void SetRadioLook();
 
 	// protected
-/*0x360*/ bool bOrgState;
-/*0x364*/
+/*0x368*/ bool bOrgState;
+/*0x36c*/
 };
 
 //============================================================================
@@ -423,11 +423,11 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x240*/ CListWnd*                    pListWnd;
-/*0x248*/ int                          ListHeightMax;
-/*0x24c*/ int                          ListHeight;
-/*0x250*/ CButtonDrawTemplate          ButtonDrawTemplate;
-/*0x2b8*/
+/*0x278*/ CListWnd*                    pListWnd;
+/*0x280*/ int                          ListHeightMax;
+/*0x284*/ int                          ListHeight;
+/*0x288*/ CButtonDrawTemplate          ButtonDrawTemplate;
+/*0x2f0*/
 };
 
 //============================================================================
@@ -480,22 +480,22 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x240*/ eTextAlign   eAlign = eta_Left;
-/*0x244*/ int          StartPos = 0;
-/*0x248*/ int          EndPos = 0;
-/*0x24c*/ int          MaxChars = -1;
-/*0x250*/ int          MaxBytesUTF8 = -1;
-/*0x258*/ CXStr        InputText;
-/*0x260*/ int          TagPrintableStarts[EDITWND_MAX_TAGS];
-/*0x288*/ int          TagPrintableEnds[EDITWND_MAX_TAGS];
-/*0x2b0*/ int          TagOriginalStarts[EDITWND_MAX_TAGS];
-/*0x2d8*/ int          TagOriginalEnds[EDITWND_MAX_TAGS];
-/*0x300*/ int          TagDynamicSize[EDITWND_MAX_TAGS];
-/*0x328*/ int          TagCodes[EDITWND_MAX_TAGS];
-/*0x350*/ CXStr        TagStrings[EDITWND_MAX_TAGS];
-/*0x3a0*/ int          TagCount;
-/*0x3a4*/ uint32_t     EditStyle;
-/*0x3a8*/
+/*0x278*/ eTextAlign   eAlign = eta_Left;
+/*0x27c*/ int          StartPos = 0;
+/*0x280*/ int          EndPos = 0;
+/*0x284*/ int          MaxChars = -1;
+/*0x288*/ int          MaxBytesUTF8 = -1;
+/*0x290*/ CXStr        InputText;
+/*0x298*/ int          TagPrintableStarts[EDITWND_MAX_TAGS];
+/*0x2c0*/ int          TagPrintableEnds[EDITWND_MAX_TAGS];
+/*0x2e8*/ int          TagOriginalStarts[EDITWND_MAX_TAGS];
+/*0x310*/ int          TagOriginalEnds[EDITWND_MAX_TAGS];
+/*0x338*/ int          TagDynamicSize[EDITWND_MAX_TAGS];
+/*0x360*/ int          TagCodes[EDITWND_MAX_TAGS];
+/*0x388*/ CXStr        TagStrings[EDITWND_MAX_TAGS];
+/*0x3d8*/ int          TagCount;
+/*0x3dc*/ uint32_t     EditStyle;
+/*0x3e0*/
 };
 
 enum EditWndMode
@@ -572,15 +572,15 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x3a8*/ bool         bAnchorAtStart;
-/*0x3a9*/ bool         bCaretAtEnd;
-/*0x3aa*/ bool         bAutoVScrollCalc;
-/*0x3ab*/ bool         bEditable;
-/*0x3b0*/ CXStr        FilterChars;
-/*0x3b8*/ int          EditMode;
-/*0x3bc*/ wchar_t      PasswordChar;
-/*0x3c0*/ ArrayClass2<uint32_t> LineIndices;
-/*0x3e0*/
+/*0x3e0*/ bool         bAnchorAtStart;
+/*0x3e1*/ bool         bCaretAtEnd;
+/*0x3e2*/ bool         bAutoVScrollCalc;
+/*0x3e3*/ bool         bEditable;
+/*0x3e8*/ CXStr        FilterChars;
+/*0x3f0*/ int          EditMode;
+/*0x3f4*/ wchar_t      PasswordChar;
+/*0x3f8*/ ArrayClass2<uint32_t> LineIndices;
+/*0x418*/
 };
 
 //============================================================================
@@ -622,28 +622,28 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x240*/ int          EQType;
-/*0x244*/ D3DCOLOR     FillTint;
-/*0x248*/ D3DCOLOR     LinesFillTint;
-/*0x24c*/ bool         bDrawLinesFill;
-/*0x250*/ int          TextOffsetX;
-/*0x254*/ int          TextOffsetY;
-/*0x258*/ int          GaugeOffsetX;
-/*0x25c*/ int          GaugeOffsetY;
-/*0x260*/ float        LastFrameVal;
-/*0x268*/ CXStr        LastFrameName;
-/*0x270*/ int          LastFrameTime;
-/*0x274*/ int          LastFrameTarget;
-/*0x278*/ CXStr        GaugeTooltip;
-/*0x280*/ int          TooltipVal;
-/*0x284*/ int          Unknown0x228;
-/*0x288*/ CGaugeDrawTemplate DrawTemplate;
-/*0x2c0*/ CTextObjectInterface* pTextObject;
-/*0x2c8*/ CXStr        NextDrawStr;
-/*0x2d0*/ bool         bSmooth;
-/*0x2d4*/ int          TargetVal;
-/*0x2d8*/ bool         bUseTargetVal;
-/*0x2dc*/
+/*0x278*/ int          EQType;
+/*0x27c*/ D3DCOLOR     FillTint;
+/*0x280*/ D3DCOLOR     LinesFillTint;
+/*0x284*/ bool         bDrawLinesFill;
+/*0x288*/ int          TextOffsetX;
+/*0x28c*/ int          TextOffsetY;
+/*0x290*/ int          GaugeOffsetX;
+/*0x294*/ int          GaugeOffsetY;
+/*0x298*/ float        LastFrameVal;
+/*0x2a0*/ CXStr        LastFrameName;
+/*0x2a8*/ int          LastFrameTime;
+/*0x2ac*/ int          LastFrameTarget;
+/*0x2b0*/ CXStr        GaugeTooltip;
+/*0x2b8*/ int          TooltipVal;
+/*0x2bc*/ int          Unknown0x228;
+/*0x2c0*/ CGaugeDrawTemplate DrawTemplate;
+/*0x2f8*/ CTextObjectInterface* pTextObject;
+/*0x300*/ CXStr        NextDrawStr;
+/*0x308*/ bool         bSmooth;
+/*0x30c*/ int          TargetVal;
+/*0x310*/ bool         bUseTargetVal;
+/*0x314*/
 };
 
 //============================================================================
@@ -663,33 +663,33 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x270*/ int                BarIndex;
-/*0x274*/ int                ButtonIndex;
-/*0x278*/ uint32_t           Timer;
-/*0x280*/ CTextureAnimation* DecalIcon;
-/*0x288*/ int                LastButtonType;
-/*0x28c*/ int                LastButtonSlot;
-/*0x290*/ char               LastButtonPage;
-/*0x291*/ EqItemGuid         LastItemGuid;
-/*0x2a4*/ int                LastItemId;
-/*0x2a8*/ int                LastIconType;
-/*0x2ac*/ int                LastIconSlot;
-/*0x2b0*/ CXStr              LastLabel;
-/*0x2b8*/ CXStr              DefaultLabel;
-/*0x2c0*/ bool               bForceUpdate;
-/*0x2c8*/ CTextObjectInterface* pKeyMapText;
-/*0x2d0*/ int                Unknown0x228;
-/*0x2d8*/ CButtonWnd*        pButtonWnd;
-/*0x2e0*/ CInvSlotWnd*       pInvSlotWnd;
-/*0x2e8*/ CSpellGemWnd*      pSpellGemWnd;
-/*0x2f0*/ CXSize             BaseSize;
-/*0x2f8*/ int                ButtonPercentSize;
-/*0x2fc*/ CXSize             BaseButtonSize;
-/*0x304*/ CXSize             BaseDecalSize;
-/*0x30c*/ CXSize             BaseInvButtonSize;
-/*0x314*/ CXSize             BaseSpellButtonSize;
-/*0x31c*/ int                Unknown0x264;
-/*0x320*/
+/*0x278*/ int                BarIndex;
+/*0x27c*/ int                ButtonIndex;
+/*0x280*/ uint32_t           Timer;
+/*0x288*/ CTextureAnimation* DecalIcon;
+/*0x290*/ int                LastButtonType;
+/*0x294*/ int                LastButtonSlot;
+/*0x298*/ char               LastButtonPage;
+/*0x299*/ EqItemGuid         LastItemGuid;
+/*0x2ac*/ int                LastItemId;
+/*0x2b0*/ int                LastIconType;
+/*0x2b4*/ int                LastIconSlot;
+/*0x2b8*/ CXStr              LastLabel;
+/*0x2c0*/ CXStr              DefaultLabel;
+/*0x2c8*/ bool               bForceUpdate;
+/*0x2d0*/ CTextObjectInterface* pKeyMapText;
+/*0x2d8*/ int                Unknown0x228;
+/*0x2e0*/ CButtonWnd*        pButtonWnd;
+/*0x2e8*/ CInvSlotWnd*       pInvSlotWnd;
+/*0x2f0*/ CSpellGemWnd*      pSpellGemWnd;
+/*0x2f8*/ CXSize             BaseSize;
+/*0x300*/ int                ButtonPercentSize;
+/*0x304*/ CXSize             BaseButtonSize;
+/*0x30c*/ CXSize             BaseDecalSize;
+/*0x314*/ CXSize             BaseInvButtonSize;
+/*0x31c*/ CXSize             BaseSpellButtonSize;
+/*0x324*/ int                Unknown0x264;
+/*0x328*/
 };
 //============================================================================
 // CLabelWnd
@@ -710,16 +710,16 @@ public:
 	virtual void ResizeHeightToText();
 
 	// data members
-/*0x270*/ bool         bNoWrap;
-/*0x271*/ bool         bAlignRight;
-/*0x272*/ bool         bAlignCenter;
-/*0x274*/ int          xOffset;
-/*0x278*/ bool         bResizeHeightToText;
-/*0x280*/ CXStr        PrependText;
-/*0x288*/ CXStr        Text;
-/*0x290*/ CXStr        AppendText;
-/*0x298*/ bool         bTextDirty;
-/*0x29c*/
+/*0x278*/ bool         bNoWrap;
+/*0x279*/ bool         bAlignRight;
+/*0x27a*/ bool         bAlignCenter;
+/*0x27c*/ int          xOffset;
+/*0x280*/ bool         bResizeHeightToText;
+/*0x288*/ CXStr        PrependText;
+/*0x290*/ CXStr        Text;
+/*0x298*/ CXStr        AppendText;
+/*0x2a0*/ bool         bTextDirty;
+/*0x2a4*/
 };
 
 //============================================================================
@@ -737,8 +737,8 @@ public:
 	virtual void UpdateText() override;
 
 	// data members
-/*0x2a0*/ int          EQType;
-/*0x2a4*/
+/*0x2a8*/ int          EQType;
+/*0x2ac*/
 };
 
 inline namespace deprecated {
@@ -1013,38 +1013,38 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x240*/ int                 Unknown0x1f0;
-/*0x248*/ ArrayClass<SListWndLine> ItemsArray;
-/*0x260*/ ArrayClass<SListWndColumn> Columns;
-/*0x278*/ int                 CurSel;
-/*0x27c*/ int                 CurCol;
-/*0x280*/ int                 DownItem;
-/*0x284*/ int                 ScrollOffsetY;
-/*0x288*/ int                 HeaderHeight;
-/*0x28c*/ int                 FirstVisibleLine;
-/*0x290*/ int                 SortCol;
-/*0x294*/ bool                bSortAsc;
-/*0x295*/ bool                bFixedHeight;
-/*0x296*/ bool                bOwnerDraw;
-/*0x297*/ bool                bCalcHeights;
-/*0x298*/ bool                bColumnSizable;
-/*0x29c*/ int                 LineHeight;
-/*0x2a0*/ int                 ColumnSepDragged;
-/*0x2a4*/ int                 ColumnSepMouseOver;
-/*0x2a8*/ COLORREF            HeaderText;
-/*0x2ac*/ COLORREF            Highlight;
-/*0x2b0*/ COLORREF            Selected;
-/*0x2b8*/ CUITextureInfo      BGHeader;
-/*0x2d8*/ COLORREF            BGHeaderTint;
-/*0x2e0*/ CTextureAnimation*  pRowSep;
-/*0x2e8*/ CTextureAnimation*  pColumnSep;
-/*0x2f0*/ CEditBaseWnd*       pEditCell;
-/*0x2f8*/ IListItemDataHandler* pItemDataHandler;
-/*0x300*/ bool                bHasItemTooltips;
-/*0x304*/ CXRect              PrevInsideRect;
-/*0x314*/ uint32_t            ListWndStyle;
-/*0x318*/ eqtime_t            LastVisibleTime;
-/*0x320*/
+/*0x278*/ int                 Unknown0x1f0;
+/*0x280*/ ArrayClass<SListWndLine> ItemsArray;
+/*0x298*/ ArrayClass<SListWndColumn> Columns;
+/*0x2b0*/ int                 CurSel;
+/*0x2b4*/ int                 CurCol;
+/*0x2b8*/ int                 DownItem;
+/*0x2bc*/ int                 ScrollOffsetY;
+/*0x2c0*/ int                 HeaderHeight;
+/*0x2c4*/ int                 FirstVisibleLine;
+/*0x2c8*/ int                 SortCol;
+/*0x2cc*/ bool                bSortAsc;
+/*0x2cd*/ bool                bFixedHeight;
+/*0x2ce*/ bool                bOwnerDraw;
+/*0x2cf*/ bool                bCalcHeights;
+/*0x2d0*/ bool                bColumnSizable;
+/*0x2d4*/ int                 LineHeight;
+/*0x2d8*/ int                 ColumnSepDragged;
+/*0x2dc*/ int                 ColumnSepMouseOver;
+/*0x2e0*/ COLORREF            HeaderText;
+/*0x2e4*/ COLORREF            Highlight;
+/*0x2e8*/ COLORREF            Selected;
+/*0x2f0*/ CUITextureInfo      BGHeader;
+/*0x310*/ COLORREF            BGHeaderTint;
+/*0x318*/ CTextureAnimation*  pRowSep;
+/*0x320*/ CTextureAnimation*  pColumnSep;
+/*0x328*/ CEditBaseWnd*       pEditCell;
+/*0x330*/ IListItemDataHandler* pItemDataHandler;
+/*0x338*/ bool                bHasItemTooltips;
+/*0x33c*/ CXRect              PrevInsideRect;
+/*0x34c*/ uint32_t            ListWndStyle;
+/*0x350*/ eqtime_t            LastVisibleTime;
+/*0x358*/
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
@@ -1081,19 +1081,19 @@ public:
 	EQLIB_OBJECT void SetTabText(CXStr&) const;
 	EQLIB_OBJECT void FlashTab(bool flash, int msTime) const;
 
-/*0x2a8*/ CXStr              TabText;
-/*0x2b0*/ CXStr              OrigTabText;
-/*0x2b8*/ COLORREF           CRTabText;
-/*0x2bc*/ COLORREF           CRTabTextActive;
-/*0x2c0*/ CTextureAnimation* pTATabIcon;
-/*0x2c8*/ CTextureAnimation* pTATabIconActive;
-/*0x2d0*/ int                Unknown0x250;
-/*0x2d4*/ int                Unknown0x254;
-/*0x2d8*/ int64_t            LastFlashTime;
-/*0x2e0*/ COLORREF           CRHighlightFlashColor;
-/*0x2e4*/ bool               bHighlightOnNewMessages;
-/*0x2e5*/ bool               bFlashing;
-/*0x2e8*/
+/*0x2e0*/ CXStr              TabText;
+/*0x2e8*/ CXStr              OrigTabText;
+/*0x2f0*/ COLORREF           CRTabText;
+/*0x2f4*/ COLORREF           CRTabTextActive;
+/*0x2f8*/ CTextureAnimation* pTATabIcon;
+/*0x300*/ CTextureAnimation* pTATabIconActive;
+/*0x308*/ int                Unknown0x250;
+/*0x30c*/ int                Unknown0x254;
+/*0x310*/ int64_t            LastFlashTime;
+/*0x318*/ COLORREF           CRHighlightFlashColor;
+/*0x31c*/ bool               bHighlightOnNewMessages;
+/*0x31d*/ bool               bFlashing;
+/*0x320*/
 };
 
 //============================================================================
@@ -1134,11 +1134,11 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x240*/ CButtonDrawTemplate      bdtThumb;
-/*0x2a8*/ CTextureAnimation*       ptaBackground;
-/*0x2b0*/ CTextureAnimation*       ptaEndCapLeft;
-/*0x2b8*/ CTextureAnimation*       ptaEndCapRight;
-/*0x2c0*/
+/*0x278*/ CButtonDrawTemplate      bdtThumb;
+/*0x2e0*/ CTextureAnimation*       ptaBackground;
+/*0x2e8*/ CTextureAnimation*       ptaEndCapLeft;
+/*0x2f0*/ CTextureAnimation*       ptaEndCapRight;
+/*0x2f8*/
 	// more ...
 };
 
@@ -1310,35 +1310,35 @@ public:
 	// data members
 
 	// todo: verify
-/*0x240*/ CXStr                        STMLText;
-/*0x248*/ CircularArrayClass2<STextLine> TextLines;
-/*0x278*/ int32_t                      TextTotalHeight;
-/*0x27c*/ int32_t                      TextTotalWidth;
-/*0x280*/ int32_t                      Unknown0x224;
-/*0x288*/ ArrayClass2<SLinkInfo>       Links;
-/*0x2a8*/ ArrayClass<STable>           Tables;
-/*0x2c0*/ bool                         bReparseNow;
-/*0x2c1*/ bool                         bResized;
-/*0x2c2*/ bool                         bAlignCenter;
-/*0x2c4*/ int                          LineSpacingAdjust;
-/*0x2c8*/ int32_t                      CapturedLinkID;
-/*0x2cc*/ int32_t                      MousedOverLinkID;
-/*0x2d0*/ COLORREF                     BackGroundColor;
-/*0x2d4*/ COLORREF                     TextColor;
-/*0x2d8*/ COLORREF                     LinkColor;
-/*0x2dc*/ COLORREF                     VLinkColor;
-/*0x2e0*/ COLORREF                     ALinkColor;
-/*0x2e4*/ COLORREF                     MLinkColor;
-/*0x2e8*/ ESTMLParseState              CurrentParseState;
-/*0x2f0*/ ArrayClass2<SHistoryElement> HistoryArray;
-/*0x310*/ int32_t                      HistoryIndex;
-/*0x318*/ CStmlReport*                 pStmlReport;
-/*0x320*/ int                          MaxLines;
-/*0x324*/ int                          PlayerContextMenuIndex;
-/*0x328*/ int                          Unknown0x2ac;
-/*0x32c*/ int                          Unknown0x2b0;
-/*0x330*/ int                          Unknown0x2b4;
-/*0x334*/
+/*0x278*/ CXStr                        STMLText;
+/*0x280*/ CircularArrayClass2<STextLine> TextLines;
+/*0x2b0*/ int32_t                      TextTotalHeight;
+/*0x2b4*/ int32_t                      TextTotalWidth;
+/*0x2b8*/ int32_t                      Unknown0x224;
+/*0x2c0*/ ArrayClass2<SLinkInfo>       Links;
+/*0x2e0*/ ArrayClass<STable>           Tables;
+/*0x2f8*/ bool                         bReparseNow;
+/*0x2f9*/ bool                         bResized;
+/*0x2fa*/ bool                         bAlignCenter;
+/*0x2fc*/ int                          LineSpacingAdjust;
+/*0x300*/ int32_t                      CapturedLinkID;
+/*0x304*/ int32_t                      MousedOverLinkID;
+/*0x308*/ COLORREF                     BackGroundColor;
+/*0x30c*/ COLORREF                     TextColor;
+/*0x310*/ COLORREF                     LinkColor;
+/*0x314*/ COLORREF                     VLinkColor;
+/*0x318*/ COLORREF                     ALinkColor;
+/*0x31c*/ COLORREF                     MLinkColor;
+/*0x320*/ ESTMLParseState              CurrentParseState;
+/*0x328*/ ArrayClass2<SHistoryElement> HistoryArray;
+/*0x348*/ int32_t                      HistoryIndex;
+/*0x350*/ CStmlReport*                 pStmlReport;
+/*0x358*/ int                          MaxLines;
+/*0x35c*/ int                          PlayerContextMenuIndex;
+/*0x360*/ int                          Unknown0x2ac;
+/*0x364*/ int                          Unknown0x2b0;
+/*0x368*/ int                          Unknown0x2b4;
+/*0x36c*/
 };
 
 //============================================================================
@@ -1384,16 +1384,16 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x240*/ CTAFrameDraw*           pTabBorder;
-/*0x248*/ CTAFrameDraw*           pPageBorder;
-/*0x250*/ ArrayClass<CPageWnd*>   PageArray;
-/*0x268*/ int                     CurTabIndex;
-/*0x26c*/ int                     TabHeight;
-/*0x270*/ CXRect                  PageRect;
-/*0x280*/ bool                    bShowTabs;
-/*0x284*/ int                     TabStyle;
-/*0x288*/ int                     TabWidth;
-/*0x28c*/
+/*0x278*/ CTAFrameDraw*           pTabBorder;
+/*0x280*/ CTAFrameDraw*           pPageBorder;
+/*0x288*/ ArrayClass<CPageWnd*>   PageArray;
+/*0x2a0*/ int                     CurTabIndex;
+/*0x2a4*/ int                     TabHeight;
+/*0x2a8*/ CXRect                  PageRect;
+/*0x2b8*/ bool                    bShowTabs;
+/*0x2bc*/ int                     TabStyle;
+/*0x2c0*/ int                     TabWidth;
+/*0x2c4*/
 };
 
 //============================================================================
@@ -1415,13 +1415,13 @@ public:
 	CLayoutWnd(CXWnd*, uint32_t, const CXRect&, const CXStr&);
 	virtual ~CLayoutWnd();
 
-/*0x2d8*/ uint32_t             spacing;
-/*0x2dc*/ bool                 expandLast;
-/*0x2e0*/ int                  paddingLeft;
-/*0x2e4*/ int                  paddingRight;
-/*0x2e8*/ int                  paddingTop;
-/*0x2ec*/ int                  paddingBottom;
-/*0x2f0*/ };
+/*0x2e0*/ uint32_t             spacing;
+/*0x2e4*/ bool                 expandLast;
+/*0x2e8*/ int                  paddingLeft;
+/*0x2ec*/ int                  paddingRight;
+/*0x2f0*/ int                  paddingTop;
+/*0x2f4*/ int                  paddingBottom;
+/*0x2f8*/ };
 
 // Horizontal and Vertical layouts are basically the same, but transposed.
 class [[offsetcomments]] CHorizontalLayoutWnd : public CLayoutWnd
@@ -1429,27 +1429,27 @@ class [[offsetcomments]] CHorizontalLayoutWnd : public CLayoutWnd
 	FORCE_SYMBOLS
 
 public:
-/*0x2c0*/ ArrayClass<CXWnd*>         visibleChildren;
-/*0x2d8*/ ArrayClass<CXRect>         dividerRects;
-/*0x2f0*/ int                        activeDivider;
-/*0x2f4*/ bool                       dividerHover;
-/*0x2f5*/ bool                       dividerMoving;
-/*0x2f8*/ int                        oldPosCoord;              // X for horizontal, Y for vertical
-/*0x2fc*/ bool                       bStyle_Dividers;          // the Style_Dividers property from XML
-/*0x300*/
+/*0x2f8*/ ArrayClass<CXWnd*>         visibleChildren;
+/*0x310*/ ArrayClass<CXRect>         dividerRects;
+/*0x328*/ int                        activeDivider;
+/*0x32c*/ bool                       dividerHover;
+/*0x32d*/ bool                       dividerMoving;
+/*0x330*/ int                        oldPosCoord;              // X for horizontal, Y for vertical
+/*0x334*/ bool                       bStyle_Dividers;          // the Style_Dividers property from XML
+/*0x338*/
 };
 
 class [[offsetcomments]] CVerticalLayoutWnd : public CLayoutWnd
 {
 public:
-/*0x2f0*/ ArrayClass<CXWnd*>         visibleChildren;
-/*0x308*/ ArrayClass<CXRect>         dividerRects;
-/*0x320*/ int                        activeDivider;
-/*0x324*/ bool                       dividerHover;
-/*0x325*/ bool                       dividerMoving;
-/*0x328*/ int                        oldPosCoord;              // X for horizontal, Y for vertical
-/*0x32c*/ bool                       bStyle_Dividers;          // the Style_Dividers property from XML
-/*0x330*/
+/*0x2f8*/ ArrayClass<CXWnd*>         visibleChildren;
+/*0x310*/ ArrayClass<CXRect>         dividerRects;
+/*0x328*/ int                        activeDivider;
+/*0x32c*/ bool                       dividerHover;
+/*0x32d*/ bool                       dividerMoving;
+/*0x330*/ int                        oldPosCoord;              // X for horizontal, Y for vertical
+/*0x334*/ bool                       bStyle_Dividers;          // the Style_Dividers property from XML
+/*0x338*/
 };
 
 class [[offsetcomments]] CTileLayoutWnd : public CLayoutWnd
@@ -1457,14 +1457,14 @@ class [[offsetcomments]] CTileLayoutWnd : public CLayoutWnd
 	FORCE_SYMBOLS
 
 public:
-/*0x2c0*/ bool                       horizontalFirst;
-/*0x2c1*/ bool                       anchorToTop;
-/*0x2c2*/ bool                       anchorToLeft;
-/*0x2c4*/ int                        secondarySpacing;
-/*0x2c8*/ bool                       firstPieceTemplate;
-/*0x2c9*/ bool                       snapToChildren;
-/*0x2d0*/ CXWnd*                     autoStretchWindow;
-/*0x2d8*/
+/*0x2f8*/ bool                       horizontalFirst;
+/*0x2f9*/ bool                       anchorToTop;
+/*0x2fa*/ bool                       anchorToLeft;
+/*0x2fc*/ int                        secondarySpacing;
+/*0x300*/ bool                       firstPieceTemplate;
+/*0x301*/ bool                       snapToChildren;
+/*0x308*/ CXWnd*                     autoStretchWindow;
+/*0x310*/
 };
 
 //============================================================================
@@ -1676,58 +1676,58 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2e8*/ CVerticalLayoutWnd*       pLayout;                 // ADLW_ScreenLayout
-/*0x2f0*/ CListWnd*                 pPersonalLootList;       // ADLW_PLLList
-/*0x2f8*/ CButtonWnd*               pPersonalSetBtn;         // ADLW_PLLSetBtn
-/*0x300*/ CComboWnd*                pPersonalSetCombo;       // ADLW_PLLSetCmbo
-/*0x308*/ CButtonWnd*               pLootAllBtn;             // ADLW_PLL_LootAllBtn
-/*0x310*/ CButtonWnd*               pLeaveAllBtn;            // ADLW_PLL_LeaveAllBtn
-/*0x318*/ CXWnd*                    pCLLWnd;                 // ADLW_CLLWnd
-/*0x320*/ CListWnd*                 pConstructLootList;      // ADLW_CLLList
-/*0x328*/ CButtonWnd*               pConstructSetBtn;        // ADLW_CLLSetBtn
-/*0x330*/ CComboWnd*                pConstructSetCombo;      // ADLW_CLLSetCmbo
-/*0x338*/ CButtonWnd*               pContructLeaveAllBtn;    // ADLW_CLL_LeaveAllBtn
-/*0x340*/ CCheckBoxWnd*             pApplyFiltersChk;        // ADLW_ApplyFiltersCheck
-/*0x348*/ CCheckBoxWnd*             pGroupedByNpcChk;        // ADLW_GroupedByNpcCheckbox
-/*0x350*/ CButtonWnd*               pEditFiltersBtn;         // ADLW_EditFitlersBtn
-/*0x358*/ CButtonWnd*               pLootSettingsBtn;        // ADLW_LootSettingsBtn
-/*0x360*/ CLabelWnd*                pCalculatedMasterLooter; // ADLW_CalculatedMasterLooter
-/*0x368*/ CButtonWnd*               pItemBtnTemplate;        // ADLW_ItemBtnTemplate
-/*0x370*/ CButtonWnd*               pStatusTemplate;         // ADLW_StatusTemplate
-/*0x378*/ CButtonWnd*               pNeverBtnTemplate;       // ADLW_NvrBtnTemplate
-/*0x380*/ CButtonWnd*               pLootBtnTemplate;        // ADLW_LootBtnTemplate
-/*0x388*/ CButtonWnd*               pLeaveBtnTemplate;       // ADLW_LeaveBtnTemplate
-/*0x390*/ CButtonWnd*               pFreeGrabBtnTemplate;    // ADLW_FreeGrabBtnTemplate
-/*0x398*/ CCheckBoxWnd*             pCheckBoxTemplate;       // ADLW_CheckBoxTemplate
-/*0x3a0*/ CButtonWnd*               pTextLinkTemplate;       // ADLW_TextLinkTemplate
-/*0x3a8*/ CButtonWnd*               pManageBtnTemplate;      // ADLW_ManageBtnTemplate
-/*0x3b0*/ CButtonWnd*               pActionBtnTemplate;      // ADLW_ActionBtnTemplate
-/*0x3b8*/ int                       PLLNPCColumnWidth;
-/*0x3bc*/ int                       CLLNPCColumnWidth;
-/*0x3c0*/ int                       CLLRNDColumnWidth;
-/*0x3c4*/ int                       CLLManageColumnWidth;
-/*0x3c8*/ int                       CLLActionColumnWidth;
-/*0x3cc*/ int                       PLLANColumnWidth;
-/*0x3d0*/ int                       PLLAGColumnWidth;
-/*0x3d4*/ int                       PLLNeverColumnWidth;
-/*0x3d8*/ int                       CLLANColumnWidth;
-/*0x3dc*/ int                       CLLAGColumnWidth;
-/*0x3e0*/ int                       CLLNeverColumnWidth;
-/*0x3e8*/ AdvancedLootItemList*     pCLootList;
-/*0x3f0*/ AdvancedLootItemList*     pPLootList;
-/*0x3f8*/ uint32_t                  LastUpdateTime;
-/*0x3fc*/ uint32_t                  LastTransactionCheck;
-/*0x400*/ bool                      bPopupPending;
-/*0x404*/ int                       Unknown1;
-/*0x408*/ int                       Unknown2;
-/*0x40c*/ bool                      bFirstTimeShowingCLL;
-/*0x410*/ int                       TotalLootCount;
-/*0x414*/ bool                      bAutoInventoryQuantity;
-/*0x418*/ int                       CLLActionMenu;
-/*0x41c*/ int                       CLLActionMenuQty;
-/*0x420*/ int                       PLLActionMenu;
-/*0x424*/ bool                      bUnknown3;
-/*0x428*/
+/*0x2f0*/ CVerticalLayoutWnd*       pLayout;                 // ADLW_ScreenLayout
+/*0x2f8*/ CListWnd*                 pPersonalLootList;       // ADLW_PLLList
+/*0x300*/ CButtonWnd*               pPersonalSetBtn;         // ADLW_PLLSetBtn
+/*0x308*/ CComboWnd*                pPersonalSetCombo;       // ADLW_PLLSetCmbo
+/*0x310*/ CButtonWnd*               pLootAllBtn;             // ADLW_PLL_LootAllBtn
+/*0x318*/ CButtonWnd*               pLeaveAllBtn;            // ADLW_PLL_LeaveAllBtn
+/*0x320*/ CXWnd*                    pCLLWnd;                 // ADLW_CLLWnd
+/*0x328*/ CListWnd*                 pConstructLootList;      // ADLW_CLLList
+/*0x330*/ CButtonWnd*               pConstructSetBtn;        // ADLW_CLLSetBtn
+/*0x338*/ CComboWnd*                pConstructSetCombo;      // ADLW_CLLSetCmbo
+/*0x340*/ CButtonWnd*               pContructLeaveAllBtn;    // ADLW_CLL_LeaveAllBtn
+/*0x348*/ CCheckBoxWnd*             pApplyFiltersChk;        // ADLW_ApplyFiltersCheck
+/*0x350*/ CCheckBoxWnd*             pGroupedByNpcChk;        // ADLW_GroupedByNpcCheckbox
+/*0x358*/ CButtonWnd*               pEditFiltersBtn;         // ADLW_EditFitlersBtn
+/*0x360*/ CButtonWnd*               pLootSettingsBtn;        // ADLW_LootSettingsBtn
+/*0x368*/ CLabelWnd*                pCalculatedMasterLooter; // ADLW_CalculatedMasterLooter
+/*0x370*/ CButtonWnd*               pItemBtnTemplate;        // ADLW_ItemBtnTemplate
+/*0x378*/ CButtonWnd*               pStatusTemplate;         // ADLW_StatusTemplate
+/*0x380*/ CButtonWnd*               pNeverBtnTemplate;       // ADLW_NvrBtnTemplate
+/*0x388*/ CButtonWnd*               pLootBtnTemplate;        // ADLW_LootBtnTemplate
+/*0x390*/ CButtonWnd*               pLeaveBtnTemplate;       // ADLW_LeaveBtnTemplate
+/*0x398*/ CButtonWnd*               pFreeGrabBtnTemplate;    // ADLW_FreeGrabBtnTemplate
+/*0x3a0*/ CCheckBoxWnd*             pCheckBoxTemplate;       // ADLW_CheckBoxTemplate
+/*0x3a8*/ CButtonWnd*               pTextLinkTemplate;       // ADLW_TextLinkTemplate
+/*0x3b0*/ CButtonWnd*               pManageBtnTemplate;      // ADLW_ManageBtnTemplate
+/*0x3b8*/ CButtonWnd*               pActionBtnTemplate;      // ADLW_ActionBtnTemplate
+/*0x3c0*/ int                       PLLNPCColumnWidth;
+/*0x3c4*/ int                       CLLNPCColumnWidth;
+/*0x3c8*/ int                       CLLRNDColumnWidth;
+/*0x3cc*/ int                       CLLManageColumnWidth;
+/*0x3d0*/ int                       CLLActionColumnWidth;
+/*0x3d4*/ int                       PLLANColumnWidth;
+/*0x3d8*/ int                       PLLAGColumnWidth;
+/*0x3dc*/ int                       PLLNeverColumnWidth;
+/*0x3e0*/ int                       CLLANColumnWidth;
+/*0x3e4*/ int                       CLLAGColumnWidth;
+/*0x3e8*/ int                       CLLNeverColumnWidth;
+/*0x3f0*/ AdvancedLootItemList*     pCLootList;
+/*0x3f8*/ AdvancedLootItemList*     pPLootList;
+/*0x400*/ uint32_t                  LastUpdateTime;
+/*0x404*/ uint32_t                  LastTransactionCheck;
+/*0x408*/ bool                      bPopupPending;
+/*0x40c*/ int                       Unknown1;
+/*0x410*/ int                       Unknown2;
+/*0x414*/ bool                      bFirstTimeShowingCLL;
+/*0x418*/ int                       TotalLootCount;
+/*0x41c*/ bool                      bAutoInventoryQuantity;
+/*0x420*/ int                       CLLActionMenu;
+/*0x424*/ int                       CLLActionMenuQty;
+/*0x428*/ int                       PLLActionMenu;
+/*0x42c*/ bool                      bUnknown3;
+/*0x430*/
 };
 
 inline namespace deprecated {
@@ -1774,14 +1774,14 @@ public:
 	CBandolierWnd();
 	virtual ~CBandolierWnd();
 
-/*0x2e0*/ CButtonWnd*        pAddButton;
-/*0x2e8*/ CButtonWnd*        pDeleteButton;
-/*0x2f0*/ CButtonWnd*        pUseButton;
-/*0x2f8*/ CButtonWnd*        pMkHotButton;
-/*0x300*/ CButtonWnd*        pAutoSwapButton;
-/*0x308*/ CButtonWnd*        pDisplayButtons[MAX_BANDOLIER_SLOTS];
-/*0x328*/ CListWnd*          pWeaponSetList;
-/*0x330*/
+/*0x2e8*/ CButtonWnd*        pAddButton;
+/*0x2f0*/ CButtonWnd*        pDeleteButton;
+/*0x2f8*/ CButtonWnd*        pUseButton;
+/*0x300*/ CButtonWnd*        pMkHotButton;
+/*0x308*/ CButtonWnd*        pAutoSwapButton;
+/*0x310*/ CButtonWnd*        pDisplayButtons[MAX_BANDOLIER_SLOTS];
+/*0x330*/ CListWnd*          pWeaponSetList;
+/*0x338*/
 };
 
 //============================================================================
@@ -1791,23 +1791,24 @@ public:
 class [[offsetcomments]] CBankWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
-/*0x2ac*/ int          MoneyButtonIndex;
-/*0x2b0*/ unsigned int NextRefreshTime;
-/*0x2b4*/ bool         bInventoryWasActive;
-/*0x2b5*/ bool         bRealEstateManagementWasActive;
-/*0x2b8*/ CButtonWnd*  MoneyButtons[5];          // including shared plat
-/*0x2e0*/ CLabel*      BankerNameLabel;
-/*0x2e8*/ CInvSlotWnd* InvSlotWindows[NUM_BANK_SLOTS];
-/*0x3a8*/ CLabel*      SharedBankLabel;
-/*0x3b0*/ CInvSlotWnd* SharedSlotWindows[NUM_SHAREDBANK_SLOTS];
-/*0x3e0*/ CButtonWnd*  DoneButton;
-/*0x3e8*/ CButtonWnd*  ChangeButton;
-/*0x3f0*/ CButtonWnd*  AutoButton;
-/*0x3f8*/ CButtonWnd*  AltStorageButton;
-/*0x400*/ CButtonWnd*  FindItemButton;
-/*0x408*/ CButtonWnd*  DragonHoardButton;
-/*0x410*/ int          BankSize;
-/*0x414*/
+/*0x2e4*/ int          MoneyButtonIndex;
+/*0x2e8*/ unsigned int NextRefreshTime;
+/*0x2ec*/ bool         bInventoryWasActive;
+/*0x2ed*/ bool         bRealEstateManagementWasActive;
+/*0x2f0*/ CButtonWnd*  MoneyButtons[5];           // including shared plat
+/*0x318*/ CLabel*      BankerNameLabel;
+/*0x320*/ CInvSlotWnd* InvSlotWindows[NUM_BANK_SLOTS];
+/*0x3e0*/ CLabel*      SharedBankLabel;
+/*0x3e8*/ CInvSlotWnd* SharedSlotWindows[NUM_SHAREDBANK_SLOTS];
+/*0x418*/ CButtonWnd*  DoneButton;                // DoneButton
+/*0x420*/ CButtonWnd*  ChangeButton;              // ChangeButton
+/*0x428*/ CButtonWnd*  AutoButton;                // AutoButton
+/*0x430*/ CButtonWnd*  AltStorageButton;          // AltStorageButton
+/*0x438*/ CButtonWnd*  FindItemButton;            // FindItemButton
+/*0x440*/ CButtonWnd*  DragonHoardButton;         // DragonHoard
+/*0x448*/ CButtonWnd*  TradeskillDepotButton;     // TradeskillDepot
+/*0x450*/ int          BankSize;
+/*0x454*/
 
 	CBankWnd(CXWnd*, CXStr);
 	virtual ~CBankWnd();
@@ -1885,41 +1886,41 @@ public:
 		Column_Offering,
 	};
 
-/*0x2d8*/ CStmlWnd*                    pstmlStatus;               // StatusText
-/*0x2e0*/ CListWnd*                    plistItems;                // ItemSearchList
-/*0x2e8*/ CListWnd*                    plistInventory;            // InventoryList
-/*0x2f0*/ CListWnd*                    plistCompensation;         // CompensationList
-/*0x2f8*/ CListWnd*                    plistBuyLines;             // BuyLineList
-/*0x300*/ CEditWnd*                    peditSearch;               // ItemSearchEdit
-/*0x308*/ CButtonWnd*                  pbtnSearch;                // ItemSearchButton
-/*0x310*/ CButtonWnd*                  pbtnAddItem;               // InventoryAddButton
-/*0x318*/ CButtonWnd*                  pbtnRemoveItem;            // InventoryRemoveButton
-/*0x320*/ CButtonWnd*                  pbtnPlat;                  // CompensationPlat
-/*0x328*/ CButtonWnd*                  pbtnGold;                  // CompensationGold
-/*0x330*/ CButtonWnd*                  pbtnSilver;                // CompensationSilver
-/*0x338*/ CButtonWnd*                  pbtnCopper;                // CompensationCopper
-/*0x340*/ CButtonWnd*                  pbtnCreate;                // BuyLineAddButton
-/*0x348*/ CEditWnd*                    peditCount;                // CountEdit
-/*0x350*/ CButtonWnd*                  pbtnRemoveLine;            // BuyLineRemoveButton
-/*0x358*/ CButtonWnd*                  pbtnUpdateLine;            // BuyLineModifyButton
-/*0x360*/ CButtonWnd*                  pbtnActiveLine;            // BuyLineActiveButton
-/*0x368*/ CButtonWnd*                  pbtnActivateAllLines;      // BuyLineActivateAllButton
-/*0x370*/ CButtonWnd*                  pbtnListLines;             // ListLinesButton
-/*0x378*/ CButtonWnd*                  pbtnClearStatus;           // ClearStatusButton
-/*0x380*/ CButtonWnd*                  pbtnStartStop;             // StartStopButton
-/*0x388*/ CButtonWnd*                  pbtnOfflineMode;           // OfflineModeButton
-/*0x390*/ CEditWnd*                    peditWelcome;              // WelcomeEdit
-/*0x398*/ CButtonWnd*                  pbtnUpdateWelcome;         // UpdateWelcomeButton
-/*0x3a0*/ CButtonWnd*                  pbtnRefreshInventory;      // InventoryRefreshButton
-/*0x3a8*/ CLayoutWnd*                  pLayout;                   // Layout
-/*0x3b0*/ CLayoutWnd*                  pStatusLayout;             // StatusLayout
-/*0x3b8*/ uint32_t                     lastUpdateTime;
-/*0x3c0*/ eqtime_t                     lastSearchTime;
-/*0x3c8*/ uint32_t                     quantityRequest;
-/*0x3d0*/ ArrayClass2<BarterInventoryItem> InventoryItems;
-/*0x3f0*/ ArrayClass2<BarterSearchedItem> SearchedItems;
-/*0x410*/ BarterBuyLine                CurrentBuyLine;
-/*0x4d8*/
+/*0x2e0*/ CStmlWnd*                    pstmlStatus;               // StatusText
+/*0x2e8*/ CListWnd*                    plistItems;                // ItemSearchList
+/*0x2f0*/ CListWnd*                    plistInventory;            // InventoryList
+/*0x2f8*/ CListWnd*                    plistCompensation;         // CompensationList
+/*0x300*/ CListWnd*                    plistBuyLines;             // BuyLineList
+/*0x308*/ CEditWnd*                    peditSearch;               // ItemSearchEdit
+/*0x310*/ CButtonWnd*                  pbtnSearch;                // ItemSearchButton
+/*0x318*/ CButtonWnd*                  pbtnAddItem;               // InventoryAddButton
+/*0x320*/ CButtonWnd*                  pbtnRemoveItem;            // InventoryRemoveButton
+/*0x328*/ CButtonWnd*                  pbtnPlat;                  // CompensationPlat
+/*0x330*/ CButtonWnd*                  pbtnGold;                  // CompensationGold
+/*0x338*/ CButtonWnd*                  pbtnSilver;                // CompensationSilver
+/*0x340*/ CButtonWnd*                  pbtnCopper;                // CompensationCopper
+/*0x348*/ CButtonWnd*                  pbtnCreate;                // BuyLineAddButton
+/*0x350*/ CEditWnd*                    peditCount;                // CountEdit
+/*0x358*/ CButtonWnd*                  pbtnRemoveLine;            // BuyLineRemoveButton
+/*0x360*/ CButtonWnd*                  pbtnUpdateLine;            // BuyLineModifyButton
+/*0x368*/ CButtonWnd*                  pbtnActiveLine;            // BuyLineActiveButton
+/*0x370*/ CButtonWnd*                  pbtnActivateAllLines;      // BuyLineActivateAllButton
+/*0x378*/ CButtonWnd*                  pbtnListLines;             // ListLinesButton
+/*0x380*/ CButtonWnd*                  pbtnClearStatus;           // ClearStatusButton
+/*0x388*/ CButtonWnd*                  pbtnStartStop;             // StartStopButton
+/*0x390*/ CButtonWnd*                  pbtnOfflineMode;           // OfflineModeButton
+/*0x398*/ CEditWnd*                    peditWelcome;              // WelcomeEdit
+/*0x3a0*/ CButtonWnd*                  pbtnUpdateWelcome;         // UpdateWelcomeButton
+/*0x3a8*/ CButtonWnd*                  pbtnRefreshInventory;      // InventoryRefreshButton
+/*0x3b0*/ CLayoutWnd*                  pLayout;                   // Layout
+/*0x3b8*/ CLayoutWnd*                  pStatusLayout;             // StatusLayout
+/*0x3c0*/ uint32_t                     lastUpdateTime;
+/*0x3c8*/ eqtime_t                     lastSearchTime;
+/*0x3d0*/ uint32_t                     quantityRequest;
+/*0x3d8*/ ArrayClass2<BarterInventoryItem> InventoryItems;
+/*0x3f8*/ ArrayClass2<BarterSearchedItem> SearchedItems;
+/*0x418*/ BarterBuyLine                CurrentBuyLine;
+/*0x4e0*/
 };
 
 //============================================================================
@@ -1948,28 +1949,28 @@ public:
 		Column_Max,
 	};
 
-/*0x2d8*/ HashTable<BarterBuyerSearchData> Buyers;
-/*0x2f0*/ CListWnd*                    plistInventory;                 // InventoryList
-/*0x2f8*/ CListWnd*                    plistBuyLines;                  // BuyLineList
-/*0x300*/ CListWnd*                    plistDetails;                   // DetailsList
-/*0x308*/ CEditWnd*                    peditSearch;                    // ItemSearchEdit
-/*0x310*/ CButtonWnd*                  pbtnRefreshInventory;           // RefreshInventoryButton
-/*0x318*/ CButtonWnd*                  pbtnSearch;                     // SearchButton
-/*0x320*/ CButtonWnd*                  pbtnWelcome;                    // WelcomeButon
-/*0x328*/ CButtonWnd*                  pbtnGreeting;                   // GreetingButton
-/*0x330*/ CButtonWnd*                  pbtnFind;                       // FindButton
-/*0x338*/ CButtonWnd*                  pbtnHide;                       // HideButton
-/*0x340*/ CButtonWnd*                  pbtnBuyLineInspectItem;         // BuyLineInspectButton
-/*0x348*/ CButtonWnd*                  pbtnCompensationInspectItem;    // CompensationInspectButton
-/*0x350*/ CButtonWnd*                  pbtnCompensationPreviewItem;    // CompensationPreviewButton
-/*0x358*/ CButtonWnd*                  pbtnSellButton;                 // SellButton
-/*0x360*/ CComboWnd*                   pcomboPlayersCombo;             // PlayerCombo
-/*0x368*/ CLayoutWnd*                  pLayout;                        // Layout
-/*0x370*/ CLayoutWnd*                  pMatchLayout;                   // BuyLineLayout
-/*0x378*/ bool                         NeedsUpdate;
-/*0x380*/ ArrayClass<BarterBuyLine>    BuyLines;
-/*0x398*/ ArrayClass2<BarterInventoryItem> InventoryItems;
-/*0x3b8*/ // more members
+/*0x2e0*/ HashTable<BarterBuyerSearchData> Buyers;
+/*0x2f8*/ CListWnd*                    plistInventory;                 // InventoryList
+/*0x300*/ CListWnd*                    plistBuyLines;                  // BuyLineList
+/*0x308*/ CListWnd*                    plistDetails;                   // DetailsList
+/*0x310*/ CEditWnd*                    peditSearch;                    // ItemSearchEdit
+/*0x318*/ CButtonWnd*                  pbtnRefreshInventory;           // RefreshInventoryButton
+/*0x320*/ CButtonWnd*                  pbtnSearch;                     // SearchButton
+/*0x328*/ CButtonWnd*                  pbtnWelcome;                    // WelcomeButon
+/*0x330*/ CButtonWnd*                  pbtnGreeting;                   // GreetingButton
+/*0x338*/ CButtonWnd*                  pbtnFind;                       // FindButton
+/*0x340*/ CButtonWnd*                  pbtnHide;                       // HideButton
+/*0x348*/ CButtonWnd*                  pbtnBuyLineInspectItem;         // BuyLineInspectButton
+/*0x350*/ CButtonWnd*                  pbtnCompensationInspectItem;    // CompensationInspectButton
+/*0x358*/ CButtonWnd*                  pbtnCompensationPreviewItem;    // CompensationPreviewButton
+/*0x360*/ CButtonWnd*                  pbtnSellButton;                 // SellButton
+/*0x368*/ CComboWnd*                   pcomboPlayersCombo;             // PlayerCombo
+/*0x370*/ CLayoutWnd*                  pLayout;                        // Layout
+/*0x378*/ CLayoutWnd*                  pMatchLayout;                   // BuyLineLayout
+/*0x380*/ bool                         NeedsUpdate;
+/*0x388*/ ArrayClass<BarterBuyLine>    BuyLines;
+/*0x3a0*/ ArrayClass2<BarterInventoryItem> InventoryItems;
+/*0x3c0*/ // more members
 };
 
 //============================================================================
@@ -2036,47 +2037,47 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x02ac*/ uint8_t                     UnknownPadding[0x34];
-/*0x02e0*/ BazaarSearchResults         searchResults[MAX_BAZAAR_SEARCH_RESULTS];
-/*0x95c0*/ HashTable<BazaarTraderData> Traders;
-/*0x95d8*/ CListWnd*                   pItemList;                        // BZR_ItemList
-/*0x95e0*/ CButtonWnd*                 pQueryButton;
-/*0x95e8*/ CButtonWnd*                 pWelcomeButton;
-/*0x95f0*/ CButtonWnd*                 pUpdatePlayerButton;
-/*0x95f8*/ CButtonWnd*                 pRequestItemButton;
-/*0x9600*/ CButtonWnd*                 pRequestPreviewButton;
-/*0x9608*/ CButtonWnd*                 pFindTraderButton;
-/*0x9610*/ CButtonWnd*                 pHideTradersButton;
-/*0x9618*/ CButtonWnd*                 pDefaultButton;
-/*0x9620*/ CButtonWnd*                 pBuyButton;
-/*0x9628*/ CLabelWnd*                  pItemNameLabel;
-/*0x9630*/ CLabelWnd*                  pPlayersLabel;
-/*0x9638*/ CLabelWnd*                  pItemSlotLabel;
-/*0x9640*/ CLabelWnd*                  pStatSlotLabel;
-/*0x9648*/ CLabelWnd*                  pRaceSlotLabel;
-/*0x9650*/ CLabelWnd*                  pClassSlotLabel;
-/*0x9658*/ CLabelWnd*                  pItemTypeLabel;
-/*0x9660*/ CLabelWnd*                  pSearchResultLabel;
-/*0x9668*/ CLabelWnd*                  pMaxPriceLabel;
-/*0x9670*/ CLabelWnd*                  pMinPriceLabel;
-/*0x9678*/ CLabelWnd*                  pItemPrestigeLabel;
-/*0x9680*/ CLabelWnd*                  pItemAugmentLabel;
-/*0x9688*/ CComboWnd*                  pItemSlotCombobox;
-/*0x9690*/ CComboWnd*                  pStatSlotCombobox;
-/*0x9698*/ CComboWnd*                  pRaceSlotCombobox;
-/*0x96a0*/ CComboWnd*                  pClassSlotCombobox;
-/*0x96a8*/ CComboWnd*                  pItemTypeCombobox;
-/*0x96b0*/ CComboWnd*                  pPlayersCombobox;
-/*0x96b8*/ CComboWnd*                  pItemPrestigeCombobox;
-/*0x96c0*/ CComboWnd*                  pItemAugmentCombobox;
-/*0x96c8*/ CEditWnd*                   pItemNameInput;
-/*0x96d0*/ CEditWnd*                   pMaxPriceInput;
-/*0x96d8*/ CEditWnd*                   pMinPriceInput;
-/*0x96e0*/ CEditWnd*                   pMaxLevelInput;
-/*0x96e8*/ CEditWnd*                   pMinLevelInput;
-/*0x96f0*/ CEditWnd*                   pMaxResultsPerTraderInput;
-/*0x96f8*/ BYTE                        Unknown0x92C8[0x8];
-/*0x9700*/
+/*0x02e4*/ uint8_t                     UnknownPadding[0x34];
+/*0x0318*/ BazaarSearchResults         searchResults[MAX_BAZAAR_SEARCH_RESULTS];
+/*0x95f8*/ HashTable<BazaarTraderData> Traders;
+/*0x9610*/ CListWnd*                   pItemList;                        // BZR_ItemList
+/*0x9618*/ CButtonWnd*                 pQueryButton;
+/*0x9620*/ CButtonWnd*                 pWelcomeButton;
+/*0x9628*/ CButtonWnd*                 pUpdatePlayerButton;
+/*0x9630*/ CButtonWnd*                 pRequestItemButton;
+/*0x9638*/ CButtonWnd*                 pRequestPreviewButton;
+/*0x9640*/ CButtonWnd*                 pFindTraderButton;
+/*0x9648*/ CButtonWnd*                 pHideTradersButton;
+/*0x9650*/ CButtonWnd*                 pDefaultButton;
+/*0x9658*/ CButtonWnd*                 pBuyButton;
+/*0x9660*/ CLabelWnd*                  pItemNameLabel;
+/*0x9668*/ CLabelWnd*                  pPlayersLabel;
+/*0x9670*/ CLabelWnd*                  pItemSlotLabel;
+/*0x9678*/ CLabelWnd*                  pStatSlotLabel;
+/*0x9680*/ CLabelWnd*                  pRaceSlotLabel;
+/*0x9688*/ CLabelWnd*                  pClassSlotLabel;
+/*0x9690*/ CLabelWnd*                  pItemTypeLabel;
+/*0x9698*/ CLabelWnd*                  pSearchResultLabel;
+/*0x96a0*/ CLabelWnd*                  pMaxPriceLabel;
+/*0x96a8*/ CLabelWnd*                  pMinPriceLabel;
+/*0x96b0*/ CLabelWnd*                  pItemPrestigeLabel;
+/*0x96b8*/ CLabelWnd*                  pItemAugmentLabel;
+/*0x96c0*/ CComboWnd*                  pItemSlotCombobox;
+/*0x96c8*/ CComboWnd*                  pStatSlotCombobox;
+/*0x96d0*/ CComboWnd*                  pRaceSlotCombobox;
+/*0x96d8*/ CComboWnd*                  pClassSlotCombobox;
+/*0x96e0*/ CComboWnd*                  pItemTypeCombobox;
+/*0x96e8*/ CComboWnd*                  pPlayersCombobox;
+/*0x96f0*/ CComboWnd*                  pItemPrestigeCombobox;
+/*0x96f8*/ CComboWnd*                  pItemAugmentCombobox;
+/*0x9700*/ CEditWnd*                   pItemNameInput;
+/*0x9708*/ CEditWnd*                   pMaxPriceInput;
+/*0x9710*/ CEditWnd*                   pMinPriceInput;
+/*0x9718*/ CEditWnd*                   pMaxLevelInput;
+/*0x9720*/ CEditWnd*                   pMinLevelInput;
+/*0x9728*/ CEditWnd*                   pMaxResultsPerTraderInput;
+/*0x9730*/ BYTE                        Unknown0x92C8[0x8];
+/*0x9738*/
 };
 
 inline namespace deprecated {
@@ -2098,29 +2099,29 @@ class [[offsetcomments]] CBazaarWnd : public CSidlScreenWnd, public WndEventHand
 public:
 	inline ItemContainer& GetBazaarItems() { return bazaarItems; }
 
-/*0x2ac*/ int                selectedSlot;
-/*0x2b0*/ int                curBazaarIndex;
-/*0x2b4*/ int                curItemPrice;
-/*0x2b8*/ int                moneyBtnIndex;
-/*0x2c0*/ ItemPtr            selectedItem;
-/*0x2c8*/ CButtonWnd*        startButton;
-/*0x2d0*/ CButtonWnd*        endButton;
-/*0x2d8*/ CButtonWnd*        clearButton;
-/*0x2e0*/ CButtonWnd*        setPriceButton;                    // BZW_SetPrice_Button
-/*0x2e8*/ CButtonWnd*        listButton;
-/*0x2f0*/ uint32_t           unknown0x25c;
-/*0x2f8*/ CButtonWnd*        addButton;
-/*0x300*/ CButtonWnd*        removeButton;
-/*0x308*/ CButtonWnd*        moneyButton[4];                    // NumMoneySlotTypes
-/*0x328*/ CButtonWnd*        offlineModeButton;
-/*0x330*/ CStmlWnd*          bazaarText;
-/*0x338*/ CInvSlotWnd*       bazaarSlots[MAX_BAZAAR_ITEMS];     // BZR_BazaarSlot%d
-/*0x978*/ ItemContainer      bazaarItems;
-/*0x9a0*/ uint32_t           myPrice[MAX_BAZAAR_ITEMS];
-/*0xcc0*/ bool               bItemActive[MAX_BAZAAR_ITEMS];
-/*0xd88*/ char               iniFilename[64];
-/*0xdc8*/ bool               bIsMerchant;
-/*0xdcc*/
+/*0x2e4*/ int                selectedSlot;
+/*0x2e8*/ int                curBazaarIndex;
+/*0x2ec*/ int                curItemPrice;
+/*0x2f0*/ int                moneyBtnIndex;
+/*0x2f8*/ ItemPtr            selectedItem;
+/*0x300*/ CButtonWnd*        startButton;
+/*0x308*/ CButtonWnd*        endButton;
+/*0x310*/ CButtonWnd*        clearButton;
+/*0x318*/ CButtonWnd*        setPriceButton;                    // BZW_SetPrice_Button
+/*0x320*/ CButtonWnd*        listButton;
+/*0x328*/ uint32_t           unknown0x25c;
+/*0x330*/ CButtonWnd*        addButton;
+/*0x338*/ CButtonWnd*        removeButton;
+/*0x340*/ CButtonWnd*        moneyButton[4];                    // NumMoneySlotTypes
+/*0x360*/ CButtonWnd*        offlineModeButton;
+/*0x368*/ CStmlWnd*          bazaarText;
+/*0x370*/ CInvSlotWnd*       bazaarSlots[MAX_BAZAAR_ITEMS];     // BZR_BazaarSlot%d
+/*0x9b0*/ ItemContainer      bazaarItems;
+/*0x9d8*/ uint32_t           myPrice[MAX_BAZAAR_ITEMS];
+/*0xcf8*/ bool               bItemActive[MAX_BAZAAR_ITEMS];
+/*0xdc0*/ char               iniFilename[64];
+/*0xe00*/ bool               bIsMerchant;
+/*0xe04*/
 };
 
 //============================================================================
@@ -2199,30 +2200,30 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2ac*/ bool                  bOldIconArrangement;
-/*0x2b0*/ CTextureAnimation*    ptaBlueIconBackground;
-/*0x2b8*/ CTextureAnimation*    ptaRedIconBackground;
-/*0x2c0*/ CTextureAnimation*    ptaYellowIconBackground;
-/*0x2c8*/ CTextureAnimation*    ptaBuffIcons[MAX_BUFF_ICONS];
-/*0x418*/ CButtonWnd*           pBuffButtons[MAX_BUFF_ICONS];    // was: pBuff
-/*0x568*/ CTextObjectInterface* pTimeRemainingTexts[MAX_BUFF_ICONS];
-/*0x6b8*/ CTextObjectInterface* pCounterTexts[MAX_BUFF_ICONS];
-/*0x808*/ CTextObjectInterface* pLimitedUseTexts[MAX_BUFF_ICONS];
-/*0x958*/ int                   spellIds[MAX_BUFF_ICONS];        // was: BuffId
-/*0xa00*/ int                   buffTimers[MAX_BUFF_ICONS];      // was: BuffTimer
-/*0xaa8*/ HashTable<CXStr>      whoCastHash;                     // was: WhoCast
-/*0xac0*/ uint32_t              nextRefreshTime;
-/*0xac4*/ int                   initWindowWidth;
-/*0xac8*/ int                   initWindowHeight;
-/*0xacc*/ BuffWindowType        buffWindowType;
-/*0xad0*/ int                   firstEffectSlot;
-/*0xad4*/ int                   lastEffectSlot;                  // was: MaxLongBuffs 0x2a (NUM_LONG_BUFFS)
-/*0xad8*/ int                   maxBuffButtons;                  // was: MaxShortBuffs 0x37 (NUM_SHORT_BUFFS)
-/*0xadc*/ int                   contextMenuId;
-/*0xae0*/ CXWnd*                selectedButtonWnd;               // this field doesn't alwayws appear to be initialize
-/*0xae8*/ bool                  updatedMenuItems;
-/*0xaec*/ int                   lastBuffRefreshTime;
-/*0xaf0*/
+/*0x2e4*/ bool                  bOldIconArrangement;
+/*0x2e8*/ CTextureAnimation*    ptaBlueIconBackground;
+/*0x2f0*/ CTextureAnimation*    ptaRedIconBackground;
+/*0x2f8*/ CTextureAnimation*    ptaYellowIconBackground;
+/*0x300*/ CTextureAnimation*    ptaBuffIcons[MAX_BUFF_ICONS];
+/*0x450*/ CButtonWnd*           pBuffButtons[MAX_BUFF_ICONS];    // was: pBuff
+/*0x5a0*/ CTextObjectInterface* pTimeRemainingTexts[MAX_BUFF_ICONS];
+/*0x6f0*/ CTextObjectInterface* pCounterTexts[MAX_BUFF_ICONS];
+/*0x840*/ CTextObjectInterface* pLimitedUseTexts[MAX_BUFF_ICONS];
+/*0x990*/ int                   spellIds[MAX_BUFF_ICONS];        // was: BuffId
+/*0xa38*/ int                   buffTimers[MAX_BUFF_ICONS];      // was: BuffTimer
+/*0xae0*/ HashTable<CXStr>      whoCastHash;                     // was: WhoCast
+/*0xaf8*/ uint32_t              nextRefreshTime;
+/*0xafc*/ int                   initWindowWidth;
+/*0xb00*/ int                   initWindowHeight;
+/*0xb04*/ BuffWindowType        buffWindowType;
+/*0xb08*/ int                   firstEffectSlot;
+/*0xb0c*/ int                   lastEffectSlot;                  // was: MaxLongBuffs 0x2a (NUM_LONG_BUFFS)
+/*0xb10*/ int                   maxBuffButtons;                  // was: MaxShortBuffs 0x37 (NUM_SHORT_BUFFS)
+/*0xb14*/ int                   contextMenuId;
+/*0xb18*/ CXWnd*                selectedButtonWnd;               // this field doesn't alwayws appear to be initialize
+/*0xb20*/ bool                  updatedMenuItems;
+/*0xb24*/ int                   lastBuffRefreshTime;
+/*0xb28*/
 
 	ALT_MEMBER_GETTER_ARRAY(CButtonWnd*, MAX_BUFF_ICONS, pBuffButtons, pBuff);
 	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, spellIds, BuffId);
@@ -2310,28 +2311,28 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2b8*/ CPopDialogWnd*       pCurrentPop;
-/*0x2c0*/ uint32_t             lastRefresh;
-/*0x2c4*/ bool                 bHorizontal;
-/*0x2c8*/ CSpellGemWnd*        SpellSlots[NUM_SPELL_GEMS];     // CSPW_Spell%d
-/*0x338*/ CButtonWnd*          pBtnSpellBook;                  // CSPW_SpellBook
-/*0x340*/ CButtonWnd*          pBtnSpellBookH;                 // CSPW_SpellBookH
-/*0x348*/ CButtonWnd*          pBtnSpellBookV;                 // CSPW_SpellBookV
-/*0x350*/ CXWnd*               pHorizontalTemplate;            // CSPW_HorizontalOrientationTemplate
-/*0x358*/ CXWnd*               pVerticalTemplate;              // CSPW_VerticalOrientationTemplate
-/*0x360*/ CTileLayoutWnd*      pSpellGemLayout;                // CSPW_SpellGemLayout
-/*0x368*/ CXWnd*               pHorizontalBook;                // CSPW_HorizontalOrientationBook
-/*0x370*/ CXWnd*               pVerticalBook;                  // CSPW_VerticalOrientationBook
-/*0x378*/ ArrayClass<SpellCategoryMajor*> CategorizedSpells;
-/*0x390*/ int                  SpellSelectMenuID;
-/*0x394*/ int                  GemMemming;
-/*0x398*/ int                  LoadoutMenu;
-/*0x39c*/ int                  SaveLoadoutIndex;
-/*0x3a0*/ CContextMenu*        pMainMenu;
-/*0x3a8*/ CContextMenu*        pLoadMenu;
-/*0x3b0*/ CContextMenu*        pSaveMenu;
-/*0x3b8*/ CContextMenu*        pDeleteMenu;
-/*0x3c0*/
+/*0x2f0*/ CPopDialogWnd*       pCurrentPop;
+/*0x2f8*/ uint32_t             lastRefresh;
+/*0x2fc*/ bool                 bHorizontal;
+/*0x300*/ CSpellGemWnd*        SpellSlots[NUM_SPELL_GEMS];     // CSPW_Spell%d
+/*0x370*/ CButtonWnd*          pBtnSpellBook;                  // CSPW_SpellBook
+/*0x378*/ CButtonWnd*          pBtnSpellBookH;                 // CSPW_SpellBookH
+/*0x380*/ CButtonWnd*          pBtnSpellBookV;                 // CSPW_SpellBookV
+/*0x388*/ CXWnd*               pHorizontalTemplate;            // CSPW_HorizontalOrientationTemplate
+/*0x390*/ CXWnd*               pVerticalTemplate;              // CSPW_VerticalOrientationTemplate
+/*0x398*/ CTileLayoutWnd*      pSpellGemLayout;                // CSPW_SpellGemLayout
+/*0x3a0*/ CXWnd*               pHorizontalBook;                // CSPW_HorizontalOrientationBook
+/*0x3a8*/ CXWnd*               pVerticalBook;                  // CSPW_VerticalOrientationBook
+/*0x3b0*/ ArrayClass<SpellCategoryMajor*> CategorizedSpells;
+/*0x3c8*/ int                  SpellSelectMenuID;
+/*0x3cc*/ int                  GemMemming;
+/*0x3d0*/ int                  LoadoutMenu;
+/*0x3d4*/ int                  SaveLoadoutIndex;
+/*0x3d8*/ CContextMenu*        pMainMenu;
+/*0x3e0*/ CContextMenu*        pLoadMenu;
+/*0x3e8*/ CContextMenu*        pSaveMenu;
+/*0x3f0*/ CContextMenu*        pDeleteMenu;
+/*0x3f8*/
 };
 
 inline namespace deprecated {
@@ -2671,27 +2672,27 @@ public:
 	//EQLIB_OBJECT void PageUp();
 	//EQLIB_OBJECT void SetChatFont(int);
 
-/*0x2a8*/ CChatWindowManager* ChatManager;
-/*0x2b0*/ CEditWnd*    InputWnd;
-/*0x2b8*/ CStmlWnd*    OutputWnd;
-/*0x2c0*/ int          ChatChannel;
-/*0x2c4*/ int          ChatChannelIndex;
-/*0x2c8*/ char         TellTarget[0x40];
-/*0x308*/ int          Language;
-/*0x30c*/ bool         bIsMainChat;
-/*0x30d*/ bool         bIsTellWnd;
-/*0x310*/ int          TimestampFormat;
-/*0x314*/ COLORREF     TimestampColor;
-/*0x318*/ bool         bTimestampMatchChatColor;
-/*0x320*/ CXStr        CommandHistory[0x28];
-/*0x460*/ int          HistoryIndex;
-/*0x464*/ int          HistoryLastShown;
-/*0x468*/ int          FontSize;                 // style
-/*0x46c*/ int          AlwaysChathereIndex;      // menu
-/*0x470*/ int          NamesContextMenu;         // guess
-/*0x474*/ int          ContextMenuID;            // also a guess
-/*0x478*/ int          ContextMenuSubID[0xa];    // this is not correct but ill fix it later.
-/*0x4a0*/
+/*0x2e0*/ CChatWindowManager* ChatManager;
+/*0x2e8*/ CEditWnd*    InputWnd;
+/*0x2f0*/ CStmlWnd*    OutputWnd;
+/*0x2f8*/ int          ChatChannel;
+/*0x2fc*/ int          ChatChannelIndex;
+/*0x300*/ char         TellTarget[0x40];
+/*0x340*/ int          Language;
+/*0x344*/ bool         bIsMainChat;
+/*0x345*/ bool         bIsTellWnd;
+/*0x348*/ int          TimestampFormat;
+/*0x34c*/ COLORREF     TimestampColor;
+/*0x350*/ bool         bTimestampMatchChatColor;
+/*0x358*/ CXStr        CommandHistory[0x28];
+/*0x498*/ int          HistoryIndex;
+/*0x49c*/ int          HistoryLastShown;
+/*0x4a0*/ int          FontSize;                 // style
+/*0x4a4*/ int          AlwaysChathereIndex;      // menu
+/*0x4a8*/ int          NamesContextMenu;         // guess
+/*0x4ac*/ int          ContextMenuID;            // also a guess
+/*0x4b0*/ int          ContextMenuSubID[0xa];    // this is not correct but ill fix it later.
+/*0x4d8*/
 };
 
 inline namespace deprecated {
@@ -2725,21 +2726,21 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2ac*/ int                ContextMenuIndex;
-/*0x2b0*/ int                MaxSliderValue;
-/*0x2b8*/ CXWnd*             pwndCaller;
-/*0x2c0*/ CButtonWnd*        ColorButton[16];
-/*0x340*/ int                RedSliderValue;
-/*0x348*/ CSliderWnd*        RedSlider;
-/*0x350*/ CEditWnd*          RedSliderInputEdit;
-/*0x358*/ int                GreenSliderValue;
-/*0x360*/ CSliderWnd*        GreenSlider;
-/*0x368*/ CEditWnd*          GreenSliderInputEdit;
-/*0x370*/ int                BlueSliderValue;
-/*0x378*/ CSliderWnd*        BlueSlider;
-/*0x380*/ CEditWnd*          BlueSliderInputEdit;
-/*0x388*/ CButtonWnd*        AcceptButton;
-/*0x390*/
+/*0x2e4*/ int                ContextMenuIndex;
+/*0x2e8*/ int                MaxSliderValue;
+/*0x2f0*/ CXWnd*             pwndCaller;
+/*0x2f8*/ CButtonWnd*        ColorButton[16];
+/*0x378*/ int                RedSliderValue;
+/*0x380*/ CSliderWnd*        RedSlider;
+/*0x388*/ CEditWnd*          RedSliderInputEdit;
+/*0x390*/ int                GreenSliderValue;
+/*0x398*/ CSliderWnd*        GreenSlider;
+/*0x3a0*/ CEditWnd*          GreenSliderInputEdit;
+/*0x3a8*/ int                BlueSliderValue;
+/*0x3b0*/ CSliderWnd*        BlueSlider;
+/*0x3b8*/ CEditWnd*          BlueSliderInputEdit;
+/*0x3c0*/ CButtonWnd*        AcceptButton;
+/*0x3c8*/
 };
 
 //============================================================================
@@ -2812,16 +2813,16 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2b0*/ CStaticAnimationTemplate*     pStrip1;
-/*0x2b8*/ CStaticAnimationTemplate*     pStrip2;
-/*0x2c0*/ int                           Unknown0x244;
-/*0x2c4*/ int                           offset;
-/*0x2c8*/ int                           timestamp;
-/*0x2d0*/ double                        speed;
-/*0x2d8*/ int                           timer;
-/*0x2dc*/ CompassLineSource             lineAdventure;
-/*0x310*/ ArrayClass<CompassLineSource*> lineData;
-/*0x328*/
+/*0x2e8*/ CStaticAnimationTemplate*     pStrip1;
+/*0x2f0*/ CStaticAnimationTemplate*     pStrip2;
+/*0x2f8*/ int                           Unknown0x244;
+/*0x2fc*/ int                           offset;
+/*0x300*/ int                           timestamp;
+/*0x308*/ double                        speed;
+/*0x310*/ int                           timer;
+/*0x314*/ CompassLineSource             lineAdventure;
+/*0x348*/ ArrayClass<CompassLineSource*> lineData;
+/*0x360*/
 };
 
 inline namespace deprecated {
@@ -2862,13 +2863,13 @@ public:
 	//EQLIB_OBJECT void ResetFocusOnClose();
 
 	// Data members
-/*0x2a8*/ CStmlWnd*    OutputText;
-/*0x2b0*/ CButtonWnd*  pYesButton;
-/*0x2b8*/ CButtonWnd*  pNoButton;
-/*0x2c0*/ CButtonWnd*  pCancelButton;
-/*0x2c8*/ CButtonWnd*  pOKButton;
-/*0x2d0*/ BYTE         Unknown0x170[0x18]; // fixme x64
-/*0x2e8*/
+/*0x2e0*/ CStmlWnd*    OutputText;
+/*0x2e8*/ CButtonWnd*  pYesButton;
+/*0x2f0*/ CButtonWnd*  pNoButton;
+/*0x2f8*/ CButtonWnd*  pCancelButton;
+/*0x300*/ CButtonWnd*  pOKButton;
+/*0x308*/ BYTE         Unknown0x170[0x18]; // fixme x64
+/*0x320*/
 };
 
 //============================================================================
@@ -2893,30 +2894,30 @@ public:
 	EQLIB_OBJECT void HandleCombine();
 
 	// TODO: Fix for inaccuracies
-/*0x2a8*/ ItemPtr       Container;
-/*0x2b0*/ ItemGlobalIndex Location;
-/*0x2c0*/ VeArray<CInvSlotWnd*> InvSlotWnds;
-/*0x2d8*/ CButtonWnd*   pCombineButton;
-/*0x2e0*/ CButtonWnd*   pDoneButton;
-/*0x2e8*/ CButtonWnd*   pStandardDoneButton;
-/*0x2f0*/ CButtonWnd*   pCombineDoneButton;
-/*0x2f8*/ CButtonWnd*   pContainerIcon;
-/*0x300*/ CButtonWnd*   pContainerStandardIcon;
-/*0x308*/ CButtonWnd*   pContainerCombineIcon;
-/*0x310*/ CTextureAnimation* pIconAnimation;
-/*0x318*/ CLabel*       ContainerLabel;
-/*0x320*/ CInvSlotWnd*  pContainerSlotTemplate;
-/*0x328*/ CXWnd*        pStandardItems;
-/*0x330*/ CXWnd*        pStandardItemsWithDone;
-/*0x338*/ CXWnd*        pCombineItems;
-/*0x340*/ CStmlWnd*     pStandardSize;
-/*0x348*/ CStmlWnd*     pCombineSize;
-/*0x350*/ bool          bCombineValid;
-/*0x351*/ bool          bUserCloseable;
-/*0x354*/ int           ContainerType;            // classic = 0, standard = 1, combine = 2
-/*0x358*/ int           IndexDoneButton;
-/*0x360*/ CContextMenu* ContextMenu;
-/*0x368*/
+/*0x2e0*/ ItemPtr       Container;
+/*0x2e8*/ ItemGlobalIndex Location;
+/*0x2f8*/ VeArray<CInvSlotWnd*> InvSlotWnds;
+/*0x310*/ CButtonWnd*   pCombineButton;
+/*0x318*/ CButtonWnd*   pDoneButton;
+/*0x320*/ CButtonWnd*   pStandardDoneButton;
+/*0x328*/ CButtonWnd*   pCombineDoneButton;
+/*0x330*/ CButtonWnd*   pContainerIcon;
+/*0x338*/ CButtonWnd*   pContainerStandardIcon;
+/*0x340*/ CButtonWnd*   pContainerCombineIcon;
+/*0x348*/ CTextureAnimation* pIconAnimation;
+/*0x350*/ CLabel*       ContainerLabel;
+/*0x358*/ CInvSlotWnd*  pContainerSlotTemplate;
+/*0x360*/ CXWnd*        pStandardItems;
+/*0x368*/ CXWnd*        pStandardItemsWithDone;
+/*0x370*/ CXWnd*        pCombineItems;
+/*0x378*/ CStmlWnd*     pStandardSize;
+/*0x380*/ CStmlWnd*     pCombineSize;
+/*0x388*/ bool          bCombineValid;
+/*0x389*/ bool          bUserCloseable;
+/*0x38c*/ int           ContainerType;            // classic = 0, standard = 1, combine = 2
+/*0x390*/ int           IndexDoneButton;
+/*0x398*/ CContextMenu* ContextMenu;
+/*0x3a0*/
 
 	DEPRECATE("CContainerWnd: Use Container instead of pContents")
 	inline ItemClient* get_pContents() { return Container.get(); }
@@ -3013,22 +3014,22 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x0240*/ CXWnd*             pParentMenuWnd;
-/*0x0248*/ CContextMenu*      pCurrMenus[MAX_CONTEXT_MENU_DEPTH];
-/*0x0288*/ int                NumVisibleMenus;
-/*0x028c*/ int                CurrMenu;
-/*0x0290*/ CContextMenu*      pMenus[MAX_CONTEXT_MENUS];
-/*0x2290*/ int                NumMenus;
-/*0x2298*/ CXWnd*             pHandlerWnd;
-/*0x22a0*/ int                HandlerCmd;
-/*0x22a4*/ int                DefaultMenuIndex;
-/*0x22a8*/ int                DefaultHelpItem;
-/*0x22ac*/ int                DefaultBGItem;
-/*0x22b0*/ int                DefaultMinItem;
-/*0x22b4*/ int                DefaultCloseItem;
-/*0x22b8*/ int                DefaultLockItem;
-/*0x22bc*/ int                DefaultEscapeItem;
-/*0x22c0*/
+/*0x0278*/ CXWnd*             pParentMenuWnd;
+/*0x0280*/ CContextMenu*      pCurrMenus[MAX_CONTEXT_MENU_DEPTH];
+/*0x02c0*/ int                NumVisibleMenus;
+/*0x02c4*/ int                CurrMenu;
+/*0x02c8*/ CContextMenu*      pMenus[MAX_CONTEXT_MENUS];
+/*0x22c8*/ int                NumMenus;
+/*0x22d0*/ CXWnd*             pHandlerWnd;
+/*0x22d8*/ int                HandlerCmd;
+/*0x22dc*/ int                DefaultMenuIndex;
+/*0x22e0*/ int                DefaultHelpItem;
+/*0x22e4*/ int                DefaultBGItem;
+/*0x22e8*/ int                DefaultMinItem;
+/*0x22ec*/ int                DefaultCloseItem;
+/*0x22f0*/ int                DefaultLockItem;
+/*0x22f4*/ int                DefaultEscapeItem;
+/*0x22f8*/
 };
 
 //============================================================================
@@ -3062,9 +3063,9 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x320*/ int          NumItems;
-/*0x324*/ int          Unknown0x28C;
-/*0x328*/
+/*0x358*/ int          NumItems;
+/*0x35c*/ int          Unknown0x28C;
+/*0x360*/
 };
 
 //============================================================================
@@ -3124,24 +3125,24 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2ac*/ int                       Type;
-/*0x2b0*/ int                       Index;
-/*0x2b4*/ EqItemGuid                ItemGuid;
-/*0x2c8*/ int                       ItemID;
-/*0x2cc*/ int                       Qty;
-/*0x2d0*/ int                       IconID;
-/*0x2d8*/ SoeUtil::String           AssignedName;
-/*0x2f0*/ int                       Unknown0x264;
-/*0x2f4*/ char                      AssignedNameCopy[0x40];
-/*0x338*/ CXStr                     ButtonText;
-/*0x340*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
-/*0x348*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
-/*0x350*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
-/*0x358*/ CTextObjectInterface*     pTextObjectInterface;
-/*0x360*/ CTextObjectInterface*     pButtonTextObjectInterface;
-/*0x368*/ int                       TextfontStyle;
-/*0x36c*/ int                       Unknown0x2C4;
-/*0x370*/
+/*0x2e4*/ int                       Type;
+/*0x2e8*/ int                       Index;
+/*0x2ec*/ EqItemGuid                ItemGuid;
+/*0x300*/ int                       ItemID;
+/*0x304*/ int                       Qty;
+/*0x308*/ int                       IconID;
+/*0x310*/ SoeUtil::String           AssignedName;
+/*0x328*/ int                       Unknown0x264;
+/*0x32c*/ char                      AssignedNameCopy[0x40];
+/*0x370*/ CXStr                     ButtonText;
+/*0x378*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
+/*0x380*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
+/*0x388*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
+/*0x390*/ CTextObjectInterface*     pTextObjectInterface;
+/*0x398*/ CTextObjectInterface*     pButtonTextObjectInterface;
+/*0x3a0*/ int                       TextfontStyle;
+/*0x3a4*/ int                       Unknown0x2C4;
+/*0x3a8*/
 };
 
 //============================================================================
@@ -3171,18 +3172,18 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2ac*/ bool             Unknown0x22c;
-/*0x2b0*/ int              Unknown0x230;
-/*0x2b4*/ int              Unknown0x234;
-/*0x2b8*/ int              Unknown0x238;
-/*0x2c0*/ SoeUtil::String  Unknown0x23c;
-/*0x2d8*/ SoeUtil::String  Unknown0x24c;
-/*0x2f0*/ CGaugeWnd*       StandingGaugeTemplate;
-/*0x2f8*/ CTreeViewWnd*    Categories;
-/*0x300*/ CEditWnd*        SearchNameInput;
-/*0x308*/ CButtonWnd*      SearchButton;
-/*0x310*/ CListWnd*        FactionList;
-/*0x318*/
+/*0x2e4*/ bool             Unknown0x22c;
+/*0x2e8*/ int              Unknown0x230;
+/*0x2ec*/ int              Unknown0x234;
+/*0x2f0*/ int              Unknown0x238;
+/*0x2f8*/ SoeUtil::String  Unknown0x23c;
+/*0x310*/ SoeUtil::String  Unknown0x24c;
+/*0x328*/ CGaugeWnd*       StandingGaugeTemplate;
+/*0x330*/ CTreeViewWnd*    Categories;
+/*0x338*/ CEditWnd*        SearchNameInput;
+/*0x340*/ CButtonWnd*      SearchButton;
+/*0x348*/ CListWnd*        FactionList;
+/*0x350*/
 };
 
 inline namespace deprecated {
@@ -3216,8 +3217,8 @@ public:
 // CFindItemWnd
 //============================================================================
 
-// @sizeof(CFindItemWnd) == 0x3c8 :: 2022-11-10 (live) @ 0x140159689
-constexpr size_t CFindItemWnd_size = 0x3c8;
+// @sizeof(CFindItemWnd) == 0x408 :: 2022-11-22 (test) @ 0x14015a379
+constexpr size_t CFindItemWnd_size = 0x408;
 
 class [[offsetcomments]] CFindItemWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -3250,37 +3251,38 @@ public:
 		return ItemGlobalIndex();
 	}
 
-/*0x2ac*/ bool                Unknown0;
-/*0x2ad*/ bool                Unknown1;
-/*0x2b0*/ uint32_t            Unknown2;
-/*0x2b4*/ uint32_t            Timestamp;
-/*0x2b8*/ uint32_t            Counter;
-/*0x2c0*/ ItemContainer       Container;
-/*0x2e8*/ HashTable<ItemRecord, int> Items;
-/*0x300*/ HashTable<SoeUtil::String, int> ItemNames;     // just a guess, likely inaccurate.
-/*0x318*/ CStaticAnimationTemplate* FIW_ClassAnim;
-/*0x320*/ CSidlScreenWnd*     FIW_CharacterView;
-/*0x328*/ CListWnd*           FIW_ItemList;
-/*0x330*/ CButtonWnd*         FIW_QueryButton;
-/*0x338*/ CButtonWnd*         FIW_RequestItemButton;
-/*0x340*/ CButtonWnd*         FIW_RequestPreviewButton;
-/*0x348*/ CButtonWnd*         FIW_Default;
-/*0x350*/ CButtonWnd*         FIW_GrabButton;
-/*0x358*/ CButtonWnd*         FIW_HighlightButton;
-/*0x360*/ CButtonWnd*         FIW_DestroyItem;
-/*0x368*/ CComboWnd*          FIW_ItemLocationCombobox;
-/*0x370*/ CComboWnd*          FIW_ItemSlotCombobox;
-/*0x378*/ CComboWnd*          FIW_StatSlotCombobox;
-/*0x380*/ CComboWnd*          FIW_RaceSlotCombobox;
-/*0x388*/ CComboWnd*          FIW_ClassSlotCombobox;
-/*0x390*/ CComboWnd*          FIW_ItemTypeCombobox;
-/*0x398*/ CComboWnd*          FIW_ItemPrestigeCombobox;
-/*0x3a0*/ CComboWnd*          FIW_ItemAugmentCombobox;
-/*0x3a8*/ CEditWnd*           FIW_ItemNameInput;
-/*0x3b0*/ CEditWnd*           FIW_MaxLevelInput;
-/*0x3b8*/ CEditWnd*           FIW_MinLevelInput;
-/*0x3c0*/ CLabelWnd*          FIW_DragonHoardLabel;
-/*0x3c8*/
+/*0x2e4*/ bool                Unknown0;
+/*0x2e5*/ bool                Unknown1;
+/*0x2e8*/ uint32_t            Unknown2;
+/*0x2ec*/ uint32_t            Timestamp;
+/*0x2f0*/ uint32_t            Counter;
+/*0x2f8*/ ItemContainer       Container;
+/*0x320*/ HashTable<ItemRecord, int> Items;
+/*0x338*/ HashTable<SoeUtil::String, int> ItemNames;     // just a guess, likely inaccurate.
+/*0x350*/ CStaticAnimationTemplate* FIW_ClassAnim;
+/*0x358*/ CSidlScreenWnd*     FIW_CharacterView;
+/*0x360*/ CListWnd*           FIW_ItemList;
+/*0x368*/ CButtonWnd*         FIW_QueryButton;
+/*0x370*/ CButtonWnd*         FIW_RequestItemButton;
+/*0x378*/ CButtonWnd*         FIW_RequestPreviewButton;
+/*0x380*/ CButtonWnd*         FIW_Default;
+/*0x388*/ CButtonWnd*         FIW_GrabButton;
+/*0x390*/ CButtonWnd*         FIW_HighlightButton;
+/*0x398*/ CButtonWnd*         FIW_DestroyItem;
+/*0x3a0*/ CButtonWnd*         FIW_SearchDepotButton;
+/*0x3a8*/ CComboWnd*          FIW_ItemLocationCombobox;
+/*0x3b0*/ CComboWnd*          FIW_ItemSlotCombobox;
+/*0x3b8*/ CComboWnd*          FIW_StatSlotCombobox;
+/*0x3c0*/ CComboWnd*          FIW_RaceSlotCombobox;
+/*0x3c8*/ CComboWnd*          FIW_ClassSlotCombobox;
+/*0x3d0*/ CComboWnd*          FIW_ItemTypeCombobox;
+/*0x3d8*/ CComboWnd*          FIW_ItemPrestigeCombobox;
+/*0x3e0*/ CComboWnd*          FIW_ItemAugmentCombobox;
+/*0x3e8*/ CEditWnd*           FIW_ItemNameInput;
+/*0x3f0*/ CEditWnd*           FIW_MaxLevelInput;
+/*0x3f8*/ CEditWnd*           FIW_MinLevelInput;
+/*0x400*/ CLabelWnd*          FIW_DragonHoardLabel;
+/*0x408*/
 };
 
 SIZE_CHECK(CFindItemWnd, CFindItemWnd_size);
@@ -3301,8 +3303,8 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x378 :: 2022-11-10 (live) @ 0x140159e47
-constexpr size_t CFindLocationWnd_size = 0x378;
+// @sizeof(CFindLocationWnd) == 0x3b0 :: 2022-11-22 (test) @ 0x14015ab37
+constexpr size_t CFindLocationWnd_size = 0x3b0;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
 {
@@ -3353,25 +3355,25 @@ public:
 	using FindableReferenceList = HashTable<FindableReference>;
 
 public:
-/*0x2d8*/ CListWnd*               findLocationList;        // FLW_FindLocationList
-/*0x2e0*/ CCheckBoxWnd*           filterLocationsCheckBox; // FLW_FilterLocationsCheckbox
-/*0x2e8*/ CCheckBoxWnd*           filterGroupCheckBox;     // FLW_FilterGroupCheckbox
-/*0x2f0*/ CCheckBoxWnd*           filterRaidCheckBox;      // FLW_FilterRaidCheckbox
-/*0x2f8*/ CLabelWnd*              noneLabel;               // FLW_FoundNoneLabel
-/*0x300*/ uint32_t                lastUpdateTime;
-/*0x304*/ uint32_t                lastFindRequestTime;
-/*0x308*/ bool                    didFindRequest;
-/*0x310*/ PlayerDataArray         unfilteredPlayerList;
-/*0x328*/ PlayerDataArray         filteredGroupPlayerList;
-/*0x340*/ PlayerDataArray         unfilteredRaidPlayerList;
-/*0x358*/ POIDataArray            unfilteredPOIDataList;
-/*0x370*/ ZoneConnectionDataArray unfilteredZoneConnectionList;
-/*0x388*/ FindableReferenceList   referenceList;
-/*0x3a0*/ uint32_t                lastId;
-/*0x3a4*/ bool                    dataRequested;
-/*0x3a5*/ bool                    playerListDirty;
-/*0x3a6*/ bool                    zoneConnectionsRcvd;
-/*0x3a8*/
+/*0x2e0*/ CListWnd*               findLocationList;        // FLW_FindLocationList
+/*0x2e8*/ CCheckBoxWnd*           filterLocationsCheckBox; // FLW_FilterLocationsCheckbox
+/*0x2f0*/ CCheckBoxWnd*           filterGroupCheckBox;     // FLW_FilterGroupCheckbox
+/*0x2f8*/ CCheckBoxWnd*           filterRaidCheckBox;      // FLW_FilterRaidCheckbox
+/*0x300*/ CLabelWnd*              noneLabel;               // FLW_FoundNoneLabel
+/*0x308*/ uint32_t                lastUpdateTime;
+/*0x30c*/ uint32_t                lastFindRequestTime;
+/*0x310*/ bool                    didFindRequest;
+/*0x318*/ PlayerDataArray         unfilteredPlayerList;
+/*0x330*/ PlayerDataArray         filteredGroupPlayerList;
+/*0x348*/ PlayerDataArray         unfilteredRaidPlayerList;
+/*0x360*/ POIDataArray            unfilteredPOIDataList;
+/*0x378*/ ZoneConnectionDataArray unfilteredZoneConnectionList;
+/*0x390*/ FindableReferenceList   referenceList;
+/*0x3a8*/ uint32_t                lastId;
+/*0x3ac*/ bool                    dataRequested;
+/*0x3ad*/ bool                    playerListDirty;
+/*0x3ae*/ bool                    zoneConnectionsRcvd;
+/*0x3b0*/
 };
 
 SIZE_CHECK(CFindLocationWnd, CFindLocationWnd_size);
@@ -3403,19 +3405,19 @@ public:
 
 	EQLIB_OBJECT int Open(CXWnd* pWnd, int flags);
 
-/*0x2ac*/ int             Unknown0x24c;
-/*0x2b0*/ CXWnd*          pWndCaller;
-/*0x2b8*/ CListWnd*       pListFiles;
-/*0x2c0*/ CEditWnd*       pEditEntry;
-/*0x2c8*/ CComboWnd*      pComboDirHistory;
-/*0x2d0*/ CButtonWnd*     pUpButton;
-/*0x2d8*/ CButtonWnd*     pOKButton;
-/*0x2e0*/ CButtonWnd*     pCancelButton;
-/*0x2e8*/ int             Flags;
-/*0x2f0*/ CXStr           SelectedFile;
-/*0x2f8*/ IShellFolder*   ShellFolder;
-/*0x300*/ CXStr           CurrentDir;
-/*0x308*/ // more
+/*0x2e4*/ int             Unknown0x24c;
+/*0x2e8*/ CXWnd*          pWndCaller;
+/*0x2f0*/ CListWnd*       pListFiles;
+/*0x2f8*/ CEditWnd*       pEditEntry;
+/*0x300*/ CComboWnd*      pComboDirHistory;
+/*0x308*/ CButtonWnd*     pUpButton;
+/*0x310*/ CButtonWnd*     pOKButton;
+/*0x318*/ CButtonWnd*     pCancelButton;
+/*0x320*/ int             Flags;
+/*0x328*/ CXStr           SelectedFile;
+/*0x330*/ IShellFolder*   ShellFolder;
+/*0x338*/ CXStr           CurrentDir;
+/*0x340*/ // more
 };
 
 //============================================================================
@@ -3502,12 +3504,12 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2b8*/ CButtonWnd*    pMoneyButton[4];
-/*0x2d8*/ CButtonWnd*    TradeButton;
-/*0x2e0*/ CButtonWnd*    CancelButton;
-/*0x2e8*/ CLabel*        NPCNameLabel;
-/*0x2f0*/ CInvSlotWnd*   pInvSlotWnd[MAX_GIVE_SLOTS];
-/*0x310*/
+/*0x2f0*/ CButtonWnd*    pMoneyButton[4];
+/*0x310*/ CButtonWnd*    TradeButton;
+/*0x318*/ CButtonWnd*    CancelButton;
+/*0x320*/ CLabel*        NPCNameLabel;
+/*0x328*/ CInvSlotWnd*   pInvSlotWnd[MAX_GIVE_SLOTS];
+/*0x348*/
 };
 
 //============================================================================
@@ -3665,42 +3667,42 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x2a8*/ CButtonWnd*        InviteButton;
-/*0x2b0*/ CButtonWnd*        DisbandButton;
-/*0x2b8*/ CButtonWnd*        FollowButton;
-/*0x2c0*/ CButtonWnd*        DeclineButton;
-/*0x2c8*/ CButtonWnd*        LFGButton;
-/*0x2d0*/ CGaugeWnd*         HPGauge[6];
-/*0x300*/ CGaugeWnd*         PetGauge[6];
-/*0x330*/ CGaugeWnd*         ManaGauge[6];
-/*0x360*/ CGaugeWnd*         EnduranceGauge[6];
-/*0x390*/ CLabel*            HPLabel[6];
-/*0x3c0*/ CLabel*            HPPercLabel[6];
-/*0x3f0*/ CLabel*            ManaLabel[6];
-/*0x420*/ CLabel*            ManaPercLabel[6];
-/*0x450*/ CLabel*            EnduranceLabel[6];
-/*0x480*/ CLabel*            EndurancePercLabel[6];
-/*0x4b0*/ COLORREF           HPTextColor[6];
-/*0x4c8*/ CButtonWnd*        GroupTankButton[6];
-/*0x4f8*/ CButtonWnd*        GroupAssistButton[6];
-/*0x528*/ CButtonWnd*        GroupPullerButton[6];
-/*0x558*/ CButtonWnd*        GroupMarkNPCButton[6];
-/*0x588*/ CLabel*            AggroPercLabel[6];
-/*0x5b8*/ long               Timer;
-/*0x5c0*/ CContextMenu*      GroupContextMenu;
-/*0x5c8*/ bool               bPetbars;
-/*0x5c9*/ bool               bManabars;
-/*0x5ca*/ bool               bEndurancebars;
-/*0x5cb*/ bool               bAggroPct;
-/*0x5cc*/ int                PetBarIndex;
-/*0x5d0*/ int                ManaBarIndex;
-/*0x5d4*/ int                EnduranceBarIndex;
-/*0x5d8*/ int                AggroPctIndex;
-/*0x5dc*/ int                RoleSeparatorID;
-/*0x5e0*/ int                RoleSelectMenu;
-/*0x5e4*/ int                RoleSelectMenuID;
-/*0x5e8*/ bool               bPlayerInvited;
-/*0x5ec*/
+/*0x2e0*/ CButtonWnd*        InviteButton;
+/*0x2e8*/ CButtonWnd*        DisbandButton;
+/*0x2f0*/ CButtonWnd*        FollowButton;
+/*0x2f8*/ CButtonWnd*        DeclineButton;
+/*0x300*/ CButtonWnd*        LFGButton;
+/*0x308*/ CGaugeWnd*         HPGauge[6];
+/*0x338*/ CGaugeWnd*         PetGauge[6];
+/*0x368*/ CGaugeWnd*         ManaGauge[6];
+/*0x398*/ CGaugeWnd*         EnduranceGauge[6];
+/*0x3c8*/ CLabel*            HPLabel[6];
+/*0x3f8*/ CLabel*            HPPercLabel[6];
+/*0x428*/ CLabel*            ManaLabel[6];
+/*0x458*/ CLabel*            ManaPercLabel[6];
+/*0x488*/ CLabel*            EnduranceLabel[6];
+/*0x4b8*/ CLabel*            EndurancePercLabel[6];
+/*0x4e8*/ COLORREF           HPTextColor[6];
+/*0x500*/ CButtonWnd*        GroupTankButton[6];
+/*0x530*/ CButtonWnd*        GroupAssistButton[6];
+/*0x560*/ CButtonWnd*        GroupPullerButton[6];
+/*0x590*/ CButtonWnd*        GroupMarkNPCButton[6];
+/*0x5c0*/ CLabel*            AggroPercLabel[6];
+/*0x5f0*/ long               Timer;
+/*0x5f8*/ CContextMenu*      GroupContextMenu;
+/*0x600*/ bool               bPetbars;
+/*0x601*/ bool               bManabars;
+/*0x602*/ bool               bEndurancebars;
+/*0x603*/ bool               bAggroPct;
+/*0x604*/ int                PetBarIndex;
+/*0x608*/ int                ManaBarIndex;
+/*0x60c*/ int                EnduranceBarIndex;
+/*0x610*/ int                AggroPctIndex;
+/*0x614*/ int                RoleSeparatorID;
+/*0x618*/ int                RoleSelectMenu;
+/*0x61c*/ int                RoleSelectMenuID;
+/*0x620*/ bool               bPlayerInvited;
+/*0x624*/
 };
 
 //============================================================================
@@ -3980,24 +3982,24 @@ public:
 	// this is all out of date and needs updating
 /*0x250*/ // start
 
-/*0x2c4*/ BYTE         Unknown0x148[0x3c];
-/*0x300*/ BYTE         Unknown0x194;
-/*0x301*/ BYTE         ShowOffline;              // 01 = show offline box is checked
-/*0x302*/ BYTE         Unknown0x196[0x2];
+/*0x2fc*/ BYTE         Unknown0x148[0x3c];
+/*0x338*/ BYTE         Unknown0x194;
+/*0x339*/ BYTE         ShowOffline;              // 01 = show offline box is checked
+/*0x33a*/ BYTE         Unknown0x196[0x2];
 
 	// This is a pointer to the beginning of a list of pointers, each representing one player in
 	// the guild. The number of  pointers depends upon TotalMemberCount.
-/*0x308*/ GuildMember** pMember;
-/*0x310*/ DWORD        TotalMemberCount;
-/*0x314*/ DWORD        Unknown0x1a0;             // 150?
-/*0x318*/ DWORD        Unknown0x1a4;             // 1?
-/*0x31c*/ DWORD        TotalMemberCountAgain;
-/*0x320*/ BYTE         Unknown0x1ac[0x1c];
-/*0x33c*/ char         PersonalNotesFilePath[0x40]; // path to personal notes file
-/*0x37c*/ BYTE         Unknown0x208[0x1c0];      // empty
-/*0x53c*/ DWORD        Unknown0x3c8;             // 1?
-/*0x540*/ DWORD        Unknown0x3cc;             // some sort of bizaare pointer...
-/*0x544*/
+/*0x340*/ GuildMember** pMember;
+/*0x348*/ DWORD        TotalMemberCount;
+/*0x34c*/ DWORD        Unknown0x1a0;             // 150?
+/*0x350*/ DWORD        Unknown0x1a4;             // 1?
+/*0x354*/ DWORD        TotalMemberCountAgain;
+/*0x358*/ BYTE         Unknown0x1ac[0x1c];
+/*0x374*/ char         PersonalNotesFilePath[0x40]; // path to personal notes file
+/*0x3b4*/ BYTE         Unknown0x208[0x1c0];      // empty
+/*0x574*/ DWORD        Unknown0x3c8;             // 1?
+/*0x578*/ DWORD        Unknown0x3cc;             // some sort of bizaare pointer...
+/*0x57c*/
 };
 
 inline namespace deprecated {
@@ -4089,10 +4091,10 @@ public:
 	EQLIB_OBJECT void Init();
 	EQLIB_OBJECT void UpdateMoneyDisplay();
 
-/*0x2ec*/ uint8_t     Unknown0x0240[0xfc];
-/*0x3e8*/ int64_t     VitalityCap;
-/*0x3f0*/ int         AAVitalityCap;
-/*0x3f4*/
+/*0x2f4*/ uint8_t     Unknown0x0240[0xfc];
+/*0x3f0*/ int64_t     VitalityCap;
+/*0x3f8*/ int         AAVitalityCap;
+/*0x3fc*/
 };
 
 inline namespace deprecated {
@@ -4220,27 +4222,27 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x330*/ CTextureAnimation* pBackground;
-/*0x338*/ ItemGlobalIndex    ItemLocation;            // WindowType = ItemLocation.Location, InvSlot = ItemLocation.GetTopSlot()
-/*0x348*/ ItemPtr            LinkedItem;              // If the slot is linked to a specific item
-/*0x350*/ int                ItemOffsetX;
-/*0x354*/ int                ItemOffsetY;
-/*0x358*/ CTextureAnimation* ptItem;
-/*0x360*/ int                Quantity;
-/*0x364*/ bool               bSelected;
-/*0x365*/ bool               bFindSelected;
-/*0x368*/ int                RecastLeft;
-/*0x36c*/ bool               bHotButton;
-/*0x36d*/ bool               bInventorySlotLinked;
-/*0x370*/ CInvSlot*          pInvSlot;
-/*0x378*/ CTextObjectInterface* pTextObject;
-/*0x380*/ int                TextFontStyle;
-/*0x384*/ int                Mode;
-/*0x388*/ D3DCOLOR           BGTintRollover;
-/*0x38c*/ D3DCOLOR           BGTintNormal;
-/*0x390*/ int                LastTime;
-/*0x394*/ int                Unknown0x2cc;
-/*0x398*/
+/*0x368*/ CTextureAnimation* pBackground;
+/*0x370*/ ItemGlobalIndex    ItemLocation;            // WindowType = ItemLocation.Location, InvSlot = ItemLocation.GetTopSlot()
+/*0x380*/ ItemPtr            LinkedItem;              // If the slot is linked to a specific item
+/*0x388*/ int                ItemOffsetX;
+/*0x38c*/ int                ItemOffsetY;
+/*0x390*/ CTextureAnimation* ptItem;
+/*0x398*/ int                Quantity;
+/*0x39c*/ bool               bSelected;
+/*0x39d*/ bool               bFindSelected;
+/*0x3a0*/ int                RecastLeft;
+/*0x3a4*/ bool               bHotButton;
+/*0x3a5*/ bool               bInventorySlotLinked;
+/*0x3a8*/ CInvSlot*          pInvSlot;
+/*0x3b0*/ CTextObjectInterface* pTextObject;
+/*0x3b8*/ int                TextFontStyle;
+/*0x3bc*/ int                Mode;
+/*0x3c0*/ D3DCOLOR           BGTintRollover;
+/*0x3c4*/ D3DCOLOR           BGTintNormal;
+/*0x3c8*/ int                LastTime;
+/*0x3cc*/ int                Unknown0x2cc;
+/*0x3d0*/
 
 	inline bool IsHotButton() const { return bHotButton; }
 
@@ -4273,8 +4275,8 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xa70 :: 2022-11-10 (live) @ 0x1403b3a44
-constexpr size_t CItemDisplayWnd_size = 0xa70;
+// @sizeof(CItemDisplayWnd) == 0xaa8 :: 2022-11-22 (test) @ 0x1403bd2c4
+constexpr size_t CItemDisplayWnd_size = 0xaa8;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
 {
@@ -4310,71 +4312,71 @@ public:
 		NumItemInfo = 13,
 	};
 
-/*0x2a8*/ CStmlWnd*         Description;                   // ItemDescription
-/*0x2b0*/ CButtonWnd*       IconButton;                    // IconButton
-/*0x2b8*/ CStmlWnd*         ItemLore;                      // ItemLore
-/*0x2c0*/ CTabWnd*          ItemDescriptionTabBox;         // ItemDescriptionTabBox
-/*0x2c8*/ CPageWnd*         ItemDescriptionTab;            // ItemDescriptionTab
-/*0x2d0*/ CPageWnd*         ItemLoreTab;                   // ItemLoreTab
-/*0x2d8*/ CSidlScreenWnd*   pAppearanceSocketScreen;       // IDW_Appearance_Socket_Screen
-/*0x2e0*/ CButtonWnd*       pAppearanceSocketItem;         // IDW_Appearance_Socket_Item
-/*0x2e8*/ CButtonWnd*       pAppearanceSocketBuyButton;    // IDW_Appearance_Socket_Buy_Button
-/*0x2f0*/ CStmlWnd*         pAppearanceSocketDescription;  // IDW_Appearance_Socket_Description
-/*0x2f8*/ CSidlScreenWnd*   pItemSocketScreen[6];          // IDW_Socket_Slot_%d_Screen
-/*0x328*/ CButtonWnd*       pItemSocketItemButton[6];      // IDW_Socket_Slot_%d_Item
-/*0x358*/ CStmlWnd*         pItemSocketDescription[6];     // IDW_Socket_Slot_%d_Description
-/*0x388*/ CXStr             ItemInfo;                      // "Error: Item description not set" -- "this item is placable in yards, guild yards...", "This item can be used in tradeskills", etc
-/*0x390*/ CXStr             Unknown0x2ac;
-/*0x398*/ CXStr             Unknown0x2b0;
-/*0x3a0*/ CXStr             WindowTitle;                   // "Item Display"
-/*0x3a8*/ CXStr             ItemAdvancedLoreText;          // "Error: Item lore not set"
-/*0x3b0*/ CXStr             ItemMadeByText;
-/*0x3b8*/ CXStr             SolventText;
-/*0x3c0*/ CXStr             ItemInformationText;           // "Item Information: Placing this augment into...", "this armor can only be used in...", etc
-/*0x3c8*/ ItemPtr           pItem;
-/*0x3d0*/ bool              bActiveItem;
-/*0x3d1*/ bool              bItemTextSet;
-/*0x3d8*/ CTextureAnimation* DragIcons;                    // A_DragItem
-/*0x3e0*/ bool              bTaggable;
-/*0x3e1*/ bool              bFailed;
-/*0x3e4*/ unsigned int      TabCount;
-/*0x3e8*/ CLabel*           ModButtonLabel;                // IDW_ModButtonLabel
-/*0x3f0*/ CLabel*           RewardButtonLabel;             // IDW_RewardButtonLabel
-/*0x3f8*/ CStmlWnd*         ConvertStml;                   // IDW_ConvertButtonLabel
-/*0x400*/ CLabel*           FuseButtonLabel;               // IDW_FuseButtonLabel
-/*0x408*/ CLabel*           MadeByLabel;                   // IDW_MadeBy
-/*0x410*/ CLabel*           CollectedLabel;                // IDW_CollectedLabel
-/*0x418*/ CLabel*           ScribedLabel;                  // IDW_ScribedLabel
-/*0x420*/ int               Row;
-/*0x424*/ bool              bAntiTwink;
-/*0x428*/ CButtonWnd*       ModButton;                     // IDW_ModButton
-/*0x430*/ CButtonWnd*       RewardButton;                  // IDW_RewardButton
-/*0x438*/ CButtonWnd*       PrintRealEstateItems;          // IDW_PrintRealEstateItems
-/*0x440*/ CButtonWnd*       ConvertButton;                 // IDW_ConvertButton
-/*0x448*/ CButtonWnd*       FuseButton;                    // IDW_FuseButton
-/*0x450*/ bool              bCollected;
-/*0x451*/ bool              bCollectedReceived;
-/*0x454*/ int               Unknown0x0314;
-/*0x458*/ CXStr             ItemName;
-/*0x460*/ bool              bScribed;
-/*0x461*/ bool              bScribedReceived;
-/*0x464*/ int               group[6];
-/*0x47c*/ int               showModified;
-/*0x480*/ int               heroicCount;
-/*0x484*/ int               itemInfoCount;
-/*0x488*/ CLabel*           lblItemInfo[NumItemInfo];      // IDW_ItemInfo%d 4b0
-/*0x4f0*/ CLabel*           lblStat[NumStatRows][NumStatCols];      // IDW_Row%dCol%dStat 518
-/*0x760*/ CLabel*           lblValue[NumStatRows][NumStatCols];     // IDW_Row%dCol%dValue 788
-/*0x9d0*/ CLabel*           lblHeroic[NumHeroic];          // IDW_Heroic%d 9f8
-/*0xa38*/ int               rightClickMenuId;
-/*0xa3c*/ int               rightClickMenuSocketId;
-/*0xa40*/ CComboWnd*        ItemCompareList;               // IDW_ItemCompareList
-/*0xa48*/ bool              isComparing;                   // this and the next are a guess. Need to verify.
-/*0xa50*/ ItemPtr           pCompareItem;
-/*0xa58*/ CTAFrameDraw*     ptaPageBorderHighlight;        // FT_DefPageBorderHighlight
-/*0xa60*/ CTAFrameDraw*     ptaPageBorder;                 // FT_DefPageBorder
-/*0xa68*/ uint32_t          ItemWndIndex;
-/*0xa6c*/
+/*0x2e0*/ CStmlWnd*         Description;                   // ItemDescription
+/*0x2e8*/ CButtonWnd*       IconButton;                    // IconButton
+/*0x2f0*/ CStmlWnd*         ItemLore;                      // ItemLore
+/*0x2f8*/ CTabWnd*          ItemDescriptionTabBox;         // ItemDescriptionTabBox
+/*0x300*/ CPageWnd*         ItemDescriptionTab;            // ItemDescriptionTab
+/*0x308*/ CPageWnd*         ItemLoreTab;                   // ItemLoreTab
+/*0x310*/ CSidlScreenWnd*   pAppearanceSocketScreen;       // IDW_Appearance_Socket_Screen
+/*0x318*/ CButtonWnd*       pAppearanceSocketItem;         // IDW_Appearance_Socket_Item
+/*0x320*/ CButtonWnd*       pAppearanceSocketBuyButton;    // IDW_Appearance_Socket_Buy_Button
+/*0x328*/ CStmlWnd*         pAppearanceSocketDescription;  // IDW_Appearance_Socket_Description
+/*0x330*/ CSidlScreenWnd*   pItemSocketScreen[6];          // IDW_Socket_Slot_%d_Screen
+/*0x360*/ CButtonWnd*       pItemSocketItemButton[6];      // IDW_Socket_Slot_%d_Item
+/*0x390*/ CStmlWnd*         pItemSocketDescription[6];     // IDW_Socket_Slot_%d_Description
+/*0x3c0*/ CXStr             ItemInfo;                      // "Error: Item description not set" -- "this item is placable in yards, guild yards...", "This item can be used in tradeskills", etc
+/*0x3c8*/ CXStr             Unknown0x2ac;
+/*0x3d0*/ CXStr             Unknown0x2b0;
+/*0x3d8*/ CXStr             WindowTitle;                   // "Item Display"
+/*0x3e0*/ CXStr             ItemAdvancedLoreText;          // "Error: Item lore not set"
+/*0x3e8*/ CXStr             ItemMadeByText;
+/*0x3f0*/ CXStr             SolventText;
+/*0x3f8*/ CXStr             ItemInformationText;           // "Item Information: Placing this augment into...", "this armor can only be used in...", etc
+/*0x400*/ ItemPtr           pItem;
+/*0x408*/ bool              bActiveItem;
+/*0x409*/ bool              bItemTextSet;
+/*0x410*/ CTextureAnimation* DragIcons;                    // A_DragItem
+/*0x418*/ bool              bTaggable;
+/*0x419*/ bool              bFailed;
+/*0x41c*/ unsigned int      TabCount;
+/*0x420*/ CLabel*           ModButtonLabel;                // IDW_ModButtonLabel
+/*0x428*/ CLabel*           RewardButtonLabel;             // IDW_RewardButtonLabel
+/*0x430*/ CStmlWnd*         ConvertStml;                   // IDW_ConvertButtonLabel
+/*0x438*/ CLabel*           FuseButtonLabel;               // IDW_FuseButtonLabel
+/*0x440*/ CLabel*           MadeByLabel;                   // IDW_MadeBy
+/*0x448*/ CLabel*           CollectedLabel;                // IDW_CollectedLabel
+/*0x450*/ CLabel*           ScribedLabel;                  // IDW_ScribedLabel
+/*0x458*/ int               Row;
+/*0x45c*/ bool              bAntiTwink;
+/*0x460*/ CButtonWnd*       ModButton;                     // IDW_ModButton
+/*0x468*/ CButtonWnd*       RewardButton;                  // IDW_RewardButton
+/*0x470*/ CButtonWnd*       PrintRealEstateItems;          // IDW_PrintRealEstateItems
+/*0x478*/ CButtonWnd*       ConvertButton;                 // IDW_ConvertButton
+/*0x480*/ CButtonWnd*       FuseButton;                    // IDW_FuseButton
+/*0x488*/ bool              bCollected;
+/*0x489*/ bool              bCollectedReceived;
+/*0x48c*/ int               Unknown0x0314;
+/*0x490*/ CXStr             ItemName;
+/*0x498*/ bool              bScribed;
+/*0x499*/ bool              bScribedReceived;
+/*0x49c*/ int               group[6];
+/*0x4b4*/ int               showModified;
+/*0x4b8*/ int               heroicCount;
+/*0x4bc*/ int               itemInfoCount;
+/*0x4c0*/ CLabel*           lblItemInfo[NumItemInfo];      // IDW_ItemInfo%d 4b0
+/*0x528*/ CLabel*           lblStat[NumStatRows][NumStatCols];      // IDW_Row%dCol%dStat 518
+/*0x798*/ CLabel*           lblValue[NumStatRows][NumStatCols];     // IDW_Row%dCol%dValue 788
+/*0xa08*/ CLabel*           lblHeroic[NumHeroic];          // IDW_Heroic%d 9f8
+/*0xa70*/ int               rightClickMenuId;
+/*0xa74*/ int               rightClickMenuSocketId;
+/*0xa78*/ CComboWnd*        ItemCompareList;               // IDW_ItemCompareList
+/*0xa80*/ bool              isComparing;                   // this and the next are a guess. Need to verify.
+/*0xa88*/ ItemPtr           pCompareItem;
+/*0xa90*/ CTAFrameDraw*     ptaPageBorderHighlight;        // FT_DefPageBorderHighlight
+/*0xa98*/ CTAFrameDraw*     ptaPageBorder;                 // FT_DefPageBorder
+/*0xaa0*/ uint32_t          ItemWndIndex;
+/*0xaa4*/
 };
 
 inline namespace deprecated {
@@ -4459,8 +4461,8 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x408 :: 2022-11-10 (live) @ 0x140159135
-constexpr size_t CKeyRingWnd_size = 0x408;
+// @sizeof(CKeyRingWnd) == 0x440 :: 2022-11-22 (test) @ 0x140159e25
+constexpr size_t CKeyRingWnd_size = 0x440;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -4485,27 +4487,27 @@ public:
 		ePageLast = ePageTeleportationItemsKeyRing,
 	};
 
-/*0x2b0*/ CListWnd*     pList[eNumPages];        // KRW_Mounts_List, KRW_Illusions_List, KRW_Familiars_List, KRW_HeroForge_List
-/*0x2d8*/ CLabel*       pStatLabel[eNumPages];   // KRW_Mounts_StatsNameLabel, KRW_Illusions_StatNameLabel, KRW_Familiars_StatNameLabel,
-/*0x300*/ CLabel*       pCountLabel[eNumPages];  // KRW_Mounts_CountLabel, KRW_Illusions_CountLabel, KRW_Familiars_CountLabel, KRW_HeroForge_CountLabel
-/*0x328*/ CButtonWnd*   pBtnStat[eNumPages];     // KRW_Mounts_Selected, KRW_Illusions_Selected, KRW_Familiars_Selected, KRW_HeroForge_SlotButton
-/*0x350*/ CButtonWnd*   pBtnSlot[eNumPages];     // KRW_Mounts_SlotButton, KRW_Illusions_SlotButton, KRW_Familiars_SlotButton
-/*0x378*/ uint8_t       Unknown0x28c[0x20];
-/*0x398*/ CButtonWnd*   pItemBtnTemplate;                // KRW_ItemBtnTemplate
-/*0x3a0*/ CButtonWnd*   pBtnFamiliarLeave;               // KRW_Familiars_LeaveButton
-/*0x3a8*/ CButtonWnd*   pBtnFamiliarAutoLeave;           // KRW_Familiars_AutoLeaveButton
-/*0x3b0*/ CListWnd*     pKeysList;                       // KRW_Keys_List
-/*0x3b8*/ uint8_t       Unknown0x2b4[0x8];
-/*0x3c0*/ int           LastUpdateTime;                  // timestamp of when the current tab was last updated.
-/*0x3c8*/ CPageWnd*     pPageMounts;                     // KRW_Mounts_Page
-/*0x3d0*/ CPageWnd*     pPageIllusions;                  // KRW_Illusions_Page
-/*0x3d8*/ CPageWnd*     pPageFamiliars;                  // KRW_Familiars_Page
-/*0x3e0*/ CPageWnd*     pPageKeys;                       // KRW_Keys_Page
-/*0x3e8*/ CPageWnd*     pPageHeroForge;                  // KRW_HeroForge_Page
-/*0x3f0*/ CPageWnd*     pPageTeleportation;              // KRW_TeleportationItems_Page
-/*0x3f8*/ CTabWnd*      pTabBox;                         // KRW_Subwindows
-/*0x400*/ KeyRingPages  CurrentPage;
-/*0x404*/
+/*0x2e8*/ CListWnd*     pList[eNumPages];        // KRW_Mounts_List, KRW_Illusions_List, KRW_Familiars_List, KRW_HeroForge_List
+/*0x310*/ CLabel*       pStatLabel[eNumPages];   // KRW_Mounts_StatsNameLabel, KRW_Illusions_StatNameLabel, KRW_Familiars_StatNameLabel,
+/*0x338*/ CLabel*       pCountLabel[eNumPages];  // KRW_Mounts_CountLabel, KRW_Illusions_CountLabel, KRW_Familiars_CountLabel, KRW_HeroForge_CountLabel
+/*0x360*/ CButtonWnd*   pBtnStat[eNumPages];     // KRW_Mounts_Selected, KRW_Illusions_Selected, KRW_Familiars_Selected, KRW_HeroForge_SlotButton
+/*0x388*/ CButtonWnd*   pBtnSlot[eNumPages];     // KRW_Mounts_SlotButton, KRW_Illusions_SlotButton, KRW_Familiars_SlotButton
+/*0x3b0*/ uint8_t       Unknown0x28c[0x20];
+/*0x3d0*/ CButtonWnd*   pItemBtnTemplate;                // KRW_ItemBtnTemplate
+/*0x3d8*/ CButtonWnd*   pBtnFamiliarLeave;               // KRW_Familiars_LeaveButton
+/*0x3e0*/ CButtonWnd*   pBtnFamiliarAutoLeave;           // KRW_Familiars_AutoLeaveButton
+/*0x3e8*/ CListWnd*     pKeysList;                       // KRW_Keys_List
+/*0x3f0*/ uint8_t       Unknown0x2b4[0x8];
+/*0x3f8*/ int           LastUpdateTime;                  // timestamp of when the current tab was last updated.
+/*0x400*/ CPageWnd*     pPageMounts;                     // KRW_Mounts_Page
+/*0x408*/ CPageWnd*     pPageIllusions;                  // KRW_Illusions_Page
+/*0x410*/ CPageWnd*     pPageFamiliars;                  // KRW_Familiars_Page
+/*0x418*/ CPageWnd*     pPageKeys;                       // KRW_Keys_Page
+/*0x420*/ CPageWnd*     pPageHeroForge;                  // KRW_HeroForge_Page
+/*0x428*/ CPageWnd*     pPageTeleportation;              // KRW_TeleportationItems_Page
+/*0x430*/ CTabWnd*      pTabBox;                         // KRW_Subwindows
+/*0x438*/ KeyRingPages  CurrentPage;
+/*0x43c*/
 };
 
 SIZE_CHECK(CKeyRingWnd, CKeyRingWnd_size);
@@ -4527,8 +4529,8 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0x4e8 :: 2022-11-10 (live) @ 0x1401593b7
-constexpr size_t CLootWnd_size = 0x4e8;
+// @sizeof(CLootWnd) == 0xcd0 :: 2022-11-22 (test) @ 0x14015a0a7
+constexpr size_t CLootWnd_size = 0xcd0;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
 {
@@ -4549,29 +4551,31 @@ public:
 	EQLIB_OBJECT void SlotLooted(int);
 	EQLIB_OBJECT void FinalizeLoot();
 
+	enum { NumLootSlots = 200 };
+
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2b4*/ bool              bServerClose;
-/*0x2b5*/ bool              bLootingActive;
-/*0x2b8*/ int               LootIndex[InvSlot_Max];
-/*0x348*/ uint32_t          nNextRefreshTime; // 370
-/*0x34c*/ bool              bInventoryWasActive;
-/*0x350*/ ItemContainer     LootItems;
-/*0x378*/ bool              bCloseOnComplete;
-/*0x379*/ bool              bRightClickLoot;
-/*0x37a*/ bool              bLootAllReady;
-/*0x380*/ CXWnd*            LootInvWnd;                       // LootInvWnd
-/*0x388*/ CInvSlotWnd*      LootSlotWnd[InvSlot_Max];         // LW_LootSlot%d
-/*0x4a8*/ CLabel*           CorpseNameLabel;                  // LW_CorpseName
-/*0x4b0*/ CButtonWnd*       DoneButton;                       // DoneButton
-/*0x4b8*/ CButtonWnd*       BroadcastButton;                  // BroadcastButton
-/*0x4c0*/ CButtonWnd*       LootAllButton;                    // LootAllButton
-/*0x4c8*/ bool              bPopupPending;
-/*0x4d0*/ void*             Unknown1;
-/*0x4d8*/ void*             Unknown2;
-/*0x4e0*/ uint32_t          Unknown3;
-/*0x4e4*/
+/*0x2ec*/ bool              bServerClose;
+/*0x2ed*/ bool              bLootingActive;
+/*0x2f0*/ int               LootIndex[NumLootSlots];
+/*0x610*/ uint32_t          nNextRefreshTime;
+/*0x614*/ bool              bInventoryWasActive;
+/*0x618*/ ItemContainer     LootItems;
+/*0x640*/ bool              bCloseOnComplete;
+/*0x641*/ bool              bRightClickLoot;
+/*0x642*/ bool              bLootAllReady;
+/*0x648*/ CXWnd*            LootInvWnd;                       // LootInvWnd
+/*0x650*/ CInvSlotWnd*      LootSlotWnd[NumLootSlots];        // created from LW_LootSlotTemplate
+/*0xc90*/ CLabel*           CorpseNameLabel;                  // LW_CorpseName
+/*0xc98*/ CButtonWnd*       DoneButton;                       // DoneButton
+/*0xca0*/ CButtonWnd*       BroadcastButton;                  // BroadcastButton
+/*0xca8*/ CButtonWnd*       LootAllButton;                    // LootAllButton
+/*0xcb0*/ bool              bPopupPending;
+/*0xcb8*/ void*             Unknown1;
+/*0xcc0*/ void*             Unknown2;
+/*0xcc8*/ uint32_t          Unknown3;
+/*0xccc*/
 
 	inline ItemContainer& GetLootItems() { return LootItems; }
 	inline ItemPtr GetLootItem(int slot) { return LootItems.GetItem(slot); }
@@ -4694,57 +4698,57 @@ public:
 	//EQLIB_OBJECT void StartLine(float, float, float);
 	//EQLIB_OBJECT void TransformPoint(CVector3*);
 
-/*0x2a8*/ float              mapViewMinX;
-/*0x2ac*/ float              mapViewMinY;
-/*0x2b0*/ float              mapViewMaxX;
-/*0x2b4*/ float              mapViewMaxY;
-/*0x2b8*/ int                panOffsetX;
-/*0x2bc*/ int                panOffsetY;
-/*0x2c0*/ float              lineOffsetX;
-/*0x2c4*/ float              lineOffsetY;
-/*0x2c8*/ float              scaleDiffX;
-/*0x2cc*/ float              scaleDiffY;
-/*0x2d0*/ float              mapViewScaleX;
-/*0x2d4*/ float              mapViewScaleY;
-/*0x2d8*/ MapViewLine*       pLines;
-/*0x2e0*/ MapViewLabel*      pLabels;
-/*0x2e8*/ uint32_t           nextLabelId;
-/*0x2ec*/ bool               lineActive;
-/*0x2f0*/ CVector3           currentPoint;
-/*0x2fc*/ RGB                currentColor;
-/*0x300*/ RGB                myColor;
-/*0x304*/ RGB                groupColor;
-/*0x308*/ RGB                findPathColor;
-/*0x30c*/ bool               failedFindActive;
-/*0x310*/ CVector3           failedFindPoint;
-/*0x31c*/ int                failedFindType;
-/*0x320*/ MapViewLine*       markedLines;
-/*0x328*/ MapViewLabel*      markedLabel;
-/*0x330*/ MapViewLabel*      selectedLabel;
-/*0x338*/ int                layerFilter;              // bitmask of active layers
-/*0x33c*/ int                activeLayer;
-/*0x340*/ int                minZ;
-/*0x344*/ int                maxZ;
-/*0x348*/ bool               zFilterActive;
-/*0x34c*/ float              zoom;
-/*0x350*/ float              recalcZoom;
-/*0x354*/ int                range;
-/*0x358*/ bool               showGroup;
-/*0x359*/ bool               showNames;
-/*0x35a*/ bool               findAutoZoom;
-/*0x35b*/ bool               showLabels;
-/*0x35c*/ bool               recalcLabels;
-/*0x35d*/ bool               canAddToMap;
-/*0x360*/ EQZoneIndex        zoneId;
-/*0x368*/ CXStr              customMapPath;
-/*0x370*/
+/*0x2e0*/ float              mapViewMinX;
+/*0x2e4*/ float              mapViewMinY;
+/*0x2e8*/ float              mapViewMaxX;
+/*0x2ec*/ float              mapViewMaxY;
+/*0x2f0*/ int                panOffsetX;
+/*0x2f4*/ int                panOffsetY;
+/*0x2f8*/ float              lineOffsetX;
+/*0x2fc*/ float              lineOffsetY;
+/*0x300*/ float              scaleDiffX;
+/*0x304*/ float              scaleDiffY;
+/*0x308*/ float              mapViewScaleX;
+/*0x30c*/ float              mapViewScaleY;
+/*0x310*/ MapViewLine*       pLines;
+/*0x318*/ MapViewLabel*      pLabels;
+/*0x320*/ uint32_t           nextLabelId;
+/*0x324*/ bool               lineActive;
+/*0x328*/ CVector3           currentPoint;
+/*0x334*/ RGB                currentColor;
+/*0x338*/ RGB                myColor;
+/*0x33c*/ RGB                groupColor;
+/*0x340*/ RGB                findPathColor;
+/*0x344*/ bool               failedFindActive;
+/*0x348*/ CVector3           failedFindPoint;
+/*0x354*/ int                failedFindType;
+/*0x358*/ MapViewLine*       markedLines;
+/*0x360*/ MapViewLabel*      markedLabel;
+/*0x368*/ MapViewLabel*      selectedLabel;
+/*0x370*/ int                layerFilter;              // bitmask of active layers
+/*0x374*/ int                activeLayer;
+/*0x378*/ int                minZ;
+/*0x37c*/ int                maxZ;
+/*0x380*/ bool               zFilterActive;
+/*0x384*/ float              zoom;
+/*0x388*/ float              recalcZoom;
+/*0x38c*/ int                range;
+/*0x390*/ bool               showGroup;
+/*0x391*/ bool               showNames;
+/*0x392*/ bool               findAutoZoom;
+/*0x393*/ bool               showLabels;
+/*0x394*/ bool               recalcLabels;
+/*0x395*/ bool               canAddToMap;
+/*0x398*/ EQZoneIndex        zoneId;
+/*0x3a0*/ CXStr              customMapPath;
+/*0x3a8*/
 
 	// points to the eq instance of the virtual function table for this class
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x808 :: 2022-11-10 (live) @ 0x140158b26
-constexpr size_t CMapViewWnd_size = 0x808;
+// @sizeof(CMapViewWnd) == 0x878 :: 2022-11-22 (test) @ 0x140159816
+constexpr size_t CMapViewWnd_size = 0x878;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -4774,55 +4778,55 @@ public:
 	EQLIB_OBJECT void SetCurrentZone(EQZoneIndex, CVector3* v3Min, CVector3* v3Max, bool);
 
 	// these are almost all the controls belonging to the CMapViewWnd
-/*0x2ac*/ int         ZoneId;
-/*0x2b0*/ bool        bAutoMapping;
-/*0x2b8*/ CButtonWnd* btnPanLeft;
-/*0x2c0*/ CButtonWnd* btnPanRight;
-/*0x2c8*/ CButtonWnd* btnPanUp;
-/*0x2d0*/ CButtonWnd* btnPanDown;
-/*0x2d8*/ CButtonWnd* btnPanReset;
-/*0x2e0*/ CButtonWnd* btnZoomIn;
-/*0x2e8*/ CButtonWnd* btnZoomOut;
-/*0x2f0*/ CButtonWnd* btnShowGroup;
-/*0x2f8*/ CButtonWnd* btnShowNames;
-/*0x300*/ CButtonWnd* btnFind;
-/*0x308*/ CButtonWnd* btnEndFind;
-/*0x310*/ CButtonWnd* btnFindAutoZoom;
-/*0x318*/ CButtonWnd* btnMapZoneGuide;
-/*0x320*/ CButtonWnd* btnToolbar;
-/*0x328*/ char        szZoneName[0x80];
-/*0x3a8*/ CButtonWnd* btntoggleLabels;
-/*0x3b0*/ CEditWnd*   editMinZ;
-/*0x3b8*/ CEditWnd*   editMaxZ;
-/*0x3c0*/ CButtonWnd* btnZFilter;
-/*0x3c8*/ CButtonWnd* btnLayer0;
-/*0x3d0*/ CButtonWnd* btnLayer1;
-/*0x3d8*/ CButtonWnd* btnLayer2;
-/*0x3e0*/ CButtonWnd* btnLayer3;
-/*0x3e8*/ CButtonWnd* btnLayer1Active;
-/*0x3f0*/ CButtonWnd* btnLayer2Active;
-/*0x3f8*/ CButtonWnd* btnLayer3Active;
-/*0x400*/ CButtonWnd* btnLoadCurrent;
-/*0x408*/ CPageWnd*   pageAtlas;
-/*0x410*/ CPageWnd*   pageMap;
-/*0x418*/ CTabWnd*    tabWnd;
-/*0x420*/ CXWnd*      MapRenderArea;
-/*0x428*/ CComboWnd*  MapsDirSelect;
-/*0x430*/ CXWnd*      AtlasRenderArea;
-/*0x438*/ CAtlas*     AtlasWnd;
-/*0x440*/ CComboWnd*  AtlasDirSelect;
-/*0x448*/ CButtonWnd* btnAtlasZoneGuide;
-/*0x450*/ CButtonWnd* btnMapIcon;
-/*0x458*/ CEditWnd*   editSearchBox;
-/*0x460*/ CButtonWnd* btnSearch;
-/*0x468*/ CButtonWnd* btnSearchClear;
-/*0x470*/ CListWnd*   listSearch;
-/*0x478*/ CXWnd*      wndSearchLayout;
-/*0x480*/ CButtonWnd* btnSearchHide;
-/*0x488*/ CXWnd*      wndSpacer;
-/*0x490*/ bool        bEditing;
-/*0x498*/ MapViewMap  MapView;                            // a window component owned by CMapViewWnd
-/*0x808*/
+/*0x2e4*/ int         ZoneId;
+/*0x2e8*/ bool        bAutoMapping;
+/*0x2f0*/ CButtonWnd* btnPanLeft;
+/*0x2f8*/ CButtonWnd* btnPanRight;
+/*0x300*/ CButtonWnd* btnPanUp;
+/*0x308*/ CButtonWnd* btnPanDown;
+/*0x310*/ CButtonWnd* btnPanReset;
+/*0x318*/ CButtonWnd* btnZoomIn;
+/*0x320*/ CButtonWnd* btnZoomOut;
+/*0x328*/ CButtonWnd* btnShowGroup;
+/*0x330*/ CButtonWnd* btnShowNames;
+/*0x338*/ CButtonWnd* btnFind;
+/*0x340*/ CButtonWnd* btnEndFind;
+/*0x348*/ CButtonWnd* btnFindAutoZoom;
+/*0x350*/ CButtonWnd* btnMapZoneGuide;
+/*0x358*/ CButtonWnd* btnToolbar;
+/*0x360*/ char        szZoneName[0x80];
+/*0x3e0*/ CButtonWnd* btntoggleLabels;
+/*0x3e8*/ CEditWnd*   editMinZ;
+/*0x3f0*/ CEditWnd*   editMaxZ;
+/*0x3f8*/ CButtonWnd* btnZFilter;
+/*0x400*/ CButtonWnd* btnLayer0;
+/*0x408*/ CButtonWnd* btnLayer1;
+/*0x410*/ CButtonWnd* btnLayer2;
+/*0x418*/ CButtonWnd* btnLayer3;
+/*0x420*/ CButtonWnd* btnLayer1Active;
+/*0x428*/ CButtonWnd* btnLayer2Active;
+/*0x430*/ CButtonWnd* btnLayer3Active;
+/*0x438*/ CButtonWnd* btnLoadCurrent;
+/*0x440*/ CPageWnd*   pageAtlas;
+/*0x448*/ CPageWnd*   pageMap;
+/*0x450*/ CTabWnd*    tabWnd;
+/*0x458*/ CXWnd*      MapRenderArea;
+/*0x460*/ CComboWnd*  MapsDirSelect;
+/*0x468*/ CXWnd*      AtlasRenderArea;
+/*0x470*/ CAtlas*     AtlasWnd;
+/*0x478*/ CComboWnd*  AtlasDirSelect;
+/*0x480*/ CButtonWnd* btnAtlasZoneGuide;
+/*0x488*/ CButtonWnd* btnMapIcon;
+/*0x490*/ CEditWnd*   editSearchBox;
+/*0x498*/ CButtonWnd* btnSearch;
+/*0x4a0*/ CButtonWnd* btnSearchClear;
+/*0x4a8*/ CListWnd*   listSearch;
+/*0x4b0*/ CXWnd*      wndSearchLayout;
+/*0x4b8*/ CButtonWnd* btnSearchHide;
+/*0x4c0*/ CXWnd*      wndSpacer;
+/*0x4c8*/ bool        bEditing;
+/*0x4d0*/ MapViewMap  MapView;                            // a window component owned by CMapViewWnd
+/*0x878*/
 	// alias the stupid
 	__declspec(property(get = getLines)) MapViewLine* pLines;
 	__declspec(property(get = getLabels)) MapViewLabel* pLabels;
@@ -4980,55 +4984,55 @@ public:
 	using PageHandlerPtr = VePointer<MerchantPageHandler>;
 	using PageHandlerArray = VeArray<PageHandlerPtr>;
 
-/*0x2b4*/ uint32_t           NextRefreshTime;
-/*0x2b8*/ bool               bInventoryWasActive;
-/*0x2c0*/ PageHandlerArray   PageHandlers;
-/*0x2d8*/ float              MerchantGreed;
-/*0x2dc*/ ItemGlobalIndex    ItemLocation;
-/*0x2e8*/ BYTE               Unknown0x254[0x8];
-/*0x2f0*/ ItemPtr            pSelectedItem;
-/*0x2f8*/ eqtime_t           MailExpireTime;
-/*0x300*/ bool               bAutoRetrieveingMail;
-/*0x308*/ char*              Labels[14];                   // unknown - adjusted to align the next members
-/*0x378*/ CEditWnd*          SearchEdit;                   // MW_ItemNameInput
-/*0x380*/ CButtonWnd*        SearchButton;                 // MW_SearchItem_Butto
-/*0x388*/ CLabel*            MerchantNameLabel;
-/*0x390*/ CLabel*            SelectedItemLabel;
-/*0x398*/ CLabel*            SelectedPriceLabel;
-/*0x3a0*/ CButtonWnd*        InspectButton;
-/*0x3a8*/ CButtonWnd*        PreviewButton;
-/*0x3b0*/ CButtonWnd*        SelectedItemButton;
-/*0x3b8*/ CButtonWnd*        BuyButton;
-/*0x3c0*/ CButtonWnd*        BuyMarketPlaceButton;
-/*0x3c8*/ CButtonWnd*        SellButton;
-/*0x3d0*/ CButtonWnd*        RecoverButton;
-/*0x3d8*/ CButtonWnd*        RetrieveButton;
-/*0x3e0*/ CButtonWnd*        RetrieveAllButton;
-/*0x3e8*/ CButtonWnd*        SendButton;
-/*0x3f0*/ CButtonWnd*        AdventureButton;
-/*0x3f8*/ CLabel*            SendToLabel;
-/*0x400*/ CEditWnd*          SendToEdit;
-/*0x408*/ CLabel*            NoteLabel;
-/*0x410*/ CEditWnd*          NoteEdit;
-/*0x418*/ CButtonWnd*        ClearNoteButton;
-/*0x420*/ CListWnd*          ItemsList;
-/*0x428*/ CListWnd*          ItemsRecoveryList;
-/*0x430*/ CListWnd*          ItemsMailList;
-/*0x438*/ CButtonWnd*        DoneButton;
-/*0x440*/ CPageWnd*          PurchasePage;
-/*0x448*/ CPageWnd*          RecoveryPage;
-/*0x450*/ CPageWnd*          MailPage;
-/*0x458*/ CTabWnd*           TabWindow;
-/*0x460*/ CButtonWnd*        UsableButton;
-/*0x468*/ CLabel*            CurrentCurrencyLabel;
-/*0x470*/ int                Unknown0x32c;
-/*0x474*/ int                Unknown0x330;
-/*0x478*/ int                Unknown0x334;
-/*0x47c*/ int                Unknown0x338;
-/*0x480*/ int                Unknown0x33C;
-/*0x484*/ int                Guk_Currency;
-/*0x488*/ uint8_t            Unknown0x340[0x100];
-/*0x588*/
+/*0x2ec*/ uint32_t           NextRefreshTime;
+/*0x2f0*/ bool               bInventoryWasActive;
+/*0x2f8*/ PageHandlerArray   PageHandlers;
+/*0x310*/ float              MerchantGreed;
+/*0x314*/ ItemGlobalIndex    ItemLocation;
+/*0x320*/ BYTE               Unknown0x254[0x8];
+/*0x328*/ ItemPtr            pSelectedItem;
+/*0x330*/ eqtime_t           MailExpireTime;
+/*0x338*/ bool               bAutoRetrieveingMail;
+/*0x340*/ char*              Labels[14];                   // unknown - adjusted to align the next members
+/*0x3b0*/ CEditWnd*          SearchEdit;                   // MW_ItemNameInput
+/*0x3b8*/ CButtonWnd*        SearchButton;                 // MW_SearchItem_Butto
+/*0x3c0*/ CLabel*            MerchantNameLabel;
+/*0x3c8*/ CLabel*            SelectedItemLabel;
+/*0x3d0*/ CLabel*            SelectedPriceLabel;
+/*0x3d8*/ CButtonWnd*        InspectButton;
+/*0x3e0*/ CButtonWnd*        PreviewButton;
+/*0x3e8*/ CButtonWnd*        SelectedItemButton;
+/*0x3f0*/ CButtonWnd*        BuyButton;
+/*0x3f8*/ CButtonWnd*        BuyMarketPlaceButton;
+/*0x400*/ CButtonWnd*        SellButton;
+/*0x408*/ CButtonWnd*        RecoverButton;
+/*0x410*/ CButtonWnd*        RetrieveButton;
+/*0x418*/ CButtonWnd*        RetrieveAllButton;
+/*0x420*/ CButtonWnd*        SendButton;
+/*0x428*/ CButtonWnd*        AdventureButton;
+/*0x430*/ CLabel*            SendToLabel;
+/*0x438*/ CEditWnd*          SendToEdit;
+/*0x440*/ CLabel*            NoteLabel;
+/*0x448*/ CEditWnd*          NoteEdit;
+/*0x450*/ CButtonWnd*        ClearNoteButton;
+/*0x458*/ CListWnd*          ItemsList;
+/*0x460*/ CListWnd*          ItemsRecoveryList;
+/*0x468*/ CListWnd*          ItemsMailList;
+/*0x470*/ CButtonWnd*        DoneButton;
+/*0x478*/ CPageWnd*          PurchasePage;
+/*0x480*/ CPageWnd*          RecoveryPage;
+/*0x488*/ CPageWnd*          MailPage;
+/*0x490*/ CTabWnd*           TabWindow;
+/*0x498*/ CButtonWnd*        UsableButton;
+/*0x4a0*/ CLabel*            CurrentCurrencyLabel;
+/*0x4a8*/ int                Unknown0x32c;
+/*0x4ac*/ int                Unknown0x330;
+/*0x4b0*/ int                Unknown0x334;
+/*0x4b4*/ int                Unknown0x338;
+/*0x4b8*/ int                Unknown0x33C;
+/*0x4bc*/ int                Guk_Currency;
+/*0x4c0*/ uint8_t            Unknown0x340[0x100];
+/*0x5c0*/
 
 	CMerchantWnd(CXWnd*);
 	virtual ~CMerchantWnd();
@@ -5166,8 +5170,8 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-// @sizeof(CPetInfoWnd) == 0x2910 :: 2022-11-10 (live) @ 0x1401585ec
-constexpr size_t CPetInfoWnd_size = 0x2910;
+// @sizeof(CPetInfoWnd) == 0x2948 :: 2022-11-22 (test) @ 0x1401592dc
+constexpr size_t CPetInfoWnd_size = 0x2948;
 
 class [[offsetcomments]] CPetInfoWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -5186,36 +5190,36 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x02ac*/ uint32_t           LastUpdateTime;
-/*0x02b0*/ CCheckBoxWnd*      pButton[MAX_PET_BUTTONS];
-/*0x0320*/ CXWnd*             pWndBuffs;                         // BuffWindow
-/*0x0328*/ CTextureAnimation* pGoodBuffBackground;               // PetBlueIconBackground
-/*0x0330*/ CTextureAnimation* pBadBuffBackground;                // PetRedIconBackground
-/*0x0338*/ CTextureAnimation* pBypassBuffBackground;             // YellowIconBackground
-/*0x0340*/ CTextureAnimation* pBuffIcons[MAX_TOTAL_BUFFS_NPC];
-/*0x0fc0*/ CButtonWnd*        pPetBuffBtns[MAX_TOTAL_BUFFS_NPC]; // PetBuff%d - was pWnd
-/*0x1c40*/ int                Buff[MAX_TOTAL_BUFFS_NPC];         // Spell ID# of each buff
-/*0x2280*/ HashTable<CXStr>   WhoCast;
-/*0x2298*/ uint32_t           LastBuffDecTime;                   // last time buff counters were decremented
-/*0x229c*/ bool               bHadPetLastTime;
-/*0x229d*/ bool               bShowOnSummon;
-/*0x22a0*/ uint32_t           ListContextMenuID;
-/*0x22a8*/ CXWnd*             pRequestingWnd;
-/*0x22b0*/ unsigned int       PetBuffTimer[MAX_TOTAL_BUFFS_NPC]; // duration until buff fades, in milliseconds
-/*0x28f0*/ bool               bRemovedBuffBlockMenuItem;
-/*0x28f4*/ int                PetCommandSelectContextMenu;
-/*0x28f8*/ CXWnd*             LastClickedButton;
-/*0x2900*/ bool               bPetButtonsDirty;
-/*0x2901*/ bool               Sit;
-/*0x2902*/ bool               Stop;
-/*0x2903*/ bool               ReGroup;
-/*0x2904*/ bool               Follow;
-/*0x2905*/ bool               Guard;
-/*0x2906*/ bool               Taunt;
-/*0x2907*/ bool               Hold;
-/*0x2908*/ bool               GHold;
-/*0x2909*/ bool               Focus;
-/*0x290c*/
+/*0x02e4*/ uint32_t           LastUpdateTime;
+/*0x02e8*/ CCheckBoxWnd*      pButton[MAX_PET_BUTTONS];
+/*0x0358*/ CXWnd*             pWndBuffs;                         // BuffWindow
+/*0x0360*/ CTextureAnimation* pGoodBuffBackground;               // PetBlueIconBackground
+/*0x0368*/ CTextureAnimation* pBadBuffBackground;                // PetRedIconBackground
+/*0x0370*/ CTextureAnimation* pBypassBuffBackground;             // YellowIconBackground
+/*0x0378*/ CTextureAnimation* pBuffIcons[MAX_TOTAL_BUFFS_NPC];
+/*0x0ff8*/ CButtonWnd*        pPetBuffBtns[MAX_TOTAL_BUFFS_NPC]; // PetBuff%d - was pWnd
+/*0x1c78*/ int                Buff[MAX_TOTAL_BUFFS_NPC];         // Spell ID# of each buff
+/*0x22b8*/ HashTable<CXStr>   WhoCast;
+/*0x22d0*/ uint32_t           LastBuffDecTime;                   // last time buff counters were decremented
+/*0x22d4*/ bool               bHadPetLastTime;
+/*0x22d5*/ bool               bShowOnSummon;
+/*0x22d8*/ uint32_t           ListContextMenuID;
+/*0x22e0*/ CXWnd*             pRequestingWnd;
+/*0x22e8*/ unsigned int       PetBuffTimer[MAX_TOTAL_BUFFS_NPC]; // duration until buff fades, in milliseconds
+/*0x2928*/ bool               bRemovedBuffBlockMenuItem;
+/*0x292c*/ int                PetCommandSelectContextMenu;
+/*0x2930*/ CXWnd*             LastClickedButton;
+/*0x2938*/ bool               bPetButtonsDirty;
+/*0x2939*/ bool               Sit;
+/*0x293a*/ bool               Stop;
+/*0x293b*/ bool               ReGroup;
+/*0x293c*/ bool               Follow;
+/*0x293d*/ bool               Guard;
+/*0x293e*/ bool               Taunt;
+/*0x293f*/ bool               Hold;
+/*0x2940*/ bool               GHold;
+/*0x2941*/ bool               Focus;
+/*0x2944*/
 };
 
 inline namespace deprecated {
@@ -5253,8 +5257,8 @@ enum ECombatState
 };
 
 
-// @sizeof(CPlayerWnd) == 0x3e0 :: 2022-11-10 (live) @ 0x140158f5d
-constexpr size_t CPlayerWnd_size = 0x3e0;
+// @sizeof(CPlayerWnd) == 0x418 :: 2022-11-22 (test) @ 0x140159c4d
+constexpr size_t CPlayerWnd_size = 0x418;
 
 class [[offsetcomments]] CPlayerWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -5271,43 +5275,43 @@ public:
 	// data members
 
 /*0x2cc*/ 
-/*0x2b0*/ CGaugeWnd*         pPlayerHP;                         // PlayerHP
-/*0x2b8*/ CGaugeWnd*         pPetHP;                            // PetHP
-/*0x2c0*/ CGaugeWnd*         pPlayerMana;                       // PlayerMana
-/*0x2c8*/ CGaugeWnd*         pPlayerEndurance;                  // PlayerFatigue
-/*0x2d0*/ CLabel*            pPlayerHPLbl;                      // HPLabel
-/*0x2d8*/ CLabel*            pPlayerManaLbl;                    // ManaLabel
-/*0x2e0*/ CLabel*            pPlayerEnduranceLbl;               // FatigueLabel
-/*0x2e8*/ CLabel*            pPlayerHPPercentLbl;               // HPPerLabel
-/*0x2f0*/ CLabel*            pPlayerManaPercentLbl;             // ManaPercLabel
-/*0x2f8*/ CLabel*            pPlayerEndurancePercentLbl;        // FatiguePercLabel
-/*0x300*/ COLORREF           HPTextColor;
-/*0x308*/ CButtonWnd*        pGroupRoleTankBtn;                 // GroupRoleTank
-/*0x310*/ CButtonWnd*        pGroupRoleAssistBtn;               // GroupRoleAssist
-/*0x318*/ CButtonWnd*        pGroupRolePullerBtn;               // GroupRolePuller
-/*0x320*/ CButtonWnd*        pGroupRoleMarkNPCBtn;              // GroupRoleMarkNPC
-/*0x328*/ CGaugeWnd*         pCombatTimerGauge;                 // Player_CombatTimer
-/*0x330*/ CLabel*            pCombatTimerLbl;                   // Player_CombatTimerLabel
-/*0x338*/ CButtonWnd*        pNewMailIconBtn;                   // PW_NewMailIcon
-/*0x340*/ CButtonWnd*        pParcelsIconBtn;                   // PW_ParcelsIcon
-/*0x348*/ CButtonWnd*        pParcelsOverLimitIconBtn;          // PW_ParcelsOverLimitIcon
-/*0x350*/ CLabel*            pAggroPctPlayerLbl;                // PW_AggroPctPlayerLabel
-/*0x358*/ CLabel*            pAggroPctSecondaryLbl;             // PW_AggroPctSecondaryLabel
-/*0x360*/ CLabel*            pAggroNameSecondaryLbl;            // PW_AggroNameSecondaryLabel
-/*0x368*/ bool               bDrawAutoAttackRect;
-/*0x36c*/ int                LastUpdateTimer;
-/*0x370*/ int                LastFrameTimer;
-/*0x378*/ CStaticAnimationTemplate* pAttackIndicatorAnimTop;    // A_AttackIndicatorAnimTop
-/*0x380*/ CStaticAnimationTemplate* pAttackIndicatorAnimBottom; // A_AttackIndicatorAnimBottom
-/*0x388*/ CStaticAnimationTemplate* pAttackIndicatorAnimLeft;   // A_AttackIndicatorAnimLeft
-/*0x390*/ CStaticAnimationTemplate* pAttackIndicatorAnimRight;  // A_AttackIndicatorAnimRight
-/*0x398*/ CStaticAnimationTemplate* pAttackIndicatorAnimFill;   // A_AttackIndicatorAnimFill
-/*0x3a0*/ CButtonWnd*        pCombatStateAnimButton;            // PW_CombatStateAnim
-/*0x3a8*/ int                AttackIndicatorPulseValue;
-/*0x3b0*/ CContextMenu*      pContextMenu;
-/*0x3b8*/ uint32_t           Unknowns[9];
-/*0x3dc*/ ECombatState       CombatState;                       // right above "A_PWCSInCombat"
-/*0x3e0*/
+/*0x2e8*/ CGaugeWnd*         pPlayerHP;                         // PlayerHP
+/*0x2f0*/ CGaugeWnd*         pPetHP;                            // PetHP
+/*0x2f8*/ CGaugeWnd*         pPlayerMana;                       // PlayerMana
+/*0x300*/ CGaugeWnd*         pPlayerEndurance;                  // PlayerFatigue
+/*0x308*/ CLabel*            pPlayerHPLbl;                      // HPLabel
+/*0x310*/ CLabel*            pPlayerManaLbl;                    // ManaLabel
+/*0x318*/ CLabel*            pPlayerEnduranceLbl;               // FatigueLabel
+/*0x320*/ CLabel*            pPlayerHPPercentLbl;               // HPPerLabel
+/*0x328*/ CLabel*            pPlayerManaPercentLbl;             // ManaPercLabel
+/*0x330*/ CLabel*            pPlayerEndurancePercentLbl;        // FatiguePercLabel
+/*0x338*/ COLORREF           HPTextColor;
+/*0x340*/ CButtonWnd*        pGroupRoleTankBtn;                 // GroupRoleTank
+/*0x348*/ CButtonWnd*        pGroupRoleAssistBtn;               // GroupRoleAssist
+/*0x350*/ CButtonWnd*        pGroupRolePullerBtn;               // GroupRolePuller
+/*0x358*/ CButtonWnd*        pGroupRoleMarkNPCBtn;              // GroupRoleMarkNPC
+/*0x360*/ CGaugeWnd*         pCombatTimerGauge;                 // Player_CombatTimer
+/*0x368*/ CLabel*            pCombatTimerLbl;                   // Player_CombatTimerLabel
+/*0x370*/ CButtonWnd*        pNewMailIconBtn;                   // PW_NewMailIcon
+/*0x378*/ CButtonWnd*        pParcelsIconBtn;                   // PW_ParcelsIcon
+/*0x380*/ CButtonWnd*        pParcelsOverLimitIconBtn;          // PW_ParcelsOverLimitIcon
+/*0x388*/ CLabel*            pAggroPctPlayerLbl;                // PW_AggroPctPlayerLabel
+/*0x390*/ CLabel*            pAggroPctSecondaryLbl;             // PW_AggroPctSecondaryLabel
+/*0x398*/ CLabel*            pAggroNameSecondaryLbl;            // PW_AggroNameSecondaryLabel
+/*0x3a0*/ bool               bDrawAutoAttackRect;
+/*0x3a4*/ int                LastUpdateTimer;
+/*0x3a8*/ int                LastFrameTimer;
+/*0x3b0*/ CStaticAnimationTemplate* pAttackIndicatorAnimTop;    // A_AttackIndicatorAnimTop
+/*0x3b8*/ CStaticAnimationTemplate* pAttackIndicatorAnimBottom; // A_AttackIndicatorAnimBottom
+/*0x3c0*/ CStaticAnimationTemplate* pAttackIndicatorAnimLeft;   // A_AttackIndicatorAnimLeft
+/*0x3c8*/ CStaticAnimationTemplate* pAttackIndicatorAnimRight;  // A_AttackIndicatorAnimRight
+/*0x3d0*/ CStaticAnimationTemplate* pAttackIndicatorAnimFill;   // A_AttackIndicatorAnimFill
+/*0x3d8*/ CButtonWnd*        pCombatStateAnimButton;            // PW_CombatStateAnim
+/*0x3e0*/ int                AttackIndicatorPulseValue;
+/*0x3e8*/ CContextMenu*      pContextMenu;
+/*0x3f0*/ uint32_t           Unknowns[9];
+/*0x414*/ ECombatState       CombatState;                       // right above "A_PWCSInCombat"
+/*0x418*/
 };
 
 SIZE_CHECK(CPlayerWnd, CPlayerWnd_size);
@@ -5361,37 +5365,37 @@ public:
 	// data members
 
 	// todo: verify
-/*0x2b4*/ int                 Unknown0x008;
-/*0x2b8*/ int                 NumItems;
-/*0x2bc*/ bool                HdrItemName;
-/*0x2bd*/ bool                HdrTheme;
-/*0x2be*/ bool                HdrPrice;
-/*0x2bf*/ char                OriginalPointsLabel[0x40];
-/*0x300*/ CLabel*             MerchantNameLabel;
-/*0x308*/ CListWnd*           ItemList;
-/*0x310*/ CListWnd*           PointList;
-/*0x318*/ CButtonWnd*         EquipButton;
-/*0x320*/ CButtonWnd*         PurchaseButton;
-/*0x328*/ CButtonWnd*         SellButton;
-/*0x330*/ CButtonWnd*         DoneButton;
-/*0x338*/ CLabel*             PointsAvailableValue;
-/*0x340*/ CLabel*             PointsEverEarnedLabel;
-/*0x348*/ CLabel*             PointsAvailableLabel;
-/*0x350*/ unsigned int        NextRefreshTime;
-/*0x358*/ PlayerClient*       ActiveMerchant;
-/*0x360*/ PointMerchantItem** Items;
-/*0x368*/ int                 MerchantThemeId;
-/*0x36c*/ int                 CurrentSelection;
-/*0x370*/ int                 CurrentSort;
-/*0x374*/ bool                bCurrentAscending;
-/*0x378*/ ItemGlobalIndex     ItemLocation;
-/*0x388*/ ItemPtr             pSelectedItem;
-/*0x390*/ bool                bInventoryWasActive;
-/*0x394*/ int                 CurrentItem;
-/*0x398*/ int                 CurrentQuantity;
-/*0x39c*/ int                 SliderType;
-/*0x3a0*/ PointMerchantInterface* pHandler;
-/*0x3a8*/
+/*0x2ec*/ int                 Unknown0x008;
+/*0x2f0*/ int                 NumItems;
+/*0x2f4*/ bool                HdrItemName;
+/*0x2f5*/ bool                HdrTheme;
+/*0x2f6*/ bool                HdrPrice;
+/*0x2f7*/ char                OriginalPointsLabel[0x40];
+/*0x338*/ CLabel*             MerchantNameLabel;
+/*0x340*/ CListWnd*           ItemList;
+/*0x348*/ CListWnd*           PointList;
+/*0x350*/ CButtonWnd*         EquipButton;
+/*0x358*/ CButtonWnd*         PurchaseButton;
+/*0x360*/ CButtonWnd*         SellButton;
+/*0x368*/ CButtonWnd*         DoneButton;
+/*0x370*/ CLabel*             PointsAvailableValue;
+/*0x378*/ CLabel*             PointsEverEarnedLabel;
+/*0x380*/ CLabel*             PointsAvailableLabel;
+/*0x388*/ unsigned int        NextRefreshTime;
+/*0x390*/ PlayerClient*       ActiveMerchant;
+/*0x398*/ PointMerchantItem** Items;
+/*0x3a0*/ int                 MerchantThemeId;
+/*0x3a4*/ int                 CurrentSelection;
+/*0x3a8*/ int                 CurrentSort;
+/*0x3ac*/ bool                bCurrentAscending;
+/*0x3b0*/ ItemGlobalIndex     ItemLocation;
+/*0x3c0*/ ItemPtr             pSelectedItem;
+/*0x3c8*/ bool                bInventoryWasActive;
+/*0x3cc*/ int                 CurrentItem;
+/*0x3d0*/ int                 CurrentQuantity;
+/*0x3d4*/ int                 SliderType;
+/*0x3d8*/ PointMerchantInterface* pHandler;
+/*0x3e0*/
 };
 
 //============================================================================
@@ -5472,10 +5476,10 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2bc*/ uint8_t            Unknown0x244[0x154];
-/*0x410*/ COLORREF           ClassColors[0x10];
-/*0x450*/ uint8_t            Unknown0x330[0x80];
-/*0x4d0*/
+/*0x2f4*/ uint8_t            Unknown0x244[0x154];
+/*0x448*/ COLORREF           ClassColors[0x10];
+/*0x488*/ uint8_t            Unknown0x330[0x80];
+/*0x508*/
 };
 
 inline namespace deprecated {
@@ -5619,15 +5623,15 @@ public:
 
 	EQLIB_OBJECT static int GetBookSlot(int);
 
-/*0x2b8*/ CPopDialogWnd* m_currentPopup;
-/*0x2c0*/ int            LeftPageNbr;
-/*0x2c4*/ int            SelectedBookIndex;
-/*0x2c8*/ int            MemSlotIndex;
-/*0x2cc*/ int            SpellId;
-/*0x2d0*/ int            MemTicksLeft;
-/*0x2d4*/ int            ScribeBookSlot;
-/*0x2d8*/ int            ScribeTicksLeft;
-/*0x2dc*/
+/*0x2f0*/ CPopDialogWnd* m_currentPopup;
+/*0x2f8*/ int            LeftPageNbr;
+/*0x2fc*/ int            SelectedBookIndex;
+/*0x300*/ int            MemSlotIndex;
+/*0x304*/ int            SpellId;
+/*0x308*/ int            MemTicksLeft;
+/*0x30c*/ int            ScribeBookSlot;
+/*0x310*/ int            ScribeTicksLeft;
+/*0x314*/
 };
 
 //============================================================================
@@ -5660,21 +5664,21 @@ public:
 	EQLIB_OBJECT void SetSpell(int SpellID, bool HasSpellDescr, int);
 	EQLIB_OBJECT void UpdateStrings();
 
-/*0x2a8*/ int                WindowID;
-/*0x2b0*/ CLabelWnd*         pDuration;
-/*0x2b8*/ CStmlWnd*          pDescription;
-/*0x2c0*/ CStmlWnd*          pName;
-/*0x2c8*/ CButtonWnd*        pIcon;
-/*0x2d0*/ SoeUtil::String    DescriptionText;
-/*0x2e8*/ SoeUtil::String    TitleText;
-/*0x300*/ bool               bActiveItem;
-/*0x308*/ CTextureAnimation* ptaBuffIcons;
-/*0x310*/ CTextureAnimation* ptaDragIcons;
-/*0x318*/ bool               bFailed;
-/*0x31c*/ ESpellDisplayType  SpellDisplayType;
-/*0x320*/ int                SpellID;
-/*0x324*/ int                LastUpdateTime;
-/*0x328*/
+/*0x2e0*/ int                WindowID;
+/*0x2e8*/ CLabelWnd*         pDuration;
+/*0x2f0*/ CStmlWnd*          pDescription;
+/*0x2f8*/ CStmlWnd*          pName;
+/*0x300*/ CButtonWnd*        pIcon;
+/*0x308*/ SoeUtil::String    DescriptionText;
+/*0x320*/ SoeUtil::String    TitleText;
+/*0x338*/ bool               bActiveItem;
+/*0x340*/ CTextureAnimation* ptaBuffIcons;
+/*0x348*/ CTextureAnimation* ptaDragIcons;
+/*0x350*/ bool               bFailed;
+/*0x354*/ ESpellDisplayType  SpellDisplayType;
+/*0x358*/ int                SpellID;
+/*0x35c*/ int                LastUpdateTime;
+/*0x360*/
 };
 
 inline namespace deprecated {
@@ -5702,24 +5706,24 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x330*/ int                MouseButtonState;
-/*0x334*/ bool               bChecked;
-/*0x338*/ unsigned int       LastRefresh;
-/*0x33c*/ D3DCOLOR           SpellGemTintArray[11];
-/*0x368*/ int                SpellGemAlphaArray[11];
-/*0x394*/ int                Unknown0x02f4;
-/*0x398*/ int                Unknown0x02f8;
-/*0x39c*/ int                SpellIconOffsetX;
-/*0x3a0*/ int                SpellIconOffsetY;
-/*0x3a4*/ int                spellicon;                // if this is equal to FFFFFFFF there is no spell memmed in this slot...
-/*0x3a8*/ int                spellstate;               // 1 = cast in progress or refreshtime not met 2 means we ducked or aborted cast, 0 means its ok to cast, should really rename this to tintstage
-/*0x3ac*/ int                TintIndex;
-/*0x3b0*/ CTextureAnimation* SpellIconTexture;         // CTextureAnimation
-/*0x3b8*/ CTextureAnimation* CustomIconTexture;        // CTextureAnimation
-/*0x3c0*/ int                SpellSlot;
-/*0x3c4*/ int                Percent;
-/*0x3c8*/ CSpellGemDrawTemplate DrawTemplate;
-/*0x3e8*/
+/*0x368*/ int                MouseButtonState;
+/*0x36c*/ bool               bChecked;
+/*0x370*/ unsigned int       LastRefresh;
+/*0x374*/ D3DCOLOR           SpellGemTintArray[11];
+/*0x3a0*/ int                SpellGemAlphaArray[11];
+/*0x3cc*/ int                Unknown0x02f4;
+/*0x3d0*/ int                Unknown0x02f8;
+/*0x3d4*/ int                SpellIconOffsetX;
+/*0x3d8*/ int                SpellIconOffsetY;
+/*0x3dc*/ int                spellicon;                // if this is equal to FFFFFFFF there is no spell memmed in this slot...
+/*0x3e0*/ int                spellstate;               // 1 = cast in progress or refreshtime not met 2 means we ducked or aborted cast, 0 means its ok to cast, should really rename this to tintstage
+/*0x3e4*/ int                TintIndex;
+/*0x3e8*/ CTextureAnimation* SpellIconTexture;         // CTextureAnimation
+/*0x3f0*/ CTextureAnimation* CustomIconTexture;        // CTextureAnimation
+/*0x3f8*/ int                SpellSlot;
+/*0x3fc*/ int                Percent;
+/*0x400*/ CSpellGemDrawTemplate DrawTemplate;
+/*0x420*/
 };
 
 inline namespace deprecated {
@@ -5748,8 +5752,8 @@ public:
 // CTargetWnd
 //============================================================================
 
-// @sizeof(CTargetWnd) == 0x3e8 :: 2022-11-10 (live) @ 0x140158dfb
-constexpr size_t CTargetWnd_size = 0x3e8;
+// @sizeof(CTargetWnd) == 0x420 :: 2022-11-22 (test) @ 0x140159aeb
+constexpr size_t CTargetWnd_size = 0x420;
 
 class [[offsetcomments]] CTargetWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -5768,42 +5772,42 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x2b0*/ CXWnd*                    pWndBuffs;                  // BuffWindow
-/*0x2b8*/ CTextureAnimation*        pBuffGoodBackground;        // BlueIconBackground
-/*0x2c0*/ CTextureAnimation*        pBuffBadBackground;         // RedIconBackground
-/*0x2c8*/ CTextureAnimation*        pBuffBypassBackground;      // ellowIconBackground
-/*0x2d0*/ SoeUtil::Array<CTextureAnimation*> ptaBuffIcons;      // Can go up to 400?
-/*0x2e8*/ SoeUtil::Array<CButtonWnd*> pTargetBuff;
-/*0x300*/ SoeUtil::Array<int>       BuffSpellID;                // -1 if no buff
-/*0x318*/ SoeUtil::Array<int>       BuffTimer;
-/*0x330*/ int                       LastBuffReceivedTime;
-/*0x334*/ int                       Timer;
-/*0x338*/ HashTable<CXStr>          Casters;
-/*0x350*/ int                       ContextMenuID;
-/*0x358*/ CXWnd*                    RequestingWnd;
-/*0x360*/ bool                      bRemovedBuffBlockMenuItem;
-/*0x364*/ int                       Type;                       // 1 = self, 4 = group member, 5 = PC, 7 = NPC
-/*0x368*/ bool                      bFirstUpdate;
-/*0x370*/ CLabelWnd*                lblAggroPctPlayer;          // Target_AggroPctPlayerLabel
-/*0x378*/ CLabelWnd*                lblAggroPctSecondary;       // Target_AggroPctSecondaryLabel
-/*0x380*/ CLabelWnd*                lblAggroNameSecondary;      // Target_AggroNameSecondaryLabel
-/*0x388*/ CContextMenu*             pContextMenu;
-/*0x390*/ int                       togglePctPlayerMenu;
-/*0x394*/ int                       togglePctSecondaryMenu;
-/*0x398*/ int                       toggleNameSecondaryMenu;
-/*0x39c*/ bool                      bShowPctPlayer;
-/*0x39d*/ bool                      bShowPctSecondary;
-/*0x39e*/ bool                      bShowNameSecondary;
-/*0x3a0*/ CLabel*                   lblHPLabel;                 // HPLabel
-/*0x3a8*/ CLabel*                   lblHPPercLabel;             // HPPercLabel
-/*0x3b0*/ CStaticAnimationTemplate* pTargetBoxAnimTop;          // A_TargetBoxStaticAnimTop
-/*0x3b8*/ CStaticAnimationTemplate* pTargetBoxAnimBottom;       // A_TargetBoxStaticAnimBottom
-/*0x3c0*/ CStaticAnimationTemplate* pTargetBoxAnimLeft;         // A_TargetBoxStaticAnimLeft
-/*0x3c8*/ CStaticAnimationTemplate* pTargetBoxAnimRight;        // A_TargetBoxStaticAnimRight
-/*0x3d0*/ CStaticAnimationTemplate* pTargetBoxAnimFill;         // A_TargetBoxStaticAnimFill
-/*0x3d8*/ PlayerClient*             previousTarget;
-/*0x3e0*/ uint32_t                  conColorRgba;
-/*0x3e4*/
+/*0x2e8*/ CXWnd*                    pWndBuffs;                  // BuffWindow
+/*0x2f0*/ CTextureAnimation*        pBuffGoodBackground;        // BlueIconBackground
+/*0x2f8*/ CTextureAnimation*        pBuffBadBackground;         // RedIconBackground
+/*0x300*/ CTextureAnimation*        pBuffBypassBackground;      // ellowIconBackground
+/*0x308*/ SoeUtil::Array<CTextureAnimation*> ptaBuffIcons;      // Can go up to 400?
+/*0x320*/ SoeUtil::Array<CButtonWnd*> pTargetBuff;
+/*0x338*/ SoeUtil::Array<int>       BuffSpellID;                // -1 if no buff
+/*0x350*/ SoeUtil::Array<int>       BuffTimer;
+/*0x368*/ int                       LastBuffReceivedTime;
+/*0x36c*/ int                       Timer;
+/*0x370*/ HashTable<CXStr>          Casters;
+/*0x388*/ int                       ContextMenuID;
+/*0x390*/ CXWnd*                    RequestingWnd;
+/*0x398*/ bool                      bRemovedBuffBlockMenuItem;
+/*0x39c*/ int                       Type;                       // 1 = self, 4 = group member, 5 = PC, 7 = NPC
+/*0x3a0*/ bool                      bFirstUpdate;
+/*0x3a8*/ CLabelWnd*                lblAggroPctPlayer;          // Target_AggroPctPlayerLabel
+/*0x3b0*/ CLabelWnd*                lblAggroPctSecondary;       // Target_AggroPctSecondaryLabel
+/*0x3b8*/ CLabelWnd*                lblAggroNameSecondary;      // Target_AggroNameSecondaryLabel
+/*0x3c0*/ CContextMenu*             pContextMenu;
+/*0x3c8*/ int                       togglePctPlayerMenu;
+/*0x3cc*/ int                       togglePctSecondaryMenu;
+/*0x3d0*/ int                       toggleNameSecondaryMenu;
+/*0x3d4*/ bool                      bShowPctPlayer;
+/*0x3d5*/ bool                      bShowPctSecondary;
+/*0x3d6*/ bool                      bShowNameSecondary;
+/*0x3d8*/ CLabel*                   lblHPLabel;                 // HPLabel
+/*0x3e0*/ CLabel*                   lblHPPercLabel;             // HPPercLabel
+/*0x3e8*/ CStaticAnimationTemplate* pTargetBoxAnimTop;          // A_TargetBoxStaticAnimTop
+/*0x3f0*/ CStaticAnimationTemplate* pTargetBoxAnimBottom;       // A_TargetBoxStaticAnimBottom
+/*0x3f8*/ CStaticAnimationTemplate* pTargetBoxAnimLeft;         // A_TargetBoxStaticAnimLeft
+/*0x400*/ CStaticAnimationTemplate* pTargetBoxAnimRight;        // A_TargetBoxStaticAnimRight
+/*0x408*/ CStaticAnimationTemplate* pTargetBoxAnimFill;         // A_TargetBoxStaticAnimFill
+/*0x410*/ PlayerClient*             previousTarget;
+/*0x418*/ uint32_t                  conColorRgba;
+/*0x41c*/
 
 	
 };
@@ -5852,15 +5856,15 @@ public:
 	EQLIB_OBJECT void Callback(bool);
 	EQLIB_OBJECT void UpdateButtons();
 
-/*0x2ac*/ int          m_minLength;
-/*0x2b0*/ int          m_maxLength;
-/*0x2b8*/ CXStr        m_text;
-/*0x2c0*/ CXWnd*       m_parent;
-/*0x2c8*/ CEditWnd*    m_entry;
-/*0x2d0*/ CLabel*      m_prompt;
-/*0x2d8*/ CButtonWnd*  m_ok;
-/*0x2e0*/ CButtonWnd*  m_cancel;
-/*0x2e8*/
+/*0x2e4*/ int          m_minLength;
+/*0x2e8*/ int          m_maxLength;
+/*0x2f0*/ CXStr        m_text;
+/*0x2f8*/ CXWnd*       m_parent;
+/*0x300*/ CEditWnd*    m_entry;
+/*0x308*/ CLabel*      m_prompt;
+/*0x310*/ CButtonWnd*  m_ok;
+/*0x318*/ CButtonWnd*  m_cancel;
+/*0x320*/
 };
 
 inline namespace deprecated {
@@ -5916,6 +5920,34 @@ public:
 };
 
 //============================================================================
+// CTradeSkillDepotWnd
+//============================================================================
+
+// size: 0x380
+class [[offsetcomments]] TradeskillDepotWnd : public CSidlScreenWnd, public WndEventHandler
+{
+public:
+	FORCE_SYMBOLS;
+
+/*0x2e8*/ CListWnd*     pItemList;          // TD_Item_List 2e8
+/*0x2f0*/ CButtonWnd*   pInspectButton;     // TD_Inspect_Button
+/*0x2f8*/ CLabel*       pSelectedItemLabel; // TD_Selected_Item_Label
+/*0x300*/ CButtonWnd*   pSelectedItemSlot;  // TD_Selected_Item_Slot
+/*0x308*/ CButtonWnd*   pWithdrawButton;    // TD_Withdraw_Button
+/*0x310*/ CButtonWnd*   pExitButton;        // TD_Exit_Button
+/*0x318*/ CLabel*       pItemCountNumber;   // TD_Item_Count_Number
+/*0x320*/ CEditWnd*     pSearchItemInput;   // TD_SearchItem_Input
+/*0x328*/ CButtonWnd*   pSearchItemButton;  // TD_SearchItem_Button
+/*0x330*/ ItemContainer Items;
+/*0x358*/ bool          bRequestedUpdate;
+/*0x360*/ ItemPtr       pSelectedItem;
+/*0x368*/ uint32_t      pSelectedItemIndex;
+/*0x370*/ uint64_t      lastUpdateTime;
+/*0x378*/ bool          bUnknown5;
+/*0x37c*/
+};
+
+//============================================================================
 // CTradeSkillWnd
 //============================================================================
 
@@ -5942,7 +5974,7 @@ inline namespace deprecated {
 	using PEQTRADESKILLRECIPE DEPRECATE("Use TradeskillRecipe* instead of PEQTRADESKILLRECIPE") = TradeskillRecipe*;
 }
 
-// size: 0xd28 Jun 10, 2019 (test)
+// size: 0x10e0 2022-11-22 (test)
 class [[offsetcomments]] CTradeSkillWnd : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS;
@@ -5955,25 +5987,25 @@ public:
 	// data members
 
 	// todo: check and update
-/*0x2a8*/ DWORD        Unknown0x148[0x1b];
-/*0x318*/ TradeskillRecipe* SearchResults[0x64];
-/*0x638*/ DWORD        Unknown0x344;
-/*0x63c*/ DWORD        Unknown0x348;
-/*0x640*/ DWORD        Unknown0x34c;
-/*0x648*/ ItemPtr      Container;
-/*0x650*/ DWORD        Unknown0x354;
-/*0x658*/ TradeskillRecipe* SelectedRecipe;
-/*0x660*/ DWORD        Unknown0x35c;
-/*0x664*/ DWORD        SkillLevel;
-/*0x668*/ DWORD        Unknown0x364;
-/*0x66c*/ DWORD        Unknown0x368;
-/*0x670*/ BYTE         Unknown0x36c[0x58];
-/*0x6c8*/ DWORD        Unknown0x3c4;
-/*0x6cc*/ DWORD        Unknown0x3c8;
-/*0x6d0*/ BYTE         Unknonw0x3cc[0x8];
-/*0x6d8*/ DWORD        Unknown0x3d4;
-/*0x6dc*/ DWORD        Unknown0x3d8;
-/*0x6e0*/
+/*0x2e0*/ DWORD        Unknown0x148[0x1b];
+/*0x350*/ TradeskillRecipe* SearchResults[0x64];
+/*0x670*/ DWORD        Unknown0x344;
+/*0x674*/ DWORD        Unknown0x348;
+/*0x678*/ DWORD        Unknown0x34c;
+/*0x680*/ ItemPtr      Container;
+/*0x688*/ DWORD        Unknown0x354;
+/*0x690*/ TradeskillRecipe* SelectedRecipe;
+/*0x698*/ DWORD        Unknown0x35c;
+/*0x69c*/ DWORD        SkillLevel;
+/*0x6a0*/ DWORD        Unknown0x364;
+/*0x6a4*/ DWORD        Unknown0x368;
+/*0x6a8*/ BYTE         Unknown0x36c[0x58];
+/*0x700*/ DWORD        Unknown0x3c4;
+/*0x704*/ DWORD        Unknown0x3c8;
+/*0x708*/ BYTE         Unknonw0x3cc[0x8];
+/*0x710*/ DWORD        Unknown0x3d4;
+/*0x714*/ DWORD        Unknown0x3d8;
+/*0x718*/
 };
 
 inline namespace deprecated {
@@ -6012,22 +6044,22 @@ public:
 	EQLIB_OBJECT void TradeItemChanged(int, int);
 	EQLIB_OBJECT void UpdateTradeDisplay();
 
-/*0x2ac*/ unsigned int       NextRefreshTime;
-/*0x2b0*/ bool               bInventoryWasOpen;
-/*0x2b8*/ CButtonWnd*        HisMoneyButton[4];
-/*0x2d8*/ CButtonWnd*        MyMoneyButton[4];
-/*0x2f8*/ CButtonWnd*        TradeButton;
-/*0x300*/ CButtonWnd*        CancelButton;
-/*0x308*/ CLabel*            HisNameLabel;
-/*0x310*/ CLabel*            MyNameLabel;
-/*0x318*/ CInvSlotWnd*       pInvSlotWnd[MAX_TRADE_SLOTS];
-/*0x398*/ long               HisMoney[4];
-/*0x3a8*/ long               MyMoney[4];
-/*0x3b8*/ ItemContainer      TradeItems;
-/*0x3e0*/ bool               bHisReadyTrade;           // was HisTradeReady
-/*0x3e1*/ bool               bMyReadyTrade;            // was MyTradeReady
-/*0x3e2*/ bool               bIsTrading;               // was TradeWndOpen
-/*0x3e4*/
+/*0x2e4*/ unsigned int       NextRefreshTime;
+/*0x2e8*/ bool               bInventoryWasOpen;
+/*0x2f0*/ CButtonWnd*        HisMoneyButton[4];
+/*0x310*/ CButtonWnd*        MyMoneyButton[4];
+/*0x330*/ CButtonWnd*        TradeButton;
+/*0x338*/ CButtonWnd*        CancelButton;
+/*0x340*/ CLabel*            HisNameLabel;
+/*0x348*/ CLabel*            MyNameLabel;
+/*0x350*/ CInvSlotWnd*       pInvSlotWnd[MAX_TRADE_SLOTS];
+/*0x3d0*/ long               HisMoney[4];
+/*0x3e0*/ long               MyMoney[4];
+/*0x3f0*/ ItemContainer      TradeItems;
+/*0x418*/ bool               bHisReadyTrade;           // was HisTradeReady
+/*0x419*/ bool               bMyReadyTrade;            // was MyTradeReady
+/*0x41a*/ bool               bIsTrading;               // was TradeWndOpen
+/*0x41c*/
 
 	inline ItemContainer& GetTradeItems() { return TradeItems; }
 	// TODO: Add aliases
@@ -6235,73 +6267,73 @@ class [[offsetcomments]] CZoneGuideWnd : public CSidlScreenWnd, public WndEventH
 	FORCE_SYMBOLS
 
 public:
-/*0x2b0*/ CVerticalLayoutWnd*     VerticalLayout;
-/*0x2b8*/ CButtonWnd*             FilterMyLevelButton;
-/*0x2c0*/ CButtonWnd*             FilterAllLevelsButton;
-/*0x2c8*/ CButtonWnd*             FilterZonesActiveButton;
-/*0x2d0*/ CButtonWnd*             FilterZonesInactiveButton;
-/*0x2d8*/ CButtonWnd*             ZoneRunSearchButton;
-/*0x2e0*/ CButtonWnd*             ZoneClearSearchButton;
-/*0x2e8*/ CButtonWnd*             SelectCurrentZoneButton;
-/*0x2f0*/ CEditWnd*               LevelFilterEdit;
-/*0x2f8*/ CEditWnd*               ZoneSearchEdit;
-/*0x300*/ CComboWnd*              TypeFilterCombo;
-/*0x308*/ CComboWnd*              ContinentFilterCombo;
-/*0x310*/ CListWnd*               ZonesList;
-/*0x318*/ CLabelWnd*              ViewZoneConnectionsSelectedZoneLabel;
-/*0x320*/ CLabelWnd*              ViewZoneConnectionsPreviewPathLabel;
-/*0x328*/ CLabelWnd*              ViewZoneConnectionsActivePathLabel;
-/*0x330*/ CLabelWnd*              ViewZoneConnectionsDisabledLabel;
-/*0x338*/ CButtonWnd*             ViewZoneConnectionsSelectedZoneButton;
-/*0x340*/ CButtonWnd*             ViewZoneConnectionsPreviewPathButton;
-/*0x348*/ CButtonWnd*             ViewZoneConnectionsActivePathButton;
-/*0x350*/ CButtonWnd*             ViewZoneConnectionsDisabledButton;
-/*0x358*/ CButtonWnd*             DisableConnectionTemplateButton;
-/*0x360*/ CListWnd*               ZoneConnectionsList;
-/*0x368*/ CButtonWnd*             ResetPathStartZoneButton;
-/*0x370*/ CButtonWnd*             SetPathStartZoneButton;
-/*0x378*/ CButtonWnd*             SetPathEndZoneButton;
-/*0x380*/ CButtonWnd*             ShowPathWndButton;
-/*0x388*/ CButtonWnd*             HidePathWndButton;
-/*0x390*/ CButtonWnd*             FindPathButton;
-/*0x398*/ CButtonWnd*             EndFindButton;
-/*0x3a0*/ CButtonWnd*             ClearPathWndButton;
-/*0x3a8*/ CButtonWnd*             ActivatePathButton;
-/*0x3b0*/ CButtonWnd*             IncludeBindZoneInPathGenerationButton;
-/*0x3b8*/ CButtonWnd*             ShowPathWndOnPathActivationButton;
-/*0x3c0*/ CButtonWnd*             AutoFindActivePathButton;
-/*0x3c8*/ CEditWnd*               PathStartZoneEdit;
-/*0x3d0*/ CEditWnd*               PathEndZoneEdit;
-/*0x3d8*/ uint32_t                NextButtonRefreshTime;
-/*0x3dc*/ EQZoneIndex             CurrentZone;
-/*0x3e0*/ bool                    bFilterActive;
-/*0x3e4*/ int                     FilterLevel;
-/*0x3e8*/ int                     FilterContinentIndex;
-/*0x3ec*/ int                     FilterZoneTypeIndex;
-/*0x3f0*/ bool                    bSelectCurrentZone;
-/*0x3f8*/ CXStr                   ZoneSearchString;
-/*0x400*/ eZoneGuideConnectionsView eCurrConnectionsView;
-/*0x404*/ EQZoneIndex             CurrConnectionsViewSelectedZone;
-/*0x408*/ bool                    bCurrentConnectionsViewPreviewPathChanged;
-/*0x409*/ bool                    bCurrentConnectionsViewActivePathChanged;
-/*0x40a*/ bool                    bSetPathStartZoneToCurrentZone;
-/*0x40c*/ EQZoneIndex             StartZone;
-/*0x410*/ EQZoneIndex             EndZone;
-/*0x414*/ bool                    bZoneGuideDataChanged;
-/*0x415*/ bool                    bZoneListChanged;
-/*0x416*/ bool                    bZoneConnectionsListChanged;
-/*0x417*/ bool                    bPathStartZoneChanged;
-/*0x418*/ int                     RightClickMenuID;
-/*0x41c*/
+/*0x2e8*/ CVerticalLayoutWnd*     VerticalLayout;
+/*0x2f0*/ CButtonWnd*             FilterMyLevelButton;
+/*0x2f8*/ CButtonWnd*             FilterAllLevelsButton;
+/*0x300*/ CButtonWnd*             FilterZonesActiveButton;
+/*0x308*/ CButtonWnd*             FilterZonesInactiveButton;
+/*0x310*/ CButtonWnd*             ZoneRunSearchButton;
+/*0x318*/ CButtonWnd*             ZoneClearSearchButton;
+/*0x320*/ CButtonWnd*             SelectCurrentZoneButton;
+/*0x328*/ CEditWnd*               LevelFilterEdit;
+/*0x330*/ CEditWnd*               ZoneSearchEdit;
+/*0x338*/ CComboWnd*              TypeFilterCombo;
+/*0x340*/ CComboWnd*              ContinentFilterCombo;
+/*0x348*/ CListWnd*               ZonesList;
+/*0x350*/ CLabelWnd*              ViewZoneConnectionsSelectedZoneLabel;
+/*0x358*/ CLabelWnd*              ViewZoneConnectionsPreviewPathLabel;
+/*0x360*/ CLabelWnd*              ViewZoneConnectionsActivePathLabel;
+/*0x368*/ CLabelWnd*              ViewZoneConnectionsDisabledLabel;
+/*0x370*/ CButtonWnd*             ViewZoneConnectionsSelectedZoneButton;
+/*0x378*/ CButtonWnd*             ViewZoneConnectionsPreviewPathButton;
+/*0x380*/ CButtonWnd*             ViewZoneConnectionsActivePathButton;
+/*0x388*/ CButtonWnd*             ViewZoneConnectionsDisabledButton;
+/*0x390*/ CButtonWnd*             DisableConnectionTemplateButton;
+/*0x398*/ CListWnd*               ZoneConnectionsList;
+/*0x3a0*/ CButtonWnd*             ResetPathStartZoneButton;
+/*0x3a8*/ CButtonWnd*             SetPathStartZoneButton;
+/*0x3b0*/ CButtonWnd*             SetPathEndZoneButton;
+/*0x3b8*/ CButtonWnd*             ShowPathWndButton;
+/*0x3c0*/ CButtonWnd*             HidePathWndButton;
+/*0x3c8*/ CButtonWnd*             FindPathButton;
+/*0x3d0*/ CButtonWnd*             EndFindButton;
+/*0x3d8*/ CButtonWnd*             ClearPathWndButton;
+/*0x3e0*/ CButtonWnd*             ActivatePathButton;
+/*0x3e8*/ CButtonWnd*             IncludeBindZoneInPathGenerationButton;
+/*0x3f0*/ CButtonWnd*             ShowPathWndOnPathActivationButton;
+/*0x3f8*/ CButtonWnd*             AutoFindActivePathButton;
+/*0x400*/ CEditWnd*               PathStartZoneEdit;
+/*0x408*/ CEditWnd*               PathEndZoneEdit;
+/*0x410*/ uint32_t                NextButtonRefreshTime;
+/*0x414*/ EQZoneIndex             CurrentZone;
+/*0x418*/ bool                    bFilterActive;
+/*0x41c*/ int                     FilterLevel;
+/*0x420*/ int                     FilterContinentIndex;
+/*0x424*/ int                     FilterZoneTypeIndex;
+/*0x428*/ bool                    bSelectCurrentZone;
+/*0x430*/ CXStr                   ZoneSearchString;
+/*0x438*/ eZoneGuideConnectionsView eCurrConnectionsView;
+/*0x43c*/ EQZoneIndex             CurrConnectionsViewSelectedZone;
+/*0x440*/ bool                    bCurrentConnectionsViewPreviewPathChanged;
+/*0x441*/ bool                    bCurrentConnectionsViewActivePathChanged;
+/*0x442*/ bool                    bSetPathStartZoneToCurrentZone;
+/*0x444*/ EQZoneIndex             StartZone;
+/*0x448*/ EQZoneIndex             EndZone;
+/*0x44c*/ bool                    bZoneGuideDataChanged;
+/*0x44d*/ bool                    bZoneListChanged;
+/*0x44e*/ bool                    bZoneConnectionsListChanged;
+/*0x44f*/ bool                    bPathStartZoneChanged;
+/*0x450*/ int                     RightClickMenuID;
+/*0x454*/
 };
 
 class [[offsetcomments]] CZonePathWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
-/*0x2dc*/ EQZoneIndex             currentZone;
-/*0x2e0*/ bool                    zonePathDirty;
-/*0x2e8*/ CListWnd*               listZones;
-/*0x2f0*/
+/*0x2e4*/ EQZoneIndex             currentZone;
+/*0x2e8*/ bool                    zonePathDirty;
+/*0x2f0*/ CListWnd*               listZones;
+/*0x2f8*/
 };
 
 //============================================================================
@@ -6613,12 +6645,12 @@ public:
 
 	virtual void UpdateCascadeMenuItems() {}
 
-/*0x2d8*/ CButtonWnd*       EQButtonWnd;
-/*0x2e0*/ CButtonWnd*       SCButtonWnd;
-/*0x2e8*/ CButtonWnd*       FlashSaleButtonWnd;
-/*0x2f0*/ CascadeItemArray* CascadeMenuItems;
-/*0x2f8*/ int               MenuId;
-/*0x2fc*/
+/*0x2e0*/ CButtonWnd*       EQButtonWnd;
+/*0x2e8*/ CButtonWnd*       SCButtonWnd;
+/*0x2f0*/ CButtonWnd*       FlashSaleButtonWnd;
+/*0x2f8*/ CascadeItemArray* CascadeMenuItems;
+/*0x300*/ int               MenuId;
+/*0x304*/
 };
 
 //----------------------------------------------------------------------------

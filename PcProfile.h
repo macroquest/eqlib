@@ -300,8 +300,8 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x6a28 :: 2022-11-10 (live) @ 0x14059a1c4
-constexpr size_t PcProfile_size = 0x6a28;
+// @sizeof(PcProfile) == 0x6a50 :: 2022-11-22 (test) @ 0x1405a45d4
+constexpr size_t PcProfile_size = 0x6a50;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
 {
@@ -325,39 +325,40 @@ public:
 /*0x68cc*/ BenefitSelection                      ActiveTrophyTributeBenefits[10];
 /*0x6920*/ ItemContainer                         GuildTributeBenefitItems;
 /*0x6948*/ ItemContainer                         GuildTrophyTributeBenefitItems;
-/*0x6970*/ ArrayClass<CXStr>                     MercenarySaveStrings;
-/*0x6988*/ AssociatedNPCSaveStringNode*          PetSaveString;
-/*0x6990*/ int                                   Deity;
-/*0x6994*/ bool                                  bPVPFlag;
-/*0x6995*/ uint8_t                               HighestLevel;
-/*0x6998*/ int                                   Drunkenness;                            // inebriation
-/*0x699c*/ uint8_t                               HairColor;
-/*0x699d*/ uint8_t                               BeardColor;
-/*0x69a0*/ int                                   NpcTintIndex;
-/*0x69a4*/ uint8_t                               LeftEye;
-/*0x69a5*/ uint8_t                               RightEye;
-/*0x69a6*/ uint8_t                               Hair;
-/*0x69a7*/ uint8_t                               Beard;
-/*0x69a8*/ uint8_t                               OldFace;
-/*0x69ac*/ int                                   AAPoints;
-/*0x69b0*/ SoeUtil::String                       PocketPetSaveString;
-/*0x69c8*/ CXStr                                 ItemBuffer;
-/*0x69d0*/ uint32_t                              LastShield;
-/*0x69d4*/ bool                                  bSneak;
-/*0x69d5*/ bool                                  bHide;
-/*0x69d8*/ int                                   AAPointsSpent;
-/*0x69dc*/ int                                   AAPointsAssigned[6];                    // none, general, arch, class, special, focus, merc
-/*0x69f8*/ PetObjectData*                        pPetData;
-/*0x6a00*/ int                                   PrimaryActor;
-/*0x6a04*/ int                                   SecondaryActor;
-/*0x6a08*/ bool                                  bUseTemplateFaction;
-/*0x6a0c*/ int                                   TitlePrefixID;
-/*0x6a10*/ int                                   TitleSuffixID;
-/*0x6a14*/ bool                                  bAreHandsMagic;
-/*0x6a18*/ int                                   SoleEnabledZoneID;
-/*0x6a1c*/ int                                   NewBodyTint;
-/*0x6a20*/ int                                   CurrentMercenaryIndex;
-/*0x6a24*/
+/*0x6970*/ ItemContainer                         TradeskillDepotItems;
+/*0x6998*/ ArrayClass<CXStr>                     MercenarySaveStrings;
+/*0x69b0*/ AssociatedNPCSaveStringNode*          PetSaveString;
+/*0x69b8*/ int                                   Deity;
+/*0x69bc*/ bool                                  bPVPFlag;
+/*0x69bd*/ uint8_t                               HighestLevel;
+/*0x69c0*/ int                                   Drunkenness;                            // inebriation
+/*0x69c4*/ uint8_t                               HairColor;
+/*0x69c5*/ uint8_t                               BeardColor;
+/*0x69c8*/ int                                   NpcTintIndex;
+/*0x69cc*/ uint8_t                               LeftEye;
+/*0x69cd*/ uint8_t                               RightEye;
+/*0x69ce*/ uint8_t                               Hair;
+/*0x69cf*/ uint8_t                               Beard;
+/*0x69d0*/ uint8_t                               OldFace;
+/*0x69d4*/ int                                   AAPoints;
+/*0x69d8*/ SoeUtil::String                       PocketPetSaveString;
+/*0x69f0*/ CXStr                                 ItemBuffer;
+/*0x69f8*/ uint32_t                              LastShield;
+/*0x69fc*/ bool                                  bSneak;
+/*0x69fd*/ bool                                  bHide;
+/*0x6a00*/ int                                   AAPointsSpent;
+/*0x6a04*/ int                                   AAPointsAssigned[6];                    // none, general, arch, class, special, focus, merc
+/*0x6a20*/ PetObjectData*                        pPetData;
+/*0x6a28*/ int                                   PrimaryActor;
+/*0x6a2c*/ int                                   SecondaryActor;
+/*0x6a30*/ bool                                  bUseTemplateFaction;
+/*0x6a34*/ int                                   TitlePrefixID;
+/*0x6a38*/ int                                   TitleSuffixID;
+/*0x6a3c*/ bool                                  bAreHandsMagic;
+/*0x6a40*/ int                                   SoleEnabledZoneID;
+/*0x6a44*/ int                                   NewBodyTint;
+/*0x6a48*/ int                                   CurrentMercenaryIndex;
+/*0x6a4c*/
 };
 
 inline namespace deprecated {

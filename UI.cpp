@@ -858,6 +858,7 @@ static std::unordered_multimap<std::string_view, ForeignPointer<CSidlScreenWnd>&
 	{ "TipWindow",                              pContextTipWnd },
 	{ "TitleWnd",                               pTitleWnd },
 	{ "TrackingWnd",                            pTrackingWnd },
+	{ "TradeskillDepotWnd",                     pTradeskillDepotWnd },
 	{ "TradeskillWnd",                          pTradeskillWnd },
 	{ "TradeWnd",                               pTradeWnd },
 	{ "TrainWindow",                            pTrainWnd },

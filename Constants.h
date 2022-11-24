@@ -1053,7 +1053,7 @@ constexpr int EQ_OVERHEAD_CAM = 1;
 constexpr int EQ_CHASE_CAM = 2;
 constexpr int EQ_USER_CAM_1 = 3;
 constexpr int EQ_USER_CAM_2 = 4;
-constexpr int EQ_MAX_CAMERAS = 9;
+constexpr int EQ_MAX_CAMERAS = 8;
 
 // Spell targeting types
 constexpr int TT_PBAE = 4;

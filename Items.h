@@ -79,6 +79,8 @@ enum ItemContainerInstance
 	eItemContainerViewModTeleportationKeyRingItems = 36,
 	eItemContainerOverflow                       = 37,
 	eItemContainerDragonHoard                    = 38,
+	eItemContainerTradeskillDepot                = 39,
+	eItemContainerGuildTradeskillDepot           = 40, // unverified
 
 	eNumItemContainers,
 };
@@ -947,7 +949,7 @@ public:
 	}
 };
 
-// @sizeof(ItemDefinition) == 0x640 :: 2022-11-10 (live) @ 0x1401d186d
+// @sizeof(ItemDefinition) == 0x640 :: 2022-11-22 (test) @ 0x1401d6a0d
 constexpr size_t ItemDefinition_size = 0x640;
 
 class [[offsetcomments]] ItemDefinition
@@ -1215,47 +1217,47 @@ class [[offsetcomments]] ItemBase : public VeBaseReferenceCount, public IChildIt
 {
 public:
 // @start: ItemBase Members
-/*0x018*/ unsigned int          LastCastTime;
-/*0x01c*/ bool                  bDisableAugTexture;
-/*0x020*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x030*/ EqItemGuid            ItemGUID;
-/*0x042*/ bool                  bCollected;
-/*0x048*/ CXStr                 ConvertItemName;
-/*0x050*/ int                   ActorTag1;
-/*0x054*/ int                   NoteStatus;
-/*0x058*/ int                   Charges;
-/*0x05c*/ int                   AugFlag;
-/*0x060*/ ITEMINFO*             Item1;
-/*0x068*/ int                   RealEstateID;
-/*0x06c*/ int                   ID;
-/*0x070*/ int                   ArmorType;
-/*0x074*/ bool                  bCopied;
-/*0x078*/ int                   Power;
-/*0x07c*/ int                   OrnamentationIcon;
-/*0x080*/ int                   Luck;
-/*0x088*/ int64_t               Price;
-/*0x090*/ int64_t               DontKnow;
-/*0x098*/ unsigned int          NewArmorID;
-/*0x09c*/ int                   ActorTag2;
+/*0x018*/ int                   ConvertItemID;
+/*0x01c*/ bool                  bConvertable;
+/*0x020*/ int                   Charges;
+/*0x024*/ bool                  bRealEstateItemPlaceable;
+/*0x028*/ int                   NoDropFlag;
+/*0x02c*/ bool                  bCollected;
+/*0x030*/ ItemEvolutionDataPtr  pEvolutionData;
+/*0x040*/ int64_t               MerchantSlot;
+/*0x048*/ ItemContainer         Contents;
+/*0x070*/ bool                  bCopied;
+/*0x078*/ SoeUtil::String       SaveString;
+/*0x090*/ int                   Power;
+/*0x094*/ ItemGlobalIndex       GlobalIndex;
 /*0x0a0*/ unsigned int          Tint;
-/*0x0a4*/ int                   Open;
-/*0x0a8*/ ItemContainer         Contents;
-/*0x0d0*/ bool                  bRankDisabled;
-/*0x0d1*/ bool                  bItemNeedsUpdate;
-/*0x0d4*/ unsigned int          RespawnTime;
-/*0x0d8*/ unsigned int          ItemHash;
-/*0x0e0*/ int64_t               MerchantSlot;
-/*0x0e8*/ int                   NoDropFlag;
-/*0x0ec*/ int                   ConvertItemID;
-/*0x0f0*/ bool                  bRealEstateItemPlaceable;
-/*0x0f4*/ int                   StackCount;
-/*0x0f8*/ SoeUtil::String       SaveString;
-/*0x110*/ int                   ScriptIndex;
-/*0x114*/ bool                  bConvertable;
-/*0x118*/ int                   MerchantQuantity;
-/*0x11c*/ ItemGlobalIndex       GlobalIndex;
-/*0x128*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x140*/
+/*0x0a4*/ int                   ActorTag1;
+/*0x0a8*/ ITEMINFO*             Item1;
+/*0x0b0*/ int                   OrnamentationIcon;
+/*0x0b4*/ int                   StackCount;
+/*0x0b8*/ int                   ActorTag2;
+/*0x0bc*/ unsigned int          ItemHash;
+/*0x0c0*/ bool                  bItemNeedsUpdate;
+/*0x0c4*/ unsigned int          NewArmorID;
+/*0x0c8*/ int                   NoteStatus;
+/*0x0d0*/ int64_t               Price;
+/*0x0d8*/ CXStr                 ConvertItemName;
+/*0x0e0*/ int                   Open;
+/*0x0e4*/ int                   ID;
+/*0x0e8*/ int                   ArmorType;
+/*0x0ec*/ unsigned int          LastCastTime;
+/*0x0f0*/ int                   MerchantQuantity;
+/*0x0f8*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0x110*/ int                   RealEstateID;
+/*0x114*/ int                   AugFlag;
+/*0x118*/ bool                  bRankDisabled;
+/*0x119*/ bool                  bDisableAugTexture;
+/*0x11a*/ EqItemGuid            ItemGUID;
+/*0x130*/ int64_t               DontKnow;
+/*0x138*/ int                   Luck;
+/*0x13c*/ int                   ScriptIndex;
+/*0x140*/ unsigned int          RespawnTime;
+/*0x144*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT ItemBase();
@@ -1400,8 +1402,8 @@ public:
 	__declspec(property(get = get_Item2)) ItemDefinition* Item2;
 };
 
-// @sizeof(ItemClient) == 0x158 :: 2022-11-10 (live) @ 0x140263fca
-constexpr size_t ItemClient_size = 0x158;
+// @sizeof(ItemClient) == 0x160 :: 2022-11-22 (test) @ 0x14026838a
+constexpr size_t ItemClient_size = 0x160;
 
 class [[offsetcomments]] ItemClient : public ItemBase
 {
@@ -1413,9 +1415,9 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
-/*0x140*/ ItemDefinitionPtr SharedItemDef;
-/*0x150*/ CXStr             ClientString;
-/*0x158*/
+/*0x148*/ ItemDefinitionPtr SharedItemDef;
+/*0x158*/ CXStr             ClientString;
+/*0x160*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);
