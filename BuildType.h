@@ -28,7 +28,7 @@
 #include "eqgame.h"
 
 // Defines the expansion level of this build.
-#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_TOL
+#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_NOS
 
 
 #define IS_EXPANSION_LEVEL(x) (MQ_EXPANSION_LEVEL >= x)
