@@ -1140,4 +1140,7 @@ constexpr int ZONE_COUNT = 851;
 // Ratio for converting from degrees to eq heading. EQ uses 512 unit headings.
 constexpr const float DEG_TO_HEADING_RATIO = 360.f / 512.f;
 
+// Experience percentage ratio
+constexpr const float EXP_TO_PCT_RATIO = 1000.0f;
+
 } // namespace eqlib
