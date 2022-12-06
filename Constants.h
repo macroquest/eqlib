@@ -554,7 +554,7 @@ constexpr int NUM_HOTBUTTON_PAGES = 10;
 constexpr int HOTBUTTONS_PER_PAGE = 12;
 
 // KeypressHandler__HandleKeyUp_x has this one
-constexpr int nEQMappableCommands = 546;
+constexpr int nEQMappableCommands = 547;
 
 // found using __BindList_x
 constexpr int nNormalEQMappableCommands = nEQMappableCommands - 22;
@@ -1056,7 +1056,7 @@ constexpr int EQ_OVERHEAD_CAM = 1;
 constexpr int EQ_CHASE_CAM = 2;
 constexpr int EQ_USER_CAM_1 = 3;
 constexpr int EQ_USER_CAM_2 = 4;
-constexpr int EQ_MAX_CAMERAS = 9;
+constexpr int EQ_MAX_CAMERAS = 8;
 
 // Spell targeting types
 constexpr int TT_PBAE = 4;
@@ -1133,7 +1133,7 @@ enum class ServerID : int {
 
 
 // zones
-constexpr int ZONE_COUNT = 851;
+constexpr int ZONE_COUNT = 859;
 
 // Math
 

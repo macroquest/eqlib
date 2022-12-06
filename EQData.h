@@ -1148,9 +1148,19 @@ struct [[offsetcomments]] EQLogin
 /*0x6dc*/
 };
 
+// keyring: 2010592 2008511 2010564 2011970 2016968
 
 // User owns the "Merchant" Perk which grants 2 additional inventory slots.
 constexpr int EQFeature_MerchantPerk = 2012274;
+
+// User has access to the dragorn hoard
+constexpr int EQFeature_DragonHoard = 2016763;
+
+// User has access to the Tradeskill Depot feature
+constexpr int EQFEature_TradeskillDepot = 2018125;
+
+// Extra slots for the Tradeskill Depot feature.
+constexpr int EQFeature_TradeskillDepotSlots = 2018260;
 
 struct [[offsetcomments]] ClaimData
 {

@@ -559,7 +559,7 @@ public:
 /*0x078*/ virtual int GetCollisionVolumeType() const = 0;
 /*0x080*/ virtual CSphere GetCollisionVolumeSphere() const = 0;
 /*0x088*/ virtual float GetCollisionVolumeRadius() const = 0;
-/*0x090*/ virtual void SetCllisionVolumeRadius(float) = 0;
+/*0x090*/ virtual void SetCollisionVolumeRadius(float) = 0;
 /*0x098*/ virtual CAABox GetCollisionBox(bool, bool) const = 0;
 /*0x0a0*/ virtual void SetCollisionRestrictionMask(uint32_t) = 0;
 /*0x0a8*/ virtual uint32_t GetCollisionRestrictionMask() const = 0;
@@ -658,8 +658,8 @@ public:
 /*0x368*/ virtual void SetAttachedActor(CBoneInterface*, CActorInterface*) = 0;
 /*0x370*/ virtual void SetAttachedActor(int, CActorInterface*) = 0;
 /*0x378*/ virtual void SetAttachedActorSprite(int, CActorInterface*) = 0;
-/*0x380*/ virtual CBoneInterface* GetBone(const char*) = 0;
-/*0x388*/ virtual CBoneInterface* GetBone(int) = 0;
+/*0x380*/ virtual CBoneInterface* GetBone(int) = 0;
+/*0x388*/ virtual CBoneInterface* GetBone(const char*) = 0;
 /*0x390*/ virtual CBoneInterface* GetBoneByIndex(int) const = 0;
 /*0x398*/ virtual CBoneGroupInterface* GetBoneGroup(int) const = 0;
 /*0x3a0*/ virtual int PlayWeaponAnimation(int, const char*, const char*, float, bool, int, float) = 0;
