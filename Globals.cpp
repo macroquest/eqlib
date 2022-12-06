@@ -986,7 +986,7 @@ ForeignPointer<CCombatSkillsSelectWnd>           pCombatSkillsSelectWnd;
 ForeignPointer<CCompassWnd>                      pCompassWnd;
 ForeignPointer<CSidlScreenWnd>                   pContextTipWnd;
 ForeignPointer<CCursorAttachment>                pCursorAttachment;
-ForeignPointer<CSidlScreenWnd>                   pDragonHoardWnd;
+ForeignPointer<CDragonHoardWnd>                  pDragonHoardWnd;
 ForeignPointer<CSidlScreenWnd>                   pDynamicZoneWnd;
 ForeignPointer<CEditLabelWnd>                    pEditLabelWnd;
 ForeignPointer<CEQMainWnd>                       pEQMainWnd;

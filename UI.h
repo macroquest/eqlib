@@ -3146,6 +3146,30 @@ public:
 };
 
 //============================================================================
+// CDragonHoardWnd
+//============================================================================
+
+class [[offsetcomments]] CDragonHoardWnd : public CSidlScreenWnd, public WndEventHandler
+{
+public:
+	FORCE_SYMBOLS;
+
+/*0x2e8*/ CListWnd*     pItemList;          // DH_Item_List
+/*0x2f0*/ CButtonWnd*   pInspectButton;     // DH_Inspect_Button
+/*0x2f8*/ CButtonWnd*   pPreviewButton;     // DH_Preview_Button
+/*0x300*/ CLabel*       pSelectedItemLabel; // DH_Selected_Item_Label
+/*0x308*/ CButtonWnd*   pSelectedItemSlot;  // DH_Selected_Item_Slot
+/*0x310*/ CButtonWnd*   pRetrieveButton;    // DH_Retrieve_Button
+/*0x318*/ CButtonWnd*   pExitButton;        // DH_Exit_Button
+/*0x320*/ CLabel*       pItemCountNumber;   // DH_Item_Count_Number
+/*0x328*/ ItemContainer Items;
+/*0x350*/ bool          bNeedsUpdate;
+/*0x358*/ ItemPtr       pSelectedItem;
+/*0x360*/ uint32_t      SelectedItemId;
+/*0x368*/
+};
+
+//============================================================================
 // CExtendedTargetWnd
 //============================================================================
 
@@ -5923,13 +5947,12 @@ public:
 // CTradeSkillDepotWnd
 //============================================================================
 
-// size: 0x380
-class [[offsetcomments]] TradeskillDepotWnd : public CSidlScreenWnd, public WndEventHandler
+class [[offsetcomments]] CTradeskillDepotWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
 	FORCE_SYMBOLS;
 
-/*0x2e8*/ CListWnd*     pItemList;          // TD_Item_List 2e8
+/*0x2e8*/ CListWnd*     pItemList;          // TD_Item_List
 /*0x2f0*/ CButtonWnd*   pInspectButton;     // TD_Inspect_Button
 /*0x2f8*/ CLabel*       pSelectedItemLabel; // TD_Selected_Item_Label
 /*0x300*/ CButtonWnd*   pSelectedItemSlot;  // TD_Selected_Item_Slot
@@ -5939,9 +5962,9 @@ public:
 /*0x320*/ CEditWnd*     pSearchItemInput;   // TD_SearchItem_Input
 /*0x328*/ CButtonWnd*   pSearchItemButton;  // TD_SearchItem_Button
 /*0x330*/ ItemContainer Items;
-/*0x358*/ bool          bRequestedUpdate;
+/*0x358*/ bool          bNeedsUpdate;
 /*0x360*/ ItemPtr       pSelectedItem;
-/*0x368*/ uint32_t      pSelectedItemIndex;
+/*0x368*/ uint32_t      SelectedItemID;
 /*0x370*/ uint64_t      lastUpdateTime;
 /*0x378*/ bool          bUnknown5;
 /*0x37c*/

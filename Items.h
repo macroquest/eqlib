@@ -329,6 +329,8 @@ public:
 
 	bool IsValidRange(const_iterator a, const_iterator b) const;
 
+	bool IsDynamic() const { return m_bDynamic; }
+
 	// Retrieves a range that is iterable using range based for.
 	auto GetRange(int beginSlot, int endSlot) const
 	{

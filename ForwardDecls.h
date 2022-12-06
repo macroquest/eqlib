@@ -76,6 +76,7 @@ class CContextMenuManager;
 class CControlTemplate;
 class CCursorAttachment;
 class CDisplay;
+class CDragonHoardWnd;
 class CEditBaseWnd;
 class CEditboxTemplate;
 class CEditLabelWnd;

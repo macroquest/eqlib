@@ -1363,7 +1363,10 @@ public:
 /*0x23d0*/ CXStr                                 OverflowBuffer;                  // ItemOverflow
 /*0x23d8*/ CXStr                                 DragonHoardBuffer;               // DragonHoardInstanceData
 /*0x23e0*/ CXStr                                 TradeskillDepotBuffer;           // PersonalTradeskillDepotInstanceData
-/*0x23e8*/ uint64_t                              Unknown23e8[2];
+/*0x23e8*/ bool                                  DragonHoardPopulated;
+/*0x23ec*/ uint32_t                              DragonHoardCapacity;
+/*0x23f0*/ uint32_t                              TradeskillDepotCapacity;
+/*0x23f4*/ uint32_t                              TradeskillDepotPopulated;
 /*0x23f8*/ uint32_t                              AltStorageTimestamp;             // AltStorageTimestamp
 /*0x23fc*/ ELockoutCharacterReason               LockoutCharacterReason;
 /*0x2400*/ HashTable<ProgressionExperience>      ProgressionExp;
@@ -1428,6 +1431,9 @@ public:
 
 	int GetAirSupply() const { return AirSupply; }
 	int GetLevel() const { return GetCurrentPcProfile()->Level; }
+
+	int GetTradeskillDepotCapacity() const { return TradeskillDepotCapacity; }
+	bool GetTradeskillDepotPopulated() const { return TradeskillDepotPopulated != 0; }
 
 	ALT_MEMBER_GETTER(int, GoodPointsAvailable, RadiantCrystals);
 	ALT_MEMBER_GETTER(int, EvilPointsAvailable, EbonCrystals);

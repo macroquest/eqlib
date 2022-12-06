@@ -922,7 +922,7 @@ EQLIB_VAR ForeignPointer<CCombatSkillsSelectWnd>     pCombatSkillsSelectWnd;
 EQLIB_VAR ForeignPointer<CCompassWnd>                pCompassWnd;
 EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pContextTipWnd;
 EQLIB_VAR ForeignPointer<CCursorAttachment>          pCursorAttachment;
-EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pDragonHoardWnd;
+EQLIB_VAR ForeignPointer<CDragonHoardWnd>            pDragonHoardWnd;
 EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pDynamicZoneWnd;
 EQLIB_VAR ForeignPointer<CEditLabelWnd>              pEditLabelWnd;
 EQLIB_VAR ForeignPointer<CEQMainWnd>                 pEQMainWnd;
