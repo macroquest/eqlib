@@ -958,11 +958,10 @@ public:
 	EQLIB_OBJECT void ResetSwitchState(unsigned char);
 	EQLIB_OBJECT void UseSwitch(UINT SpawnID, int KeyID, int PickSkill, const CVector3* hitloc = 0);
 
-/*0x08*/ BYTE          ObjType;                  // always 5
-/*0x09*/ BYTE          ID;
-/*0x0a*/ char          Name[0x20];
-/*0x2a*/ BYTE          Type;
-/*0x2b*/ BYTE          State;                    // 0 = closed, 1 = open, 2 = opening, 3 = closing
+/*0x08*/ BYTE          ID;
+/*0x09*/ char          Name[0x20];
+/*0x29*/ BYTE          Type;
+/*0x2a*/ BYTE          State;                    // 0 = closed, 1 = open, 2 = opening, 3 = closing
 /*0x2c*/ float         DefaultY;
 /*0x30*/ float         DefaultX;
 /*0x34*/ float         DefaultZ;
