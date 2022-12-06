@@ -99,6 +99,9 @@
 // Teleportation Keyring added with Terror of Luclin expansion
 #define HAS_TELEPORTATION_KEYRING IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
 
+// Tradeskill Depot was added with Night of Shadows expansion
+#define HAS_TRADESKILL_DEPOT IS_EXPANSION_LEVEL(EXPANSION_LEVEL_NOS)
+
 //----------------------------------------------------------------------------
 // Legacy Defines
 

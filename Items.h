@@ -79,6 +79,8 @@ enum ItemContainerInstance
 	eItemContainerViewModTeleportationKeyRingItems = 36,
 	eItemContainerOverflow                       = 37,
 	eItemContainerDragonHoard                    = 38,
+	eItemContainerTradeskillDepot                = 39,
+	eItemContainerGuildTradeskillDepot           = 40,
 
 	eNumItemContainers,
 };
@@ -326,6 +328,8 @@ public:
 	inline const_iterator cend() const { return m_items.cend(); }
 
 	bool IsValidRange(const_iterator a, const_iterator b) const;
+
+	bool IsDynamic() const { return m_bDynamic; }
 
 	// Retrieves a range that is iterable using range based for.
 	auto GetRange(int beginSlot, int endSlot) const

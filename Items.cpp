@@ -91,14 +91,16 @@ const char* szContainerInstanceNames[] = {
 	"Unknown(32)",
 	"Hero Forge Keyring",
 	"Unknown(34)",
+	"Teleportation Keyring",
+	"Unknown(36)",
 	"Overflow",
 	"Dragon Hoard",
+	"Personal Tradeskill Depot",
 
 	// Some extra in case of expansion in the future
-	"Unknown(37)",
-	"Unknown(38)",
-	"Unknown(39)",
 	"Unknown(40)",
+	"Unknown(41)",
+	"Unknown(42)",
 };
 
 const char* GetNameForContainerInstance(ItemContainerInstance container)

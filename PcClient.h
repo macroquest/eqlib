@@ -1498,6 +1498,9 @@ public:
 	int GetAirSupply() const { return AirSupply; }
 	int GetLevel() const { return GetCurrentPcProfile()->Level; }
 
+	int GetTradeskillDepotCapacity() const { return 0; }
+	bool GetTradeskillDepotPopulated() const { return false; }
+
 	// Advanced Loot is not available
 	bool get_UseAdvancedLooting() const { return false; }
 	__declspec(property(get = get_UseAdvancedLooting)) bool UseAdvancedLooting;
