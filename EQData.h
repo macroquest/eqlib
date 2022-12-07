@@ -1161,7 +1161,7 @@ constexpr int EQFeature_MerchantPerk = 2012274;
 constexpr int EQFeature_DragonHoard = 2016763;
 
 // User has access to the Tradeskill Depot feature
-constexpr int EQFEature_TradeskillDepot = 2018125;
+constexpr int EQFeature_TradeskillDepot = 2018125;
 
 // Extra slots for the Tradeskill Depot feature.
 constexpr int EQFeature_TradeskillDepotSlots = 2018260;
