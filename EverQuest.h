@@ -67,7 +67,7 @@ enum EPlace
 };
 
 // size of zoneHeader is the distance from this byte to the zoneHeader
-// @sizeof(zoneHeader) == 0x2a4 :: 2022-11-22 (test) @ 0x140b89f28
+// @sizeof(zoneHeader) == 0x2a4 :: 2022-12-07 (live) @ 0x140b89f28
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -314,26 +314,26 @@ struct [[offsetcomments]] EQGameOptions
 /*0x80*/ int               maxFPS;
 /*0x84*/ int               maxBGFPS;
 /*0x88*/ int               nameFlashSpeed;
-/*0x88*/ int               nLODBias;
-/*0x8c*/ bool              lootAllConfirm;
-/*0x8d*/ bool              dismissMercenaryConfirm;
-/*0x8e*/ bool              raidInviteConfirm;
-/*0x8f*/ bool              offlineModeConfirm;
-/*0x90*/ bool              bagSellConfirm;
-/*0x91*/ bool              bagSellContentsConfirm;
-/*0x92*/ bool              tributeAutoOff;
-/*0x93*/ bool              trophyTributeAutoOff;
-/*0x94*/ bool              parcelLimitLogoutConfirm;
-/*0x95*/ bool              saveSetConfirm;
-/*0x96*/ bool              blinkActiveChatWindow;
-/*0x97*/ bool              tradeskillLoreEquippedWarning;
-/*0x98*/ int               loadScreenMode;
-/*0x9c*/
+/*0x8c*/ int               nLODBias;
+/*0x90*/ bool              lootAllConfirm;
+/*0x91*/ bool              dismissMercenaryConfirm;
+/*0x92*/ bool              raidInviteConfirm;
+/*0x93*/ bool              offlineModeConfirm;
+/*0x94*/ bool              bagSellConfirm;
+/*0x95*/ bool              bagSellContentsConfirm;
+/*0x96*/ bool              tributeAutoOff;
+/*0x97*/ bool              trophyTributeAutoOff;
+/*0x98*/ bool              parcelLimitLogoutConfirm;
+/*0x99*/ bool              saveSetConfirm;
+/*0x9a*/ bool              blinkActiveChatWindow;
+/*0x9b*/ bool              tradeskillLoreEquippedWarning;
+/*0x9c*/ int               loadScreenMode;
+/*0xa0*/
 };
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x6b150 :: 2022-11-22 (test) @ 0x140B89A90
+// @sizeof(EverQuestinfo) == 0x6b150 :: 2022-12-07 (live) @ 0x140b89a90
 constexpr size_t EverQuestinfo_size = 0x6b150;
 
 struct [[offsetcomments]] EverQuestinfo
@@ -555,7 +555,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x00cae*/ bool              bAllowPreLuclinMountRiders;
 /*0x00cb0*/ EQCamera*         cameras[EQ_MAX_CAMERAS];
 /*0x00cf0*/ bool              keyDown[nEQMappableCommands];
-/*0x00f12*/ char              LastTellFromList[NUM_REPLY_NAMES][EQ_MAX_NAME];
+/*0x00f13*/ char              LastTellFromList[NUM_REPLY_NAMES][EQ_MAX_NAME];
 /*0x01b94*/ int               LastTellFromIndex;
 /*0x01b98*/ char              LockPassword[64];
 /*0x01bd8*/ bool              bLoadFriendsList;
@@ -720,7 +720,7 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2022-11-22 (test) @ 0x1402EE473
+// @sizeof(CEverQuest) == 0x396f8 :: 2022-12-07 (live) @ 0x1402ee423
 constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
