@@ -550,8 +550,6 @@ ItemGlobalIndex CInvSlot::GetItemLocation() const
 CInvSlot* CInvSlotMgr::FindInvSlot(int topSlot, int subSlot /* = -1*/,
 	ItemContainerInstance location /* = eItemContainerPossessions*/, bool includeLinkedItems /*= true*/)
 {
-	UNUSED(includeLinkedItems);
-
 	if (topSlot < 0) return nullptr;
 
 	for (int i = 0; i < TotalSlots; ++i)
@@ -559,10 +557,16 @@ CInvSlot* CInvSlotMgr::FindInvSlot(int topSlot, int subSlot /* = -1*/,
 		CInvSlot* invSlot = SlotArray[i];
 		if (invSlot && invSlot->pInvSlotWnd)
 		{
-			const ItemGlobalIndex& loc = invSlot->pInvSlotWnd->ItemLocation;
+			CInvSlotWnd* pWnd = invSlot->pInvSlotWnd;
+
+			const ItemGlobalIndex& loc = pWnd->ItemLocation;
 
 			if (loc.GetLocation() == location && loc.GetTopSlot() == topSlot && loc.GetSlot(1) == subSlot)
 			{
+				// Skip invslots linked to items unless we explicitly requested one.
+				if (pWnd->bHotButton && !includeLinkedItems)
+					continue;
+
 				return invSlot;
 			}
 		}
