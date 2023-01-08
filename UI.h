@@ -5962,8 +5962,7 @@ inline namespace deprecated {
 // CTradeWnd
 //============================================================================
 
-// CTradeWnd__CTradeWnd aTradewnd
-// CTradeWnd__size: 0x2e8 (see 550E08) in Dec 19 2019 Live
+// size: 0x300
 class [[offsetcomments]] CTradeWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -6000,11 +5999,12 @@ public:
 /*0x25c*/ CInvSlotWnd*       pInvSlotWnd[MAX_TRADE_SLOTS];
 /*0x29c*/ long               HisMoney[4];
 /*0x2ac*/ long               MyMoney[4];
-/*0x2bc*/ ItemContainer      TradeItems;
-/*0x2f4*/ bool               bHisReadyTrade;           // was HisTradeReady
-/*0x2f5*/ bool               bMyReadyTrade;            // was MyTradeReady
-/*0x2f6*/ bool               bIsTrading;               // was TradeWndOpen
-/*0x2f8*/
+/*0x2bc*/ uint32_t           Unknown0x2bc;
+/*0x2c0*/ ItemContainer      TradeItems;
+/*0x2f8*/ bool               bHisReadyTrade;           // was HisTradeReady
+/*0x2f9*/ bool               bMyReadyTrade;            // was MyTradeReady
+/*0x2fa*/ bool               bIsTrading;               // was TradeWndOpen
+/*0x2fc*/
 
 	inline ItemContainer& GetTradeItems() { return TradeItems; }
 	// TODO: Add aliases
