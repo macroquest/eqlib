@@ -375,7 +375,6 @@ public:
 	EQLIB_OBJECT CXWnd* SetFocus();
 	EQLIB_OBJECT void ClrFocus();
 	EQLIB_OBJECT int Destroy();
-	EQLIB_OBJECT void Refade();
 	EQLIB_OBJECT int ProcessTransition();
 	EQLIB_OBJECT void BringToTop(bool bRecurse = true);
 	EQLIB_OBJECT void StartFade(unsigned char, uint32_t);
@@ -575,6 +574,12 @@ public:
 		}
 
 		return 0;
+	}
+
+	void Refade()
+	{
+		Faded = true;
+		LastTimeMouseOver = 0;
 	}
 
 	struct [[offsetcomments]] VirtualFunctionTable

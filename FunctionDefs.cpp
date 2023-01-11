@@ -46,9 +46,6 @@ FUNCTION_AT_ADDRESS(void, CXWnd::ClrFocus(), CXWnd__ClrFocus);
 #ifdef CXWnd__Destroy_x
 FUNCTION_AT_ADDRESS(int, CXWnd::Destroy(), CXWnd__Destroy);
 #endif
-#ifdef CXWnd__Refade_x
-FUNCTION_AT_ADDRESS(void, CXWnd::Refade(), CXWnd__Refade);
-#endif
 #ifdef CXWnd__ProcessTransition_x
 FUNCTION_AT_ADDRESS(int, CXWnd::ProcessTransition(), CXWnd__ProcessTransition);
 #endif

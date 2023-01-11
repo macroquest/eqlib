@@ -625,7 +625,6 @@ EQLIB_VAR uintptr_t CXWnd__IsReallyVisible;
 EQLIB_VAR uintptr_t CXWnd__IsType;
 EQLIB_VAR uintptr_t CXWnd__Minimize;
 EQLIB_VAR uintptr_t CXWnd__ProcessTransition;
-EQLIB_VAR uintptr_t CXWnd__Refade;
 EQLIB_VAR uintptr_t CXWnd__Resize;
 EQLIB_VAR uintptr_t CXWnd__Right;
 EQLIB_VAR uintptr_t CXWnd__SetFocus;

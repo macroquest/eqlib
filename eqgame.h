@@ -602,7 +602,6 @@
 #define CXWnd__IsType_x                                            0x1405351D0
 #define CXWnd__Minimize_x                                          0x1405352C0
 #define CXWnd__ProcessTransition_x                                 0x140536300
-#define CXWnd__Refade_x                                            0x0
 #define CXWnd__Resize_x                                            0x140536410
 #define CXWnd__Right_x                                             0x1405364B0
 #define CXWnd__SetFocus_x                                          0x140536860
