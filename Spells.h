@@ -906,7 +906,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x210 :: 2022-12-13 (test) @ 0x14019e167
+// @sizeof(EQ_Spell) == 0x210 :: 2023-01-09 (test) @ 0x14019ee17
 constexpr size_t EQ_Spell_size = 0x210;
 
 class [[offsetcomments]] EQ_Spell
@@ -1307,7 +1307,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x39df60 :: 2022-12-13 (test) @ 0x1402260d6
+// @sizeof(ClientSpellManager) == 0x39df60 :: 2023-01-09 (test) @ 0x140226c26
 constexpr size_t ClientSpellManager_size = 0x39df60;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
