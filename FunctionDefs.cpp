@@ -3119,7 +3119,7 @@ FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetLastEffectSlot(bool), Character
 FUNCTION_AT_ADDRESS(bool, CharacterZoneClient::IsSpellTooPowerfull(EQ_Spell*, CharacterZoneClient*), CharacterZoneClient__IsSpellTooPowerfull);
 #endif
 #ifdef CharacterZoneClient__HitBySpell_x
-FUNCTION_AT_ADDRESS(void, CharacterZoneClient::HitBySpell(struct _EQMissileHitinfo*), CharacterZoneClient__HitBySpell);
+FUNCTION_AT_ADDRESS(void, CharacterZoneClient::HitBySpell(struct EQMissileHitinfo*), CharacterZoneClient__HitBySpell);
 #endif
 #ifdef CharacterZoneClient__EQSPA_Feign_Death_x
 FUNCTION_AT_ADDRESS(void, CharacterZoneClient::EQSPA_Feign_Death(int), CharacterZoneClient__EQSPA_Feign_Death);

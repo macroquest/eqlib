@@ -129,6 +129,7 @@
 ////
 // Section 3: Miscellaneous Offsets
 ////
+#define __allowslashcommand_x                                      0x1402051A0
 #define __CastRay_x                                                0x1401FDD40
 #define __CastRay2_x                                               0x1401FDA50
 #define __ConvertItemTags_x                                        0x1401FE140
@@ -216,6 +217,7 @@
 #define CharacterZoneClient__GetPCSpellAffect_x                    0x1400AA470
 #define CharacterZoneClient__GetPctModAndMin_x                     0x14009F130
 #define CharacterZoneClient__HasSkill_x                            0x1400C5680
+#define CharacterZoneClient__HitBySpell_x                          0x1400AAF10
 #define CharacterZoneClient__IsStackBlocked_x                      0x1400AE780
 #define CharacterZoneClient__MakeMeVisible_x                       0x1400C98E0
 #define CharacterZoneClient__Max_Endurance_x                       0x140299D70  // PcZoneClient::Max_Endurance
@@ -619,6 +621,7 @@
 #define CScreenPieceTemplate__IsType_x                             0x140573AE0
 
 // CXWndManager
+#define CXWndManager__DestroyAllWindows_x                          0x140538220
 #define CXWndManager__DrawCursor_x                                 0x140538500
 #define CXWndManager__DrawWindows_x                                0x140538630
 #define CXWndManager__GetKeyboardFlags_x                           0x140538CF0
