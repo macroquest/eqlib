@@ -67,7 +67,7 @@ enum EPlace
 };
 
 // size of zoneHeader is the distance from this byte to the zoneHeader
-// @sizeof(zoneHeader) == 0x2a4 :: 2023-01-09 (test) @ 0x140b89e68
+// @sizeof(zoneHeader) == 0x2a4 :: 2023-01-11 (live) @ 0x140b89e68
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -314,26 +314,26 @@ struct [[offsetcomments]] EQGameOptions
 /*0x80*/ int               maxFPS;
 /*0x84*/ int               maxBGFPS;
 /*0x88*/ int               nameFlashSpeed;
-/*0x88*/ int               nLODBias;
-/*0x8c*/ bool              lootAllConfirm;
-/*0x8d*/ bool              dismissMercenaryConfirm;
-/*0x8e*/ bool              raidInviteConfirm;
-/*0x8f*/ bool              offlineModeConfirm;
-/*0x90*/ bool              bagSellConfirm;
-/*0x91*/ bool              bagSellContentsConfirm;
-/*0x92*/ bool              tributeAutoOff;
-/*0x93*/ bool              trophyTributeAutoOff;
-/*0x94*/ bool              parcelLimitLogoutConfirm;
-/*0x95*/ bool              saveSetConfirm;
-/*0x96*/ bool              blinkActiveChatWindow;
-/*0x97*/ bool              tradeskillLoreEquippedWarning;
-/*0x98*/ int               loadScreenMode;
-/*0x9c*/
+/*0x8c*/ int               nLODBias;
+/*0x90*/ bool              lootAllConfirm;
+/*0x91*/ bool              dismissMercenaryConfirm;
+/*0x92*/ bool              raidInviteConfirm;
+/*0x93*/ bool              offlineModeConfirm;
+/*0x94*/ bool              bagSellConfirm;
+/*0x95*/ bool              bagSellContentsConfirm;
+/*0x96*/ bool              tributeAutoOff;
+/*0x97*/ bool              trophyTributeAutoOff;
+/*0x98*/ bool              parcelLimitLogoutConfirm;
+/*0x99*/ bool              saveSetConfirm;
+/*0x9a*/ bool              blinkActiveChatWindow;
+/*0x9b*/ bool              tradeskillLoreEquippedWarning;
+/*0x9c*/ int               loadScreenMode;
+/*0xa0*/
 };
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x6b150 :: 2023-01-09 (test) @ 0x140b899d0
+// @sizeof(EverQuestinfo) == 0x6b150 :: 2023-01-11 (live) @ 0x140b899d0
 constexpr size_t EverQuestinfo_size = 0x6b150;
 
 struct [[offsetcomments]] EverQuestinfo
@@ -720,7 +720,7 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2023-01-09 (test) @ 0x1402ef2f3
+// @sizeof(CEverQuest) == 0x396f8 :: 2023-01-11 (live) @ 0x1402ef613
 constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
