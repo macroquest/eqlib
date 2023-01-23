@@ -27,7 +27,7 @@ namespace eqlib {
 
 EQ_Spell::EQ_Spell()
 {
-	for (int i = 0; 0 < MAX_EFFECT_SLOTS; ++i)
+	for (int i = 0; i < MAX_EFFECT_SLOTS; ++i)
 	{
 		Base[i] = 0;
 		Base2[i] = 0;
