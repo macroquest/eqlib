@@ -272,7 +272,6 @@ bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo)
 	for (int i = 0; i < MAX_AUG_SOCKETS; ++i)
 	{
 		ch += sscanf_s(data, "%5X", &linkInfo.sockets[i]); data += 5;
-		ch += sscanf_s(data, "%5X", &linkInfo.socketLuck[i]); data += 5;
 	}
 
 	int isEvolving = 0;
@@ -281,11 +280,10 @@ bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo)
 	ch += sscanf_s(data, "%4X", &linkInfo.evolutionGroup); data += 4;
 	ch += sscanf_s(data, "%2X", &linkInfo.evolutionLevel); data += 2;
 	ch += sscanf_s(data, "%5X", &linkInfo.ornamentationIconID); data += 5;
-	ch += sscanf_s(data, "%5X", &linkInfo.luck); data += 5;
 	ch += sscanf_s(data, "%8X", &linkInfo.itemHash);
 
 	// count number of items returned.
-	return ch == (2 * MAX_AUG_SOCKETS) + 7;
+	return ch == (MAX_AUG_SOCKETS) + 6;
 }
 
 static int TagCodeToWndNotification(ETagCodes tagCode)
