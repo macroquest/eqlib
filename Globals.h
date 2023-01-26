@@ -1116,6 +1116,7 @@ EQLIB_VAR const char* szExpansions[NUM_EXPANSIONS + 1];
 
 EQLIB_VAR uintptr_t __eqgraphics_fopen;
 EQLIB_VAR uintptr_t CParticleSystem__Render;
+EQLIB_VAR uintptr_t CParticleSystem__CreateSpellEmitter;
 EQLIB_VAR uintptr_t CRender__RenderScene;
 EQLIB_VAR uintptr_t CRender__RenderBlind;
 EQLIB_VAR uintptr_t CRender__UpdateDisplay;
