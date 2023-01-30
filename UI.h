@@ -34,10 +34,6 @@
 
 struct IShellFolder;
 
-// from shtypes.h
-struct _ITEMIDLIST;
-using LPITEMIDLIST = _ITEMIDLIST *;
-
 namespace eqlib {
 
 //----------------------------------------------------------------------------
@@ -3415,6 +3411,9 @@ public:
 	virtual ~CFileSelectionWnd();
 
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
+
+	// would be LPITEMIDLIST from shtypes.h
+	using LPITEMIDLIST = void*;
 
 	EQLIB_OBJECT CXStr GetSelectedFile(int);
 	EQLIB_OBJECT int GetSelectedFileCount();
