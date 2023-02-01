@@ -214,7 +214,7 @@ void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* a
 		AchievementManager::Instance().GetAchievementIndexById(achievement->id)))
 	{
 		fmt::memory_buffer mbuf;
-		fmt::format_to(std::back_inserter(mbuf), "{}^{}^{}", playerName, achievement->id, achievementInfo.achievementState);
+		fmt::format_to(std::back_inserter(mbuf), "{}^{}^{}", playerName, achievement->id, static_cast<int>(achievementInfo.achievementState));
 
 		for (int index = 0; index < achievementInfo.completionComponentStatusBitField.GetNumElements(); ++index)
 			fmt::format_to(std::back_inserter(mbuf), "{}^", achievementInfo.completionComponentStatusBitField.GetElement(index));
