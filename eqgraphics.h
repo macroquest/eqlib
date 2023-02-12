@@ -27,7 +27,7 @@
 #define CRender__RenderBlind_x                                     0x1800BA820
 #define CRender__ResetDevice_x                                     0x1800BB4B0
 #define CRender__UpdateDisplay_x                                   0x1800BC6D0
-#define __bRenderSceneCalled_x                                     0x180224110
+#define __bRenderSceneCalled_x                                     0x1802240E0
 
 #define C2DPrimitiveManager__AddCachedText_x                       0x1800D4530
 
