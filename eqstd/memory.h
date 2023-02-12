@@ -9,8 +9,8 @@
 
 #include "eqlib/Allocator.h"
 
-#include "eqstd/type_traits.h"
-#include "eqstd/xmemory.h"
+#include "eqlib/eqstd/type_traits.h"
+#include "eqlib/eqstd/xmemory.h"
 
 #include <atomic>
 #include <memory>
@@ -123,7 +123,7 @@ class shared_ptr;
 template <class _Ty>
 class weak_ptr;
 
-template <class _Ty, class _Dx = default_delete<_Ty>>
+template <class _Ty, class _Dx = _STD default_delete<_Ty>>
 class unique_ptr;
 
 template <class _Yty, class = void>

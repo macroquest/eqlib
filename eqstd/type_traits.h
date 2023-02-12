@@ -52,6 +52,7 @@ namespace eqstd {
 	using std::is_pointer_v;
 	using std::remove_pointer_t;
 	using std::is_volatile;
+	using std::is_nothrow_constructible_v;
 
 	template <class _Ty>
 	using _Remove_cvref_t = remove_cv_t<remove_reference_t<_Ty>>;

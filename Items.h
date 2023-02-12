@@ -1230,47 +1230,47 @@ class [[offsetcomments]] ItemBase : public IChildItemContainer
 {
 public:
 // @start: ItemBase Members
-/*0x018*/ ItemEvolutionDataPtr  pEvolutionData;
-/*0x028*/ int                   ConvertItemID;
-/*0x02c*/ int                   NoteStatus;
-/*0x030*/ unsigned int          NewArmorID;
-/*0x038*/ SoeUtil::String       SaveString;
-/*0x050*/ bool                  bItemNeedsUpdate;
-/*0x054*/ int                   AugFlag;
-/*0x058*/ int                   ScriptIndex;
-/*0x05c*/ int                   MerchantQuantity;
-/*0x060*/ int                   RealEstateID;
-/*0x064*/ int                   Charges;
-/*0x068*/ ArrayClass<uint32_t>  RealEstateArray;
-/*0x080*/ CXStr                 ConvertItemName;
-/*0x088*/ int                   OrnamentationIcon;
-/*0x08c*/ int                   StackCount;
-/*0x090*/ int                   NoDropFlag;
-/*0x094*/ unsigned int          RespawnTime;
-/*0x098*/ unsigned int          ItemHash;
-/*0x09c*/ bool                  bConvertable;
-/*0x0a0*/ int64_t               MerchantSlot;
-/*0x0a8*/ int64_t               DontKnow;
-/*0x0b0*/ ITEMINFO*             Item1;
-/*0x0b8*/ int                   Luck;
-/*0x0bc*/ int                   ArmorType;
-/*0x0c0*/ bool                  bCopied;
-/*0x0c8*/ int64_t               Price;
-/*0x0d0*/ int                   ActorTag2;
-/*0x0d4*/ bool                  bRankDisabled;
-/*0x0d8*/ ItemContainer         Contents;
-/*0x100*/ bool                  bDisableAugTexture;
-/*0x101*/ bool                  bRealEstateItemPlaceable;
-/*0x104*/ int                   ID;
-/*0x108*/ int                   Power;
-/*0x10c*/ int                   ActorTag1;
-/*0x110*/ int                   Open;
-/*0x114*/ EqItemGuid            ItemGUID;
-/*0x128*/ unsigned int          Tint;
-/*0x12c*/ bool                  bCollected;
-/*0x130*/ ItemGlobalIndex       GlobalIndex;
-/*0x13c*/ unsigned int          LastCastTime;
-/*0x140*/
+/*0x008*/ ItemEvolutionDataPtr  pEvolutionData;
+/*0x018*/ int                   ConvertItemID;
+/*0x01c*/ int                   NoteStatus;
+/*0x020*/ unsigned int          NewArmorID;
+/*0x028*/ SoeUtil::String       SaveString;
+/*0x040*/ bool                  bItemNeedsUpdate;
+/*0x044*/ int                   AugFlag;
+/*0x048*/ int                   ScriptIndex;
+/*0x04c*/ int                   MerchantQuantity;
+/*0x050*/ int                   RealEstateID;
+/*0x054*/ int                   Charges;
+/*0x058*/ ArrayClass<uint32_t>  RealEstateArray;
+/*0x070*/ CXStr                 ConvertItemName;
+/*0x078*/ int                   OrnamentationIcon;
+/*0x07c*/ int                   StackCount;
+/*0x080*/ int                   NoDropFlag;
+/*0x084*/ unsigned int          RespawnTime;
+/*0x088*/ unsigned int          ItemHash;
+/*0x08c*/ bool                  bConvertable;
+/*0x090*/ int64_t               MerchantSlot;
+/*0x098*/ int64_t               DontKnow;
+/*0x0a0*/ ITEMINFO*             Item1;
+/*0x0a8*/ int                   Luck;
+/*0x0ac*/ int                   ArmorType;
+/*0x0b0*/ bool                  bCopied;
+/*0x0b8*/ int64_t               Price;
+/*0x0c0*/ int                   ActorTag2;
+/*0x0c4*/ bool                  bRankDisabled;
+/*0x0c8*/ ItemContainer         Contents;
+/*0x0f0*/ bool                  bDisableAugTexture;
+/*0x0f1*/ bool                  bRealEstateItemPlaceable;
+/*0x0f4*/ int                   ID;
+/*0x0f8*/ int                   Power;
+/*0x0fc*/ int                   ActorTag1;
+/*0x100*/ int                   Open;
+/*0x104*/ EqItemGuid            ItemGUID;
+/*0x118*/ unsigned int          Tint;
+/*0x11c*/ bool                  bCollected;
+/*0x120*/ ItemGlobalIndex       GlobalIndex;
+/*0x12c*/ unsigned int          LastCastTime;
+/*0x130*/
 // @end: ItemBase Members
 
 	EQLIB_OBJECT ItemBase();
@@ -1429,9 +1429,9 @@ public:
 
 	EQLIB_OBJECT static ItemPtr Create() { return eqstd::make_shared<ItemClient>(); }
 
-/*0x140*/ ItemDefinitionPtr SharedItemDef;
-/*0x150*/ CXStr             ClientString;
-/*0x158*/
+/*0x130*/ ItemDefinitionPtr SharedItemDef;
+/*0x140*/ CXStr             ClientString;
+/*0x148*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);

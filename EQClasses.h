@@ -293,21 +293,21 @@ public:
 /*0x00*/ EQGroundItem*    pPrev;
 /*0x08*/ EQGroundItem*    pNext;
 /*0x10*/ ItemPtr          Item;
-/*0x18*/ DWORD            DropID;                   // unique id
-/*0x1c*/ DWORD            ZoneID;
-/*0x20*/ DWORD            DropSubID;                // zonefile id
-/*0x28*/ CActorInterface* pActor;
-/*0x30*/ char             Name[EQ_MAX_NAME];
-/*0x70*/ long             Expires;
-/*0x74*/ float            Heading;
-/*0x78*/ float            Pitch;
-/*0x7c*/ float            Roll;
-/*0x80*/ float            Scale;
-/*0x84*/ float            Y;
-/*0x88*/ float            X;
-/*0x8c*/ float            Z;
-/*0x90*/ int              Weight;                   // -1 means it can't be picked up
-/*0x94*/
+/*0x20*/ DWORD            DropID;                   // unique id
+/*0x24*/ DWORD            ZoneID;
+/*0x28*/ DWORD            DropSubID;                // zonefile id
+/*0x30*/ CActorInterface* pActor;
+/*0x38*/ char             Name[EQ_MAX_NAME];
+/*0x78*/ long             Expires;
+/*0x7c*/ float            Heading;
+/*0x80*/ float            Pitch;
+/*0x84*/ float            Roll;
+/*0x88*/ float            Scale;
+/*0x8c*/ float            Y;
+/*0x90*/ float            X;
+/*0x94*/ float            Z;
+/*0x98*/ int              Weight;                   // -1 means it can't be picked up
+/*0x9c*/
 
 	DEPRECATE("Use Item instead of ID/pContents") inline ItemPtr get_ID() const { return Item; }
 	DEPRECATE("Use Item instead of ID/pContents") inline void set_ID(ItemPtr ptr) { Item = ptr; }
