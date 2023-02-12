@@ -18,6 +18,9 @@
 
 #include "EQClasses.h"
 
+#include <utility>
+
+
 namespace eqlib {
 
 //============================================================================

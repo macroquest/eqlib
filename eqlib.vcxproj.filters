@@ -189,6 +189,12 @@
     <ClInclude Include="..\eqdata\spelleffects.h">
       <Filter>Header Files\eqdata</Filter>
     </ClInclude>
+    <ClInclude Include="eqstd\memory.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\type_traits.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">

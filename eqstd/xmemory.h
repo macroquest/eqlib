@@ -1,3 +1,9 @@
+// xmemory internal header
+
+// Copyright (c) Microsoft Corporation.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+// adapted for use with eqlib
 
 #pragma once
 
@@ -174,4 +180,12 @@ namespace eqstd
 
 	template <class _Alloc>
 	using _Container_proxy_ptr = _Fake_proxy_ptr_impl;
+
+#pragma warning(push)
+#pragma warning(disable : 4624) // '%s': destructor was implicitly defined as deleted
+	template <class _Ty>
+	struct _Wrap {
+		_Ty _Value; // workaround for "T^ is not allowed in a union"
+	};
+#pragma warning(pop)
 }

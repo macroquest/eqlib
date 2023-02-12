@@ -21,15 +21,9 @@
 #include "SoeUtil.h"
 
 #include "common/StringUtils.h"
+#include "eqstd/memory.h"
 
 namespace eqlib {
-
-class ItemClient;
-using ItemPtr = VePointer<ItemClient>;
-
-// Other names that have been used for an item, but we don't need them.
-using ItemClientPtr = ItemPtr;
-using ItemBasePtr = ItemPtr;
 
 // CONTENTS is now an alias of ItemClient
 using CONTENTS = ItemClient;
@@ -302,7 +296,24 @@ inline bool operator!=(const ItemGlobalIndex& lhs, const ItemGlobalIndex& rhs)
 
 //----------------------------------------------------------------------------
 
+class ItemBase;
+class ItemClient;
+
+using ItemPtr = eqstd::shared_ptr<ItemClient>;
+
+template <> struct has_implicit_shared_pointer_cast<ItemBase> : std::true_type {};
+template <> struct has_implicit_shared_pointer_cast<ItemClient> : std::true_type {};
+
+template <> struct can_adopt_shared_ptr_control_block<ItemBase> : std::true_type {};
+template <> struct can_adopt_shared_ptr_control_block<ItemClient> : std::true_type {};
+
+
+// Other names that have been used for an item, but we don't need them.
+using ItemClientPtr = ItemPtr;
+using ItemBasePtr = ItemPtr;
+
 using ItemArray = VeArray<ItemPtr>;
+
 
 class [[offsetcomments]] ItemContainer
 {
@@ -1264,7 +1275,6 @@ public:
 
 	EQLIB_OBJECT ItemBase();
 
-	// ItemClient::`vftable'{for `VeBaseReferenceCount'}
 	virtual ~ItemBase() {}
 	virtual ItemDefinition* GetItemDefinition() const;
 	virtual void SetItemDefinition(ItemDefinition* item);
@@ -1417,12 +1427,22 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
+	EQLIB_OBJECT static ItemPtr Create() { return eqstd::make_shared<ItemClient>(); }
+
 /*0x140*/ ItemDefinitionPtr SharedItemDef;
 /*0x150*/ CXStr             ClientString;
 /*0x158*/
 };
 
 SIZE_CHECK(ItemClient, ItemClient_size);
+
+//----------------------------------------------------------------------------
+
+inline void* adopt_existing_shared_ptr_control_block(const ItemBase& ptr)
+{
+	return (void*)(reinterpret_cast<const uint8_t*>(&ptr) - 0x10);
+}
+
 
 //----------------------------------------------------------------------------
 
