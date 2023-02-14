@@ -5954,19 +5954,21 @@ public:
 /*0x2a8*/ CListWnd*     pItemList;          // TD_Item_List
 /*0x2b0*/ CButtonWnd*   pInspectButton;     // TD_Inspect_Button
 /*0x2b8*/ CLabel*       pSelectedItemLabel; // TD_Selected_Item_Label
-/*0x2c0*/ CButtonWnd*   pSelectedItemSlot;  // TD_Selected_Item_Slot
-/*0x2c8*/ CButtonWnd*   pWithdrawButton;    // TD_Withdraw_Button
-/*0x2d0*/ CButtonWnd*   pExitButton;        // TD_Exit_Button
-/*0x2d8*/ CLabel*       pItemCountNumber;   // TD_Item_Count_Number
-/*0x2e0*/ CEditWnd*     pSearchItemInput;   // TD_SearchItem_Input
-/*0x2e8*/ CButtonWnd*   pSearchItemButton;  // TD_SearchItem_Button
-/*0x2f0*/ ItemContainer Items;
-/*0x318*/ bool          bNeedsUpdate;
-/*0x320*/ ItemPtr       pSelectedItem;
-/*0x330*/ uint32_t      SelectedItemID;
-/*0x338*/ uint64_t      lastUpdateTime;
-/*0x340*/ bool          bUnknown5;
-/*0x344*/
+/*0x2c0*/ CLabel*       pNoDataLabel;       // TD_NoDataLabel
+/*0x2c8*/ CXWnd*        pScreenHideList;    // TD_ScreenHideList
+/*0x2d0*/ CButtonWnd*   pSelectedItemSlot;  // TD_Selected_Item_Slot
+/*0x2d8*/ CButtonWnd*   pWithdrawButton;    // TD_Withdraw_Button
+/*0x2e0*/ CButtonWnd*   pExitButton;        // TD_Exit_Button
+/*0x2e8*/ CLabel*       pItemCountNumber;   // TD_Item_Count_Number
+/*0x2f0*/ CEditWnd*     pSearchItemInput;   // TD_SearchItem_Input
+/*0x2f8*/ CButtonWnd*   pSearchItemButton;  // TD_SearchItem_Button
+/*0x300*/ ItemContainer Items;
+/*0x328*/ bool          bNeedsUpdate;
+/*0x330*/ ItemPtr       pSelectedItem;
+/*0x340*/ uint32_t      SelectedItemID;
+/*0x348*/ uint64_t      lastUpdateTime;
+/*0x350*/ bool          bUnknown5;
+/*0x354*/
 };
 
 //============================================================================
