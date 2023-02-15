@@ -201,6 +201,150 @@
 		</Expand>
 	</Type>
 
+	<!-- VC 2013 -->
+	<Type Name="eqstd::unique_ptr&lt;*&gt;" Priority="MediumLow">
+		<SmartPointer Usage="Minimal">_Myptr</SmartPointer>
+		<DisplayString Condition="_Myptr == 0">empty</DisplayString>
+		<DisplayString Condition="_Myptr != 0">unique_ptr {*_Myptr}</DisplayString>
+		<Expand>
+			<Item Condition="_Myptr != 0" Name="[ptr]">_Myptr</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::unique_ptr&lt;*&gt;">
+		<SmartPointer Usage="Minimal">_Mypair._Myval2</SmartPointer>
+		<DisplayString Condition="_Mypair._Myval2 == 0">empty</DisplayString>
+		<DisplayString Condition="_Mypair._Myval2 != 0">unique_ptr {*_Mypair._Myval2}</DisplayString>
+		<Expand>
+			<Item Condition="_Mypair._Myval2 != 0" Name="[ptr]">_Mypair._Myval2</Item>
+			<Item Condition="_Mypair._Myval2 != 0" Name="[deleter]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+
+	<Type Name="eqstd::_Ref_count&lt;*&gt;">
+		<DisplayString>default</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Ptr</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2013 -->
+	<Type Name="eqstd::_Ref_count_del&lt;*&gt;" Priority="MediumLow">
+		<DisplayString>custom deleter</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Ptr</Item>
+			<Item Name="[deleter]">_Dtor</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::_Ref_count_del&lt;*&gt;">
+		<DisplayString>custom deleter</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2013 -->
+	<Type Name="eqstd::_Ref_count_del_alloc&lt;*&gt;" Priority="MediumLow">
+		<DisplayString>custom deleter, custom allocator</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Ptr</Item>
+			<Item Name="[deleter]">_Dtor</Item>
+			<Item Name="[allocator]">_Myal</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::_Ref_count_del_alloc&lt;*&gt;">
+		<DisplayString>custom deleter, custom allocator</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+			<Item Name="[allocator]">_Mypair._Myval2</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::_Ref_count_obj&lt;*&gt;">
+		<DisplayString>make_shared</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">($T1 *) &amp;_Storage</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2013 -->
+	<Type Name="eqstd::_Ref_count_obj_alloc&lt;*&gt;" Priority="MediumLow">
+		<DisplayString>allocate_shared</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">($T1 *) &amp;_Storage</Item>
+			<Item Name="[allocator]">_Myal</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::_Ref_count_obj_alloc&lt;*&gt;">
+		<DisplayString>allocate_shared</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">($T1 *) &amp;_Mypair._Myval2</Item>
+			<Item Name="[allocator]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2017, second toolset update -->
+	<Type Name="eqstd::_Ref_count_resource&lt;*&gt;">
+		<DisplayString>custom deleter</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2017, second toolset update -->
+	<Type Name="eqstd::_Ref_count_resource_alloc&lt;*&gt;">
+		<DisplayString>custom deleter, custom allocator</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+			<Item Name="[allocator]">_Mypair._Myval2</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::shared_ptr&lt;*&gt;">
+		<SmartPointer Usage="Minimal">_Ptr</SmartPointer>
+		<DisplayString Condition="_Rep == 0">empty</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr == 0">nullptr</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr != 0">{*_Ptr}</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks == 1)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks == 1)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<Expand>
+			<Item Condition="_Rep != 0" Name="[ptr]">_Ptr</Item>
+			<Item Condition="_Rep != 0" Name="[control block]">*_Rep</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::weak_ptr&lt;*&gt;">
+		<DisplayString Condition="_Rep == 0">empty</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr == 0">nullptr</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr != 0">{*_Ptr}</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 0)   &amp;&amp; (_Rep-&gt;_Weaks == 1)"  >expired [{_Rep-&gt;_Weaks} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 0)   &amp;&amp; (_Rep-&gt;_Weaks &gt; 1)">expired [{_Rep-&gt;_Weaks} weak refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<Expand>
+			<Item Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 0)" Name="[ptr]">_Ptr</Item>
+			<Item Condition="_Rep != 0" Name="[control block]">*_Rep</Item>
+		</Expand>
+	</Type>
+
 	<Type Name="eqlib::CXWnd">
 		<Intrinsic Name="getSidlMgr" Expression="*eqlib!pSidlMgr.m_ptr" />
 		<Intrinsic Name="getParamManager" Expression="&amp;(getSidlMgr()->XMLDataMgr)" />

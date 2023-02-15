@@ -1355,7 +1355,7 @@ public:
 	explicit operator bool() const { return m_pObject != nullptr; }
 
 	operator T* () { return m_pObject; }
-	operator const T* () const { return m_pObject; }
+	operator T* () const { return m_pObject; }
 
 	inline bool operator<(const VePointer& other) const
 	{
@@ -1376,6 +1376,8 @@ public:
 
 		m_pObject = nullptr;
 	}
+
+	int use_count() const { return static_cast<VeBaseReferenceCount*>(m_pObject)->GetReferenceCount(); }
 
 	[[nodiscard]] T* get() const { return m_pObject; }
 

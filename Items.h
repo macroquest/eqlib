@@ -1412,6 +1412,8 @@ public:
 
 	virtual ItemDefinition* GetItemDefinition() const override;
 
+	EQLIB_OBJECT static ItemPtr Create();
+
 /*0x140*/ int               Padding0x140;
 /*0x144*/ ItemDefinitionPtr SharedItemDef;
 /*0x14c*/ CXStr             ClientString;

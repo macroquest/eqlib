@@ -401,6 +401,11 @@ ItemDefinition* ItemClient::GetItemDefinition() const
 	return const_cast<ItemDefinition*>(Item1 ? Item1 : SharedItemDef.get());
 }
 
+ItemPtr ItemClient::Create()
+{
+	return eqNew<ItemClient>();
+}
+
 //----------------------------------------------------------------------------
 
 char* ItemIndex::FormatItemIndex(char* dest, size_t len) const
