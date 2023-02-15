@@ -220,6 +220,11 @@ public:
 	EQLIB_OBJECT CRadioGroup(CXStr name = {});
 	EQLIB_OBJECT virtual ~CRadioGroup();
 
+	CButtonWnd* GetButton(int index) const
+	{
+		return index >= 0 && index < Buttons.GetLength() ? Buttons[index].get() : nullptr;
+	}
+
 /*0x08*/ CXStr                    Name;
 /*0x10*/ ArrayClass<eqstd::shared_ptr<CButtonWnd>> Buttons;
 /*0x28*/ int                      CurSel = -1;
