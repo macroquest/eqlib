@@ -1353,7 +1353,7 @@ public:
 	explicit operator bool() const { return m_pObject != nullptr; }
 
 	operator T* () { return m_pObject; }
-	operator const T* () const { return m_pObject; }
+	operator T* () const { return m_pObject; }
 
 	inline bool operator<(const VePointer& other) const
 	{
