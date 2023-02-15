@@ -153,6 +153,8 @@
     <ClInclude Include="CXStr.h" />
     <ClInclude Include="CXWnd.h" />
     <ClInclude Include="eqstd\map.h" />
+    <ClInclude Include="eqstd\memory.h" />
+    <ClInclude Include="eqstd\type_traits.h" />
     <ClInclude Include="eqstd\xmemory.h" />
     <ClInclude Include="eqstd\xtree.h" />
     <ClInclude Include="Expansions.h" />

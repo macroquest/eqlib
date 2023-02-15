@@ -788,10 +788,10 @@ export ?ReplaceSelection@CEditWnd@eqlib@@QEAA_NVCXStr@2@_N@Z
 
 extern CInvSlot__GetItemBase
 
-; public: class eqlib::VePointer<class eqlib::ItemClient> eqlib::CInvSlot::GetItem(void)
-global ?GetItem@CInvSlot@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@XZ
-export ?GetItem@CInvSlot@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@XZ
-?GetItem@CInvSlot@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@XZ:
+; public: class eqstd::shared_ptr<class eqlib::ItemClient> eqlib::CInvSlot::GetItem(void)
+global ?GetItem@CInvSlot@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@XZ
+export ?GetItem@CInvSlot@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@XZ
+?GetItem@CInvSlot@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@XZ:
 	jmp [rel CInvSlot__GetItemBase]
 
 
@@ -957,18 +957,18 @@ export ?GetTabRect@CTabWnd@eqlib@@QEBA?AVCXRect@2@H@Z
 extern CharacterBase__GetItemByGlobalIndex
 extern CharacterBase__GetItemByGlobalIndex1
 
-; class eqlib::VePointer<class eqlib::ItemClient> eqlib::CharacterBase::GetItemByGlobalIndex(class eqlib::ItemGlobalIndex const &)const proc near
-global ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$VePointer@VItemClient@eqlib@@@2@AEBVItemGlobalIndex@2@@Z
-export ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$VePointer@VItemClient@eqlib@@@2@AEBVItemGlobalIndex@2@@Z
-?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$VePointer@VItemClient@eqlib@@@2@AEBVItemGlobalIndex@2@@Z:
+; class eqstd::shared_ptr<class eqlib::ItemClient> eqlib::CharacterBase::GetItemByGlobalIndex(class eqlib::ItemGlobalIndex const &)const
+global ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEBVItemGlobalIndex@2@@Z
+export ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEBVItemGlobalIndex@2@@Z
+?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEBVItemGlobalIndex@2@@Z:
 	jmp [rel CharacterBase__GetItemByGlobalIndex]
 
 
 
-; class eqlib::VePointer<class eqlib::ItemClient> eqlib::CharacterBase::GetItemByGlobalIndex(class eqlib::ItemGlobalIndex const &, enum eqlib::ItemContainer::CheckDepthOptions)const proc near
-global ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$VePointer@VItemClient@eqlib@@@2@AEBVItemGlobalIndex@2@W4CheckDepthOptions@ItemContainer@2@@Z
-export ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$VePointer@VItemClient@eqlib@@@2@AEBVItemGlobalIndex@2@W4CheckDepthOptions@ItemContainer@2@@Z
-?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$VePointer@VItemClient@eqlib@@@2@AEBVItemGlobalIndex@2@W4CheckDepthOptions@ItemContainer@2@@Z:
+; class eqstd::shared_ptr<class eqlib::ItemClient> eqlib::CharacterBase::GetItemByGlobalIndex(class eqlib::ItemGlobalIndex const &, enum eqlib::ItemContainer::CheckDepthOptions)const proc near
+global ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEBVItemGlobalIndex@2@W4CheckDepthOptions@ItemContainer@2@@Z
+export ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEBVItemGlobalIndex@2@W4CheckDepthOptions@ItemContainer@2@@Z
+?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEBVItemGlobalIndex@2@W4CheckDepthOptions@ItemContainer@2@@Z:
 	jmp [rel CharacterBase__GetItemByGlobalIndex1]
 
 
@@ -979,10 +979,10 @@ export ?GetItemByGlobalIndex@CharacterBase@eqlib@@QEBA?AV?$VePointer@VItemClient
 extern ItemClient__CreateItemClient
 
 
-; public: class eqlib::VePointer<class eqlib::ItemClient> eqlib::ItemBase::CreateItemClient(class eqlib::CUnSerializeBuffer &)
-global ?CreateItemClient@ItemBase@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@AEAVCUnSerializeBuffer@2@@Z
-export ?CreateItemClient@ItemBase@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@AEAVCUnSerializeBuffer@2@@Z
-?CreateItemClient@ItemBase@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@AEAVCUnSerializeBuffer@2@@Z:
+; class eqstd::shared_ptr<class eqlib::ItemClient> eqlib::ItemBase::CreateItemClient(class eqlib::CUnSerializeBuffer &)
+global ?CreateItemClient@ItemBase@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEAVCUnSerializeBuffer@2@@Z
+export ?CreateItemClient@ItemBase@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEAVCUnSerializeBuffer@2@@Z
+?CreateItemClient@ItemBase@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@AEAVCUnSerializeBuffer@2@@Z:
 	jmp [rel ItemClient__CreateItemClient]
 
 
@@ -1015,10 +1015,10 @@ export ?GetVisibilityLineSegment@PlayerBase@eqlib@@QEAA?AVCLineSegment@2@AEBV12@
 	jmp [rel PlayerBase__GetVisibilityLineSegment]
 
 
-; class eqlib::VePointer<class eqlib::ItemClient> eqlib::PcZoneClient::GetItemByID(int, class eqlib::ItemIndex *, bool) proc near
-global ?GetItemByID@PcZoneClient@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@HPEAVItemIndex@2@_N@Z
-export ?GetItemByID@PcZoneClient@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@HPEAVItemIndex@2@_N@Z
-?GetItemByID@PcZoneClient@eqlib@@QEAA?AV?$VePointer@VItemClient@eqlib@@@2@HPEAVItemIndex@2@_N@Z:
+; class eqstd::shared_ptr<class eqlib::ItemClient> eqlib::PcZoneClient::GetItemByID(int, class eqlib::ItemIndex *, bool) proc near
+global ?GetItemByID@PcZoneClient@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@HPEAVItemIndex@2@_N@Z
+export ?GetItemByID@PcZoneClient@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@HPEAVItemIndex@2@_N@Z
+?GetItemByID@PcZoneClient@eqlib@@QEAA?AV?$shared_ptr@VItemClient@eqlib@@@eqstd@@HPEAVItemIndex@2@_N@Z:
 	jmp [rel PcZoneClient__GetItemByID]
 
 

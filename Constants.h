@@ -567,7 +567,7 @@ constexpr int NUM_SPELL_SETS = 30;
 
 constexpr int NUM_HOTBUTTON_SETS = 100;
 constexpr int NUM_GROUP_ROLE_SETS = 10;
-constexpr int NUM_XTARGET_SETS = 10;
+constexpr int NUM_XTARGET_SETS = 30;
 
 constexpr int NUM_RACES = 17;
 constexpr int NUM_BLOCKED_BUFFS = 40;

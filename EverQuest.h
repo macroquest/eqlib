@@ -67,7 +67,7 @@ enum EPlace
 };
 
 // size of zoneHeader is the distance from this byte to the zoneHeader
-// @sizeof(zoneHeader) == 0x2a4 :: 2023-01-11 (live) @ 0x140b89e68
+// @sizeof(zoneHeader) == 0x2a4 :: 2023-02-06 (test) @ 0x140b93e48
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -333,8 +333,8 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x6b150 :: 2023-01-11 (live) @ 0x140b899d0
-constexpr size_t EverQuestinfo_size = 0x6b150;
+// @sizeof(EverQuestinfo) == 0x751e0 :: 2023-02-06 (test) @ 0x140b939b0
+constexpr size_t EverQuestinfo_size = 0x751e0;
 
 struct [[offsetcomments]] EverQuestinfo
 {
@@ -437,7 +437,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x004cc*/ uint8_t           ClickThroughMask;
 /*0x004cd*/ bool              ReceivedWorldObjects;
 /*0x004ce*/ bool              ScreenCapture;
-/*0x004cf*/ bool              ScreenShare;
+/*0x004cf*/ bool              ScreenShare;            // Unreferenced as of 2/6/2023 (test)
 /*0x004d0*/ float             SavedViewPitch;
 /*0x004d4*/ bool              SendPcReceived;
 /*0x004d5*/ bool              WeatherReceived;
@@ -574,35 +574,36 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x28238*/ int8_t            socialIndex;
 /*0x28239*/ bool              bHotButtonChanged[NUM_HOTBUTTON_WINDOWS][NUM_HOTBUTTON_PAGES][HOTBUTTONS_PER_PAGE];
 /*0x28761*/ int8_t            hotBank[NUM_HOTBUTTON_WINDOWS];
-/*0x28770*/ HotButtonData     hotButtons[NUM_HOTBUTTON_WINDOWS][NUM_HOTBUTTON_PAGES][HOTBUTTONS_PER_PAGE]; // +3b4c0
-/*0x63c30*/ SpellLoadout      spellLoadouts[NUM_SPELL_SETS];
-/*0x64608*/ HotButtonLoadout  hotbuttonLoadouts[NUM_HOTBUTTON_SETS];
-/*0x65418*/ GroupRoleLoadout  groupRoleLoadouts[NUM_GROUP_ROLE_SETS];
-/*0x67420*/ TargetSetLoadout  targetSetLoadouts[NUM_XTARGET_SETS];
-/*0x6afc6*/ char              InspectText[256];
-/*0x6b0c6*/ bool              bInviteOn;
-/*0x6b0c8*/ float             fSpellParticleDensity;
-/*0x6b0cc*/ float             fSpellParticleOpacity;
-/*0x6b0d0*/ float             fSpellParticleNearClipPlane;
-/*0x6b0d4*/ int               nSpellParticleCastFilters;
-/*0x6b0d8*/ float             fEnvironmentParticleDensity;
-/*0x6b0dc*/ float             fEnvironmentParticleOpacity;
-/*0x6b0e0*/ float             fEnvironmentParticleNearClipPlane;
-/*0x6b0e4*/ float             fActorParticleDensity;
-/*0x6b0e8*/ float             fActorPartircleOpacity;
-/*0x6b0ec*/ float             fActorParticleNearClipPlane;
-/*0x6b0f0*/ int               nActorParticleCastFilters;
-/*0x6b0f4*/ int               nActorNewArmorFilters;
-/*0x6b0f8*/ bool              bCreateGroupRequested;
-/*0x6b0fc*/ int               GroupRequestId;
-/*0x6b100*/ char              Inviter[EQ_MAX_NAME];
-/*0x6b140*/ bool              FirstTime;
-/*0x6b141*/ bool              FirstTimePreMainLoop;
-/*0x6b142*/ bool              bAutoAttack;
-/*0x6b143*/ bool              bAutoRangeAttack;
-/*0x6b144*/ int               ItemPending;
-/*0x6b148*/ int               RequestPending;
-/*0x6b14c*/
+/*0x28770*/ HotButtonData     hotButtons[NUM_HOTBUTTON_WINDOWS][NUM_HOTBUTTON_PAGES][HOTBUTTONS_PER_PAGE];
+/*0x66570*/ SpellLoadout      spellLoadouts[NUM_SPELL_SETS];
+/*0x66f48*/ HotButtonLoadout  hotbuttonLoadouts[NUM_HOTBUTTON_SETS];
+/*0x67d58*/ GroupRoleLoadout  groupRoleLoadouts[NUM_GROUP_ROLE_SETS];
+/*0x69d60*/ TargetSetLoadout  targetSetLoadouts[NUM_XTARGET_SETS];
+/*0x75052*/ char              InspectText[256];
+/*0x75152*/ bool              bInviteOn;
+/*0x75154*/ float             fSpellParticleDensity;
+/*0x75158*/ float             fSpellParticleOpacity;
+/*0x7515c*/ float             fSpellParticleNearClipPlane;
+/*0x75160*/ int               nSpellParticleCastFilters;
+/*0x75164*/ float             fEnvironmentParticleDensity;
+/*0x75168*/ float             fEnvironmentParticleOpacity;
+/*0x7516c*/ float             fEnvironmentParticleNearClipPlane;
+/*0x75170*/ float             fActorParticleDensity;
+/*0x75174*/ float             fActorPartircleOpacity;
+/*0x75178*/ float             fActorParticleNearClipPlane;
+/*0x7517c*/ int               nActorParticleCastFilters;
+/*0x75180*/ int               nActorNewArmorFilters;
+/*0x75184*/ bool              bCreateGroupRequested;
+/*0x75188*/ int               GroupRequestId;
+/*0x7518c*/ char              Inviter[EQ_MAX_NAME];
+/*0x751cc*/ bool              FirstTime;
+/*0x751cd*/ bool              FirstTimePreMainLoop;
+/*0x751ce*/ bool              bHeroicUpgradeWarnDisplay;  // related to string id 796
+/*0x751cf*/ bool              bAutoAttack;
+/*0x751d0*/ bool              bAutoRangeAttack;
+/*0x751d4*/ int               ItemPending;
+/*0x751d8*/ int               RequestPending;
+/*0x751dc*/
 };
 using EVERQUESTINFO = EverQuestinfo;
 using PEVERQUESTINFO = EVERQUESTINFO*;
@@ -720,7 +721,7 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2023-01-11 (live) @ 0x1402ef613
+// @sizeof(CEverQuest) == 0x396f8 :: 2023-02-06 (test) @ 0x1402f6a13
 constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler

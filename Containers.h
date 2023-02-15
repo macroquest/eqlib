@@ -1375,6 +1375,8 @@ public:
 		m_pObject = nullptr;
 	}
 
+	int use_count() const { return static_cast<VeBaseReferenceCount*>(m_pObject)->GetReferenceCount(); }
+
 	[[nodiscard]] T* get() const { return m_pObject; }
 
 	DEPRECATE("Access pointer directly (or call .get()) instead of using pObject")

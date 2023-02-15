@@ -170,7 +170,7 @@ struct [[offsetcomments]] RealEstateItemOwnerInfo
 struct [[offsetcomments]] RealEstateItemObject
 {
 /*0x00*/ ItemPtr        item;
-/*0x08*/
+/*0x10*/
 };
 
 struct [[offsetcomments]] RealEstateItemIds
@@ -212,8 +212,8 @@ private:
 /*0x10*/ RealEstateItemPosition   position;
 /*0x30*/ RealEstateItemOwnerInfo  ownerInfo;
 /*0x48*/ RealEstateItemObject     object;
-/*0x50*/ RealEstateItemIds        ids;
-/*0x58*/
+/*0x58*/ RealEstateItemIds        ids;
+/*0x60*/
 };
 
 class [[offsetcomments]] RealEstateItems

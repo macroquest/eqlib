@@ -363,8 +363,8 @@ using PEQSOCIAL = EQSocial*;
 struct [[offsetcomments]] HotButtonData
 {
 	// needs to be mapped out
-/*0x00*/ void*     unknown[23];
-/*0xb8*/
+/*0x00*/ void*     unknown[24];
+/*0xc0*/
 	// 0xa0 iconType
 	// 0xa4 iconSlot
 };
