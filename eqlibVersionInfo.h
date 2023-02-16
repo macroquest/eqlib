@@ -15,4 +15,4 @@
 #pragma once
 
 #define EQLIB_GIT_HASH "nohash"
-#define EQLIB_TARGET   "Live"
+#define EQLIB_TARGET   "Test"
