@@ -86,7 +86,14 @@ TextTagInfo ExtractLink(std::string_view inputString)
 
 			// the tag size determines where the text of the link is located relative to the
 			// character after the tag code.
-			const int tagSize = TagSizes[link.tagCode];
+			const size_t tagSize = TagSizes[link.tagCode];
+
+			if (tagSize > link.text.size())
+			{
+				link.tagCode = ETAG_INVALID;
+				return link;
+			}
+
 			size_t textStart = 0;
 
 			switch (link.tagCode)
