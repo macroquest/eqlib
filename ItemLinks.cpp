@@ -88,8 +88,7 @@ TextTagInfo ExtractLink(std::string_view inputString)
 			// character after the tag code.
 			const size_t tagSize = TagSizes[link.tagCode];
 
-			// If the length of the tag from i is bigger than the string we know it's invalid
-			if (i + tagSize > inputString.size())
+			if (tagSize > link.link.size())
 			{
 				link.tagCode = ETAG_INVALID;
 				return link;
