@@ -6239,10 +6239,10 @@ public:
 	//virtual void Unserialize(CUnserializeBuffer&);
 
 /*0x0008*/ ZoneGuideZone                     zones[ZONE_COUNT];
-/*0xf1a0*/ ArrayClass<ZoneGuideContinent>    continents;
-/*0xf1b8*/ ArrayClass<ZoneGuideZoneType>     zoneTypes;
-/*0xf1d0*/ ArrayClass<ZoneGuideTransferType> transferTypes;
-/*0xf1e8*/
+/*0xf3e0*/ ArrayClass<ZoneGuideContinent>    continents;
+/*0xf3f8*/ ArrayClass<ZoneGuideZoneType>     zoneTypes;
+/*0xf410*/ ArrayClass<ZoneGuideTransferType> transferTypes;
+/*0xf428*/
 
 	ZoneGuideZone* GetZone(EQZoneIndex zi)
 	{
@@ -6278,15 +6278,15 @@ class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
 	FORCE_SYMBOLS;
 
 public:
-/*0xf1e8*/ ZonePathArray     activePath;
-/*0xf200*/ ZonePathArray     previewPath;
-/*0xf218*/ EQZoneIndex       currentZone;
-/*0xf21c*/ int               heroesJourneyIndex;
-/*0xf220*/ bool              zoneGuideDataSet;
-/*0xf221*/ bool              includeBindZoneInPath;
-/*0xf222*/ bool              autoFindActivePath;
-/*0xf223*/ bool              findActivePath;
-/*0xf224*/
+/*0xf428*/ ZonePathArray     activePath;
+/*0xf440*/ ZonePathArray     previewPath;
+/*0xf458*/ EQZoneIndex       currentZone;
+/*0xf45c*/ int               heroesJourneyIndex;
+/*0xf460*/ bool              zoneGuideDataSet;
+/*0xf461*/ bool              includeBindZoneInPath;
+/*0xf462*/ bool              autoFindActivePath;
+/*0xf463*/ bool              findActivePath;
+/*0xf464*/
 
 	EQLIB_OBJECT static ZoneGuideManagerClient& Instance();
 };
