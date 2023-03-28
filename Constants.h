@@ -1135,7 +1135,7 @@ enum class ServerID : int {
 
 
 // zones
-constexpr int ZONE_COUNT = 859;
+constexpr int ZONE_COUNT = 867;
 
 // Math
 

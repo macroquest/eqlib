@@ -238,7 +238,7 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x340 :: 2023-03-07 (test) @ 0x1405545ae
+// @sizeof(CButtonWnd) == 0x340 :: 2023-03-09 (live) @ 0x140553c1e
 constexpr size_t CButtonWnd_size = 0x340;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd
@@ -3242,7 +3242,7 @@ public:
 // CFindItemWnd
 //============================================================================
 
-// @sizeof(CFindItemWnd) == 0x3f0 :: 2023-03-07 (test) @ 0x14015dc54
+// @sizeof(CFindItemWnd) == 0x3f0 :: 2023-03-09 (live) @ 0x14015dc24
 constexpr size_t CFindItemWnd_size = 0x3f0;
 
 class [[offsetcomments]] CFindItemWnd : public CSidlScreenWnd, public WndEventHandler
@@ -3328,7 +3328,7 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x398 :: 2023-03-07 (test) @ 0x14015e412
+// @sizeof(CFindLocationWnd) == 0x398 :: 2023-03-09 (live) @ 0x14015e3e2
 constexpr size_t CFindLocationWnd_size = 0x398;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
@@ -4303,7 +4303,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xaa0 :: 2023-03-07 (test) @ 0x1403c8db4
+// @sizeof(CItemDisplayWnd) == 0xaa0 :: 2023-03-09 (live) @ 0x1403c8564
 constexpr size_t CItemDisplayWnd_size = 0xaa0;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4489,7 +4489,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x428 :: 2023-03-07 (test) @ 0x14015d6b5
+// @sizeof(CKeyRingWnd) == 0x428 :: 2023-03-09 (live) @ 0x14015d685
 constexpr size_t CKeyRingWnd_size = 0x428;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4557,7 +4557,7 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0xcb8 :: 2023-03-07 (test) @ 0x14015d982
+// @sizeof(CLootWnd) == 0xcb8 :: 2023-03-09 (live) @ 0x14015d952
 constexpr size_t CLootWnd_size = 0xcb8;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4775,7 +4775,7 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x848 :: 2023-03-07 (test) @ 0x14015d0a1
+// @sizeof(CMapViewWnd) == 0x848 :: 2023-03-09 (live) @ 0x14015d071
 constexpr size_t CMapViewWnd_size = 0x848;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5198,7 +5198,7 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-// @sizeof(CPetInfoWnd) == 0x2930 :: 2023-03-07 (test) @ 0x14015cb67
+// @sizeof(CPetInfoWnd) == 0x2930 :: 2023-03-09 (live) @ 0x14015cb37
 constexpr size_t CPetInfoWnd_size = 0x2930;
 
 class [[offsetcomments]] CPetInfoWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5285,7 +5285,7 @@ enum ECombatState
 };
 
 
-// @sizeof(CPlayerWnd) == 0x400 :: 2023-03-07 (test) @ 0x14015d4dd
+// @sizeof(CPlayerWnd) == 0x400 :: 2023-03-09 (live) @ 0x14015d4ad
 constexpr size_t CPlayerWnd_size = 0x400;
 
 class [[offsetcomments]] CPlayerWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5780,7 +5780,7 @@ public:
 // CTargetWnd
 //============================================================================
 
-// @sizeof(CTargetWnd) == 0x408 :: 2023-03-07 (test) @ 0x14015d376
+// @sizeof(CTargetWnd) == 0x408 :: 2023-03-09 (live) @ 0x14015d346
 constexpr size_t CTargetWnd_size = 0x408;
 
 class [[offsetcomments]] CTargetWnd : public CSidlScreenWnd, public WndEventHandler
@@ -6239,10 +6239,10 @@ public:
 	//virtual void Unserialize(CUnserializeBuffer&);
 
 /*0x0008*/ ZoneGuideZone                     zones[ZONE_COUNT];
-/*0xf1a0*/ ArrayClass<ZoneGuideContinent>    continents;
-/*0xf1b8*/ ArrayClass<ZoneGuideZoneType>     zoneTypes;
-/*0xf1d0*/ ArrayClass<ZoneGuideTransferType> transferTypes;
-/*0xf1e8*/
+/*0xf3e0*/ ArrayClass<ZoneGuideContinent>    continents;
+/*0xf3f8*/ ArrayClass<ZoneGuideZoneType>     zoneTypes;
+/*0xf410*/ ArrayClass<ZoneGuideTransferType> transferTypes;
+/*0xf428*/
 
 	ZoneGuideZone* GetZone(EQZoneIndex zi)
 	{
@@ -6278,15 +6278,15 @@ class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
 	FORCE_SYMBOLS;
 
 public:
-/*0xf1e8*/ ZonePathArray     activePath;
-/*0xf200*/ ZonePathArray     previewPath;
-/*0xf218*/ EQZoneIndex       currentZone;
-/*0xf21c*/ int               heroesJourneyIndex;
-/*0xf220*/ bool              zoneGuideDataSet;
-/*0xf221*/ bool              includeBindZoneInPath;
-/*0xf222*/ bool              autoFindActivePath;
-/*0xf223*/ bool              findActivePath;
-/*0xf224*/
+/*0xf428*/ ZonePathArray     activePath;
+/*0xf440*/ ZonePathArray     previewPath;
+/*0xf458*/ EQZoneIndex       currentZone;
+/*0xf45c*/ int               heroesJourneyIndex;
+/*0xf460*/ bool              zoneGuideDataSet;
+/*0xf461*/ bool              includeBindZoneInPath;
+/*0xf462*/ bool              autoFindActivePath;
+/*0xf463*/ bool              findActivePath;
+/*0xf464*/
 
 	EQLIB_OBJECT static ZoneGuideManagerClient& Instance();
 };
