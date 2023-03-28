@@ -526,7 +526,6 @@ INITIALIZE_EQGAME_OFFSET(CInvSlotMgr__FindInvSlot);
 INITIALIZE_EQGAME_OFFSET(CInvSlotMgr__MoveItem);
 INITIALIZE_EQGAME_OFFSET(CInvSlotMgr__SelectSlot);
 INITIALIZE_EQGAME_OFFSET(CInvSlotWnd__CInvSlotWnd);
-INITIALIZE_EQGAME_OFFSET(CInvSlotWnd__HandleLButtonUp);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayManager__CreateWindowInstance);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__InsertAugmentRequest);
 INITIALIZE_EQGAME_OFFSET(CItemDisplayWnd__RemoveAugmentRequest);

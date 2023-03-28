@@ -444,7 +444,6 @@ EQLIB_VAR uintptr_t CInvSlotMgr__FindInvSlot;
 EQLIB_VAR uintptr_t CInvSlotMgr__MoveItem;
 EQLIB_VAR uintptr_t CInvSlotMgr__SelectSlot;
 EQLIB_VAR uintptr_t CInvSlotWnd__CInvSlotWnd;
-EQLIB_VAR uintptr_t CInvSlotWnd__HandleLButtonUp;
 EQLIB_VAR uintptr_t CItemDisplayManager__CreateWindowInstance;
 EQLIB_VAR uintptr_t CItemDisplayWnd__InsertAugmentRequest;
 EQLIB_VAR uintptr_t CItemDisplayWnd__RemoveAugmentRequest;
