@@ -328,7 +328,7 @@ public:
 	EQLIB_OBJECT virtual int HitTest(const CXPoint& pos, int* result) const;
 	EQLIB_OBJECT virtual CXRect GetHitTestRect(int code) const;
 	EQLIB_OBJECT virtual CXRect GetInnerRect() const;
-	EQLIB_OBJECT virtual CXRect GetClientRectVirtual() const { return GetClientRect(); }
+	EQLIB_OBJECT virtual CXRect GetClientRect() const { return GetClientRectNonVirtual(); }
 	EQLIB_OBJECT virtual CXRect GetClientClipRect() const;
 	EQLIB_OBJECT virtual CXSize GetMinSize(bool withBorder = true) const;
 	EQLIB_OBJECT virtual CXSize GetMaxSize(bool withBorder = true) const;
@@ -372,7 +372,7 @@ public:
 	EQLIB_OBJECT virtual void UpdateLayout(bool finish = false);
 
 	// De-virtualized to support calling from login.
-	EQLIB_OBJECT CXRect GetClientRect() const;
+	EQLIB_OBJECT CXRect GetClientRectNonVirtual() const;
 
 	void SetClientRectDirty(bool dirty);
 	bool IsClientRectDirty() const { return bClientRectChanged; }
@@ -655,7 +655,7 @@ public:
 	/*0x1f8*/ void* HitTest;
 	/*0x200*/ void* GetHitTestRect;
 	/*0x208*/ void* GetInnerRect;
-	/*0x210*/ void* GetClientRectVirtual;
+	/*0x210*/ void* GetClientRect;
 	/*0x218*/ void* GetClientClipRect;
 	/*0x220*/ void* GetMinSize;
 	/*0x228*/ void* GetMaxSize;

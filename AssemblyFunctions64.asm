@@ -479,17 +479,17 @@ export ?GetInnerRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
 	call_cxwnd_vtable 0x208
 
 
-; public: virtual class eqlib::CXRect eqlib::CXWnd::GetClientRectVirtual(void)const
-global ?GetClientRectVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
-export ?GetClientRectVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
-?GetClientRectVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ:
-	call_cxwnd_vtable 0x210
-
-
 ; public: virtual class eqlib::CXRect eqlib::CXWnd::GetClientRect(void)const
 global ?GetClientRect@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
 export ?GetClientRect@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
 ?GetClientRect@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ:
+	call_cxwnd_vtable 0x210
+
+
+; public: class eqlib::CXRect eqlib::CXWnd::GetClientRectNonVirtual(void)const
+global ?GetClientRectNonVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
+export ?GetClientRectNonVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
+?GetClientRectNonVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ:
 	; We're using the direct call to support being able to get the client rectangle
 	; while we're still at login because of differences in the vtable.
 	jmp [rel CXWnd__GetClientRect]
