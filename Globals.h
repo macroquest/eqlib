@@ -616,6 +616,7 @@ EQLIB_VAR uintptr_t CXWnd__DrawTooltipAtPoint;
 EQLIB_VAR uintptr_t CXWnd__GetChildItem;
 EQLIB_VAR uintptr_t CXWnd__GetChildWndAt;
 EQLIB_VAR uintptr_t CXWnd__GetClientClipRect;
+EQLIB_VAR uintptr_t CXWnd__GetClientRect;
 EQLIB_VAR uintptr_t CXWnd__GetRelativeRect;
 EQLIB_VAR uintptr_t CXWnd__GetScreenClipRect;
 EQLIB_VAR uintptr_t CXWnd__GetScreenRect;

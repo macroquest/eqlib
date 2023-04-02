@@ -105,7 +105,7 @@ public:
 	virtual int HitTest(const CXPoint& pos, int* result) const override;
 	virtual CXRect GetHitTestRect(int code) const override;
 	virtual CXRect GetInnerRect() const override;
-	virtual CXRect GetClientRect() const override;
+	//virtual CXRect GetClientRectl() const override;
 	virtual CXRect GetClientClipRect() const override;
 	virtual CXSize GetMinSize(bool withBorder = true) const override;
 	virtual CXSize GetMaxSize(bool withBorder = true) const override;
@@ -221,7 +221,7 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, void, Unknown0x0EC, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, HitTest, (const CXPoint& pos, int* result) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetHitTestRect, (int code) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetInnerRect, () const);
-IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetClientRect, () const);
+//IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetClientRect, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXRect, GetClientClipRect, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXSize, GetMinSize, (bool withBorder) const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CXSize, GetMaxSize, (bool withBorder) const);

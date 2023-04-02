@@ -592,6 +592,7 @@
 #define CXWnd__DrawTooltipAtPoint_x                                0x140588130
 #define CXWnd__GetChildItem_x                                      0x140588A40
 #define CXWnd__GetChildWndAt_x                                     0x140588B00
+#define CXWnd__GetClientRect_x                                     0x140588DB0
 #define CXWnd__GetClientClipRect_x                                 0x140588C70
 #define CXWnd__GetRelativeRect_x                                   0x14058A670
 #define CXWnd__GetScreenClipRect_x                                 0x14058A780
