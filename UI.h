@@ -21,6 +21,7 @@
 #include "CXStr.h"
 #include "CXWnd.h"
 #include "Containers.h"
+#include "GameFace.h"
 #include "Items.h"
 #include "XMLData.h"
 #include "UITemplates.h"
@@ -3676,7 +3677,7 @@ public:
 //============================================================================
 
 // Sep 21 2018
-class [[offsetcomments]] CGroupWnd : public CSidlScreenWnd
+class [[offsetcomments]] CGroupWnd : public CGFScreenWnd
 {
 	FORCE_SYMBOLS
 
@@ -3700,42 +3701,42 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x2d8*/ CButtonWnd*        InviteButton;
-/*0x2e0*/ CButtonWnd*        DisbandButton;
-/*0x2e8*/ CButtonWnd*        FollowButton;
-/*0x2f0*/ CButtonWnd*        DeclineButton;
-/*0x2f8*/ CButtonWnd*        LFGButton;
-/*0x300*/ CGaugeWnd*         HPGauge[6];
-/*0x330*/ CGaugeWnd*         PetGauge[6];
-/*0x360*/ CGaugeWnd*         ManaGauge[6];
-/*0x390*/ CGaugeWnd*         EnduranceGauge[6];
-/*0x3c0*/ CLabel*            HPLabel[6];
-/*0x3f0*/ CLabel*            HPPercLabel[6];
-/*0x420*/ CLabel*            ManaLabel[6];
-/*0x450*/ CLabel*            ManaPercLabel[6];
-/*0x480*/ CLabel*            EnduranceLabel[6];
-/*0x4b0*/ CLabel*            EndurancePercLabel[6];
-/*0x4e0*/ COLORREF           HPTextColor[6];
-/*0x4f8*/ CButtonWnd*        GroupTankButton[6];
-/*0x528*/ CButtonWnd*        GroupAssistButton[6];
-/*0x558*/ CButtonWnd*        GroupPullerButton[6];
-/*0x588*/ CButtonWnd*        GroupMarkNPCButton[6];
-/*0x5b8*/ CLabel*            AggroPercLabel[6];
-/*0x5e8*/ long               Timer;
-/*0x5f0*/ CContextMenu*      GroupContextMenu;
-/*0x5f8*/ bool               bPetbars;
-/*0x5f9*/ bool               bManabars;
-/*0x5fa*/ bool               bEndurancebars;
-/*0x5fb*/ bool               bAggroPct;
-/*0x5fc*/ int                PetBarIndex;
-/*0x600*/ int                ManaBarIndex;
-/*0x604*/ int                EnduranceBarIndex;
-/*0x608*/ int                AggroPctIndex;
-/*0x60c*/ int                RoleSeparatorID;
-/*0x610*/ int                RoleSelectMenu;
-/*0x614*/ int                RoleSelectMenuID;
-/*0x618*/ bool               bPlayerInvited;
-/*0x61c*/
+/*0x398*/ CButtonWnd*        InviteButton;
+/*0x3a0*/ CButtonWnd*        DisbandButton;
+/*0x3a8*/ CButtonWnd*        FollowButton;
+/*0x3b0*/ CButtonWnd*        DeclineButton;
+/*0x3b8*/ CButtonWnd*        LFGButton;
+/*0x3c0*/ CGaugeWnd*         HPGauge[6];
+/*0x3f0*/ CGaugeWnd*         PetGauge[6];
+/*0x420*/ CGaugeWnd*         ManaGauge[6];
+/*0x450*/ CGaugeWnd*         EnduranceGauge[6];
+/*0x480*/ CLabel*            HPLabel[6];
+/*0x4b0*/ CLabel*            HPPercLabel[6];
+/*0x4e0*/ CLabel*            ManaLabel[6];
+/*0x510*/ CLabel*            ManaPercLabel[6];
+/*0x540*/ CLabel*            EnduranceLabel[6];
+/*0x570*/ CLabel*            EndurancePercLabel[6];
+/*0x5a0*/ COLORREF           HPTextColor[6];
+/*0x5b8*/ CButtonWnd*        GroupTankButton[6];
+/*0x5e8*/ CButtonWnd*        GroupAssistButton[6];
+/*0x618*/ CButtonWnd*        GroupPullerButton[6];
+/*0x648*/ CButtonWnd*        GroupMarkNPCButton[6];
+/*0x678*/ CLabel*            AggroPercLabel[6];
+/*0x6a8*/ long               Timer;
+/*0x6b0*/ CContextMenu*      GroupContextMenu;
+/*0x6b8*/ bool               bPetbars;
+/*0x6b9*/ bool               bManabars;
+/*0x6ba*/ bool               bEndurancebars;
+/*0x6bb*/ bool               bAggroPct;
+/*0x6bc*/ int                PetBarIndex;
+/*0x6c0*/ int                ManaBarIndex;
+/*0x6c4*/ int                EnduranceBarIndex;
+/*0x6c8*/ int                AggroPctIndex;
+/*0x6cc*/ int                RoleSeparatorID;
+/*0x6d0*/ int                RoleSelectMenu;
+/*0x6d4*/ int                RoleSelectMenuID;
+/*0x6d8*/ bool               bPlayerInvited;
+/*0x6dc*/
 };
 
 //============================================================================
@@ -4107,7 +4108,8 @@ public:
 // CInventoryWnd
 //============================================================================
 
-class [[offsetcomments]] CInventoryWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler, public IObserver
+// size: 0x15e8
+class [[offsetcomments]] CInventoryWnd : public CGFScreenWnd, public PopDialogHandler, public WndEventHandler, public IObserver
 {
 public:
 	CInventoryWnd(CXWnd*);
@@ -4124,10 +4126,10 @@ public:
 	EQLIB_OBJECT void Init();
 	EQLIB_OBJECT void UpdateMoneyDisplay();
 
-/*0x2ec*/ uint8_t     Unknown0x0240[0xfc];
-/*0x3e8*/ int64_t     VitalityCap;
-/*0x3f0*/ int         AAVitalityCap;
-/*0x3f4*/
+/*0x03ac*/ uint8_t     Unknown0x03ac[0xdbc];
+/*0x1168*/ int64_t     VitalityCap;
+/*0x1170*/ int         AAVitalityCap;
+/*0x1174*/
 };
 
 inline namespace deprecated {
@@ -5768,7 +5770,7 @@ inline namespace deprecated {
 // CStoryWnd
 //============================================================================
 
-class CStoryWnd : public CSidlScreenWnd
+class CStoryWnd : public CGFScreenWnd
 {
 public:
 	CStoryWnd(CXWnd*);

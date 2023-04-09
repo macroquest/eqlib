@@ -252,7 +252,7 @@ class [[offsetcomments]] CXWnd
 	, public TList<CXWnd>       // list of children
 {
 public:
-	EQLIB_OBJECT CXWnd(CXWnd* parent = nullptr, uint32_t id = 0, CXRect rect = {});
+	EQLIB_OBJECT CXWnd(CXWnd* parent = nullptr, uint32_t id = 0, CXRect rect = {}, bool useClassicUI = true);
 
 	//----------------------------------------------------------------------------
 	EQLIB_OBJECT virtual bool IsValid() const { return ValidCXWnd; }
@@ -817,8 +817,10 @@ public:
 /*0x260*/ bool               bRightAnchoredToLeft;
 /*0x264*/ CXSize             MaxClientSize;
 /*0x26c*/ bool               bMaximizable;
-/*0x270*/
 // @end: CXWnd Members
+/*0x26d*/ bool               bUsesClassicUI;
+/*0x270*/
+
 };
 
 inline namespace deprecated {
@@ -855,8 +857,8 @@ class [[offsetcomments]] CSidlScreenWnd : public CXWnd
 {
 public:
 	//EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent, uint32_t id, const CXRect& rect, const CXStr& Screen);                           // CSidlScreenWnd__CSidlScreenWnd
-	EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent, const CXStr& Screen, int IniFlags, int IniVersion = 1, char* BlockName = nullptr); // CSidlScreenWnd__CSidlScreenWnd1
-	EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent = nullptr, const CXStr& Screen = CXStr());                                          // CSidlScreenWnd__CSidlScreenWnd2
+	EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent, const CXStr& Screen, int IniFlags, int IniVersion = 1, const char* BlockName = nullptr, bool useClassicUI = true); // CSidlScreenWnd__CSidlScreenWnd1
+	EQLIB_OBJECT CSidlScreenWnd(CXWnd* parent = nullptr, const CXStr& Screen = CXStr(), bool useClassicUI = true);                // CSidlScreenWnd__CSidlScreenWnd2
 	EQLIB_OBJECT virtual ~CSidlScreenWnd();
 
 	//----------------------------------------------------------------------------

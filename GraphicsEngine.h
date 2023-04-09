@@ -53,18 +53,18 @@ struct SWadFile;
 struct SGraphicsEngine
 {
 public:
-	CFastFileInterface*        pFastFile;
-	CResourceManagerInterface* pResourceManager;
-	CSceneGraphInterface*      pSceneGraph;
-	CRender*                   pRender;
-	CParticleSystemInterface*  pParticleSystem;
-	CCollisionInterface*       pCollision;
-	CMathInterface*            pMath;
-	CThickLineSystemInterface* pThickLineSystem;
-	CDebugDrawInterface*       pDebugDraw;
-	CPropertySet*              pProperties;
-	CTerrainSystemInterface*   pTerrainSystem;
-	CGameFaceRenderInterface*  pGameFaceRender;
+/*0x00*/ CFastFileInterface*        pFastFile;
+/*0x08*/ CResourceManagerInterface* pResourceManager;
+/*0x10*/ CSceneGraphInterface*      pSceneGraph;
+/*0x18*/ CRender*                   pRender;
+/*0x20*/ CParticleSystemInterface*  pParticleSystem;
+/*0x28*/ CCollisionInterface*       pCollision;
+/*0x30*/ CMathInterface*            pMath;
+/*0x38*/ CThickLineSystemInterface* pThickLineSystem;
+/*0x40*/ CDebugDrawInterface*       pDebugDraw;
+/*0x48*/ CPropertySet*              pProperties;
+/*0x50*/ CTerrainSystemInterface*   pTerrainSystem;
+/*0x58*/ CGameFaceRenderInterface*  pGameFaceRender;
 };
 
 //============================================================================
@@ -1196,9 +1196,9 @@ public:
 /*0x00*/ virtual ~CGameFaceRenderInterface() = 0;
 /*0x08*/
 /*0x10*/
-/*0x18*/ virtual void Unknown0x18() = 0;  // Called from CRender::InitRenderSystem      ----\ 
+/*0x18*/ virtual void Unknown0x18() = 0;  // Called from CRender::InitRenderSystem      ----|
 /*0x20*/ virtual void Unknown0x20() = 0;  // Called from CRender::ReleaseRenderSystem       | 
-/*0x28*/ virtual void Unknown0x28() = 0;  // Called from CRender::InitRenderSystem     <----/ 
+/*0x28*/ virtual void Unknown0x28() = 0;  // Called from CRender::InitRenderSystem     <----|
 /*0x30*/ virtual void Unknown0x30() = 0;  // Called from CRender::UpdateDisplay
 /*0x38*/
 /*0x40*/

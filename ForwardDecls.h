@@ -96,6 +96,7 @@ class CGaugeDrawTemplate;
 class CGaugeTemplate;
 class CGaugeWnd;
 class CGemsGameWnd;
+class CGFScreenWnd;
 class CGiveWnd;
 class CGroupSearchFiltersWnd;
 class CGroupSearchWnd;

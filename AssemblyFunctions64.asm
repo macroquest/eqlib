@@ -85,10 +85,10 @@ extern CXWnd__GetScreenClipRect
 extern CXWnd__GetScreenRect
 extern CXWnd__GetClientRect
 
-; public: eqlib::CXWnd::CXWnd(class eqlib::CXWnd *, unsigned int, class eqlib::CXRect)
-global ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@@Z
-export ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@@Z
-??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@@Z:
+; public: eqlib::CXWnd::CXWnd(class eqlib::CXWnd *, unsigned int, class eqlib::CXRect, bool)
+global ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@_N@Z
+export ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@_N@Z
+??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@_N@Z:
 	jmp [rel CXWnd__CXWnd]
 
 
@@ -640,18 +640,18 @@ extern CSidlScreenWnd__CSidlScreenWnd2
 extern CSidlScreenWnd__dCSidlScreenWnd
 
 
-; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *,class eqlib::CXStr const &)
-global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@@Z
-export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@@Z
-??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@@Z:
+; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *, class eqlib::CXStr const &, int, int, char const *, bool)
+global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEBD_N@Z
+export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEBD_N@Z
+??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEBD_N@Z:
 	mov rax, [qword CSidlScreenWnd__CSidlScreenWnd1]
 	jmp rax
 
 
-; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *,class eqlib::CXStr const &,int,int,char *)
-global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEAD@Z
-export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEAD@Z
-??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEAD@Z:
+; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *, class eqlib::CXStr const &, bool)
+global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@_N@Z
+export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@_N@Z
+??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@_N@Z:
 	mov rax, [qword CSidlScreenWnd__CSidlScreenWnd2]
 	jmp rax
 

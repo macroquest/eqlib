@@ -263,8 +263,8 @@ void CXWnd::operator delete[](void* ptr)
 
 // defined in AssemblyFunctions.asm:
 DESTRUCTOR_AT_ADDRESS(CSidlScreenWnd::~CSidlScreenWnd(), CSidlScreenWnd__dCSidlScreenWnd);
-CONSTRUCTOR_AT_ADDRESS(CSidlScreenWnd::CSidlScreenWnd(CXWnd* pParent, const CXStr& Screen, int, int, char*), CSidlScreenWnd__CSidlScreenWnd1);
-CONSTRUCTOR_AT_ADDRESS(CSidlScreenWnd::CSidlScreenWnd(CXWnd* pParent, const CXStr& Screen), CSidlScreenWnd__CSidlScreenWnd2);
+CONSTRUCTOR_AT_ADDRESS(CSidlScreenWnd::CSidlScreenWnd(CXWnd* pParent, const CXStr& Screen, int, int, const char*, bool), CSidlScreenWnd__CSidlScreenWnd1);
+CONSTRUCTOR_AT_ADDRESS(CSidlScreenWnd::CSidlScreenWnd(CXWnd* pParent, const CXStr& Screen, bool bUseClassicUI), CSidlScreenWnd__CSidlScreenWnd2);
 
 //----------------------------------------------------------------------------
 
