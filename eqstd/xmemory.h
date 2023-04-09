@@ -7,15 +7,21 @@
 
 #pragma once
 
+#include "eqlib/Allocator.h"
+#include "eqlib/eqstd/type_traits.h"
+
 #include <xmemory>
 
 namespace eqstd
 {
+	using std::allocator_traits;
+	using std::pointer_traits;
+
 	template <class _Alloc, class _Value_type>
-	using _Rebind_alloc_t = typename std::allocator_traits<_Alloc>::template rebind_alloc<_Value_type>;
+	using _Rebind_alloc_t = typename allocator_traits<_Alloc>::template rebind_alloc<_Value_type>;
 
 	template <class _Ptr, class _Ty>
-	using _Rebind_pointer_t = typename std::pointer_traits<_Ptr>::template rebind<_Ty>;
+	using _Rebind_pointer_t = typename pointer_traits<_Ptr>::template rebind<_Ty>;
 
 	// STRUCT TEMPLATE _Simple_types
 	template <class _Value_type>
@@ -30,7 +36,7 @@ namespace eqstd
 
 	// ALIAS TEMPLATE _Alloc_ptr_t
 	template <class _Alloc>
-	using _Alloc_ptr_t = typename std::allocator_traits<_Alloc>::pointer;
+	using _Alloc_ptr_t = typename allocator_traits<_Alloc>::pointer;
 
 	// STRUCT TEMPLATE _Alloc_construct_ptr
 	template <class _Alloc>
@@ -66,10 +72,10 @@ namespace eqstd
 
 	// VARIABLE TEMPLATE _Is_simple_alloc_v
 	template <class _Alloc> // tests if allocator has simple addressing
-	inline constexpr bool _Is_simple_alloc_v = std::is_same_v<typename std::allocator_traits<_Alloc>::size_type, size_t > &&
-		std::is_same_v<typename std::allocator_traits<_Alloc>::difference_type, ptrdiff_t> &&
-		std::is_same_v<typename std::allocator_traits<_Alloc>::pointer, typename _Alloc::value_type*> &&
-		std::is_same_v<typename std::allocator_traits<_Alloc>::const_pointer, const typename _Alloc::value_type*>;
+	inline constexpr bool _Is_simple_alloc_v = is_same_v<typename allocator_traits<_Alloc>::size_type, size_t > &&
+		is_same_v<typename allocator_traits<_Alloc>::difference_type, ptrdiff_t> &&
+		is_same_v<typename allocator_traits<_Alloc>::pointer, typename _Alloc::value_type*> &&
+		is_same_v<typename allocator_traits<_Alloc>::const_pointer, const typename _Alloc::value_type*>;
 
 	// CLASS TEMPLATE _Compressed_pair
 	struct _Zero_then_variadic_args_t {
@@ -80,7 +86,7 @@ namespace eqstd
 		explicit _One_then_variadic_args_t() = default;
 	}; // tag type for constructing first from one arg, constructing second from remaining args
 
-	template <class _Ty1, class _Ty2, bool = std::is_empty_v<_Ty1> && !std::is_final_v<_Ty1>>
+	template <class _Ty1, class _Ty2, bool = is_empty_v<_Ty1> && !is_final_v<_Ty1>>
 	class _Compressed_pair final : private _Ty1 { // store a pair of values, deriving from empty first
 	public:
 		_Ty2 _Myval2;
@@ -89,12 +95,12 @@ namespace eqstd
 
 		template <class... _Other2>
 		constexpr explicit _Compressed_pair(_Zero_then_variadic_args_t, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_default_constructible<_Ty1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_default_constructible<_Ty1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Ty1(), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		template <class _Other1, class... _Other2>
 		constexpr _Compressed_pair(_One_then_variadic_args_t, _Other1&& _Val1, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_constructible<_Ty1, _Other1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_constructible<_Ty1, _Other1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Ty1(std::forward<_Other1>(_Val1)), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		constexpr _Ty1& _Get_first() noexcept {
@@ -114,12 +120,12 @@ namespace eqstd
 
 		template <class... _Other2>
 		constexpr explicit _Compressed_pair(_Zero_then_variadic_args_t, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_default_constructible<_Ty1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_default_constructible<_Ty1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Myval1(), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		template <class _Other1, class... _Other2>
 		constexpr _Compressed_pair(_One_then_variadic_args_t, _Other1&& _Val1, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_constructible<_Ty1, _Other1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_constructible<_Ty1, _Other1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Myval1(std::forward<_Other1>(_Val1)), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		constexpr _Ty1& _Get_first() noexcept {
@@ -137,8 +143,8 @@ namespace eqstd
 		static_cast<bool>(std::declval<const _Keycmp&>()(std::declval<const _Lhs&>(), std::declval<const _Rhs&>())));
 
 	template <class _Alloc>
-	using _Choose_pocma = std::conditional_t<std::allocator_traits<_Alloc>::is_always_equal::value, _Equal_allocators,
-		typename std::allocator_traits<_Alloc>::propagate_on_container_move_assignment::type>;
+	using _Choose_pocma = conditional_t<allocator_traits<_Alloc>::is_always_equal::value, _Equal_allocators,
+		typename allocator_traits<_Alloc>::propagate_on_container_move_assignment::type>;
 
 	// CLASSES _Container_base*, _Iterator_base*
 	struct _Fake_allocator {};
@@ -188,4 +194,41 @@ namespace eqstd
 		_Ty _Value; // workaround for "T^ is not allowed in a union"
 	};
 #pragma warning(pop)
+
+	template <typename T>
+	using allocator = eqlib::everquest_allocator<T>;
+
+	template <class _Ty>
+	struct _NODISCARD _Tidy_guard { // class with destructor that calls _Tidy
+		_Ty* _Target;
+		_CONSTEXPR20 ~_Tidy_guard() {
+			if (_Target) {
+				_Target->_Tidy();
+			}
+		}
+	};
+
+	template <class _Ty>
+	struct _NODISCARD _Tidy_deallocate_guard { // class with destructor that calls _Tidy_deallocate
+		_Ty* _Target;
+		_CONSTEXPR20 ~_Tidy_deallocate_guard() {
+			if (_Target) {
+				_Target->_Tidy_deallocate();
+			}
+		}
+	};
+
+	enum class _Pocma_values {
+		_Equal_allocators, // usually allows contents to be stolen (e.g. with swap)
+		_Propagate_allocators, // usually allows the allocator to be propagated, and then contents stolen
+		_No_propagate_allocators, // usually turns moves into copies
+	};
+
+	template <class _Alloc>
+	inline constexpr _Pocma_values _Choose_pocma_v =
+		allocator_traits<_Alloc>::is_always_equal::value
+		? _Pocma_values::_Equal_allocators
+		: (allocator_traits<_Alloc>::propagate_on_container_move_assignment::value
+			? _Pocma_values::_Propagate_allocators
+			: _Pocma_values::_No_propagate_allocators);
 }

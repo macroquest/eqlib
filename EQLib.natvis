@@ -172,7 +172,7 @@
 
 	<!-- eqstd::map -->
 	<Type Name="eqstd::map&lt;*&gt;" ExcludeView="ShowElementsByIndex" Priority="MediumHigh">
-		<AlternativeType Name="std::multimap&lt;*&gt;" />
+		<AlternativeType Name="eqstd::multimap&lt;*&gt;" />
 		<DisplayString>{{ size={_Mypair._Myval2._Myval2._Mysize} }}</DisplayString>
 		<Expand>
 			<Item Name="[comparator]" ExcludeView="simple">_Mypair</Item>
@@ -342,6 +342,110 @@
 		<Expand>
 			<Item Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 0)" Name="[ptr]">_Ptr</Item>
 			<Item Condition="_Rep != 0" Name="[control block]">*_Rep</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::basic_string&lt;char,*&gt;">
+		<AlternativeType Name="eqstd::basic_string&lt;char8_t,*&gt;" />
+
+		<Intrinsic Name="size" Expression="_Mypair._Myval2._Mysize" />
+		<Intrinsic Name="capacity" Expression="_Mypair._Myval2._Myres" />
+		<!-- _BUF_SIZE = 16 / sizeof(char) &lt; 1 ? 1 : 16 / sizeof(char) == 16 -->
+		<Intrinsic Name="bufSize" Expression="16" />
+		<Intrinsic Name="isShortString" Expression="capacity() &lt; bufSize()" />
+		<Intrinsic Name="isLongString" Expression="capacity() &gt;= bufSize()" />
+		<DisplayString Condition="isShortString()">{_Mypair._Myval2._Bx._Buf,na}</DisplayString>
+		<DisplayString Condition="isLongString()">{_Mypair._Myval2._Bx._Ptr,na}</DisplayString>
+		<StringView Condition="isShortString()">_Mypair._Myval2._Bx._Buf,na</StringView>
+		<StringView Condition="isLongString()">_Mypair._Myval2._Bx._Ptr,na</StringView>
+		<Expand>
+			<Item Name="[size]" ExcludeView="simple">size()</Item>
+			<Item Name="[capacity]" ExcludeView="simple">capacity()</Item>
+			<Item Name="[allocator]" ExcludeView="simple">_Mypair</Item>
+			<ArrayItems>
+				<Size>_Mypair._Myval2._Mysize</Size>
+				<ValuePointer Condition="isShortString()">_Mypair._Myval2._Bx._Buf</ValuePointer>
+				<ValuePointer Condition="isLongString()">_Mypair._Myval2._Bx._Ptr</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::basic_string&lt;wchar_t,*&gt;">
+		<AlternativeType Name="eqstd::basic_string&lt;unsigned short,*&gt;" />
+		<AlternativeType Name="eqstd::basic_string&lt;char16_t,*&gt;" />
+
+		<Intrinsic Name="size" Expression="_Mypair._Myval2._Mysize" />
+		<Intrinsic Name="capacity" Expression="_Mypair._Myval2._Myres" />
+		<!-- _BUF_SIZE = 16 / sizeof(wchar_t) &lt; 1 ? 1 : 16 / sizeof(wchar_t) == 8 -->
+		<Intrinsic Name="bufSize" Expression="8" />
+		<Intrinsic Name="isShortString" Expression="capacity() &lt; bufSize()" />
+		<Intrinsic Name="isLongString" Expression="capacity() &gt;= bufSize()" />
+		<DisplayString Condition="isShortString()">{_Mypair._Myval2._Bx._Buf,su}</DisplayString>
+		<DisplayString Condition="isLongString()">{_Mypair._Myval2._Bx._Ptr,su}</DisplayString>
+		<StringView Condition="isShortString()">_Mypair._Myval2._Bx._Buf,su</StringView>
+		<StringView Condition="isLongString()">_Mypair._Myval2._Bx._Ptr,su</StringView>
+		<Expand>
+			<Item Name="[size]" ExcludeView="simple">size()</Item>
+			<Item Name="[capacity]" ExcludeView="simple">capacity()</Item>
+			<Item Name="[allocator]" ExcludeView="simple">_Mypair</Item>
+			<ArrayItems>
+				<Size>_Mypair._Myval2._Mysize</Size>
+				<ValuePointer Condition="isShortString()">_Mypair._Myval2._Bx._Buf</ValuePointer>
+				<ValuePointer Condition="isLongString()">_Mypair._Myval2._Bx._Ptr</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::basic_string&lt;char32_t,*&gt;">
+		<Intrinsic Name="size" Expression="_Mypair._Myval2._Mysize" />
+		<Intrinsic Name="capacity" Expression="_Mypair._Myval2._Myres" />
+		<!-- _BUF_SIZE = 16 / sizeof(char32_t) &lt; 1 ? 1 : 16 / sizeof(char32_t) == 4 -->
+		<Intrinsic Name="bufSize" Expression="4" />
+		<Intrinsic Name="isShortString" Expression="capacity() &lt; bufSize()" />
+		<Intrinsic Name="isLongString" Expression="capacity() &gt;= bufSize()" />
+		<DisplayString Condition="isShortString()">{_Mypair._Myval2._Bx._Buf,s32}</DisplayString>
+		<DisplayString Condition="isLongString()">{_Mypair._Myval2._Bx._Ptr,s32}</DisplayString>
+		<StringView Condition="isShortString()">_Mypair._Myval2._Bx._Buf,s32</StringView>
+		<StringView Condition="isLongString()">_Mypair._Myval2._Bx._Ptr,s32</StringView>
+		<Expand>
+			<Item Name="[size]" ExcludeView="simple">size()</Item>
+			<Item Name="[capacity]" ExcludeView="simple">capacity()</Item>
+			<Item Name="[allocator]" ExcludeView="simple">_Mypair</Item>
+			<ArrayItems>
+				<Size>_Mypair._Myval2._Mysize</Size>
+				<ValuePointer Condition="isShortString()">_Mypair._Myval2._Bx._Buf</ValuePointer>
+				<ValuePointer Condition="isLongString()">_Mypair._Myval2._Bx._Ptr</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::_String_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char&gt; &gt; &gt;">
+		<AlternativeType Name="eqstd::_String_const_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char&gt; &gt; &gt;" />
+		<AlternativeType Name="eqstd::_String_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char8_t&gt; &gt; &gt;" />
+		<AlternativeType Name="eqstd::_String_const_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char8_t&gt; &gt; &gt;" />
+		<SmartPointer Usage="Indexable">_Ptr,na</SmartPointer>
+		<Expand>
+			<Item Name="[ptr]">_Ptr</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::_String_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;wchar_t&gt; &gt; &gt;">
+		<AlternativeType Name="eqstd::_String_const_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;wchar_t&gt; &gt; &gt;" />
+		<AlternativeType Name="eqstd::_String_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;unsigned short&gt; &gt; &gt;" />
+		<AlternativeType Name="eqstd::_String_const_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;unsigned short&gt; &gt; &gt;" />
+		<AlternativeType Name="eqstd::_String_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char16_t&gt; &gt; &gt;" />
+		<AlternativeType Name="eqstd::_String_const_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char16_t&gt; &gt; &gt;" />
+		<SmartPointer Usage="Indexable">_Ptr,su</SmartPointer>
+		<Expand>
+			<Item Name="[ptr]">_Ptr</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::_String_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char32_t&gt; &gt; &gt;">
+		<AlternativeType Name="eqstd::_String_const_iterator&lt;eqstd::_String_val&lt;eqstd::_Simple_types&lt;char32_t&gt; &gt; &gt;" />
+		<SmartPointer Usage="Indexable">_Ptr,s32</SmartPointer>
+		<Expand>
+			<Item Name="[ptr]">_Ptr</Item>
 		</Expand>
 	</Type>
 

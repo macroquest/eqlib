@@ -195,6 +195,15 @@
     <ClInclude Include="eqstd\type_traits.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
+    <ClInclude Include="GameFace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\string.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\xutility.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">

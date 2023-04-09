@@ -1,10 +1,9 @@
+#pragma once
 
 // copy of <xtree> with iterator checks and debug macros removed
 // so that it is always binary compatible with release build
 
 #include "eqlib/eqstd/xmemory.h"
-
-#pragma once
 
 namespace eqstd
 {
