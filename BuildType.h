@@ -54,6 +54,8 @@
 // Ring of Scale expansion.
 #define HAS_FIND_ITEM_WINDOW IS_CLIENT_DATE(20170920)
 
+#define HAS_GAMEFACE_UI IS_CLIENT_DATE(20230321)
+
 // Item effects for mount, illusion, familiar, etc were combined into "Blessing" effects
 // on September 7, 2021.
 #define HAS_ITEM_BLESSING_EFFECT IS_CLIENT_DATE(20210907)

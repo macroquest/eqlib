@@ -19,34 +19,35 @@
 #include "CXWnd.h"
 
 #include "eqstd/string.h"
+#include "eqstd/unordered_map.h"
 
 namespace eqlib {
 
-class [[offsetcomments]] UnknownGFScreenData1
+class CGFScreenWnd;
+
+class [[offsetcomments]] UIComponent
 {
 public:
-	virtual void UnknownVirtual1() {}
-	virtual void* UnknownVirtual2() { return nullptr; }
-	virtual void* UnknownVirtual3() { return nullptr; }
+	virtual eqstd::string GetTypeName() const { return ""; }
+	virtual void SyncFromJS() {}
+	virtual void SyncToJS() {}
 
-/*0x00*/
-/*0x08*/ eqstd::string string_08;
-/*0x28*/ eqstd::string string_28;
-/*0x48*/ eqstd::string string_48;
-/*0x68*/ uint64_t      u64_68;    // = 0;
-/*0x70*/ uint64_t      u64_70;
-/*0x78*/ uint8_t       u8_78;     // = 255;
-/*0x7c*/
+	void Setup(CGFScreenWnd* parentScreenWnd, const std::string& name, bool required, CXWnd* wnd);
+
+/*0x00*/ // vftable
+/*0x08*/ eqstd::string name;
+/*0x28*/ eqstd::string fullName;
+/*0x48*/ eqstd::string modelPrefix;
+/*0x68*/ CGFScreenWnd* parent;
+/*0x70*/ CXWnd*        wnd;
+/*0x78*/
 };
 
-class [[offsetcomments]] UnknownGFScreenData2
+class [[offsetcomments]] UIScreenComponent : public UIComponent
 {
 public:
-/*0x00*/ uint8_t       u8_0[0x30]; // ??
-/*0x30*/ uint64_t      u64_38;    // = 7
-/*0x38*/ uint64_t      u64_40;    // = 8
-/*0x40*/
-};
+/*0x78*/ uint8_t       u8_78;     // = 255
+/*0x7c*/ };
 
 class [[offsetcomments]] CGFScreenWnd : public CSidlScreenWnd
 {
@@ -54,8 +55,10 @@ public:
 	CGFScreenWnd(CXWnd* parent, bool useClassicUI, const CXStr& screenName, int IniFlags, int IniVersion, const char* BlockName);
 	CGFScreenWnd(CXWnd* parent, bool useClassicUI, const CXStr& screenName);
 
-/*0x2d8*/ UnknownGFScreenData1        gfData1;
-/*0x358*/ UnknownGFScreenData2        gfData2;
+	void SetupComponent(UIComponent& component, const std::string& ScreenID, bool required);
+
+/*0x2d8*/ UIScreenComponent                                 WindowComponent;
+/*0x358*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
 /*0x398*/
 };
 
