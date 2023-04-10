@@ -1,6 +1,14 @@
+// xutility internal header
+
+// Copyright (c) Microsoft Corporation.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+// Adapted for use with eqlib
+
 #pragma once
 
 #include "eqlib/eqstd/type_traits.h"
+#include "eqlib/eqstd/utility.h"
 #include "eqlib/eqstd/xmemory.h"
 
 #include <utility>
@@ -69,7 +77,7 @@ namespace eqstd {
 	using _Guide_val_t = typename iterator_traits<_Iter>::value_type::second_type;
 
 	template <class _Iter>
-	using _Guide_pair_t = std::pair<add_const_t<typename iterator_traits<_Iter>::value_type::first_type>,
+	using _Guide_pair_t = pair<add_const_t<typename iterator_traits<_Iter>::value_type::first_type>,
 		typename iterator_traits<_Iter>::value_type::second_type>;
 
 	template <class _Ty>
@@ -92,5 +100,7 @@ namespace eqstd {
 	inline constexpr bool _Is_any_of_v = // true if and only if _Ty is in _Types
 		disjunction_v<is_same<_Ty, _Types>...>;
 
+	template <class _It, bool _RequiresMutable = false>
+	inline constexpr bool _Is_vb_iterator = false;
 
 } // namespace eqstd

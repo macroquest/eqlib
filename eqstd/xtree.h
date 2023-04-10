@@ -1,15 +1,18 @@
+// xtree internal header
+
+// Copyright (c) Microsoft Corporation.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+// Adapted for use with eqlib
+
 #pragma once
 
-// copy of <xtree> with iterator checks and debug macros removed
-// so that it is always binary compatible with release build
-
+#include "eqlib/eqstd/utility.h"
 #include "eqlib/eqstd/xmemory.h"
 
 namespace eqstd
 {
 	struct _Default_sentinel {}; // empty struct to serve as the end of a range
-
-	using std::pair;
 
 	// CLASS TEMPLATE _Tree_unchecked_const_iterator
 	template <class _Mytree>
@@ -968,7 +971,7 @@ namespace eqstd
 
 	protected:
 		template <class... _Valtys>
-		std::pair<_Nodeptr, bool> _Emplace(_Valtys&&... _Vals) {
+		pair<_Nodeptr, bool> _Emplace(_Valtys&&... _Vals) {
 			using _In_place_key_extractor = typename _Traits::template _In_place_key_extractor<_Remove_cvref_t<_Valtys>...>;
 			const auto _Scary = _Get_scary();
 			_Tree_find_result<_Nodeptr> _Loc;

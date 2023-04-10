@@ -3,19 +3,25 @@
 // Copyright (c) Microsoft Corporation.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-// adapted for use with eqlib
+// Adapted for use with eqlib
 
 #pragma once
 
 #include "eqlib/Allocator.h"
 #include "eqlib/eqstd/type_traits.h"
+#include "eqlib/eqstd/utility.h"
 
 #include <xmemory>
+#include <limits>
 
 namespace eqstd
 {
 	using std::allocator_traits;
 	using std::pointer_traits;
+
+	using std::_Destroy_in_place;
+	using std::_Destroy_range;
+	using std::_Construct_in_place;
 
 	template <class _Alloc, class _Value_type>
 	using _Rebind_alloc_t = typename allocator_traits<_Alloc>::template rebind_alloc<_Value_type>;
@@ -231,4 +237,67 @@ namespace eqstd
 		: (allocator_traits<_Alloc>::propagate_on_container_move_assignment::value
 			? _Pocma_values::_Propagate_allocators
 			: _Pocma_values::_No_propagate_allocators);
+
+
+	// assumes _Args have already been _Remove_cvref_t'd
+	template <class _Key, class... _Args>
+	struct _In_place_key_extract_set {
+		// by default we can't extract the key in the emplace family and must construct a node we might not use
+		static constexpr bool _Extractable = false;
+	};
+
+	template <class _Key>
+	struct _In_place_key_extract_set<_Key, _Key> {
+		// we can extract the key in emplace if the emplaced type is identical to the key type
+		static constexpr bool _Extractable = true;
+		static const _Key& _Extract(const _Key& _Val) noexcept {
+			return _Val;
+		}
+	};
+
+	// assumes _Args have already been _Remove_cvref_t'd
+	template <class _Key, class... _Args>
+	struct _In_place_key_extract_map {
+		// by default we can't extract the key in the emplace family and must construct a node we might not use
+		static constexpr bool _Extractable = false;
+	};
+
+	template <class _Key, class _Second>
+	struct _In_place_key_extract_map<_Key, _Key, _Second> {
+		// if we would call the pair(key, value) constructor family, we can use the first parameter as the key
+		static constexpr bool _Extractable = true;
+		static const _Key& _Extract(const _Key& _Val, const _Second&) noexcept {
+			return _Val;
+		}
+	};
+
+	template <class _Key, class _First, class _Second>
+	struct _In_place_key_extract_map<_Key, pair<_First, _Second>> {
+		// if we would call the pair(pair<other, other>) constructor family, we can use the pair.first member as the key
+		static constexpr bool _Extractable = is_same_v<_Key, _Remove_cvref_t<_First>>;
+		static const _Key& _Extract(const pair<_First, _Second>& _Val) {
+			return _Val.first;
+		}
+	};
+
+	template <class _Size_type, class _Unsigned_type>
+	_NODISCARD constexpr _Size_type _Convert_size(const _Unsigned_type _Len) noexcept(
+		sizeof(_Unsigned_type) <= sizeof(_Size_type)) {
+		// convert _Unsigned_type to _Size_type, avoiding truncation
+		_STL_INTERNAL_STATIC_ASSERT(_Unsigned_type(-1) > 0);
+		_STL_INTERNAL_STATIC_ASSERT(_Size_type(-1) > 0);
+
+		if constexpr (sizeof(_Unsigned_type) > sizeof(_Size_type)) {
+			if (_Len > (std::numeric_limits<_Size_type>::max)()) {
+				_Xlength_error("size is too long for _Size_type");
+			}
+		}
+
+		return static_cast<_Size_type>(_Len);
+	}
+
+	template <class _Ptrty>
+	_NODISCARD constexpr auto _Unfancy(_Ptrty _Ptr) noexcept { // converts from a fancy pointer to a plain pointer
+		return _STD addressof(*_Ptr);
+	}
 }

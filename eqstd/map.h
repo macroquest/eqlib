@@ -1,8 +1,15 @@
+// map standard header
+
+// Copyright (c) Microsoft Corporation.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+// Adapted for use with eqlib
 
 #pragma once
 
 #include "eqlib/Allocator.h"
 
+#include "eqlib/eqstd/utility.h"
 #include "eqlib/eqstd/xmemory.h"
 #include "eqlib/eqstd/xtree.h"
 
@@ -18,7 +25,7 @@ namespace eqstd
 		class _Tmap_traits { // traits required to make _Tree behave like a map
 	public:
 		using key_type = _Kty;
-		using value_type = std::pair<const _Kty, _Ty>;
+		using value_type = pair<const _Kty, _Ty>;
 		using key_compare = _Pr;
 		using allocator_type = _Alloc;
 
@@ -40,13 +47,13 @@ namespace eqstd
 		};
 
 		template <class _Ty1, class _Ty2>
-		static const _Kty& _Kfn(const std::pair<_Ty1, _Ty2>& _Val) { // extract key from element value
+		static const _Kty& _Kfn(const pair<_Ty1, _Ty2>& _Val) { // extract key from element value
 			return _Val.first;
 		}
 	};
 
 	// CLASS TEMPLATE map
-	template <class _Kty, class _Ty, class _Pr = std::less<_Kty>, class _Alloc = eqlib::everquest_allocator<std::pair<const _Kty, _Ty>>>
+	template <class _Kty, class _Ty, class _Pr = std::less<_Kty>, class _Alloc = allocator<pair<const _Kty, _Ty>>>
 	class map : public _Tree<_Tmap_traits<_Kty, _Ty, _Pr, _Alloc, false>> {
 		// ordered red-black tree of {key, mapped} values, unique keys
 	public:

@@ -1,12 +1,17 @@
-#pragma once
+// xstring internal header
 
-// copy of <string> with iterator checks and debug macros removed
-// so that it is always binary compatible with release build
+// Copyright (c) Microsoft Corporation.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+// Adapted for use with eqlib
+
+#pragma once
 
 #include "eqlib/eqstd/xmemory.h"
 #include "eqlib/eqstd/xutility.h"
 #include "eqlib/eqstd/type_traits.h"
 
+#include <limits>
 #include <string_view>
 
 namespace eqstd
@@ -14,452 +19,7 @@ namespace eqstd
 	using std::basic_string_view;
 	using std::string_view;
 	using std::initializer_list;
-
-	template <class _Elem, class _Int_type>
-	struct _Char_traits { // properties of a string or stream element
-		using char_type  = _Elem;
-		using int_type   = _Int_type;
-		using state_type = _Mbstatet;
-#if _HAS_CXX20
-		using comparison_category = strong_ordering;
-#endif // _HAS_CXX20
-
-		// For copy/move, we can uniformly call memcpy/memmove (or their builtin versions) for all element types.
-
-		static _CONSTEXPR20 _Elem* copy(_Out_writes_all_(_Count) _Elem* const _First1,
-			_In_reads_(_Count) const _Elem* const _First2, const size_t _Count) noexcept /* strengthened */ {
-			// copy [_First2, _First2 + _Count) to [_First1, ...)
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				// pre: [_First1, _First1 + _Count) and [_First2, _First2 + _Count) do not overlap; see LWG-3085
-				for (size_t _Idx = 0; _Idx != _Count; ++_Idx) {
-					_First1[_Idx] = _First2[_Idx];
-				}
-
-				return _First1;
-			}
-	#endif // _HAS_CXX20
-
-			_CSTD memcpy(_First1, _First2, _Count * sizeof(_Elem));
-
-			return _First1;
-		}
-
-		_Pre_satisfies_(_Dest_size >= _Count) static _CONSTEXPR20 _Elem* _Copy_s(_Out_writes_all_(_Dest_size)
-																					 _Elem* const _First1,
-			const size_t _Dest_size, _In_reads_(_Count) const _Elem* const _First2, const size_t _Count) noexcept {
-			// copy [_First2, _First2 + _Count) to [_First1, _First1 + _Dest_size)
-			_STL_VERIFY(_Count <= _Dest_size, "invalid argument");
-			return copy(_First1, _First2, _Count);
-		}
-
-		static _CONSTEXPR20 _Elem* move(_Out_writes_all_(_Count) _Elem* const _First1,
-			_In_reads_(_Count) const _Elem* const _First2, const size_t _Count) noexcept /* strengthened */ {
-			// copy [_First2, _First2 + _Count) to [_First1, ...), allowing overlap
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				// dest: [_First1, _First1 + _Count)
-				// src: [_First2, _First2 + _Count)
-				// We need to handle overlapping ranges.
-				// If _First1 is in the src range, we need a backward loop.
-				// Otherwise, the forward loop works (even if the back of dest overlaps the front of src).
-
-				// Usually, we would compare pointers with less-than, even though they could belong to different arrays.
-				// However, we're not allowed to do that during constant evaluation, so we need a linear scan for equality.
-				bool _Loop_forward = true;
-
-				for (const _Elem* _Src = _First2; _Src != _First2 + _Count; ++_Src) {
-					if (_First1 == _Src) {
-						_Loop_forward = false;
-						break;
-					}
-				}
-
-				if (_Loop_forward) {
-					for (size_t _Idx = 0; _Idx != _Count; ++_Idx) {
-						_First1[_Idx] = _First2[_Idx];
-					}
-				} else {
-					for (size_t _Idx = _Count; _Idx != 0; --_Idx) {
-						_First1[_Idx - 1] = _First2[_Idx - 1];
-					}
-				}
-
-				return _First1;
-			}
-	#endif // _HAS_CXX20
-
-			_CSTD memmove(_First1, _First2, _Count * sizeof(_Elem));
-
-			return _First1;
-		}
-
-		// For compare/length/find/assign, we can't uniformly call CRT functions (or their builtin versions).
-		// 8-bit: memcmp/strlen/memchr/memset; 16-bit: wmemcmp/wcslen/wmemchr/wmemset; 32-bit: nonexistent
-
-		_NODISCARD static _CONSTEXPR17 int compare(_In_reads_(_Count) const _Elem* _First1,
-			_In_reads_(_Count) const _Elem* _First2, size_t _Count) noexcept /* strengthened */ {
-			// compare [_First1, _First1 + _Count) with [_First2, ...)
-			for (; 0 < _Count; --_Count, ++_First1, ++_First2) {
-				if (*_First1 != *_First2) {
-					return *_First1 < *_First2 ? -1 : +1;
-				}
-			}
-
-			return 0;
-		}
-
-		_NODISCARD static _CONSTEXPR17 size_t length(_In_z_ const _Elem* _First) noexcept /* strengthened */ {
-			// find length of null-terminated sequence
-			size_t _Count = 0;
-			while (*_First != _Elem()) {
-				++_Count;
-				++_First;
-			}
-
-			return _Count;
-		}
-
-		_NODISCARD static _CONSTEXPR17 const _Elem* find(
-			_In_reads_(_Count) const _Elem* _First, size_t _Count, const _Elem& _Ch) noexcept /* strengthened */ {
-			// look for _Ch in [_First, _First + _Count)
-			for (; 0 < _Count; --_Count, ++_First) {
-				if (*_First == _Ch) {
-					return _First;
-				}
-			}
-
-			return nullptr;
-		}
-
-		static _CONSTEXPR20 _Elem* assign(
-			_Out_writes_all_(_Count) _Elem* const _First, size_t _Count, const _Elem _Ch) noexcept /* strengthened */ {
-			// assign _Count * _Ch to [_First, ...)
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				for (_Elem* _Next = _First; _Count > 0; --_Count, ++_Next) {
-					_STD construct_at(_Next, _Ch);
-				}
-			} else
-	#endif // _HAS_CXX20
-			{
-				for (_Elem* _Next = _First; _Count > 0; --_Count, ++_Next) {
-					*_Next = _Ch;
-				}
-			}
-
-			return _First;
-		}
-
-		static _CONSTEXPR17 void assign(_Elem& _Left, const _Elem& _Right) noexcept {
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				_STD construct_at(_STD addressof(_Left), _Right);
-			} else
-	#endif // _HAS_CXX20
-			{
-				_Left = _Right;
-			}
-		}
-
-		_NODISCARD static constexpr bool eq(const _Elem& _Left, const _Elem& _Right) noexcept {
-			return _Left == _Right;
-		}
-
-		_NODISCARD static constexpr bool lt(const _Elem& _Left, const _Elem& _Right) noexcept {
-			return _Left < _Right;
-		}
-
-		_NODISCARD static constexpr _Elem to_char_type(const int_type& _Meta) noexcept {
-			return static_cast<_Elem>(_Meta);
-		}
-
-		_NODISCARD static constexpr int_type to_int_type(const _Elem& _Ch) noexcept {
-			return static_cast<int_type>(_Ch);
-		}
-
-		_NODISCARD static constexpr bool eq_int_type(const int_type& _Left, const int_type& _Right) noexcept {
-			return _Left == _Right;
-		}
-
-		_NODISCARD static constexpr int_type not_eof(const int_type& _Meta) noexcept {
-			return _Meta != eof() ? _Meta : !eof();
-		}
-
-		_NODISCARD static constexpr int_type eof() noexcept {
-			return static_cast<int_type>(EOF);
-		}
-	};
-
-	template <class _Elem>
-	struct _WChar_traits : private _Char_traits<_Elem, unsigned short> {
-		// char_traits for the char16_t-likes: char16_t, wchar_t, unsigned short
-	private:
-		using _Primary_char_traits = _Char_traits<_Elem, unsigned short>;
-
-	public:
-		using char_type  = _Elem;
-		using int_type   = unsigned short;
-		using state_type = mbstate_t;
-	#if _HAS_CXX20
-		using comparison_category = strong_ordering;
-	#endif // _HAS_CXX20
-
-		using _Primary_char_traits::_Copy_s;
-		using _Primary_char_traits::copy;
-		using _Primary_char_traits::move;
-
-		_NODISCARD static _CONSTEXPR17 int compare(_In_reads_(_Count) const _Elem* const _First1,
-			_In_reads_(_Count) const _Elem* const _First2, const size_t _Count) noexcept /* strengthened */ {
-			// compare [_First1, _First1 + _Count) with [_First2, ...)
-	#if _HAS_CXX17
-			if constexpr (is_same_v<_Elem, wchar_t>) {
-				return __builtin_wmemcmp(_First1, _First2, _Count);
-			} else {
-				return _Primary_char_traits::compare(_First1, _First2, _Count);
-			}
-	#else // _HAS_CXX17
-			return _CSTD wmemcmp(
-				reinterpret_cast<const wchar_t*>(_First1), reinterpret_cast<const wchar_t*>(_First2), _Count);
-	#endif // _HAS_CXX17
-		}
-
-		_NODISCARD static _CONSTEXPR17 size_t length(_In_z_ const _Elem* _First) noexcept /* strengthened */ {
-			// find length of null-terminated sequence
-	#if _HAS_CXX17
-			if constexpr (is_same_v<_Elem, wchar_t>) {
-				return __builtin_wcslen(_First);
-			} else {
-				return _Primary_char_traits::length(_First);
-			}
-	#else // _HAS_CXX17
-			return _CSTD wcslen(reinterpret_cast<const wchar_t*>(_First));
-	#endif // _HAS_CXX17
-		}
-
-		_NODISCARD static _CONSTEXPR17 const _Elem* find(
-			_In_reads_(_Count) const _Elem* _First, const size_t _Count, const _Elem& _Ch) noexcept /* strengthened */ {
-			// look for _Ch in [_First, _First + _Count)
-	#if _HAS_CXX17
-			if constexpr (is_same_v<_Elem, wchar_t>) {
-				return __builtin_wmemchr(_First, _Ch, _Count);
-			} else {
-				return _Primary_char_traits::find(_First, _Count, _Ch);
-			}
-	#else // _HAS_CXX17
-			return reinterpret_cast<const _Elem*>(_CSTD wmemchr(reinterpret_cast<const wchar_t*>(_First), _Ch, _Count));
-	#endif // _HAS_CXX17
-		}
-
-		static _CONSTEXPR20 _Elem* assign(
-			_Out_writes_all_(_Count) _Elem* const _First, size_t _Count, const _Elem _Ch) noexcept /* strengthened */ {
-			// assign _Count * _Ch to [_First, ...)
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				return _Primary_char_traits::assign(_First, _Count, _Ch);
-			}
-	#endif // _HAS_CXX20
-
-			return reinterpret_cast<_Elem*>(_CSTD wmemset(reinterpret_cast<wchar_t*>(_First), _Ch, _Count));
-		}
-
-		static _CONSTEXPR17 void assign(_Elem& _Left, const _Elem& _Right) noexcept {
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				return _Primary_char_traits::assign(_Left, _Right);
-			}
-	#endif // _HAS_CXX20
-			_Left = _Right;
-		}
-
-		_NODISCARD static constexpr bool eq(const _Elem& _Left, const _Elem& _Right) noexcept {
-			return _Left == _Right;
-		}
-
-		_NODISCARD static constexpr bool lt(const _Elem& _Left, const _Elem& _Right) noexcept {
-			return _Left < _Right;
-		}
-
-		_NODISCARD static constexpr _Elem to_char_type(const int_type& _Meta) noexcept {
-			return _Meta;
-		}
-
-		_NODISCARD static constexpr int_type to_int_type(const _Elem& _Ch) noexcept {
-			return _Ch;
-		}
-
-		_NODISCARD static constexpr bool eq_int_type(const int_type& _Left, const int_type& _Right) noexcept {
-			return _Left == _Right;
-		}
-
-		_NODISCARD static constexpr int_type not_eof(const int_type& _Meta) noexcept {
-			return _Meta != eof() ? _Meta : static_cast<int_type>(!eof());
-		}
-
-		_NODISCARD static constexpr int_type eof() noexcept {
-			return WEOF;
-		}
-	};
-
-	template <class _Elem>
-	struct char_traits : _Char_traits<_Elem, long> {}; // properties of a string or stream unknown element
-
-	template <>
-	struct char_traits<char16_t> : _WChar_traits<char16_t> {};
-
-	template <>
-	struct char_traits<char32_t> : _Char_traits<char32_t, unsigned int> {};
-
-	template <>
-	struct char_traits<wchar_t> : _WChar_traits<wchar_t> {};
-
-	#define _HAS_U8_INTRINSICS 0
-
-	template <class _Elem, class _Int_type>
-	struct _Narrow_char_traits : private _Char_traits<_Elem, _Int_type> {
-		// Implement char_traits for narrow character types char and char8_t
-	private:
-		using _Primary_char_traits = _Char_traits<_Elem, _Int_type>;
-
-	public:
-		using char_type  = _Elem;
-		using int_type   = _Int_type;
-		using state_type = mbstate_t;
-	#if _HAS_CXX20
-		using comparison_category = strong_ordering;
-	#endif // _HAS_CXX20
-
-		using _Primary_char_traits::_Copy_s;
-		using _Primary_char_traits::copy;
-		using _Primary_char_traits::move;
-
-		_NODISCARD static _CONSTEXPR17 int compare(_In_reads_(_Count) const _Elem* const _First1,
-			_In_reads_(_Count) const _Elem* const _First2, const size_t _Count) noexcept /* strengthened */ {
-			// compare [_First1, _First1 + _Count) with [_First2, ...)
-	#if _HAS_CXX17
-	#if _HAS_CXX20 && defined(__EDG__) // TRANSITION, VSO-1641993
-			if (_STD is_constant_evaluated()) {
-				for (size_t _Idx = 0; _Idx != _Count; ++_Idx) {
-					if (static_cast<unsigned char>(_First1[_Idx]) < static_cast<unsigned char>(_First2[_Idx])) {
-						return -1;
-					}
-
-					if (static_cast<unsigned char>(_First2[_Idx]) < static_cast<unsigned char>(_First1[_Idx])) {
-						return 1;
-					}
-				}
-				return 0;
-			} else {
-				return _CSTD memcmp(_First1, _First2, _Count);
-			}
-	#else // ^^^ workaround for EDG / no workaround needed for MSVC and Clang vvv
-			return __builtin_memcmp(_First1, _First2, _Count);
-	#endif // ^^^ no workaround needed for MSVC and Clang ^^^
-	#else // _HAS_CXX17
-			return _CSTD memcmp(_First1, _First2, _Count);
-	#endif // _HAS_CXX17
-		}
-
-		_NODISCARD static _CONSTEXPR17 size_t length(_In_z_ const _Elem* const _First) noexcept /* strengthened */ {
-			// find length of null-terminated string
-	#if _HAS_CXX17
-	#ifdef __cpp_char8_t
-			if constexpr (is_same_v<_Elem, char8_t>) {
-	#if _HAS_U8_INTRINSICS
-				return __builtin_u8strlen(_First);
-	#else // ^^^ use u8 intrinsics / no u8 intrinsics vvv
-				return _Primary_char_traits::length(_First);
-	#endif // _HAS_U8_INTRINSICS
-			} else
-	#endif // __cpp_char8_t
-			{
-				return __builtin_strlen(_First);
-			}
-	#else // _HAS_CXX17
-			return _CSTD strlen(reinterpret_cast<const char*>(_First));
-	#endif // _HAS_CXX17
-		}
-
-		_NODISCARD static _CONSTEXPR17 const _Elem* find(_In_reads_(_Count) const _Elem* const _First, const size_t _Count,
-			const _Elem& _Ch) noexcept /* strengthened */ {
-			// look for _Ch in [_First, _First + _Count)
-	#if _HAS_CXX17
-	#ifdef __cpp_char8_t
-			if constexpr (is_same_v<_Elem, char8_t>) {
-	#if _HAS_U8_INTRINSICS
-				return __builtin_u8memchr(_First, _Ch, _Count);
-	#else // ^^^ use u8 intrinsics / no u8 intrinsics vvv
-				return _Primary_char_traits::find(_First, _Count, _Ch);
-	#endif // _HAS_U8_INTRINSICS
-			} else
-	#endif // __cpp_char8_t
-			{
-				return __builtin_char_memchr(_First, _Ch, _Count);
-			}
-	#else // _HAS_CXX17
-			return static_cast<const _Elem*>(_CSTD memchr(_First, _Ch, _Count));
-	#endif // _HAS_CXX17
-		}
-
-		static _CONSTEXPR20 _Elem* assign(
-			_Out_writes_all_(_Count) _Elem* const _First, size_t _Count, const _Elem _Ch) noexcept /* strengthened */ {
-			// assign _Count * _Ch to [_First, ...)
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				return _Primary_char_traits::assign(_First, _Count, _Ch);
-			}
-	#endif // _HAS_CXX20
-
-			return static_cast<_Elem*>(_CSTD memset(_First, _Ch, _Count));
-		}
-
-		static _CONSTEXPR17 void assign(_Elem& _Left, const _Elem& _Right) noexcept {
-	#if _HAS_CXX20
-			if (_STD is_constant_evaluated()) {
-				return _Primary_char_traits::assign(_Left, _Right);
-			}
-	#endif // _HAS_CXX20
-			_Left = _Right;
-		}
-
-		_NODISCARD static constexpr bool eq(const _Elem& _Left, const _Elem& _Right) noexcept {
-			return _Left == _Right;
-		}
-
-		_NODISCARD static constexpr bool lt(const _Elem& _Left, const _Elem& _Right) noexcept {
-			return static_cast<unsigned char>(_Left) < static_cast<unsigned char>(_Right);
-		}
-
-		_NODISCARD static constexpr _Elem to_char_type(const int_type& _Meta) noexcept {
-			return static_cast<_Elem>(_Meta);
-		}
-
-		_NODISCARD static constexpr int_type to_int_type(const _Elem& _Ch) noexcept {
-			return static_cast<unsigned char>(_Ch);
-		}
-
-		_NODISCARD static constexpr bool eq_int_type(const int_type& _Left, const int_type& _Right) noexcept {
-			return _Left == _Right;
-		}
-
-		_NODISCARD static constexpr int_type not_eof(const int_type& _Meta) noexcept {
-			return _Meta != eof() ? _Meta : !eof();
-		}
-
-		_NODISCARD static constexpr int_type eof() noexcept {
-			return static_cast<int_type>(EOF);
-		}
-	};
-
-	#undef _HAS_U8_INTRINSICS
-
-	template <>
-	struct char_traits<char> : _Narrow_char_traits<char, int> {}; // properties of a string or stream char element
-
-	#ifdef __cpp_char8_t
-	template <>
-	struct char_traits<char8_t> : _Narrow_char_traits<char8_t, unsigned int> {};
-	#endif // __cpp_char8_t
+	using std::char_traits;
 
 	template <class _Traits>
 	struct _Char_traits_eq {
@@ -1220,7 +780,7 @@ namespace eqstd
 		(_RANGES contiguous_range<_Rng>) && same_as<remove_cvref_t<_RANGES range_reference_t<_Rng>>, _Ty>;
 	#endif // _HAS_CXX23 && defined(__cpp_lib_concepts)
 
-	_EXPORT_STD template <class _Elem, class _Traits = char_traits<_Elem>, class _Alloc = allocator<_Elem>>
+	template <class _Elem, class _Traits = char_traits<_Elem>, class _Alloc = allocator<_Elem>>
 	class basic_string { // null-terminated transparent array of elements
 	private:
 		friend _Tidy_deallocate_guard<basic_string>;
@@ -1296,12 +856,12 @@ namespace eqstd
 	public:
 		_CONSTEXPR20 basic_string() noexcept(is_nothrow_default_constructible_v<_Alty>)
 			: _Mypair(_Zero_then_variadic_args_t{}) {
-			_Mypair._Myval2._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal()));
+			_Mypair._Myval2._Alloc_proxy(_Fake_alloc);
 			_Tidy_init();
 		}
 
 		_CONSTEXPR20 explicit basic_string(const _Alloc& _Al) noexcept : _Mypair(_One_then_variadic_args_t{}, _Al) {
-			_Mypair._Myval2._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal()));
+			_Mypair._Myval2._Alloc_proxy(_Fake_alloc);
 			_Tidy_init();
 		}
 
@@ -1390,7 +950,7 @@ namespace eqstd
 			auto _UFirst = _Get_unwrapped(_First);
 			auto _ULast  = _Get_unwrapped(_Last);
 			if (_UFirst == _ULast) {
-				_Mypair._Myval2._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal()));
+				_Mypair._Myval2._Alloc_proxy(_Fake_alloc);
 				_Tidy_init();
 			} else {
 				if constexpr (_Is_elem_cptr<decltype(_UFirst)>::value) {
@@ -1412,20 +972,13 @@ namespace eqstd
 		template <_Construct_strategy _Strat, class _Char_or_ptr>
 		_CONSTEXPR20 void _Construct(const _Char_or_ptr _Arg, _CRT_GUARDOVERFLOW const size_type _Count) {
 			auto& _My_data = _Mypair._Myval2;
-			_STL_INTERNAL_CHECK(!_My_data._Large_string_engaged());
-
-			if constexpr (_Strat == _Construct_strategy::_From_char) {
-				_STL_INTERNAL_STATIC_ASSERT(is_same_v<_Char_or_ptr, _Elem>);
-			} else {
-				_STL_INTERNAL_STATIC_ASSERT(_Is_elem_cptr<_Char_or_ptr>::value);
-			}
 
 			if (_Count > max_size()) {
 				_Xlen_string(); // result too long
 			}
 
 			auto& _Al       = _Getal();
-			auto&& _Alproxy = _GET_PROXY_ALLOCATOR(_Alty, _Al);
+			auto&& _Alproxy = _Fake_alloc;
 			_Container_proxy_ptr<_Alty> _Proxy(_Alproxy, _My_data);
 
 			if (_Count < _BUF_SIZE) {
@@ -1479,7 +1032,7 @@ namespace eqstd
 
 			auto& _My_data  = _Mypair._Myval2;
 			auto& _Al       = _Getal();
-			auto&& _Alproxy = _GET_PROXY_ALLOCATOR(_Alty, _Al);
+			auto&& _Alproxy = _Fake_alloc;
 			_Container_proxy_ptr<_Alty> _Proxy(_Alproxy, _My_data);
 
 			_My_data._Mysize = 0;
@@ -1564,7 +1117,7 @@ namespace eqstd
 
 		_CONSTEXPR20 basic_string(basic_string&& _Right) noexcept
 			: _Mypair(_One_then_variadic_args_t{}, _STD move(_Right._Getal())) {
-			_Mypair._Myval2._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal()));
+			_Mypair._Myval2._Alloc_proxy(_Fake_alloc);
 			_Take_contents(_Right);
 		}
 
@@ -1579,7 +1132,7 @@ namespace eqstd
 				}
 			}
 
-			_Mypair._Myval2._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal()));
+			_Mypair._Myval2._Alloc_proxy(_Fake_alloc);
 			_Take_contents(_Right);
 		}
 
@@ -1588,14 +1141,11 @@ namespace eqstd
 			const size_type _Right_size)
 			: _Mypair(
 				_One_then_variadic_args_t{}, _Alty_traits::select_on_container_copy_construction(_Source_of_al._Getal())) {
-			_STL_INTERNAL_CHECK(_Left_size <= max_size());
-			_STL_INTERNAL_CHECK(_Right_size <= max_size());
-			_STL_INTERNAL_CHECK(_Right_size <= max_size() - _Left_size);
 			const auto _New_size    = static_cast<size_type>(_Left_size + _Right_size);
 			size_type _New_capacity = _BUF_SIZE - 1;
 			auto& _My_data          = _Mypair._Myval2;
 			_Elem* _Ptr             = _My_data._Bx._Buf;
-			auto&& _Alproxy         = _GET_PROXY_ALLOCATOR(_Alty, _Getal());
+			auto&& _Alproxy         = _Fake_alloc;
 			_Container_proxy_ptr<_Alty> _Proxy(_Alproxy, _My_data); // throws
 
 			if (_New_capacity < _New_size) {
@@ -1636,7 +1186,7 @@ namespace eqstd
 			const bool _Fits_in_left = _Right_size <= _Left_capacity - _Left_size;
 			if (_Fits_in_left && _Right_capacity <= _Left_capacity) {
 				// take _Left's buffer, max_size() is OK because _Fits_in_left
-				_My_data._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal())); // throws, hereafter nothrow in this block
+				_My_data._Alloc_proxy(_Fake_alloc); // throws, hereafter nothrow in this block
 				_Take_contents(_Left);
 				const auto _Ptr = _My_data._Myptr();
 				_Traits::copy(_Ptr + _Left_size, _Right_data._Myptr(), _Right_size + 1);
@@ -1655,8 +1205,7 @@ namespace eqstd
 				// (!_Fits_in_left && _Fits_in_right)  // implying _Right has more capacity
 				//     || (_Right_capacity > _Left_capacity && _Fits_in_right)  // tests that _Right has more capacity
 				// therefore: _Right must have more than the minimum capacity, so it must be _Large_string_engaged()
-				_STL_INTERNAL_CHECK(_Right_data._Large_string_engaged());
-				_My_data._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal())); // throws, hereafter nothrow in this block
+				_My_data._Alloc_proxy(_Fake_alloc); // throws, hereafter nothrow in this block
 				_Take_contents(_Right);
 				const auto _Ptr = _Unfancy(_My_data._Bx._Ptr);
 				_Traits::move(_Ptr + _Left_size, _Ptr, _Right_size + 1);
@@ -1672,7 +1221,7 @@ namespace eqstd
 			}
 
 			const auto _New_capacity = _Calculate_growth(_New_size, _BUF_SIZE - 1, _Max);
-			auto&& _Alproxy          = _GET_PROXY_ALLOCATOR(_Alty, _Getal());
+			auto&& _Alproxy          = _Fake_alloc;
 			_Container_proxy_ptr<_Alty> _Proxy(_Alproxy, _My_data); // throws
 			const pointer _Fancyptr = _Getal().allocate(_New_capacity + 1); // throws
 			// nothrow hereafter
@@ -1712,15 +1261,13 @@ namespace eqstd
 		basic_string(_String_constructor_rvalue_allocator_tag, _Alloc&& _Al)
 			: _Mypair(_One_then_variadic_args_t{}, _STD move(_Al)) {
 			// Used exclusively by basic_stringbuf
-			_Mypair._Myval2._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Getal()));
+			_Mypair._Myval2._Alloc_proxy(_Fake_alloc);
 			_Tidy_init();
 		}
 
 		_NODISCARD bool _Move_assign_from_buffer(_Elem* const _Right, const size_type _Size, const size_type _Res) {
 			// Move assign from a buffer, used exclusively by basic_stringbuf; returns _Large_string_engaged()
 			auto& _My_data = _Mypair._Myval2;
-			_STL_INTERNAL_CHECK(!_My_data._Large_string_engaged() && _My_data._Mysize == 0);
-			_STL_INTERNAL_CHECK(_Size < _Res); // So there is room for null terminator
 			_Traits::assign(_Right[_Size], _Elem());
 
 			const bool _Is_large = _Res > _BUF_SIZE; // Note: _BUF_SIZE because _Res now includes the null terminator
@@ -1777,7 +1324,7 @@ namespace eqstd
 				if (_Al != _Right_al) {
 					// intentionally slams into noexcept on OOM, TRANSITION, VSO-466800
 					_Mypair._Myval2._Orphan_all();
-					_Mypair._Myval2._Reload_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Al), _GET_PROXY_ALLOCATOR(_Alty, _Right_al));
+					_Mypair._Myval2._Reload_proxy(_Fake_alloc, _Fake_alloc);
 				}
 			} else if constexpr (_Pocma_val == _Pocma_values::_No_propagate_allocators) {
 				if (_Al != _Right_al) {
@@ -1799,7 +1346,6 @@ namespace eqstd
 
 	private:
 		void _Memcpy_val_from(const basic_string& _Right) noexcept {
-			_STL_INTERNAL_CHECK(_Can_memcpy_val);
 			const auto _My_data_mem =
 				reinterpret_cast<unsigned char*>(_STD addressof(_Mypair._Myval2)) + _Memcpy_val_offset;
 			const auto _Right_data_mem =
@@ -1857,7 +1403,7 @@ namespace eqstd
 				}
 				_Right._Eos(_Result_size);
 
-				_Mypair._Myval2._Alloc_proxy(_GET_PROXY_ALLOCATOR(_Alty, _Al));
+				_Mypair._Myval2._Alloc_proxy(_Fake_alloc);
 				_Take_contents(_Right);
 			} else {
 				_Construct<_Construct_strategy::_From_ptr>(_Right_ptr + _Roff, _Result_size);
@@ -1868,7 +1414,7 @@ namespace eqstd
 	public:
 		_CONSTEXPR20 basic_string(initializer_list<_Elem> _Ilist, const _Alloc& _Al = allocator_type())
 			: _Mypair(_One_then_variadic_args_t{}, _Al) {
-			auto&& _Alproxy = _GET_PROXY_ALLOCATOR(_Alty, _Getal());
+			auto&& _Alproxy = _Fake_alloc;
 			_Container_proxy_ptr<_Alty> _Proxy(_Alproxy, _Mypair._Myval2);
 			_Tidy_init();
 			assign(_Ilist.begin(), _Convert_size<size_type>(_Ilist.size()));
@@ -1892,9 +1438,6 @@ namespace eqstd
 		}
 
 		_CONSTEXPR20 iterator insert(const const_iterator _Where, const initializer_list<_Elem> _Ilist) {
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_Where._Getcont() == _STD addressof(_Mypair._Myval2), "string iterator incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off = static_cast<size_type>(_Unfancy(_Where._Ptr) - _Mypair._Myval2._Myptr());
 			insert(_Off, _Ilist.begin(), _Convert_size<size_type>(_Ilist.size()));
 			return begin() + static_cast<difference_type>(_Off);
@@ -1904,9 +1447,6 @@ namespace eqstd
 			const const_iterator _First, const const_iterator _Last, const initializer_list<_Elem> _Ilist) {
 			// replace with initializer_list
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Offset = static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr());
 			const auto _Length = static_cast<size_type>(_Last._Ptr - _First._Ptr);
 			return replace(_Offset, _Length, _Ilist.begin(), _Convert_size<size_type>(_Ilist.size()));
@@ -1914,12 +1454,6 @@ namespace eqstd
 
 		_CONSTEXPR20 ~basic_string() noexcept {
 			_Tidy_deallocate();
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			auto&& _Alproxy          = _GET_PROXY_ALLOCATOR(_Alty, _Getal());
-			const auto _To_delete    = _Mypair._Myval2._Myproxy;
-			_Mypair._Myval2._Myproxy = nullptr;
-			_Delete_plain_internal(_Alproxy, _To_delete);
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 		}
 
 		static constexpr auto npos{static_cast<size_type>(-1)};
@@ -1956,8 +1490,8 @@ namespace eqstd
 			const auto& _Right_al = _Right._Getal();
 			if constexpr (_Choose_pocca_v<_Alty>) {
 				if (_Al != _Right_al) {
-					auto&& _Alproxy       = _GET_PROXY_ALLOCATOR(_Alty, _Al);
-					auto&& _Right_alproxy = _GET_PROXY_ALLOCATOR(_Alty, _Right_al);
+					auto&& _Alproxy       = _Fake_alloc;
+					auto&& _Right_alproxy = _Fake_alloc;
 					_Container_proxy_ptr<_Alty> _New_proxy(_Right_alproxy, _Leave_proxy_unbound{}); // throws
 
 					if (_Right._Mypair._Myval2._Large_string_engaged()) {
@@ -2356,9 +1890,6 @@ namespace eqstd
 		}
 
 		_CONSTEXPR20 iterator insert(const const_iterator _Where, const _Elem _Ch) { // insert _Ch at _Where
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_Where._Getcont() == _STD addressof(_Mypair._Myval2), "string iterator incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off = static_cast<size_type>(_Unfancy(_Where._Ptr) - _Mypair._Myval2._Myptr());
 			insert(_Off, 1, _Ch);
 			return begin() + static_cast<difference_type>(_Off);
@@ -2367,9 +1898,6 @@ namespace eqstd
 		_CONSTEXPR20 iterator insert(
 			const const_iterator _Where, _CRT_GUARDOVERFLOW const size_type _Count, const _Elem _Ch) {
 			// insert _Count * _Elem at _Where
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_Where._Getcont() == _STD addressof(_Mypair._Myval2), "string iterator incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off = static_cast<size_type>(_Unfancy(_Where._Ptr) - _Mypair._Myval2._Myptr());
 			insert(_Off, _Count, _Ch);
 			return begin() + static_cast<difference_type>(_Off);
@@ -2378,9 +1906,6 @@ namespace eqstd
 		template <class _Iter, enable_if_t<_Is_iterator_v<_Iter>, int> = 0>
 		_CONSTEXPR20 iterator insert(const const_iterator _Where, const _Iter _First, const _Iter _Last) {
 			// insert [_First, _Last) at _Where, input iterators
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_Where._Getcont() == _STD addressof(_Mypair._Myval2), "string iterator incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off = static_cast<size_type>(_Unfancy(_Where._Ptr) - _Mypair._Myval2._Myptr());
 			_Adl_verify_range(_First, _Last);
 			const auto _UFirst = _Get_unwrapped(_First);
@@ -2398,9 +1923,6 @@ namespace eqstd
 	#if _HAS_CXX23 && defined(__cpp_lib_concepts) // TRANSITION, GH-395
 		template <_Container_compatible_range<_Elem> _Rng>
 		constexpr iterator insert_range(const const_iterator _Where, _Rng&& _Range) {
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_Where._Getcont() == _STD addressof(_Mypair._Myval2), "string iterator incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off = static_cast<size_type>(_Unfancy(_Where._Ptr) - _Mypair._Myval2._Myptr());
 
 			if constexpr (_RANGES sized_range<_Rng> && _Contiguous_range_of<_Rng, _Elem>) {
@@ -2441,9 +1963,6 @@ namespace eqstd
 		}
 
 		_CONSTEXPR20 iterator erase(const const_iterator _Where) noexcept /* strengthened */ {
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_Where._Getcont() == _STD addressof(_Mypair._Myval2), "string iterator incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off = static_cast<size_type>(_Unfancy(_Where._Ptr) - _Mypair._Myval2._Myptr());
 			_Erase_noexcept(_Off, 1);
 			return begin() + static_cast<difference_type>(_Off);
@@ -2452,9 +1971,6 @@ namespace eqstd
 		_CONSTEXPR20 iterator erase(const const_iterator _First, const const_iterator _Last) noexcept
 		/* strengthened */ {
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off = static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr());
 			_Erase_noexcept(_Off, static_cast<size_type>(_Last._Ptr - _First._Ptr));
 			return begin() + static_cast<difference_type>(_Off);
@@ -2603,9 +2119,6 @@ namespace eqstd
 			const const_iterator _First, const const_iterator _Last, const basic_string& _Right) {
 			// replace [_First, _Last) with _Right
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			return replace(static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr()),
 				static_cast<size_type>(_Last._Ptr - _First._Ptr), _Right);
 		}
@@ -2616,9 +2129,6 @@ namespace eqstd
 			const const_iterator _First, const const_iterator _Last, const _StringViewIsh& _Right) {
 			// replace [_First, _Last) with _Right
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			return replace(static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr()),
 				static_cast<size_type>(_Last._Ptr - _First._Ptr), _Right);
 		}
@@ -2628,9 +2138,6 @@ namespace eqstd
 			_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Count) {
 			// replace [_First, _Last) with [_Ptr, _Ptr + _Count)
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			return replace(static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr()),
 				static_cast<size_type>(_Last._Ptr - _First._Ptr), _Ptr, _Count);
 		}
@@ -2639,9 +2146,6 @@ namespace eqstd
 			const const_iterator _First, const const_iterator _Last, _In_z_ const _Elem* const _Ptr) {
 			// replace [_First, _Last) with [_Ptr, <null>)
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			return replace(static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr()),
 				static_cast<size_type>(_Last._Ptr - _First._Ptr), _Ptr);
 		}
@@ -2650,9 +2154,6 @@ namespace eqstd
 			const const_iterator _First, const const_iterator _Last, const size_type _Count, const _Elem _Ch) {
 			// replace [_First, _Last) with _Count * _Ch
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			return replace(static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr()),
 				static_cast<size_type>(_Last._Ptr - _First._Ptr), _Count, _Ch);
 		}
@@ -2662,9 +2163,6 @@ namespace eqstd
 			const const_iterator _First, const const_iterator _Last, const _Iter _First2, const _Iter _Last2) {
 			// replace [_First, _Last) with [_First2, _Last2), input iterators
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off    = static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr());
 			const auto _Length = static_cast<size_type>(_Last._Ptr - _First._Ptr);
 			_Adl_verify_range(_First2, _Last2);
@@ -2682,9 +2180,6 @@ namespace eqstd
 		template <_Container_compatible_range<_Elem> _Rng>
 		constexpr basic_string& replace_with_range(const const_iterator _First, const const_iterator _Last, _Rng&& _Range) {
 			_Adl_verify_range(_First, _Last);
-	#if _ITERATOR_DEBUG_LEVEL != 0
-			_STL_VERIFY(_First._Getcont() == _STD addressof(_Mypair._Myval2), "string iterators incompatible");
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
 			const auto _Off    = static_cast<size_type>(_Unfancy(_First._Ptr) - _Mypair._Myval2._Myptr());
 			const auto _Length = static_cast<size_type>(_Last._Ptr - _First._Ptr);
 
@@ -2851,9 +2346,6 @@ namespace eqstd
 
 		_CONSTEXPR20 void pop_back() noexcept /* strengthened */ {
 			const size_type _Old_size = _Mypair._Myval2._Mysize;
-	#if _ITERATOR_DEBUG_LEVEL >= 1
-			_STL_VERIFY(_Old_size != 0, "invalid to pop_back empty string");
-	#endif // _ITERATOR_DEBUG_LEVEL >= 1
 			_Eos(_Old_size - 1);
 		}
 
@@ -2915,7 +2407,7 @@ namespace eqstd
 			const size_type _Alloc_max   = _Alty_traits::max_size(_Getal());
 			const size_type _Storage_max = // can always store small string
 				(_STD max)(_Alloc_max, static_cast<size_type>(_BUF_SIZE));
-			return (_STD min)(static_cast<size_type>((numeric_limits<difference_type>::max)()),
+			return (_STD min)(static_cast<size_type>((std::numeric_limits<difference_type>::max)()),
 				_Storage_max - 1 // -1 is for null terminator and/or npos
 			);
 		}
@@ -3087,22 +2579,6 @@ namespace eqstd
 		_CONSTEXPR20 void swap(basic_string& _Right) noexcept /* strengthened */ {
 			if (this != _STD addressof(_Right)) {
 				_Pocs(_Getal(), _Right._Getal());
-
-	#if _ITERATOR_DEBUG_LEVEL != 0
-				auto& _My_data    = _Mypair._Myval2;
-				auto& _Right_data = _Right._Mypair._Myval2;
-
-				if (!_My_data._Large_string_engaged()) {
-					_My_data._Orphan_all();
-				}
-
-				if (!_Right_data._Large_string_engaged()) {
-					_Right_data._Orphan_all();
-				}
-
-				_My_data._Swap_proxy_and_iterators(_Right_data);
-	#endif // _ITERATOR_DEBUG_LEVEL != 0
-
 				_Swap_data(_Right);
 			}
 		}
@@ -3578,8 +3054,6 @@ namespace eqstd
 		_CONSTEXPR20 void _Become_small() {
 			// release any held storage and return to small string mode
 			auto& _My_data = _Mypair._Myval2;
-			_STL_INTERNAL_CHECK(_My_data._Large_string_engaged());
-			_STL_INTERNAL_CHECK(_My_data._Mysize < _BUF_SIZE);
 
 			_My_data._Orphan_all();
 			const pointer _Ptr = _My_data._Bx._Ptr;
@@ -3667,13 +3141,13 @@ namespace eqstd
 	#endif // _HAS_CXX23 && defined(__cpp_lib_concepts)
 	#endif // _HAS_CXX17
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_CONSTEXPR20 void swap(basic_string<_Elem, _Traits, _Alloc>& _Left,
 		basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept /* strengthened */ {
 		_Left.swap(_Right);
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		const auto _Left_size  = _Left.size();
@@ -3685,7 +3159,7 @@ namespace eqstd
 		return {_String_constructor_concat_tag{}, _Left, _Left.c_str(), _Left_size, _Right.c_str(), _Right_size};
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		using _Size_type       = typename basic_string<_Elem, _Traits, _Alloc>::size_type;
@@ -3698,7 +3172,7 @@ namespace eqstd
 		return {_String_constructor_concat_tag{}, _Right, _Left, _Left_size, _Right.c_str(), _Right_size};
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const _Elem _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		const auto _Right_size = _Right.size();
@@ -3709,7 +3183,7 @@ namespace eqstd
 		return {_String_constructor_concat_tag{}, _Right, _STD addressof(_Left), 1, _Right.c_str(), _Right_size};
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		using _Size_type       = typename basic_string<_Elem, _Traits, _Alloc>::size_type;
@@ -3722,7 +3196,7 @@ namespace eqstd
 		return {_String_constructor_concat_tag{}, _Left, _Left.c_str(), _Left_size, _Right, _Right_size};
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const _Elem _Right) {
 		const auto _Left_size = _Left.size();
@@ -3733,76 +3207,69 @@ namespace eqstd
 		return {_String_constructor_concat_tag{}, _Left, _Left.c_str(), _Left_size, _STD addressof(_Right), 1};
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
 		return _STD move(_Right.insert(0, _Left));
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return _STD move(_Left.append(_Right));
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
-	#if _ITERATOR_DEBUG_LEVEL == 2
-		_STL_VERIFY(_STD addressof(_Left) != _STD addressof(_Right),
-			"You cannot concatenate the same moved string to itself. See N4910 16.4.5.9 [res.on.arguments]/1.3: "
-			"If a function argument is bound to an rvalue reference parameter, the implementation may assume that "
-			"this parameter is a unique reference to this argument, except that the argument passed to "
-			"a move-assignment operator may be a reference to *this (16.4.6.15 [lib.types.movedfrom]).");
-	#endif // _ITERATOR_DEBUG_LEVEL == 2
 		return {_String_constructor_concat_tag{}, _Left, _Right};
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		_In_z_ const _Elem* const _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
 		return _STD move(_Right.insert(0, _Left));
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const _Elem _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
 		return _STD move(_Right.insert(0, 1, _Left));
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, _In_z_ const _Elem* const _Right) {
 		return _STD move(_Left.append(_Right));
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, const _Elem _Right) {
 		_Left.push_back(_Right);
 		return _STD move(_Left);
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 bool operator==(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return _Left._Equal(_Right);
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD _CONSTEXPR20 bool operator==(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return _Left._Equal(_Right);
 	}
 
 	#if _HAS_CXX20
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return static_cast<_Get_comparison_category_t<_Traits>>(_Left.compare(_Right) <=> 0);
 	}
 
-	_EXPORT_STD template <class _Elem, class _Traits, class _Alloc>
+	template <class _Elem, class _Traits, class _Alloc>
 	_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return static_cast<_Get_comparison_category_t<_Traits>>(_Left.compare(_Right) <=> 0);
@@ -3894,14 +3361,19 @@ namespace eqstd
 	}
 	#endif // ^^^ !_HAS_CXX20 ^^^
 
-	_EXPORT_STD using string  = basic_string<char, char_traits<char>, allocator<char>>;
-	_EXPORT_STD using wstring = basic_string<wchar_t, char_traits<wchar_t>, allocator<wchar_t>>;
+	using string  = basic_string<char, char_traits<char>, allocator<char>>;
+	using wstring = basic_string<wchar_t, char_traits<wchar_t>, allocator<wchar_t>>;
 
 } // namespace eqstd
 
+namespace std {
+
 template <class _Elem, class _Alloc>
-struct std::hash<eqstd::basic_string<_Elem, eqstd::char_traits<_Elem>, _Alloc>> {
-	_NODISCARD size_t operator()(const eqstd::basic_string<_Elem, eqstd::char_traits<_Elem>, _Alloc>& _Keyval) noexcept {
-		return eqstd::_Hash_array_representation(_Keyval.c_str(), _Keyval.size());
+struct hash<eqstd::basic_string<_Elem, eqstd::char_traits<_Elem>, _Alloc>>
+	: _Conditionally_enabled_hash<eqstd::basic_string<_Elem, char_traits<_Elem>, _Alloc>, _Is_EcharT<_Elem>> {
+	_NODISCARD static size_t _Do_hash(const eqstd::basic_string<_Elem, char_traits<_Elem>, _Alloc>& _Keyval) noexcept {
+		return _Hash_array_representation(_Keyval.c_str(), _Keyval.size());
 	}
 };
+
+} // namespace std

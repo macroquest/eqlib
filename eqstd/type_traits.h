@@ -1,16 +1,9 @@
-/*
- * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2023 MacroQuest Authors
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License, version 2, as published by
- * the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- */
+// type_traits standard header (core)
+
+// Copyright (c) Microsoft Corporation.
+// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+
+// Adapted for use with eqlib
 
 #pragma once
 
@@ -60,6 +53,24 @@ namespace eqstd {
 	using std::is_nothrow_default_constructible;
 	using std::is_nothrow_default_constructible_v;
 	using std::is_void_v;
+	using std::disjunction;
+	using std::is_integral;
+	using std::is_nothrow_move_assignable_v;
+	using std::is_nothrow_move_assignable;
+	using std::is_nothrow_move_constructible;
+	using std::is_nothrow_move_constructible_v;
+	using std::is_nothrow_copy_constructible;
+	using std::is_nothrow_copy_constructible_v;
+	using std::is_copy_constructible;
+	using std::is_copy_constructible_v;
+	using std::index_sequence;
+	using std::make_index_sequence;
+	using std::index_sequence_for;
+	using std::is_nothrow_copy_assignable;
+	using std::is_nothrow_copy_assignable_v;
+	using std::is_nothrow_assignable_v;
+	using std::decay;
+	using std::decay_t;
 
 	template <class _Ty>
 	using _Remove_cvref_t = remove_cv_t<remove_reference_t<_Ty>>;
@@ -122,4 +133,16 @@ namespace eqstd {
 		return _Fnv1a_append_bytes(
 			_FNV_offset_basis, reinterpret_cast<const unsigned char*>(_First), _Count * sizeof(_Kty));
 	}
+
+	using std::_Identity_t;
+	using std::_Aligned_storage;
+	using std::_Aligned_storage_t;
+	using std::_Is_copy_assignable_no_precondition_check;
+	using std::_Is_move_assignable_no_precondition_check;
+	using std::_Is_swappable;
+	using std::_Is_nothrow_swappable;
+
+	template <class _Ty>
+	_Ty _Returns_exactly() noexcept; // not defined
+
 }
