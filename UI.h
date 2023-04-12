@@ -3676,7 +3676,6 @@ public:
 // CGroupWnd
 //============================================================================
 
-// Sep 21 2018
 class [[offsetcomments]] CGroupWnd : public CGFScreenWnd
 {
 	FORCE_SYMBOLS
