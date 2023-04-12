@@ -251,7 +251,7 @@ namespace eqstd
 	}
 
 #ifdef __cpp_lib_concepts
-	_EXPORT_STD template <class _Ty1, class _Ty2>
+	template <class _Ty1, class _Ty2>
 		_NODISCARD constexpr common_comparison_category_t<_Synth_three_way_result<_Ty1>, _Synth_three_way_result<_Ty2>>
 		operator<=>(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		if (auto _Result = _Synth_three_way{}(_Left.first, _Right.first); _Result != 0) {

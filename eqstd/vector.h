@@ -336,7 +336,7 @@ namespace eqstd
 		return _Ptr;
 	}
 
-	_EXPORT_STD template <class _Ty, class _Alloc = allocator<_Ty>>
+	template <class _Ty, class _Alloc = allocator<_Ty>>
 		class vector { // varying size array of values
 		private:
 			template <class>
@@ -1818,7 +1818,7 @@ namespace eqstd
 
 	_INLINE_VAR constexpr int _VBITS = 8 * sizeof(_Vbase); // at least CHAR_BITS bits per word
 
-	_EXPORT_STD template <class _Ty, class _Alloc>
+	template <class _Ty, class _Alloc>
 		_NODISCARD _CONSTEXPR20 bool operator==(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		if (_Left.size() != _Right.size()) {
 			return false;
@@ -1882,7 +1882,7 @@ namespace eqstd
 	};
 
 #ifdef __cpp_lib_concepts
-	_EXPORT_STD template <class _Ty, class _Alloc>
+	template <class _Ty, class _Alloc>
 		_NODISCARD constexpr _Synth_three_way_result<_Ty> operator<=>(
 			const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		if constexpr (is_same_v<_Ty, bool>) {
@@ -1953,18 +1953,18 @@ namespace eqstd
 	}
 #endif // ^^^ !defined(__cpp_lib_concepts) ^^^
 
-	_EXPORT_STD template <class _Ty, class _Alloc>
+	template <class _Ty, class _Alloc>
 		_CONSTEXPR20 void swap(vector<_Ty, _Alloc>& _Left, vector<_Ty, _Alloc>& _Right) noexcept /* strengthened */ {
 		_Left.swap(_Right);
 	}
 
 #if _HAS_CXX20
-	_EXPORT_STD template <class _Ty, class _Alloc, class _Uty>
+	template <class _Ty, class _Alloc, class _Uty>
 		constexpr typename vector<_Ty, _Alloc>::size_type erase(vector<_Ty, _Alloc>& _Cont, const _Uty& _Val) {
 		return _Erase_remove(_Cont, _Val);
 	}
 
-	_EXPORT_STD template <class _Ty, class _Alloc, class _Pr>
+	template <class _Ty, class _Alloc, class _Pr>
 		constexpr typename vector<_Ty, _Alloc>::size_type erase_if(vector<_Ty, _Alloc>& _Cont, _Pr _Pred) {
 		return _Erase_remove_if(_Cont, _Pass_fn(_Pred));
 	}
