@@ -62,4 +62,10 @@ public:
 /*0x398*/
 };
 
+class [[offsetcomments]] CGameFaceManager
+{
+public:
+
+};
+
 } // namespace eqlib
