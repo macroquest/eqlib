@@ -600,11 +600,12 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x751d4*/ bool              FirstTime;
 /*0x751d5*/ bool              FirstTimePreMainLoop;
 /*0x751d6*/ bool              bHeroicUpgradeWarnDisplay;  // related to string id 796
-/*0x751d7*/ bool              bAutoAttack;
-/*0x751d8*/ bool              bAutoRangeAttack;
-/*0x751dc*/ int               ItemPending;
-/*0x751e0*/ int               RequestPending;
-/*0x751e4*/
+/*0x751d8*/ float             UiScale;
+/*0x751dc*/ bool              bAutoAttack;
+/*0x751dd*/ bool              bAutoRangeAttack;
+/*0x751e0*/ int               ItemPending;
+/*0x751e4*/ int               RequestPending;
+/*0x751e8*/
 };
 using EVERQUESTINFO = EverQuestinfo;
 using PEVERQUESTINFO = EVERQUESTINFO*;
