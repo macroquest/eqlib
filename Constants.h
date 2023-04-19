@@ -470,6 +470,8 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_DISCIPLINES_OTHER              383 // 128 - Combat Abilities / Disciplines (Others)
 #define USERCOLOR_ITEM_STAT_POSITIVE             384 // 129 - Item Stat Positive
 #define USERCOLOR_ITEM_STAT_NEGATIVE             385 // 130 - Item Stat Negative
+#define USERCOLOR_ENCOUNTER_LOCK_ATTACKABLE      386 // 131 - Encounter Lock Attackable
+#define USERCOLOR_ENCOUNTER_LOCK_UNATTACKABLE    387 // 132 - Encounter Lock Unattackable
 
 constexpr int NUM_CHAT_FILTERS = 59;
 constexpr int NUM_CHAT_COLORFILTERS = 143;
