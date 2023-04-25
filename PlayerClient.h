@@ -507,7 +507,7 @@ public:
 /*0x02f4*/ int                      Unknown4;
 /*0x02f8*/ uint8_t                  Original;
 /*0x02fc*/ unsigned int             LastRefresh;
-/*0x0300*/ int                      Unknown2;
+/*0x0300*/ int                      Birthdate;
 /*0x0304*/ float                    MissileRangeToTarget;
 /*0x0308*/ CPhysicsInfo             LastCollision;
 /*0x0338*/ unsigned int             LastRangedUsedTime;
