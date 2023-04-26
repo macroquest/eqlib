@@ -787,12 +787,12 @@ public:
 class [[offsetcomments]] CListWnd : public CXWnd
 {
 public:
-/*0x248*/ int                 Unknown0x1f0;
-/*0x250*/ ArrayClass<SListWndLine> ItemsArray;
-/*0x268*/ ArrayClass<SListWndColumn> Columns;
-/*0x280*/ int                 CurSel;
-/*0x284*/ int                 CurCol;
-
+/*0x240*/ int                 Unknown0x1f0;
+/*0x248*/ ArrayClass<SListWndLine> ItemsArray;
+/*0x260*/ ArrayClass<SListWndColumn> Columns;
+/*0x278*/ int                 CurSel;
+/*0x27c*/ int                 CurCol;
+/*0x280*/
 	CXStr GetItemText(int row, int col)
 	{
 		if (row < 0 || row >= ItemsArray.Count)

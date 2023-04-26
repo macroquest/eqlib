@@ -158,6 +158,7 @@
     <ClInclude Include="eqstd\string.h" />
     <ClInclude Include="eqstd\type_traits.h" />
     <ClInclude Include="eqstd\unordered_map.h" />
+    <ClInclude Include="eqstd\unordered_set.h" />
     <ClInclude Include="eqstd\utility.h" />
     <ClInclude Include="eqstd\vector.h" />
     <ClInclude Include="eqstd\xhash.h" />

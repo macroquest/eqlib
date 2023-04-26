@@ -429,6 +429,11 @@ namespace SoeUtil
 	using String = IString<char>;
 }
 
+namespace GF
+{
+	class ViewListener;
+}
+
 // Login frontend types
 class LoginController;
 class CLoginViewManager;

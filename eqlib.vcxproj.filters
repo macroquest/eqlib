@@ -222,6 +222,9 @@
     <ClInclude Include="eqstd\utility.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
+    <ClInclude Include="eqstd\unordered_set.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">

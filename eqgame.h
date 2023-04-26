@@ -125,6 +125,8 @@
 #define pinstEQSuiteTextureLoader_x                                0x140ACDEE0
 #define pinstItemIconCache_x                                       0x140C8CCA8
 #define pinstLootFiltersManager_x                                  0x140B47008
+#define pinstGFViewListener_x                                      0x141306cf0
+
 
 ////
 // Section 3: Miscellaneous Offsets
