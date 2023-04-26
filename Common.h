@@ -206,7 +206,7 @@ namespace eqlib::detail{
     type (&getter_ ## name())[size] { return (*reinterpret_cast<type(*)[size]>(&orig)); } \
     __declspec(property(get=getter_ ## name)) type (&name)[size];
 
-#define SIZE_CHECKS_ENABLED 1
+#define SIZE_CHECKS_ENABLED 0
 
 #if defined(COMMENT_UPDATER) || !defined(_DEBUG) || SIZE_CHECKS_ENABLED == 0
 #define SIZE_CHECK(type, expectedSize)

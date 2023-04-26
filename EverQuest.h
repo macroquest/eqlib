@@ -67,7 +67,7 @@ enum EPlace
 };
 
 // size of zoneHeader is the distance from this byte to the zoneHeader
-// @sizeof(zoneHeader) == 0x2a4 :: 2023-04-11 (test) @ 0x140c004d8
+// @sizeof(zoneHeader) == 0x2a4 :: 2023-04-24 (test) @ 0x140c015e8
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -333,7 +333,7 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x751e8 :: 2023-04-11 (test) @ 0x140c00040
+// @sizeof(EverQuestinfo) == 0x751e8 :: 2023-04-24 (test) @ 0x140c01150
 constexpr size_t EverQuestinfo_size = 0x751e8;
 
 struct [[offsetcomments]] EverQuestinfo
@@ -475,85 +475,84 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x00517*/ bool              bCanCreateHeroicCharacter;
 /*0x00518*/ int               nMonthlyClaim;                         // maybe, needs verification.
 /*0x0051c*/ bool              MarketPlaceRelated;                    // also maybe, related to marketplace
-/*0x00520*/ uint64_t          Unknown0x520;
-/*0x00528*/ int               Heroic85Slots;
-/*0x0052c*/ int               Heroic100Slots;
-/*0x00530*/ bool              bAutoIdentify;
-/*0x00531*/ bool              bNameGen;
-/*0x00532*/ bool              bGibberish;
-/*0x00534*/ int               Locale;
-/*0x00538*/ uint8_t           UpdateControlled;
-/*0x00539*/ uint8_t           UpdateLocal;
-/*0x0053a*/ uint8_t           EnterZone;
-/*0x0053b*/ uint8_t           ExitGame;
-/*0x0053c*/ int               EnterZoneReason;
-/*0x00540*/ bool              UseVoiceMacros;
-/*0x00544*/ float             StrafeRate;
-/*0x00548*/ float             MoveDownSpeed;
-/*0x0054c*/ char              Motd[1024];
-/*0x0094c*/ EQZoneIndex       ZoneID;
-/*0x00950*/ bool              PrimaryAttackReady;
-/*0x00951*/ bool              SecondaryAttackReady;
-/*0x00954*/ uint32_t          AutosaveCounter;
-/*0x00958*/ uint32_t          StartAFK;
-/*0x0095c*/ uint8_t           MyVehicleFound;
-/*0x0095d*/ uint8_t           ZoneFindingVehicle;
-/*0x0095e*/ uint8_t           ForceSendVehicleUpdate;
-/*0x00960*/ ZONE_REQ_STATUS   GotSafeCoords;
-/*0x00964*/ int               ZoningTo;
-/*0x00968*/ char              AFKMessage[256];
-/*0x00a68*/ bool              bLogging;
-/*0x00a69*/ char              LogFile[50];
-/*0x00a9c*/ uint16_t          LogInterval;
-/*0x00a9e*/ uint8_t           Controlled;
-/*0x00aa0*/ uint32_t          ExpansionsFlagBitmask;                 // EQExpansionOwned
-/*0x00aa4*/ bool              NoNameApprove;
-/*0x00aa5*/ bool              AttackOnAssist;
-/*0x00aa6*/ bool              LoadedArmor[7];
-/*0x00aad*/ bool              bShowDynamicLights;
-/*0x00ab0*/ int               iChatFontSize;
-/*0x00ab4*/ bool              bShowGrass;
-/*0x00ab5*/ bool              bInspectOthers;
-/*0x00ab6*/ bool              bShowSpellEffects;
-/*0x00ab8*/ float             TimeScale;
-/*0x00abc*/ int               iShowNamesLevel;
-/*0x00ac0*/ bool              bCombatMusic;
-/*0x00ac4*/ int               iSoundMixAhead;
-/*0x00ac8*/ bool              bDisableDrakkinTattoos;
-/*0x00acc*/ int               UnknownAC0[12];
-/*0x00afc*/ int               bHideAFK;
-/*0x00b00*/ int               bHideAFKPets;
-/*0x00b04*/ int               bHideAFKMercs;
-/*0x00b08*/ bool              bAutoAFKOn;
-/*0x00b09*/ bool              bAutoAFKOff;
-/*0x00b0a*/ bool              bIgnoreNumLockState;
-/*0x00b0b*/ bool              bAutoMercPassive;
-/*0x00b0c*/ bool              bAutoAddToTaskOverlay;
-/*0x00b0d*/ bool              bShowOnlyOpenSteps;
-/*0x00b0e*/ bool              bAddMostRecentToTop;
-/*0x00b0f*/ bool              bDisplayMOTD;
-/*0x00b10*/ bool              bDisplayFellowshipMOTD;
-/*0x00b11*/ bool              bIgnorePR;
-/*0x00b12*/ bool              bFastCamp;
-/*0x00b13*/ bool              bAdvLootGroupedByNPC;
-/*0x00b14*/ int               AutoSkills[CONCURRENT_SKILLS];
-/*0x00b1c*/ ChatFilterData    ChatFilters;
-/*0x00c08*/ EQGameOptions     gOpt;
-/*0x00ca8*/ bool              noSafeDrop;
-/*0x00ca9*/ bool              lootNoDrop;
-/*0x00caa*/ bool              bEnvSounds;
-/*0x00cab*/ bool              bAllowContextMenus;
-/*0x00cac*/ bool              bShowHelpOnLeftClickTarget;
-/*0x00cad*/ bool              bUseTellWindows;
-/*0x00cae*/ bool              bCtrlBypassesTradeskill;
-/*0x00caf*/ bool              bAllowAutoDuck;
-/*0x00cb0*/ bool              bAllowAutoStand;
-/*0x00cb1*/ bool              bAutojoinHelpChannels;
-/*0x00cb2*/ bool              bAcceptKickRequests;
-/*0x00cb3*/ bool              bSuppressFirstUseAlerts;
-/*0x00cb4*/ bool              bResetUIToDefault;
-/*0x00cb5*/ bool              bAutoShowRewardsWindow;
-/*0x00cb6*/ bool              bAllowPreLuclinMountRiders;
+/*0x00520*/ int               Heroic85Slots;
+/*0x00524*/ int               Heroic100Slots;
+/*0x00528*/ bool              bAutoIdentify;
+/*0x00529*/ bool              bNameGen;
+/*0x0052a*/ bool              bGibberish;
+/*0x0052c*/ int               Locale;
+/*0x00530*/ uint8_t           UpdateControlled;
+/*0x00531*/ uint8_t           UpdateLocal;
+/*0x00532*/ uint8_t           EnterZone;
+/*0x00533*/ uint8_t           ExitGame;
+/*0x00534*/ int               EnterZoneReason;
+/*0x00538*/ bool              UseVoiceMacros;
+/*0x0053c*/ float             StrafeRate;
+/*0x00540*/ float             MoveDownSpeed;
+/*0x00544*/ char              Motd[1024];
+/*0x00944*/ EQZoneIndex       ZoneID;
+/*0x00948*/ bool              PrimaryAttackReady;
+/*0x00949*/ bool              SecondaryAttackReady;
+/*0x0094c*/ uint32_t          AutosaveCounter;
+/*0x00950*/ uint32_t          StartAFK;
+/*0x00954*/ uint8_t           MyVehicleFound;
+/*0x00955*/ uint8_t           ZoneFindingVehicle;
+/*0x00956*/ uint8_t           ForceSendVehicleUpdate;
+/*0x00958*/ ZONE_REQ_STATUS   GotSafeCoords;
+/*0x0095c*/ int               ZoningTo;
+/*0x00960*/ char              AFKMessage[256];
+/*0x00a60*/ bool              bLogging;
+/*0x00a61*/ char              LogFile[50];
+/*0x00a94*/ uint16_t          LogInterval;
+/*0x00a96*/ uint8_t           Controlled;
+/*0x00a98*/ uint32_t          ExpansionsFlagBitmask;                 // EQExpansionOwned
+/*0x00a9c*/ bool              NoNameApprove;
+/*0x00a9d*/ bool              AttackOnAssist;
+/*0x00a9e*/ bool              LoadedArmor[7];
+/*0x00aa5*/ bool              bShowDynamicLights;
+/*0x00aa8*/ int               iChatFontSize;
+/*0x00aac*/ bool              bShowGrass;
+/*0x00aad*/ bool              bInspectOthers;
+/*0x00aae*/ bool              bShowSpellEffects;
+/*0x00ab0*/ float             TimeScale;
+/*0x00ab4*/ int               iShowNamesLevel;
+/*0x00ab8*/ bool              bCombatMusic;
+/*0x00abc*/ int               iSoundMixAhead;
+/*0x00ac0*/ bool              bDisableDrakkinTattoos;
+/*0x00ac4*/ int               UnknownAC0[13];
+/*0x00af8*/ int               bHideAFK;
+/*0x00afc*/ int               bHideAFKPets;
+/*0x00b00*/ int               bHideAFKMercs;
+/*0x00b04*/ bool              bAutoAFKOn;
+/*0x00b05*/ bool              bAutoAFKOff;
+/*0x00b06*/ bool              bIgnoreNumLockState;
+/*0x00b07*/ bool              bAutoMercPassive;
+/*0x00b08*/ bool              bAutoAddToTaskOverlay;
+/*0x00b09*/ bool              bShowOnlyOpenSteps;
+/*0x00b0a*/ bool              bAddMostRecentToTop;
+/*0x00b0b*/ bool              bDisplayMOTD;
+/*0x00b0c*/ bool              bDisplayFellowshipMOTD;
+/*0x00b0d*/ bool              bIgnorePR;
+/*0x00b0e*/ bool              bFastCamp;
+/*0x00b0f*/ bool              bAdvLootGroupedByNPC;
+/*0x00b10*/ int               AutoSkills[CONCURRENT_SKILLS];
+/*0x00b18*/ ChatFilterData    ChatFilters;
+/*0x00c04*/ EQGameOptions     gOpt;
+/*0x00ca4*/ bool              noSafeDrop;
+/*0x00ca5*/ bool              lootNoDrop;
+/*0x00ca6*/ bool              bEnvSounds;
+/*0x00ca7*/ bool              bAllowContextMenus;
+/*0x00ca8*/ bool              bShowHelpOnLeftClickTarget;
+/*0x00ca9*/ bool              bUseTellWindows;
+/*0x00caa*/ bool              bCtrlBypassesTradeskill;
+/*0x00cab*/ bool              bAllowAutoDuck;
+/*0x00cac*/ bool              bAllowAutoStand;
+/*0x00cad*/ bool              bAutojoinHelpChannels;
+/*0x00cae*/ bool              bAcceptKickRequests;
+/*0x00caf*/ bool              bSuppressFirstUseAlerts;
+/*0x00cb0*/ bool              bResetUIToDefault;
+/*0x00cb1*/ bool              bAutoShowRewardsWindow;
+/*0x00cb2*/ bool              bAllowPreLuclinMountRiders;
 /*0x00cb8*/ EQCamera*         cameras[EQ_MAX_CAMERAS];
 /*0x00cf8*/ bool              keyDown[nEQMappableCommands];
 /*0x00f1b*/ char              LastTellFromList[NUM_REPLY_NAMES][EQ_MAX_NAME];
@@ -723,7 +722,7 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2023-04-11 (test) @ 0x140345673
+// @sizeof(CEverQuest) == 0x396f8 :: 2023-04-24 (test) @ 0x140345f43
 constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler

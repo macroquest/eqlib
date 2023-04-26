@@ -284,7 +284,7 @@ struct [[offsetcomments]] LabelCache
 //============================================================================
 //============================================================================
 
-// @sizeof(EQGroundItem) == 0xa0 :: 2023-04-11 (test) @ 0x140208BAB
+// @sizeof(EQGroundItem) == 0xa0 :: 2023-04-24 (test) @ 0x140208E24
 constexpr size_t EQGroundItem_size = 0xa0;
 
 class [[offsetcomments]] EQGroundItem
@@ -533,7 +533,7 @@ struct [[offsetcomments]] CTaskElement
 
 const int MAX_TASK_ELEMENTS = 20;
 
-// @sizeof(CTaskEntry) == 0x3d60 :: 2023-04-11 (test) @ 0x140048c04
+// @sizeof(CTaskEntry) == 0x3d60 :: 2023-04-24 (test) @ 0x140048c04
 constexpr size_t CTaskEntry_size = 0x3d60;
 
 struct [[offsetcomments]] CTaskEntry
@@ -1129,7 +1129,7 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2023-04-11 (test) @ 0x14026E1BF
+// @sizeof(EQWorldData) == 0x1f88 :: 2023-04-24 (test) @ 0x14026e98f
 constexpr size_t EQWorldData_size = 0x1f88;
 
 class [[offsetcomments]] EQWorldData
@@ -1635,7 +1635,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x353780 :: 2023-04-11 (test) @ 0x14026E2FF
+// @sizeof(SkillManager) == 0x353780 :: 2023-04-24 (test) @ 0x14026eacf
 constexpr size_t SkillManager_size = 0x353780;
 
 class [[offsetcomments]] SkillManager
