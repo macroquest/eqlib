@@ -593,7 +593,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x75180*/ float             fActorParticleNearClipPlane;
 /*0x75184*/ int               nActorParticleCastFilters;
 /*0x75188*/ int               nActorNewArmorFilters;
-/*0x7518c*/ bool              bCreateGroupRequested; // 7518c
+/*0x7518c*/ bool              bCreateGroupRequested;
 /*0x75190*/ int               GroupRequestId;
 /*0x75194*/ char              Inviter[EQ_MAX_NAME];
 /*0x751d4*/ bool              FirstTime;
