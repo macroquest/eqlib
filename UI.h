@@ -3700,42 +3700,42 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x3a8*/ CButtonWnd*        InviteButton;
-/*0x3b0*/ CButtonWnd*        DisbandButton;
-/*0x3b8*/ CButtonWnd*        FollowButton;
-/*0x3c0*/ CButtonWnd*        DeclineButton;
-/*0x3c8*/ CButtonWnd*        LFGButton;
-/*0x3d0*/ CGaugeWnd*         HPGauge[6];
-/*0x400*/ CGaugeWnd*         PetGauge[6];
-/*0x430*/ CGaugeWnd*         ManaGauge[6];
-/*0x460*/ CGaugeWnd*         EnduranceGauge[6];
-/*0x490*/ CLabel*            HPLabel[6];
-/*0x4c0*/ CLabel*            HPPercLabel[6];
-/*0x4f0*/ CLabel*            ManaLabel[6];
-/*0x520*/ CLabel*            ManaPercLabel[6];
-/*0x550*/ CLabel*            EnduranceLabel[6];
-/*0x580*/ CLabel*            EndurancePercLabel[6];
-/*0x5b0*/ COLORREF           HPTextColor[6];
-/*0x5c8*/ CButtonWnd*        GroupTankButton[6];
-/*0x5f8*/ CButtonWnd*        GroupAssistButton[6];
-/*0x628*/ CButtonWnd*        GroupPullerButton[6];
-/*0x658*/ CButtonWnd*        GroupMarkNPCButton[6];
-/*0x688*/ CLabel*            AggroPercLabel[6];
-/*0x6b8*/ long               Timer;
-/*0x6c0*/ CContextMenu*      GroupContextMenu;
-/*0x6c8*/ bool               bPetbars;
-/*0x6c9*/ bool               bManabars;
-/*0x6ca*/ bool               bEndurancebars;
-/*0x6cb*/ bool               bAggroPct;
-/*0x6cc*/ int                PetBarIndex;
-/*0x6d0*/ int                ManaBarIndex;
-/*0x6d4*/ int                EnduranceBarIndex;
-/*0x6d8*/ int                AggroPctIndex;
-/*0x6dc*/ int                RoleSeparatorID;
-/*0x6e0*/ int                RoleSelectMenu;
-/*0x6e4*/ int                RoleSelectMenuID;
-/*0x6e8*/ bool               bPlayerInvited;
-/*0x6ec*/
+/*0x3c8*/ CButtonWnd*        InviteButton;
+/*0x3d0*/ CButtonWnd*        DisbandButton;
+/*0x3d8*/ CButtonWnd*        FollowButton;
+/*0x3e0*/ CButtonWnd*        DeclineButton;
+/*0x3e8*/ CButtonWnd*        LFGButton;
+/*0x3f0*/ CGaugeWnd*         HPGauge[6];
+/*0x420*/ CGaugeWnd*         PetGauge[6];
+/*0x450*/ CGaugeWnd*         ManaGauge[6];
+/*0x480*/ CGaugeWnd*         EnduranceGauge[6];
+/*0x4b0*/ CLabel*            HPLabel[6];
+/*0x4e0*/ CLabel*            HPPercLabel[6];
+/*0x510*/ CLabel*            ManaLabel[6];
+/*0x540*/ CLabel*            ManaPercLabel[6];
+/*0x570*/ CLabel*            EnduranceLabel[6];
+/*0x5a0*/ CLabel*            EndurancePercLabel[6];
+/*0x5d0*/ COLORREF           HPTextColor[6];
+/*0x5e8*/ CButtonWnd*        GroupTankButton[6];
+/*0x618*/ CButtonWnd*        GroupAssistButton[6];
+/*0x648*/ CButtonWnd*        GroupPullerButton[6];
+/*0x678*/ CButtonWnd*        GroupMarkNPCButton[6];
+/*0x6a8*/ CLabel*            AggroPercLabel[6];
+/*0x6d8*/ long               Timer;
+/*0x6e0*/ CContextMenu*      GroupContextMenu;
+/*0x6e8*/ bool               bPetbars;
+/*0x6e9*/ bool               bManabars;
+/*0x6ea*/ bool               bEndurancebars;
+/*0x6eb*/ bool               bAggroPct;
+/*0x6ec*/ int                PetBarIndex;
+/*0x6f0*/ int                ManaBarIndex;
+/*0x6f4*/ int                EnduranceBarIndex;
+/*0x6f8*/ int                AggroPctIndex;
+/*0x6fc*/ int                RoleSeparatorID;
+/*0x700*/ int                RoleSelectMenu;
+/*0x704*/ int                RoleSelectMenuID;
+/*0x708*/ bool               bPlayerInvited;
+/*0x70c*/
 };
 
 //============================================================================

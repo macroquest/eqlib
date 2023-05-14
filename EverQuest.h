@@ -333,8 +333,8 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x751e8 :: 2023-05-09 (test) @ 0x140c056d0
-constexpr size_t EverQuestinfo_size = 0x751e8;
+// @sizeof(EverQuestinfo) == 0x751f0 :: 2023-05-09 (test) @ 0x140c056d0
+constexpr size_t EverQuestinfo_size = 0x751f0;
 
 struct [[offsetcomments]] EverQuestinfo
 {
@@ -599,12 +599,12 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x751d4*/ bool              FirstTime;
 /*0x751d5*/ bool              FirstTimePreMainLoop;
 /*0x751d6*/ bool              bHeroicUpgradeWarnDisplay;  // related to string id 796
-/*0x751d8*/ float             UiScale;
-/*0x751dc*/ bool              bAutoAttack;
-/*0x751dd*/ bool              bAutoRangeAttack;
-/*0x751e0*/ int               ItemPending;
-/*0x751e4*/ int               RequestPending;
-/*0x751e8*/
+/*0x751d8*/ double            UiScale;
+/*0x751e0*/ bool              bAutoAttack;
+/*0x751e1*/ bool              bAutoRangeAttack;
+/*0x751e4*/ int               ItemPending;
+/*0x751e8*/ int               RequestPending;
+/*0x751ec*/
 };
 using EVERQUESTINFO = EverQuestinfo;
 using PEVERQUESTINFO = EVERQUESTINFO*;
