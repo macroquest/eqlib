@@ -40,14 +40,15 @@ public:
 /*0x48*/ eqstd::string modelPrefix;
 /*0x68*/ CGFScreenWnd* parent;
 /*0x70*/ CXWnd*        wnd;
-/*0x78*/
+/*0x78*/ eqstd::string str_78;
+/*0x98*/
 };
 
 class [[offsetcomments]] UIScreenComponent : public UIComponent
 {
 public:
-/*0x78*/ uint8_t       u8_78;     // = 255
-/*0x7c*/
+/*0x98*/ uint8_t       u8_98;     // = 255
+/*0x9c*/
 };
 
 class [[offsetcomments]] CGFScreenWnd : public CSidlScreenWnd
