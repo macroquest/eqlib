@@ -195,6 +195,36 @@
     <ClInclude Include="eqstd\type_traits.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
+    <ClInclude Include="GameFace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\string.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\xutility.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\unordered_map.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\xhash.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\list.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\vector.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\xnode_handle.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\utility.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="eqstd\unordered_set.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">
@@ -275,5 +305,6 @@
     <Natvis Include="EQLib.natvis">
       <Filter>Source Files</Filter>
     </Natvis>
+    <Natvis Include="eqstd\eqstd.natvis" />
   </ItemGroup>
 </Project>

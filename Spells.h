@@ -906,7 +906,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x210 :: 2023-04-14 (live) @ 0x1401a3ae7
+// @sizeof(EQ_Spell) == 0x210 :: 2023-05-15 (test) @ 0x1401f0b17
 constexpr size_t EQ_Spell_size = 0x210;
 
 class [[offsetcomments]] EQ_Spell
@@ -1283,23 +1283,23 @@ struct [[offsetcomments]] StackingGroupData
 /*0x0c*/
 };
 
-constexpr int TOTAL_SPELL_COUNT = 66000;           // # of spells allocated in memory (09/07/2021 test 6C944E)
-constexpr int TOTAL_SPELL_AFFECT_COUNT = 242000;   // # of spell affects allocated in mem (09/07/2021 test 6C948E)
+constexpr int TOTAL_SPELL_COUNT = 72000;           // # of spells allocated in memory (09/07/2021 test 6C944E)
+constexpr int TOTAL_SPELL_AFFECT_COUNT = 260000;   // # of spell affects allocated in mem (09/07/2021 test 6C948E)
 
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
 /*0x00020*/ int              SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x40760*/ EQ_Spell*        MissingSpell;
-/*0x40768*/ SpellAffectData* MissingSpellAffect;
-/*0x40770*/ SpellAffectData* MissingSpellAffectAC;
-/*0x40778*/ int              MissingSpellCrc32;
-/*0x4077c*/ int              SpellFileCRC;
-/*0x40780*/ int              SpellAssocFileCRC;
-/*0x40784*/ int              SpellStackingFileCRC;
-/*0x40788*/ SpellRequirementAssociationManager ReqAssocManager;
-/*0x42930*/ HashTable<int, int> SpellGroups;
-/*0x42948*/
+/*0x46520*/ EQ_Spell*        MissingSpell;
+/*0x46528*/ SpellAffectData* MissingSpellAffect;
+/*0x46530*/ SpellAffectData* MissingSpellAffectAC;
+/*0x46538*/ int              MissingSpellCrc32;
+/*0x4653c*/ int              SpellFileCRC;
+/*0x46540*/ int              SpellAssocFileCRC;
+/*0x46544*/ int              SpellStackingFileCRC;
+/*0x46548*/ SpellRequirementAssociationManager ReqAssocManager;
+/*0x486f0*/ HashTable<int, int> SpellGroups;
+/*0x48708*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1307,8 +1307,8 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x39df60 :: 2023-04-14 (live) @ 0x14022daab
-constexpr size_t ClientSpellManager_size = 0x39df60;
+// @sizeof(ClientSpellManager) == 0x3ea220 :: 2023-05-15 (test) @ 0x14027b99b
+constexpr size_t ClientSpellManager_size = 0x3ea220;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
@@ -1328,11 +1328,11 @@ public:
 
 	bool AllSpellsLoaded() const { return SpellStackingFileCRC != 0 && Spells[TOTAL_SPELL_COUNT - 1] != nullptr; }
 
-/*0x042948*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960
-/*0x0c37c8*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];              // 0x820a0
-/*0x29c248*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0
-/*0x39df48*/ HashTable<StackingGroupData> StackingData;                                    // 0x1ef460
-/*0x39df60*/
+/*0x048708*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];
+/*0x0d5108*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];
+/*0x2d0e08*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];
+/*0x3ea208*/ HashTable<StackingGroupData> StackingData;
+/*0x3ea220*/
 };
 
 inline namespace deprecated {

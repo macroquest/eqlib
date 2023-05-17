@@ -83,11 +83,12 @@ extern CXWnd__CXWnd
 extern CXWnd__dCXWnd
 extern CXWnd__GetScreenClipRect
 extern CXWnd__GetScreenRect
+extern CXWnd__GetClientRect
 
-; public: eqlib::CXWnd::CXWnd(class eqlib::CXWnd *, unsigned int, class eqlib::CXRect)
-global ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@@Z
-export ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@@Z
-??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@@Z:
+; public: eqlib::CXWnd::CXWnd(class eqlib::CXWnd *, unsigned int, class eqlib::CXRect, bool)
+global ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@_N@Z
+export ??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@_N@Z
+??0CXWnd@eqlib@@QEAA@PEAV01@IVCXRect@1@_N@Z:
 	jmp [rel CXWnd__CXWnd]
 
 
@@ -125,448 +126,506 @@ export ?GetScreenRect@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
 global ?DrawNC@CXWnd@eqlib@@UEBAHXZ
 export ?DrawNC@CXWnd@eqlib@@UEBAHXZ
 ?DrawNC@CXWnd@eqlib@@UEBAHXZ:
-	call_cxwnd_vtable 0x10
+	call_cxwnd_vtable 0x18
 
 
 ; public: virtual int eqlib::CXWnd::DrawCursor(class eqlib::CXPoint const &, class eqlib::CXRect const &, bool &)
 global ?DrawCursor@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@AEBVCXRect@2@AEA_N@Z
 export ?DrawCursor@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@AEBVCXRect@2@AEA_N@Z
 ?DrawCursor@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@AEBVCXRect@2@AEA_N@Z:
-	call_cxwnd_vtable 0x28
+	call_cxwnd_vtable 0x30
 
 
 ; public: virtual int eqlib::CXWnd::DrawBackground(void)const
 global ?DrawBackground@CXWnd@eqlib@@UEBAHXZ
 export ?DrawBackground@CXWnd@eqlib@@UEBAHXZ
 ?DrawBackground@CXWnd@eqlib@@UEBAHXZ:
-	call_cxwnd_vtable 0x40
+	call_cxwnd_vtable 0x48
 
 
 ; public: virtual int eqlib::CXWnd::DrawTooltip(class eqlib::CXWnd const *)const
 global ?DrawTooltip@CXWnd@eqlib@@UEBAHPEBV12@@Z
 export ?DrawTooltip@CXWnd@eqlib@@UEBAHPEBV12@@Z
 ?DrawTooltip@CXWnd@eqlib@@UEBAHPEBV12@@Z:
-	call_cxwnd_vtable 0x48
+	call_cxwnd_vtable 0x50
 
 
 ; public: virtual int eqlib::CXWnd::DrawTooltipAtPoint(class eqlib::CXPoint const &, class eqlib::CXStr const &)const
 global ?DrawTooltipAtPoint@CXWnd@eqlib@@UEBAHAEBVCXPoint@2@AEBVCXStr@2@@Z
 export ?DrawTooltipAtPoint@CXWnd@eqlib@@UEBAHAEBVCXPoint@2@AEBVCXStr@2@@Z
 ?DrawTooltipAtPoint@CXWnd@eqlib@@UEBAHAEBVCXPoint@2@AEBVCXStr@2@@Z:
-	call_cxwnd_vtable 0x50
+	call_cxwnd_vtable 0x58
 
 
 ; public: virtual class eqlib::CXRect eqlib::CXWnd::GetMinimizedRect(void)const
 global ?GetMinimizedRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
 export ?GetMinimizedRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
 ?GetMinimizedRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ:
-	call_cxwnd_vtable 0x58
+	call_cxwnd_vtable 0x60
 
 
 ; public: virtual int eqlib::CXWnd::DrawTitleBar(class eqlib::CXRect const &)const
 global ?DrawTitleBar@CXWnd@eqlib@@UEBAHAEBVCXRect@2@@Z
 export ?DrawTitleBar@CXWnd@eqlib@@UEBAHAEBVCXRect@2@@Z
 ?DrawTitleBar@CXWnd@eqlib@@UEBAHAEBVCXRect@2@@Z:
-	call_cxwnd_vtable 0x60
+	call_cxwnd_vtable 0x68
+
+
+; public: virtual void __cdecl eqlib::CXWnd::SetZLayer(int)
+global ?SetZLayer@CXWnd@eqlib@@UEAAXH@Z
+export ?SetZLayer@CXWnd@eqlib@@UEAAXH@Z
+?SetZLayer@CXWnd@eqlib@@UEAAXH@Z:
+	call_cxwnd_vtable 0x70
 
 
 ; public: virtual struct HICON__ * eqlib::CXWnd::GetCursorToDisplay(void)const
 global ?GetCursorToDisplay@CXWnd@eqlib@@UEBAPEAUHICON__@@XZ
 export ?GetCursorToDisplay@CXWnd@eqlib@@UEBAPEAUHICON__@@XZ
 ?GetCursorToDisplay@CXWnd@eqlib@@UEBAPEAUHICON__@@XZ:
-	call_cxwnd_vtable 0x68
+	call_cxwnd_vtable 0x78
 
 
 ; public: virtual int eqlib::CXWnd::HandleLButtonDown(class eqlib::CXPoint const &, unsigned int)
 global ?HandleLButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleLButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleLButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0x70
+	call_cxwnd_vtable 0x80
 
 
 ; public: virtual int eqlib::CXWnd::HandleLButtonUp(class eqlib::CXPoint const &, unsigned int)
 global ?HandleLButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleLButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleLButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0x78
+	call_cxwnd_vtable 0x88
 
 
 ; public: virtual int eqlib::CXWnd::HandleLButtonHeld(class eqlib::CXPoint const &, unsigned int)
 global ?HandleLButtonHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleLButtonHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleLButtonHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0x80
+	call_cxwnd_vtable 0x90
 
 
 ; public: virtual int eqlib::CXWnd::HandleLButtonUpAfterHeld(class eqlib::CXPoint const &, unsigned int)
 global ?HandleLButtonUpAfterHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleLButtonUpAfterHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleLButtonUpAfterHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0x88
+	call_cxwnd_vtable 0x98
 
 
 ; public: virtual int eqlib::CXWnd::HandleRButtonDown(class eqlib::CXPoint const &, unsigned int)
 global ?HandleRButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleRButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleRButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0x90
+	call_cxwnd_vtable 0xa0
 
 
 ; public: virtual int eqlib::CXWnd::HandleRButtonUp(class eqlib::CXPoint const &, unsigned int)
 global ?HandleRButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleRButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleRButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0x98
+	call_cxwnd_vtable 0xa8
 
 
 ; public: virtual int eqlib::CXWnd::HandleRButtonHeld(class eqlib::CXPoint const &, unsigned int)
 global ?HandleRButtonHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleRButtonHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleRButtonHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0xa0
+	call_cxwnd_vtable 0xb0
 
 
 ; public: virtual int eqlib::CXWnd::HandleRButtonUpAfterHeld(class eqlib::CXPoint const &, unsigned int)
 global ?HandleRButtonUpAfterHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleRButtonUpAfterHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleRButtonUpAfterHeld@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0xa8
+	call_cxwnd_vtable 0xb8
 
 
 ; public: virtual int eqlib::CXWnd::HandleWheelButtonDown(class eqlib::CXPoint const &, unsigned int)
 global ?HandleWheelButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleWheelButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleWheelButtonDown@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0xb0
+	call_cxwnd_vtable 0xc0
 
 
 ; public: virtual int eqlib::CXWnd::HandleWheelButtonUp(class eqlib::CXPoint const &, unsigned int)
 global ?HandleWheelButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleWheelButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleWheelButtonUp@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0xb8
+	call_cxwnd_vtable 0xc8
 
 
 ; public: virtual int eqlib::CXWnd::HandleMouseMove(class eqlib::CXPoint const &, unsigned int)
 global ?HandleMouseMove@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleMouseMove@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleMouseMove@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_cxwnd_vtable 0xc0
+	call_cxwnd_vtable 0xd0
 
 
 ; public: virtual int eqlib::CXWnd::HandleWheelMove(class eqlib::CXPoint const &, int, unsigned int)
 global ?HandleWheelMove@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@HI@Z
 export ?HandleWheelMove@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@HI@Z
 ?HandleWheelMove@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@HI@Z:
-	call_cxwnd_vtable 0xc8
+	call_cxwnd_vtable 0xd8
 
 
 ; public: virtual int eqlib::CXWnd::HandleKeyboardMsg(unsigned int, unsigned int, bool)
 global ?HandleKeyboardMsg@CXWnd@eqlib@@UEAAHII_N@Z
 export ?HandleKeyboardMsg@CXWnd@eqlib@@UEAAHII_N@Z
 ?HandleKeyboardMsg@CXWnd@eqlib@@UEAAHII_N@Z:
-	call_cxwnd_vtable 0xd0
+	call_cxwnd_vtable 0xe0
 
 
 ; public: virtual int eqlib::CXWnd::HandleMouseLeave(void)
 global ?HandleMouseLeave@CXWnd@eqlib@@UEAAHXZ
 export ?HandleMouseLeave@CXWnd@eqlib@@UEAAHXZ
 ?HandleMouseLeave@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0xd8
+	call_cxwnd_vtable 0xe8
 
 
 ; public: virtual int eqlib::CXWnd::OnDragDrop(struct eqlib::SDragDropInfo *)
 global ?OnDragDrop@CXWnd@eqlib@@UEAAHPEAUSDragDropInfo@2@@Z
 export ?OnDragDrop@CXWnd@eqlib@@UEAAHPEAUSDragDropInfo@2@@Z
 ?OnDragDrop@CXWnd@eqlib@@UEAAHPEAUSDragDropInfo@2@@Z:
-	call_cxwnd_vtable 0xe0
+	call_cxwnd_vtable 0xf0
 
 
 ; public: virtual struct HICON__ * eqlib::CXWnd::GetDragDropCursor(struct eqlib::SDragDropInfo *)const
 global ?GetDragDropCursor@CXWnd@eqlib@@UEBAPEAUHICON__@@PEAUSDragDropInfo@2@@Z
 export ?GetDragDropCursor@CXWnd@eqlib@@UEBAPEAUHICON__@@PEAUSDragDropInfo@2@@Z
 ?GetDragDropCursor@CXWnd@eqlib@@UEBAPEAUHICON__@@PEAUSDragDropInfo@2@@Z:
-	call_cxwnd_vtable 0xe8
+	call_cxwnd_vtable 0xf8
 
 
 ; public: virtual bool eqlib::CXWnd::QueryDropOK(struct eqlib::SDragDropInfo *)const
 global ?QueryDropOK@CXWnd@eqlib@@UEBA_NPEAUSDragDropInfo@2@@Z
 export ?QueryDropOK@CXWnd@eqlib@@UEBA_NPEAUSDragDropInfo@2@@Z
 ?QueryDropOK@CXWnd@eqlib@@UEBA_NPEAUSDragDropInfo@2@@Z:
-	call_cxwnd_vtable 0xf0
+	call_cxwnd_vtable 0x100
 
 
 ; public: virtual int eqlib::CXWnd::OnClickStick(class eqlib::CClickStickInfo *, unsigned int, bool)
 global ?OnClickStick@CXWnd@eqlib@@UEAAHPEAVCClickStickInfo@2@I_N@Z
 export ?OnClickStick@CXWnd@eqlib@@UEAAHPEAVCClickStickInfo@2@I_N@Z
 ?OnClickStick@CXWnd@eqlib@@UEAAHPEAVCClickStickInfo@2@I_N@Z:
-	call_cxwnd_vtable 0xf8
+	call_cxwnd_vtable 0x108
 
 
 ; public: virtual struct HICON__ * eqlib::CXWnd::GetClickStickCursor(class eqlib::CClickStickInfo *)const
 global ?GetClickStickCursor@CXWnd@eqlib@@UEBAPEAUHICON__@@PEAVCClickStickInfo@2@@Z
 export ?GetClickStickCursor@CXWnd@eqlib@@UEBAPEAUHICON__@@PEAVCClickStickInfo@2@@Z
 ?GetClickStickCursor@CXWnd@eqlib@@UEBAPEAUHICON__@@PEAVCClickStickInfo@2@@Z:
-	call_cxwnd_vtable 0x100
+	call_cxwnd_vtable 0x110
 
 
 ; public: virtual bool eqlib::CXWnd::QueryClickStickDropOK(class eqlib::CClickStickInfo *)const
 global ?QueryClickStickDropOK@CXWnd@eqlib@@UEBA_NPEAVCClickStickInfo@2@@Z
 export ?QueryClickStickDropOK@CXWnd@eqlib@@UEBA_NPEAVCClickStickInfo@2@@Z
 ?QueryClickStickDropOK@CXWnd@eqlib@@UEBA_NPEAVCClickStickInfo@2@@Z:
-	call_cxwnd_vtable 0x108
+	call_cxwnd_vtable 0x118
 
 
 ; public: virtual int eqlib::CXWnd::WndNotification(class eqlib::CXWnd *, unsigned int, void *)
 global ?WndNotification@CXWnd@eqlib@@UEAAHPEAV12@IPEAX@Z
 export ?WndNotification@CXWnd@eqlib@@UEAAHPEAV12@IPEAX@Z
 ?WndNotification@CXWnd@eqlib@@UEAAHPEAV12@IPEAX@Z:
-	call_cxwnd_vtable 0x110
+	call_cxwnd_vtable 0x120
 
 
 ; public: virtual void eqlib::CXWnd::OnWndNotification(void)
 global ?OnWndNotification@CXWnd@eqlib@@UEAAXXZ
 export ?OnWndNotification@CXWnd@eqlib@@UEAAXXZ
 ?OnWndNotification@CXWnd@eqlib@@UEAAXXZ:
-	call_cxwnd_vtable 0x118
+	call_cxwnd_vtable 0x128
 
 
 ; public: virtual int eqlib::CXWnd::OnShow(void)
 global ?OnShow@CXWnd@eqlib@@UEAAHXZ
 export ?OnShow@CXWnd@eqlib@@UEAAHXZ
 ?OnShow@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0x130
+	call_cxwnd_vtable 0x140
 
 
 ; public: virtual int eqlib::CXWnd::OnMove(class eqlib::CXRect const &)
 global ?OnMove@CXWnd@eqlib@@UEAAHAEBVCXRect@2@@Z
 export ?OnMove@CXWnd@eqlib@@UEAAHAEBVCXRect@2@@Z
 ?OnMove@CXWnd@eqlib@@UEAAHAEBVCXRect@2@@Z:
-	call_cxwnd_vtable 0x138
+	call_cxwnd_vtable 0x148
 
 
 ; public: virtual int eqlib::CXWnd::OnResize(int, int)
 global ?OnResize@CXWnd@eqlib@@UEAAHHH@Z
 export ?OnResize@CXWnd@eqlib@@UEAAHHH@Z
 ?OnResize@CXWnd@eqlib@@UEAAHHH@Z:
-	call_cxwnd_vtable 0x140
+	call_cxwnd_vtable 0x150
 
 
 ; public: virtual int eqlib::CXWnd::OnBeginMoveOrResize(void)
 global ?OnBeginMoveOrResize@CXWnd@eqlib@@UEAAHXZ
 export ?OnBeginMoveOrResize@CXWnd@eqlib@@UEAAHXZ
 ?OnBeginMoveOrResize@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0x148
+	call_cxwnd_vtable 0x158
 
 
 ; public: virtual int eqlib::CXWnd::OnCompleteMoveOrResize(void)
 global ?OnCompleteMoveOrResize@CXWnd@eqlib@@UEAAHXZ
 export ?OnCompleteMoveOrResize@CXWnd@eqlib@@UEAAHXZ
 ?OnCompleteMoveOrResize@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0x150
+	call_cxwnd_vtable 0x160
 
 
 ; public: virtual int eqlib::CXWnd::OnMinimizeBox(void)
 global ?OnMinimizeBox@CXWnd@eqlib@@UEAAHXZ
 export ?OnMinimizeBox@CXWnd@eqlib@@UEAAHXZ
 ?OnMinimizeBox@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0x158
+	call_cxwnd_vtable 0x168
 
 
 ; public: virtual int eqlib::CXWnd::OnMaximizeBox(void)
 global ?OnMaximizeBox@CXWnd@eqlib@@UEAAHXZ
 export ?OnMaximizeBox@CXWnd@eqlib@@UEAAHXZ
 ?OnMaximizeBox@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0x160
+	call_cxwnd_vtable 0x170
 
 
 ; public: virtual int eqlib::CXWnd::OnTileBox(void)
 global ?OnTileBox@CXWnd@eqlib@@UEAAHXZ
 export ?OnTileBox@CXWnd@eqlib@@UEAAHXZ
 ?OnTileBox@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0x168
+	call_cxwnd_vtable 0x178
 
 
 ; public: virtual int eqlib::CXWnd::OnSetFocus(class eqlib::CXWnd *)
 global ?OnSetFocus@CXWnd@eqlib@@UEAAHPEAV12@@Z
 export ?OnSetFocus@CXWnd@eqlib@@UEAAHPEAV12@@Z
 ?OnSetFocus@CXWnd@eqlib@@UEAAHPEAV12@@Z:
-	call_cxwnd_vtable 0x178
+	call_cxwnd_vtable 0x188
 
 
 ; public: virtual int eqlib::CXWnd::OnKillFocus(class eqlib::CXWnd *)
 global ?OnKillFocus@CXWnd@eqlib@@UEAAHPEAV12@@Z
 export ?OnKillFocus@CXWnd@eqlib@@UEAAHPEAV12@@Z
 ?OnKillFocus@CXWnd@eqlib@@UEAAHPEAV12@@Z:
-	call_cxwnd_vtable 0x180
+	call_cxwnd_vtable 0x190
 
 
 ; public: virtual int eqlib::CXWnd::OnProcessFrame(void)
 global ?OnProcessFrame@CXWnd@eqlib@@UEAAHXZ
 export ?OnProcessFrame@CXWnd@eqlib@@UEAAHXZ
 ?OnProcessFrame@CXWnd@eqlib@@UEAAHXZ:
-	call_cxwnd_vtable 0x188
+	call_cxwnd_vtable 0x198
 
 
 ; public: virtual int eqlib::CXWnd::OnVScroll(enum eqlib::EScrollCode, int)
 global ?OnVScroll@CXWnd@eqlib@@UEAAHW4EScrollCode@2@H@Z
 export ?OnVScroll@CXWnd@eqlib@@UEAAHW4EScrollCode@2@H@Z
 ?OnVScroll@CXWnd@eqlib@@UEAAHW4EScrollCode@2@H@Z:
-	call_cxwnd_vtable 0x190
+	call_cxwnd_vtable 0x1a0
 
 
 ; public: virtual int eqlib::CXWnd::OnHScroll(enum eqlib::EScrollCode, int)
 global ?OnHScroll@CXWnd@eqlib@@UEAAHW4EScrollCode@2@H@Z
 export ?OnHScroll@CXWnd@eqlib@@UEAAHW4EScrollCode@2@H@Z
 ?OnHScroll@CXWnd@eqlib@@UEAAHW4EScrollCode@2@H@Z:
-	call_cxwnd_vtable 0x198
+	call_cxwnd_vtable 0x1a8
 
 
 ; public: virtual int eqlib::CXWnd::Show(bool, bool, bool)
 global ?Show@CXWnd@eqlib@@UEAAH_N00@Z
 export ?Show@CXWnd@eqlib@@UEAAH_N00@Z
 ?Show@CXWnd@eqlib@@UEAAH_N00@Z:
-	call_cxwnd_vtable 0x1b0
+	call_cxwnd_vtable 0x1c0
 
 
 ; public: virtual bool eqlib::CXWnd::AboutToShow(void)
 global ?AboutToShow@CXWnd@eqlib@@UEAA_NXZ
 export ?AboutToShow@CXWnd@eqlib@@UEAA_NXZ
 ?AboutToShow@CXWnd@eqlib@@UEAA_NXZ:
-	call_cxwnd_vtable 0x1b8
+	call_cxwnd_vtable 0x1c8
 
 
 ; public: virtual bool eqlib::CXWnd::AboutToHide(void)
 global ?AboutToHide@CXWnd@eqlib@@UEAA_NXZ
 export ?AboutToHide@CXWnd@eqlib@@UEAA_NXZ
 ?AboutToHide@CXWnd@eqlib@@UEAA_NXZ:
-	call_cxwnd_vtable 0x1c0
+	call_cxwnd_vtable 0x1d0
 
 
 ; public: virtual void eqlib::CXWnd::Unknown0x0EC(void)
 global ?Unknown0x0EC@CXWnd@eqlib@@UEAAXXZ
 export ?Unknown0x0EC@CXWnd@eqlib@@UEAAXXZ
 ?Unknown0x0EC@CXWnd@eqlib@@UEAAXXZ:
-	call_cxwnd_vtable 0x1d8
+	call_cxwnd_vtable 0x1e8
 
 
 ; public: virtual int eqlib::CXWnd::HitTest(class eqlib::CXPoint const &, int *)const
 global ?HitTest@CXWnd@eqlib@@UEBAHAEBVCXPoint@2@PEAH@Z
 export ?HitTest@CXWnd@eqlib@@UEBAHAEBVCXPoint@2@PEAH@Z
 ?HitTest@CXWnd@eqlib@@UEBAHAEBVCXPoint@2@PEAH@Z:
-	call_cxwnd_vtable 0x1e0
+	call_cxwnd_vtable 0x1f8
 
 
 ; public: virtual class eqlib::CXRect eqlib::CXWnd::GetHitTestRect(int)const
 global ?GetHitTestRect@CXWnd@eqlib@@UEBA?AVCXRect@2@H@Z
 export ?GetHitTestRect@CXWnd@eqlib@@UEBA?AVCXRect@2@H@Z
 ?GetHitTestRect@CXWnd@eqlib@@UEBA?AVCXRect@2@H@Z:
-	call_cxwnd_vtable 0x1e8
+	call_cxwnd_vtable 0x200
 
 
 ; public: virtual class eqlib::CXRect eqlib::CXWnd::GetInnerRect(void)const
 global ?GetInnerRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
 export ?GetInnerRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
 ?GetInnerRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ:
-	call_cxwnd_vtable 0x1f0
+	call_cxwnd_vtable 0x208
 
 
 ; public: virtual class eqlib::CXRect eqlib::CXWnd::GetClientRect(void)const
-global ?GetClientRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
-export ?GetClientRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
-?GetClientRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ:
-	call_cxwnd_vtable 0x1f8
+global ?GetClientRect@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
+export ?GetClientRect@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
+?GetClientRect@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ:
+	call_cxwnd_vtable 0x210
+
+
+; public: class eqlib::CXRect eqlib::CXWnd::GetClientRectNonVirtual(void)const
+global ?GetClientRectNonVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
+export ?GetClientRectNonVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ
+?GetClientRectNonVirtual@CXWnd@eqlib@@QEBA?AVCXRect@2@XZ:
+	; We're using the direct call to support being able to get the client rectangle
+	; while we're still at login because of differences in the vtable.
+	jmp [rel CXWnd__GetClientRect]
 
 
 ; public: virtual class eqlib::CXRect eqlib::CXWnd::GetClientClipRect(void)const
 global ?GetClientClipRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
 export ?GetClientClipRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ
 ?GetClientClipRect@CXWnd@eqlib@@UEBA?AVCXRect@2@XZ:
-	call_cxwnd_vtable 0x200
+	call_cxwnd_vtable 0x218
 
 
 ; public: virtual class eqlib::CXSize eqlib::CXWnd::GetMinSize(bool)const
 global ?GetMinSize@CXWnd@eqlib@@UEBA?AVCXSize@2@_N@Z
 export ?GetMinSize@CXWnd@eqlib@@UEBA?AVCXSize@2@_N@Z
 ?GetMinSize@CXWnd@eqlib@@UEBA?AVCXSize@2@_N@Z:
-	call_cxwnd_vtable 0x208
+	call_cxwnd_vtable 0x220
 
 
 ; public: virtual class eqlib::CXSize eqlib::CXWnd::GetMaxSize(bool)const
 global ?GetMaxSize@CXWnd@eqlib@@UEBA?AVCXSize@2@_N@Z
 export ?GetMaxSize@CXWnd@eqlib@@UEBA?AVCXSize@2@_N@Z
 ?GetMaxSize@CXWnd@eqlib@@UEBA?AVCXSize@2@_N@Z:
-	call_cxwnd_vtable 0x210
+	call_cxwnd_vtable 0x228
 
 
 ; public: virtual int eqlib::CXWnd::UpdateGeometry(class eqlib::CXRect const &, bool, bool, bool, bool)
 global ?UpdateGeometry@CXWnd@eqlib@@UEAAHAEBVCXRect@2@_N111@Z
 export ?UpdateGeometry@CXWnd@eqlib@@UEAAHAEBVCXRect@2@_N111@Z
 ?UpdateGeometry@CXWnd@eqlib@@UEAAHAEBVCXRect@2@_N111@Z:
-	call_cxwnd_vtable 0x240
+	call_cxwnd_vtable 0x268
 
 
 ; public: virtual int eqlib::CXWnd::Move(class eqlib::CXPoint const &)
 global ?Move@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@@Z
 export ?Move@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@@Z
 ?Move@CXWnd@eqlib@@UEAAHAEBVCXPoint@2@@Z:
-	call_cxwnd_vtable 0x248
+	call_cxwnd_vtable 0x270
+
+
+; public: virtual int __cdecl eqlib::CXWnd::Minimize(bool)
+global ?Minimize@CXWnd@eqlib@@UEAAH_N@Z
+export ?Minimize@CXWnd@eqlib@@UEAAH_N@Z
+?Minimize@CXWnd@eqlib@@UEAAH_N@Z:
+	call_cxwnd_vtable 0x278
 
 
 ; public: virtual class eqlib::CXWnd * eqlib::CXWnd::GetChildWndAt(class eqlib::CXPoint const &, bool, bool)const
 global ?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z
 export ?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z
 ?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z:
-	call_cxwnd_vtable 0x258
+	call_cxwnd_vtable 0x2b8
+
+
+; public: virtual void __cdecl eqlib::CXWnd::Center(void)
+global ?Center@CXWnd@eqlib@@UEAAXXZ
+export ?Center@CXWnd@eqlib@@UEAAXXZ
+?Center@CXWnd@eqlib@@UEAAXXZ:
+	call_cxwnd_vtable 0x290
+
+
+; public: virtual void __cdecl eqlib::CXWnd::Top(bool)
+global ?Top@CXWnd@eqlib@@UEAAX_N@Z
+export ?Top@CXWnd@eqlib@@UEAAX_N@Z
+?Top@CXWnd@eqlib@@UEAAX_N@Z:
+	call_cxwnd_vtable 0x298
+
+
+; public: virtual void __cdecl eqlib::CXWnd::Bottom(bool)
+global ?Bottom@CXWnd@eqlib@@UEAAX_N@Z
+export ?Bottom@CXWnd@eqlib@@UEAAX_N@Z
+?Bottom@CXWnd@eqlib@@UEAAX_N@Z:
+	call_cxwnd_vtable 0x2a0
+
+
+; public: virtual void __cdecl eqlib::CXWnd::Right(bool)
+global ?Right@CXWnd@eqlib@@UEAAX_N@Z
+export ?Right@CXWnd@eqlib@@UEAAX_N@Z
+?Right@CXWnd@eqlib@@UEAAX_N@Z:
+	call_cxwnd_vtable 0x2a8
+
+
+; public: virtual void __cdecl eqlib::CXWnd::Left(bool)
+global ?Left@CXWnd@eqlib@@UEAAX_N@Z
+export ?Left@CXWnd@eqlib@@UEAAX_N@Z
+?Left@CXWnd@eqlib@@UEAAX_N@Z:
+	call_cxwnd_vtable 0x2b0
 
 
 ; public: virtual class eqlib::CScreenPieceTemplate * eqlib::CXWnd::GetSidlPiece(class eqlib::CXStr const &, bool)const
 global ?GetSidlPiece@CXWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 export ?GetSidlPiece@CXWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 ?GetSidlPiece@CXWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z:
-	call_cxwnd_vtable 0x260
+	call_cxwnd_vtable 0x2c0
 
 
 ; public: virtual int eqlib::CXWnd::SetVScrollPos(int)
 global ?SetVScrollPos@CXWnd@eqlib@@UEAAHH@Z
 export ?SetVScrollPos@CXWnd@eqlib@@UEAAHH@Z
 ?SetVScrollPos@CXWnd@eqlib@@UEAAHH@Z:
-	call_cxwnd_vtable 0x270
+	call_cxwnd_vtable 0x2d0
 
 
 ; public: virtual int eqlib::CXWnd::SetHScrollPos(int)
 global ?SetHScrollPos@CXWnd@eqlib@@UEAAHH@Z
 export ?SetHScrollPos@CXWnd@eqlib@@UEAAHH@Z
 ?SetHScrollPos@CXWnd@eqlib@@UEAAHH@Z:
-	call_cxwnd_vtable 0x278
+	call_cxwnd_vtable 0x2d8
 
 
 ; public: virtual int eqlib::CXWnd::AutoSetVScrollPos(class eqlib::CXRect)
 global ?AutoSetVScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 export ?AutoSetVScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 ?AutoSetVScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z:
-	call_cxwnd_vtable 0x280
+	call_cxwnd_vtable 0x2e0
 
 
 ; public: virtual int eqlib::CXWnd::AutoSetHScrollPos(class eqlib::CXRect)
 global ?AutoSetHScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 export ?AutoSetHScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 ?AutoSetHScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z:
-	call_cxwnd_vtable 0x288
+	call_cxwnd_vtable 0x2e8
 
 
 ; public: virtual void eqlib::CXWnd::SetAttributesFromSidl(class eqlib::CParamScreenPiece *)
 global ?SetAttributesFromSidl@CXWnd@eqlib@@UEAAXPEAVCParamScreenPiece@2@@Z
 export ?SetAttributesFromSidl@CXWnd@eqlib@@UEAAXPEAVCParamScreenPiece@2@@Z
 ?SetAttributesFromSidl@CXWnd@eqlib@@UEAAXPEAVCParamScreenPiece@2@@Z:
-	call_cxwnd_vtable 0x290
+	call_cxwnd_vtable 0x2f0
 
 
 ; public: virtual void eqlib::CXWnd::UpdateLayout(bool)
 global ?UpdateLayout@CXWnd@eqlib@@UEAAX_N@Z
 export ?UpdateLayout@CXWnd@eqlib@@UEAAX_N@Z
 ?UpdateLayout@CXWnd@eqlib@@UEAAX_N@Z:
-	call_cxwnd_vtable 0x2c8
+	call_cxwnd_vtable 0x328
 
 
 ;---------------------------------------------------------------------------------------
@@ -581,18 +640,18 @@ extern CSidlScreenWnd__CSidlScreenWnd2
 extern CSidlScreenWnd__dCSidlScreenWnd
 
 
-; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *,class eqlib::CXStr const &)
-global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@@Z
-export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@@Z
-??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@@Z:
+; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *, class eqlib::CXStr const &, int, int, char const *, bool)
+global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEBD_N@Z
+export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEBD_N@Z
+??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEBD_N@Z:
 	mov rax, [qword CSidlScreenWnd__CSidlScreenWnd1]
 	jmp rax
 
 
-; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *,class eqlib::CXStr const &,int,int,char *)
-global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEAD@Z
-export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEAD@Z
-??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@HHPEAD@Z:
+; public: eqlib::CSidlScreenWnd::CSidlScreenWnd(class eqlib::CXWnd *, class eqlib::CXStr const &, bool)
+global ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@_N@Z
+export ??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@_N@Z
+??0CSidlScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@AEBVCXStr@1@_N@Z:
 	mov rax, [qword CSidlScreenWnd__CSidlScreenWnd2]
 	jmp rax
 
@@ -615,108 +674,115 @@ export ??1CSidlScreenWnd@eqlib@@UEAA@XZ
 %endmacro
 
 
-; public: virtual int eqlib::CSidlScreenWnd::OnResize(int, int)
-global ?OnResize@CSidlScreenWnd@eqlib@@UEAAHHH@Z
-export ?OnResize@CSidlScreenWnd@eqlib@@UEAAHHH@Z
-?OnResize@CSidlScreenWnd@eqlib@@UEAAHHH@Z:
-	call_csidlscreenwnd_vtable 0x140
-
 ; public: virtual int eqlib::CSidlScreenWnd::DrawBackground(void)const
 global ?DrawBackground@CSidlScreenWnd@eqlib@@UEBAHXZ
 export ?DrawBackground@CSidlScreenWnd@eqlib@@UEBAHXZ
 ?DrawBackground@CSidlScreenWnd@eqlib@@UEBAHXZ:
-	call_csidlscreenwnd_vtable 0x40
-
-
-; public: virtual int eqlib::CSidlScreenWnd::WndNotification(class eqlib::CXWnd *, unsigned int, void *)
-global ?WndNotification@CSidlScreenWnd@eqlib@@UEAAHPEAVCXWnd@2@IPEAX@Z
-export ?WndNotification@CSidlScreenWnd@eqlib@@UEAAHPEAVCXWnd@2@IPEAX@Z
-?WndNotification@CSidlScreenWnd@eqlib@@UEAAHPEAVCXWnd@2@IPEAX@Z:
-	call_csidlscreenwnd_vtable 0x110
+	call_csidlscreenwnd_vtable 0x48
 
 
 ; public: virtual int eqlib::CSidlScreenWnd::HandleRButtonDown(class eqlib::CXPoint const &, unsigned int)
 global ?HandleRButtonDown@CSidlScreenWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 export ?HandleRButtonDown@CSidlScreenWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z
 ?HandleRButtonDown@CSidlScreenWnd@eqlib@@UEAAHAEBVCXPoint@2@I@Z:
-	call_csidlscreenwnd_vtable 0x90
+	call_csidlscreenwnd_vtable 0xa0
+
+
+; public: virtual int eqlib::CSidlScreenWnd::WndNotification(class eqlib::CXWnd *, unsigned int, void *)
+global ?WndNotification@CSidlScreenWnd@eqlib@@UEAAHPEAVCXWnd@2@IPEAX@Z
+export ?WndNotification@CSidlScreenWnd@eqlib@@UEAAHPEAVCXWnd@2@IPEAX@Z
+?WndNotification@CSidlScreenWnd@eqlib@@UEAAHPEAVCXWnd@2@IPEAX@Z:
+	call_csidlscreenwnd_vtable 0x120
+
+
+; public: virtual int eqlib::CSidlScreenWnd::OnResize(int, int)
+global ?OnResize@CSidlScreenWnd@eqlib@@UEAAHHH@Z
+export ?OnResize@CSidlScreenWnd@eqlib@@UEAAHHH@Z
+?OnResize@CSidlScreenWnd@eqlib@@UEAAHHH@Z:
+	call_csidlscreenwnd_vtable 0x150
 
 
 ; public: virtual int eqlib::CSidlScreenWnd::OnShow(void)
 global ?OnShow@CSidlScreenWnd@eqlib@@UEAAHXZ
 export ?OnShow@CSidlScreenWnd@eqlib@@UEAAHXZ
 ?OnShow@CSidlScreenWnd@eqlib@@UEAAHXZ:
-	call_csidlscreenwnd_vtable 0x130
+	call_csidlscreenwnd_vtable 0x140
 
 
 ; public: virtual class eqlib::CScreenPieceTemplate * eqlib::CSidlScreenWnd::GetSidlPiece(class eqlib::CXStr const &, bool)const
 global ?GetSidlPiece@CSidlScreenWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 export ?GetSidlPiece@CSidlScreenWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 ?GetSidlPiece@CSidlScreenWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z:
-	call_csidlscreenwnd_vtable 0x260
+	call_csidlscreenwnd_vtable 0x2c0
 
 
 ; public: virtual class eqlib::CXStr const * eqlib::CSidlScreenWnd::GetWindowName(void)const
 global ?GetWindowName@CSidlScreenWnd@eqlib@@UEBAPEBVCXStr@2@XZ
 export ?GetWindowName@CSidlScreenWnd@eqlib@@UEBAPEBVCXStr@2@XZ
 ?GetWindowName@CSidlScreenWnd@eqlib@@UEBAPEBVCXStr@2@XZ:
-	call_csidlscreenwnd_vtable 0x268
+	call_csidlscreenwnd_vtable 0x2c8
 
 
 ; public: virtual bool eqlib::CSidlScreenWnd::HasActivatedFirstTimeAlert(void)const
 global ?HasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEBA_NXZ
 export ?HasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEBA_NXZ
 ?HasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEBA_NXZ:
-	call_csidlscreenwnd_vtable 0x2a0
+	call_csidlscreenwnd_vtable 0x300
 
 
 ; public: virtual void eqlib::CSidlScreenWnd::SetHasActivatedFirstTimeAlert(bool)
 global ?SetHasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEAAX_N@Z
 export ?SetHasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEAAX_N@Z
 ?SetHasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEAAX_N@Z:
-	call_csidlscreenwnd_vtable 0x2a8
+	call_csidlscreenwnd_vtable 0x308
 
+
+; public: virtual void __cdecl eqlib::CSidlScreenWnd::Unknown0x330(char const *,bool)
+global ?Unknown0x330@CSidlScreenWnd@eqlib@@UEAAXPEBD_N@Z
+export ?Unknown0x330@CSidlScreenWnd@eqlib@@UEAAXPEBD_N@Z
+?Unknown0x330@CSidlScreenWnd@eqlib@@UEAAXPEBD_N@Z:
+	call_csidlscreenwnd_vtable 0x330
 
 ; public: virtual int eqlib::CSidlScreenWnd::OnZone(void)
 global ?OnZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 export ?OnZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 ?OnZone@CSidlScreenWnd@eqlib@@UEAAHXZ:
-	call_csidlscreenwnd_vtable 0x2d0
+	call_csidlscreenwnd_vtable 0x338
 
 
 ; public: virtual int eqlib::CSidlScreenWnd::OnPreZone(void)
 global ?OnPreZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 export ?OnPreZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 ?OnPreZone@CSidlScreenWnd@eqlib@@UEAAHXZ:
-	call_csidlscreenwnd_vtable 0x2d8
+	call_csidlscreenwnd_vtable 0x340
 
 
 ; public: virtual void eqlib::CSidlScreenWnd::LoadIniInfo(void)
 global ?LoadIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 export ?LoadIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 ?LoadIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ:
-	call_csidlscreenwnd_vtable 0x2e0
+	call_csidlscreenwnd_vtable 0x348
 
 
 ; public: virtual void eqlib::CSidlScreenWnd::StoreIniInfo(void)
 global ?StoreIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 export ?StoreIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 ?StoreIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ:
-	call_csidlscreenwnd_vtable 0x2e8
+	call_csidlscreenwnd_vtable 0x350
 
 
 ; public: virtual class eqlib::CSidlScreenWnd * eqlib::CSidlScreenWnd::AsSidlScreenWnd(void)
 global ?AsSidlScreenWnd@CSidlScreenWnd@eqlib@@UEAAPEAV12@XZ
 export ?AsSidlScreenWnd@CSidlScreenWnd@eqlib@@UEAAPEAV12@XZ
 ?AsSidlScreenWnd@CSidlScreenWnd@eqlib@@UEAAPEAV12@XZ:
-	call_csidlscreenwnd_vtable 0x2f0
+	call_csidlscreenwnd_vtable 0x358
 
 
 ; public: virtual bool eqlib::CSidlScreenWnd::GetScreenWndType(void)
 global ?GetScreenWndType@CSidlScreenWnd@eqlib@@UEAA_NXZ
 export ?GetScreenWndType@CSidlScreenWnd@eqlib@@UEAA_NXZ
 ?GetScreenWndType@CSidlScreenWnd@eqlib@@UEAA_NXZ:
-	call_csidlscreenwnd_vtable 0x2f8
+	call_csidlscreenwnd_vtable 0x360
 
 
 ;---------------------------------------------------------------------------------------
@@ -880,14 +946,14 @@ export ?GetSeparatorRect@CListWnd@eqlib@@QEBA?AVCXRect@2@H@Z
 global ?GetHitTestRect@CListWnd@eqlib@@UEBA?AVCXRect@2@H@Z
 export ?GetHitTestRect@CListWnd@eqlib@@UEBA?AVCXRect@2@H@Z
 ?GetHitTestRect@CListWnd@eqlib@@UEBA?AVCXRect@2@H@Z:
-	call_clistwnd_vtable 0x1e8
+	call_clistwnd_vtable 0x200
 
 
 ; public: virtual class eqlib::CXRect eqlib::CListWnd::GetClientClipRect(void)const
 global ?GetClientClipRect@CListWnd@eqlib@@UEBA?AVCXRect@2@XZ
 export ?GetClientClipRect@CListWnd@eqlib@@UEBA?AVCXRect@2@XZ
 ?GetClientClipRect@CListWnd@eqlib@@UEBA?AVCXRect@2@XZ:
-	call_clistwnd_vtable 0x200
+	call_clistwnd_vtable 0x218
 
 
 ;---------------------------------------------------------------------------------------

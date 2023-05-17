@@ -152,12 +152,22 @@
     <ClInclude Include="Containers.h" />
     <ClInclude Include="CXStr.h" />
     <ClInclude Include="CXWnd.h" />
+    <ClInclude Include="eqstd\list.h" />
     <ClInclude Include="eqstd\map.h" />
     <ClInclude Include="eqstd\memory.h" />
+    <ClInclude Include="eqstd\string.h" />
     <ClInclude Include="eqstd\type_traits.h" />
+    <ClInclude Include="eqstd\unordered_map.h" />
+    <ClInclude Include="eqstd\unordered_set.h" />
+    <ClInclude Include="eqstd\utility.h" />
+    <ClInclude Include="eqstd\vector.h" />
+    <ClInclude Include="eqstd\xhash.h" />
     <ClInclude Include="eqstd\xmemory.h" />
+    <ClInclude Include="eqstd\xnode_handle.h" />
     <ClInclude Include="eqstd\xtree.h" />
+    <ClInclude Include="eqstd\xutility.h" />
     <ClInclude Include="Expansions.h" />
+    <ClInclude Include="GameFace.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="RealEstate.h" />
     <ClInclude Include="Requirements.h" />
@@ -246,6 +256,7 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="EQLib.natvis" />
+    <Natvis Include="eqstd\eqstd.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

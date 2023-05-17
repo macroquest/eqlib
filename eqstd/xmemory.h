@@ -3,19 +3,31 @@
 // Copyright (c) Microsoft Corporation.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-// adapted for use with eqlib
+// Adapted for use with eqlib
 
 #pragma once
 
+#include "eqlib/Allocator.h"
+#include "eqlib/eqstd/type_traits.h"
+#include "eqlib/eqstd/utility.h"
+
 #include <xmemory>
+#include <limits>
 
 namespace eqstd
 {
+	using std::allocator_traits;
+	using std::pointer_traits;
+
+	using std::_Destroy_in_place;
+	using std::_Destroy_range;
+	using std::_Construct_in_place;
+
 	template <class _Alloc, class _Value_type>
-	using _Rebind_alloc_t = typename std::allocator_traits<_Alloc>::template rebind_alloc<_Value_type>;
+	using _Rebind_alloc_t = typename allocator_traits<_Alloc>::template rebind_alloc<_Value_type>;
 
 	template <class _Ptr, class _Ty>
-	using _Rebind_pointer_t = typename std::pointer_traits<_Ptr>::template rebind<_Ty>;
+	using _Rebind_pointer_t = typename pointer_traits<_Ptr>::template rebind<_Ty>;
 
 	// STRUCT TEMPLATE _Simple_types
 	template <class _Value_type>
@@ -30,7 +42,7 @@ namespace eqstd
 
 	// ALIAS TEMPLATE _Alloc_ptr_t
 	template <class _Alloc>
-	using _Alloc_ptr_t = typename std::allocator_traits<_Alloc>::pointer;
+	using _Alloc_ptr_t = typename allocator_traits<_Alloc>::pointer;
 
 	// STRUCT TEMPLATE _Alloc_construct_ptr
 	template <class _Alloc>
@@ -66,10 +78,10 @@ namespace eqstd
 
 	// VARIABLE TEMPLATE _Is_simple_alloc_v
 	template <class _Alloc> // tests if allocator has simple addressing
-	inline constexpr bool _Is_simple_alloc_v = std::is_same_v<typename std::allocator_traits<_Alloc>::size_type, size_t > &&
-		std::is_same_v<typename std::allocator_traits<_Alloc>::difference_type, ptrdiff_t> &&
-		std::is_same_v<typename std::allocator_traits<_Alloc>::pointer, typename _Alloc::value_type*> &&
-		std::is_same_v<typename std::allocator_traits<_Alloc>::const_pointer, const typename _Alloc::value_type*>;
+	inline constexpr bool _Is_simple_alloc_v = is_same_v<typename allocator_traits<_Alloc>::size_type, size_t > &&
+		is_same_v<typename allocator_traits<_Alloc>::difference_type, ptrdiff_t> &&
+		is_same_v<typename allocator_traits<_Alloc>::pointer, typename _Alloc::value_type*> &&
+		is_same_v<typename allocator_traits<_Alloc>::const_pointer, const typename _Alloc::value_type*>;
 
 	// CLASS TEMPLATE _Compressed_pair
 	struct _Zero_then_variadic_args_t {
@@ -80,7 +92,7 @@ namespace eqstd
 		explicit _One_then_variadic_args_t() = default;
 	}; // tag type for constructing first from one arg, constructing second from remaining args
 
-	template <class _Ty1, class _Ty2, bool = std::is_empty_v<_Ty1> && !std::is_final_v<_Ty1>>
+	template <class _Ty1, class _Ty2, bool = is_empty_v<_Ty1> && !is_final_v<_Ty1>>
 	class _Compressed_pair final : private _Ty1 { // store a pair of values, deriving from empty first
 	public:
 		_Ty2 _Myval2;
@@ -89,12 +101,12 @@ namespace eqstd
 
 		template <class... _Other2>
 		constexpr explicit _Compressed_pair(_Zero_then_variadic_args_t, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_default_constructible<_Ty1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_default_constructible<_Ty1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Ty1(), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		template <class _Other1, class... _Other2>
 		constexpr _Compressed_pair(_One_then_variadic_args_t, _Other1&& _Val1, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_constructible<_Ty1, _Other1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_constructible<_Ty1, _Other1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Ty1(std::forward<_Other1>(_Val1)), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		constexpr _Ty1& _Get_first() noexcept {
@@ -114,12 +126,12 @@ namespace eqstd
 
 		template <class... _Other2>
 		constexpr explicit _Compressed_pair(_Zero_then_variadic_args_t, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_default_constructible<_Ty1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_default_constructible<_Ty1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Myval1(), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		template <class _Other1, class... _Other2>
 		constexpr _Compressed_pair(_One_then_variadic_args_t, _Other1&& _Val1, _Other2&&... _Val2) noexcept(
-			std::conjunction_v<std::is_nothrow_constructible<_Ty1, _Other1>, std::is_nothrow_constructible<_Ty2, _Other2...>>)
+			conjunction_v<is_nothrow_constructible<_Ty1, _Other1>, is_nothrow_constructible<_Ty2, _Other2...>>)
 			: _Myval1(std::forward<_Other1>(_Val1)), _Myval2(std::forward<_Other2>(_Val2)...) {}
 
 		constexpr _Ty1& _Get_first() noexcept {
@@ -137,8 +149,8 @@ namespace eqstd
 		static_cast<bool>(std::declval<const _Keycmp&>()(std::declval<const _Lhs&>(), std::declval<const _Rhs&>())));
 
 	template <class _Alloc>
-	using _Choose_pocma = std::conditional_t<std::allocator_traits<_Alloc>::is_always_equal::value, _Equal_allocators,
-		typename std::allocator_traits<_Alloc>::propagate_on_container_move_assignment::type>;
+	using _Choose_pocma = conditional_t<allocator_traits<_Alloc>::is_always_equal::value, _Equal_allocators,
+		typename allocator_traits<_Alloc>::propagate_on_container_move_assignment::type>;
 
 	// CLASSES _Container_base*, _Iterator_base*
 	struct _Fake_allocator {};
@@ -188,4 +200,104 @@ namespace eqstd
 		_Ty _Value; // workaround for "T^ is not allowed in a union"
 	};
 #pragma warning(pop)
+
+	template <typename T>
+	using allocator = eqlib::everquest_allocator<T>;
+
+	template <class _Ty>
+	struct _NODISCARD _Tidy_guard { // class with destructor that calls _Tidy
+		_Ty* _Target;
+		_CONSTEXPR20 ~_Tidy_guard() {
+			if (_Target) {
+				_Target->_Tidy();
+			}
+		}
+	};
+
+	template <class _Ty>
+	struct _NODISCARD _Tidy_deallocate_guard { // class with destructor that calls _Tidy_deallocate
+		_Ty* _Target;
+		_CONSTEXPR20 ~_Tidy_deallocate_guard() {
+			if (_Target) {
+				_Target->_Tidy_deallocate();
+			}
+		}
+	};
+
+	enum class _Pocma_values {
+		_Equal_allocators, // usually allows contents to be stolen (e.g. with swap)
+		_Propagate_allocators, // usually allows the allocator to be propagated, and then contents stolen
+		_No_propagate_allocators, // usually turns moves into copies
+	};
+
+	template <class _Alloc>
+	inline constexpr _Pocma_values _Choose_pocma_v =
+		allocator_traits<_Alloc>::is_always_equal::value
+		? _Pocma_values::_Equal_allocators
+		: (allocator_traits<_Alloc>::propagate_on_container_move_assignment::value
+			? _Pocma_values::_Propagate_allocators
+			: _Pocma_values::_No_propagate_allocators);
+
+
+	// assumes _Args have already been _Remove_cvref_t'd
+	template <class _Key, class... _Args>
+	struct _In_place_key_extract_set {
+		// by default we can't extract the key in the emplace family and must construct a node we might not use
+		static constexpr bool _Extractable = false;
+	};
+
+	template <class _Key>
+	struct _In_place_key_extract_set<_Key, _Key> {
+		// we can extract the key in emplace if the emplaced type is identical to the key type
+		static constexpr bool _Extractable = true;
+		static const _Key& _Extract(const _Key& _Val) noexcept {
+			return _Val;
+		}
+	};
+
+	// assumes _Args have already been _Remove_cvref_t'd
+	template <class _Key, class... _Args>
+	struct _In_place_key_extract_map {
+		// by default we can't extract the key in the emplace family and must construct a node we might not use
+		static constexpr bool _Extractable = false;
+	};
+
+	template <class _Key, class _Second>
+	struct _In_place_key_extract_map<_Key, _Key, _Second> {
+		// if we would call the pair(key, value) constructor family, we can use the first parameter as the key
+		static constexpr bool _Extractable = true;
+		static const _Key& _Extract(const _Key& _Val, const _Second&) noexcept {
+			return _Val;
+		}
+	};
+
+	template <class _Key, class _First, class _Second>
+	struct _In_place_key_extract_map<_Key, pair<_First, _Second>> {
+		// if we would call the pair(pair<other, other>) constructor family, we can use the pair.first member as the key
+		static constexpr bool _Extractable = is_same_v<_Key, _Remove_cvref_t<_First>>;
+		static const _Key& _Extract(const pair<_First, _Second>& _Val) {
+			return _Val.first;
+		}
+	};
+
+	template <class _Size_type, class _Unsigned_type>
+	_NODISCARD constexpr _Size_type _Convert_size(const _Unsigned_type _Len) noexcept(
+		sizeof(_Unsigned_type) <= sizeof(_Size_type)) {
+		// convert _Unsigned_type to _Size_type, avoiding truncation
+		_STL_INTERNAL_STATIC_ASSERT(_Unsigned_type(-1) > 0);
+		_STL_INTERNAL_STATIC_ASSERT(_Size_type(-1) > 0);
+
+		if constexpr (sizeof(_Unsigned_type) > sizeof(_Size_type)) {
+			if (_Len > (std::numeric_limits<_Size_type>::max)()) {
+				_Xlength_error("size is too long for _Size_type");
+			}
+		}
+
+		return static_cast<_Size_type>(_Len);
+	}
+
+	template <class _Ptrty>
+	_NODISCARD constexpr auto _Unfancy(_Ptrty _Ptr) noexcept { // converts from a fancy pointer to a plain pointer
+		return _STD addressof(*_Ptr);
+	}
 }

@@ -55,35 +55,14 @@ FUNCTION_AT_ADDRESS(void, CXWnd::BringToTop(bool), CXWnd__BringToTop);
 #ifdef CXWnd__StartFade_x
 FUNCTION_AT_ADDRESS(void, CXWnd::StartFade(unsigned char, uint32_t), CXWnd__StartFade);
 #endif
-#ifdef CXWnd__Minimize_x
-FUNCTION_AT_ADDRESS(int, CXWnd::Minimize(bool), CXWnd__Minimize);
-#endif
 #ifdef CXWnd__IsReallyVisible_x
 FUNCTION_AT_ADDRESS(bool, CXWnd::IsReallyVisible() const, CXWnd__IsReallyVisible);
 #endif
 #ifdef CXWnd__DoAllDrawing_x
 FUNCTION_AT_ADDRESS(int, CXWnd::DoAllDrawing() const, CXWnd__DoAllDrawing);
 #endif
-#ifdef CXWnd__DrawChildren_x
-FUNCTION_AT_ADDRESS(int, CXWnd::DrawChildren() const, CXWnd__DrawChildren);
-#endif
-#ifdef CXWnd__Center_x
-FUNCTION_AT_ADDRESS(void, CXWnd::Center(), CXWnd__Center);
-#endif
-#ifdef CXWnd__Right_x
-FUNCTION_AT_ADDRESS(void, CXWnd::Right(), CXWnd__Right);
-#endif
-#ifdef CXWnd__GetScreenClipRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenClipRect() const, CXWnd__GetScreenClipRect);
-#endif
 #ifdef CXWnd__IsDescendantOf_x
 FUNCTION_AT_ADDRESS(bool, CXWnd::IsDescendantOf(CXWnd const*) const, CXWnd__IsDescendantOf);
-#endif
-#ifdef CXWnd__GetBorderFrame_x
-FUNCTION_AT_ADDRESS(CTAFrameDraw const*, CXWnd::GetBorderFrame() const, CXWnd__GetBorderFrame);
-#endif
-#ifdef CXWnd__GetScreenRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CXWnd::GetScreenRect() const, CXWnd__GetScreenRect);
 #endif
 #ifdef CXWnd__Resize_x
 FUNCTION_AT_ADDRESS(int, CXWnd::Resize(int, int, bool, bool, bool), CXWnd__Resize);
@@ -126,12 +105,6 @@ FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::CalculateHSBRange(), CSidlScreenWnd__C
 #ifdef CSidlScreenWnd__DrawSidlPiece_x
 FUNCTION_AT_ADDRESS(int, CSidlScreenWnd::DrawSidlPiece(CScreenPieceTemplate*, const CXRect&, const CXRect&) const, CSidlScreenWnd__DrawSidlPiece);
 #endif
-#ifdef CSidlScreenWnd__GetSidlPieceRect_x
-//FUNCTION_AT_ADDRESS(CXRect, CSidlScreenWnd::GetSidlPieceRect(CScreenPieceTemplate*, const CXRect&) const, CSidlScreenWnd__GetSidlPieceRect);
-#endif
-#ifdef CSidlScreenWnd__AddButtonToRadioGroup_x
-FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::AddButtonToRadioGroup(CXStr, CButtonWnd*), CSidlScreenWnd__AddButtonToRadioGroup);
-#endif
 #ifdef CSidlScreenWnd__CreateChildrenFromSidl_x
 FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::CreateChildrenFromSidl(DWORD), CSidlScreenWnd__CreateChildrenFromSidl);
 #endif
@@ -141,17 +114,8 @@ FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::StoreIniVis(), CSidlScreenWnd__StoreIn
 #ifdef CSidlScreenWnd__EnableIniStorage_x
 FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::EnableIniStorage(int, char*), CSidlScreenWnd__EnableIniStorage);
 #endif
-//#ifdef CSidlScreenWnd__StoreIniInfo_x
-//FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::StoreIniInfo(void), CSidlScreenWnd__StoreIniInfo);
-//#endif
-//#ifdef CSidlScreenWnd__LoadIniInfo_x
-//FUNCTION_AT_ADDRESS(void, CSidlScreenWnd::LoadIniInfo(void), CSidlScreenWnd__LoadIniInfo);
-//#endif
 #ifdef CSidlScreenWnd__ConvertToRes_x
 FUNCTION_AT_ADDRESS(int, CSidlScreenWnd::ConvertToRes(int, int, int, int), CSidlScreenWnd__ConvertToRes);
-#endif
-#ifdef CSidlScreenWnd__GetChildItem_x
-//FUNCTION_AT_ADDRESS(CXWnd*, CSidlScreenWnd::GetChildItem(const CXStr&, bool bDebug), CSidlScreenWnd__GetChildItem);
 #endif
 
 //----------------------------------------------------------------------------
