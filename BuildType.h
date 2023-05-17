@@ -80,7 +80,7 @@
 
 // GameFace integration (the new UI system) was first released on test as of march 21, 2023.
 // At this time, it is only found in the test client.
-#define HAS_GAMEFACE_UI (IS_CLIENT_DATE(20230321) && IS_TEST_CLIENT)
+#define HAS_GAMEFACE_UI IS_CLIENT_DATE(20230321)
 
 // Item effects for mount, illusion, familiar, etc were combined into "Blessing" effects
 // on September 7, 2021.
