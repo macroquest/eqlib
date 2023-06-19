@@ -41,14 +41,15 @@ public:
 /*0x68*/ CGFScreenWnd* parent;
 /*0x70*/ CXWnd*        wnd;
 /*0x78*/ eqstd::string str_78;
-/*0x98*/
+/*0x98*/ uint64_t      u64_98;
+/*0xa0*/
 };
 
 class [[offsetcomments]] UIScreenComponent : public UIComponent
 {
 public:
-/*0x98*/ uint8_t       u8_98;     // = 255
-/*0x9c*/
+/*0xa0*/ uint8_t       u8_a0;     // = 255
+/*0xa4*/
 };
 
 class [[offsetcomments]] CGFScreenWnd : public CSidlScreenWnd
@@ -59,9 +60,9 @@ public:
 
 	void SetupComponent(UIComponent& component, const eqstd::string& ScreenID, bool required);
 
-/*0x2c8*/ UIScreenComponent                                 WindowComponent;
-/*0x368*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
-/*0x3a8*/
+/*0x2d0*/ UIScreenComponent                                 WindowComponent;
+/*0x370*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
+/*0x3b0*/
 };
 
 namespace cohtml {
