@@ -1335,7 +1335,7 @@ public:
 /*0x2160*/ bool                                  bShowHelm;
 /*0x2168*/ int64_t                               LastTestCopyTime;
 /*0x2170*/ CPlayerPointManager                   PointManager;
-/*0x2190*/ PointSystemBase                       PointSystem; // 2178 ^
+/*0x2190*/ PointSystemBase                       PointSystem;
 /*0x21c0*/ uint32_t                              LoyaltyVelocity;
 /*0x21c4*/ uint32_t                              LoyaltyTokens;
 /*0x21c8*/ bool                                  bHasLoyaltyInfo;
@@ -1348,6 +1348,7 @@ public:
 /*0x2299*/ bool                                  bCanRequestFamiliarNameChange;
 /*0x22a0*/ CXStr                                 OverrideMercName[EQ_MAX_MERCENARIES];
 /*0x22f8*/ bool                                  bCanRequestMercNameChange;
+/*0x22fc*/ uint32_t                              LegacyExperienceBonus;
 /*0x2300*/ PendingRewardList                     PendingRewards;
 /*0x2348*/ uint8_t                               WaitingRewards[0x20]; // type is unknown
 /*0x2368*/ uint32_t                              DowntimeReductionTime;
@@ -1481,7 +1482,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3250 :: 2023-06-13 (test) @ 0x14026803b
+// @sizeof(PcClient) == 0x3250 :: 2023-06-15 (live) @ 0x14026853b
 constexpr size_t PcClient_size = 0x3250;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
