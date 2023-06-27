@@ -150,8 +150,9 @@ public:
 /*0x40*/ int                CellWidth = 0;
 /*0x44*/ int                CellHeight = 0;
 /*0x48*/ int                CurCell = -1;
-/*0x4c*/ CXRect             CellRect;
-/*0x5c*/
+/*0x4c*/ int                CurCellInFrame = -1;
+/*0x50*/ CXRect             CellRect;
+/*0x60*/
 };
 
 //============================================================================
