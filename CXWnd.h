@@ -245,7 +245,7 @@ public:
 
 // @sizeof(CXWnd) == 0x268 :: 2023-07-10 (test) @ 0x1405a06a1
 constexpr size_t CXWnd_size = 0x268;
-constexpr size_t CXWnd_vftable_size = 0x330;
+constexpr size_t CXWnd_vftable_size = 0x338;
 
 class [[offsetcomments]] CXWnd
 	: public TListNode<CXWnd>   // node in list of siblings
@@ -354,6 +354,7 @@ public:
 	EQLIB_OBJECT virtual void Bottom(bool center = true);
 	EQLIB_OBJECT virtual void Right(bool center = true);
 	EQLIB_OBJECT virtual void Left(bool center = true);
+	EQLIB_OBJECT virtual int MoveToCursor();
 	EQLIB_OBJECT virtual CXWnd* GetChildWndAt(const CXPoint& pos, bool, bool) const;
 	EQLIB_OBJECT virtual CScreenPieceTemplate* GetSidlPiece(const CXStr& screenId, bool top = true) const;
 	EQLIB_OBJECT virtual const CXStr* GetWindowName() const { return nullptr; }
@@ -363,7 +364,7 @@ public:
 	EQLIB_OBJECT virtual int AutoSetHScrollPos(CXRect rect);
 	EQLIB_OBJECT virtual void SetAttributesFromSidl(CParamScreenPiece* screenPiece);
 	EQLIB_OBJECT virtual void OnReloadSidl() {}
-	EQLIB_OBJECT virtual bool HasActivatedFirstTimeAlert() const { return false;  }
+	EQLIB_OBJECT virtual bool HasActivatedFirstTimeAlert() const {  return false; }
 	EQLIB_OBJECT virtual void SetHasActivatedFirstTimeAlert(bool) {}
 	EQLIB_OBJECT virtual const CXSize& GetMinClientSize() const { return MinClientSize; }
 	EQLIB_OBJECT void SetMinClientSize(const CXSize& pt) { MinClientSize = pt; }
@@ -425,9 +426,7 @@ public:
 	//EQLIB_OBJECT int DrawTileBox() const;
 	//EQLIB_OBJECT int DrawVScrollbar(int, int, int) const;
 	//EQLIB_OBJECT int GetWidth() const;
-	//EQLIB_OBJECT void Bottom();
 	//EQLIB_OBJECT void BringChildWndToTop(CXWnd*);
-	//EQLIB_OBJECT void Left();
 	//EQLIB_OBJECT void SetFirstChildPointer(CXWnd*);
 	//EQLIB_OBJECT void SetLookLikeParent();
 	//EQLIB_OBJECT void SetNextSibPointer(CXWnd*);
@@ -676,22 +675,23 @@ public:
 	/*0x2a0*/ void* Bottom;
 	/*0x2a8*/ void* Right;
 	/*0x2b0*/ void* Left;
-	/*0x2b8*/ void* GetChildWndAt;
-	/*0x2c0*/ void* GetSidlPiece;
-	/*0x2c8*/ void* GetWindowName;
-	/*0x2d0*/ void* SetVScrollPos;
-	/*0x2d8*/ void* SetHScrollPos;
-	/*0x2e0*/ void* AutoSetVScrollPos;
-	/*0x2e8*/ void* AutoSetHScrollPos;
-	/*0x2f0*/ void* SetAttributesFromSidl;
-	/*0x2f8*/ void* OnReloadSidl;
-	/*0x300*/ void* HasActivatedFirstTimeAlert;
-	/*0x308*/ void* SetHasActivatedFirstTimeAlert;
-	/*0x310*/ void* GetMinClientSize;
-	/*0x318*/ void* GetMaxClientSize;
-	/*0x320*/ void* GetActiveEditWnd;
-	/*0x328*/ void* UpdateLayout;
-	/*0x330*/
+	/*0x2b8*/ void* MoveToCursor;
+	/*0x2c0*/ void* GetChildWndAt;
+	/*0x2c8*/ void* GetSidlPiece;
+	/*0x2d0*/ void* GetWindowName;
+	/*0x2d8*/ void* SetVScrollPos;
+	/*0x2e0*/ void* SetHScrollPos;
+	/*0x2e8*/ void* AutoSetVScrollPos;
+	/*0x2f0*/ void* AutoSetHScrollPos;
+	/*0x2f8*/ void* SetAttributesFromSidl;
+	/*0x300*/ void* OnReloadSidl;
+	/*0x308*/ void* HasActivatedFirstTimeAlert;
+	/*0x310*/ void* SetHasActivatedFirstTimeAlert;
+	/*0x318*/ void* GetMinClientSize;
+	/*0x320*/ void* GetMaxClientSize;
+	/*0x328*/ void* GetActiveEditWnd;
+	/*0x330*/ void* UpdateLayout;
+	/*0x338*/
 	};
 
 	// Returns the current instance of this class's vftable. Might represent some other
@@ -852,7 +852,7 @@ enum eIniFlags
 
 // @sizeof(CSidlScreenWnd) == 0x2d0 :: 2023-07-10 (test) @ 0x14059b0c1
 constexpr size_t CSidlScreenWnd_size = 0x2d0;
-constexpr size_t CSidlScreenWnd_vftable_size = 0x368;
+constexpr size_t CSidlScreenWnd_vftable_size = 0x370;
 
 class [[offsetcomments]] CSidlScreenWnd : public CXWnd
 {
@@ -928,14 +928,14 @@ public:
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
-	/*0x330*/ void* Unknown0x330;
-	/*0x338*/ void* OnZone;
-	/*0x340*/ void* OnPreZone;
-	/*0x348*/ void* LoadIniInfo;
-	/*0x350*/ void* StoreIniInfo;
-	/*0x358*/ void* AsSidlScreenWnd;
-	/*0x360*/ void* GetScreenWndType;
-	/*0x368*/
+	/*0x338*/ void* Unknown0x330;
+	/*0x340*/ void* OnZone;
+	/*0x348*/ void* OnPreZone;
+	/*0x350*/ void* LoadIniInfo;
+	/*0x358*/ void* StoreIniInfo;
+	/*0x360*/ void* AsSidlScreenWnd;
+	/*0x368*/ void* GetScreenWndType;
+	/*0x370*/
 	};
 
 	// Returns the current instance of this class's vftable. Might represent some other

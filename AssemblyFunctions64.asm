@@ -537,13 +537,6 @@ export ?Minimize@CXWnd@eqlib@@UEAAH_N@Z
 	call_cxwnd_vtable 0x278
 
 
-; public: virtual class eqlib::CXWnd * eqlib::CXWnd::GetChildWndAt(class eqlib::CXPoint const &, bool, bool)const
-global ?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z
-export ?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z
-?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z:
-	call_cxwnd_vtable 0x2b8
-
-
 ; public: virtual void __cdecl eqlib::CXWnd::Center(void)
 global ?Center@CXWnd@eqlib@@UEAAXXZ
 export ?Center@CXWnd@eqlib@@UEAAXXZ
@@ -579,53 +572,67 @@ export ?Left@CXWnd@eqlib@@UEAAX_N@Z
 	call_cxwnd_vtable 0x2b0
 
 
+; public: virtual int eqlib::CXWnd::MoveToCursor(void)
+global ?MoveToCursor@CXWnd@eqlib@@UEAAHXZ
+export ?MoveToCursor@CXWnd@eqlib@@UEAAHXZ
+?MoveToCursor@CXWnd@eqlib@@UEAAHXZ:
+	call_cxwnd_vtable 0x2b8
+
+
+; public: virtual class eqlib::CXWnd * eqlib::CXWnd::GetChildWndAt(class eqlib::CXPoint const &, bool, bool)const
+global ?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z
+export ?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z
+?GetChildWndAt@CXWnd@eqlib@@UEBAPEAV12@AEBVCXPoint@2@_N1@Z:
+	call_cxwnd_vtable 0x2c0
+
+
 ; public: virtual class eqlib::CScreenPieceTemplate * eqlib::CXWnd::GetSidlPiece(class eqlib::CXStr const &, bool)const
 global ?GetSidlPiece@CXWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 export ?GetSidlPiece@CXWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 ?GetSidlPiece@CXWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z:
-	call_cxwnd_vtable 0x2c0
+	call_cxwnd_vtable 0x2c8
 
 
 ; public: virtual int eqlib::CXWnd::SetVScrollPos(int)
 global ?SetVScrollPos@CXWnd@eqlib@@UEAAHH@Z
 export ?SetVScrollPos@CXWnd@eqlib@@UEAAHH@Z
 ?SetVScrollPos@CXWnd@eqlib@@UEAAHH@Z:
-	call_cxwnd_vtable 0x2d0
+	call_cxwnd_vtable 0x2d8
 
 
 ; public: virtual int eqlib::CXWnd::SetHScrollPos(int)
 global ?SetHScrollPos@CXWnd@eqlib@@UEAAHH@Z
 export ?SetHScrollPos@CXWnd@eqlib@@UEAAHH@Z
 ?SetHScrollPos@CXWnd@eqlib@@UEAAHH@Z:
-	call_cxwnd_vtable 0x2d8
+	call_cxwnd_vtable 0x2e0
 
 
 ; public: virtual int eqlib::CXWnd::AutoSetVScrollPos(class eqlib::CXRect)
 global ?AutoSetVScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 export ?AutoSetVScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 ?AutoSetVScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z:
-	call_cxwnd_vtable 0x2e0
+	call_cxwnd_vtable 0x2e8
 
 
 ; public: virtual int eqlib::CXWnd::AutoSetHScrollPos(class eqlib::CXRect)
 global ?AutoSetHScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 export ?AutoSetHScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z
 ?AutoSetHScrollPos@CXWnd@eqlib@@UEAAHVCXRect@2@@Z:
-	call_cxwnd_vtable 0x2e8
+	call_cxwnd_vtable 0x2f0
 
 
 ; public: virtual void eqlib::CXWnd::SetAttributesFromSidl(class eqlib::CParamScreenPiece *)
 global ?SetAttributesFromSidl@CXWnd@eqlib@@UEAAXPEAVCParamScreenPiece@2@@Z
 export ?SetAttributesFromSidl@CXWnd@eqlib@@UEAAXPEAVCParamScreenPiece@2@@Z
 ?SetAttributesFromSidl@CXWnd@eqlib@@UEAAXPEAVCParamScreenPiece@2@@Z:
-	call_cxwnd_vtable 0x2f0
+	call_cxwnd_vtable 0x2f8
 
 
 ; public: virtual void eqlib::CXWnd::UpdateLayout(bool)
 global ?UpdateLayout@CXWnd@eqlib@@UEAAX_N@Z
 export ?UpdateLayout@CXWnd@eqlib@@UEAAX_N@Z
 ?UpdateLayout@CXWnd@eqlib@@UEAAX_N@Z:
-	call_cxwnd_vtable 0x328
+	call_cxwnd_vtable 0x330
 
 
 ;---------------------------------------------------------------------------------------
@@ -713,76 +720,76 @@ export ?OnShow@CSidlScreenWnd@eqlib@@UEAAHXZ
 global ?GetSidlPiece@CSidlScreenWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 export ?GetSidlPiece@CSidlScreenWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z
 ?GetSidlPiece@CSidlScreenWnd@eqlib@@UEBAPEAVCScreenPieceTemplate@2@AEBVCXStr@2@_N@Z:
-	call_csidlscreenwnd_vtable 0x2c0
+	call_csidlscreenwnd_vtable 0x2c8
 
 
 ; public: virtual class eqlib::CXStr const * eqlib::CSidlScreenWnd::GetWindowName(void)const
 global ?GetWindowName@CSidlScreenWnd@eqlib@@UEBAPEBVCXStr@2@XZ
 export ?GetWindowName@CSidlScreenWnd@eqlib@@UEBAPEBVCXStr@2@XZ
 ?GetWindowName@CSidlScreenWnd@eqlib@@UEBAPEBVCXStr@2@XZ:
-	call_csidlscreenwnd_vtable 0x2c8
+	call_csidlscreenwnd_vtable 0x2d0
 
 
 ; public: virtual bool eqlib::CSidlScreenWnd::HasActivatedFirstTimeAlert(void)const
 global ?HasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEBA_NXZ
 export ?HasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEBA_NXZ
 ?HasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEBA_NXZ:
-	call_csidlscreenwnd_vtable 0x300
+	call_csidlscreenwnd_vtable 0x308
 
 
 ; public: virtual void eqlib::CSidlScreenWnd::SetHasActivatedFirstTimeAlert(bool)
 global ?SetHasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEAAX_N@Z
 export ?SetHasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEAAX_N@Z
 ?SetHasActivatedFirstTimeAlert@CSidlScreenWnd@eqlib@@UEAAX_N@Z:
-	call_csidlscreenwnd_vtable 0x308
+	call_csidlscreenwnd_vtable 0x310
 
 
-; public: virtual void __cdecl eqlib::CSidlScreenWnd::Unknown0x330(char const *,bool)
+; public: virtual void __cdecl eqlib::CSidlScreenWnd::Unknown0x338(char const *,bool)
 global ?Unknown0x330@CSidlScreenWnd@eqlib@@UEAAXPEBD_N@Z
 export ?Unknown0x330@CSidlScreenWnd@eqlib@@UEAAXPEBD_N@Z
 ?Unknown0x330@CSidlScreenWnd@eqlib@@UEAAXPEBD_N@Z:
-	call_csidlscreenwnd_vtable 0x330
+	call_csidlscreenwnd_vtable 0x338
 
 ; public: virtual int eqlib::CSidlScreenWnd::OnZone(void)
 global ?OnZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 export ?OnZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 ?OnZone@CSidlScreenWnd@eqlib@@UEAAHXZ:
-	call_csidlscreenwnd_vtable 0x338
+	call_csidlscreenwnd_vtable 0x340
 
 
 ; public: virtual int eqlib::CSidlScreenWnd::OnPreZone(void)
 global ?OnPreZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 export ?OnPreZone@CSidlScreenWnd@eqlib@@UEAAHXZ
 ?OnPreZone@CSidlScreenWnd@eqlib@@UEAAHXZ:
-	call_csidlscreenwnd_vtable 0x340
+	call_csidlscreenwnd_vtable 0x348
 
 
 ; public: virtual void eqlib::CSidlScreenWnd::LoadIniInfo(void)
 global ?LoadIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 export ?LoadIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 ?LoadIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ:
-	call_csidlscreenwnd_vtable 0x348
+	call_csidlscreenwnd_vtable 0x350
 
 
 ; public: virtual void eqlib::CSidlScreenWnd::StoreIniInfo(void)
 global ?StoreIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 export ?StoreIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ
 ?StoreIniInfo@CSidlScreenWnd@eqlib@@UEAAXXZ:
-	call_csidlscreenwnd_vtable 0x350
+	call_csidlscreenwnd_vtable 0x358
 
 
 ; public: virtual class eqlib::CSidlScreenWnd * eqlib::CSidlScreenWnd::AsSidlScreenWnd(void)
 global ?AsSidlScreenWnd@CSidlScreenWnd@eqlib@@UEAAPEAV12@XZ
 export ?AsSidlScreenWnd@CSidlScreenWnd@eqlib@@UEAAPEAV12@XZ
 ?AsSidlScreenWnd@CSidlScreenWnd@eqlib@@UEAAPEAV12@XZ:
-	call_csidlscreenwnd_vtable 0x358
+	call_csidlscreenwnd_vtable 0x360
 
 
 ; public: virtual bool eqlib::CSidlScreenWnd::GetScreenWndType(void)
 global ?GetScreenWndType@CSidlScreenWnd@eqlib@@UEAA_NXZ
 export ?GetScreenWndType@CSidlScreenWnd@eqlib@@UEAA_NXZ
 ?GetScreenWndType@CSidlScreenWnd@eqlib@@UEAA_NXZ:
-	call_csidlscreenwnd_vtable 0x360
+	call_csidlscreenwnd_vtable 0x368
 
 
 ;---------------------------------------------------------------------------------------
