@@ -129,6 +129,7 @@ public:
 	virtual void Bottom(bool center = true) override;
 	virtual void Right(bool center = true) override;
 	virtual void Left(bool center = true) override;
+	virtual int MoveToCursor() override;
 	virtual CXWnd* GetChildWndAt(const CXPoint& pos, bool, bool) const override;
 	virtual CScreenPieceTemplate* GetSidlPiece(const CXStr& screenId, bool top = true) const override;
 	virtual const CXStr* GetWindowName() const override;
