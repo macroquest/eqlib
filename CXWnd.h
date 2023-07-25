@@ -563,6 +563,9 @@ public:
 	EQLIB_OBJECT CXStr GetXMLName() const;
 	EQLIB_OBJECT CXStr GetTypeName() const;
 
+	EQLIB_OBJECT std::string_view GetXMLNameSv() const;
+	EQLIB_OBJECT std::string_view GetTypeNameSv() const;
+
 	inline int ParentWndNotification(CXWnd* sender, uint32_t message, void* data) const
 	{
 		if (pController)
