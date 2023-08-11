@@ -135,7 +135,27 @@ CXStr CXWnd::GetXMLName() const
 	return CXStr();
 }
 
+std::string_view CXWnd::GetXMLNameSv() const
+{
+	if (CXMLData* pXMLData = GetXMLData())
+	{
+		return pXMLData->Name;
+	}
+
+	return {};
+}
+
 CXStr CXWnd::GetTypeName() const
+{
+	if (CXMLData* pXMLData = GetXMLData())
+	{
+		return pXMLData->TypeName;
+	}
+
+	return UITypeToString(GetType());
+}
+
+std::string_view CXWnd::GetTypeNameSv() const
 {
 	if (CXMLData* pXMLData = GetXMLData())
 	{
