@@ -1147,7 +1147,8 @@ public:
 /*0x1c0*/ CXPoint                      StoredMousePos;               // last position Mouse was at before we moved it
 /*0x1c8*/ bool                         bManagerDeletionPending;
 /*0x1d0*/ CursorClass                  CC;
-/*0x248*/
+/*0x248*/ bool                         bUseNewUIEngine;
+/*0x24c*/
 
 	inline bool IsShiftKey() const { return KeyboardFlags[0]; }
 	inline bool IsCtrlKey() const { return KeyboardFlags[1]; }
@@ -1158,8 +1159,8 @@ public:
 // CEQXWndManager
 //============================================================================
 
-// @sizeof(CEQXWndManager) == 0x290 :: 2023-08-08 (test) @ 0x140189ad5
-constexpr size_t CEQXWndManager_size = 0x290;
+// @sizeof(CEQXWndManager) == 0x298 :: 2023-08-08 (test) @ 0x140189ad5
+constexpr size_t CEQXWndManager_size = 0x298;
 
 class [[offsetcomments]] CEQXWndManager : public CXWndManager
 {
@@ -1182,9 +1183,9 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x248*/ ControllerFactory DefaultControllerFactory;
-/*0x268*/ ControllerManager ControllerMgr;
-/*0x290*/
+/*0x250*/ ControllerFactory DefaultControllerFactory;
+/*0x270*/ ControllerManager ControllerMgr;
+/*0x298*/
 };
 
 SIZE_CHECK(CEQXWndManager, CEQXWndManager_size);

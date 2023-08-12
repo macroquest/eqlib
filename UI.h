@@ -4400,7 +4400,7 @@ public:
 /*0x401*/ bool              bFailed;
 /*0x404*/ unsigned int      TabCount;
 /*0x408*/ CLabel*           ModButtonLabel;                // IDW_ModButtonLabel // 3e8
-/*0x410*/ CLabel*           RewardButtonLabel;             // IDW_RewardButtonLabel
+/*0x410*/ CStmlWnd*         RewardButtonLabel;             // IDW_RewardButtonLabel
 /*0x418*/ CStmlWnd*         ConvertStml;                   // IDW_ConvertButtonLabel
 /*0x420*/ CLabel*           FuseButtonLabel;               // IDW_FuseButtonLabel
 /*0x428*/ CLabel*           MadeByLabel;                   // IDW_MadeBy
@@ -4423,7 +4423,7 @@ public:
 /*0x49c*/ int               showModified;
 /*0x4a0*/ int               heroicCount;
 /*0x4a4*/ int               itemInfoCount;
-/*0x4a8*/ CLabel*           lblItemInfo[NumItemInfo];      // IDW_ItemInfo%d
+/*0x4a8*/ CStmlWnd*         lblItemInfo[NumItemInfo];      // IDW_ItemInfo%d
 /*0x510*/ CLabel*           lblStat[NumStatRows][NumStatCols];      // IDW_Row%dCol%dStat
 /*0x780*/ CLabel*           lblValue[NumStatRows][NumStatCols];     // IDW_Row%dCol%dValue
 /*0x9f0*/ CLabel*           lblHeroic[NumHeroic];          // IDW_Heroic%d 9d0

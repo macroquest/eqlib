@@ -604,8 +604,9 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x751e0*/ double            UiScale;
 /*0x751e8*/ float             TributeMod1;
 /*0x751ec*/ float             TributeMod2;
-/*0x751f0*/ bool              bAutoAttack;
-/*0x751f1*/ bool              bAutoRangeAttack;
+/*0x751f0*/ bool              bUseNewUIEngine;
+/*0x751f1*/ bool              bAutoAttack;
+/*0x751f2*/ bool              bAutoRangeAttack;
 /*0x751f4*/ int               ItemPending;
 /*0x751f8*/ int               RequestPending;
 /*0x751fc*/

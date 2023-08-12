@@ -391,7 +391,7 @@
 
 // CItemDisplayWnd
 #define CItemDisplayWnd__SetItem_x                                 0x140406380
-#define CItemDisplayWnd__UpdateStrings_x                           0x14069C358
+#define CItemDisplayWnd__UpdateStrings_x                           0x140408D70
 #define CItemDisplayWnd__InsertAugmentRequest_x                    0x140402DB0
 #define CItemDisplayWnd__RemoveAugmentRequest_x                    0x1404045F0
 #define CItemDisplayWnd__RequestConvertItem_x                      0x140405790
