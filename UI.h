@@ -3104,7 +3104,10 @@ enum ECursorAttachmentType
 	eCursorAttachment_FamiliarKeyRingLink,
 };
 
-class [[offsetcomments]] CCursorAttachment : public CSidlScreenWnd, public WndEventHandler
+// @sizeof(CCursorAttachment) == 0x630 :: 2023-08-14 (live) @ 0x140185748
+constexpr size_t CCursorAttachment_size = 0x630;
+
+class [[offsetcomments]] CCursorAttachment : public CGFScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
 
@@ -3151,6 +3154,8 @@ public:
 /*0x39c*/ int                       Unknown0x2C4;
 /*0x3a0*/
 };
+
+//SIZE_CHECK(CCursorAttachment, CCursorAttachment_size);
 
 //============================================================================
 // CDragonHoardWnd
@@ -4217,6 +4222,7 @@ public:
 
 /*0x0008*/ CInvSlot*    SlotArray[MAX_INV_SLOTS]; // size 0x2400 //see 72E00F in Nov 06 2018 Test
 /*0x4808*/ int          TotalSlots;
+/*0x480c*/ int          unknown;
 /*0x480c*/ unsigned int LastUpdate;
 /*0x4810*/ CInvSlot*    pSelectedItem;
 /*0x4818*/ CInvSlot*    pFindSelectedItem;
