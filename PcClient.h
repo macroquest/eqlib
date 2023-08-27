@@ -1509,6 +1509,8 @@ public:
 	ALT_MEMBER_GETTER(int, EvilPointsAvailable, EbonCrystals);
 	ALT_MEMBER_GETTER(eqtime_t, CreationTime, CharCreationTime);
 	ALT_MEMBER_GETTER(int, BenefitTimer, TributeTimer);
+
+	int GetStartingCity() const { return StartingCity; }
 };
 
 class DebugText
