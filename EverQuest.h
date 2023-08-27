@@ -66,7 +66,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x2a4 :: 2023-08-24 (live) @ 0x140c13ac4
+// @sizeof(zoneHeader) == 0x2a4 :: 2023-08-25 (test) @ 0x140c13ac4
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -332,7 +332,7 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x75200 :: 2023-08-24 (live) @ 0x140c138d0
+// @sizeof(EverQuestinfo) == 0x75200 :: 2023-08-25 (test) @ 0x140c138d0
 constexpr size_t EverQuestinfo_size = 0x75200;
 
 struct [[offsetcomments]] EverQuestinfo
@@ -726,7 +726,7 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2023-08-24 (live) @ 0x140325463
+// @sizeof(CEverQuest) == 0x396f8 :: 2023-08-25 (test) @ 0x140325413
 constexpr size_t CEverQuest_size = 0x396f8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
