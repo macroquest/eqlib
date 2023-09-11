@@ -674,10 +674,6 @@ inline namespace deprecated
 	};
 }
 
-//============================================================================
-// EQ_PC
-//============================================================================
-
 struct [[offsetcomments]] ItemContainingRealEstate
 {
 	FORCE_SYMBOLS;
@@ -688,57 +684,119 @@ struct [[offsetcomments]] ItemContainingRealEstate
 };
 
 //============================================================================
-// CharacterBase
+// FreeToPlayClient
 //============================================================================
 
-enum GameFeatures
+enum class GameFeature
 {
-	GameFeature_AA = 0,
-	GameFeature_Level = 1,
-	GameFeature_CharacterSlot = 2,
-	GameFeature_SpellRank = 3,
-	GameFeature_InventorySlots = 4,
-	GameFeature_Platinum = 5,
-	GameFeature_Mail = 6,
-	GameFeature_Parcel = 7,
-	GameFeature_Loyalty = 8,
-	GameFeature_Mercenary = 9,
-	GameFeature_Housing = 10,
-	GameFeature_SharedBank = 11,
-	GameFeature_Quests = 12,
-	GameFeature_CreateGuild = 13,
-	GameFeature_Bazaar = 14,
-	GameFeature_Barter = 15,
-	GameFeature_Chat = 16,
-	GameFeature_Petition = 17,
-	GameFeature_Advertising = 18,
-	GameFeature_UseItem = 19,
-	GameFeature_StartingCity = 20,
-	GameFeature_Ornament = 21,
-	GameFeature_HeroicCharacter = 22,
-	GameFeature_AutoGrantAA = 23,
-	GameFeature_MountKeyRingSlots = 24,
-	GameFeature_IllusionKeyRingSlots = 25,
-	GameFeature_FamiliarKeyRingSlots = 26,
-	GameFeature_FamiliarAutoLeave = 27,
-	GameFeature_HeroForgeKeyRingSlots = 28,
-	GameFeature_DragonHoardSlots = 29,
-#if IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOL)
-	GameFeature_TeleportKeyRingSlots = 30,
-#endif
+	AA = 0,                  // "AAs"
+	MaximumLevel,            // "maximum level"
+	CharacterSlots,          // "character slots"
+	SpellTier,               // "ability to use this spell tier"
+	InventorySlots,          // "inventory slots"
+	Platinum,                // "total platinum"
+	Mail,                    // "ability to send mail"
+	Parcel,                  // "ability to send parcels"
+	Loyalty,                 // "ability to spend loyalty"
+	MercenaryRank,           // "mercenary ranking cap"
+	Housing,                 // "access to a number of guild hall functions"
+	SharedBank,              // "shared bank slot access"
+	ActiveQuests,            // "number of active quests"
+	CreateGuild,             // "ability to create a guild"
+	Bazaar,                  // "ability to sell in the bazaar
+	Barter,                  // "ability to create buy lines in the bazaar"
+	Chat,                    // "ability to use global chat"
+	Petition,                // "ability to petition"
+	Advertising,             // "advertising mode"
+	UseItem,                 // "ability to use this item"
+	StartingCity,            // "starting cities"
+	Ornament,                // "appearance slot use"
+	HeroicCharacter,         // "heroic character"
+	AutoGrantAA,             // "auto-grant AAs"
+	MountKeyRingSlots,       // "mount key ring slots"
+	IllusionKeyRingSlots,    // "illusion key ring slots"
+	FamiliarKeyRingSlots,    // "familiar key ring slots"
+	FamiliarAutoLeave,       // "familiar auto leave"
+	HeroForgeKeyRingSlots,   // "hero's Forge key ring slots"
+	DragonHoardSlots,        // "dragon's hoard slots"
+	TeleportKeyRingSlots,    // "teleportation item key ring slots"
+	PersonalDepotSlots,      // "personal depot slots"
 
-	GameFeature_Max,
-	GameFeature_Invalid = -1,
+	Max,
+	First = 0,
+	Invalid = -1,
+};
 
-	eSpellRankFeature DEPRECATE("Use GameFeature_SpellRank instead of eSpellRankFeature") = GameFeature_SpellRank,
+enum DEPRECATE("Use MembershipLevel enumeration instead of eMembershipLevel") eMembershipLevel
+{
+	MembershipFreeToPlay = 0,
+	MembershipSilver,
+	MembershipGold
+};
+
+enum class MembershipLevel : int8_t
+{
+	Free = 0,
+	Silver,
+	AllAccess,
+	LifetimeAllAccess,
+
+
+	Max,
+	First = 0,
+	Invalid = -1,
+	Gold = AllAccess,
+};
+
+struct RestrictionInfo
+{
+	const char* string;
+	bool plural;
+	bool boolean;
 };
 
 class IFreeToPlayInfo
 {
 public:
-	virtual int GetGameFeature(GameFeatures feature) const = 0;
+	virtual int GetGameFeature(GameFeature feature) const = 0;
 	virtual int GetMembershipLevel() const = 0;
 };
+
+// size: 0x8c
+class [[offsetcomments]] FreeToPlayClient
+{
+public:
+	EQLIB_OBJECT static RestrictionInfo* RestrictionInfo;
+	EQLIB_OBJECT static const char* MembershipStrings[(int)MembershipLevel::Max];
+
+	static const char* ToString(GameFeature feature)
+	{
+		if (feature >= GameFeature::First && feature < GameFeature::Max)
+			return RestrictionInfo[(int)feature].string;
+
+		return "Invalid";
+	}
+
+	static const char* ToString(MembershipLevel membershipLevel)
+	{
+		if (membershipLevel >= MembershipLevel::First && membershipLevel < MembershipLevel::Max)
+			return MembershipStrings[(int)membershipLevel];
+
+		return "Invalid";
+	}
+
+	EQLIB_OBJECT static FreeToPlayClient& Instance();
+
+/*0x00*/ MembershipLevel MembershipLevel;
+/*0x04*/ BitField<NUM_RACES> Races;
+/*0x08*/ BitField<MAX_PLAYER_CLASSES> Classes;
+/*0x0c*/ int LimitData[(int)GameFeature::Max];
+/*0x8c*/
+};
+
+//============================================================================
+// CharacterBase
+//============================================================================
 
 enum eCharacterStatus : uint8_t {
 	eCharStatusNormal = 0,
@@ -1420,6 +1478,10 @@ public:
 	inline ItemPtr GetKeyRingItem(KeyRingType type, const ItemIndex& index) { GetKeyRingItems(type).GetItem(index); }
 	inline const ItemIndex& GetStatKeyRingItemIndex(KeyRingType type) const { return GetCurrentBaseProfile().StatKeyRingItemIndex[type]; }
 
+	inline bool IsFamiliarAutoLeaveEnabled() const {
+		return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0;
+	}
+
 	// Stores information about purchased Mercenary Abilities
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
 	float GetMercAAExpPct() const { return (MercAAExp + 5) / 10.f; }
@@ -1517,7 +1579,7 @@ public:
 	EQLIB_OBJECT unsigned long GetConLevel(const PlayerClient*);
 	EQLIB_OBJECT bool HasLoreItem(const ItemPtr&, bool, bool, bool, bool);
 
-	virtual int GetGameFeature(GameFeatures) const override { return 0; }
+	virtual int GetGameFeature(GameFeature) const override { return 0; }
 	virtual int GetMembershipLevel() const override { return 0; }
 
 	// Unverified

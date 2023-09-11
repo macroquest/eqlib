@@ -82,6 +82,9 @@
 // At this time, it is only found in the test client.
 #define HAS_GAMEFACE_UI IS_CLIENT_DATE(20230321)
 
+// Hero Forge went live August 15, 2012
+#define HAS_HERO_FORGE IS_CLIENT_DATE(20120812)
+
 // Item effects for mount, illusion, familiar, etc were combined into "Blessing" effects
 // on September 7, 2021.
 #define HAS_ITEM_BLESSING_EFFECT IS_CLIENT_DATE(20210907)

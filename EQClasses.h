@@ -1577,6 +1577,8 @@ enum eDatabaseStringType
 	eMercenaryAbilityType = 36,
 	eMercenaryAbilityName = 37,
 	eMercenaryAbilityDescription = 38,
+
+	eClaimFeatureDescription = 41,
 };
 
 class DatabaseStringTable
@@ -1775,6 +1777,8 @@ public:
 
 using TARGETMANAGER DEPRECATE("Use CTargetManager instead of TARGETMANAGER") = CTargetManager;
 using PTARGETMANAGER DEPRECATE("Use CTargetManager instead of TARGETMANAGER") = CTargetManager*;
+
+//----------------------------------------------------------------------------
 
 } // namespace eqlib
 
