@@ -1047,13 +1047,6 @@ enum ePetCommandType
 	PCT_DoNothing
 };
 
-enum eMembershipLevel
-{
-	MembershipFreeToPlay = 0,
-	MembershipSilver,
-	MembershipGold
-};
-
 // Camera modes
 constexpr int EQ_FIRST_PERSON_CAM = 0;
 constexpr int EQ_OVERHEAD_CAM = 1;

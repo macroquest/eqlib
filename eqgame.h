@@ -59,7 +59,6 @@
 #define __LoginName_x                                              0x140C8FB6C
 #define __CurrentMapLabel_x                                        0x140CA30B0
 #define __LabelCache_x                                             0x140CA3C80
-#define __SubscriptionType_x                                       0x140CD8B70
 #define Teleport_Table_Size_x                                      0x140C0C280
 #define Teleport_Table_x                                           0x140C0C800
 
@@ -911,6 +910,10 @@
 
 // AchievementManager
 #define AchievementManager__Instance_x                             0x14008BCC0
+
+// FreeToPlayClient
+#define FreeToPlayClient__Instance_x                               0x140634060
+#define FreeToPlayClient__RestrictionInfo_x                        0x14086F250
 
 #if __has_include("../private/eqgame-private.h")
 #include "../private/eqgame-private.h"

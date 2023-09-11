@@ -4578,6 +4578,23 @@ public:
 SIZE_CHECK(CKeyRingWnd, CKeyRingWnd_size);
 
 //============================================================================
+// ClaimWindow
+//============================================================================
+
+class [[offsetcomments]] ClaimWindow : public CSidlScreenWnd, public PopDialogHandler
+{
+public:
+/*0x2e0*/ ClaimFeatureDataCollection claimFeatureData;
+/*0x2f8*/ CListWnd*                  pListFeatures;           // ClaimFeatureList
+/*0x300*/ CListWnd*                  pListItems;              // ClaimListItems
+/*0x308*/ CButtonWnd*                pRefreshButton;          // ClaimRefreshButton
+/*0x310*/ CButtonWnd*                pClaimButton;            // ClaimClaimButton
+/*0x318*/ CButtonWnd*                pCancelButton;           // ClaimCancelButton
+/*0x320*/ CStmlWnd*                  pItemDescription;        // ClaimItemDescription
+/*0x328*/
+};
+
+//============================================================================
 // CLargeDialogWnd
 //============================================================================
 

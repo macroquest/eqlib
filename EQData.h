@@ -1175,7 +1175,7 @@ public:
 /*0x00*/ ArrayClass<ClaimData> claimData;
 /*0x18*/
 
-	bool CanConsumeFeature(int featureId)
+	bool CanConsumeFeature(int featureId) const
 	{
 		for (int i = 0; i < claimData.GetCount(); ++i)
 		{
@@ -1184,6 +1184,76 @@ public:
 		}
 		return false;
 	}
+
+	int GetFeatureCount(int featureId) const
+	{
+		for (int i = 0; i < claimData.GetCount(); ++i)
+		{
+			if (claimData[i].featureId == featureId)
+				return claimData[i].count;
+		}
+
+		return -1;
+	}
+};
+
+struct [[offsetcomments]] ClaimItemData
+{
+/*0x00*/ CXStr itemName;
+/*0x08*/ int itemId;
+/*0x0c*/ int itemCount;
+/*0x10*/
+};
+
+constexpr int MAX_ITEMS_PER_FEATURE = 15;
+
+struct [[offsetcomments]] ClaimFeatureData
+{
+/*0x000*/ int featureId;
+/*0x004*/ int featureCount;
+/*0x008*/ int itemCount;
+/*0x00c*/ bool meetsRequirements;
+/*0x010*/ int stringId;
+/*0x018*/ ClaimItemData items[MAX_ITEMS_PER_FEATURE];
+/*0x108*/
+};
+
+using ClaimFeatureDataArray = ArrayClass<ClaimFeatureData>;
+
+class ClaimFeatureDataCollection
+{
+public:
+	const ClaimFeatureData* GetClaimFeatureData(int index) const
+	{
+		if (index >= 0 && index < featureArray.GetLength())
+		{
+			return &featureArray[index];
+		}
+
+		return nullptr;
+	}
+
+	int GetClaimFeatureDataCount() const { return featureArray.GetLength(); }
+
+	const ClaimFeatureData* GetClaimFeatureDataByFeatureId(int featureId) const
+	{
+		for (int index = 0; index < featureArray.GetLength(); ++index)
+		{
+			if (featureArray[index].featureId == featureId)
+				return &featureArray[index];
+		}
+
+		return nullptr;
+	}
+
+	bool CanConsumeFeature(int featureId) const
+	{
+		const ClaimFeatureData* data = GetClaimFeatureDataByFeatureId(featureId);
+
+		return data && data->featureCount > 0;
+	}
+
+	ClaimFeatureDataArray featureArray;
 };
 
 
