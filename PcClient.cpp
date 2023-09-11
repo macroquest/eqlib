@@ -280,6 +280,20 @@ const char* GetXtargetType(DWORD type)
 	return pLocalPC->pExtendedTargetList->ExtendedTargetRoleName(type);
 }
 
+//============================================================================
+// FreeToPlayClient
+//============================================================================
+
+RestrictionInfo* FreeToPlayClient::RestrictionInfo;
+
+const char* FreeToPlayClient::MembershipStrings[(int)MembershipLevel::Max] =
+{
+	"Free",
+	"Silver",
+	"Gold",
+};
+
+
 //****************************************************************************
 // BaseProfile
 //****************************************************************************

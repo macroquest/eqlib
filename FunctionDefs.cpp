@@ -1173,6 +1173,14 @@ FUNCTION_AT_ADDRESS(void, FactionManagerClient::HandleFactionMessage(UINT Messag
 #endif
 
 //----------------------------------------------------------------------------
+// FreeToPlayClient
+//----------------------------------------------------------------------------
+
+#ifdef FreeToPlayClient__Instance_x
+FUNCTION_AT_ADDRESS(FreeToPlayClient&, FreeToPlayClient::Instance(), FreeToPlayClient__Instance)
+#endif
+
+//----------------------------------------------------------------------------
 // IconCache
 //----------------------------------------------------------------------------
 

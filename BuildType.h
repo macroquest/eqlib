@@ -31,8 +31,32 @@
 #define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_ROF
 
 
+//----------------------------------------------------------------------------
+// MacroQuest Build Flags
+//----------------------------------------------------------------------------
+
 #define IS_EXPANSION_LEVEL(x) (MQ_EXPANSION_LEVEL >= x)
 #define IS_CLIENT_DATE(x) (__ClientDate >= x)
+
+
+#if defined(LIVE)
+	#define IS_LIVE_CLIENT 1
+	#define IS_TEST_CLIENT 0
+	#define IS_EMU_CLIENT 0
+#elif defined (TEST)
+	#define IS_LIVE_CLIENT 0
+	#define IS_TEST_CLIENT 1
+	#define IS_EMU_CLIENT 0
+#elif defined (EMULATOR)
+	#define IS_LIVE_CLIENT 0
+	#define IS_TEST_CLIENT 0
+	#define IS_EMU_CLIENT 1
+#else
+	#define IS_LIVE_CLIENT 0
+	#define IS_TEST_CLIENT 0
+	#define IS_EMU_CLIENT 0
+#endif
+
 
 //----------------------------------------------------------------------------
 // EverQuest Feature Flags
@@ -53,6 +77,13 @@
 // Find Item window was added September 20, 2017, which was just before the
 // Ring of Scale expansion.
 #define HAS_FIND_ITEM_WINDOW IS_CLIENT_DATE(20170920)
+
+// GameFace integration (the new UI system) was first released on test as of march 21, 2023.
+// At this time, it is only found in the test client.
+#define HAS_GAMEFACE_UI IS_CLIENT_DATE(20230321)
+
+// Hero Forge went live August 15, 2012
+#define HAS_HERO_FORGE IS_CLIENT_DATE(20120812)
 
 // Item effects for mount, illusion, familiar, etc were combined into "Blessing" effects
 // on September 7, 2021.

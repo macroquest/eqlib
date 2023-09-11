@@ -238,7 +238,6 @@ INITIALIZE_EQGAME_OFFSET(__Mouse);
 INITIALIZE_EQGAME_OFFSET(__MouseEventTime);
 INITIALIZE_EQGAME_OFFSET(__ScreenMode);
 INITIALIZE_EQGAME_OFFSET(__ServerHost);
-INITIALIZE_EQGAME_OFFSET(__SubscriptionType);
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRate);
 #if defined(__ThrottleFrameRateEnd_x)
 INITIALIZE_EQGAME_OFFSET(__ThrottleFrameRateEnd);
@@ -802,6 +801,8 @@ INITIALIZE_EQGAME_OFFSET(FactionManagerClient__HandleFactionMessage);
 INITIALIZE_EQGAME_OFFSET(FactionManagerClient__Instance);
 #endif
 INITIALIZE_EQGAME_OFFSET(FreeTargetTracker__CastSpell);
+INITIALIZE_EQGAME_OFFSET(FreeToPlayClient__Instance);
+INITIALIZE_EQGAME_OFFSET(FreeToPlayClient__RestrictionInfo);
 INITIALIZE_EQGAME_OFFSET(IconCache__GetIcon);
 INITIALIZE_EQGAME_OFFSET(ItemBase__CanGemFitInSlot);
 INITIALIZE_EQGAME_OFFSET(ItemBase__CreateItemTagString);
@@ -913,7 +914,6 @@ void*                  EQADDR_GWORLD             = nullptr;
 uintptr_t              EQADDR_HWND               = 0;
 MQMouseInfo*           EQADDR_MOUSE              = nullptr;
 char*                  EQADDR_SERVERHOST         = nullptr;
-uintptr_t*             EQADDR_SUBSCRIPTIONTYPE   = nullptr;
 char**                 EQMappableCommandList     = nullptr;
 BYTE*                  EQbCommandStates          = nullptr;
 HMODULE*               ghEQMainInstance          = nullptr;
@@ -1053,7 +1053,7 @@ ForeignPointer<CCastingWnd>                      pCastingWnd;
 ForeignPointer<CCastSpellWnd>                    pCastSpellWnd;
 ForeignPointer<CSidlScreenWnd>                   pCharacterCreation;
 ForeignPointer<CCharacterListWnd>                pCharacterListWnd;
-ForeignPointer<CSidlScreenWnd>                   pClaimWnd;
+ForeignPointer<ClaimWindow>                      pClaimWnd;
 ForeignPointer<CColorPickerWnd>                  pColorPickerWnd;
 ForeignPointer<CCombatAbilityWnd>                pCombatAbilityWnd;
 ForeignPointer<CCombatSkillsSelectWnd>           pCombatSkillsSelectWnd;
@@ -1208,7 +1208,6 @@ void InitializeEQGameOffsets()
 	EQADDR_HWND                     = __HWnd;
 	EQADDR_MOUSE                    = (MQMouseInfo*)__Mouse;
 	EQADDR_SERVERHOST               = (char*)__ServerHost;
-	EQADDR_SUBSCRIPTIONTYPE         = (uintptr_t*)__SubscriptionType;
 	EQbCommandStates                = (BYTE*)g_eqCommandStates;
 	EQMappableCommandList           = (char**)__BindList;
 	ghEQMainInstance                = (HINSTANCE*)__heqmain;
@@ -1230,7 +1229,7 @@ void InitializeEQGameOffsets()
 	pTributeActive                  = (BYTE*)instTributeActive;
 	pZoneInfo                       = (ZONEINFO*)instEQZoneInfo;
 
-	pEverQuestInfo = (EverQuestinfo*)pinstEverQuestInfo;
+	pEverQuestInfo                  = (EverQuestinfo*)pinstEverQuestInfo;
 
 	// pEverQuestInfo pointers - to be phased out.
 	pScreenX                        = &pEverQuestInfo->Render_MinX;
@@ -1324,6 +1323,8 @@ void InitializeEQGameOffsets()
 	NewUIINI                        = (fEQNewUIINI)__NewUIINI;
 	ProcessGameEvents               = (fEQProcGameEvts)__ProcessGameEvents;
 	GetLabelFromEQ                  = (fGetLabelFromEQ)__GetLabelFromEQ;
+
+	FreeToPlayClient::RestrictionInfo = (RestrictionInfo*)FreeToPlayClient__RestrictionInfo;
 
 	InitializeInGameUI();
 }
