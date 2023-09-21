@@ -1971,13 +1971,14 @@ public:
 /*0x340*/ CButtonWnd*                  pbtnCompensationInspectItem;    // CompensationInspectButton
 /*0x348*/ CButtonWnd*                  pbtnCompensationPreviewItem;    // CompensationPreviewButton
 /*0x350*/ CButtonWnd*                  pbtnSellButton;                 // SellButton
-/*0x358*/ CComboWnd*                   pcomboPlayersCombo;             // PlayerCombo
-/*0x360*/ CLayoutWnd*                  pLayout;                        // Layout
-/*0x368*/ CLayoutWnd*                  pMatchLayout;                   // BuyLineLayout
-/*0x370*/ bool                         NeedsUpdate;
-/*0x378*/ ArrayClass<BarterBuyLine>    BuyLines;
-/*0x390*/ ArrayClass2<BarterInventoryItem> InventoryItems;
-/*0x3b0*/ // more members
+/*0x360*/ CButtonWnd*                  pbtnResetButton;                // ResetButton
+/*0x368*/ CComboWnd*                   pcomboPlayersCombo;             // PlayerCombo
+/*0x370*/ CLayoutWnd*                  pLayout;                        // Layout
+/*0x378*/ CLayoutWnd*                  pMatchLayout;                   // BuyLineLayout
+/*0x380*/ bool                         NeedsUpdate;
+/*0x388*/ ArrayClass<BarterBuyLine>    BuyLines;
+/*0x3a0*/ ArrayClass2<BarterInventoryItem> InventoryItems;
+/*0x3c0*/ // more members
 };
 
 //============================================================================
@@ -3174,11 +3175,13 @@ public:
 /*0x308*/ CButtonWnd*   pRetrieveButton;    // DH_Retrieve_Button
 /*0x310*/ CButtonWnd*   pExitButton;        // DH_Exit_Button
 /*0x318*/ CLabel*       pItemCountNumber;   // DH_Item_Count_Number
-/*0x320*/ ItemContainer Items;
-/*0x348*/ bool          bNeedsUpdate;
-/*0x350*/ ItemPtr       pSelectedItem;
-/*0x360*/ uint32_t      SelectedItemId;
-/*0x364*/
+/*0x320*/ CEditWnd*     pSearchItemInput;   // DH_SearchItem_Input
+/*0x328*/ CButtonWnd*   pSearchItemButton;  // DH_SearchItem_Button
+/*0x330*/ ItemContainer Items;
+/*0x358*/ bool          bNeedsUpdate;
+/*0x360*/ ItemPtr       pSelectedItem;
+/*0x370*/ uint64_t      SelectedItemId;
+/*0x378*/
 };
 
 //============================================================================
