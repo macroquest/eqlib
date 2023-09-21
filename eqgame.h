@@ -912,7 +912,7 @@
 #define AchievementManager__Instance_x                             0x14008BCC0
 
 // FreeToPlayClient
-#define FreeToPlayClient__Instance_x                               0x140634F10
+#define FreeToPlayClient__Instance_x                               0x140635940
 #define FreeToPlayClient__RestrictionInfo_x                        0x140870B00
 
 #if __has_include("../private/eqgame-private.h")
