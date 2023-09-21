@@ -931,14 +931,14 @@ public:
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
-	/*0x330*/ void* Unknown0x330;
-	/*0x338*/ void* OnZone;
-	/*0x340*/ void* OnPreZone;
-	/*0x348*/ void* LoadIniInfo;
-	/*0x350*/ void* StoreIniInfo;
-	/*0x358*/ void* AsSidlScreenWnd;
-	/*0x360*/ void* GetScreenWndType;
-	/*0x368*/
+	/*0x338*/ void* Unknown0x330;
+	/*0x340*/ void* OnZone;
+	/*0x348*/ void* OnPreZone;
+	/*0x350*/ void* LoadIniInfo;
+	/*0x358*/ void* StoreIniInfo;
+	/*0x360*/ void* AsSidlScreenWnd;
+	/*0x368*/ void* GetScreenWndType;
+	/*0x370*/
 	};
 
 	// Returns the current instance of this class's vftable. Might represent some other
