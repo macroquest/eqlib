@@ -66,7 +66,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x2a4 :: 2023-08-24 (live) @ 0x140c13ac4
+// @sizeof(zoneHeader) == 0x2a4 :: 2023-09-14 (live) @ 0x140c085a4
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -332,7 +332,7 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x75200 :: 2023-08-24 (live) @ 0x140c138d0
+// @sizeof(EverQuestinfo) == 0x75200 :: 2023-09-14 (live) @ 0x140c083b0
 constexpr size_t EverQuestinfo_size = 0x75200;
 
 struct [[offsetcomments]] EverQuestinfo
@@ -726,8 +726,8 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x396f8 :: 2023-08-24 (live) @ 0x140325463
-constexpr size_t CEverQuest_size = 0x396f8;
+// @sizeof(CEverQuest) == 0x196F8 :: 2023-09-14 (live) @ 0x1403258c3
+constexpr size_t CEverQuest_size = 0x196F8;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
 {
@@ -962,15 +962,15 @@ public:
 /*0x17650*/ char                  ChatText[2112];
 /*0x17e90*/ int                   TrimIdx;
 /*0x17e94*/ char                  ChatChanged;
-/*0x17e95*/ char                  Trim[64][2112];
-/*0x38e98*/ int                   chat;
-/*0x38e9c*/ int                   disconnected;
-/*0x38ea0*/ int                   Red;
-/*0x38ea4*/ int                   Green;
-/*0x38ea8*/ int                   Blue;
-/*0x38eb0*/ ArrayClass<CharSelectInfo> charSelectPlayerArray;
-/*0x38ec8*/ char                  Filler[0x830]; // more data
-/*0x396f8*/
+/*0x17e95*/ char                  Trim[64][0x40];
+/*0x18e98*/ int                   chat;
+/*0x18e9c*/ int                   disconnected;
+/*0x18ea0*/ int                   Red;
+/*0x18ea4*/ int                   Green;
+/*0x18ea8*/ int                   Blue;
+/*0x18eb0*/ ArrayClass<CharSelectInfo> charSelectPlayerArray;
+/*0x18ec8*/ char                  Filler[0x830]; // more data
+/*0x196f8*/
 
 	ALT_MEMBER_GETTER(UniversalChatProxy*, chatService, ChatService);
 };
