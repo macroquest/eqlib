@@ -472,9 +472,10 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_ITEM_STAT_NEGATIVE             385 // 130 - Item Stat Negative
 #define USERCOLOR_ENCOUNTER_LOCK_ATTACKABLE      386 // 131 - Encounter Lock Attackable
 #define USERCOLOR_ENCOUNTER_LOCK_UNATTACKABLE    387 // 132 - Encounter Lock Unattackable
+#define USERCOLOR_FOOD_AND_DRINK                 388 // 133 - Food And Drink
 
-constexpr int NUM_CHAT_FILTERS = 59;
-constexpr int NUM_CHAT_COLORFILTERS = 143;
+constexpr int NUM_CHAT_FILTERS = 60;
+constexpr int NUM_CHAT_COLORFILTERS = 145;
 
 #define DEITY_Bertoxxulous                       201
 #define DEITY_BrellSerilis                       202
