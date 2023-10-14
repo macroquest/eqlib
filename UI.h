@@ -169,6 +169,14 @@ public:
 /*0x90*/ uint32_t           LastRenderTime;
 /*0x94*/ uint32_t           LoadedTime;
 /*0x98*/
+
+	void* GetTexture() const
+	{
+		if (bHasTexture)
+			return pD3DTexture;
+
+		return nullptr;
+	}
 };
 
 struct [[offsetcomments]] BMI

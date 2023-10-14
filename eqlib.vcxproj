@@ -152,6 +152,7 @@
     <ClInclude Include="Containers.h" />
     <ClInclude Include="CXStr.h" />
     <ClInclude Include="CXWnd.h" />
+    <ClInclude Include="EQDX9.h" />
     <ClInclude Include="eqstd\list.h" />
     <ClInclude Include="eqstd\map.h" />
     <ClInclude Include="eqstd\memory.h" />
