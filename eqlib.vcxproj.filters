@@ -171,6 +171,9 @@
     <ClInclude Include="eqstd\type_traits.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
+    <ClInclude Include="EQDX9.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">

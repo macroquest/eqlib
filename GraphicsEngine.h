@@ -17,6 +17,7 @@
 #include "Common.h"
 #include "Containers.h"
 #include "CXStr.h"
+#include "EQDX9.h"
 #include "ForwardDecls.h"
 #include "base/Color.h"
 
