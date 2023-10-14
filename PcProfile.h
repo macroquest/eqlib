@@ -182,9 +182,10 @@ public:
 /*0x15fc*/ eProfileType                          profileType;
 /*0x1600*/ int                                   Shrouded;                               // templateId
 /*0x1604*/ int                                   systemId;
-/*0x1608*/ int                                   InventorySlotBitmask;
-/*0x160c*/ uint32_t                              u32_1;
-/*0x1610*/ bool                                  bBetaBuffed;
+/*0x1608*/ int                                   profileId;
+/*0x160c*/ int                                   InventorySlotBitmask;
+/*0x1610*/ uint32_t                              u32_1;
+/*0x1614*/ bool                                  bBetaBuffed;
 /*0x1618*/ int64_t                               Exp;
 /*0x1620*/ uint32_t                              AAExp;
 /*0x1624*/ uint8_t                               PercentEXPtoAA;
@@ -308,7 +309,7 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x6a90 :: 2023-09-26 (test) @ 0x140614c24
+// @sizeof(PcProfile) == 0x6a90 :: 2023-10-09 (test) @ 0x1406144d4
 constexpr size_t PcProfile_size = 0x6a90;
 
 class [[offsetcomments]] PcProfile : public BaseProfile

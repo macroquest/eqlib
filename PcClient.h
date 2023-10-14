@@ -429,8 +429,9 @@ public:
 /*0x08*/ int   ID;
 /*0x0c*/ int   SetID;
 /*0x10*/ float RewardAdjustment;
-/*0x14*/ char  RewardTitle[0x80];
-/*0x94*/
+/*0x14*/ int   RewardProfileId;
+/*0x18*/ char  RewardTitle[0x80];
+/*0x98*/
 };
 
 class [[offsetcomments]] PendingRewardList : public DoublyLinkedList<PendingReward*>
@@ -1429,7 +1430,7 @@ public:
 /*0x2418*/ int                                   MailItemsOverCapWarningCount;
 /*0x241c*/ bool                                  UseAdvancedLooting;
 /*0x241d*/ bool                                  MasterLootCandidate;
-/*0x241e*/ bool                                  bIsCorrupted;
+/*0x241e*/ bool                                  bIsCorrupted; // -40a
 /*0x2420*/ char*                                 pCorruptionReport;
 /*0x2428*/ char                                  InspectText[256];
 /*0x2528*/ HashTable<int>                        BlockedSpellsHash;
@@ -1464,7 +1465,7 @@ public:
 /*0x27a0*/ int                                   FreeToPlayUnlocks[31];
 /*0x281c*/ // end PcBase / start CharacterZoneClient
 
-	// basis: 0x2838
+	// basis: 0x2828
 
 	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
@@ -1556,8 +1557,8 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3218 :: 2023-09-26 (test) @ 0x14026a12b
-constexpr size_t PcClient_size = 0x3218;
+// @sizeof(PcClient) == 0x3210 :: 2023-10-09 (test) @ 0x1402698eb
+constexpr size_t PcClient_size = 0x3210;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
