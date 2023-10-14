@@ -157,8 +157,8 @@ public:
 /*0x68*/ bool               bHasTexture;
 	union
 	{
-	/*0x70*/ IDirect3DBaseTexture9* pD3DTexture;
-	/*0x70*/ void* pRawBitmap;
+/*0x70*/ Direct3DTexture9*  pD3DTexture;
+/*0x70*/ void*              pRawBitmap;
 	};
 /*0x78*/ uint32_t           ObjectIndex;
 /*0x7c*/ uint32_t           Size;
@@ -169,6 +169,15 @@ public:
 /*0x90*/ uint32_t           LastRenderTime;
 /*0x94*/ uint32_t           LoadedTime;
 /*0x98*/
+
+	// Return a pointer suitable for drawing a texture
+	void* GetTexture() const
+	{
+		if (bHasTexture && pD3DTexture)
+			return pD3DTexture->GetShaderResourceView();
+
+		return nullptr;
+	}
 };
 
 struct [[offsetcomments]] BMI

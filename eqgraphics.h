@@ -15,7 +15,7 @@
 #pragma once
 
 //
-// EQGraphicsDX9.dll offsets
+// EQGraphics.dll offsets
 //
 
 #define __eqgraphics_fopen_x                                       0x180264798

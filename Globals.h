@@ -38,7 +38,7 @@ constexpr uintptr_t EQGamePreferredAddress = 0x400000;
 // the base address of eqgame.exe
 EQLIB_VAR uintptr_t EQGameBaseAddress;
 
-// the base address of eqgraphicsdx9.dll
+// the base address of eqgraphics.dll
 EQLIB_VAR uintptr_t EQGraphicsBaseAddress;
 
 // the base address of eqmain.dll
@@ -1072,7 +1072,7 @@ EQLIB_VAR uintptr_t __ProcessList;
 EQLIB_VAR const char* szExpansions[NUM_EXPANSIONS + 1];
 
 //============================================================================
-// EQGraphicsDX9.dll Offsets
+// EQGraphics.dll Offsets
 //============================================================================
 
 EQLIB_VAR uintptr_t __eqgraphics_fopen;
