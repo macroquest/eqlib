@@ -1006,40 +1006,38 @@ public:
 /*0x28d8*/ int                                   HeroicCHABonus;
 /*0x28dc*/ int                                   HealAmountBonus;
 /*0x28e0*/ int                                   SpellDamageBonus;
-/*0x28e4*/ int                                   ItemHealAmountDotMod;
-/*0x28e8*/ int                                   ItemSpellDamageDotMod;
-/*0x28ec*/ int                                   ClairvoyanceBonus;
-/*0x28f0*/ int                                   AttackBonus;
-/*0x28f4*/ int                                   HPRegenBonus;
-/*0x28f8*/ int                                   ManaRegenBonus;
-/*0x28fc*/ int                                   EnduranceRegenBonus;
-/*0x2900*/ int                                   AttackSpeed;
-/*0x2904*/ int                                   NoBuffItemHitpointAdjustment;
-/*0x2908*/ int                                   NoBuffItemManaAdjustment;
-/*0x290c*/ int                                   NoBuffItemEnduranceAdjustment;
-/*0x2910*/ int                                   NoBuffItemBaseChanceProc;
-/*0x2914*/ int                                   NoBuffItemMinDamageMod;
-/*0x2918*/ int                                   NoBuffItemInnateSpellRune;
-/*0x291c*/ int                                   NoBuffItemAvoidance;
-/*0x2920*/ int                                   NoBuffItemToHit;
-/*0x2924*/ int                                   NoBuffItemResistStunChance;
-/*0x2928*/ int                                   NoBuffItemDotShieldingEffect;
-/*0x292c*/ int                                   NoBuffItemStrikeThroughChance;
-/*0x2930*/ int                                   NoBuffItemAttack;
-/*0x2934*/ int                                   NoBuffItemHitPointRegen;
-/*0x2938*/ int                                   NoBuffItemManaRegen;
-/*0x293c*/ int                                   NoBuffItemEnduranceRegen;
-/*0x2940*/ int                                   NoBuffItemDamageShield;
-/*0x2944*/ int                                   NoBuffItemDamageShieldMitigation;
-/*0x2948*/ int                                   NoBuffItemHaste;
-/*0x294c*/ int                                   NoBuffItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
-/*0x2970*/ bool                                  bOutputHpRegen;
-/*0x2971*/ bool                                  bInvulnerable;
-/*0x2972*/ bool                                  bOnAVehicle;
-/*0x2978*/ SpellCache                            spellCache;
-/*0x2a08*/ HashListSet<int, 128>                 DoomEffectsBySlot;
-/*0x2e28*/ uint32_t                              LastHitEval;
-/*0x2e2c*/
+/*0x28e4*/ int                                   ClairvoyanceBonus;
+/*0x28e8*/ int                                   AttackBonus;
+/*0x28ec*/ int                                   HPRegenBonus;
+/*0x28f0*/ int                                   ManaRegenBonus;
+/*0x28f4*/ int                                   EnduranceRegenBonus;
+/*0x28f8*/ int                                   AttackSpeed;
+/*0x28fc*/ int                                   NoBuffItemHitpointAdjustment;
+/*0x2900*/ int                                   NoBuffItemManaAdjustment;
+/*0x2904*/ int                                   NoBuffItemEnduranceAdjustment;
+/*0x2908*/ int                                   NoBuffItemBaseChanceProc;
+/*0x290c*/ int                                   NoBuffItemMinDamageMod;
+/*0x2910*/ int                                   NoBuffItemInnateSpellRune;
+/*0x2914*/ int                                   NoBuffItemAvoidance;
+/*0x2918*/ int                                   NoBuffItemToHit;
+/*0x291c*/ int                                   NoBuffItemResistStunChance;
+/*0x2920*/ int                                   NoBuffItemDotShieldingEffect;
+/*0x2924*/ int                                   NoBuffItemStrikeThroughChance;
+/*0x2928*/ int                                   NoBuffItemAttack;
+/*0x292c*/ int                                   NoBuffItemHitPointRegen;
+/*0x2930*/ int                                   NoBuffItemManaRegen;
+/*0x2934*/ int                                   NoBuffItemEnduranceRegen;
+/*0x2938*/ int                                   NoBuffItemDamageShield;
+/*0x293c*/ int                                   NoBuffItemDamageShieldMitigation;
+/*0x2940*/ int                                   NoBuffItemHaste;
+/*0x2944*/ int                                   NoBuffItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
+/*0x2968*/ bool                                  bOutputHpRegen;
+/*0x2969*/ bool                                  bInvulnerable;
+/*0x296a*/ bool                                  bOnAVehicle;
+/*0x2970*/ SpellCache                            spellCache;
+/*0x2a00*/ HashListSet<int, 128>                 DoomEffectsBySlot;
+/*0x2e20*/ uint32_t                              LastHitEval;
+/*0x2e24*/
 
 	//EQLIB_OBJECT CharacterZoneClient();
 
@@ -1525,14 +1523,14 @@ class [[offsetcomments]] PcZoneClient : public PcBase, public CharacterZoneClien
 {
 /*0x285c*/ // vftable
 public:
-/*0x2e48*/ uint32_t                              Flags[3]; // 2e58
-/*0x2e54*/ uint32_t                              TransfersReceived;
-/*0x2e58*/ int                                   LastLanguageSpoken;
-/*0x2e5c*/ int                                   CurPowerSourceDrain;
-/*0x2e60*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
-/*0x2e80*/ uint32_t                              MomentumBalance;
-/*0x2e84*/ uint32_t                              LoyaltyRewardBalance;
-/*0x2e88*/
+/*0x2e40*/ uint32_t                              Flags[3]; // 2e58
+/*0x2e4c*/ uint32_t                              TransfersReceived;
+/*0x2e50*/ int                                   LastLanguageSpoken;
+/*0x2e54*/ int                                   CurPowerSourceDrain;
+/*0x2e58*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
+/*0x2e78*/ uint32_t                              MomentumBalance;
+/*0x2e7c*/ uint32_t                              LoyaltyRewardBalance;
+/*0x2e80*/
 
 	// Verified
 	EQLIB_OBJECT void DestroyHeldItemOrMoney();
@@ -1555,8 +1553,8 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3218 :: 2023-09-14 (live) @ 0x14026a0fb
-constexpr size_t PcClient_size = 0x3218;
+// @sizeof(PcClient) == 0x3210 :: 2023-10-12 (live) @ 0x14026984b
+constexpr size_t PcClient_size = 0x3210;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
@@ -1564,20 +1562,20 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2e88*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null // 2e98
-/*0x2e90*/ bool                                  InCombat;
-/*0x2e94*/ uint32_t                              Downtime;
-/*0x2e98*/ uint32_t                              DowntimeStart;
-/*0x2e9c*/ bool                                  bOverrideAvatarProximity;
-/*0x2ea0*/ CGroup*                               Group;
-/*0x2ea8*/ bool                                  bIAmCreatingGroup;
-/*0x2eb0*/ ItemArray                             ItemsPendingID;
-/*0x2ec8*/ eParcelStatus                         ParcelStatus;
-/*0x2ecc*/ int                                   SubscriptionDays;
-/*0x2ed0*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
-/*0x2eda*/ bool                                  bPickZoneFewest;
-/*0x2edc*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
-/*0x2ee0*/
+/*0x2e80*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null // 2e98
+/*0x2e88*/ bool                                  InCombat;
+/*0x2e8c*/ uint32_t                              Downtime;
+/*0x2e90*/ uint32_t                              DowntimeStart;
+/*0x2e94*/ bool                                  bOverrideAvatarProximity;
+/*0x2e98*/ CGroup*                               Group;
+/*0x2ea0*/ bool                                  bIAmCreatingGroup;
+/*0x2ea8*/ ItemArray                             ItemsPendingID;
+/*0x2ec0*/ eParcelStatus                         ParcelStatus;
+/*0x2ec4*/ int                                   SubscriptionDays;
+/*0x2ec8*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
+/*0x2ed2*/ bool                                  bPickZoneFewest;
+/*0x2ed4*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
+/*0x2ed8*/
 
 	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);  // cannot be null
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);
