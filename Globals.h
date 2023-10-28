@@ -24,7 +24,7 @@
 #define DIRECTINPUT_VERSION    0x800
 #endif
 
-#include <dxsdk90\include\dinput.h>
+#include <dinput.h>
 
 namespace eqlib {
 
