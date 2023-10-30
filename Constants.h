@@ -663,6 +663,7 @@ enum EQExpansion
 	EQExpansionCOV                  = EXPANSION_LEVEL_COV,
 	EQExpansionTOL                  = EXPANSION_LEVEL_TOL,
 	EQExpansionNOS                  = EXPANSION_LEVEL_NOS,
+	EQExpansionLS                   = EXPANSION_LEVEL_LS,
 };
 
 #define EQ_EXPANSION(x)             (1 << (x - 1))
