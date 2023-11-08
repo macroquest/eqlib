@@ -505,6 +505,38 @@ private:
 
 using String = IString<char>;
 
+template <typename T, int FIXED_SIZE>
+class IStringFixed : public IString<T>
+{
+public:
+	virtual void* Alloc(size_t count, size_t* actual, bool* shareable)
+	{
+		if (count <= sizeof(m_internalStorage))
+		{
+			*shareable = false;
+			*actual = sizeof(m_internalStorage);
+
+			return m_internalStorage;
+		}
+
+		return IString<T>::Alloc(count, actual, shareable);
+	}
+
+	virtual void Free(void* data)
+	{
+		if (data != m_internalStorage)
+		{
+			IString<T>::Free(data);
+		}
+	}
+
+private:
+	uint8_t m_internalStorage[FIXED_SIZE * sizeof(T) + sizeof(int)];
+};
+
+template <int SIZE>
+using StringFixed = IStringFixed<char, SIZE>;
+
 #pragma endregion
 
 //----------------------------------------------------------------------------
