@@ -248,7 +248,7 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x348 :: 2023-10-09 (test) @ 0x1405A4BC0
+// @sizeof(CButtonWnd) == 0x348 :: 2023-11-06 (test) @ 0x1405a5b30
 constexpr size_t CButtonWnd_size = 0x348;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd
@@ -3114,7 +3114,7 @@ enum ECursorAttachmentType
 	eCursorAttachment_FamiliarKeyRingLink,
 };
 
-// @sizeof(CCursorAttachment) == 0x628 :: 2023-10-09 (test) @ 0x140185d68
+// @sizeof(CCursorAttachment) == 0x628 :: 2023-11-06 (test) @ 0x140185d68
 constexpr size_t CCursorAttachment_size = 0x628;
 
 class [[offsetcomments]] CCursorAttachment : public CGFScreenWnd, public WndEventHandler
@@ -3265,7 +3265,7 @@ public:
 // CFindItemWnd
 //============================================================================
 
-// @sizeof(CFindItemWnd) == 0x3f8 :: 2023-10-09 (test) @ 0x1401873f4
+// @sizeof(CFindItemWnd) == 0x3f8 :: 2023-11-06 (test) @ 0x1401873f4
 constexpr size_t CFindItemWnd_size = 0x3f8;
 
 class [[offsetcomments]] CFindItemWnd : public CSidlScreenWnd, public WndEventHandler
@@ -3351,7 +3351,7 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x3a0 :: 2023-10-09 (test) @ 0x140187bb2
+// @sizeof(CFindLocationWnd) == 0x3a0 :: 2023-11-06 (test) @ 0x140187bb2
 constexpr size_t CFindLocationWnd_size = 0x3a0;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
@@ -3693,7 +3693,7 @@ public:
 // CGroupWnd
 //============================================================================
 
-// @sizeof(CGroupWnd) == 0x700 :: 2023-10-09 (test) @ 0x1401864e7
+// @sizeof(CGroupWnd) == 0x700 :: 2023-11-06 (test) @ 0x1401864e7
 constexpr size_t CGroupWnd_size = 0x700;
 
 class [[offsetcomments]] CGroupWnd : public CGFScreenWnd
@@ -4352,7 +4352,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xaa8 :: 2023-10-09 (test) @ 0x1403ff314
+// @sizeof(CItemDisplayWnd) == 0xaa8 :: 2023-11-06 (test) @ 0x140400994
 constexpr size_t CItemDisplayWnd_size = 0xaa8;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4538,7 +4538,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x430 :: 2023-10-09 (test) @ 0x140186e55
+// @sizeof(CKeyRingWnd) == 0x430 :: 2023-11-06 (test) @ 0x140186e55
 constexpr size_t CKeyRingWnd_size = 0x430;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4623,7 +4623,7 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0xcc0 :: 2023-10-09 (test) @ 0x140187122
+// @sizeof(CLootWnd) == 0xcc0 :: 2023-11-06 (test) @ 0x140187122
 constexpr size_t CLootWnd_size = 0xcc0;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4841,7 +4841,7 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x858 :: 2023-10-09 (test) @ 0x140186849
+// @sizeof(CMapViewWnd) == 0x858 :: 2023-11-06 (test) @ 0x140186849
 constexpr size_t CMapViewWnd_size = 0x858;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5264,8 +5264,8 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-// @sizeof(CPetInfoWnd) == 0x2938 :: 2023-10-09 (test) @ 0x14018630f
-constexpr size_t CPetInfoWnd_size = 0x2938;
+// @sizeof(CPetInfoWnd) == 0x3d0 :: 2023-11-06 (test) @ 0x14018630f
+constexpr size_t CPetInfoWnd_size = 0x3d0;
 
 class [[offsetcomments]] CPetInfoWnd : public CSidlScreenWnd, public WndEventHandler
 {
@@ -5351,7 +5351,7 @@ enum ECombatState
 };
 
 
-// @sizeof(CPlayerWnd) == 0x408 :: 2023-10-09 (test) @ 0x140186c7d
+// @sizeof(CPlayerWnd) == 0x408 :: 2023-11-06 (test) @ 0x140186c7d
 constexpr size_t CPlayerWnd_size = 0x408;
 
 class [[offsetcomments]] CPlayerWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5846,8 +5846,8 @@ public:
 // CTargetWnd
 //============================================================================
 
-// @sizeof(CTargetWnd) == 0x410 :: 2023-10-09 (test) @ 0x140186b1e
-constexpr size_t CTargetWnd_size = 0x410;
+// @sizeof(CTargetWnd) == 0x3c8 :: 2023-11-06 (test) @ 0x140186b1e
+constexpr size_t CTargetWnd_size = 0x3c8;
 
 class [[offsetcomments]] CTargetWnd : public CSidlScreenWnd, public WndEventHandler
 {
