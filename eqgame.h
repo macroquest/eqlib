@@ -766,10 +766,9 @@
 #define EQSpellStrings__GetString_x                                0x1400BF250
 
 // CTargetWnd
-#define CTargetWnd__GetBuffCaster_x                                0x0  // CTargetWnd::WhoCast
 #define CTargetWnd__WndNotification_x                              0x1404E3250
 #define CTargetWnd__RefreshTargetBuffs_x                           0x1404E2960
-#define CTargetWnd__HandleBuffRemoveRequest_x                      0x0
+#define CTargetWnd__HandleBuffRemoveRequest_x                      0x1404E2190
 
 // CTaskWnd
 #define CTaskWnd__UpdateTaskTimers_x                               0x1404EA2D0  // CTaskWnd::UpdateTimes
