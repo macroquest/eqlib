@@ -5264,23 +5264,39 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-// size: 0x78
 struct [[offsetcomments]] PlayerBuffInfo
 {
 /*0x00*/ CButtonWnd*        BuffBtn;
 /*0x08*/ CTextureAnimation* BuffIcon;
 /*0x10*/ int                SpellID; // Spell ID# of each buff
-/*0x14*/ uint32_t           BuffTimer;
+/*0x14*/ int                BuffTimer;
 /*0x18*/ SoeUtil::StringFixed<EQ_MAX_NAME> Caster;
 /*0x78*/
+};
 
-	const char* GetCaster() const
-	{
-		if (SpellID > 0) {
-			return Caster.c_str();
-		}
-		return "";
-	}
+// Convenience wrapper that smooths over the difference in buff interfaces between
+// clients. Allows MQ code to share the same between test/live/emu/etc
+class PlayerBuffInfoRef
+{
+	const PlayerBuffInfo* m_buffInfo;
+
+public:
+	PlayerBuffInfoRef(const PlayerBuffInfo* buffInfo) noexcept
+		: m_buffInfo(buffInfo) {}
+
+	PlayerBuffInfoRef(const PlayerBuffInfoRef&) = delete;
+	PlayerBuffInfoRef& operator=(const PlayerBuffInfoRef&) = delete;
+
+	PlayerBuffInfoRef(PlayerBuffInfoRef&& rhs) noexcept : m_buffInfo(rhs.m_buffInfo) {}
+	PlayerBuffInfoRef& operator=(PlayerBuffInfoRef&& rhs) noexcept { m_buffInfo = rhs.m_buffInfo; }
+
+	explicit operator bool() const { return m_buffInfo != nullptr; }
+
+	CButtonWnd* GetBuffButton() const { return m_buffInfo ? m_buffInfo->BuffBtn : nullptr; }
+	CTextureAnimation* GetBuffIcon() const { return m_buffInfo ? m_buffInfo->BuffIcon : nullptr; }
+	int GetSpellID() const { return m_buffInfo ? m_buffInfo->SpellID : 0; }
+	int GetBuffTimer() const { return m_buffInfo ? m_buffInfo->BuffTimer : 0; }
+	const char* GetCaster() const { return (m_buffInfo && m_buffInfo->SpellID > 0) ? m_buffInfo->Caster.c_str() : ""; }
 };
 
 // @sizeof(CPetInfoWnd) == 0x3d0 :: 2023-11-06 (test) @ 0x14018630f
@@ -5298,23 +5314,23 @@ public:
 	EQLIB_OBJECT void SetShowOnSummon(bool);
 	EQLIB_OBJECT void Update();
 
-	const PlayerBuffInfo* GetBuffInfo(int buffIndex) const
+	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
 	{
 		if (buffIndex >= 0 && buffIndex < Buffs.GetSize())
-			return &Buffs[buffIndex];
+			return PlayerBuffInfoRef(&Buffs[buffIndex]);
 
-		return nullptr;
+		return PlayerBuffInfoRef(nullptr);
 	}
 
-	const PlayerBuffInfo* GetBuffInfoBySpellID(int spellID) const
+	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
 	{
 		for (const PlayerBuffInfo& pbi : Buffs)
 		{
 			if (pbi.SpellID == spellID)
-				return &pbi;
+				return PlayerBuffInfoRef(&pbi);
 		}
 
-		return nullptr;
+		return PlayerBuffInfoRef(nullptr);
 	}
 
 	int GetTotalBuffCount() const
@@ -5331,9 +5347,9 @@ public:
 
 	int GetMaxBuffs() const { return Buffs.GetSize(); }
 
-	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex)->SpellID; }
-	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex)->BuffTimer; }
-	const char* GetBuffCaster(int buffIndex) const { return GetBuffInfo(buffIndex)->GetCaster(); }
+	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	const char* GetBuffCaster(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
 
 	__declspec(property(get = GetBuff)) int Buff[];
 	__declspec(property(get = GetBuffTimer)) int PetBuffTimer[];
@@ -5915,23 +5931,23 @@ public:
 	EQLIB_OBJECT void RefreshTargetBuffs(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT void HandleBuffRemoveRequest(CXWnd* pWnd);
 
-	const PlayerBuffInfo* GetBuffInfo(int buffIndex) const
+	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
 	{
 		if (buffIndex >= 0 && buffIndex < Buffs.GetSize())
-			return &Buffs[buffIndex];
+			return PlayerBuffInfoRef(&Buffs[buffIndex]);
 
-		return nullptr;
+		return PlayerBuffInfoRef(nullptr);
 	}
 
-	const PlayerBuffInfo* GetBuffInfoBySpellID(int spellID) const
+	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
 	{
 		for (const PlayerBuffInfo& pbi : Buffs)
 		{
 			if (pbi.SpellID == spellID)
-				return &pbi;
+				return PlayerBuffInfoRef(&pbi);
 		}
 
-		return nullptr;
+		return PlayerBuffInfoRef(nullptr);
 	}
 
 	int GetTotalBuffCount() const
@@ -5948,9 +5964,9 @@ public:
 
 	int GetMaxBuffs() const { return Buffs.GetSize(); }
 
-	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex)->SpellID; }
-	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex)->BuffTimer; }
-	const char* GetBuffCaster(int buffIndex) const { return GetBuffInfo(buffIndex)->GetCaster(); }
+	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	const char* GetBuffCaster(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
 
 	__declspec(property(get = GetBuff)) int BuffSpellID[];
 	__declspec(property(get = GetBuffTimer)) int BuffTimer[];
