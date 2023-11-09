@@ -5930,7 +5930,7 @@ public:
 
 	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
 	{
-		if (buffIndex >= 0 && buffIndex < MAX_TOTAL_BUFFS_NPC)
+		if (buffIndex >= 0 && buffIndex < BuffSpellID.GetSize())
 			return PlayerBuffInfoRef(buffIndex, false);
 
 		return PlayerBuffInfoRef(-1, false);
@@ -5938,7 +5938,7 @@ public:
 
 	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
 	{
-		for (int index = 0; index < MAX_TOTAL_BUFFS_NPC; ++index)
+		for (int index = 0; index < BuffSpellID.GetSize(); ++index)
 		{
 			if (BuffSpellID[index] == spellID)
 				return PlayerBuffInfoRef(index, false);
