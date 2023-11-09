@@ -6177,9 +6177,6 @@ FUNCTION_AT_ADDRESS(void, CTargetWnd::RefreshTargetBuffs(CUnSerializeBuffer&), C
 #ifdef CTargetWnd__HandleBuffRemoveRequest_x
 FUNCTION_AT_ADDRESS(void, CTargetWnd::HandleBuffRemoveRequest(CXWnd*), CTargetWnd__HandleBuffRemoveRequest);
 #endif
-#ifdef CTargetWnd__GetBuffCaster_x
-FUNCTION_AT_ADDRESS(CXStr*, CTargetWnd::GetBuffCaster(int), CTargetWnd__GetBuffCaster);
-#endif
 
 //----------------------------------------------------------------------------
 // CTaskWnd

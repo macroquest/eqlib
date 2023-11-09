@@ -5187,6 +5187,30 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
+class PlayerBuffInfoRef
+{
+	int m_index;
+	bool m_petWindow;
+
+public:
+	PlayerBuffInfoRef(int index, bool petWindow)
+		: m_index(index), m_petWindow(petWindow) {}
+
+	PlayerBuffInfoRef(const PlayerBuffInfoRef&) = delete;
+	PlayerBuffInfoRef& operator=(const PlayerBuffInfoRef&) = delete;
+
+	PlayerBuffInfoRef(PlayerBuffInfoRef&& rhs) : m_index(rhs.m_index), m_petWindow(rhs.m_petWindow) {}
+	PlayerBuffInfoRef& operator=(PlayerBuffInfoRef&& rhs) { m_index = rhs.m_index; m_petWindow = rhs.m_petWindow; }
+
+	explicit operator bool() const { return m_index != -1; }
+
+	CButtonWnd* GetBuffButton() const;
+	CTextureAnimation* GetBuffIcon() const;
+	int GetSpellID() const;
+	int GetBuffTimer() const;
+	const char* GetCaster() const;
+};
+
 // @sizeof(CPetInfoWnd) == 0x920 :: 2013-05-10 (emu) @ 0x497f32
 constexpr size_t CPetInfoWnd_size = 0x920;
 
@@ -5202,7 +5226,54 @@ public:
 	EQLIB_OBJECT void SetShowOnSummon(bool);
 	EQLIB_OBJECT void Update();
 
+	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
+	{
+		if (buffIndex >= 0 && buffIndex < MAX_TOTAL_BUFFS_NPC)
+			return PlayerBuffInfoRef(buffIndex, true);
+
+		return PlayerBuffInfoRef(-1, true);
+	}
+
+	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
+	{
+		for (int index = 0; index < MAX_TOTAL_BUFFS_NPC; ++index)
+		{
+			if (Buff[index] == spellID)
+				return PlayerBuffInfoRef(index, true);
+		}
+
+		return PlayerBuffInfoRef(-1, true);
+	}
+
+	int GetTotalBuffCount() const
+	{
+		int count = 0;
+		for (int SpellID : Buff)
+		{
+			if (SpellID > 0)
+				++count;
+		}
+
+		return count;
+	}
+
 	inline int GetMaxBuffs() const { return MAX_TOTAL_BUFFS_NPC; }
+
+	int GetBuff(int buffIndex) const { return Buff[buffIndex]; }
+	int GetBuffTimer(int buffIndex) const { return PetBuffTimer[buffIndex]; }
+
+	const char* GetBuffCaster(int buffIndex) const
+	{
+		int spellID = GetBuff(buffIndex);
+		if (spellID > 0)
+		{
+			CXStr* pStr = WhoCast.FindFirst(spellID);
+			if (pStr)
+				return pStr->c_str();
+		}
+
+		return "";
+	}
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -5245,12 +5316,9 @@ public:
 /*0x920*/
 };
 
-inline namespace deprecated {
-	using EQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd instead of EQPETINFOWINDOW") = CPetInfoWnd;
-	using PEQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd* instead of PEQPETINFOWINDOW") = CPetInfoWnd*;
-}
-
 SIZE_CHECK(CPetInfoWnd, CPetInfoWnd_size);
+
+EQLIB_VAR ForeignPointer<CPetInfoWnd> pPetInfoWnd;
 
 //============================================================================
 // CPlayerNotesWnd
@@ -5787,11 +5855,57 @@ public:
 	CTargetWnd(CXWnd*);
 	virtual ~CTargetWnd();
 
-	EQLIB_OBJECT CXStr* GetBuffCaster(int SpellID);
 	EQLIB_OBJECT void RefreshTargetBuffs(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT void HandleBuffRemoveRequest(CXWnd* pWnd);
 
-	inline int GetMaxBuffs() const { return MAX_TOTAL_BUFFS ; }
+	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
+	{
+		if (buffIndex >= 0 && buffIndex < MAX_TOTAL_BUFFS)
+			return PlayerBuffInfoRef(buffIndex, false);
+
+		return PlayerBuffInfoRef(-1, false);
+	}
+
+	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
+	{
+		for (int index = 0; index < MAX_TOTAL_BUFFS; ++index)
+		{
+			if (BuffSpellID[index] == spellID)
+				return PlayerBuffInfoRef(index, false);
+		}
+
+		return PlayerBuffInfoRef(-1, false);
+	}
+
+	int GetTotalBuffCount() const
+	{
+		int count = 0;
+		for (int SpellID : BuffSpellID)
+		{
+			if (SpellID > 0)
+				++count;
+		}
+
+		return count;
+	}
+
+	int GetMaxBuffs() const { return MAX_TOTAL_BUFFS; }
+
+	int GetBuff(int buffIndex) const { return BuffSpellID[buffIndex]; }
+	int GetBuffTimer(int buffIndex) const { return BuffTimer[buffIndex]; }
+
+	const char* GetBuffCaster(int buffIndex) const
+	{
+		int spellID = GetBuff(buffIndex);
+		if (spellID > 0)
+		{
+			CXStr* pStr = Casters.FindFirst(spellID);
+			if (pStr)
+				return pStr->c_str();
+		}
+
+		return "";
+	}
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -5817,9 +5931,56 @@ public:
 
 SIZE_CHECK(CTargetWnd, CTargetWnd_size);
 
-inline namespace deprecated {
-	using CTARGETWND DEPRECATE("Use CTargetWnd instead of CTARGETWND") = CTargetWnd;
-	using PCTARGETWND DEPRECATE("Use CTargetWnd* instead of PCTARGETWND") = CTargetWnd*;
+EQLIB_VAR ForeignPointer<CTargetWnd> pTargetWnd;
+
+inline CButtonWnd* PlayerBuffInfoRef::GetBuffButton() const
+{
+	if (m_index == -1) return nullptr;
+
+	if (m_petWindow)
+		return pPetInfoWnd->pPetBuffBtns[m_index];
+
+	return pTargetWnd->pTargetBuff[m_index];
+}
+
+inline CTextureAnimation* PlayerBuffInfoRef::GetBuffIcon() const
+{
+	if (m_index == -1) return nullptr;
+
+	if (m_petWindow)
+		return pPetInfoWnd->pBuffIcons[m_index];
+
+	return pTargetWnd->ptaBuffIcons[m_index];
+}
+
+inline int PlayerBuffInfoRef::GetSpellID() const
+{
+	if (m_index == -1) return 0;
+
+	if (m_petWindow)
+		return pPetInfoWnd->Buff[m_index];
+
+	return pTargetWnd->BuffSpellID[m_index];
+}
+
+inline int PlayerBuffInfoRef::GetBuffTimer() const
+{
+	if (m_index == -1) return 0;
+
+	if (m_petWindow)
+		return pPetInfoWnd->PetBuffTimer[m_index];
+
+	return pTargetWnd->BuffTimer[m_index];
+}
+
+inline const char* PlayerBuffInfoRef::GetCaster() const
+{
+	if (m_index == -1) return "";
+
+	if (m_petWindow)
+		return pPetInfoWnd->GetBuffCaster(m_index);
+
+	return pTargetWnd->GetBuffCaster(m_index);
 }
 
 //============================================================================
