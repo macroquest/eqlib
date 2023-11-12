@@ -170,12 +170,28 @@ public:
 		using value_type = BuffInfoWrapperType;
 
 		Iterator(const ContainerType& container, int index)
-			: m_container(container), m_index(index) {}
+			: m_container(container), m_index(index)
+		{
+			// Increment to first buff
+			if (index < m_container.GetSize() && m_container[m_index].SpellID <= 0)
+			{
+				++(*this);
+			}
+		}
 
 		value_type operator*() const { return BuffInfoWrapperType(m_index, &m_container[m_index]); }
 
-		// Prefix increment
-		Iterator operator++() { m_index++; return *this; }
+		// Prefix increment - increment to the next valid buff
+		Iterator operator++()
+		{
+			if (m_index < m_container.GetSize())
+			{
+				do {
+					++m_index;
+				} while (m_index < m_container.GetSize() && m_container[m_index].SpellID <= 0);
+			}
+			return *this;
+		}
 		
 		// Postfix increment
 		Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
