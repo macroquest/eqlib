@@ -228,6 +228,9 @@
     <ClInclude Include="EQDX9.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="base\Iterator.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">

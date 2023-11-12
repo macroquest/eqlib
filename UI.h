@@ -27,6 +27,8 @@
 #include "UITemplates.h"
 #include "EQData.h"
 
+#include "base/Iterator.h"
+
 #include <list>
 #include <functional>
 
@@ -102,6 +104,102 @@ private:
 	// this will never work because of differences in stl between
 	// mq2 and eq. Don't use it.
 	std::list<IObserver*> ObserverList;
+};
+
+//============================================================================
+
+struct [[offsetcomments]] PlayerBuffInfo
+{
+/*0x00*/ CButtonWnd*        BuffBtn;
+/*0x08*/ CTextureAnimation* BuffIcon;
+/*0x10*/ int                SpellID;    // Spell ID# of each buff
+/*0x14*/ int                BuffTimer;  // milliseconds before buff will expire
+/*0x18*/ SoeUtil::StringFixed<EQ_MAX_NAME> Caster;
+/*0x78*/
+};
+
+struct [[offsetcomments]] BuffWindowPlayerBuffInfo : PlayerBuffInfo
+{
+/*0x78*/ CTextObjectInterface* TimeRemainingText;
+/*0x80*/ CTextObjectInterface* CounterText;
+/*0x88*/ CTextObjectInterface* LimitUseText;
+/*0x90*/
+};
+
+// Convenience wrapper that smooths over the difference in buff interfaces between
+// clients. Allows MQ code to share the same between test/live/emu/etc
+class PlayerBuffInfoWrapper
+{
+protected:
+	const PlayerBuffInfo* m_buffInfo;
+	int m_index;
+
+public:
+	using BuffInfoType = PlayerBuffInfo;
+
+	PlayerBuffInfoWrapper(int index, const PlayerBuffInfo* buffInfo) noexcept
+		: m_index(index), m_buffInfo(buffInfo) {}
+
+	PlayerBuffInfoWrapper(const PlayerBuffInfoWrapper&) = delete;
+	PlayerBuffInfoWrapper& operator=(const PlayerBuffInfoWrapper&) = delete;
+
+	PlayerBuffInfoWrapper(PlayerBuffInfoWrapper&& rhs) noexcept : m_index(rhs.m_index), m_buffInfo(rhs.m_buffInfo) {}
+	PlayerBuffInfoWrapper& operator=(PlayerBuffInfoWrapper&& rhs) noexcept { m_index = rhs.m_index; m_buffInfo = rhs.m_buffInfo; }
+
+	explicit operator bool() const { return m_buffInfo != nullptr; }
+
+	int GetIndex() const { return m_index; }
+	CButtonWnd* GetBuffButton() const { return m_buffInfo ? m_buffInfo->BuffBtn : nullptr; }
+	CTextureAnimation* GetBuffIcon() const { return m_buffInfo ? m_buffInfo->BuffIcon : nullptr; }
+	int GetSpellID() const { return m_buffInfo ? m_buffInfo->SpellID : 0; }
+	int GetBuffTimer() const { return m_buffInfo ? m_buffInfo->BuffTimer : 0; }
+	const char* GetCaster() const { return (m_buffInfo && m_buffInfo->SpellID > 0) ? m_buffInfo->Caster.c_str() : ""; }
+
+	EQLIB_OBJECT EQ_Spell* GetSpell() const;
+
+	template <typename T = PlayerBuffInfoWrapper>
+	struct Iterator
+	{
+	public:
+		using BuffInfoWrapperType = T;
+		using BuffInfoType = typename T::BuffInfoType;
+		using ContainerType = SoeUtil::Array<BuffInfoType>;
+
+		using iterator_category = std::bidirectional_iterator_tag;
+		using difference_type = std::ptrdiff_t;
+		using value_type = BuffInfoWrapperType;
+
+		Iterator(const ContainerType& container, int index)
+			: m_container(container), m_index(index) {}
+
+		value_type operator*() const { return BuffInfoWrapperType(m_index, &m_container[m_index]); }
+
+		// Prefix increment
+		Iterator operator++() { m_index++; return *this; }
+		
+		// Postfix increment
+		Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+
+		friend bool operator==(const Iterator& a, const Iterator& b) { return &a.m_container == &b.m_container && a.m_index == b.m_index; }
+		friend bool operator!=(const Iterator& a, const Iterator& b) { return !(a == b); }
+
+	private:
+		const ContainerType& m_container;
+		int m_index;
+	};
+};
+
+class BuffWindowPlayerBuffInfoWrapper : public PlayerBuffInfoWrapper
+{
+	const BuffWindowPlayerBuffInfo* GetBuffInfo() const { return static_cast<const BuffWindowPlayerBuffInfo*>(m_buffInfo); }
+
+public:
+	using PlayerBuffInfoWrapper::PlayerBuffInfoWrapper;
+	using BuffInfoType = BuffWindowPlayerBuffInfo;
+
+	CTextObjectInterface* GetTimeRemainingText() const { return m_buffInfo ? GetBuffInfo()->TimeRemainingText : nullptr; }
+	CTextObjectInterface* GetCounterText() const { return m_buffInfo ? GetBuffInfo()->CounterText : nullptr; }
+	CTextObjectInterface* GetLimitUseText() const { return m_buffInfo ? GetBuffInfo()->LimitUseText : nullptr; }
 };
 
 //============================================================================
@@ -2198,7 +2296,9 @@ enum BuffWindowType
 	BuffWindowShortDuration,
 };
 
-// Size: 0xb10
+// @sizeof(CBuffWindow) == 0x350 :: 2023-11-06 (test) @ 0x1401869CF
+constexpr size_t CBuffWindow_size = 0x350;
+
 class [[offsetcomments]] CBuffWindow : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -2212,7 +2312,97 @@ public:
 	virtual int PostDraw() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
+	BuffWindowPlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
+	{
+		if (buffIndex >= 0 && buffIndex < Buffs.GetSize())
+			return BuffWindowPlayerBuffInfoWrapper(buffIndex, &Buffs[buffIndex]);
 
+		return BuffWindowPlayerBuffInfoWrapper(-1, nullptr);
+	}
+
+	BuffWindowPlayerBuffInfoWrapper GetBuffInfoBySpellID(int spellID) const
+	{
+		int buffIndex = 0;
+		for (const PlayerBuffInfo& pbi : Buffs)
+		{
+			if (pbi.SpellID == spellID)
+				return BuffWindowPlayerBuffInfoWrapper(buffIndex, &pbi);
+
+			++buffIndex;
+		}
+
+		return BuffWindowPlayerBuffInfoWrapper(-1, nullptr);
+	}
+
+	int GetTotalBuffCount() const
+	{
+		int count = 0;
+		for (const PlayerBuffInfo& pbi : Buffs)
+		{
+			if (pbi.SpellID > 0)
+				++count;
+		}
+
+		return count;
+	}
+
+	int GetMaxBuffs() const { return Buffs.GetSize(); }
+
+	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	const char* GetCasterName(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
+	CButtonWnd* GetBuffButton(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffButton(); }
+	CTextureAnimation* GetBuffIcon(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffIcon(); }
+	CTextObjectInterface* GetTimeRemainingText(int buffIndex) const { return GetBuffInfo(buffIndex).GetTimeRemainingText(); }
+	CTextObjectInterface* GetCounterText(int buffIndex) const { return GetBuffInfo(buffIndex).GetCounterText(); }
+	CTextObjectInterface* GetLimitUseText(int buffIndex) const { return GetBuffInfo(buffIndex).GetLimitUseText(); }
+
+	using BuffIterator = PlayerBuffInfoWrapper::Iterator<BuffWindowPlayerBuffInfoWrapper>;
+	eqlib::IteratorRange<BuffIterator> GetBuffRange() const { return eqlib::make_iterator_range(BuffIterator(Buffs, 0), BuffIterator(Buffs, Buffs.GetSize())); }
+
+	#pragma region Deprecated Accessors
+	//
+	// Deprecated accessors
+	//
+
+	// spellIds -> GetBuff()
+	DEPRECATE("Use GetBuff(index) or GetBuffInfo(index) insetad of spellIds[index]")
+	int get_DeprecatedBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	__declspec(property(get = get_DeprecatedBuff)) int spellIds[];
+
+	// BuffId -> GetBuff()
+	DEPRECATE("Use GetBuff(index) or GetBuffInfo(index) insetad of BuffId[index]")
+		int get_DeprecatedBuff2(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	__declspec(property(get = get_DeprecatedBuff2)) int BuffId[];
+
+	// buffTimers -> GetBuffTimer()
+	DEPRECATE("Use GetBuffTimer(index) or GetBuffInfo(index) instead of buffTimers[index]")
+	int get_DeprecatedBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	__declspec(property(get = get_DeprecatedBuffTimer)) int buffTimers[];
+
+	// BuffTimer -> GetBuffTimer()
+	DEPRECATE("Use GetBuffTimer(index) or GetBuffInfo(index) instead of BuffTimer[index]")
+	int get_DeprecatedBuffTimer2(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	__declspec(property(get = get_DeprecatedBuffTimer2)) int BuffTimer[];
+
+	// whoCastHash -> Removed
+	DEPRECATE("whoCastHash was removed. Use GetBuffInfoBySpellID(spellID).GetCasterName() instead")
+	HashTable<CXStr> get_DeprecatedWhoCastHash() const { return HashTable<CXStr>(); }
+	__declspec(property(get = get_DeprecatedWhoCastHash)) HashTable<CXStr> whoCastHash;
+
+	// pBuffButtons -> GetBuffButton()
+	DEPRECATE("Use GetBuffButton(index) or GetBuffInfo(index) isntead of pBuffButtons[index]")
+	CButtonWnd* get_DeprecatedBuffButton(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffButton(); }
+	__declspec(property(get = get_DeprecatedBuffButton)) CButtonWnd* pBuffButtons[];
+
+	// pBuff -> GetBuffButton()
+	DEPRECATE("Use GetBuffButton(index) or GetBuffInfo(index) isntead of pBuff[index]")
+	CButtonWnd* get_DeprecatedBuffButton2(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffButton(); }
+	__declspec(property(get = get_DeprecatedBuffButton2)) CButtonWnd* pBuff[];
+
+	ALT_VMEMBER_GETTER_DEPRECATED(int, lastEffectSlot, MaxLongBuffs, "CBuffWindow: Use lastEffectSlot instead of MaxLongBuffs");
+	ALT_VMEMBER_GETTER_DEPRECATED(int, maxBuffButtons, MaxShortBuffs, "CBuffWindow: Use maxBuffButtons instead of MaxShortBuffs");
+	#pragma endregion
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -2221,39 +2411,23 @@ public:
 /*0x2d8*/ CTextureAnimation*    ptaBlueIconBackground;
 /*0x2e0*/ CTextureAnimation*    ptaRedIconBackground;
 /*0x2e8*/ CTextureAnimation*    ptaYellowIconBackground;
-/*0x2f0*/ CTextureAnimation*    ptaBuffIcons[MAX_BUFF_ICONS];
-/*0x440*/ CButtonWnd*           pBuffButtons[MAX_BUFF_ICONS];    // was: pBuff
-/*0x590*/ CTextObjectInterface* pTimeRemainingTexts[MAX_BUFF_ICONS];
-/*0x6e0*/ CTextObjectInterface* pCounterTexts[MAX_BUFF_ICONS];
-/*0x830*/ CTextObjectInterface* pLimitedUseTexts[MAX_BUFF_ICONS];
-/*0x980*/ int                   spellIds[MAX_BUFF_ICONS];        // was: BuffId
-/*0xa28*/ int                   buffTimers[MAX_BUFF_ICONS];      // was: BuffTimer
-/*0xad0*/ HashTable<CXStr>      whoCastHash;                     // was: WhoCast
-/*0xae8*/ uint32_t              nextRefreshTime;
-/*0xaec*/ int                   initWindowWidth;
-/*0xaf0*/ int                   initWindowHeight;
-/*0xaf4*/ BuffWindowType        buffWindowType;
-/*0xaf8*/ int                   firstEffectSlot;
-/*0xafc*/ int                   lastEffectSlot;                  // was: MaxLongBuffs 0x2a (NUM_LONG_BUFFS)
-/*0xb00*/ int                   maxBuffButtons;                  // was: MaxShortBuffs 0x37 (NUM_SHORT_BUFFS)
-/*0xb04*/ int                   contextMenuId;
-/*0xb08*/ CXWnd*                selectedButtonWnd;               // this field doesn't alwayws appear to be initialize
-/*0xb10*/ bool                  updatedMenuItems;
-/*0xb14*/ int                   lastBuffRefreshTime;
-/*0xb18*/
-
-	ALT_MEMBER_GETTER_ARRAY(CButtonWnd*, MAX_BUFF_ICONS, pBuffButtons, pBuff);
-	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, spellIds, BuffId);
-	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, buffTimers, BuffTimer);
-	ALT_MEMBER_ALIAS(HashTable<CXStr>, whoCastHash, WhoCast);
-	ALT_VMEMBER_GETTER_DEPRECATED(int, lastEffectSlot, MaxLongBuffs, "CBuffWindow: Use lastEffectSlot instead of MaxLongBuffs");
-	ALT_VMEMBER_GETTER_DEPRECATED(int, maxBuffButtons, MaxShortBuffs, "CBuffWindow: Use maxBuffButtons instead of MaxShortBuffs");
+/*0x2f0*/ SoeUtil::Array<BuffWindowPlayerBuffInfo> Buffs;
+/*0x308*/ SoeUtil::Map<int, CButtonWnd*> ButtonMap;
+/*0x320*/ uint32_t              nextRefreshTime;
+/*0x324*/ int                   initWindowWidth;
+/*0x328*/ int                   initWindowHeight;
+/*0x32c*/ BuffWindowType        buffWindowType;
+/*0x330*/ int                   firstEffectSlot;
+/*0x334*/ int                   lastEffectSlot;                  // was: MaxLongBuffs 0x2a (NUM_LONG_BUFFS)
+/*0x338*/ int                   maxBuffButtons;                  // was: MaxShortBuffs 0x37 (NUM_SHORT_BUFFS)
+/*0x33c*/ int                   contextMenuId;
+/*0x340*/ CXWnd*                selectedButtonWnd;               // this field doesn't always appear to be initialize
+/*0x348*/ bool                  updatedMenuItems;
+/*0x34c*/ int                   lastBuffRefreshTime;
+/*0x350*/
 };
 
-inline namespace deprecated {
-	using EQBUFFWINDOW DEPRECATE("Use CBuffWindow instead of EQBUFFWINDOW") = CBuffWindow;
-	using PEQBUFFWINDOW DEPRECATE("Use CBuffWindow* instead of PEQBUFFWINDOW") = CBuffWindow*;
-}
+SIZE_CHECK(CBuffWindow, CBuffWindow_size);
 
 //============================================================================
 // CCastingWnd
@@ -5264,41 +5438,6 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-struct [[offsetcomments]] PlayerBuffInfo
-{
-/*0x00*/ CButtonWnd*        BuffBtn;
-/*0x08*/ CTextureAnimation* BuffIcon;
-/*0x10*/ int                SpellID; // Spell ID# of each buff
-/*0x14*/ int                BuffTimer;
-/*0x18*/ SoeUtil::StringFixed<EQ_MAX_NAME> Caster;
-/*0x78*/
-};
-
-// Convenience wrapper that smooths over the difference in buff interfaces between
-// clients. Allows MQ code to share the same between test/live/emu/etc
-class PlayerBuffInfoRef
-{
-	const PlayerBuffInfo* m_buffInfo;
-
-public:
-	PlayerBuffInfoRef(const PlayerBuffInfo* buffInfo) noexcept
-		: m_buffInfo(buffInfo) {}
-
-	PlayerBuffInfoRef(const PlayerBuffInfoRef&) = delete;
-	PlayerBuffInfoRef& operator=(const PlayerBuffInfoRef&) = delete;
-
-	PlayerBuffInfoRef(PlayerBuffInfoRef&& rhs) noexcept : m_buffInfo(rhs.m_buffInfo) {}
-	PlayerBuffInfoRef& operator=(PlayerBuffInfoRef&& rhs) noexcept { m_buffInfo = rhs.m_buffInfo; }
-
-	explicit operator bool() const { return m_buffInfo != nullptr; }
-
-	CButtonWnd* GetBuffButton() const { return m_buffInfo ? m_buffInfo->BuffBtn : nullptr; }
-	CTextureAnimation* GetBuffIcon() const { return m_buffInfo ? m_buffInfo->BuffIcon : nullptr; }
-	int GetSpellID() const { return m_buffInfo ? m_buffInfo->SpellID : 0; }
-	int GetBuffTimer() const { return m_buffInfo ? m_buffInfo->BuffTimer : 0; }
-	const char* GetCaster() const { return (m_buffInfo && m_buffInfo->SpellID > 0) ? m_buffInfo->Caster.c_str() : ""; }
-};
-
 // @sizeof(CPetInfoWnd) == 0x3d0 :: 2023-11-06 (test) @ 0x14018630f
 constexpr size_t CPetInfoWnd_size = 0x3d0;
 
@@ -5314,23 +5453,25 @@ public:
 	EQLIB_OBJECT void SetShowOnSummon(bool);
 	EQLIB_OBJECT void Update();
 
-	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
+	PlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
 	{
 		if (buffIndex >= 0 && buffIndex < Buffs.GetSize())
-			return PlayerBuffInfoRef(&Buffs[buffIndex]);
+			return PlayerBuffInfoWrapper(buffIndex, &Buffs[buffIndex]);
 
-		return PlayerBuffInfoRef(nullptr);
+		return PlayerBuffInfoWrapper(buffIndex, nullptr);
 	}
 
-	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
+	PlayerBuffInfoWrapper GetBuffInfoBySpellID(int spellID) const
 	{
+		int buffIndex = 0;
 		for (const PlayerBuffInfo& pbi : Buffs)
 		{
 			if (pbi.SpellID == spellID)
-				return PlayerBuffInfoRef(&pbi);
+				return PlayerBuffInfoWrapper(buffIndex, &pbi);
+			++buffIndex;
 		}
 
-		return PlayerBuffInfoRef(nullptr);
+		return PlayerBuffInfoWrapper(-1, nullptr);
 	}
 
 	int GetTotalBuffCount() const
@@ -5349,10 +5490,28 @@ public:
 
 	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
 	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
-	const char* GetBuffCaster(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
+	const char* GetCasterName(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
+	CButtonWnd* GetBuffButton(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffButton(); }
+	CTextureAnimation* GetBuffIcon(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffIcon(); }
 
-	__declspec(property(get = GetBuff)) int Buff[];
-	__declspec(property(get = GetBuffTimer)) int PetBuffTimer[];
+	using BuffIterator = PlayerBuffInfoWrapper::Iterator<PlayerBuffInfoWrapper>;
+	eqlib::IteratorRange<BuffIterator> GetBuffRange() const { return eqlib::make_iterator_range(BuffIterator(Buffs, 0), BuffIterator(Buffs, Buffs.GetSize())); }
+
+	#pragma region Deprecated accessors
+	//
+	// Deprecated accessors
+	//
+
+	// Buff -> GetBuff()
+	DEPRECATE("Use GetBuff(index) or GetBuffInfo(index) insetad of Buff[index]")
+	int get_DeprecatedBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	__declspec(property(get = get_DeprecatedBuff)) int Buff[];
+
+	// PetBuffTimer -> GetBuffTimer()
+	DEPRECATE("Use GetBuffTimer(index) or GetBuffInfo(index) instead of PetBuffTimer[index]")
+	int get_DeprecatedBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	__declspec(property(get = get_DeprecatedBuffTimer)) int PetBuffTimer[];
+	#pragma endregion
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -5370,7 +5529,6 @@ public:
 /*0x39d*/ bool               bShowOnSummon;
 /*0x3a0*/ uint32_t           ListContextMenuID;
 /*0x3a8*/ CXWnd*             pRequestingWnd;
-///*0x22d8*/ unsigned int       PetBuffTimer[MAX_TOTAL_BUFFS_NPC]; // duration until buff fades, in milliseconds
 /*0x3b0*/ bool               bRemovedBuffBlockMenuItem;
 /*0x3b4*/ int                PetCommandSelectContextMenu;
 /*0x3b8*/ CXWnd*             LastClickedButton;
@@ -5386,11 +5544,6 @@ public:
 /*0x3c9*/ bool               Focus;
 /*0x3cc*/
 };
-
-inline namespace deprecated {
-	using EQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd instead of EQPETINFOWINDOW") = CPetInfoWnd;
-	using PEQPETINFOWINDOW DEPRECATE("Use CPetInfoWnd* instead of PEQPETINFOWINDOW") = CPetInfoWnd*;
-}
 
 SIZE_CHECK(CPetInfoWnd, CPetInfoWnd_size);
 
@@ -5931,23 +6084,26 @@ public:
 	EQLIB_OBJECT void RefreshTargetBuffs(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT void HandleBuffRemoveRequest(CXWnd* pWnd);
 
-	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
+	PlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
 	{
 		if (buffIndex >= 0 && buffIndex < Buffs.GetSize())
-			return PlayerBuffInfoRef(&Buffs[buffIndex]);
+			return PlayerBuffInfoWrapper(buffIndex, &Buffs[buffIndex]);
 
-		return PlayerBuffInfoRef(nullptr);
+		return PlayerBuffInfoWrapper(buffIndex, nullptr);
 	}
 
-	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
+	PlayerBuffInfoWrapper GetBuffInfoBySpellID(int spellID) const
 	{
+		int buffIndex = 0;
 		for (const PlayerBuffInfo& pbi : Buffs)
 		{
 			if (pbi.SpellID == spellID)
-				return PlayerBuffInfoRef(&pbi);
+				return PlayerBuffInfoWrapper(buffIndex, &pbi);
+
+			++buffIndex;
 		}
 
-		return PlayerBuffInfoRef(nullptr);
+		return PlayerBuffInfoWrapper(-1, nullptr);
 	}
 
 	int GetTotalBuffCount() const
@@ -5966,10 +6122,28 @@ public:
 
 	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
 	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
-	const char* GetBuffCaster(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
+	const char* GetCasterName(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
+	CButtonWnd* GetBuffButton(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffButton(); }
+	CTextureAnimation* GetBuffIcon(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffIcon(); }
 
-	__declspec(property(get = GetBuff)) int BuffSpellID[];
-	__declspec(property(get = GetBuffTimer)) int BuffTimer[];
+	using BuffIterator = PlayerBuffInfoWrapper::Iterator<PlayerBuffInfoWrapper>;
+	eqlib::IteratorRange<BuffIterator> GetBuffRange() const { return eqlib::make_iterator_range(BuffIterator(Buffs, 0), BuffIterator(Buffs, Buffs.GetSize())); }
+
+#pragma region Deprecated accessors
+	//
+	// Deprecated accessors
+	//
+
+	// BuffSpellID -> GetBuff()
+	DEPRECATE("Use GetBuff(index) or GetBuffInfo(index) insetad of BuffSpellID[index]")
+		int get_DeprecatedBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	__declspec(property(get = get_DeprecatedBuff)) int BuffSpellID[];
+
+	// BuffTimer -> GetBuffTimer()
+	DEPRECATE("Use GetBuffTimer(index) or GetBuffInfo(index) instead of BuffTimer[index]")
+		int get_DeprecatedBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	__declspec(property(get = get_DeprecatedBuffTimer)) int BuffTimer[];
+#pragma endregion
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -6010,11 +6184,6 @@ public:
 };
 
 SIZE_CHECK(CTargetWnd, CTargetWnd_size);
-
-inline namespace deprecated {
-	using CTARGETWND DEPRECATE("Use CTargetWnd instead of CTARGETWND") = CTargetWnd;
-	using PCTARGETWND DEPRECATE("Use CTargetWnd* instead of PCTARGETWND") = CTargetWnd*;
-}
 
 //============================================================================
 // CTaskWnd
