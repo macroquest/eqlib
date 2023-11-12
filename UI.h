@@ -27,6 +27,8 @@
 #include "UITemplates.h"
 #include "EQData.h"
 
+#include "base/Iterator.h"
+
 #include <list>
 #include <functional>
 
@@ -102,6 +104,94 @@ private:
 	// this will never work because of differences in stl between
 	// mq2 and eq. Don't use it.
 	std::list<IObserver*> ObserverList;
+};
+
+//============================================================================
+
+class PlayerBuffInfoWrapper
+{
+public:
+	enum class BuffWindow { Buff, ShortBuff, Pet, Target };
+
+	PlayerBuffInfoWrapper(int index, BuffWindow window)
+		: m_index(index), m_window(window) {}
+
+	PlayerBuffInfoWrapper(const PlayerBuffInfoWrapper&) = delete;
+	PlayerBuffInfoWrapper& operator=(const PlayerBuffInfoWrapper&) = delete;
+
+	PlayerBuffInfoWrapper(PlayerBuffInfoWrapper&& rhs) : m_index(rhs.m_index), m_window(rhs.m_window) {}
+	PlayerBuffInfoWrapper& operator=(PlayerBuffInfoWrapper&& rhs) { m_index = rhs.m_index; m_window = rhs.m_window; }
+
+	explicit operator bool() const { return m_index != -1; }
+
+	int GetIndex() const { return m_index; }
+	CButtonWnd* GetBuffButton() const;
+	CTextureAnimation* GetBuffIcon() const;
+	int GetSpellID() const;
+	int GetBuffTimer() const;
+	const char* GetCaster() const;
+
+	EQLIB_OBJECT EQ_Spell* GetSpell() const;
+
+	template <typename T = PlayerBuffInfoWrapper>
+	struct Iterator
+	{
+	public:
+		using BuffInfoWrapperType = T;
+
+		using iterator_category = std::bidirectional_iterator_tag;
+		using difference_type = std::ptrdiff_t;
+		using value_type = BuffInfoWrapperType;
+
+		Iterator(int index, int maxIndex, BuffWindow window)
+			: m_index(index), m_maxIndex(maxIndex), m_window(window)
+		{
+			// Increment to first buff
+			if (m_index < m_maxIndex && BuffInfoWrapperType(m_index, m_window).GetSpellID() <= 0)
+			{
+				++(*this);
+			}
+		}
+
+		value_type operator*() const { return BuffInfoWrapperType(m_index, m_window); }
+
+		// Prefix increment - increment to the next valid buff
+		Iterator operator++()
+		{
+			if (m_index < m_maxIndex)
+			{
+				do {
+					++m_index;
+				} while (m_index < m_maxIndex && BuffInfoWrapperType(m_index, m_window).GetSpellID() <= 0);
+			}
+
+			return *this;
+		}
+
+		// Postfix increment
+		Iterator operator++(int) { Iterator tmp = *this; ++(*this); return tmp; }
+
+		friend bool operator==(const Iterator& a, const Iterator& b) { return a.m_index == b.m_index && a.m_window == b.m_window; }
+		friend bool operator!=(const Iterator& a, const Iterator& b) { return !(a == b); }
+
+	private:
+		int m_index; int m_maxIndex;
+		BuffWindow m_window;
+	};
+
+protected:
+	int m_index;
+	BuffWindow m_window;
+};
+
+class BuffWindowPlayerBuffInfoWrapper : public PlayerBuffInfoWrapper
+{
+public:
+	using PlayerBuffInfoWrapper::PlayerBuffInfoWrapper;
+
+	CTextObjectInterface* GetTimeRemainingText() const;
+	CTextObjectInterface* GetCounterText() const;
+	CTextObjectInterface* GetLimitUseText() const;
 };
 
 //============================================================================
@@ -2198,7 +2288,9 @@ enum BuffWindowType
 	BuffWindowShortDuration,
 };
 
-// Size: 0xb10
+// @sizeof(CBuffWindow) == 0xb10 :: 2023-10-12 (live) @ 0x140186A7F
+constexpr size_t CBuffWindow_size = 0xb10;
+
 class [[offsetcomments]] CBuffWindow : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -2212,7 +2304,79 @@ public:
 	virtual int PostDraw() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
+	BuffWindowPlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
+	{
+		auto window = firstEffectSlot == 0 ? PlayerBuffInfoWrapper::BuffWindow::Buff : PlayerBuffInfoWrapper::BuffWindow::ShortBuff;
 
+		if (buffIndex >= 0 && buffIndex < GetMaxBuffs())
+			return BuffWindowPlayerBuffInfoWrapper(buffIndex, window);
+
+		return BuffWindowPlayerBuffInfoWrapper(-1, window);
+	}
+
+	BuffWindowPlayerBuffInfoWrapper GetBuffInfoBySpellID(int spellID) const
+	{
+		auto window = firstEffectSlot == 0 ? PlayerBuffInfoWrapper::BuffWindow::Buff : PlayerBuffInfoWrapper::BuffWindow::ShortBuff;
+
+		for (int buffIndex = 0; buffIndex < GetMaxBuffs(); ++buffIndex)
+		{
+			if (spellIds[buffIndex] == spellID)
+				return BuffWindowPlayerBuffInfoWrapper(buffIndex, window);
+		}
+
+		return BuffWindowPlayerBuffInfoWrapper(-1, window);
+	}
+
+	int GetTotalBuffCount() const
+	{
+		int count = 0;
+		for (int spellId : spellIds)
+		{
+			if (spellId > 0)
+				++count;
+		}
+
+		return count;
+	}
+
+	int GetMaxBuffs() const { return std::min(lastEffectSlot - firstEffectSlot, MAX_BUFF_ICONS); }
+
+	int GetBuff(int buffIndex) const { return (buffIndex >= 0 && buffIndex < GetMaxBuffs()) ? spellIds[buffIndex] : 0; }
+	int GetBuffTimer(int buffIndex) const { return (buffIndex >= 0 && buffIndex < GetMaxBuffs()) ? buffTimers[buffIndex] : 0; }
+	CButtonWnd* GetBuffButton(int buffIndex) const { return (buffIndex >= 0 && buffIndex < GetMaxBuffs()) ? pBuffButtons[buffIndex] : nullptr; }
+	CTextureAnimation* GetBuffIcon(int buffIndex) const { return (buffIndex >= 0 && buffIndex < GetMaxBuffs()) ? ptaBuffIcons[buffIndex] : nullptr; }
+	CTextObjectInterface* GetTimeRemainingText(int buffIndex) const { return (buffIndex >= 0 && buffIndex < GetMaxBuffs()) ? pTimeRemainingTexts[buffIndex] : nullptr; }
+	CTextObjectInterface* GetCounterText(int buffIndex) const { return (buffIndex >= 0 && buffIndex < GetMaxBuffs()) ? pCounterTexts[buffIndex] : nullptr; }
+	CTextObjectInterface* GetLimitUseText(int buffIndex) const { return (buffIndex >= 0 && buffIndex < GetMaxBuffs()) ? pLimitedUseTexts[buffIndex] : nullptr; }
+
+	const char* GetCasterName(int buffIndex) const
+	{
+		int spellID = GetBuff(buffIndex);
+		if (spellID > 0)
+		{
+			const CXStr* pStr = whoCastHash.FindFirst(spellID);
+			if (pStr)
+				return pStr->c_str();
+		}
+
+		return "";
+	}
+
+	using BuffIterator = PlayerBuffInfoWrapper::Iterator<BuffWindowPlayerBuffInfoWrapper>;
+	eqlib::IteratorRange<BuffIterator> GetBuffRange() const
+	{
+		int maxIndex = GetMaxBuffs();
+		auto window = firstEffectSlot == 0 ? PlayerBuffInfoWrapper::BuffWindow::Buff : PlayerBuffInfoWrapper::BuffWindow::ShortBuff;
+
+		return eqlib::make_iterator_range(BuffIterator(0, maxIndex, window), BuffIterator(maxIndex, maxIndex, window));
+	}
+
+	ALT_MEMBER_GETTER_ARRAY(CButtonWnd*, MAX_BUFF_ICONS, pBuffButtons, pBuff);
+	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, spellIds, BuffId);
+	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, buffTimers, BuffTimer);
+	ALT_MEMBER_ALIAS(HashTable<CXStr>, whoCastHash, WhoCast);
+	ALT_VMEMBER_GETTER_DEPRECATED(int, lastEffectSlot, MaxLongBuffs, "CBuffWindow: Use lastEffectSlot instead of MaxLongBuffs");
+	ALT_VMEMBER_GETTER_DEPRECATED(int, maxBuffButtons, MaxShortBuffs, "CBuffWindow: Use maxBuffButtons instead of MaxShortBuffs");
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -2241,19 +2405,12 @@ public:
 /*0xb08*/ bool                  updatedMenuItems;
 /*0xb0c*/ int                   lastBuffRefreshTime;
 /*0xb10*/
-
-	ALT_MEMBER_GETTER_ARRAY(CButtonWnd*, MAX_BUFF_ICONS, pBuffButtons, pBuff);
-	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, spellIds, BuffId);
-	ALT_MEMBER_GETTER_ARRAY(int, MAX_BUFF_ICONS, buffTimers, BuffTimer);
-	ALT_MEMBER_ALIAS(HashTable<CXStr>, whoCastHash, WhoCast);
-	ALT_VMEMBER_GETTER_DEPRECATED(int, lastEffectSlot, MaxLongBuffs, "CBuffWindow: Use lastEffectSlot instead of MaxLongBuffs");
-	ALT_VMEMBER_GETTER_DEPRECATED(int, maxBuffButtons, MaxShortBuffs, "CBuffWindow: Use maxBuffButtons instead of MaxShortBuffs");
 };
 
-inline namespace deprecated {
-	using EQBUFFWINDOW DEPRECATE("Use CBuffWindow instead of EQBUFFWINDOW") = CBuffWindow;
-	using PEQBUFFWINDOW DEPRECATE("Use CBuffWindow* instead of PEQBUFFWINDOW") = CBuffWindow*;
-}
+SIZE_CHECK(CBuffWindow, CBuffWindow_size);
+
+EQLIB_VAR ForeignPointer<CBuffWindow> pBuffWnd;
+EQLIB_VAR ForeignPointer<CBuffWindow> pSongWnd;
 
 //============================================================================
 // CCastingWnd
@@ -5264,30 +5421,6 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-class PlayerBuffInfoRef
-{
-	int m_index;
-	bool m_petWindow;
-
-public:
-	PlayerBuffInfoRef(int index, bool petWindow)
-		: m_index(index), m_petWindow(petWindow) {}
-
-	PlayerBuffInfoRef(const PlayerBuffInfoRef&) = delete;
-	PlayerBuffInfoRef& operator=(const PlayerBuffInfoRef&) = delete;
-
-	PlayerBuffInfoRef(PlayerBuffInfoRef&& rhs) : m_index(rhs.m_index), m_petWindow(rhs.m_petWindow) {}
-	PlayerBuffInfoRef& operator=(PlayerBuffInfoRef&& rhs) { m_index = rhs.m_index; m_petWindow = rhs.m_petWindow; }
-
-	explicit operator bool() const { return m_index != -1; }
-
-	CButtonWnd* GetBuffButton() const;
-	CTextureAnimation* GetBuffIcon() const;
-	int GetSpellID() const;
-	int GetBuffTimer() const;
-	const char* GetCaster() const;
-};
-
 // @sizeof(CPetInfoWnd) == 0x2930 :: 2023-10-12 (live) @ 0x1401863bf
 constexpr size_t CPetInfoWnd_size = 0x2930;
 
@@ -5303,23 +5436,23 @@ public:
 	EQLIB_OBJECT void SetShowOnSummon(bool);
 	EQLIB_OBJECT void Update();
 
-	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
+	PlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
 	{
-		if (buffIndex >= 0 && buffIndex < MAX_TOTAL_BUFFS_NPC)
-			return PlayerBuffInfoRef(buffIndex, true);
+		if (buffIndex >= 0 && buffIndex < GetMaxBuffs())
+			return PlayerBuffInfoWrapper(buffIndex, PlayerBuffInfoWrapper::BuffWindow::Pet);
 
-		return PlayerBuffInfoRef(-1, true);
+		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Pet);
 	}
 
-	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
+	PlayerBuffInfoWrapper GetBuffInfoBySpellID(int spellID) const
 	{
-		for (int index = 0; index < MAX_TOTAL_BUFFS_NPC; ++index)
+		for (int index = 0; index < GetMaxBuffs(); ++index)
 		{
 			if (Buff[index] == spellID)
-				return PlayerBuffInfoRef(index, true);
+				return PlayerBuffInfoWrapper(index, PlayerBuffInfoWrapper::BuffWindow::Pet);
 		}
 
-		return PlayerBuffInfoRef(-1, true);
+		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Pet);
 	}
 
 	int GetTotalBuffCount() const
@@ -5334,22 +5467,23 @@ public:
 		return count;
 	}
 
-	inline int GetMaxBuffs() const { return MAX_TOTAL_BUFFS_NPC; }
+	int GetMaxBuffs() const { return MAX_TOTAL_BUFFS_NPC; }
 
-	int GetBuff(int buffIndex) const { return Buff[buffIndex]; }
-	int GetBuffTimer(int buffIndex) const { return PetBuffTimer[buffIndex]; }
+	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	const char* GetCasterName(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
+	CButtonWnd* GetBuffButton(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffButton(); }
+	CTextureAnimation* GetBuffIcon(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffIcon(); }
 
-	const char* GetBuffCaster(int buffIndex) const
+	using BuffIterator = PlayerBuffInfoWrapper::Iterator<PlayerBuffInfoWrapper>;
+	eqlib::IteratorRange<BuffIterator> GetBuffRange() const
 	{
-		int spellID = GetBuff(buffIndex);
-		if (spellID > 0)
-		{
-			CXStr* pStr = WhoCast.FindFirst(spellID);
-			if (pStr)
-				return pStr->c_str();
-		}
-		
-		return "";
+		int maxIndex = GetMaxBuffs();
+
+		return eqlib::make_iterator_range(
+			BuffIterator(0, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Pet),
+			BuffIterator(maxIndex, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Pet)
+		);
 	}
 
 	//----------------------------------------------------------------------------
@@ -5928,23 +6062,23 @@ public:
 	EQLIB_OBJECT void RefreshTargetBuffs(CUnSerializeBuffer& buffer);
 	EQLIB_OBJECT void HandleBuffRemoveRequest(CXWnd* pWnd);
 
-	PlayerBuffInfoRef GetBuffInfo(int buffIndex) const
+	PlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
 	{
 		if (buffIndex >= 0 && buffIndex < BuffSpellID.GetSize())
-			return PlayerBuffInfoRef(buffIndex, false);
+			return PlayerBuffInfoWrapper(buffIndex, PlayerBuffInfoWrapper::BuffWindow::Pet);
 
-		return PlayerBuffInfoRef(-1, false);
+		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Pet);
 	}
 
-	PlayerBuffInfoRef GetBuffInfoBySpellID(int spellID) const
+	PlayerBuffInfoWrapper GetBuffInfoBySpellID(int spellID) const
 	{
-		for (int index = 0; index < BuffSpellID.GetSize(); ++index)
+		for (int bufIndex = 0; bufIndex < BuffSpellID.GetSize(); ++bufIndex)
 		{
-			if (BuffSpellID[index] == spellID)
-				return PlayerBuffInfoRef(index, false);
+			if (BuffSpellID[bufIndex] == spellID)
+				return PlayerBuffInfoWrapper(bufIndex, PlayerBuffInfoWrapper::BuffWindow::Pet);
 		}
 
-		return PlayerBuffInfoRef(-1, false);
+		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Pet);
 	}
 
 	int GetTotalBuffCount() const
@@ -5959,22 +6093,23 @@ public:
 		return count;
 	}
 
-	inline int GetMaxBuffs() const { return BuffSpellID.GetSize(); }
+	int GetMaxBuffs() const { return BuffSpellID.GetSize(); }
 
-	int GetBuff(int buffIndex) const { return BuffSpellID[buffIndex]; }
-	int GetBuffTimer(int buffIndex) const { return BuffTimer[buffIndex]; }
+	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
+	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
+	const char* GetCasterName(int buffIndex) const { return GetBuffInfo(buffIndex).GetCaster(); }
+	CButtonWnd* GetBuffButton(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffButton(); }
+	CTextureAnimation* GetBuffIcon(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffIcon(); }
 
-	const char* GetBuffCaster(int buffIndex) const
+	using BuffIterator = PlayerBuffInfoWrapper::Iterator<PlayerBuffInfoWrapper>;
+	eqlib::IteratorRange<BuffIterator> GetBuffRange() const
 	{
-		int spellID = GetBuff(buffIndex);
-		if (spellID > 0)
-		{
-			CXStr* pStr = Casters.FindFirst(spellID);
-			if (pStr)
-				return pStr->c_str();
-		}
+		int maxIndex = GetMaxBuffs();
 
-		return "";
+		return eqlib::make_iterator_range(
+			BuffIterator(0, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Target),
+			BuffIterator(maxIndex, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Target)
+		);
 	}
 
 	//----------------------------------------------------------------------------
@@ -6022,55 +6157,118 @@ SIZE_CHECK(CTargetWnd, CTargetWnd_size);
 
 EQLIB_VAR ForeignPointer<CTargetWnd> pTargetWnd;
 
-inline CButtonWnd* PlayerBuffInfoRef::GetBuffButton() const
+inline CButtonWnd* PlayerBuffInfoWrapper::GetBuffButton() const
 {
 	if (m_index == -1) return nullptr;
 
-	if (m_petWindow)
-		return pPetInfoWnd->pPetBuffBtns[m_index];
-	
-	return pTargetWnd->pTargetBuff[m_index];
+	switch (m_window)
+	{
+	case BuffWindow::Buff: return pBuffWnd->pBuffButtons[m_index];
+	case BuffWindow::ShortBuff: return pSongWnd->pBuffButtons[m_index];
+	case BuffWindow::Pet: return pPetInfoWnd->pPetBuffBtns[m_index];
+	case BuffWindow::Target: return pTargetWnd->pTargetBuff[m_index];
+	default: return nullptr;
+	}
 }
 
-inline CTextureAnimation* PlayerBuffInfoRef::GetBuffIcon() const
+inline CTextureAnimation* PlayerBuffInfoWrapper::GetBuffIcon() const
 {
 	if (m_index == -1) return nullptr;
 
-	if (m_petWindow)
-		return pPetInfoWnd->pBuffIcons[m_index];
-	
-	return pTargetWnd->ptaBuffIcons[m_index];
+	switch (m_window)
+	{
+	case BuffWindow::Buff: return pBuffWnd->ptaBuffIcons[m_index];
+	case BuffWindow::ShortBuff: return pSongWnd->ptaBuffIcons[m_index];
+	case BuffWindow::Pet: return pPetInfoWnd->pBuffIcons[m_index];
+	case BuffWindow::Target: return pTargetWnd->ptaBuffIcons[m_index];
+	default: return nullptr;
+	}
 }
 
-inline int PlayerBuffInfoRef::GetSpellID() const
+inline int PlayerBuffInfoWrapper::GetSpellID() const
 {
 	if (m_index == -1) return 0;
 
-	if (m_petWindow)
-		return pPetInfoWnd->Buff[m_index];
-
-	return pTargetWnd->BuffSpellID[m_index];
+	switch (m_window)
+	{
+	case BuffWindow::Buff: return pBuffWnd->spellIds[m_index];
+	case BuffWindow::ShortBuff: return pSongWnd->spellIds[m_index];
+	case BuffWindow::Pet: return pPetInfoWnd->Buff[m_index];
+	case BuffWindow::Target: return pTargetWnd->BuffSpellID[m_index];
+	default: return 0;
+	}
 }
 
-inline int PlayerBuffInfoRef::GetBuffTimer() const
+inline int PlayerBuffInfoWrapper::GetBuffTimer() const
 {
 	if (m_index == -1) return 0;
 
-	if (m_petWindow)
-		return pPetInfoWnd->PetBuffTimer[m_index];
-
-	return pTargetWnd->BuffTimer[m_index];
+	switch (m_window)
+	{
+	case BuffWindow::Buff: return pBuffWnd->buffTimers[m_index];
+	case BuffWindow::ShortBuff: return pSongWnd->buffTimers[m_index];
+	case BuffWindow::Pet: return pPetInfoWnd->PetBuffTimer[m_index];
+	case BuffWindow::Target: return pTargetWnd->BuffTimer[m_index];
+	default: return 0;
+	}
 }
 
-inline const char* PlayerBuffInfoRef::GetCaster() const
+inline const char* PlayerBuffInfoWrapper::GetCaster() const
 {
 	if (m_index == -1) return "";
 
-	if (m_petWindow)
-		return pPetInfoWnd->GetBuffCaster(m_index);
+	int spellID = GetSpellID();
+	if (spellID <= 0)
+		return "";
 
-	return pTargetWnd->GetBuffCaster(m_index);
+	HashTable<CXStr>* hashTable = nullptr;
+
+	switch (m_window)
+	{
+	case BuffWindow::Buff: hashTable = &pBuffWnd->whoCastHash; break;
+	case BuffWindow::ShortBuff: hashTable = &pSongWnd->whoCastHash; break;
+	case BuffWindow::Pet: hashTable = &pPetInfoWnd->WhoCast; break;
+	case BuffWindow::Target: hashTable = &pTargetWnd->Casters; break;
+	default: return "";
+	}
+
+	CXStr* pStr = hashTable->FindFirst(spellID);
+	if (pStr)
+		return pStr->c_str();
+
+	return "";
 }
+
+inline CTextObjectInterface* BuffWindowPlayerBuffInfoWrapper::GetTimeRemainingText() const
+{
+	switch (m_window)
+	{
+	case BuffWindow::Buff: return pBuffWnd->pTimeRemainingTexts[m_index];
+	case BuffWindow::ShortBuff: return pSongWnd->pTimeRemainingTexts[m_index];
+	default: return nullptr;
+	}
+}
+
+inline CTextObjectInterface* BuffWindowPlayerBuffInfoWrapper::GetCounterText() const
+{
+	switch (m_window)
+	{
+	case BuffWindow::Buff: return pBuffWnd->pCounterTexts[m_index];
+	case BuffWindow::ShortBuff: return pSongWnd->pCounterTexts[m_index];
+	default: return nullptr;
+	}
+}
+
+inline CTextObjectInterface* BuffWindowPlayerBuffInfoWrapper::GetLimitUseText() const
+{
+	switch (m_window)
+	{
+	case BuffWindow::Buff: return pBuffWnd->pLimitedUseTexts[m_index];
+	case BuffWindow::ShortBuff: return pSongWnd->pLimitedUseTexts[m_index];
+	default: return nullptr;
+	}
+}
+
 
 //============================================================================
 // CTaskWnd
