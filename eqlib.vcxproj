@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -150,6 +150,7 @@
     <ClInclude Include="eqstd\xmemory.h" />
     <ClInclude Include="eqstd\xtree.h" />
     <ClInclude Include="Expansions.h" />
+    <ClInclude Include="GraphicsResources.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="RealEstate.h" />
     <ClInclude Include="Requirements.h" />

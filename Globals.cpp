@@ -1337,6 +1337,7 @@ void InitializeEQGameOffsets()
 //
 // EQGraphicsDX9.dll Offsets
 INITIALIZE_EQGRAPHICS_OFFSET(__eqgraphics_fopen);
+INITIALIZE_EQGRAPHICS_OFFSET(CEQGBitmap__GetFirstBitmap);
 INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__Render);
 INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__CreateSpellEmitter);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderScene);
@@ -1357,6 +1358,7 @@ void InitializeEQGraphicsOffsets()
 		EQGraphicsBaseAddress = (uintptr_t)hLibrary;
 
 		__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);
+		CEQGBitmap__GetFirstBitmap = FixEQGraphicsOffset(CEQGBitmap__GetFirstBitmap_x);
 		CParticleSystem__Render = FixEQGraphicsOffset(CParticleSystem__Render_x);
 		CParticleSystem__CreateSpellEmitter = FixEQGraphicsOffset(CParticleSystem__CreateSpellEmitter_x);
 		CRender__RenderScene = FixEQGraphicsOffset(CRender__RenderScene_x);

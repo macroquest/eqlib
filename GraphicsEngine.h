@@ -65,6 +65,20 @@ public:
 	CTerrainSystemInterface*   pTerrainSystem;
 };
 
+enum EStatus
+{
+	eStatusSuccess,
+	eStatusFailure,
+};
+
+enum EMemoryPoolManagerType
+{
+	eMemoryPoolManagerTypePersistent,
+	eMemoryPoolManagerTypeOnDemand,
+	eMemoryPoolManagerTypeZone,
+	eNumMemoryPoolManagerTypes
+};
+
 //============================================================================
 
 struct SEQGraphicsDisplayMode;
@@ -73,12 +87,6 @@ class CBufferSet;
 class CEffect;
 class CRenderEffect;
 
-enum MemPoolManagerType
-{
-	eGlobal,
-	eOnDemand,
-	eClearOnZone,
-};
 
 struct [[offsetcomments]] SModeInfo
 {
@@ -702,7 +710,7 @@ public:
 class [[offsetcomments]] CActor : public CActorInterface
 {
 public:
-/*0x004*/ MemPoolManagerType     memoryPoolManagerType;
+/*0x004*/ EMemoryPoolManagerType     memoryPoolManagerType;
 /*0x008*/ bool                   bIsS3DCreated;
 /*0x009*/ bool                   bHasParentBone;
 /*0x00a*/ bool                   bUpdateScaledAmbient;
@@ -1174,21 +1182,6 @@ public:
 /*0x2d84*/ ScreenWndManager       gameScreens;
 /*0x2dc4*/ ScreenWndManager       charselectScreens;
 /*0x2e04*/
-};
-
-inline namespace deprecated {
-	using CDISPLAY DEPRECATE("Use CDisplay instead of CDISPLAY") = CDisplay;
-	using PCDISPLAY DEPRECATE("Use CDisplay* instead of PCDISPLAY") = CDisplay*;
-}
-
-
-class CThreadLoader : public TListNode<CThreadLoader>
-{
-public:
-	virtual bool ThreadLoad() = 0;
-	virtual MemPoolManagerType GetMemoryPoolManagerType() const = 0;
-
-	bool m_isLoading = false;
 };
 
 

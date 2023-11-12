@@ -21,6 +21,7 @@
 #include "CXStr.h"
 #include "CXWnd.h"
 #include "Containers.h"
+#include "GraphicsResources.h"
 #include "Items.h"
 #include "XMLData.h"
 #include "UITemplates.h"
@@ -222,63 +223,6 @@ public:
 //============================================================================
 // CEQSuiteTextureLoader
 //============================================================================
-
-enum eBitmapType
-{
-	eBitmapTypeNormal,
-	eBitmapTypeLayer,
-	eBitmapType_SingleDetail,
-	eBitmapTypePaletteDetailMain,
-	eBitmapTypePaletteDetailPalette,
-	eBitmapTypePaletteDetailDetail
-};
-
-class [[offsetcomments]] CEQGBitmap
-	: public CThreadLoader
-	, public TListNode<CEQGBitmap>
-{
-public:
-/*0x20*/ eBitmapType        eType;
-/*0x24*/ MemPoolManagerType eMemoryPoolManagerType;
-/*0x28*/ char*              FileName;
-/*0x2c*/ uint32_t           SourceWidth;
-/*0x30*/ uint32_t           SourceHeight;
-/*0x34*/ float              DetailScale;
-/*0x38*/ uint32_t           GrassDensity;
-/*0x3c*/ uint32_t           Width;
-/*0x40*/ uint32_t           Height;
-/*0x44*/ bool               bHasTexture;
-	union
-	{
-	/*0x48*/ IDirect3DBaseTexture9* pD3DTexture;
-	/*0x48*/ void* pRawBitmap;
-	};
-/*0x4c*/ uint32_t           ObjectIndex;
-/*0x50*/ uint32_t           Size;
-/*0x54*/ bool               bForceMipMap;
-/*0x58*/ int                TrackingType;
-/*0x5c*/ float              SQDistanceToCamera;
-/*0x60*/ uint32_t           LastDistanceTime;
-/*0x64*/ uint32_t           LastRenderTime;
-/*0x68*/ uint32_t           LoadedTime;
-/*0x6c*/
-
-	void* GetTexture() const
-	{
-		if (bHasTexture)
-			return pD3DTexture;
-
-		return nullptr;
-	}
-};
-
-struct [[offsetcomments]] BMI
-{
-/*0x00*/ char*              Name;
-/*0x04*/ unsigned int       Flags;
-/*0x08*/ CEQGBitmap*        pBmp;
-/*0x0c*/
-};
 
 struct [[offsetcomments]] _SuiteTexture
 {
