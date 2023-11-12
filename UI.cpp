@@ -33,7 +33,8 @@ CSidlScreenWnd::VirtualFunctionTable* MapViewMap::sm_vftable = nullptr;
 
 EQ_Spell* PlayerBuffInfoWrapper::GetSpell() const
 {
-	return pSpellMgr && GetSpellID() > 0 ? pSpellMgr->GetSpellByID(m_buffInfo->SpellID) : nullptr;
+	int spellID = GetSpellID();
+	return spellID > 0 && pSpellMgr ? pSpellMgr->GetSpellByID(spellID) : nullptr;
 }
 
 //============================================================================

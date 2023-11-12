@@ -165,7 +165,7 @@ public:
 		using BuffInfoType = typename T::BuffInfoType;
 		using ContainerType = SoeUtil::Array<BuffInfoType>;
 
-		using iterator_category = std::bidirectional_iterator_tag;
+		using iterator_category = std::forward_iterator_tag;
 		using difference_type = std::ptrdiff_t;
 		using value_type = BuffInfoWrapperType;
 
@@ -173,7 +173,7 @@ public:
 			: m_container(container), m_index(index)
 		{
 			// Increment to first buff
-			if (index < m_container.GetSize() && m_container[m_index].SpellID <= 0)
+			if (m_index < m_container.GetSize() && m_container[m_index].SpellID <= 0)
 			{
 				++(*this);
 			}
@@ -2330,7 +2330,7 @@ public:
 
 	BuffWindowPlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
 	{
-		if (buffIndex >= 0 && buffIndex < Buffs.GetSize())
+		if (buffIndex >= 0 && buffIndex < GetMaxBuffs())
 			return BuffWindowPlayerBuffInfoWrapper(buffIndex, &Buffs[buffIndex]);
 
 		return BuffWindowPlayerBuffInfoWrapper(-1, nullptr);
@@ -2362,7 +2362,7 @@ public:
 		return count;
 	}
 
-	int GetMaxBuffs() const { return Buffs.GetSize(); }
+	int GetMaxBuffs() const { return std::min(lastEffectSlot - firstEffectSlot, Buffs.GetSize()); }
 
 	int GetBuff(int buffIndex) const { return GetBuffInfo(buffIndex).GetSpellID(); }
 	int GetBuffTimer(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffTimer(); }
