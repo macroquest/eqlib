@@ -118,15 +118,19 @@ public:
 	EQLIB_OBJECT int AddFrame(const CUITextureInfo* ti, const CXRect& rect, uint32_t ticks, CXPoint hotspot = {});
 	EQLIB_OBJECT int AddFrame(CUITexturePiece tp, uint32_t ticks, CXPoint hotspot = {});
 	EQLIB_OBJECT int AddBlankFrame(uint32_t ticks, CXPoint hotspot = {});
-	EQLIB_OBJECT void SetCurFrame(int);
-	EQLIB_OBJECT int GetCurFrame() const;
 	EQLIB_OBJECT void Pause(bool pause);
 	EQLIB_OBJECT CXPoint GetHotspot() const;
-	EQLIB_OBJECT const CXStr& GetName() const { return Name; }
+
+	EQLIB_OBJECT void SetCurFrame(int);
+	EQLIB_OBJECT int GetCurFrame() const;
+
 	EQLIB_OBJECT void SetCurCell(int);
-	EQLIB_OBJECT CXSize GetSize() const { return Size; }
-	inline int GetWidth() const { return Size.cx; }
-	inline int GetHeight() const { return Size.cy; }
+	int GetCurCell() const { return CurCell; }
+
+	const CXStr& GetName() const { return Name; }
+	CXSize GetSize() const { return Size; }
+	int GetWidth() const { return Size.cx; }
+	int GetHeight() const { return Size.cy; }
 
 	// todo
 	EQLIB_OBJECT int Draw(const CXRect& rect, const CXRect& clip, COLORREF color = 0xffffffff, COLORREF color2 = 0xff000000) const;

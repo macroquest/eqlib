@@ -20,6 +20,8 @@
 
 #define __eqgraphics_fopen_x                                       0x180190A5C
 
+#define CEQGBitmap__GetFirstBitmap_x                               0x180002EA0
+
 #define CParticleSystem__Render_x                                  0x1800B0B50
 #define CParticleSystem__CreateSpellEmitter_x                      0x1800A0800
 
