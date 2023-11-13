@@ -30,6 +30,14 @@ CListWnd::VirtualFunctionTable* CListWnd::sm_vftable = nullptr;
 CSidlScreenWnd::VirtualFunctionTable* MapViewMap::sm_vftable = nullptr;
 
 //============================================================================
+
+EQ_Spell* PlayerBuffInfoWrapper::GetSpell() const
+{
+	int spellID = GetSpellID();
+	return spellID > 0 && pSpellMgr ? pSpellMgr->GetSpellByID(spellID) : nullptr;
+}
+
+//============================================================================
 // CRadioGroup
 //============================================================================
 
