@@ -473,8 +473,9 @@ constexpr int LORE_NAME_LEN = 80;
 #define USERCOLOR_ENCOUNTER_LOCK_ATTACKABLE      386 // 131 - Encounter Lock Attackable
 #define USERCOLOR_ENCOUNTER_LOCK_UNATTACKABLE    387 // 132 - Encounter Lock Unattackable
 #define USERCOLOR_FOOD_AND_DRINK                 388 // 133 - Food And Drink
+#define USERCOLOR_RAID_VICTORY                   389 // 134 - Raid Victory
 
-constexpr int NUM_CHAT_FILTERS = 60;
+constexpr int NUM_CHAT_FILTERS = 61;
 constexpr int NUM_CHAT_COLORFILTERS = 145;
 
 #define DEITY_Bertoxxulous                       201

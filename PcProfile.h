@@ -177,14 +177,15 @@ public:
 /*0x15e8*/ int                                   thirstlevel;
 /*0x15ec*/ int                                   hungerlevel;
 /*0x15f0*/ bool                                  bIsHeadStartCharacter;
-/*0x15f4*/ int                                   StartingCity;
-/*0x15f8*/ int                                   heroicType;
+/*0x15f4*/ int                                   heroicType;
+/*0x15f8*/ int                                   StartingCity;
 /*0x15fc*/ eProfileType                          profileType;
 /*0x1600*/ int                                   Shrouded;                               // templateId
 /*0x1604*/ int                                   systemId;
-/*0x1608*/ int                                   InventorySlotBitmask;
-/*0x160c*/ uint32_t                              u32_1;
-/*0x1610*/ bool                                  bBetaBuffed;
+/*0x1608*/ int                                   profileId;
+/*0x160c*/ int                                   InventorySlotBitmask;
+/*0x1610*/ uint32_t                              u32_1;
+/*0x1614*/ bool                                  bBetaBuffed;
 /*0x1618*/ int64_t                               Exp;
 /*0x1620*/ uint32_t                              AAExp;
 /*0x1624*/ uint8_t                               PercentEXPtoAA;

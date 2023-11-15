@@ -1376,12 +1376,13 @@ public:
 /*0x210a*/ bool                                  bAutoConsentGuild;
 /*0x210b*/ bool                                  bAutoConsentFellowship;
 /*0x210c*/ bool                                  bPrivateForEqPlayers;
-/*0x2110*/ int                                   AchievementFilesModificationTime;
+/*0x2110*/ long                                  AchievementFilesModificationTime;
 /*0x2114*/ char                                  StationID[EQ_MAX_STATION_ID];
 /*0x2138*/ EqGuid                                Guid;
-/*0x2140*/ int                                   Unknown0x1ee4;
-/*0x2144*/ int                                   MainLevel;
-/*0x2148*/ bool                                  bShowHelm;
+/*0x2140*/ bool                                  bBetaBuffed;
+/*0x2144*/ int                                   Unknown0x1ee4;
+/*0x2148*/ int                                   MainLevel;
+/*0x214c*/ bool                                  bShowHelm;
 /*0x2150*/ int64_t                               LastTestCopyTime;
 /*0x2158*/ CPlayerPointManager                   PointManager;
 /*0x2178*/ PointSystemBase                       PointSystem;

@@ -28,7 +28,13 @@ namespace eqlib {
 // at static initialization time because of this.
 uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
 
-uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle("EQGraphicsDX9.dll");
+#if IS_TEST_CLIENT
+#define GRAPHICS_DLL_NAME "EQGraphics.dll"
+#else
+#define GRAPHICS_DLL_NAME "EQGraphicsDX9.dll"
+#endif
+
+uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle(GRAPHICS_DLL_NAME);
 
 uintptr_t EQMainBaseAddress = (uintptr_t)GetModuleHandle("eqmain.dll");
 
@@ -1268,11 +1274,11 @@ void InitializeEQGameOffsets()
 
 #pragma endregion
 
-#pragma region EQGraphicsDX9.dll offsets
+#pragma region EQGraphics offsets
 
 //============================================================================
 //
-// EQGraphicsDX9.dll Offsets
+// EQGraphics Offsets
 INITIALIZE_EQGRAPHICS_OFFSET(__eqgraphics_fopen);
 INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__Render);
 INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__CreateSpellEmitter);
@@ -1289,8 +1295,8 @@ void InitializeEQGraphicsOffsets()
 {
 	if (!EQGraphicsBaseAddress)
 	{
-		// no EQGraphicsDx9.dll loaded yet
-		HMODULE hLibrary = LoadLibrary("EQGraphicsDX9.dll");
+		// no EQGraphics.dll loaded yet
+		HMODULE hLibrary = LoadLibrary(GRAPHICS_DLL_NAME);
 		EQGraphicsBaseAddress = (uintptr_t)hLibrary;
 
 		__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);
