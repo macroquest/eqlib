@@ -580,7 +580,6 @@ EQLIB_VAR uintptr_t CTabWnd__RemovePage;
 EQLIB_VAR uintptr_t CTabWnd__SetPage;
 EQLIB_VAR uintptr_t CTabWnd__UpdatePage;
 EQLIB_VAR uintptr_t CTargetManager__Get;
-EQLIB_VAR uintptr_t CTargetWnd__GetBuffCaster;
 EQLIB_VAR uintptr_t CTargetWnd__HandleBuffRemoveRequest;
 EQLIB_VAR uintptr_t CTargetWnd__RefreshTargetBuffs;
 EQLIB_VAR uintptr_t CTargetWnd__WndNotification;
