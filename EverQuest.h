@@ -332,8 +332,8 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x75200 :: 2023-11-09 (live) @ 0x140c0b390
-constexpr size_t EverQuestinfo_size = 0x75200;
+// @sizeof(EverQuestinfo) == 0x75208 :: 2023-11-09 (live) @ 0x140c0b390
+constexpr size_t EverQuestinfo_size = 0x75208;
 
 struct [[offsetcomments]] EverQuestinfo
 {
