@@ -239,11 +239,11 @@ struct [[offsetcomments]] SingleAchievementAndComponentsInfo
 		switch (componentType)
 		{
 		case AchievementComponentCompletion:
-			return completionComponentStatusBitField.IsBitSet(index);
+			return completionComponentStatusBitField.IsBitSet(static_cast<uint16_t>(index));
 		case AchievementComponentIndirect:
-			return indirectComponentStatusBitField.IsBitSet(index);
+			return indirectComponentStatusBitField.IsBitSet(static_cast<uint16_t>(index));
 		case AchievementComponentUnlock:
-			return unlockedComponentStatusBitField.IsBitSet(index);
+			return unlockedComponentStatusBitField.IsBitSet(static_cast<uint16_t>(index));
 
 		default: return false;
 		}
