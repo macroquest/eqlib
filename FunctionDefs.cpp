@@ -5461,7 +5461,7 @@ FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateModString(EQ_Equipment*, int, 
 FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateEquipmentStatusString(const ItemPtr&), CItemDisplayWnd__CreateEquipmentStatusString);
 #endif
 
-FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::SetSpell(int SpellID, bool HasSpellDescr, int), CSpellDisplayWnd__SetSpell);
+FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::SetSpell(int SpellID, int), CSpellDisplayWnd__SetSpell);
 FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::UpdateStrings(), CSpellDisplayWnd__UpdateStrings);
 
 //----------------------------------------------------------------------------

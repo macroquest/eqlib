@@ -4651,11 +4651,6 @@ public:
 /*0xa84*/
 };
 
-inline namespace deprecated {
-	using EQITEMWINDOW DEPRECATE("Use CItemDisplayWnd instead of EQITEMWINDOW") = CItemDisplayWnd;
-	using PEQITEMWINDOW DEPRECATE("Use CItemDisplayWnd* instead of PEQITEMWINDOW") = CItemDisplayWnd*;
-}
-
 SIZE_CHECK(CItemDisplayWnd, CItemDisplayWnd_size);
 
 //============================================================================
@@ -5992,6 +5987,9 @@ enum ESpellDisplayType
 	SpellDisplayType_TargetBuff,
 };
 
+// @sizeof(CSpellDisplayWnd) == 0x398 :: 2023-11-09 (live) @ 0x1404CEE7E
+constexpr size_t CSpellDisplayWnd_size = 0x398;
+
 class [[offsetcomments]] CSpellDisplayWnd : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS
@@ -6000,30 +5998,29 @@ public:
 	CSpellDisplayWnd(CXWnd* parent, ESpellDisplayType displayType);
 	virtual ~CSpellDisplayWnd();
 
-	EQLIB_OBJECT void SetSpell(int SpellID, bool HasSpellDescr, int);
+	EQLIB_OBJECT void SetSpell(int SpellID, int);
 	EQLIB_OBJECT void UpdateStrings();
 
 /*0x2b0*/ int                WindowID;
-/*0x2b8*/ CLabelWnd*         pDuration;
-/*0x2c0*/ CStmlWnd*          pDescription;
-/*0x2c8*/ CStmlWnd*          pName;
-/*0x2d0*/ CButtonWnd*        pIcon;
+/*0x2b8*/ CLabelWnd*         pDuration;                 // SDW_SpellDurationLabel
+/*0x2c0*/ CStmlWnd*          pDescription;              // SDW_SpellDescription
+/*0x2c8*/ CStmlWnd*          pName;                     //
+/*0x2d0*/ CButtonWnd*        pIcon;                     // SDW_IconButton
 /*0x2d8*/ SoeUtil::String    DescriptionText;
 /*0x2f0*/ SoeUtil::String    TitleText;
-/*0x308*/ bool               bActiveItem;
-/*0x310*/ CTextureAnimation* ptaBuffIcons;
-/*0x318*/ CTextureAnimation* ptaDragIcons;
-/*0x320*/ bool               bFailed;
-/*0x324*/ ESpellDisplayType  SpellDisplayType;
-/*0x328*/ int                SpellID;
-/*0x32c*/ int                LastUpdateTime;
-/*0x330*/
+/*0x308*/ SoeUtil::StringFixed<EQ_MAX_NAME> CasterName;
+/*0x368*/ bool               bActive;
+/*0x370*/ CTextureAnimation* ptaBuffIcons;              // A_SpellIcons
+/*0x378*/ CTextureAnimation* ptaDragIcons;
+/*0x380*/ bool               bFailed;
+/*0x384*/ ESpellDisplayType  SpellDisplayType;
+/*0x388*/ int                SpellID;
+/*0x38c*/ int                Unknown;
+/*0x390*/ int                LastUpdateTime;
+/*0x394*/
 };
 
-inline namespace deprecated {
-	using EQSPELLINFOWINDOW DEPRECATE("Use CSpellDisplayWnd instead of EQSPELLINFOWINDOW") = CSpellDisplayWnd;
-	using PEQSPELLINFOWINDOW DEPRECATE("Use CSpellDisplayWnd& instead of PEQSPELLINFOWINDOW") = CSpellDisplayWnd*;
-}
+SIZE_CHECK(CSpellDisplayWnd, CSpellDisplayWnd_size);
 
 //============================================================================
 // CSpellGemWnd
@@ -7070,7 +7067,7 @@ public:
 constexpr int MAX_ITEMDISPLAY_WINDOWS = 6;
 constexpr int MAX_SPELLDISPLAY_WINDOWS = 4;
 
-class CWndDisplayManager
+class [[offsetcomments]] CWndDisplayManager
 {
 public:
 	EQLIB_OBJECT int FindWindow(bool bNewWnd);
@@ -7100,9 +7097,10 @@ public:
 	inline int GetMaxWindows() const { return MaxWindows; }
 
 protected:
-	ArrayClass2<CXWnd*>      m_windows;
-	ArrayClass2<int>         m_times;
-	int                      MaxWindows;
+/*0x08*/ ArrayClass2<CXWnd*>      m_windows;
+/*0x28*/ ArrayClass2<int>         m_times;
+/*0x48*/ int                      MaxWindows;
+/*0x4c*/
 };
 
 class CItemDisplayManager : public CWndDisplayManager
