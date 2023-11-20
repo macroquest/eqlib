@@ -147,6 +147,7 @@
     <ClInclude Include="AltAbilities.h" />
     <ClInclude Include="base\Color.h" />
     <ClInclude Include="base\Iterator.h" />
+    <ClInclude Include="base\Primitives.h" />
     <ClInclude Include="BuildType.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Constants.h" />
