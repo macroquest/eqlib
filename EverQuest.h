@@ -517,13 +517,13 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x0071d*/ bool              bAcceleratedServer;
 /*0x0071e*/ bool              bProgressionServer;
 /*0x00720*/ int               ProgressionOpenExpansions;             // EQExpansionOwned
-/*0x00724*/ int               bIsBetaServer;
+/*0x00724*/ int               iIsBetaServer;
 /*0x00728*/ bool              bIsTestServer;
 /*0x00729*/ bool              bUseMailSystem;
 /*0x0072a*/ bool              bIsEscapeServer;
 /*0x0072b*/ bool              bIsTutorialEnabled;
 /*0x0072c*/ bool              bCanCreateHeroicCharacter; // or head start?
-/*0x00730*/ int               HeroicSlots;
+/*0x00730*/ int               Heroic85Slots;
 ///*0x00734*/ bool              bAutoIdentify;
 /*0x00734*/ int               bNameGen;
 /*0x00738*/ int               bGibberish;
@@ -757,6 +757,36 @@ struct [[offsetcomments]] EverQuestinfo
 	int get_MouseSensitivity() const { return MouseSensitivity; }
 	__declspec(property(get = get_MouseSensitivity)) int MXSensitivity;
 	__declspec(property(get = get_MouseSensitivity)) int MYSensitivity;
+
+	bool get_bHeroicCharacterFlag() const { return false; }
+	__declspec(property(get = get_bHeroicCharacterFlag)) bool bHeroicCharacterFlag;
+
+	int get_ProgressionLevelCap() const { return 0; }
+	__declspec(property(get = get_ProgressionLevelCap)) int ProgressionLevelCap;
+
+	bool& get_bIsDevServer() const { static bool is = false; return is; }
+	__declspec(property(get = get_bIsDevServer)) bool bIsDevServer;
+
+	bool& get_bIsBetaServer() const { static bool is = static_cast<bool>(iIsBetaServer); return is; }
+	__declspec(property(get = get_bIsBetaServer)) bool bIsBetaServer;
+
+	bool& get_bIsStageServer() const { static bool is = false; return is; }
+	__declspec(property(get = get_bIsStageServer)) bool bIsStageServer;
+
+	uint16_t get_bHeroicCharacterRelated() const { return 0; }
+	__declspec(property(get = get_bHeroicCharacterRelated)) uint16_t bHeroicCharacterRelated;
+
+	bool& get_bCanCreateHeadStartCharacter() const { static bool is = false; return is; }
+	__declspec(property(get = get_bCanCreateHeadStartCharacter)) bool bCanCreateHeadStartCharacter;
+
+	int get_nMonthlyClaim() const { return 0; }
+	__declspec(property(get = get_nMonthlyClaim)) int nMonthlyClaim;
+
+	bool get_MarketPlaceRelated() const { return false; }
+	__declspec(property(get = get_MarketPlaceRelated)) bool MarketPlaceRelated;
+
+	int get_Heroic100Slots() const { return 0; }
+	__declspec(property(get = get_Heroic100Slots)) int Heroic100Slots;
 };
 using EVERQUESTINFO = EverQuestinfo;
 using PEVERQUESTINFO = EVERQUESTINFO*;

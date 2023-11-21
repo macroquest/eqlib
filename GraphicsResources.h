@@ -193,9 +193,6 @@ public:
 	virtual void PreDynamicLoad(EMemoryPoolManagerType memoryPoolManagerType) = 0;
 	virtual bool PostDynamicLoad(const char* szActorTagList, EMemoryPoolManagerType memoryPoolManagerType) = 0;
 
-	virtual void SetParentAPI(int parentAPI) = 0;
-	virtual int GetParentAPI() = 0;
-
 	virtual CActorGroupDefinitionManagerInterface* GetActorGroupDefinitionManager() = 0;
 };
 
