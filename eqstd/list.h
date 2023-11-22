@@ -883,20 +883,20 @@ namespace eqstd
 			return _Op._Transfer_before(_Where);
 		}
 
-		list(initializer_list<_Ty> _Ilist) : _Mypair(_Zero_then_variadic_args_t{}) {
+		list(std::initializer_list<_Ty> _Ilist) : _Mypair(_Zero_then_variadic_args_t{}) {
 			_Construct_range_unchecked(_Ilist.begin(), _Ilist.end());
 		}
 
-		list(initializer_list<_Ty> _Ilist, const _Alloc& _Al) : _Mypair(_One_then_variadic_args_t{}, _Al) {
+		list(std::initializer_list<_Ty> _Ilist, const _Alloc& _Al) : _Mypair(_One_then_variadic_args_t{}, _Al) {
 			_Construct_range_unchecked(_Ilist.begin(), _Ilist.end());
 		}
 
-		list& operator=(initializer_list<_Ty> _Ilist) {
+		list& operator=(std::initializer_list<_Ty> _Ilist) {
 			assign(_Ilist.begin(), _Ilist.end());
 			return *this;
 		}
 
-		void assign(initializer_list<_Ty> _Ilist) {
+		void assign(std::initializer_list<_Ty> _Ilist) {
 			assign(_Ilist.begin(), _Ilist.end());
 		}
 

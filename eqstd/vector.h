@@ -417,7 +417,7 @@ namespace eqstd
 				}
 			}
 
-			_CONSTEXPR20 vector(initializer_list<_Ty> _Ilist, const _Alloc& _Al = _Alloc())
+			_CONSTEXPR20 vector(std::initializer_list<_Ty> _Ilist, const _Alloc& _Al = _Alloc())
 				: _Mypair(_One_then_variadic_args_t{}, _Al) {
 				_Construct_n(_Convert_size<size_type>(_Ilist.size()), _Ilist.begin(), _Ilist.end());
 			}
@@ -1016,7 +1016,7 @@ namespace eqstd
 			}
 #endif // _HAS_CXX23 && defined(__cpp_lib_concepts)
 
-			_CONSTEXPR20 iterator insert(const_iterator _Where, initializer_list<_Ty> _Ilist) {
+			_CONSTEXPR20 iterator insert(const_iterator _Where, std::initializer_list<_Ty> _Ilist) {
 				const pointer _Whereptr = _Where._Ptr;
 				auto& _My_data = _Mypair._Myval2;
 				const pointer _Oldfirst = _My_data._Myfirst;
@@ -1193,7 +1193,7 @@ namespace eqstd
 			}
 #endif // _HAS_CXX23 && defined(__cpp_lib_concepts)
 
-			_CONSTEXPR20 void assign(const initializer_list<_Ty> _Ilist) {
+			_CONSTEXPR20 void assign(const std::initializer_list<_Ty> _Ilist) {
 				const auto _Count = _Convert_size<size_type>(_Ilist.size());
 				_Assign_counted_range(_Ilist.begin(), _Count);
 			}
@@ -1219,7 +1219,7 @@ namespace eqstd
 				return *this;
 			}
 
-			_CONSTEXPR20 vector& operator=(initializer_list<_Ty> _Ilist) {
+			_CONSTEXPR20 vector& operator=(std::initializer_list<_Ty> _Ilist) {
 				const auto _Count = _Convert_size<size_type>(_Ilist.size());
 				_Assign_counted_range(_Ilist.begin(), _Count);
 				return *this;
@@ -2497,20 +2497,20 @@ namespace eqstd
 			return insert(_Where, _Tmp);
 		}
 
-		_CONSTEXPR20 vector(initializer_list<bool> _Ilist, const _Alloc& _Al = allocator_type()) : _Mybase(0, false, _Al) {
+		_CONSTEXPR20 vector(std::initializer_list<bool> _Ilist, const _Alloc& _Al = allocator_type()) : _Mybase(0, false, _Al) {
 			insert(begin(), _Ilist.begin(), _Ilist.end());
 		}
 
-		_CONSTEXPR20 vector& operator=(initializer_list<bool> _Ilist) {
+		_CONSTEXPR20 vector& operator=(std::initializer_list<bool> _Ilist) {
 			assign(_Ilist.begin(), _Ilist.end());
 			return *this;
 		}
 
-		_CONSTEXPR20 void assign(initializer_list<bool> _Ilist) {
+		_CONSTEXPR20 void assign(std::initializer_list<bool> _Ilist) {
 			assign(_Ilist.begin(), _Ilist.end());
 		}
 
-		_CONSTEXPR20 iterator insert(const_iterator _Where, initializer_list<bool> _Ilist) {
+		_CONSTEXPR20 iterator insert(const_iterator _Where, std::initializer_list<bool> _Ilist) {
 			return insert(_Where, _Ilist.begin(), _Ilist.end());
 		}
 
