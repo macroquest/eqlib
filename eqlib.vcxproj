@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -147,6 +147,7 @@
     <ClInclude Include="AltAbilities.h" />
     <ClInclude Include="base\Color.h" />
     <ClInclude Include="base\Iterator.h" />
+    <ClInclude Include="base\Primitives.h" />
     <ClInclude Include="BuildType.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Constants.h" />

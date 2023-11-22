@@ -234,6 +234,9 @@
     <ClInclude Include="GraphicsResources.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="base\Primitives.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">
