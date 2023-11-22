@@ -104,7 +104,7 @@ public:
 /*0x100*/ eBitmapTextureQuality m_eTextureQuality;
 /*0x104*/ eBitmapTextureQuality m_eUpsampleBitmapMinTextureQuality;
 /*0x108*/ bool                  m_canReclaim;
-
+/*0x10c*/
 	EQLIB_OBJECT static CEQGBitmap* GetFirstBitmap();
 
 	CEQGBitmap* GetNextBitmap() { return TListNode<CEQGBitmap>::GetNext(); }

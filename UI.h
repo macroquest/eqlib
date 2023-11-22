@@ -3278,27 +3278,38 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-/*0x39c*/ int                       Type;
-/*0x3a0*/ int                       Index;
-/*0x3a4*/ EqItemGuid                ItemGuid;
-/*0x3b8*/ int                       ItemID;
-/*0x3bc*/ int                       Qty;
-/*0x3c0*/ int                       IconID;
-/*0x3c8*/ SoeUtil::String           AssignedName;
-/*0x3e0*/ int                       Unknown0x264;
-/*0x3e4*/ char                      AssignedNameCopy[0x40];
-/*0x428*/ CXStr                     ButtonText;
-/*0x430*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
-/*0x438*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
-/*0x440*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
-/*0x448*/ CTextObjectInterface*     pTextObjectInterface;
-/*0x450*/ CTextObjectInterface*     pButtonTextObjectInterface;
-/*0x458*/ int                       TextfontStyle;
-/*0x45c*/ int                       Unknown0x2C4;
-/*0x460*/
+	// Shares the beginning of the other component class - need to unify
+	struct CursorAttachmentComponent
+	{
+	/*0x00*/ eqstd::string name;
+	/*0x20*/ eqstd::string fullName;
+	/*0x40*/ eqstd::string modelPrefix;
+	/*0x60*/ CCursorAttachment* target;
+	/*0x68*/
+	};
+
+/*0x3a0*/ CursorAttachmentComponent Component;
+/*0x408*/ UIStaticAnimationTemplate uiAnimComponent;
+/*0x4a8*/ UIStaticAnimationTemplate uiAnimComponent2;
+/*0x548*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
+/*0x550*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
+/*0x558*/ CTextObjectInterface*     pTextObjectInterface;
+/*0x560*/ CTextObjectInterface*     pButtonTextObjectInterface;
+/*0x568*/ int                       TextFontStyle;
+/*0x56c*/ int                       Type;
+/*0x570*/ int                       Index;
+/*0x574*/ EqItemGuid                ItemGuid;
+/*0x588*/ int                       ItemID;
+/*0x58c*/ int                       Qty;
+/*0x590*/ int                       IconID;
+/*0x594*/ int                       ContextMenu;
+/*0x598*/ SoeUtil::StringFixed<64>  AssignedName;
+/*0x5f8*/ CXStr                     ButtonText;
+/*0x600*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
+/*0x608*/
 };
 
-//SIZE_CHECK(CCursorAttachment, CCursorAttachment_size);
+SIZE_CHECK(CCursorAttachment, CCursorAttachment_size);
 
 //============================================================================
 // CDragonHoardWnd

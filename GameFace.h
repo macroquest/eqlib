@@ -17,6 +17,7 @@
 #include "Common.h"
 #include "GraphicsEngine.h"
 #include "CXWnd.h"
+#include "UITemplates.h"
 
 #include "eqstd/string.h"
 #include "eqstd/unordered_map.h"
@@ -25,24 +26,34 @@ namespace eqlib {
 
 class CGFScreenWnd;
 
-class [[offsetcomments]] UIComponent
+template <typename T>
+class BaseComponent
 {
 public:
 	virtual eqstd::string GetTypeName() const { return ""; }
 	virtual void SyncFromJS() {}
 	virtual void SyncToJS() {}
 
-	void Setup(CGFScreenWnd* parentScreenWnd, const eqstd::string& name, bool required, CXWnd* wnd);
-
 /*0x00*/ // vftable
 /*0x08*/ eqstd::string name;
 /*0x28*/ eqstd::string fullName;
 /*0x48*/ eqstd::string modelPrefix;
 /*0x68*/ CGFScreenWnd* parent;
-/*0x70*/ CXWnd*        wnd;
+/*0x70*/ T*            target;
 /*0x78*/ eqstd::string str_78;
 /*0x98*/ uint64_t      u64_98;
-/*0xa0*/
+};
+
+class [[offsetcomments]] UIComponent : public BaseComponent<CXWnd>
+{
+public:
+	void Setup(CGFScreenWnd* parentScreenWnd, const eqstd::string& name, bool required, CXWnd* wnd);
+
+};
+
+class UIStaticAnimationTemplate : public BaseComponent<CStaticAnimationTemplate>
+{
+public:
 };
 
 class [[offsetcomments]] UIScreenComponent : public UIComponent
