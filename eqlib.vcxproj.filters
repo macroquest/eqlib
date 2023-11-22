@@ -231,6 +231,9 @@
     <ClInclude Include="base\Iterator.h">
       <Filter>Header Files\base</Filter>
     </ClInclude>
+    <ClInclude Include="GraphicsResources.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">
