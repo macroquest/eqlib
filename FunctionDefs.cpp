@@ -5030,12 +5030,6 @@ FUNCTION_AT_ADDRESS(void, CContextMenu::SetMenuItem(int, const CXStr&, bool, COL
 // CCursorAttachment
 //----------------------------------------------------------------------------
 
-#ifdef CCursorAttachment__DrawButtonText_x
-FUNCTION_AT_ADDRESS(void, CCursorAttachment::DrawButtonText() const, CCursorAttachment__DrawButtonText);
-#endif
-#ifdef CCursorAttachment__DrawQuantity_x
-FUNCTION_AT_ADDRESS(void, CCursorAttachment::DrawQuantity() const, CCursorAttachment__DrawQuantity);
-#endif
 #ifdef CCursorAttachment__IsOkToActivate_x
 FUNCTION_AT_ADDRESS(bool, CCursorAttachment::IsOkToActivate(int), CCursorAttachment__IsOkToActivate);
 #endif
@@ -5043,13 +5037,9 @@ FUNCTION_AT_ADDRESS(bool, CCursorAttachment::IsOkToActivate(int), CCursorAttachm
 FUNCTION_AT_ADDRESS(bool, CCursorAttachment::RemoveAttachment(), CCursorAttachment__RemoveAttachment);
 #endif
 #ifdef CCursorAttachment__AttachToCursor_x
-FUNCTION_AT_ADDRESS(void, CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const char* Assigned_Name, const char* Name, int Qty, int IconID), CCursorAttachment__AttachToCursor);
-#endif
-#ifdef CCursorAttachment__AttachToCursor1_x
-FUNCTION_AT_ADDRESS(void, CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG, ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* Assigned_Name, const char* Name, int Qty, int  IconID), CCursorAttachment__AttachToCursor1);
-#endif
-#ifdef CCursorAttachment__Deactivate_x
-FUNCTION_AT_ADDRESS(void, CCursorAttachment::Deactivate(), CCursorAttachment__Deactivate);
+FUNCTION_AT_ADDRESS(void, CCursorAttachment::AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* Background,
+	ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* AssignedName,
+	const char* Name, int Qty, int  IconID), CCursorAttachment__AttachToCursor);
 #endif
 
 //----------------------------------------------------------------------------

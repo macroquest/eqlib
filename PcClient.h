@@ -911,7 +911,9 @@ public:
 
 	// Verified
 	EQLIB_OBJECT int IsExpansionFlag(int);
-	EQLIB_OBJECT int GetMemorizedSpell(int index) { return GetCurrentBaseProfile().GetMemorizedSpell(index); }
+
+	int GetMemorizedSpell(int index) { return GetCurrentBaseProfile().GetMemorizedSpell(index); }
+	int GetSpellBook(int index) { return GetCurrentBaseProfile().GetSpellBook(index); }
 
 	// Items
 	EQLIB_OBJECT ItemPtr GetItemByGlobalIndex(const ItemGlobalIndex& GlobalIndex) const;
@@ -920,17 +922,24 @@ public:
 	//EQLIB_OBJECT bool IsValidGlobalIndex(const ItemGlobalIndex& globalIndex) const;
 	//EQLIB_OBJECT /*virtual*/ ItemContainer* GetItemContainerByGlobalIndex(const ItemGlobalIndex& index) const;
 
-	inline ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemIndex(slot0, slot1, slot2); }
-	inline ItemGlobalIndex CreateItemGlobalIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemGlobalIndex(slot0, slot1, slot2); }
-	inline ItemPtr GetItemPossession(const ItemIndex& lIndex) { return GetCurrentBaseProfile().GetItemPossession(lIndex); }
-	inline ItemContainer& GetItemPossessions() { return GetCurrentBaseProfile().GetItemPosessions(); }
+	ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemIndex(slot0, slot1, slot2); }
+	ItemGlobalIndex CreateItemGlobalIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return GetCurrentBaseProfile().CreateItemGlobalIndex(slot0, slot1, slot2); }
+	ItemPtr GetItemPossession(const ItemIndex& lIndex) { return GetCurrentBaseProfile().GetItemPossession(lIndex); }
+	ItemContainer& GetItemPossessions() { return GetCurrentBaseProfile().GetItemPosessions(); }
 
-	inline ItemPtr GetInventorySlot(int lIndex) { return GetCurrentBaseProfile().GetInventorySlot(lIndex); }
+	ItemPtr GetInventorySlot(int lIndex) { return GetCurrentBaseProfile().GetInventorySlot(lIndex); }
 
-	inline BaseProfile& GetCurrentBaseProfile() { return *ProfileManager.GetCurrentProfile(); }
-	inline const BaseProfile& GetCurrentBaseProfile() const { return *ProfileManager.GetCurrentProfile(); }
+	BaseProfile& GetCurrentBaseProfile() { return *ProfileManager.GetCurrentProfile(); }
+	const BaseProfile& GetCurrentBaseProfile() const { return *ProfileManager.GetCurrentProfile(); }
+
+	EQLIB_OBJECT ItemIndex FindItemByGuid(const EqItemGuid& ItemGuid);
+	EQLIB_OBJECT ItemIndex FindItemById(int ItemId);
+
+
+
 
 	// Fix Typo
+	DEPRECATE("Use GetItemPossessions instead of GetItemPosessions")
 	inline ItemContainer& GetItemPosessions() { return GetItemPossessions(); }
 
 	// Accessors
@@ -1088,8 +1097,6 @@ public:
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
 	EQLIB_OBJECT int GetFirstEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill);
 	EQLIB_OBJECT int GetLastEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, bool bIsDisplay = false);
-	//EQLIB_OBJECT bool FindItemByGuid(const EqItemGuid& ItemGuid, int* pos_slot, int* con_slot);
-	//EQLIB_OBJECT BYTE FindItemByRecord(int ItemNumber, int* pos_slot, int* con_slot, bool bReverseLookup);
 
 	// From EQ_Character1
 	// int const GetFocusCastingTimeModifier(class EQ_Spell const*, class EQ_Equipment**, int);
@@ -1468,9 +1475,11 @@ public:
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
 
 	EQLIB_OBJECT ItemContainer& GetKeyRingItems(KeyRingType type);
-	inline ItemPtr GetKeyRingItem(KeyRingType type, int index) { GetKeyRingItems(type).GetItem(index); }
-	inline ItemPtr GetKeyRingItem(KeyRingType type, const ItemIndex& index) { GetKeyRingItems(type).GetItem(index); }
-	inline const ItemIndex& GetStatKeyRingItemIndex(KeyRingType type) const { return GetCurrentBaseProfile().StatKeyRingItemIndex[type]; }
+	ItemPtr GetKeyRingItem(KeyRingType type, int index) { return GetKeyRingItems(type).GetItem(index); }
+	ItemPtr GetKeyRingItem(KeyRingType type, const ItemIndex& index) { return GetKeyRingItems(type).GetItem(index); }
+	const ItemIndex& GetStatKeyRingItemIndex(KeyRingType type) const { return GetCurrentBaseProfile().StatKeyRingItemIndex[type]; }
+	EQLIB_OBJECT ItemIndex FindKeyRingItemByGuid(KeyRingType type, const EqItemGuid& guid);
+	EQLIB_OBJECT ItemIndex FindKeyRingItemById(KeyRingType type, int itemId);
 
 	inline bool IsFamiliarAutoLeaveEnabled() const {
 		return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0;
