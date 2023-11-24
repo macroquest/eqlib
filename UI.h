@@ -3238,13 +3238,14 @@ enum ECursorAttachmentType
 	eCursorAttachment_SkillID,
 	eCursorAttachment_MeleeAbility,
 	eCursorAttachment_LeadershipAbility,
-	eCursorAttachment_ItemLink,
+	eCursorAttachment_ItemLink, // also HeroForge
 	eCursorAttachment_KronoSlot,
 	eCursorAttachment_Command,
 	eCursorAttachment_CombatAbility,
 	eCursorAttachment_MountKeyRingLink,
 	eCursorAttachment_IllusionKeyRingLink,
 	eCursorAttachment_FamiliarKeyRingLink,
+	eCursorAttachment_TeleportationKeyRingLink,
 };
 
 // @sizeof(CCursorAttachment) == 0x628 :: 2023-11-06 (test) @ 0x140185d68
@@ -3258,22 +3259,27 @@ public:
 	CCursorAttachment(CXWnd*);
 	virtual ~CCursorAttachment();
 
-	virtual int Draw() override;
-	virtual int OnProcessFrame() override;
-	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
-	virtual void Deactivate() override;
+	//virtual int Draw() override;
+	//virtual int OnProcessFrame() override;
+	//virtual int WndNotification(CXWnd*, uint32_t, void*) override;
+	//virtual void Deactivate() override;
 
 	EQLIB_OBJECT bool IsOkToActivate(int);
 	EQLIB_OBJECT bool RemoveAttachment();
-	EQLIB_OBJECT void DrawButtonText() const;
-	EQLIB_OBJECT void DrawQuantity() const;
 
-	EQLIB_OBJECT void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG,
-		ECursorAttachmentType Type, int Index,
-		const char* Assigned_Name, const char* Name, int Qty = -1, int IconID = -1);
-	EQLIB_OBJECT void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG,
-		ECursorAttachmentType Type, int Index,
-		const EqItemGuid& ItemGuid, int ItemID, const char* Assigned_Name, const char* Name, int Qty = -1, int IconID = -1);
+	void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* Background,
+		ECursorAttachmentType Type, int Index, const char* AssignedName, const char* Name, int Qty = -1, int IconID = -1)
+	{
+		AttachToCursor(Overlay, Background, Type, Index, EqItemGuid(), 0, AssignedName, Name, Qty, IconID);
+	}
+
+	EQLIB_OBJECT void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* Background,
+		ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* AssignedName,
+		const char* Name, int Qty = -1, int IconID = -1);
+
+	EQLIB_OBJECT bool AttachSpellToCursor(int SpellID);
+
+	ECursorAttachmentType GetType() const { return static_cast<ECursorAttachmentType>(Type); }
 
 	//----------------------------------------------------------------------------
 	// data members

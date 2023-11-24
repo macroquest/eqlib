@@ -304,6 +304,24 @@ const char* FreeToPlayClient::MembershipStrings[(int)MembershipLevel::Max] =
 // CharacterZoneClient
 //============================================================================
 
+ItemIndex CharacterBase::FindItemByGuid(const EqItemGuid& ItemGuid)
+{
+	const ItemContainer& container = GetItemPossessions();
+
+	// This function searches inventory and bags. It does not search items for augmentations.
+
+	return container.FindItem(FindItemByGuidPred(ItemGuid), false);
+}
+
+ItemIndex CharacterBase::FindItemById(int ItemId)
+{
+	const ItemContainer& container = GetItemPossessions();
+
+	// This function searches inventory and bags. It does not search items for augmentations.
+
+	return container.FindItem(FindItemByIdPred(ItemId), false);
+}
+
 int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem, bool evalOnly)
 {
 	int pctMod = 0;
@@ -331,7 +349,7 @@ int CharacterZoneClient::GetFocusRangeModifier(const EQ_Spell* pSpell, ItemPtr& 
 // TODO: Handle new range checks
 ItemPtr PcZoneClient::GetItemByItemClass(int itemClass, ItemIndex* index)
 {
-	ItemIndex itemIndex = GetItemPosessions().FindItem(
+	ItemIndex itemIndex = GetItemPossessions().FindItem(
 		[&](const ItemPtr& item, const ItemIndex& index) { return item->GetItemClass() == itemClass; });
 	if (itemIndex.IsValid() && index)
 	{
@@ -357,6 +375,30 @@ ItemContainer& PcBase::GetKeyRingItems(KeyRingType type)
 		return TeleportationKeyRingItems;
 
 	return MountKeyRingItems;
+}
+
+ItemIndex PcBase::FindKeyRingItemByGuid(KeyRingType type, const EqItemGuid& ItemGuid)
+{
+	if (type >= eKeyRingTypeFirst && type <= eKeyRingTypeLast)
+	{
+		const ItemContainer& container = GetKeyRingItems(type);
+
+		return container.FindItem(0, FindItemByGuidPred(ItemGuid));
+	}
+
+	return ItemIndex();
+}
+
+ItemIndex PcBase::FindKeyRingItemById(KeyRingType type, int ItemId)
+{
+	if (type >= eKeyRingTypeFirst && type <= eKeyRingTypeLast)
+	{
+		const ItemContainer& container = GetKeyRingItems(type);
+
+		return container.FindItem(0, FindItemByIdPred(ItemId));
+	}
+
+	return ItemIndex();
 }
 
 const MercenaryAbilityInfo* PcBase::GetMercenaryAbilityInfo(int abilityId) const

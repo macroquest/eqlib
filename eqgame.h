@@ -818,10 +818,9 @@
 #define CLargeDialogWnd__Open_x                                    0x140411D40
 
 // CCursorAttachment
-#define CCursorAttachment__AttachToCursor_x                        0x14039DBC0
-#define CCursorAttachment__AttachToCursor1_x                       0x14039B280
-#define CCursorAttachment__Deactivate_x                            0x14039E130
-
+#define CCursorAttachment__AttachToCursor_x                        0x14039B280
+#define CCursorAttachment__IsOkToActivate_x                        0x14039E1F0
+#define CCursorAttachment__RemoveAttachment_x                      0x14039E4A0
 // CEQSuiteTextureLoader
 #define CEQSuiteTextureLoader__CreateTexture_x                     0x1405B4760
 #define CEQSuiteTextureLoader__GetDefaultUIPath_x                  0x1405B4950

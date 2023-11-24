@@ -127,6 +127,54 @@ CXRect CComboWnd::GetButtonRect() const
 	return rect;
 }
 
+//============================================================================
+// CCursorAttachment
+//============================================================================
+
+bool CCursorAttachment::AttachSpellToCursor(int spellID)
+{
+	if (spellID <= 0)
+		return false;
+
+	if (!IsOkToActivate(eCursorAttachment_MemorizeSpell))
+		return false;
+
+	// Search SpellBook for this SpellID
+	if (!pLocalPC)
+		return false;
+
+	BaseProfile& profile = pLocalPC->GetCurrentBaseProfile();
+	int bookSlot = -1;
+
+	for (int i = 0; i < NUM_BOOK_SLOTS; ++i)
+	{
+		int memorizedSpellID = profile.SpellBook[i];
+
+		if (spellID == memorizedSpellID)
+		{
+			bookSlot = i;
+			break;
+		}
+	}
+
+	if (bookSlot == -1)
+		return false;
+
+	EQ_Spell* pSpell = pSpellMgr->GetSpellByID(spellID);
+	if (pSpell == nullptr)
+		return false;
+
+	CTextureAnimation taOverlay;
+	CTextureAnimation* pTASpells = pSidlMgr->FindAnimation("A_SpellIcons");
+	if (pTASpells)
+	{
+		taOverlay = *pTASpells;
+	}
+	taOverlay.SetCurCell(pSpell->SpellIcon);
+
+	AttachToCursor(&taOverlay, nullptr, eCursorAttachment_MemorizeSpell, bookSlot, nullptr, nullptr);
+	return GetType() == eCursorAttachment_MemorizeSpell;
+}
 
 //============================================================================
 // CEditWnd
