@@ -3226,13 +3226,15 @@ enum ECursorAttachmentType
 	eCursorAttachment_LeadershipAbility,
 	eCursorAttachment_ItemLink,
 	eCursorAttachment_KronoSlot,
-	eCursorAttachment_Command,
-	eCursorAttachment_CombatAbility,
-	eCursorAttachment_MountKeyRingLink,
-	eCursorAttachment_IllusionKeyRingLink,
-	eCursorAttachment_FamiliarKeyRingLink,
+
+	//eCursorAttachment_Command,
+	//eCursorAttachment_CombatAbility,
+	//eCursorAttachment_MountKeyRingLink,
+	//eCursorAttachment_IllusionKeyRingLink,
+	//eCursorAttachment_FamiliarKeyRingLink,
 };
 
+// size: 0x264
 class [[offsetcomments]] CCursorAttachment : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -3241,22 +3243,27 @@ public:
 	CCursorAttachment(CXWnd*);
 	virtual ~CCursorAttachment();
 
-	virtual int Draw() override;
-	virtual int OnProcessFrame() override;
-	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
-	virtual void Deactivate() override;
+	//virtual int Draw() override;
+	//virtual int OnProcessFrame() override;
+	//virtual int WndNotification(CXWnd*, uint32_t, void*) override;
+	//virtual void Deactivate() override;
 
 	EQLIB_OBJECT bool IsOkToActivate(int);
 	EQLIB_OBJECT bool RemoveAttachment();
-	EQLIB_OBJECT void DrawButtonText() const;
-	EQLIB_OBJECT void DrawQuantity() const;
 
-	EQLIB_OBJECT void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG,
-		ECursorAttachmentType Type, int Index,
-		const char* Assigned_Name, const char* Name, int Qty = -1, int IconID = -1);
-	EQLIB_OBJECT void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* pTABG,
-		ECursorAttachmentType Type, int Index,
-		const EqItemGuid& ItemGuid, int ItemID, const char* Assigned_Name, const char* Name, int Qty = -1, int IconID = -1);
+	void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* Background,
+		ECursorAttachmentType Type, int Index, const char* AssignedName, const char* Name, int Qty = -1, int IconID = -1)
+	{
+		AttachToCursor(Overlay, Background, Type, Index, EqItemGuid(), 0, AssignedName, Name, Qty, IconID);
+	}
+
+	EQLIB_OBJECT void AttachToCursor(CTextureAnimation* Overlay, CTextureAnimation* Background,
+		ECursorAttachmentType Type, int Index, const EqItemGuid& ItemGuid, int ItemID, const char* AssignedName,
+		const char* Name, int Qty = -1, int IconID = -1);
+
+	EQLIB_OBJECT bool AttachSpellToCursor(int SpellID);
+
+	ECursorAttachmentType GetType() const { return static_cast<ECursorAttachmentType>(Type); }
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -3266,19 +3273,14 @@ public:
 /*0x22c*/ EqItemGuid                ItemGuid;
 /*0x240*/ int                       ItemID;
 /*0x244*/ int                       Qty;
-/*0x248*/ int                       IconID;
-/*0x24c*/ SoeUtil::String           AssignedName;
-/*0x25c*/ int                       Unknown0x264;
-/*0x260*/ char                      AssignedNameCopy[0x40];
-/*0x2a0*/ CXStr                     ButtonText;
-/*0x2a4*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
-/*0x2a8*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
-/*0x2ac*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
-/*0x2b0*/ CTextObjectInterface*     pTextObjectInterface;
-/*0x2b4*/ CTextObjectInterface*     pButtonTextObjectInterface;
-/*0x2b8*/ int                       TextfontStyle;
-/*0x2bc*/ int                       Unknown0x2C4;
-/*0x2c0*/
+/*0x248*/ CXStr                     ButtonText;
+/*0x24c*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
+/*0x250*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
+/*0x254*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
+/*0x258*/ CTextObjectInterface*     pTextObjectInterface;
+/*0x25c*/ CTextObjectInterface*     pButtonTextObjectInterface;
+/*0x260*/ int                       TextFontStyle;
+/*0x264*/
 };
 
 //============================================================================

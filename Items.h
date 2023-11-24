@@ -514,31 +514,31 @@ public:
 
 	// Find a specified range and depth
 	template <typename Predicate>
-	ItemIndex FindItem(int beginSlot, int endSlot, int depth, Predicate visitor) const
+	ItemIndex FindItem(int beginSlot, int endSlot, int depth, Predicate visitor, bool searchAll = true) const
 	{
 		ItemIndex cursor = CreateItemIndex(std::max(0, beginSlot));
-		return FindItemImpl(beginSlot, endSlot, depth, cursor, visitor);
+		return FindItemImpl(beginSlot, endSlot, depth, cursor, visitor, searchAll);
 	}
 
 	// Find to a specified depth
 	template <typename Predicate>
-	ItemIndex FindItem(int depth, Predicate visitor) const
+	ItemIndex FindItem(int depth, Predicate visitor, bool searchAll = true) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
-		return FindItemImpl(-1, -1, depth, cursor, visitor);
+		return FindItemImpl(-1, -1, depth, cursor, visitor, searchAll);
 	}
 
 	// Find in everything
 	template <typename Predicate>
-	ItemIndex FindItem(Predicate visitor) const
+	ItemIndex FindItem(Predicate visitor, bool searchAll = true) const
 	{
 		ItemIndex cursor = CreateItemIndex(0);
-		return FindItemImpl(-1, -1, -1, cursor, visitor);
+		return FindItemImpl(-1, -1, -1, cursor, visitor, searchAll);
 	}
 
 private:
 	template <typename Predicate>
-	ItemIndex FindItemImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate) const
+	ItemIndex FindItemImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate, bool searchAll = true) const
 	{
 		// Create our range
 		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
@@ -554,7 +554,6 @@ private:
 
 			if (ptr != nullptr)
 			{
-
 				// Found an item. Visit it.
 				if (predicate(ptr, cursor))
 				{
@@ -562,7 +561,7 @@ private:
 				}
 
 				// If we have depth, recurse.
-				if (depth != 0)
+				if (depth != 0 && (searchAll || ptr->IsContainer()))
 				{
 					if (auto container = ptr->GetChildItemContainer())
 					{
@@ -1574,6 +1573,20 @@ struct FindItemByIdPred
 
 private:
 	int itemId;
+};
+
+// Find an item by its guid.
+struct FindItemByGuidPred
+{
+	FindItemByGuidPred(const EqItemGuid& guid) : guid(guid) {}
+
+	bool operator()(const ItemPtr& item, const ItemIndex&)
+	{
+		return item->ItemGUID == guid;
+	}
+
+private:
+	const EqItemGuid& guid;
 };
 
 //============================================================================

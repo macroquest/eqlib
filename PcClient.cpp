@@ -302,6 +302,24 @@ const char* FreeToPlayClient::MembershipStrings[(int)MembershipLevel::Max] =
 // CharacterZoneClient
 //============================================================================
 
+ItemIndex CharacterBase::FindItemByGuid(const EqItemGuid& ItemGuid)
+{
+	const ItemContainer& container = GetItemPossessions();
+
+	// This function searches inventory and bags. It does not search items for augmentations.
+
+	return container.FindItem(FindItemByGuidPred(ItemGuid), false);
+}
+
+ItemIndex CharacterBase::FindItemById(int ItemId)
+{
+	const ItemContainer& container = GetItemPossessions();
+
+	// This function searches inventory and bags. It does not search items for augmentations.
+
+	return container.FindItem(FindItemByIdPred(ItemId), false);
+}
+
 int CharacterZoneClient::GetFocusReuseMod(const EQ_Spell* pSpell, ItemPtr& pOutItem, bool evalOnly)
 {
 	UNUSED(evalOnly);
@@ -347,7 +365,7 @@ EQ_Spell* PcClient::GetMeleeSpellFromSkillIndex(int index)
 // TODO: Handle new range checks
 ItemPtr PcZoneClient::GetItemByItemClass(int itemClass, ItemIndex* index)
 {
-	ItemIndex itemIndex = GetItemPosessions().FindItem(
+	ItemIndex itemIndex = GetItemPossessions().FindItem(
 		[&](const ItemPtr& item, const ItemIndex& index) { return item->GetItemClass() == itemClass; });
 	if (itemIndex.IsValid() && index)
 	{

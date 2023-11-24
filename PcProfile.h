@@ -194,16 +194,17 @@ public:
 /*0x3488*/ //BaseProfile
 
 	// This expects parameter of type eInventorySlot
-	inline ItemPtr GetInventorySlot(int invSlot) const { return InventoryContainer.GetItem(invSlot); }
-	inline const ItemContainer& GetInventory() const { return InventoryContainer; }
-	inline ItemContainer& GetInventory() { return InventoryContainer; }
+	ItemPtr GetInventorySlot(int invSlot) const { return InventoryContainer.GetItem(invSlot); }
+	const ItemContainer& GetInventory() const { return InventoryContainer; }
+	ItemContainer& GetInventory() { return InventoryContainer; }
 
-	inline ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return InventoryContainer.CreateItemIndex(slot0, slot1, slot2); }
-	inline ItemGlobalIndex CreateItemGlobalIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return InventoryContainer.CreateItemGlobalIndex(eItemContainerPossessions, slot0, slot1, slot2); }
-	inline ItemPtr GetItemPossession(const ItemIndex& index) const { return InventoryContainer.GetItem(index); }
-	inline ItemContainer& GetItemPosessions() { return InventoryContainer; }
+	ItemIndex CreateItemIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return InventoryContainer.CreateItemIndex(slot0, slot1, slot2); }
+	ItemGlobalIndex CreateItemGlobalIndex(int slot0, int slot1 = -1, int slot2 = -1) const { return InventoryContainer.CreateItemGlobalIndex(eItemContainerPossessions, slot0, slot1, slot2); }
+	ItemPtr GetItemPossession(const ItemIndex& index) const { return InventoryContainer.GetItem(index); }
+	ItemContainer& GetItemPosessions() { return InventoryContainer; }
 
-	inline int GetMemorizedSpell(int index) const { return MemorizedSpells[index]; }
+	int GetMemorizedSpell(int index) const { return index >= 0 && index < MAX_MEMORIZED_SPELLS ? MemorizedSpells[index] : -1; }
+	int GetSpellBook(int index) const { return index >= 0 && index < NUM_BOOK_SLOTS ? SpellBook[index] : -1; }
 
 	int GetRace() const { return Race; }
 	int GetClass() const { return Class; }
