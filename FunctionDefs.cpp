@@ -582,7 +582,7 @@ FUNCTION_AT_ADDRESS(int, SkillManager::GetNameToken(int), CSkillMgr__GetNameToke
 FUNCTION_AT_ADDRESS(bool, SkillManager::IsCombatSkill(int), CSkillMgr__IsCombatSkill);
 #endif
 #ifdef CSkillMgr__GetSkillCap_x
-FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetSkillCap(PcZoneClient*, int, EQClass, int, bool, bool, bool), CSkillMgr__GetSkillCap)
+FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetSkillCap(PcZoneClient*, int, EQClass, int, bool, bool, bool), CSkillMgr__GetSkillCap);
 #endif
 #ifdef CSkillMgr__SkillAvailableAtLevel_x
 FUNCTION_AT_ADDRESS(unsigned long, SkillManager::SkillAvailableAtLevel(int, int), CSkillMgr__SkillAvailableAtLevel);
@@ -1121,10 +1121,10 @@ FUNCTION_AT_ADDRESS(void, EQWorldData::CurrentGameTime(char*), EQWorldData__Curr
 //----------------------------------------------------------------------------
 
 #ifdef FactionManagerClient__Instance_x
-FUNCTION_AT_ADDRESS(FactionManagerClient&, FactionManagerClient::Instance(), FactionManagerClient__Instance)
+FUNCTION_AT_ADDRESS(FactionManagerClient&, FactionManagerClient::Instance(), FactionManagerClient__Instance);
 #endif
 #ifdef FactionManagerClient__HandleFactionMessage_x
-FUNCTION_AT_ADDRESS(void, FactionManagerClient::HandleFactionMessage(UINT MessageID, char* pData, unsigned int DataLength), FactionManagerClient__HandleFactionMessage)
+FUNCTION_AT_ADDRESS(void, FactionManagerClient::HandleFactionMessage(UINT MessageID, char* pData, unsigned int DataLength), FactionManagerClient__HandleFactionMessage);
 #endif
 
 //----------------------------------------------------------------------------
@@ -1132,7 +1132,7 @@ FUNCTION_AT_ADDRESS(void, FactionManagerClient::HandleFactionMessage(UINT Messag
 //----------------------------------------------------------------------------
 
 #ifdef FreeToPlayClient__Instance_x
-FUNCTION_AT_ADDRESS(FreeToPlayClient&, FreeToPlayClient::Instance(), FreeToPlayClient__Instance)
+FUNCTION_AT_ADDRESS(FreeToPlayClient&, FreeToPlayClient::Instance(), FreeToPlayClient__Instance);
 #endif
 
 //----------------------------------------------------------------------------
@@ -1450,7 +1450,7 @@ FUNCTION_AT_ADDRESS(unsigned long, CPlayerPointManager::GetAltCurrency(unsigned 
 // RealEstateManagerClient
 //----------------------------------------------------------------------------
 
-FUNCTION_AT_ADDRESS(RealEstateManagerClient&, RealEstateManagerClient::Instance(), RealEstateManagerClient__Instance)
+FUNCTION_AT_ADDRESS(RealEstateManagerClient&, RealEstateManagerClient::Instance(), RealEstateManagerClient__Instance);
 
 //----------------------------------------------------------------------------
 // SoundManager
@@ -1581,7 +1581,7 @@ FUNCTION_AT_ADDRESS(float, HeadingDiff(float h1, float h2, float* DiffOut), __He
 FUNCTION_AT_ADDRESS(float, FixHeading(float Heading), __FixHeading);
 #endif
 #ifdef __get_bearing_x
-FUNCTION_AT_ADDRESS(float, get_bearing(float x1, float y1, float x2, float y2), __get_bearing)
+FUNCTION_AT_ADDRESS(float, get_bearing(float x1, float y1, float x2, float y2), __get_bearing);
 #endif
 #ifdef Util__FastTime_x
 FUNCTION_AT_ADDRESS(unsigned long, GetFastTime(), Util__FastTime);
@@ -6466,10 +6466,10 @@ FUNCTION_AT_ADDRESS(ZoneGuideManagerClient&, ZoneGuideManagerClient::Instance(),
 //----------------------------------------------------------------------------
 
 #ifdef CTextureAnimation__SetCurCell_x
-FUNCTION_AT_ADDRESS(void, CTextureAnimation::SetCurCell(int), CTextureAnimation__SetCurCell)
+FUNCTION_AT_ADDRESS(void, CTextureAnimation::SetCurCell(int), CTextureAnimation__SetCurCell);
 #endif
 #ifdef CTextureAnimation__Draw_x
-FUNCTION_AT_ADDRESS(int, CTextureAnimation::Draw(const CXRect& rect, const CXRect& clip, COLORREF color, COLORREF color2) const, CTextureAnimation__Draw)
+FUNCTION_AT_ADDRESS(int, CTextureAnimation::Draw(const CXRect& rect, const CXRect& clip, COLORREF color, COLORREF color2) const, CTextureAnimation__Draw);
 #endif
 
 //============================================================================

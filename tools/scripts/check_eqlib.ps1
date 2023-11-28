@@ -28,12 +28,16 @@ $functionDefs | ForEach-Object {
     $filename = $_
     $prevErrorCount = $errorCount
     $lineNum = 0
+    $multiline = $false
     Get-Content $eqlibDir/$_ | ForEach-Object {
         $line = $_.Trim()
         $lineNum = $lineNum + 1
 
         # All files
-        if ([string]::IsNullOrWhiteSpace($line)) {
+        if ($multiline) {
+            $multiline = $line -notlike "*;*"
+        }
+        elseif ([string]::IsNullOrWhiteSpace($line)) {
             # A blank line
         }
         elseif ($line.StartsWith("//")) {
@@ -56,6 +60,7 @@ $functionDefs | ForEach-Object {
         }
         elseif ($line.StartsWith("FUNCTION_AT_ADDRESS") -Or $line.StartsWith("FUNCTION_AT_VIRTUAL_ADDRESS")) {
             # Function Defs
+            $multiline = $line -notlike "*;*"
         }
         # ExceptionsDisabled
         elseif ($line -like "#if *!defined(_M_AMD64)") {
