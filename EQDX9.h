@@ -116,9 +116,9 @@ class [[offsetcomments]] Device
 {
 public:
 /*0x0000*/ uint32_t          TypeHash;
-/*0x08*/ const char*       TypeName;
-/*0x10*/ uint32_t          RefCount;
-/*0x14*/ SwapChain         SwapChain;
+/*0x0008*/ const char*       TypeName;
+/*0x0010*/ uint32_t          RefCount;
+/*0x0018*/ SwapChain         SwapChain;
 /*0x1460*/
 };
 constexpr size_t Device_size = 0x1460;
@@ -141,43 +141,37 @@ public:
 /*0x048*/ virtual HRESULT WINAPI Unknown0x048() = 0;
 /*0x050*/ virtual HRESULT WINAPI Unknown0x050() = 0;
 /*0x058*/ virtual HRESULT WINAPI Unknown0x058() = 0;
-/*0x060*/ virtual HRESULT WINAPI Unknown0x060() = 0;
-/*0x068*/ virtual HRESULT WINAPI GetViewport(D3DVIEWPORT9* pViewport) = 0;
+/*0x060*/ virtual HRESULT WINAPI GetViewport(D3DVIEWPORT9* pViewport) = 0;
+/*0x068*/ virtual HRESULT WINAPI GetTransform(D3DTRANSFORMSTATETYPE State, D3DMATRIX* pMatrix) = 0;
 /*0x070*/ virtual HRESULT WINAPI Unknown0x070() = 0;
 /*0x078*/ virtual HRESULT WINAPI Unknown0x078() = 0;
 /*0x080*/ virtual HRESULT WINAPI Unknown0x080() = 0;
 /*0x088*/ virtual HRESULT WINAPI Unknown0x088() = 0;
-/*0x090*/ virtual HRESULT WINAPI GetTransform(D3DTRANSFORMSTATETYPE State, D3DMATRIX* pMatrix) = 0;
-/*0x098*/ virtual HRESULT WINAPI Unknown0x098() = 0;
-/*0x0a0*/ virtual HRESULT WINAPI Unknown0x0a0() = 0;
+/*0x090*/ virtual HRESULT WINAPI Unknown0x090() = 0;
+/*0x098*/ virtual HRESULT WINAPI CreateTexture(UINT Width, UINT Height, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, Direct3DTexture9** ppTexture, HANDLE* pSharedHandle) = 0;
+/*0x0a0*/ virtual HRESULT WINAPI Clear(DWORD Count, const D3DRECT* pRects, DWORD Flags, D3DCOLOR Color, float Z, DWORD Stencil) = 0;
 /*0x0a8*/ virtual HRESULT WINAPI Unknown0x0a8() = 0;
 /*0x0b0*/ virtual HRESULT WINAPI Unknown0x0b0() = 0;
 /*0x0b8*/ virtual HRESULT WINAPI Unknown0x0b8() = 0;
-/*0x0c0*/ virtual HRESULT WINAPI CreateTexture(UINT Width, UINT Height, UINT Levels, DWORD Usage, D3DFORMAT Format, D3DPOOL Pool, Direct3DTexture9** ppTexture, HANDLE* pSharedHandle) = 0;
-/*0x0c8*/ virtual HRESULT WINAPI Clear(DWORD Count, const D3DRECT* pRects, DWORD Flags, D3DCOLOR Color, float Z, DWORD Stencil) = 0;
+/*0x0c0*/ virtual HRESULT WINAPI Unknown0x0c0() = 0;
+/*0x0c8*/ virtual HRESULT WINAPI Unknown0x0c8() = 0;
 /*0x0d0*/ virtual HRESULT WINAPI Unknown0x0d0() = 0;
 /*0x0d8*/ virtual HRESULT WINAPI Unknown0x0d8() = 0;
 /*0x0e0*/ virtual HRESULT WINAPI Unknown0x0e0() = 0;
-/*0x0e8*/ virtual HRESULT WINAPI Unknown0x0e8() = 0;
+/*0x0e8*/ virtual HRESULT WINAPI GetDeviceCaps(D3DCAPS9* pCaps) = 0;
 /*0x0f0*/ virtual HRESULT WINAPI Unknown0x0f0() = 0;
-/*0x0f8*/ virtual HRESULT WINAPI Unknown0x0f8() = 0;
-/*0x100*/ virtual HRESULT WINAPI Unknown0x100() = 0;
-/*0x108*/ virtual HRESULT WINAPI Unknown0x108() = 0;
+/*0x0f8*/ virtual HRESULT WINAPI SetViewport(const D3DVIEWPORT9* pViewport) = 0;
+/*0x100*/ virtual HRESULT WINAPI SetTransform(D3DTRANSFORMSTATETYPE State, const D3DMATRIX* pMatrix) = 0;
+/*0x108*/ virtual HRESULT WINAPI DrawPrimitive(D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount) = 0;
 /*0x110*/ virtual HRESULT WINAPI Unknown0x110() = 0;
-/*0x118*/ virtual HRESULT WINAPI Unknown0x118() = 0;
-/*0x120*/ virtual HRESULT WINAPI GetDeviceCaps(D3DCAPS9* pCaps) = 0;
-/*0x128*/ virtual HRESULT WINAPI Unknown0x128() = 0;
-/*0x130*/ virtual HRESULT WINAPI SetViewport(const D3DVIEWPORT9* pViewport) = 0;
-/*0x138*/ virtual HRESULT WINAPI SetTransform(D3DTRANSFORMSTATETYPE State, const D3DMATRIX* pMatrix) = 0;
-/*0x140*/ virtual HRESULT WINAPI DrawPrimitive(D3DPRIMITIVETYPE PrimitiveType, UINT StartVertex, UINT PrimitiveCount) = 0;
-/*0x148*/ virtual HRESULT WINAPI Unknown0x148() = 0;
-/*0x150*/ virtual HRESULT WINAPI BeginScene() = 0;
-/*0x158*/ virtual HRESULT WINAPI EndScene() = 0;
-/*0x160*/ virtual HRESULT WINAPI SetTexture(DWORD Stage, Direct3DTexture9* pTexture) = 0;
-/*0x168*/ virtual HRESULT WINAPI Unknown0x168() = 0;
-/*0x170*/ virtual HRESULT WINAPI Unknown0x170() = 0;
-/*0x178*/ virtual HRESULT WINAPI Unknown0x178() = 0;
-/*0x180*/ virtual HRESULT WINAPI TestCooperativeLevel() = 0;
+/*0x118*/ virtual HRESULT WINAPI BeginScene() = 0;
+/*0x120*/ virtual HRESULT WINAPI EndScene() = 0;
+/*0x128*/ virtual HRESULT WINAPI SetTexture(DWORD Stage, Direct3DTexture9* pTexture) = 0;
+/*0x130*/ virtual HRESULT WINAPI Unknown0x130() = 0;
+/*0x138*/ virtual HRESULT WINAPI Unknown0x138() = 0;
+/*0x140*/ virtual HRESULT WINAPI Unknown0x140() = 0;
+/*0x148*/ virtual HRESULT WINAPI TestCooperativeLevel() = 0;
+/*0x150*/ virtual HRESULT WINAPI Unknown0x150() = 0;
 #pragma endregion
 
 /*0x28*/ Device*             Device;

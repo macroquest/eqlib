@@ -110,7 +110,15 @@ public:
 private:
 /*0x00*/ ProfileList* pFirst;
 /*0x08*/ eProfileListType CurProfileList;
-/*0x0c*/
+/*0x10*/ void* Unknown10;
+/*0x18*/ void* Unknown18;
+/*0x20*/ void* Unknown20;
+/*0x28*/ void* Unknown28;
+/*0x30*/ void* Unknown30;
+/*0x38*/ void* Unknown38;
+/*0x40*/ void* Unknown40;
+/*0x48*/ void* Unknown48;
+/*0x50*/
 };
 
 //============================================================================
@@ -310,7 +318,7 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x6a90 :: 2023-11-06 (test) @ 0x140615464
+// @sizeof(PcProfile) == 0x6a90 :: 2023-11-29 (test) @ 0x14061c604
 constexpr size_t PcProfile_size = 0x6a90;
 
 class [[offsetcomments]] PcProfile : public BaseProfile

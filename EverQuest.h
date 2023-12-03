@@ -66,7 +66,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-// @sizeof(zoneHeader) == 0x2a4 :: 2023-11-06 (test) @ 0x140c0c594
+// @sizeof(zoneHeader) == 0x2a4 :: 2023-11-29 (test) @ 0x140c14624
 constexpr size_t zoneHeader_size = 0x2a4;
 
 struct [[offsetcomments]] zoneHeader
@@ -332,7 +332,7 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the beginning of the struct
-// @sizeof(EverQuestinfo) == 0x75208 :: 2023-11-06 (test) @ 0x140c0c3a0
+// @sizeof(EverQuestinfo) == 0x75208 :: 2023-11-29 (test) @ 0x140c14430
 constexpr size_t EverQuestinfo_size = 0x75208;
 
 struct [[offsetcomments]] EverQuestinfo
@@ -726,8 +726,8 @@ public:
 };
 
 
-// @sizeof(CEverQuest) == 0x196f8 :: 2023-11-06 (test) @ 0x140325c03
-constexpr size_t CEverQuest_size = 0x196f8;
+// @sizeof(CEverQuest) == 0x19708 :: 2023-11-29 (test) @ 0x14032a0b3
+constexpr size_t CEverQuest_size = 0x19708;
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
 {
@@ -940,46 +940,43 @@ public:
 /*0x005d8*/ FreeTargetTracker*    freeTargetTracker;
 /*0x005e0*/ int                   WorldState;                   // 0 everything is fine, 1 we are getting disconnected 2 player not released from zone
 /*0x005e4*/ int                   GameState;
-/*0x005e8*/ bool                  bStopAreaProcessing;
-/*0x005e9*/ bool                  bRAFEnabled;
-/*0x005ec*/ int                   ClientOutOfDate;
-/*0x005f0*/ int64_t               ServerTimeSync;
-/*0x005f8*/ int64_t               ServerTimeBase;
-/*0x00600*/ int64_t               ServerTimeLastReported;
-/*0x00608*/ bool                  bServerTimeHasWrapped;
-/*0x0060c*/ float                 TargetCameraDistance;
-/*0x00610*/ bool                  bUnknown0x5f0;
-/*0x00614*/ int                   TotalCharacterSlots;
-/*0x00618*/ int                   MarketplaceCharacterSlots;
-/*0x0061c*/ bool                  Unknown0x604;
-/*0x00620*/ int                   Unknown0x608;
-/*0x00624*/ bool                  Unknown0x60c;
-/*0x00628*/ CPopDialogWnd*        CampDialog;
-/*0x00630*/ PickZoneTimerHandler  pickZoneTimerHandler;
-/*0x00648*/ PetitionStatus        petitionStatus[0x200];
-/*0x17648*/ int                   TotalQ;
-/*0x1764c*/ int                   TotalClientPetitions;
-/*0x17650*/ char                  ChatText[2112];
-/*0x17e90*/ int                   TrimIdx;
-/*0x17e94*/ char                  ChatChanged;
-/*0x17e95*/ char                  Trim[64][0x40];
-/*0x18e98*/ int                   chat;
-/*0x18e9c*/ int                   disconnected;
-/*0x18ea0*/ int                   Red;
-/*0x18ea4*/ int                   Green;
-/*0x18ea8*/ int                   Blue;
-/*0x18eb0*/ ArrayClass<CharSelectInfo> charSelectPlayerArray;
-/*0x18ec8*/ char                  Filler[0x830]; // more data
-/*0x196f8*/
+/*0x005e8*/ bool                  bForNewPersona;               // true when camping to create a new persona
+/*0x005ec*/ int                   PersonaClass;
+/*0x005f0*/ int64_t               PersonaRelated;              // used by character creation 5f0
+/*0x005f8*/ bool                  bStopAreaProcessing; // 5f8
+/*0x005f9*/ bool                  bRAFEnabled; // 5f9
+/*0x005fc*/ int                   ClientOutOfDate;
+/*0x00600*/ int64_t               ServerTimeSync; // 600
+/*0x00608*/ int64_t               ServerTimeBase;
+/*0x00610*/ int64_t               ServerTimeLastReported;
+/*0x00618*/ bool                  bServerTimeHasWrapped;
+/*0x0061c*/ float                 TargetCameraDistance; // 61c
+/*0x00620*/ bool                  bUnknown0x5f0;
+/*0x00624*/ int                   TotalCharacterSlots;
+/*0x00628*/ int                   MarketplaceCharacterSlots;
+/*0x0062c*/ bool                  Unknown0x604;
+/*0x00630*/ int                   Unknown0x608;
+/*0x00634*/ bool                  Unknown0x60c;
+/*0x00638*/ CPopDialogWnd*        CampDialog;
+/*0x00640*/ PickZoneTimerHandler  pickZoneTimerHandler;
+/*0x00658*/ PetitionStatus        petitionStatus[0x200];
+/*0x17658*/ int                   TotalQ;
+/*0x1765c*/ int                   TotalClientPetitions;
+/*0x17660*/ char                  ChatText[2112];
+/*0x17ea0*/ int                   TrimIdx;
+/*0x17ea4*/ char                  ChatChanged;
+/*0x17ea5*/ char                  Trim[64][0x40];
+/*0x18ea8*/ int                   chat;
+/*0x18eac*/ int                   disconnected;
+/*0x18eb0*/ int                   Red;
+/*0x18eb4*/ int                   Green;
+/*0x18eb8*/ int                   Blue;
+/*0x18ec0*/ ArrayClass<CharSelectInfo> charSelectPlayerArray;
+/*0x18ed8*/ char                  Filler[0x830]; // more data
+/*0x19708*/
 
 	ALT_MEMBER_GETTER(UniversalChatProxy*, chatService, ChatService);
 };
-
-inline namespace deprecated {
-	using _EVERQUEST DEPRECATE("Use EVERQUEST instead of _EVERQUEST") = CEverQuest;
-	using PEVERQUEST DEPRECATE("Use EVERQUEST* instead of PEVERQUEST") = CEverQuest*;
-}
-using EVERQUEST = CEverQuest;
 
 SIZE_CHECK(CEverQuest, CEverQuest_size);
 
