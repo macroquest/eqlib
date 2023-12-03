@@ -46,5 +46,6 @@ namespace eqlib {
 #define EXPANSION_LEVEL_COV             27  // Claws of Veeshan
 #define EXPANSION_LEVEL_TOL             28  // Terror of Luclin
 #define EXPANSION_LEVEL_NOS             29  // Night of Shadows
+#define EXPANSION_LEVEL_LS              30  // Laurion's Song
 
 } // namespace eqlib

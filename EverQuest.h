@@ -522,6 +522,7 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x00af4*/ bool              LegacyCharactersRuleset;
 /*0x00af8*/ uint32_t          NumMaxCharacters;
 /*0x00afc*/ uint32_t          LegacyExperienceBonus;
+/*x000b00*/ int               NumAvailablePersonas;
 /*0x00b00*/ int               bHideAFK;
 /*0x00b04*/ int               bHideAFKPets;
 /*0x00b08*/ int               bHideAFKMercs;
