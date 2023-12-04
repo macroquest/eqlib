@@ -6584,6 +6584,9 @@ public:
 
 using ZonePathArray = ArrayClass<ZonePathData>;
 
+// @sizeof(ZoneGuideManagerClient) == 0xF540 :: 2023-11-29 (test) @ 0x14033239F
+constexpr size_t ZoneGuideManagerClient_size = 0xF540;
+
 class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
 {
 	FORCE_SYMBOLS;
@@ -6601,6 +6604,8 @@ public:
 
 	EQLIB_OBJECT static ZoneGuideManagerClient& Instance();
 };
+
+SIZE_CHECK(ZoneGuideManagerClient, ZoneGuideManagerClient_size)
 
 class [[offsetcomments]] CZoneGuideWnd : public CSidlScreenWnd, public WndEventHandler
 {
