@@ -1027,10 +1027,10 @@ public:
 	BaseProfile& GetCurrentBaseProfile() { return *ProfileManager.GetCurrentProfile(); }
 	const BaseProfile& GetCurrentBaseProfile() const { return *ProfileManager.GetCurrentProfile(); }
 
+	int GetPersonaLevel(int classId) { return ProfileManager.GetAltClassLevel(classId - 1); }
+
 	EQLIB_OBJECT ItemIndex FindItemByGuid(const EqItemGuid& ItemGuid);
 	EQLIB_OBJECT ItemIndex FindItemById(int ItemId);
-
-
 
 
 	// Fix Typo
