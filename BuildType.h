@@ -28,7 +28,7 @@
 #include "eqgame.h"
 
 // Defines the expansion level of this build.
-#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_NOS
+#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_LS
 
 
 //----------------------------------------------------------------------------
@@ -64,6 +64,9 @@
 
 // AdvancedLoot was released on March 25, 2015
 #define HAS_ADVANCED_LOOT IS_CLIENT_DATE(20150325)
+
+// Personas feature added in Laurion's Song
+#define HAS_ALTERNATE_PERSONAS IS_EXPANSION_LEVEL(EXPANSION_LEVEL_LS)
 
 // Autoskills was added April 19, 2017
 #define HAS_AUTOSKILLS IS_CLIENT_DATE(20170419)

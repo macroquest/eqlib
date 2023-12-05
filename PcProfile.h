@@ -60,10 +60,10 @@ class [[offsetcomments]] ProfileList
 {
 public:
 /*0x00*/ eProfileListType ListType;
-/*0x08*/ BaseProfile* pFirst;
-/*0x10*/ BaseProfile* pLast;
-/*0x18*/ ProfileList* pNext;
-/*0x20*/ ProfileList* pPrev;
+/*0x08*/ PcProfile*       pFirst;
+/*0x10*/ PcProfile*       pLast;
+/*0x18*/ ProfileList*     pNext;
+/*0x20*/ ProfileList*     pPrev;
 /*0x28*/
 };
 
@@ -87,7 +87,7 @@ public:
 		return nullptr;
 	}
 
-	BaseProfile* GetCurrentProfile()
+	PcProfile* GetCurrentProfile()
 	{
 		const ProfileList* pList = GetCurrentProfileList();
 		if (pList != nullptr)
@@ -97,7 +97,7 @@ public:
 		return nullptr;
 	}
 
-	const BaseProfile* GetCurrentProfile() const
+	const PcProfile* GetCurrentProfile() const
 	{
 		const ProfileList* pList = GetCurrentProfileList();
 		if (pList != nullptr)
@@ -105,12 +105,21 @@ public:
 			return pList->pFirst;
 		}
 		return nullptr;
+	}
+
+	int GetAltClassLevel(int classId) const
+	{
+		if (classId >= 0 && classId < MAX_PLAYER_CLASSES)
+			return AltClassLevels[classId];
+
+		return 0;
 	}
 
 private:
-/*0x00*/ ProfileList* pFirst;
+/*0x00*/ ProfileList*     pFirst;
 /*0x08*/ eProfileListType CurProfileList;
-/*0x0c*/
+/*0x0c*/ int              AltClassLevels[MAX_PLAYER_CLASSES];
+/*0x50*/
 };
 
 //============================================================================
@@ -124,8 +133,8 @@ public:
 	// other virtual methods are not mapped out
 
 /*0x0000*/ // vftable
-/*0x0008*/ BaseProfile*                          nextProfile;
-/*0x0010*/ BaseProfile*                          prevProfile;
+/*0x0008*/ PcProfile*                            nextProfile;
+/*0x0010*/ PcProfile*                            prevProfile;
 /*0x0018*/ eProfileListType                      profileListType;
 /*0x0020*/ ItemContainer                         InventoryContainer;
 /*0x0048*/ ItemContainer                         TributeBenefitItems;
@@ -310,7 +319,7 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x6a90 :: 2023-11-09 (live) @ 0x140614bb4
+// @sizeof(PcProfile) == 0x6a90 :: 2023-11-29 (test) @ 0x14061c604
 constexpr size_t PcProfile_size = 0x6a90;
 
 class [[offsetcomments]] PcProfile : public BaseProfile

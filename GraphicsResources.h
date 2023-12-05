@@ -74,7 +74,7 @@ public:
 /*0x068*/ bool                  m_bHasTexture;
 	union
 	{
-/*0x070*/ IDirect3DTexture9*    m_pD3DTexture;
+/*0x070*/ Direct3DTexture9*     m_pD3DTexture;
 /*0x070*/ void*                 m_pRawBitmap;
 	};
 /*0x078*/ uint32_t              m_uObjectIndex;
@@ -112,6 +112,8 @@ public:
 	CEQGBitmap* GetPreviousBitmap() { return TListNode<CEQGBitmap>::GetPrevious(); }
 	const CEQGBitmap* GetPreviousBitmap() const { return TListNode<CEQGBitmap>::GetPrevious(); }
 
+	Direct3DTexture9* GetD3DTexture() const { return m_bHasTexture ? m_pD3DTexture : nullptr; }
+
 	// Return a pointer suitable for drawing a texture
 	void* GetTexture() const
 	{
@@ -125,6 +127,8 @@ public:
 
 		return nullptr;
 	}
+
+	bool HasTexture() const { return m_bHasTexture; }
 };
 
 
