@@ -31,6 +31,7 @@ T* Align(U* p, int align)
 #pragma region Array<T>
 
 // class SoeUtil::Array<unsigned char, 0, 1> `RTTI Type Descriptor'
+
 template <typename T>
 class Array
 {
@@ -81,6 +82,12 @@ private:
 /*0x10*/ int m_size = 0;
 /*0x14*/ int m_alloc = 0;
 /*0x18*/
+};
+
+template <typename T, int EMBEDDED_SIZE> class EmbeddedArray : public Array<T>
+{
+private:
+/*0x18*/ uint8_t m_fixedData[EMBEDDED_SIZE == 0 ? 1 : (EMBEDDED_SIZE * sizeof(T) + __alignof(T))];
 };
 
 //============================================================================
@@ -863,6 +870,84 @@ public:
 /*0x08*/ Node* root = nullptr;
 /*0x10*/ int count = 0;
 };
+
+template <typename Key>
+class Set
+{
+public:
+	using key_type = Key;
+
+	Set()
+	{
+	}
+
+	virtual ~Set()
+	{
+	}
+
+	virtual bool IsSwapAllowed() const { return true; }
+	virtual uint8_t* Allocate() { return nullptr; }
+	virtual void Free(uint8_t*) {}
+
+	struct Node
+	{
+		key_type key;
+
+		Node* parent;
+		Node* left;
+		Node* right;
+		uint32_t red : 1;
+		uint32_t position : 32;
+	};
+
+/*0x08*/ Node* root = nullptr;
+/*0x10*/ int count = 0;
+};
+
+//----------------------------------------------------------------------------
+
+#pragma endregion
+
+#pragma region List<T>
+
+template <typename T>
+class List
+{
+public:
+	class Node
+	{
+		T     m_value;
+		Node* m_next;
+		Node* m_prev;
+	};
+
+	virtual ~List();
+	virtual bool IsSwapAllowed() { return true; }
+	virtual uint8_t* Allocate();
+	virtual void Free(uint8_t* data);
+
+	Node*    m_head;
+	Node*    m_tail;
+	int      m_size;
+};
+
+template <typename T>
+uint8_t* List<T>::Allocate()
+{
+	uint8_t* data = (uint8_t*)SoeUtil::Alloc(sizeof(Node), __alignof(Node));
+
+	int currentAlloc = m_alloc;
+
+	if (amount > currentAlloc)
+	{
+		*allocated = amount * 5 / 4;
+		return (T*)SoeUtil::Alloc(*allocated * sizeof(T), __alignof(T));
+	}
+
+	*allocated = m_alloc;
+	return m_array;
+}
+
 
 //----------------------------------------------------------------------------
 

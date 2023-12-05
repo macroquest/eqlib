@@ -817,9 +817,97 @@ enum eCharacterStatus : uint8_t {
 // this is the offset of CharacterZoneClient + virtual base table:
 // CharacterZoneClient starts at 0x2840 and we add 0x6B8 to give us 0x2EF8
 
-struct CharacterProfileData
+// sizeof: 0x20
+struct EquipmentItemNode
 {
-	uint64_t data[0x66];
+/*0x00*/ uint64_t data1;
+/*0x08*/ uint64_t data2;
+/*0x20*/
+};
+
+class EquipmentItemSet
+{
+public:
+	EquipmentItemSet()
+	{
+	}
+
+	virtual ~EquipmentItemSet()
+	{
+	}
+
+	virtual bool IsSwapAllowed() const { return true; }
+	virtual uint8_t* Allocate() { return nullptr; }
+	virtual void Free(uint8_t*) {}
+
+	struct key_value
+	{
+		int64_t key;
+		int64_t value;
+	};
+
+	struct Node
+	{
+		key_value value;
+		Node* parent;
+		Node* left;
+		Node* right;
+	};
+
+	/*0x08*/ Node* root = nullptr;
+	/*0x10*/ int count = 0;
+};
+
+
+// size: 0x18
+struct EquipmentItem
+{
+/*0x00*/ int itemId;
+/*0x04*/ int slot;
+/*0x08*/ EquipmentItemSet items;
+/*0x18*/
+};
+
+// size: 0x330
+struct PersonaEquipmentSet
+{
+	int classId;
+	SoeUtil::EmbeddedArray<EquipmentItem, 23>   Slots;
+};
+
+class PersonaEquipmentSetSet
+{
+public:
+	PersonaEquipmentSetSet()
+	{
+	}
+
+	virtual ~PersonaEquipmentSetSet()
+	{
+	}
+
+	virtual bool IsSwapAllowed() const { return true; }
+	virtual uint8_t* Allocate() { return nullptr; }
+	virtual void Free(uint8_t*) {}
+
+	struct key_value
+	{
+		int key;
+		PersonaEquipmentSet value;
+	};
+
+	struct Node
+	{
+		key_value value;
+		Node* parent;
+		Node* left;
+		Node* right;
+		uint32_t red : 1;
+		uint32_t position : 32;
+	};
+
+/*0x08*/ Node* root = nullptr;
+/*0x10*/ int count = 0;
 };
 
 class [[offsetcomments(0x2ef8)]] CharacterBase : public IFreeToPlayInfo
@@ -827,7 +915,7 @@ class [[offsetcomments(0x2ef8)]] CharacterBase : public IFreeToPlayInfo
 	// +0: vftable
 public:
 /*0x2f00*/ ProfileManager                        ProfileManager;
-/*0x2f50*/ SoeUtil::Array<CharacterProfileData>  UnknownArray;
+/*0x2f50*/ PersonaEquipmentSetSet                PersonaEquipmentSets;
 /*0x2f68*/ uint8_t                               languages[MAX_LANGUAGES];
 /*0x2f88*/ float                                 X;
 /*0x2f8c*/ float                                 Y;
