@@ -71,9 +71,9 @@ public:
 
 	void SetupComponent(UIComponent& component, const eqstd::string& ScreenID, bool required);
 
-/*0x2b0*/ UIScreenComponent                                 WindowComponent;
-/*0x358*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
-/*0x398*/
+/*0x2e8*/ UIScreenComponent                                 WindowComponent;
+/*0x390*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
+/*0x3d0*/
 };
 
 namespace cohtml {
