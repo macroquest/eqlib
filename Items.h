@@ -891,16 +891,16 @@ public:
 	{
 	/*0x00*/ int                   SpellID;
 	/*0x04*/ uint8_t               RequiredLevel;
-	/*0x08*/ eItemEffectType       EffectType;
-	/*0x0c*/ int                   EffectiveCasterLevel;
-	/*0x10*/ int                   MaxCharges;
-	/*0x14*/ int                   CastTime;
-	/*0x18*/ int                   RecastTime;
-	/*0x1c*/ int                   RecastType;
-	/*0x20*/ int                   ProcRate;
-	/*0x24*/ char                  OverrideName[64];            // name override
-	/*0x64*/ int                   OverrideDesc;                // override description id
-	/*0x68*/
+	/*0x05*/ eItemEffectType       EffectType;
+	/*0x08*/ int                   EffectiveCasterLevel;
+	/*0x0c*/ int                   MaxCharges;
+	/*0x10*/ int                   CastTime;
+	/*0x14*/ int                   RecastTime;
+	/*0x18*/ int                   RecastType;
+	/*0x1c*/ int                   ProcRate;
+	/*0x20*/ char                  OverrideName[64];            // name override
+	/*0x60*/ int                   OverrideDesc;                // override description id
+	/*0x64*/
 
 		EQLIB_OBJECT SpellData();
 		EQLIB_OBJECT void Reset();
