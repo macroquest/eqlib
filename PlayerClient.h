@@ -326,21 +326,34 @@ struct [[offsetcomments]] PZCPhysicsInfo
 // @end: PZCPhysicsInfo Members
 };
 
-struct HASHENTRY
+class PlayerHashTable
 {
-	PlayerClient* spawn;
-	DWORD         key;                             // same as SpawnID for spawns
-	HASHENTRY*    next;
-};
-using PHASHENTRY = HASHENTRY*;
+public:
+	enum { TABLE_SIZE = 1511 };
 
-struct HASHTABLE
-{
-    HASHENTRY** table;
-    int size;
-};
-using PHASHTABLE = HASHTABLE*;
+	// size 0x28
+	struct Node
+	{
+	/*0x00*/ uint64_t      m_hashKey;
+	/*0x08*/ PlayerClient* m_value;
+	/*0x10*/ Node*         m_hashNext;
+	/*0x18*/ Node*         m_prev;
+	/*0x20*/ Node*         m_next;
+	};
 
+	virtual ~PlayerHashTable() {}
+	virtual Node* allocNode() { return nullptr; }
+	virtual void freeNode(Node*) {}
+	virtual bool unknown() { return true; }
+
+/*0x08*/ size_t            m_count;
+/*0x10*/ Node*             m_head;
+/*0x18*/ Node*             m_tail;
+/*0x20*/ Node*             m_table[TABLE_SIZE];
+};
+
+
+// size: 0x2f88
 class [[offsetcomments]] PlayerManagerBase
 {
 public:
@@ -349,24 +362,30 @@ public:
 
 	//virtual PlayerBase* GetFirstPlayer();
 	//virtual PlayerBase* GetPlayerFromId(uint32_t id);
-	//virtual PlayerBase* GetPlayerFromName(const char* name);
+	//virtual PlayerBase* GetPlayerCorpseFromHashKey(uint64_t hashKey);
+	//virtual PlayerBase* GetPlayerFromHashKey(uint64_t hashKey);
 
-/*0x08*/ DWORD         random;                   // rand() % 20000
-/*0x10*/ PlayerClient* FirstSpawn;
-/*0x18*/ PlayerClient* LastSpawn;
-/*0x20*/ DWORD         unknown10;
-/*0x28*/ HASHTABLE*    SPHash;
-/*0x30*/
+/*0x08*/ uint32_t                          m_uNextId;
+/*0x10*/ TList<PlayerClient*>              m_PlayerList;
+/*0x20*/ HashTable<PlayerClient*>*         m_pPlayerNameHashTable;
+/*0x28*/ HashTable<PlayerClient*>*         m_pPlayerIdHashTable;
+/*0x30*/ PlayerHashTable                   m_hashTable;
+/*0x2f88*/
+
+	PlayerClient* get_FirstSpawn() const { return (PlayerClient*)m_PlayerList.GetFirstNode(); }
+	__declspec(property(get = get_FirstSpawn)) PlayerClient* FirstSpawn;
+
+	PlayerClient* get_LastSpawn() const { return (PlayerClient*)m_PlayerList.GetLastNode(); }
+	__declspec(property(get = get_LastSpawn)) PlayerClient* LastSpawn;
 };
 
 class PlayerManagerClient : public PlayerManagerBase
 {
 public:
-	//PlayerClient* GetPlayerFromPartialName(const char* szName, PlayerBase* = nullptr);
-	//PlayerClient* GetPlayerFromName(const char* szName);
-
-	//virtual PlayerClient* GetFirstPlayer() override;
-	//virtual PlayerClient* GetPlayerFromId(int id) override;
+	//virtual PlayerClient* GetFirstPlayer();
+	//virtual PlayerClient* GetPlayerFromId(uint32_t id);
+	//virtual PlayerClient* GetPlayerCorpseFromHashKey(uint64_t hashKey);
+	//virtual PlayerClient* GetPlayerFromHashKey(uint64_t hashKey);
 
 	EQLIB_OBJECT PlayerClient* GetSpawnByID(int);
 	EQLIB_OBJECT PlayerClient* GetSpawnByName(const char*);
@@ -374,11 +393,6 @@ public:
 	EQLIB_OBJECT PlayerClient* CreatePlayer(CUnSerializeBuffer*, unsigned char, int, int, const char*, bool, const char*, const char*);
 };
 
-inline namespace deprecated {
-	using EQPlayerManager DEPRECATE("Use PlayerManagerClient instead of EQPlayerManager") = PlayerManagerClient;
-	using SPAWNMANAGER DEPRECATE("Use PlayerManagerClient instead SPAWNMANAGER") = PlayerManagerClient;
-	using PSPAWNMANAGER DEPRECATE("Use PlayerManagerClient* instead PSPAWNMANAGER") = PlayerManagerClient*;
-}
 
 //============================================================================
 // PlayerBase
@@ -429,8 +443,7 @@ public:
 /*0x154*/ float             Height;
 /*0x158*/ float             Width;
 /*0x15c*/ float             Length;
-/*0x160*/ int               Unknown0x0148;
-/*0x164*/ int               Unknown0x014C;
+/*0x160*/ uint64_t          HashKey;
 /*0x168*/ unsigned int      SpawnID;
 /*0x16c*/ unsigned int      PlayerState;                  // 0=Idle 1=Open 2=WeaponSheathed 4=Aggressive 8=ForcedAggressive 0x10=InstrumentEquipped 0x20=Stunned 0x40=PrimaryWeaponEquipped 0x80=SecondaryWeaponEquipped
 /*0x170*/ PlayerClient*     Vehicle;                      // NULL until you collide with a vehicle (boat,airship etc)
