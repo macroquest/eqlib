@@ -319,7 +319,7 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x6a90 :: 2023-12-12 (live) @ 0x14061bc64
+// @sizeof(PcProfile) == 0x6a90 :: 2023-12-13 (test) @ 0x14061bf74
 constexpr size_t PcProfile_size = 0x6a90;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
