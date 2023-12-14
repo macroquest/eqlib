@@ -28,7 +28,13 @@ namespace eqlib {
 // at static initialization time because of this.
 uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
 
-uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle("EQGraphics.dll");
+#if IS_TEST_CLIENT
+#define GRAPHICS_DLL_NAME "EQGraphics.dll"
+#else
+#define GRAPHICS_DLL_NAME "EQGraphicsDX9.dll"
+#endif
+
+uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle(GRAPHICS_DLL_NAME);
 
 uintptr_t EQMainBaseAddress = (uintptr_t)GetModuleHandle("eqmain.dll");
 
@@ -79,6 +85,7 @@ const char* gDiKeyName[256];
 ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Test,
 	ServerID::Antonius,
+	ServerID::Aradune,
 	ServerID::Bertox,
 	ServerID::Bristle,
 	ServerID::Cazic,
@@ -86,15 +93,19 @@ ServerID ServerIDArray[ServerID::NumServers] = {
 	ServerID::Erollisi,
 	ServerID::Firiona,
 	ServerID::Luclin,
+	ServerID::Mangler,
 	ServerID::Mayong,
+	ServerID::Mischief,
 	ServerID::Povar,
 	ServerID::Ragefire,
 	ServerID::Rathe,
 	ServerID::Rizlona,
+	ServerID::Thornblade,
 	ServerID::Tunare,
 	ServerID::Vaniki,
 	ServerID::Vox,
 	ServerID::Xegony,
+	ServerID::Yelinak,
 	ServerID::Zek,
 };
 
@@ -104,6 +115,7 @@ const char* GetServerNameFromServerID(ServerID id)
 	{
 	case ServerID::Test: return "test";
 	case ServerID::Antonius: return "antonius";
+	case ServerID::Aradune: return "aradune";
 	case ServerID::Bertox: return "bertox";
 	case ServerID::Bristle: return "bristle";
 	case ServerID::Cazic: return "cazic";
@@ -111,15 +123,19 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Erollisi: return "erollisi";
 	case ServerID::Firiona: return "firiona";
 	case ServerID::Luclin: return "luclin";
+	case ServerID::Mangler: return "mangler";
 	case ServerID::Mayong: return "mayong";
+	case ServerID::Mischief: return "mischief";
 	case ServerID::Povar: return "povar";
 	case ServerID::Ragefire: return "ragefire";
 	case ServerID::Rathe: return "rathe";
 	case ServerID::Rizlona: return "rizlona";
+	case ServerID::Thornblade: return "thornblade";
 	case ServerID::Tunare: return "tunare";
 	case ServerID::Vaniki: return "vaniki";
 	case ServerID::Vox: return "vox";
 	case ServerID::Xegony: return "xegony";
+	case ServerID::Yelinak: return "yelinak";
 	case ServerID::Zek: return "zek";
 	}
 
@@ -133,6 +149,7 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "test", ServerID::Test },
 #elif defined(LIVE)
 		{ "antonius", ServerID::Antonius },
+		{ "aradune", ServerID::Aradune },
 		{ "bertox", ServerID::Bertox },
 		{ "bristle", ServerID::Bristle },
 		{ "cazic", ServerID::Cazic },
@@ -140,15 +157,19 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "erollisi", ServerID::Erollisi },
 		{ "firiona", ServerID::Firiona },
 		{ "luclin", ServerID::Luclin },
+		{ "mangler", ServerID::Mangler },
 		{ "mayong", ServerID::Mayong },
+		{ "mischief", ServerID::Mischief },
 		{ "povar", ServerID::Povar },
 		{ "ragefire", ServerID::Ragefire },
 		{ "rathe", ServerID::Rathe },
 		{ "rizlona", ServerID::Rizlona },
+		{ "thornblade", ServerID::Thornblade },
 		{ "tunare", ServerID::Tunare },
 		{ "vaniki", ServerID::Vaniki },
 		{ "vox", ServerID::Vox },
 		{ "xegony", ServerID::Xegony },
+		{ "yelinak", ServerID::Yelinak },
 		{ "zek", ServerID::Zek },
 #endif
 	};
@@ -1256,11 +1277,11 @@ void InitializeEQGameOffsets()
 
 #pragma endregion
 
-#pragma region EQGraphics.dll offsets
+#pragma region EQGraphics offsets
 
 //============================================================================
 //
-// EQGraphics.dll Offsets
+// EQGraphics Offsets
 INITIALIZE_EQGRAPHICS_OFFSET(__eqgraphics_fopen);
 INITIALIZE_EQGRAPHICS_OFFSET(CEQGBitmap__GetFirstBitmap);
 INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__Render);
@@ -1279,7 +1300,7 @@ void InitializeEQGraphicsOffsets()
 	if (!EQGraphicsBaseAddress)
 	{
 		// no EQGraphics.dll loaded yet
-		HMODULE hLibrary = LoadLibrary("EQGraphics.dll");
+		HMODULE hLibrary = LoadLibrary(GRAPHICS_DLL_NAME);
 		EQGraphicsBaseAddress = (uintptr_t)hLibrary;
 
 		__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);

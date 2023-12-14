@@ -1128,10 +1128,15 @@ enum class ServerID : int {
 	Vox = 158,
 	Ragefire = 159,
 	Mayong = 163,
+	Mangler = 166,
 	Rizlona = 169,
+	Aradune = 170,
+	Mischief = 171,
+	Thornblade = 172,
 	Vaniki = 173,
+	Yelinak = 175,
 
-	NumServers = 19,
+	NumServers = 24,
 	Invalid = -1,
 };
 

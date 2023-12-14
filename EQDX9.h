@@ -14,17 +14,33 @@
 
 #pragma once
 
+#include "BuildType.h"
 #include "Common.h"
 
 #include <d3d9.h>
-#include <d3d11.h>
-#include <dxgi.h>
 #include <wil/com.h>
 #include <guiddef.h>
+
+#if IS_TEST_CLIENT
+#include <d3d11.h>
+#include <dxgi.h>
+#endif
 
 #include "eqstd/vector.h"
 
 namespace eqlib {
+
+#if !IS_TEST_CLIENT
+
+using Direct3D9 = IDirect3D9;
+using Direct3DDevice9 = IDirect3DDevice9;
+using Direct3DSwapChain9 = IDirect3DSwapChain9;
+using Direct3DTexture9 = IDirect3DTexture9;
+using Direct3DSurface9 = IDirect3DSurface9;
+using Direct3DVertexBuffer9 = IDirect3DVertexBuffer9;
+using Direct3DIndexBuffer9 = IDirect3DIndexBuffer9;
+
+#else
 
 inline namespace DX9Wrapper {
 namespace DX11 {
@@ -259,5 +275,6 @@ SIZE_CHECK(TextureImpl, TextureImpl_size);
 } // namespace DX11
 } // namespace DX9Wrapper
 
+#endif // ^^ IS_TEST_CLIENT
 
 } // namespace eqlib

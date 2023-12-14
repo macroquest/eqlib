@@ -1401,7 +1401,7 @@ public:
 /*0x1720*/ eqtime_t                              AlchemyTimestamp;
 /*0x1728*/ bool                                  bWhat;
 /*0x1729*/ bool                                  bSomethingHome;
-/*0x172c*/ uint32_t                              LoginTime; // -10fc
+/*0x172c*/ uint32_t                              LoginTime;
 /*0x1730*/ EqGuid                                GuildID;
 /*0x1738*/ EqGuid                                FellowshipID;
 /*0x1740*/ SFellowship*                          pFellowship;
@@ -1501,7 +1501,7 @@ public:
 /*0x2288*/ CXStr                                 OverrideMercName[EQ_MAX_MERCENARIES];
 /*0x22e0*/ bool                                  bCanRequestMercNameChange;
 /*0x22e4*/ uint32_t                              LegacyExperienceBonus;
-/*0x22e8*/ PendingRewardList                     PendingRewards; // 22f8
+/*0x22e8*/ PendingRewardList                     PendingRewards;
 /*0x2330*/ uint8_t                               WaitingRewards[0x20]; // type is unknown
 /*0x2350*/ uint32_t                              DowntimeReductionTime;
 /*0x2358*/ uint64_t                              DowntimeTimerStart;
@@ -1659,7 +1659,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3280 :: 2023-11-29 (test) @ 0x14026b1ab
+// @sizeof(PcClient) == 0x3280 :: 2023-12-12 (live) @ 0x14026b24b
 constexpr size_t PcClient_size = 0x3280;
 
 class [[offsetcomments]] PcClient : public PcZoneClient

@@ -15,7 +15,6 @@
 #pragma once
 
 #include "GraphicsEngine.h"
-
 #include <dxsdk-d3dx/d3dx9tex.h>
 
 namespace eqlib {

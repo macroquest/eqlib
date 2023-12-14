@@ -284,7 +284,7 @@ struct [[offsetcomments]] LabelCache
 //============================================================================
 //============================================================================
 
-// @sizeof(EQGroundItem) == 0xa0 :: 2023-11-29 (test) @ 0x1401E661D
+// @sizeof(EQGroundItem) == 0xa0 :: 2023-12-12 (live) @ 0x1401e698d
 constexpr size_t EQGroundItem_size = 0xa0;
 
 class [[offsetcomments]] EQGroundItem
@@ -533,7 +533,7 @@ struct [[offsetcomments]] CTaskElement
 
 const int MAX_TASK_ELEMENTS = 20;
 
-// @sizeof(CTaskEntry) == 0x3d60 :: 2023-11-29 (test) @ 0x140048bc4
+// @sizeof(CTaskEntry) == 0x3d60 :: 2023-12-12 (live) @ 0x140048bc4
 constexpr size_t CTaskEntry_size = 0x3d60;
 
 struct [[offsetcomments]] CTaskEntry
@@ -1129,7 +1129,7 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2023-11-29 (test) @ 0x14024DD33
+// @sizeof(EQWorldData) == 0x1f88 :: 2023-12-12 (live) @ 0x14024dde3
 constexpr size_t EQWorldData_size = 0x1f88;
 
 class [[offsetcomments]] EQWorldData
@@ -1637,8 +1637,8 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x376A00 :: 2023-11-29 (test) @ 0x14024DE73
-constexpr size_t SkillManager_size = 0x376A00;
+// @sizeof(SkillManager) == 0x376a00 :: 2023-12-12 (live) @ 0x14024df23
+constexpr size_t SkillManager_size = 0x376a00;
 
 class [[offsetcomments]] SkillManager
 {
@@ -1654,16 +1654,16 @@ public:
 
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;
 /*0x000320*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x1a9960*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
-/*0x352fa0*/ char      SkillCapsFilename[MAX_PATH];
-/*0x3530a8*/ HashListSet<EQ_Skill, NUM_SKILLS> SkillHash;
-/*0x3533e8*/ UINT      SkillLastUsed[NUM_SKILLS];
-/*0x353578*/ UINT      SkillTimerDuration[NUM_SKILLS];
-/*0x353708*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
-/*0x353710*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
-/*0x353718*/ bool      bSkillCanUse[NUM_SKILLS];
-/*0x35377c*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
-/*0x353780*/
+/*0x1bb2a0*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
+/*0x376220*/ char      SkillCapsFilename[MAX_PATH];
+/*0x376328*/ HashListSet<EQ_Skill, NUM_SKILLS> SkillHash;
+/*0x376668*/ UINT      SkillLastUsed[NUM_SKILLS];
+/*0x3767f8*/ UINT      SkillTimerDuration[NUM_SKILLS];
+/*0x376988*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];
+/*0x376990*/ UINT      CombatSkillDuration[CONCURRENT_SKILLS];
+/*0x376998*/ bool      bSkillCanUse[NUM_SKILLS];
+/*0x3769fc*/ bool      bCombatSkillCanUse[CONCURRENT_SKILLS];
+/*0x376a00*/
 };
 using CSkillMgr = SkillManager;
 using SKILLMGR = SkillManager;
