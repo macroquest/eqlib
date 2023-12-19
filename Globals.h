@@ -206,7 +206,7 @@ EQLIB_VAR uintptr_t __MemChecker4;
 EQLIB_VAR uintptr_t __EncryptPad0;
 EQLIB_VAR uintptr_t DI8__Keyboard;
 EQLIB_VAR uintptr_t DI8__Main;
-EQLIB_VAR uintptr_t DI8__Mouse_Check;
+EQLIB_VAR uintptr_t DI8__MouseState;
 EQLIB_VAR uintptr_t DI8__Mouse;
 
 EQLIB_VAR uintptr_t __allowslashcommand;
@@ -769,13 +769,12 @@ EQLIB_VAR uintptr_t ZoneGuideManagerClient__Instance;
 
 // Raw pointers (value types in eq)
 EQLIB_VAR CMDLIST*                                   EQADDR_CMDLIST;
-EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIKEYBOARD;
-EQLIB_VAR uintptr_t                                  EQADDR_DIMAIN;
-EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIMOUSE;
-EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECHECK;
+EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIKEYBOARD DEPRECATE("Use g_pKeyboard instead of EQADDR_DIKEYBOARD");
+EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIMOUSE DEPRECATE("Use g_pMouse instead of EQADDR_DIMOUSE");
+EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECHECK DEPRECATE("Use g_pDIMouseState instead of EQADDR_DIMOUSECHECK");
+EQLIB_VAR MQMouseInfo*                               EQADDR_MOUSE;
 EQLIB_VAR void*                                      EQADDR_GWORLD;
 EQLIB_VAR uintptr_t                                  EQADDR_HWND;
-EQLIB_VAR MQMouseInfo*                               EQADDR_MOUSE;
 EQLIB_VAR char*                                      EQADDR_SERVERHOST;
 EQLIB_VAR char**                                     EQMappableCommandList;
 EQLIB_VAR BYTE*                                      EQbCommandStates;
@@ -1041,6 +1040,9 @@ EQLIB_VAR ForeignPointer<CZoneGuideWnd>              pZoneGuideWnd;
 EQLIB_VAR ForeignPointer<CZonePathWnd>               pZonePathWnd;
 
 EQLIB_VAR ForeignPointer<CRender>                    g_pDrawHandler;
+EQLIB_VAR ForeignPointer<IDirectInputDevice8A>       g_pDIKeyboard;
+EQLIB_VAR ForeignPointer<IDirectInputDevice8A>       g_pDIMouse;
+EQLIB_VAR DIMOUSESTATE2*                             g_pDIMouseState;
 
 //----------------------------------------------------------------------------
 
