@@ -1652,7 +1652,6 @@ inline namespace deprecated {
 	using PLOOTDETAILS DEPRECATE("Use AdvancedLootItemNPC* instead of PLOOTDETAILS") = AdvancedLootItemNPC*;
 }
 
-//.text:0041ECBD                 imul    eax, 84h in Apr 15 2015 test
 enum eAdvLootState
 {
 	eAdvLootWaiting,
@@ -1666,34 +1665,44 @@ enum eAdvLootState
 	eAdvLootRemoved
 };
 
+enum eAdvLootStatus
+{
+	eAdvLootStatusWaiting,
+	eAdvLootStatusAsking,
+	eAdvLootStatusRolling,
+	eAdvLootStatusStopped,
+	eAdvLootStatusClickRoll,
+	eAdvLootStatusFreeGrab,
+};
+
 struct [[offsetcomments]] AdvancedLootItem
 {
-/*0x00*/ int64_t       ItemID;                   // EqGuid?
-/*0x08*/ char          Name[0x40];
-/*0x48*/ int           IconID;
-/*0x4c*/ bool          bStackable;
-/*0x50*/ int           MaxStack;
-/*0x54*/ bool          NoDrop;
-/*0x58*/ int           ComboID;
-/*0x5c*/ unsigned int  LootID;
-/*0x60*/ eAdvLootState State;
-/*0x64*/ int           Unknown0x64;
-/*0x68*/ bool          bAutoRoll;
-/*0x69*/ bool          ActivelyManaged;          // User has the manage Window up
-/*0x6a*/ bool          ContextMenu;              // item has a context menu
-/*0x6b*/ bool          AskRandomMode;            // item is in AskRandom mode
-/*0x6c*/ bool          CLootInProgress;
-/*0x6d*/ bool          PLootInProgress;
+/*0x00*/ int64_t              ItemID;                   // EqGuid?
+/*0x08*/ char                 Name[0x40];
+/*0x48*/ int                  IconID;
+/*0x4c*/ bool                 bStackable;
+/*0x50*/ int                  MaxStack;
+/*0x54*/ bool                 NoDrop;
+/*0x58*/ int                  ComboID;
+/*0x5c*/ unsigned int         LootID;
+/*0x60*/ eAdvLootState        State;
+/*0x64*/ eAdvLootStatus       Status;
+/*0x68*/ bool                 bAutoRoll;
+/*0x69*/ bool                 ActivelyManaged;          // User has the manage Window up
+/*0x6a*/ bool                 ContextMenu;              // item has a context menu
+/*0x6b*/ bool                 AskRandomMode;            // item is in AskRandom mode
+/*0x6c*/ bool                 CLootInProgress;
+/*0x6d*/ bool                 PLootInProgress;
 /*0x70*/ SoeUtil::Array<AdvancedLootItemNPC> LootDetails;
-/*0x88*/ unsigned int  AskTimer;
-/*0x8c*/ bool          AutoRoll;
-/*0x8d*/ bool          FG;
-/*0x8e*/ bool          Need;
-/*0x8f*/ bool          Greed;
-/*0x90*/ bool          No;
-/*0x91*/ bool          AlwaysNeed;
-/*0x92*/ bool          AlwaysGreed;
-/*0x93*/ bool          Never;
+/*0x88*/ unsigned int         AskTimer;
+/*0x8c*/ bool                 AutoRoll;
+/*0x8d*/ bool                 FG;
+/*0x8e*/ bool                 Need;
+/*0x8f*/ bool                 Greed;
+/*0x90*/ bool                 No;
+/*0x91*/ bool                 AlwaysNeed;
+/*0x92*/ bool                 AlwaysGreed;
+/*0x93*/ bool                 Never;
 /*0x94*/
 };
 

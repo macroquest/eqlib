@@ -70,15 +70,6 @@ static const SClassInfo ClassInfo[] =
 	{ 1, 1, 0, 0, 0, 0, 0, 1, 16, "Mercenary",    "mer", "MER" }, // mer
 };
 
-enum MOUSE_DATA_TYPES
-{
-	MD_Unknown        = -1,
-	MD_Button0Click   = 0,
-	MD_Button1Click   = 1,
-	MD_Button0        = 2,
-	MD_Button1        = 3,
-};
-
 inline namespace deprecated {
 	constexpr char* KeyRingWindowParent DEPRECATE("Use pKeyRingWnd instead of looking it up by name") = "KeyRingWnd";
 	constexpr char* MountWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Mounts_List";
@@ -178,13 +169,6 @@ class UniqueIdGen
 public:
 	T a, b, c;
 	IUniqueIdCheck* check;
-};
-
-struct MOUSESPOOF
-{
-	MOUSE_DATA_TYPES   mdType;
-	DWORD              dwData;
-	MOUSESPOOF*        pNext;
 };
 
 struct [[offsetcomments]] LEADERABILITIES
