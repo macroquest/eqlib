@@ -311,10 +311,9 @@ INITIALIZE_EQGAME_OFFSET(__MemChecker1);
 INITIALIZE_EQGAME_OFFSET(__MemChecker4);
 #endif
 INITIALIZE_EQGAME_OFFSET(__EncryptPad0);
-INITIALIZE_EQGAME_OFFSET(DI8__Main);
 INITIALIZE_EQGAME_OFFSET(DI8__Keyboard);
 INITIALIZE_EQGAME_OFFSET(DI8__Mouse);
-INITIALIZE_EQGAME_OFFSET(DI8__Mouse_Check);
+INITIALIZE_EQGAME_OFFSET(DI8__MouseState);
 
 INITIALIZE_EQGAME_OFFSET(__CastRay);
 INITIALIZE_EQGAME_OFFSET(__CastRay2);
@@ -907,7 +906,6 @@ INITIALIZE_EQGAME_OFFSET(ZoneGuideManagerClient__Instance);
 
 CMDLIST*               EQADDR_CMDLIST            = nullptr;
 IDirectInputDevice8A** EQADDR_DIKEYBOARD         = nullptr;
-uintptr_t              EQADDR_DIMAIN             = 0;
 IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
 POINT*                 EQADDR_DIMOUSECHECK       = nullptr;
 void*                  EQADDR_GWORLD             = nullptr;
@@ -1178,6 +1176,10 @@ ForeignPointer<CZoneGuideWnd>                    pZoneGuideWnd;
 ForeignPointer<CZonePathWnd>                     pZonePathWnd;
 
 ForeignPointer<CRender>                          g_pDrawHandler;
+ForeignPointer<IDirectInputDevice8A>             g_pDIKeyboard;
+ForeignPointer<IDirectInputDevice8A>             g_pDIMouse;
+DIMOUSESTATE2*                                   g_pDIMouseState;
+
 
 fEQNewUIINI            NewUIINI                  = nullptr;
 fEQProcGameEvts        ProcessGameEvents         = nullptr;
@@ -1200,10 +1202,12 @@ void InitializeEQGameOffsets()
 
 	// Raw pointers (value types in eq)
 	EQADDR_CMDLIST                  = (PCMDLIST)__CommandList;
+#pragma warning(suppress: 4996)
 	EQADDR_DIKEYBOARD               = (IDirectInputDevice8A**)DI8__Keyboard;
-	EQADDR_DIMAIN                   = DI8__Main;
+#pragma warning(suppress: 4996)
 	EQADDR_DIMOUSE                  = (IDirectInputDevice8A**)DI8__Mouse;
-	EQADDR_DIMOUSECHECK             = (PPOINT)DI8__Mouse_Check;
+#pragma warning(suppress: 4996)
+	EQADDR_DIMOUSECHECK             = (PPOINT)DI8__MouseState;
 	EQADDR_GWORLD                   = (void*)__gWorld;
 	EQADDR_HWND                     = __HWnd;
 	EQADDR_MOUSE                    = (MQMouseInfo*)__Mouse;
@@ -1318,6 +1322,9 @@ void InitializeEQGameOffsets()
 	pWorldData                      = pinstWorldData;
 
 	g_pDrawHandler                  = pinstRenderInterface;
+	g_pDIKeyboard                   = DI8__Keyboard;
+	g_pDIMouse                      = DI8__Mouse;
+	g_pDIMouseState                 = (DIMOUSESTATE2*)DI8__MouseState;
 	g_labelCache                    = (LabelCache*)__LabelCache;
 
 	NewUIINI                        = (fEQNewUIINI)__NewUIINI;

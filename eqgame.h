@@ -87,12 +87,11 @@
 #define __ServerHost_x                                             0xDD003C
 #define __Guilds_x                                                 0xDD5CF8
 #define __MouseEventTime_x                                         0xE639CC
-#define DI8__Mouse_Check_x                                         0xE67884
+#define DI8__MouseState_x                                          0xE67884
 #define __heqmain_x                                                0xE67CD0
 #define DI8__Mouse_x                                               0xE67B50
 #define __HWnd_x                                                   0xE678A0
 #define __Mouse_x                                                  0xE67B54
-#define DI8__Main_x                                                0xE67B48
 #define DI8__Keyboard_x                                            0xE67B4C
 #define __LoginName_x                                              0xE66478
 #define __CurrentMapLabel_x                                        0xF73E00
