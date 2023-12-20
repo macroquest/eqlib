@@ -696,6 +696,7 @@ enum EQExpansion
 #define EXPANSION_COV               EQ_EXPANSION(EXPANSION_LEVEL_COV)
 #define EXPANSION_TOL               EQ_EXPANSION(EXPANSION_LEVEL_TOL)
 #define EXPANSION_NOS               EQ_EXPANSION(EXPANSION_LEVEL_NOS)
+#define EXPANSION_LS                EQ_EXPANSION(EXPANSION_LEVEL_LS)
 
 // Enumeration defining expansion bit mask representing expansion flags. Often used to
 // determine expansion ownership or requirements.
@@ -731,6 +732,7 @@ enum EQExpansionOwned
 	EQExpansionCOVOwned             = EXPANSION_COV,
 	EQExpansionTOLOwned             = EXPANSION_TOL,
 	EQExpansionNOSOwned             = EXPANSION_NOS,
+	EQExpansionLSOwned              = EXPANSION_LS,
 
 	// Mask representing all expansions
 	EQExpansionHighestOwnedPlusOne_,
