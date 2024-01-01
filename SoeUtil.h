@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include "Allocator.h"
+
 #include <cassert>
 
 namespace eqlib {
@@ -31,6 +33,7 @@ T* Align(U* p, int align)
 #pragma region Array<T>
 
 // class SoeUtil::Array<unsigned char, 0, 1> `RTTI Type Descriptor'
+
 template <typename T>
 class Array
 {
@@ -83,12 +86,18 @@ private:
 /*0x18*/
 };
 
+template <typename T, int EMBEDDED_SIZE> class EmbeddedArray : public Array<T>
+{
+private:
+/*0x18*/ uint8_t m_fixedData[EMBEDDED_SIZE == 0 ? 1 : (EMBEDDED_SIZE * sizeof(T) + __alignof(T))];
+};
+
 //============================================================================
 
 template <typename T>
 Array<T>::Array(const T* data, int size)
 {
-	CopyAppend(data, amount);
+	CopyAppend(data, this->amount);
 }
 
 template <typename T>
@@ -497,12 +506,45 @@ private:
 	}
 
 private:
-/*0x08*/ T* m_data = "";
+/*0x04*/ T* m_data = "";
 /*0x08*/ int m_length = 0;
 /*0x0c*/ int m_space = 0;
+/*0x10*/
 };
 
 using String = IString<char>;
+
+template <typename T, int FIXED_SIZE>
+class IStringFixed : public IString<T>
+{
+public:
+	virtual void* Alloc(size_t count, size_t* actual, bool* shareable)
+	{
+		if (count <= sizeof(m_internalStorage))
+		{
+			*shareable = false;
+			*actual = sizeof(m_internalStorage);
+
+			return m_internalStorage;
+		}
+
+		return IString<T>::Alloc(count, actual, shareable);
+	}
+
+	virtual void Free(void* data)
+	{
+		if (data != m_internalStorage)
+		{
+			IString<T>::Free(data);
+		}
+	}
+
+private:
+	uint8_t m_internalStorage[FIXED_SIZE * sizeof(T) + sizeof(int)];
+};
+
+template <int SIZE>
+using StringFixed = IStringFixed<char, SIZE>;
 
 #pragma endregion
 
@@ -829,6 +871,66 @@ public:
 
 /*0x08*/ Node* root = nullptr;
 /*0x10*/ int count = 0;
+};
+
+template <typename Key>
+class Set
+{
+public:
+	using key_type = Key;
+
+	Set()
+	{
+	}
+
+	virtual ~Set()
+	{
+	}
+
+	virtual bool IsSwapAllowed() const { return true; }
+	virtual uint8_t* Allocate() { return nullptr; }
+	virtual void Free(uint8_t*) {}
+
+	struct Node
+	{
+		key_type key;
+
+		Node* parent;
+		Node* left;
+		Node* right;
+		uint32_t red : 1;
+		uint32_t position : 32;
+	};
+
+/*0x08*/ Node* root = nullptr;
+/*0x10*/ int count = 0;
+};
+
+//----------------------------------------------------------------------------
+
+#pragma endregion
+
+#pragma region List<T>
+
+template <typename T>
+class List
+{
+public:
+	class Node
+	{
+		T     m_value;
+		Node* m_next;
+		Node* m_prev;
+	};
+
+	virtual ~List();
+	virtual bool IsSwapAllowed() { return true; }
+	virtual uint8_t* Allocate();
+	virtual void Free(uint8_t* data);
+
+	Node*    m_head;
+	Node*    m_tail;
+	int      m_size;
 };
 
 //----------------------------------------------------------------------------

@@ -138,9 +138,9 @@ struct ForeignPointer_StorageBase<T, U, Rest...> : public ForeignPointer_Storage
 
 	void set(U* value) noexcept
 	{
-		if (m_ptr)
+		if (this->m_ptr)
 		{
-			*m_ptr = reinterpret_cast<T*>(value);
+			*this->m_ptr = reinterpret_cast<T*>(value);
 		}
 	}
 };
@@ -154,21 +154,21 @@ public:
 	~ForeignPointer() noexcept = default;
 
 	ForeignPointer(uintptr_t addr) noexcept
-	{ m_ptr = reinterpret_cast<T**>(addr); }
+	{ this->m_ptr = reinterpret_cast<T**>(addr); }
 	ForeignPointer(const ForeignPointer& other) noexcept
-	{ m_ptr = other.m_ptr; }
+	{ this->m_ptr = other.m_ptr; }
 	ForeignPointer(ForeignPointer&& other) noexcept
-	{ m_ptr = other.m_ptr; }
+	{ this->m_ptr = other.m_ptr; }
 
 	ForeignPointer& operator=(const ForeignPointer& other) noexcept
 	{
-		m_ptr = other.m_ptr;
+		this->m_ptr = other.m_ptr;
 		return *this;
 	}
 
 	ForeignPointer& operator=(ForeignPointer&& other) noexcept
 	{
-		m_ptr = other.m_ptr;
+		this->m_ptr = other.m_ptr;
 		return *this;
 	}
 
@@ -180,9 +180,9 @@ public:
 
 	ForeignPointer& operator=(nullptr_t) noexcept
 	{
-		if (m_ptr)
+		if (this->m_ptr)
 		{
-			*m_ptr = nullptr;
+			*this->m_ptr = nullptr;
 		}
 
 		return *this;
@@ -197,12 +197,12 @@ public:
 
 	bool operator== (nullptr_t) const noexcept
 	{
-		return get() == nullptr;
+		return this->get() == nullptr;
 	}
 
 	bool operator!= (nullptr_t) const noexcept
 	{
-		return get() != nullptr;
+		return this->get() != nullptr;
 	}
 
 	// Compare with another type of ForeignPointer by comparing
@@ -210,24 +210,24 @@ public:
 	template <typename... T>
 	bool operator== (const ForeignPointer<T...>& other)
 	{
-		return get() == other.get();
+		return this->get() == other.get();
 	}
 
 	template <typename... T>
 	bool operator!= (const ForeignPointer<T...>& other)
 	{
-		return get() != other.get();
+		return this->get() != other.get();
 	}
 
 	T& operator*() const noexcept
 	{
-		assert(m_ptr != nullptr && *m_ptr != nullptr);
-		return **m_ptr;
+		assert(this->m_ptr != nullptr && *this->m_ptr != nullptr);
+		return **this->m_ptr;
 	}
 
 	T* operator->() const noexcept
 	{
-		return get();
+		return this->get();
 	}
 
 	explicit operator bool() const noexcept
@@ -237,19 +237,19 @@ public:
 
 	operator void* () const noexcept
 	{
-		return get();
+		return this->get();
 	}
 
 	template <typename U>
-	U* get_as() const noexcept { return (U*)get(); }
+	U* get_as() const noexcept { return (U*)this->get(); }
 
-	bool is_valid() const noexcept { return m_ptr && *m_ptr; }
+	bool is_valid() const noexcept { return this->m_ptr && *this->m_ptr; }
 
-	uintptr_t get_offset() const noexcept { return reinterpret_cast<uintptr_t>(m_ptr); }
-	void set_offset(uintptr_t offset) noexcept { m_ptr = reinterpret_cast<T**>(offset); }
-	void set_offset(T** offset) noexcept { m_ptr = offset; }
+	uintptr_t get_offset() const noexcept { return reinterpret_cast<uintptr_t>(this->m_ptr); }
+	void set_offset(uintptr_t offset) noexcept { this->m_ptr = reinterpret_cast<T**>(offset); }
+	void set_offset(T** offset) noexcept { this->m_ptr = offset; }
 
-	void reset() { m_ptr = nullptr; }
+	void reset() { this->m_ptr = nullptr; }
 
 	// If the pointer is convertible, then this object is convertible
 	template <typename U, typename = std::enable_if<std::is_convertible_v<T, U>, void>>
