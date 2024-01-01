@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include "Allocator.h"
+
 #include <cassert>
 
 namespace eqlib {
@@ -95,7 +97,7 @@ private:
 template <typename T>
 Array<T>::Array(const T* data, int size)
 {
-	CopyAppend(data, amount);
+	CopyAppend(data, this->amount);
 }
 
 template <typename T>
@@ -468,7 +470,7 @@ private:
 
 	void increment_ref_count()
 	{
-		int oldRefcount = std::atomic_fetch_add(get_ref_count_ptr(), 1);
+		int oldRefCount = std::atomic_fetch_add(get_ref_count_ptr(), 1);
 		assert(oldRefCount != 0);
 	}
 
@@ -930,24 +932,6 @@ public:
 	Node*    m_tail;
 	int      m_size;
 };
-
-template <typename T>
-uint8_t* List<T>::Allocate()
-{
-	uint8_t* data = (uint8_t*)SoeUtil::Alloc(sizeof(Node), __alignof(Node));
-
-	int currentAlloc = m_alloc;
-
-	if (amount > currentAlloc)
-	{
-		*allocated = amount * 5 / 4;
-		return (T*)SoeUtil::Alloc(*allocated * sizeof(T), __alignof(T));
-	}
-
-	*allocated = m_alloc;
-	return m_array;
-}
-
 
 //----------------------------------------------------------------------------
 
