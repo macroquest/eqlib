@@ -97,7 +97,7 @@ private:
 template <typename T>
 Array<T>::Array(const T* data, int size)
 {
-	CopyAppend(data, this->amount);
+	CopyAppend(data, size);
 }
 
 template <typename T>
@@ -470,7 +470,7 @@ private:
 
 	void increment_ref_count()
 	{
-		int oldRefcount = std::atomic_fetch_add(get_ref_count_ptr(), 1);
+		int oldRefCount = std::atomic_fetch_add(get_ref_count_ptr(), 1);
 		assert(oldRefCount != 0);
 	}
 
@@ -506,7 +506,9 @@ private:
 	}
 
 private:
-/*0x04*/ T* m_data = "";
+	static inline char s_emptyString[] = "";
+
+/*0x04*/ T* m_data = s_emptyString;
 /*0x08*/ int m_length = 0;
 /*0x0c*/ int m_space = 0;
 /*0x10*/
@@ -705,7 +707,7 @@ private:
 	void construct(T* other)
 	{
 		m_ptr = other;
-		m_rep = eqNew<Internal::SharedData>();
+		m_rep = eqlib::eqNew<Internal::SharedData>();
 	}
 
 	template <typename U>
@@ -756,7 +758,7 @@ private:
 
 			if (m_rep->m_refs == 0)
 			{
-				eqDelete(m_rep);
+				eqlib::eqDelete(m_rep);
 				m_rep = nullptr;
 			}
 		}

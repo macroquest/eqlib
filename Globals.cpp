@@ -76,7 +76,7 @@ DIKEYID gDiKeyID[] = {
 
 const char* gDiKeyName[256];
 
-ServerID ServerIDArray[(int)ServerID::NumServers] = {
+ServerID ServerIDArray[static_cast<int>(ServerID::NumServers)] = {
 	ServerID::Test,
 	ServerID::Antonius,
 	ServerID::Bertox,

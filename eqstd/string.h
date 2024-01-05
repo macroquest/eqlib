@@ -21,6 +21,37 @@ namespace eqstd
 	using std::initializer_list;
 	using std::char_traits;
 
+	// xstring.h
+#if _HAS_CXX20
+	template <class _Traits, class = void>
+	struct _Get_comparison_category {
+		using type = std::weak_ordering;
+	};
+
+	template <class _Traits>
+	struct _Get_comparison_category<_Traits, void_t<typename _Traits::comparison_category>> {
+		using type = _Traits::comparison_category;
+
+		static_assert(_Is_any_of_v<type, std::partial_ordering, std::weak_ordering, std::strong_ordering>,
+			"N4950 [string.view.comparison]/4: Mandates: R denotes a comparison category type.");
+	};
+
+	template <class _Traits>
+	using _Get_comparison_category_t = _Get_comparison_category<_Traits>::type;
+
+	_EXPORT_STD template <class _Elem, class _Traits>
+		_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
+			const basic_string_view<_Elem, _Traits> _Lhs, const basic_string_view<_Elem, _Traits> _Rhs) noexcept {
+		return static_cast<_Get_comparison_category_t<_Traits>>(_Lhs.compare(_Rhs) <=> 0);
+	}
+
+	_EXPORT_STD template <class _Elem, class _Traits, int = 2> // TRANSITION, VSO-409326
+		_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
+			const basic_string_view<_Elem, _Traits> _Lhs, const _Identity_t<basic_string_view<_Elem, _Traits>> _Rhs) noexcept {
+		return static_cast<_Get_comparison_category_t<_Traits>>(_Lhs.compare(_Rhs) <=> 0);
+	}
+#endif // _HAS_CXX20
+
 	template <class _Traits>
 	struct _Char_traits_eq {
 		using _Elem = typename _Traits::char_type;
@@ -493,7 +524,7 @@ namespace eqstd
 		}
 
 	#if _HAS_CXX20
-		_NODISCARD constexpr strong_ordering operator<=>(const _String_const_iterator& _Right) const noexcept {
+		_NODISCARD constexpr std::strong_ordering operator<=>(const _String_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Unfancy(_Ptr) <=> _Unfancy(_Right._Ptr);
 		}

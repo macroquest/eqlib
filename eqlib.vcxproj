@@ -151,6 +151,7 @@
     <ClInclude Include="eqstd\xmemory.h" />
     <ClInclude Include="eqstd\xtree.h" />
     <ClInclude Include="Expansions.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="GraphicsResources.h" />
     <ClInclude Include="Logging.h" />
     <ClInclude Include="RealEstate.h" />

@@ -72,6 +72,10 @@ namespace eqstd {
 	using std::decay;
 	using std::decay_t;
 
+	template <class>
+	// TRANSITION, CWG-2518: false value attached to a dependent name (for static_assert)
+	inline constexpr bool _Always_false = false;
+
 	template <class _Ty>
 	using _Remove_cvref_t = remove_cv_t<remove_reference_t<_Ty>>;
 

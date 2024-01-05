@@ -205,26 +205,26 @@ public:
 
 		[[nodiscard]] reference operator*() const
 		{
-			return const_cast<ArrayClass2*>(m_container)->Get(m_index);
+			return const_cast<ArrayClass2*>(this->m_container)->Get(this->m_index);
 		}
 
 		[[nodiscard]] pointer operator->() const
 		{
-			return std::addressof(const_cast<ArrayClass2*>(m_container)->Get(m_index));
+			return std::addressof(const_cast<ArrayClass2*>(this->m_container)->Get(this->m_index));
 		}
 
-		Iterator& operator++() { ++m_index; return *this; }
+		Iterator& operator++() { ++this->m_index; return *this; }
 		Iterator operator++(int) const { auto tmp = *this; ++(*this); return tmp; }
-		Iterator& operator--() { --m_index; return *this; }
+		Iterator& operator--() { --this->m_index; return *this; }
 		Iterator operator--(int) const { auto tmp = *this; --(*this); return tmp; }
-		Iterator& operator+=(difference_type offset) { m_index += offset; return *this; }
+		Iterator& operator+=(difference_type offset) { this->m_index += offset; return *this; }
 		[[nodiscard]] Iterator operator+(difference_type offset) const { auto tmp = *this; return tmp += offset; }
-		Iterator& operator-=(difference_type offset) { m_index -= offset; return *this; }
+		Iterator& operator-=(difference_type offset) { this->m_index -= offset; return *this; }
 		[[nodiscard]] Iterator operator-(difference_type offset) const { auto tmp = *this; return tmp -= offset; }
-		[[nodiscard]] Iterator operator-(const Iterator& other) const { return Iterator(m_container, m_index - other.m_index); }
-		[[nodiscard]] bool operator==(const Iterator& other) const { return m_container == other.m_container && m_index == other.m_index; }
+		[[nodiscard]] Iterator operator-(const Iterator& other) const { return Iterator(this->m_container, this->m_index - other.m_index); }
+		[[nodiscard]] bool operator==(const Iterator& other) const { return this->m_container == other.m_container && this->m_index == other.m_index; }
 		[[nodiscard]] bool operator!=(const Iterator& other) const { return !(*this == other); }
-		[[nodiscard]] bool operator<(const Iterator& other) const { return m_index < other.m_index; }
+		[[nodiscard]] bool operator<(const Iterator& other) const { return this->m_index < other.m_index; }
 		[[nodiscard]] bool operator>(const Iterator& other) const { return other < *this; }
 		[[nodiscard]] bool operator<=(const Iterator& other) const { return !(other < *this); }
 		[[nodiscard]] bool operator>=(const Iterator& other) const { return !(*this < other); }
@@ -660,9 +660,9 @@ public:
 	{
 		using std::pair<T, const Key>::pair;
 
-		inline const Key& key() const { return second; }
-		inline T& value() { return first; }
-		inline const T& value() const { return first; }
+		const Key& key() const { return this->second; }
+		T& value() { return this->first; }
+		const T& value() const { return this->first; }
 
 		static const HashTableEntry* GetEntry(const T* value) { return reinterpret_cast<const HashTableEntry*>(value); }
 		static HashTableEntry* GetEntry(T* value) { return reinterpret_cast<HashTableEntry*>(value); }
@@ -701,23 +701,33 @@ public:
 	void Reset();
 
 private:
-	template <typename T>
-	static uint32_t hash_value(const T& key)
-	{
-		if constexpr (std::conjunction_v<
-			std::is_convertible<const T&, std::string_view>,
-			std::negation<std::is_convertible<const T&, const char*>>>)
-		{
+	// Primary template definition
+	template <typename U, typename = void>
+	struct HashValue {
+	};
+
+	// Specialization for types convertible to std::string_view but not to const char*
+	template <typename U>
+	struct HashValue<U, std::enable_if_t<
+		std::conjunction_v<
+		std::is_convertible<const U&, std::string_view>,
+		std::negation<std::is_convertible<const U&, const char*>>>>> {
+		static uint32_t get(const U& key) {
 			return GetStringCRC(key);
 		}
-		else if constexpr (std::is_integral_v<T>)
-		{
-			return (uint32_t)key;
+	};
+
+	// Specialization for integral types
+	template <typename U>
+	struct HashValue<U, std::enable_if_t<std::is_integral_v<U>>> {
+		static uint32_t get(const U& key) {
+			return static_cast<uint32_t>(key);
 		}
-		else
-		{
-			static_assert(false, "Unexpected key type");
-		}
+	};
+
+	template <typename T>
+	static uint32_t hash_value(const T& key) {
+		return HashValue<T>::get(key);
 	}
 
 
@@ -789,20 +799,20 @@ public:
 
 		[[nodiscard]] reference operator*() const
 		{
-			return *m_entry;
+			return *this->m_entry;
 		}
 
 		[[nodiscard]] pointer operator->() const
 		{
-			return m_entry;
+			return this->m_entry;
 		}
 
-		Iterator& operator++() { m_entry = m_container->WalkNextEntry(m_entry); return *this; }
+		Iterator& operator++() { this->m_entry = this->m_container->WalkNextEntry(this->m_entry); return *this; }
 		Iterator operator++(int) const { auto tmp = *this; ++(*this); return tmp; }
 
-		[[nodiscard]] bool operator==(const Iterator& other) const { return m_container == other.m_container && m_entry == other.m_entry; }
+		[[nodiscard]] bool operator==(const Iterator& other) const { return this->m_container == other.m_container && this->m_entry == other.m_entry; }
 		[[nodiscard]] bool operator!=(const Iterator& other) const { return !(*this == other); }
-		[[nodiscard]] bool operator<(const Iterator& other) const { return m_entry < other.m_entry; }
+		[[nodiscard]] bool operator<(const Iterator& other) const { return this->m_entry < other.m_entry; }
 		[[nodiscard]] bool operator>(const Iterator& other) const { return other < *this; }
 		[[nodiscard]] bool operator<=(const Iterator& other) const { return !(other < *this); }
 		[[nodiscard]] bool operator>=(const Iterator& other) const { return !(*this < other); }
@@ -1570,12 +1580,12 @@ public:
 			m_pTail->m_pNext = node;
 			node->m_pPrev = m_pTail;
 
-			m_pTail = pNode;
+			m_pTail = node;
 		}
 		else
 		{
 			// First item, set as first and last.
-			m_pTail = m_pHead = pNode;
+			m_pTail = m_pHead = node;
 		}
 
 		++m_numObjects;
@@ -1751,7 +1761,7 @@ public:
 
 	Node* NodeGet(const T* cur) const
 	{
-		return (Node*)((byte*)cur - (size_t)((byte*)(&((Node*)1)->value()) - (byte*)1));
+		return (Node*)((uint8_t*)cur - (size_t)((uint8_t*)(&((Node*)1)->value()) - (uint8_t*)1));
 	}
 
 	T* GetFirst() const
@@ -2140,7 +2150,6 @@ public:
 			if (!pNode) return nullptr;
 
 			pNode = GetNodePtr(pNode)->GetNext();
-			count++;
 		}
 
 		return pNode;

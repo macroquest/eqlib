@@ -298,7 +298,7 @@ public:
 /*0x00*/ EQGroundItem*    pPrev;
 /*0x04*/ EQGroundItem*    pNext;
 /*0x08*/ ItemPtr          Item;
-/*0x0c*/ DWORD            DropID;                   // unique id
+/*0x0c*/ int              DropID;                   // unique id
 /*0x10*/ DWORD            ZoneID;
 /*0x14*/ DWORD            DropSubID;                // zonefile id
 /*0x18*/ CActorInterface* pActor;

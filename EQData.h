@@ -38,9 +38,9 @@ struct SClassInfo
 	bool ShamanType;
 	bool MercType;
 	char RaidColorOrder;
-	char* Name;
-	char* ShortName;
-	char* UCShortName;
+	const char* Name;
+	const char* ShortName;
+	const char* UCShortName;
 };
 
 inline namespace deprecated {
@@ -71,12 +71,12 @@ static SClassInfo ClassInfo[] =
 };
 
 inline namespace deprecated {
-	constexpr char* KeyRingWindowParent DEPRECATE("Use pKeyRingWnd instead of looking it up by name") = "KeyRingWnd";
-	constexpr char* MountWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Mounts_List";
-	constexpr char* IllusionWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Illusions_List";
-	constexpr char* FamiliarWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Familiars_list";
-	constexpr char* HeroForgeWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_HeroForge_List";
-	constexpr char* KeyRingTab DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Subwindows";
+	constexpr const char* KeyRingWindowParent DEPRECATE("Use pKeyRingWnd instead of looking it up by name") = "KeyRingWnd";
+	constexpr const char* MountWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Mounts_List";
+	constexpr const char* IllusionWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Illusions_List";
+	constexpr const char* FamiliarWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Familiars_list";
+	constexpr const char* HeroForgeWindowList DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_HeroForge_List";
+	constexpr const char* KeyRingTab DEPRECATE("Use pKeyRingWnd instead of looking members up by name") = "KRW_Subwindows";
 }
 
 template <typename T>
@@ -121,23 +121,26 @@ class [[offsetcomments]] AccessGroupList
 public:
 	AccessGroupType accessGroups[AccessGroupType::eNumGroups];
 
-	using PlayerToGroupMap = HashTable<typename AccessGroupType::GroupEnum, CXStr>;
+	using GroupEnum = typename AccessGroupType::GroupEnum;
+	using CapabilityEnum = typename AccessGroupType::CapabilityEnum;
+
+	using PlayerToGroupMap = HashTable<GroupEnum, CXStr>;
 	PlayerToGroupMap playersToGroups;
 
-	typename AccessGroupType::GroupEnum GetPlayerAccessGroup(const char* playerName)
+	GroupEnum GetPlayerAccessGroup(const char* playerName)
 	{
-		AccessGroupType::GroupEnum* currentGroup = playersToGroups.FindFirst(playerName);
+		GroupEnum* currentGroup = playersToGroups.FindFirst(playerName);
 		if (currentGroup != nullptr)
 		{
 			return *currentGroup;
 		}
 
-		return (AccessGroupType::GroupEnum)AccessGroupType::eEveryoneGroup;
+		return static_cast<GroupEnum>(AccessGroupType::eEveryoneGroup);
 	}
 
-	bool HasAccess(const char* playerName, typename AccessGroupType::CapabilityEnum capability) const
+	bool HasAccess(const char* playerName, CapabilityEnum capability) const
 	{
-		AccessGroupType::GroupEnum group = GetPlayerAccessGroup(playerName);
+		GroupEnum group = GetPlayerAccessGroup(playerName);
 		if (group < AccessGroupType::eNumGroups)
 		{
 			return HasAccess(group, capability);
@@ -151,7 +154,7 @@ public:
 		return playersToGroups.FindFirst(playerName) != nullptr;
 	}
 
-	bool HasAccess(typename AccessGroupType::GroupEnum group, typename AccessGroupType::CapabilityEnum capability) const
+	bool HasAccess(GroupEnum group, typename CapabilityEnum capability) const
 	{
 		return accessGroups[group].HasAccess(capability);
 	}

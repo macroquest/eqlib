@@ -208,7 +208,7 @@ public:
 
 	bool ContainsKeyValue(const key_type& key, int value)
 	{
-		auto& keyValueStorage = m_data[GetKeyHash(key)];
+		auto& keyValueStorage = this->m_data[GetKeyHash(key)];
 		for (const auto& keyValue : keyValueStorage)
 		{
 			if (keyValue.key == key && keyValue.value == value)
@@ -220,7 +220,7 @@ public:
 
 	void Insert(const key_type& key, int value)
 	{
-		auto& keyValueStorage = m_data[GetKeyHash(key)];
+		auto& keyValueStorage = this->m_data[GetKeyHash(key)];
 		keyValueStorage.Add(value_type(key, value));
 	}
 
@@ -228,7 +228,7 @@ public:
 	{
 		bool found = false;
 
-		auto& keyValueStorage = m_data[GetKeyHash(key)];
+		auto& keyValueStorage = this->m_data[GetKeyHash(key)];
 		int i = 0;
 		while (i < keyValueStorage.GetLength())
 		{
@@ -250,7 +250,7 @@ public:
 	{
 		bool found = false;
 
-		auto& keyValueStorage = m_data[GetKeyHash(key)];
+		auto& keyValueStorage = this->m_data[GetKeyHash(key)];
 		int i = 0;
 		while (i < keyValueStorage.GetLength())
 		{
@@ -270,7 +270,7 @@ public:
 
 	void Clear()
 	{
-		for (auto& hashArray : m_data)
+		for (auto& hashArray : this->m_data)
 			hashArray.Clear();
 	}
 
@@ -293,7 +293,7 @@ public:
 		[[nodiscard]] reference operator*() const { return m_container->m_data[m_bucket][m_index]; }
 		[[nodiscard]] pointer operator->() const { return std::addressof(m_container->m_data[m_bucket][m_index]); }
 
-		ConstIterator(const CHashKeyArray* container, int bucket = -1, int index = -1)
+		explicit ConstIterator(const CHashKeyArray* container, int bucket = -1, int index = -1)
 			: m_container(container)
 			, m_bucket(bucket)
 			, m_index(index)
@@ -318,9 +318,9 @@ public:
 	const_iterator begin() const
 	{
 		// find first non-empty bucket
-		for (size_t i = 0; i < m_data.size(); ++i)
+		for (size_t i = 0; i < this->m_data.size(); ++i)
 		{
-			if (!m_data[i].empty())
+			if (!this->m_data[i].empty())
 			{
 				return const_iterator(this, i, 0);
 			}
@@ -329,10 +329,10 @@ public:
 		// Container is empty.
 		return const_iterator(this);
 	}
-	const_iterator cbegin() const { begin(); }
+	const_iterator cbegin() const { return begin(); }
 
 	const_iterator end() const { return const_iterator(this); }
-	const_iterator cend() const { end(); }
+	const_iterator cend() const { return end(); }
 
 	const_reverse_iterator rbegin() const { return const_reverse_iterator{ end() }; }
 	const_reverse_iterator crbegin() const { return const_reverse_iterator{ rend() }; }
@@ -344,9 +344,9 @@ public:
 	const_iterator find(const key_type& key) const
 	{
 		int bucket = GetKeyHash(key);
-		const auto& keyValueStorage = m_data[bucket];
+		const auto& keyValueStorage = this->m_data[bucket];
 
-		for (int index = 0; index < (int)keyValueStorage.size(); ++index)
+		for (int index = 0; index < static_cast<int>(keyValueStorage.size()); ++index)
 		{
 			if (keyValueStorage[index].key == key)
 				return const_iterator(this, bucket, index);
@@ -364,20 +364,20 @@ private:
 			if (iter.m_bucket == -1 && iter.m_index == -1)
 				return;
 
-			auto& container = m_data[iter.m_bucket];
+			auto& container = this->m_data[iter.m_bucket];
 			if (iter.m_index >= container.GetLength() - 1)
 			{
 				iter.m_index = -1;
 				++iter.m_bucket;
 
 				// find next non-empty bucket
-				for (; iter.m_bucket < m_data.GetLength(); ++iter.m_bucket)
+				for (; iter.m_bucket < this->m_data.GetLength(); ++iter.m_bucket)
 				{
-					if (!m_data[iter.m_bucket].empty())
+					if (!this->m_data[iter.m_bucket].empty())
 						break;
 				}
 
-				if (iter.m_bucket == m_data.GetLength())
+				if (iter.m_bucket == this->m_data.GetLength())
 				{
 					iter.m_bucket = -1;
 					return;
@@ -389,7 +389,7 @@ private:
 		else
 		{
 			// Moving backward
-			int bucket = iter.m_bucket == -1 ? m_data.GetLength() : iter.m_bucket;
+			int bucket = iter.m_bucket == -1 ? this->m_data.GetLength() : iter.m_bucket;
 			int slot = iter.m_index - 1;
 
 			// If index is <= 0 then find previous bucket. We're moving backwards.
@@ -397,13 +397,13 @@ private:
 			{
 				for (bucket = bucket - 1; bucket >= 0; --bucket)
 				{
-					if (!m_data[bucket].empty())
+					if (!this->m_data[bucket].empty())
 						break;
 				}
 
 				if (bucket >= 0)
 				{
-					slot = m_data[bucket].GetLength() - 1;
+					slot = this->m_data[bucket].GetLength() - 1;
 				}
 				else
 				{

@@ -1468,11 +1468,11 @@ namespace eqstd
 		}
 
 		void merge(list& _Right) { // merge in elements from _Right, both ordered by operator<
-			_Merge1(_Right, less<>{});
+			_Merge1(_Right, std::less<>{});
 		}
 
 		void merge(list&& _Right) { // merge in elements from _Right, both ordered by operator<
-			_Merge1(_Right, less<>{});
+			_Merge1(_Right, std::less<>{});
 		}
 
 		template <class _Pr2>
@@ -1512,7 +1512,7 @@ namespace eqstd
 
 	public:
 		void sort() { // order sequence
-			sort(less<>{});
+			sort(std::less<>{});
 		}
 
 		template <class _Pr2>
@@ -1613,7 +1613,7 @@ namespace eqstd
 	}
 	#endif // !_HAS_CXX20
 
-	#ifdef __cpp_lib_concepts
+	#if defined(__cpp_lib_concepts) && 0
 	template <class _Ty, class _Alloc>
 	_NODISCARD _Synth_three_way_result<_Ty> operator<=>(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return _STD lexicographical_compare_three_way(_Left._Unchecked_begin(), _Left._Unchecked_end(),

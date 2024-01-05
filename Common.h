@@ -46,15 +46,7 @@
 #undef IsMinimized
 #endif
 
-#ifdef EQLIB_EXPORTS
-#define EQLIB_API extern "C" __declspec(dllexport)
-#define EQLIB_VAR extern "C" __declspec(dllexport)
-#define EQLIB_OBJECT __declspec(dllexport)
-#else
-#define EQLIB_API extern "C" __declspec(dllimport)
-#define EQLIB_VAR extern "C" __declspec(dllimport)
-#define EQLIB_OBJECT __declspec(dllimport)
-#endif
+#include "Config.h"
 
 #if defined (_DEBUG) && (defined(EQLIB_EXPORTS) || defined(MQ2MAIN_EXPORTS))
 #define FORCE_SYMBOLS __declspec(dllexport) const void* __force_symbol_generation__() const { return this; }
@@ -84,7 +76,7 @@ namespace eqlib::detail{
 	template <typename T>
 	struct is_size_ok
 	{
-		enum { value = ((std::is_reference_v<T> || std::is_pointer_v<T> || std::is_void_v<T>) ? 8 : !std::is_pod_v<T> ? 12 : check_size_t<T>::value) <= 8 ? 1 : 0 };
+		enum { value = ((std::is_reference_v<T> || std::is_pointer_v<T> || std::is_void_v<T>) ? 8 : !std::is_trivial_v<T> ? 12 : check_size_t<T>::value) <= 8 ? 1 : 0 };
 	};
 
 }
