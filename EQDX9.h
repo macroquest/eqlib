@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "Config.h"
+#include "Common.h"
 
 #include <d3d9.h>
 #include <wil/com.h>
