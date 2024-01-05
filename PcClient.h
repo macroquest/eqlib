@@ -1344,15 +1344,6 @@ public:
 
 	// Status Bonuses
 	int GetDamageShieldBonus() const { return DamageShieldBonus; }
-
-	// DEPRECATED METHODS -- DO NOT USE
-
-	DEPRECATE("CanUseItem: First parameter no longer takes a double pointer. If you have a ItemClient* then just pass it in.\n"
-		"  CanUseItem(&pItem, true) -> CanUseItem(pItem, true)")
-	inline bool CanUseItem(ItemClient** pItem, bool bUseRequiredLvl, bool bOutput = true)
-	{
-		return CanUseItem(*pItem, bUseRequiredLvl, bOutput);
-	}
 };
 
 using MailItemsHash = HashTable<MailItemData, EqItemGuid, ResizePolicyNoShrink>;

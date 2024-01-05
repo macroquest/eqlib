@@ -114,7 +114,7 @@ namespace eqstd
 		}
 
 #if _HAS_CXX20
-		_NODISCARD constexpr strong_ordering operator<=>(const _Vector_const_iterator& _Right) const noexcept {
+		_NODISCARD constexpr std::strong_ordering operator<=>(const _Vector_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Unfancy(_Ptr) <=> _Unfancy(_Right._Ptr);
 		}
@@ -399,7 +399,7 @@ namespace eqstd
 					_Construct_n(_Count, _STD move(_UFirst), _STD move(_ULast));
 #ifdef __cpp_lib_concepts
 				}
-				else if constexpr (forward_iterator<_Iter>) {
+				else if constexpr (std::forward_iterator<_Iter>) {
 					const auto _Length = _To_unsigned_like(_RANGES distance(_UFirst, _ULast));
 					const auto _Count = _Convert_size<size_type>(_Length);
 					_Construct_n(_Count, _STD move(_UFirst), _STD move(_ULast));
@@ -984,7 +984,7 @@ namespace eqstd
 					_Insert_counted_range(_Where, _UFirst, _Count);
 #ifdef __cpp_lib_concepts
 				}
-				else if constexpr (forward_iterator<_Iter>) {
+				else if constexpr (std::forward_iterator<_Iter>) {
 					const auto _Length = _To_unsigned_like(_RANGES distance(_UFirst, _ULast));
 					const auto _Count = _Convert_size<size_type>(_Length);
 					_Insert_counted_range(_Where, _UFirst, _Count);
@@ -1168,7 +1168,7 @@ namespace eqstd
 					_Assign_counted_range(_UFirst, _Count);
 #ifdef __cpp_lib_concepts
 				}
-				else if constexpr (forward_iterator<_Iter>) {
+				else if constexpr (std::forward_iterator<_Iter>) {
 					const auto _Length = _To_unsigned_like(_RANGES distance(_UFirst, _ULast));
 					const auto _Count = _Convert_size<size_type>(_Length);
 					_Assign_counted_range(_UFirst, _Count);
@@ -1356,7 +1356,6 @@ namespace eqstd
 
 				if (_Myfirst) { // destroy and deallocate old array
 					_Destroy_range(_Myfirst, _Mylast, _Al);
-					_ASAN_VECTOR_REMOVE;
 					_Al.deallocate(_Myfirst, static_cast<size_type>(_Myend - _Myfirst));
 
 					_Myfirst = nullptr;
@@ -1399,7 +1398,6 @@ namespace eqstd
 
 				_Orphan_range(_Mylast - 1, _Mylast);
 				_Alty_traits::destroy(_Getal(), _Unfancy(_Mylast - 1));
-				_ASAN_VECTOR_MODIFY(-1);
 				--_Mylast;
 			}
 
@@ -1412,7 +1410,6 @@ namespace eqstd
 				_Orphan_range(_Whereptr, _Mylast);
 				_Move_unchecked(_Whereptr + 1, _Mylast, _Whereptr);
 				_Alty_traits::destroy(_Getal(), _Unfancy(_Mylast - 1));
-				_ASAN_VECTOR_MODIFY(-1);
 				--_Mylast;
 				return iterator(_Whereptr, _STD addressof(_My_data));
 			}
@@ -1548,7 +1545,7 @@ namespace eqstd
 
 			_NODISCARD _CONSTEXPR20 size_type max_size() const noexcept {
 				return (_STD min)(
-					static_cast<size_type>((numeric_limits<difference_type>::max)()), _Alty_traits::max_size(_Getal()));
+					static_cast<size_type>((std::numeric_limits<difference_type>::max)()), _Alty_traits::max_size(_Getal()));
 			}
 
 			_NODISCARD _CONSTEXPR20 size_type capacity() const noexcept {
@@ -1862,7 +1859,7 @@ namespace eqstd
 
 			if (_Differing_bits == 0) { // improves _Countr_zero codegen below
 #ifdef __cpp_lib_concepts
-				return strong_ordering::equal;
+				return std::strong_ordering::equal;
 #else // ^^^ defined(__cpp_lib_concepts) / !defined(__cpp_lib_concepts) vvv
 				return 0;
 #endif // ^^^ !defined(__cpp_lib_concepts) ^^^
@@ -1874,14 +1871,14 @@ namespace eqstd
 
 			// Instead of comparing (_Left & _Mask) to (_Right & _Mask), we know that exactly one side will be zero.
 #ifdef __cpp_lib_concepts
-			return (_Left & _Mask) == 0 ? strong_ordering::less : strong_ordering::greater;
+			return (_Left & _Mask) == 0 ? std::strong_ordering::less : std::strong_ordering::greater;
 #else // ^^^ defined(__cpp_lib_concepts) / !defined(__cpp_lib_concepts) vvv
 			return (_Left & _Mask) == 0 ? -1 : 1;
 #endif // ^^^ !defined(__cpp_lib_concepts) ^^^
 		}
 	};
 
-#ifdef __cpp_lib_concepts
+#if defined(__cpp_lib_concepts) && 0
 	template <class _Ty, class _Alloc>
 		_NODISCARD constexpr _Synth_three_way_result<_Ty> operator<=>(
 			const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
@@ -1891,9 +1888,9 @@ namespace eqstd
 			const auto _Left_words = _Left._Myvec._Unchecked_begin();
 			const auto _Right_words = _Right._Myvec._Unchecked_begin();
 
-			using _Comp = _Vbase_compare_three_way<strong_ordering>;
+			using _Comp = _Vbase_compare_three_way<std::strong_ordering>;
 
-			const strong_ordering _Word_comparison = _STD lexicographical_compare_three_way(
+			const std::strong_ordering _Word_comparison = _STD lexicographical_compare_three_way(
 				_Left_words, _Left_words + _Min_word_size, _Right_words, _Right_words + _Min_word_size, _Comp{});
 
 			if (_Word_comparison != 0) {
@@ -2171,7 +2168,7 @@ namespace eqstd
 		}
 
 #if _HAS_CXX20
-		_NODISCARD constexpr strong_ordering operator<=>(const _Vb_const_iterator& _Right) const noexcept {
+		_NODISCARD constexpr std::strong_ordering operator<=>(const _Vb_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			if (const auto _CmpResult = this->_Myptr <=> _Right._Myptr; _CmpResult != 0) {
 				return _CmpResult;
@@ -2628,7 +2625,7 @@ namespace eqstd
 		}
 
 		_NODISCARD _CONSTEXPR20 size_type max_size() const noexcept {
-			constexpr auto _Diff_max = static_cast<size_type>((numeric_limits<difference_type>::max)());
+			constexpr auto _Diff_max = static_cast<size_type>((std::numeric_limits<difference_type>::max)());
 			const size_type _Ints_max = this->_Myvec.max_size();
 			if (_Ints_max > _Diff_max / _VBITS) { // max_size bound by difference_type limits
 				return _Diff_max;
@@ -2797,7 +2794,7 @@ namespace eqstd
 				_Copy_unchecked(_UFirst, _ULast, begin() + _Off);
 #ifdef __cpp_lib_concepts
 			}
-			else if constexpr (forward_iterator<_Iter>) {
+			else if constexpr (std::forward_iterator<_Iter>) {
 				const auto _Length = _To_unsigned_like(_RANGES distance(_UFirst, _ULast));
 				const auto _Count = _Convert_size<size_type>(_Length);
 				const auto _Off = static_cast<difference_type>(_Insert_x(_Where, _Count));

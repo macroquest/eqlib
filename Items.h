@@ -350,6 +350,8 @@ public:
 			const_iterator begin() const { return a; }
 			const_iterator end() const { return b; }
 
+			IteratorRange(const_iterator a, const_iterator b) : a(a), b(b) {}
+
 			IteratorRange(const IteratorRange&) = delete;
 			IteratorRange& operator=(const IteratorRange&) = delete;
 		};
@@ -406,43 +408,7 @@ public:
 
 private:
 	template <typename Visitor>
-	Visitor& VisitItemsImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const
-	{
-		// Create our range
-		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
-		if (!IsValidRange(iter, endIter))
-			return visitor;
-
-		int slot = std::max(0, beginSlot);
-		while (iter != endIter)
-		{
-			// Update the cursor
-			cursor.SetSlot(m_atDepth, slot);
-			const ItemPtr& ptr = *iter;
-
-			if (ptr != nullptr)
-			{
-				// Found an item. Visit it.
-				visitor(ptr, cursor);
-
-				// If we have depth, recurse.
-				if (depth != 0)
-				{
-					if (auto container = ptr->GetChildItemContainer())
-					{
-						ItemIndex tempIndex = cursor;
-						container->VisitItemsImpl(-1, -1, depth - 1, cursor, visitor);
-						cursor = tempIndex;
-					}
-				}
-			}
-
-			++iter;
-			++slot;
-		}
-
-		return visitor;
-	}
+	Visitor& VisitItemsImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const;
 
 public:
 	//
@@ -477,43 +443,7 @@ public:
 
 private:
 	template <typename Visitor>
-	Visitor& VisitContainersImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const
-	{
-		// Create our range
-		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
-		if (!IsValidRange(iter, endIter))
-			return visitor;
-
-		int slot = std::max(0, beginSlot);
-		while (iter != endIter)
-		{
-			// Update the cursor
-			cursor.SetSlot(m_atDepth, slot);
-			const ItemPtr& ptr = *iter;
-
-			if (ptr != nullptr)
-			{
-				// Found an item. Visit it.
-				visitor(ptr, cursor);
-
-				// If we have depth, recurse into a container.
-				if (depth != 0 && ptr->IsContainer())
-				{
-					if (auto container = ptr->GetChildItemContainer())
-					{
-						ItemIndex tempIndex = cursor;
-						container->VisitContainersImpl(-1, -1, depth - 1, cursor, visitor);
-						cursor = tempIndex;
-					}
-				}
-			}
-
-			++iter;
-			++slot;
-		}
-
-		return visitor;
-	}
+	Visitor& VisitContainersImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const;
 
 public:
 	//
@@ -549,50 +479,7 @@ public:
 
 private:
 	template <typename Predicate>
-	ItemIndex FindItemImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate, bool searchAll = true) const
-	{
-		// Create our range
-		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
-		if (!IsValidRange(iter, endIter))
-			return ItemIndex();
-
-		int slot = std::max(0, beginSlot);
-		while (iter != endIter)
-		{
-			// Update the cursor
-			cursor.SetSlot(m_atDepth, slot);
-			const ItemPtr& ptr = *iter;
-
-			if (ptr != nullptr)
-			{
-				// Found an item. Visit it.
-				if (predicate(ptr, cursor))
-				{
-					return cursor;
-				}
-
-				// If we have depth, recurse.
-				if (depth != 0 && (searchAll || ptr->IsContainer()))
-				{
-					if (auto container = ptr->GetChildItemContainer())
-					{
-						ItemIndex tempIndex = cursor;
-
-						ItemIndex foundIndex = container->FindItemImpl(-1, -1, depth - 1, cursor, predicate);
-						if (foundIndex.IsValid())
-							return foundIndex;
-
-						cursor = tempIndex;
-					}
-				}
-			}
-
-			++iter;
-			++slot;
-		}
-
-		return ItemIndex();
-	}
+	ItemIndex FindItemImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate, bool searchAll = true) const;
 
 public:
 	//
@@ -629,63 +516,7 @@ public:
 
 private:
 	template <typename Predicate>
-	ItemIndex FindEmptySlotImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate) const
-	{
-		// Create our range
-		auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
-		if (!IsValidRange(iter, endIter))
-			return ItemIndex();
-
-		// first loop the top-level slots of the container. assume if one of these is empty, that's what the user wants
-		// ie, this is breadth-first
-		int slot = std::max(0, beginSlot);
-		while (iter != endIter)
-		{
-			cursor.SetSlot(m_atDepth, slot);
-			if (*iter == nullptr)
-			{
-				return cursor;
-			}
-
-			++iter;
-			++slot;
-		}
-
-		// no top-level slots are empty so search the containers, contingent on the predicates
-		// only do this if we have a depth
-		if (depth != 0)
-		{
-			iter = GetStartIterator(beginSlot);
-			slot = std::max(0, beginSlot);
-			while (iter != endIter)
-			{
-				cursor.SetSlot(m_atDepth, slot);
-				const ItemPtr& ptr = *iter;
-
-				if (ptr != nullptr && predicate(ptr, cursor))
-				{
-					if (auto container = ptr->GetChildItemContainer())
-					{
-						if (!container->IsFull())
-						{
-							ItemIndex tempIndex = cursor;
-
-							ItemIndex foundIndex = container->FindEmptySlotImpl(-1, -1, depth - 1, cursor, predicate);
-							if (foundIndex.IsValid())
-								return foundIndex;
-
-							cursor = tempIndex;
-						}
-					}
-				}
-
-				++iter;
-				++slot;
-			}
-		}
-
-		return ItemIndex();
-	}
+	ItemIndex FindEmptySlotImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate) const;
 
 public:
 	// Retrieve an item at a specific index in this container
@@ -1442,6 +1273,10 @@ inline void* adopt_existing_shared_ptr_control_block(const ItemBase& ptr)
 	return (void*)(reinterpret_cast<const uint8_t*>(&ptr) - 0x10);
 }
 
+inline void* adopt_existing_shared_ptr_control_block(const ItemClient& ptr)
+{
+	return (void*)(reinterpret_cast<const uint8_t*>(&ptr) - 0x10);
+}
 
 //----------------------------------------------------------------------------
 
@@ -1517,6 +1352,191 @@ struct [[offsetcomments]] ITEMLOCATION
 using PITEMLOCATION DEPRECATE("Use ItemGlobalIndex instead of ITEMLOCATION") = ITEMLOCATION*;
 
 } // end inline namespace deprecated
+
+// Item container impls
+
+template <typename Visitor>
+Visitor& ItemContainer::VisitItemsImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const
+{
+	// Create our range
+	auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
+	if (!IsValidRange(iter, endIter))
+		return visitor;
+
+	int slot = std::max(0, beginSlot);
+	while (iter != endIter)
+	{
+		// Update the cursor
+		cursor.SetSlot(m_atDepth, slot);
+		const ItemPtr& ptr = *iter;
+
+		if (ptr != nullptr)
+		{
+			// Found an item. Visit it.
+			visitor(ptr, cursor);
+
+			// If we have depth, recurse.
+			if (depth != 0)
+			{
+				if (auto container = ptr->GetChildItemContainer())
+				{
+					ItemIndex tempIndex = cursor;
+					container->VisitItemsImpl(-1, -1, depth - 1, cursor, visitor);
+					cursor = tempIndex;
+				}
+			}
+		}
+
+		++iter;
+		++slot;
+	}
+
+	return visitor;
+}
+
+template <typename Visitor>
+Visitor& ItemContainer::VisitContainersImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Visitor& visitor) const
+{
+	// Create our range
+	auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
+	if (!IsValidRange(iter, endIter))
+		return visitor;
+
+	int slot = std::max(0, beginSlot);
+	while (iter != endIter)
+	{
+		// Update the cursor
+		cursor.SetSlot(m_atDepth, slot);
+		const ItemPtr& ptr = *iter;
+
+		if (ptr != nullptr)
+		{
+			// Found an item. Visit it.
+			visitor(ptr, cursor);
+
+			// If we have depth, recurse into a container.
+			if (depth != 0 && ptr->IsContainer())
+			{
+				if (auto container = ptr->GetChildItemContainer())
+				{
+					ItemIndex tempIndex = cursor;
+					container->VisitContainersImpl(-1, -1, depth - 1, cursor, visitor);
+					cursor = tempIndex;
+				}
+			}
+		}
+
+		++iter;
+		++slot;
+	}
+
+	return visitor;
+}
+
+template <typename Predicate>
+ItemIndex ItemContainer::FindItemImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate, bool searchAll) const
+{
+	// Create our range
+	auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
+	if (!IsValidRange(iter, endIter))
+		return ItemIndex();
+
+	int slot = std::max(0, beginSlot);
+	while (iter != endIter)
+	{
+		// Update the cursor
+		cursor.SetSlot(m_atDepth, slot);
+		const ItemPtr& ptr = *iter;
+
+		if (ptr != nullptr)
+		{
+			// Found an item. Visit it.
+			if (predicate(ptr, cursor))
+			{
+				return cursor;
+			}
+
+			// If we have depth, recurse.
+			if (depth != 0 && (searchAll || ptr->IsContainer()))
+			{
+				if (auto container = ptr->GetChildItemContainer())
+				{
+					ItemIndex tempIndex = cursor;
+
+					ItemIndex foundIndex = container->FindItemImpl(-1, -1, depth - 1, cursor, predicate);
+					if (foundIndex.IsValid())
+						return foundIndex;
+
+					cursor = tempIndex;
+				}
+			}
+		}
+
+		++iter;
+		++slot;
+	}
+
+	return ItemIndex();
+}
+
+template <typename Predicate>
+ItemIndex ItemContainer::FindEmptySlotImpl(int beginSlot, int endSlot, int depth, ItemIndex& cursor, Predicate& predicate) const
+{
+	// Create our range
+	auto iter = GetStartIterator(beginSlot), endIter = GetEndIterator(endSlot);
+	if (!IsValidRange(iter, endIter))
+		return ItemIndex();
+
+	// first loop the top-level slots of the container. assume if one of these is empty, that's what the user wants
+	// ie, this is breadth-first
+	int slot = std::max(0, beginSlot);
+	while (iter != endIter)
+	{
+		cursor.SetSlot(m_atDepth, slot);
+		if (*iter == nullptr)
+		{
+			return cursor;
+		}
+
+		++iter;
+		++slot;
+	}
+
+	// no top-level slots are empty so search the containers, contingent on the predicates
+	// only do this if we have a depth
+	if (depth != 0)
+	{
+		iter = GetStartIterator(beginSlot);
+		slot = std::max(0, beginSlot);
+		while (iter != endIter)
+		{
+			cursor.SetSlot(m_atDepth, slot);
+			const ItemPtr& ptr = *iter;
+
+			if (ptr != nullptr && predicate(ptr, cursor))
+			{
+				if (auto container = ptr->GetChildItemContainer())
+				{
+					if (!container->IsFull())
+					{
+						ItemIndex tempIndex = cursor;
+
+						ItemIndex foundIndex = container->FindEmptySlotImpl(-1, -1, depth - 1, cursor, predicate);
+						if (foundIndex.IsValid())
+							return foundIndex;
+
+						cursor = tempIndex;
+					}
+				}
+			}
+
+			++iter;
+			++slot;
+		}
+	}
+
+	return ItemIndex();
+}
 
 //----------------------------------------------------------------------------
 // item find predicates.

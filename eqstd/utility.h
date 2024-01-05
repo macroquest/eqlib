@@ -250,7 +250,7 @@ namespace eqstd
 		return _Left.first == _Right.first && _Left.second == _Right.second;
 	}
 
-#ifdef __cpp_lib_concepts
+#if defined(__cpp_lib_concepts) && 0
 	template <class _Ty1, class _Ty2>
 		_NODISCARD constexpr common_comparison_category_t<_Synth_three_way_result<_Ty1>, _Synth_three_way_result<_Ty2>>
 		operator<=>(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
@@ -288,7 +288,7 @@ namespace eqstd
 	}
 #endif // ^^^ !defined(__cpp_lib_concepts) ^^^
 
-#ifdef __cpp_lib_concepts
+#if defined(__cpp_lib_concepts) && 0
 	template <class _Ty1, class _Ty2, class _Uty1, class _Uty2, template <class> class _TQual,
 		template <class> class _UQual>
 		requires requires {

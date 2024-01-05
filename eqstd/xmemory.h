@@ -10,6 +10,7 @@
 #include "eqlib/Allocator.h"
 #include "eqlib/eqstd/type_traits.h"
 #include "eqlib/eqstd/utility.h"
+#include "eqlib/eqstd/xutility.h"
 
 #include <xmemory>
 #include <limits>
@@ -29,10 +30,9 @@ namespace eqstd
 	template <class _Ptr, class _Ty>
 	using _Rebind_pointer_t = typename pointer_traits<_Ptr>::template rebind<_Ty>;
 
-	// STRUCT TEMPLATE _Simple_types
 	template <class _Value_type>
 	struct _Simple_types { // wraps types from allocators with simple addressing for use in iterators
-						   // and other SCARY machinery
+		// and other SCARY machinery
 		using value_type = _Value_type;
 		using size_type = size_t;
 		using difference_type = ptrdiff_t;
@@ -296,8 +296,69 @@ namespace eqstd
 		return static_cast<_Size_type>(_Len);
 	}
 
+	template <class _Alloc, class = void>
+	struct _Is_default_allocator : false_type {};
+
+	template <class _Ty>
+	struct _Is_default_allocator<allocator<_Ty>, void_t<typename allocator<_Ty>::_From_primary>>
+		: is_same<typename allocator<_Ty>::_From_primary, allocator<_Ty>>::type {};
+
 	template <class _Ptrty>
 	_NODISCARD constexpr auto _Unfancy(_Ptrty _Ptr) noexcept { // converts from a fancy pointer to a plain pointer
-		return _STD addressof(*_Ptr);
+		return std::addressof(*_Ptr);
 	}
+	template <class _Void, class... _Types>
+	struct _Has_no_allocator_construct : true_type {};
+
+	_STL_DISABLE_DEPRECATED_WARNING
+		template <class _Alloc, class _Ptr, class... _Args>
+	struct _Has_no_allocator_construct<
+		void_t<decltype(std::declval<_Alloc&>().construct(std::declval<_Ptr>(), std::declval<_Args>()...))>, _Alloc, _Ptr,
+		_Args...> : false_type {};
+	_STL_RESTORE_DEPRECATED_WARNING
+
+		template <class _Alloc, class _Ptr, class... _Args>
+	using _Uses_default_construct =
+		disjunction<_Is_default_allocator<_Alloc>, _Has_no_allocator_construct<void, _Alloc, _Ptr, _Args...>>;
+
+
+	template <class _Alloc>
+	struct _Alloc_temporary2 {
+		using value_type = typename _Alloc::value_type;
+		using _Traits = allocator_traits<_Alloc>;
+
+		_Alloc& _Al;
+
+		union {
+			value_type _Value;
+		};
+
+		_NODISCARD _CONSTEXPR20 value_type& _Get_value() noexcept {
+			return _Value;
+		}
+
+		_NODISCARD _CONSTEXPR20 const value_type& _Get_value() const noexcept {
+			return _Value;
+		}
+
+		template <class... _Args>
+		_CONSTEXPR20 explicit _Alloc_temporary2(_Alloc& _Al_, _Args&&... _Vals) noexcept(
+			noexcept(_Traits::construct(_Al_, _STD addressof(_Get_value()), _STD forward<_Args>(_Vals)...)))
+			: _Al(_Al_) {
+			_Traits::construct(_Al, _STD addressof(_Get_value()), _STD forward<_Args>(_Vals)...);
+		}
+
+		_Alloc_temporary2(const _Alloc_temporary2&) = delete;
+		_Alloc_temporary2& operator=(const _Alloc_temporary2&) = delete;
+
+		_CONSTEXPR20 ~_Alloc_temporary2() {
+			_Traits::destroy(_Al, _STD addressof(_Get_value()));
+		}
+	};
+
+	// _Choose_pocca_v returns whether an attempt to propagate allocators is necessary in copy assignment operations.
+	// Note that even when false_type, callers should call _Pocca as we want to assign allocators even when equal.
+	template <class _Alloc>
+	inline constexpr bool _Choose_pocca_v = allocator_traits<_Alloc>::propagate_on_container_copy_assignment::value
+		&& !allocator_traits<_Alloc>::is_always_equal::value;
 }

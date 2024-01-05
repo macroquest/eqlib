@@ -7,8 +7,8 @@
 
 #pragma once
 
+#include "mq/base/Traits.h"
 #include "eqlib/Allocator.h"
-
 #include "eqlib/eqstd/type_traits.h"
 #include "eqlib/eqstd/xmemory.h"
 
@@ -29,6 +29,8 @@ struct has_implicit_shared_pointer_cast : std::false_type {};
 template <typename T>
 struct can_adopt_shared_ptr_control_block : std::false_type {};
 
+inline void* adopt_existing_shared_ptr_control_block(...) {}
+
 } // namespace eqlib
 
 namespace eqstd {
@@ -36,6 +38,10 @@ namespace eqstd {
 //----------------------------------------------------------------------------
 
 using _Atomic_counter_t = unsigned long;
+
+[[noreturn]] inline void _Throw_bad_weak_ptr() {
+	throw std::bad_weak_ptr{};
+}
 
 class __declspec(novtable) _Ref_count_base { // common code for reference counting
 private:
@@ -115,6 +121,76 @@ private:
 	}
 
 	_Ty* _Ptr;
+};
+
+template <class _Resource, class _Dx>
+class _Ref_count_resource : public _Ref_count_base { // handle reference counting for object with deleter
+public:
+	_Ref_count_resource(_Resource _Px, _Dx _Dt)
+		: _Ref_count_base(), _Mypair(_One_then_variadic_args_t{}, std::move(_Dt), _Px) {}
+
+	~_Ref_count_resource() noexcept override = default; // TRANSITION, should be non-virtual
+
+	void* _Get_deleter(const type_info& _Typeid) const noexcept override {
+#if _HAS_STATIC_RTTI
+		if (_Typeid == typeid(_Dx)) {
+			return const_cast<_Dx*>(std::addressof(_Mypair._Get_first()));
+		}
+#else // ^^^ _HAS_STATIC_RTTI / !_HAS_STATIC_RTTI vvv
+		(void)_Typeid;
+#endif // ^^^ !_HAS_STATIC_RTTI ^^^
+
+		return nullptr;
+	}
+
+private:
+	void _Destroy() noexcept override { // destroy managed resource
+		_Mypair._Get_first()(_Mypair._Myval2);
+	}
+
+	void _Delete_this() noexcept override { // destroy self
+		delete this;
+	}
+
+	_Compressed_pair<_Dx, _Resource> _Mypair;
+};
+
+template <class _Resource, class _Dx, class _Alloc>
+class _Ref_count_resource_alloc : public _Ref_count_base {
+	// handle reference counting for object with deleter and allocator
+public:
+	_Ref_count_resource_alloc(_Resource _Px, _Dx _Dt, const _Alloc& _Ax)
+		: _Ref_count_base(),
+		_Mypair(_One_then_variadic_args_t{}, std::move(_Dt), _One_then_variadic_args_t{}, _Ax, _Px) {}
+
+	~_Ref_count_resource_alloc() noexcept override = default; // TRANSITION, should be non-virtual
+
+	void* _Get_deleter(const type_info& _Typeid) const noexcept override {
+#if _HAS_STATIC_RTTI
+		if (_Typeid == typeid(_Dx)) {
+			return const_cast<_Dx*>(std::addressof(_Mypair._Get_first()));
+		}
+#else // ^^^ _HAS_STATIC_RTTI / !_HAS_STATIC_RTTI vvv
+		(void)_Typeid;
+#endif // ^^^ !_HAS_STATIC_RTTI ^^^
+
+		return nullptr;
+	}
+
+private:
+	using _Myalty = _Rebind_alloc_t<_Alloc, _Ref_count_resource_alloc>;
+
+	void _Destroy() noexcept override { // destroy managed resource
+		_Mypair._Get_first()(_Mypair._Myval2._Myval2);
+	}
+
+	void _Delete_this() noexcept override { // destroy self
+		_Myalty _Al = _Mypair._Myval2._Get_first();
+		this->~_Ref_count_resource_alloc();
+		_Deallocate_plain(_Al, this);
+	}
+
+	_Compressed_pair<_Dx, _Compressed_pair<_Myalty, _Resource>> _Mypair;
 };
 
 template <class _Ty>
@@ -387,6 +463,9 @@ struct _Temporary_owner_del {
 };
 
 template <class _Ty>
+struct default_delete;
+
+template <class _Ty>
 class shared_ptr : public _Ptr_base<_Ty> { // class for reference counted resource management
 private:
 	using _Mybase = _Ptr_base<_Ty>;
@@ -412,8 +491,8 @@ public:
 			int
 		> = 0>
 	explicit shared_ptr(_Ux* _Px) { // construct shared_ptr object that owns _Px
-		static_assert(false);
-		if constexpr (conditional_t<_Ty>) {
+		assert_false(mq::always_false<_Ux>::value, "Use reset() to assign this pointer type");
+		if constexpr (std::is_array_v<_Ty>) {
 			_Setpd(_Px, default_delete<_Ux[]>{});
 		}
 		else {
@@ -436,7 +515,7 @@ public:
 		_Temporary_owner<_Ux> _Owner(_Px);
 		_Set_ptr_rep_and_enable_shared(_Owner._Ptr,
 			static_cast<_Ref_count_base* const>(_Owner._Ptr ? eqlib::adopt_existing_shared_ptr_control_block(*_Owner._Ptr) : nullptr));
-		if (_Rep) _Rep->_Incref_nz();
+		if (this->_Rep) this->_Rep->_Incref_nz();
 		_Owner._Ptr = nullptr;
 	}
 
@@ -664,7 +743,7 @@ _NODISCARD bool operator==(const shared_ptr<_Ty1>& _Left, const shared_ptr<_Ty2>
 
 #if _HAS_CXX20
 template <class _Ty1, class _Ty2>
-_NODISCARD strong_ordering operator<=>(const shared_ptr<_Ty1>& _Left, const shared_ptr<_Ty2>& _Right) noexcept {
+_NODISCARD std::strong_ordering operator<=>(const shared_ptr<_Ty1>& _Left, const shared_ptr<_Ty2>& _Right) noexcept {
 	return _Left.get() <=> _Right.get();
 }
 #else // ^^^ _HAS_CXX20 / !_HAS_CXX20 vvv
@@ -701,7 +780,7 @@ _NODISCARD bool operator==(const shared_ptr<_Ty>& _Left, nullptr_t) noexcept {
 
 #if _HAS_CXX20
 template <class _Ty>
-_NODISCARD strong_ordering operator<=>(const shared_ptr<_Ty>& _Left, nullptr_t) noexcept {
+_NODISCARD std::strong_ordering operator<=>(const shared_ptr<_Ty>& _Left, nullptr_t) noexcept {
 	return _Left.get() <=> static_cast<typename shared_ptr<_Ty>::element_type*>(nullptr);
 }
 #else // ^^^ _HAS_CXX20 / !_HAS_CXX20 vvv

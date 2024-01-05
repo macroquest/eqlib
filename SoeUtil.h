@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include "Allocator.h"
+
 #include <cassert>
 
 namespace eqlib {
@@ -95,7 +97,7 @@ private:
 template <typename T>
 Array<T>::Array(const T* data, int size)
 {
-	CopyAppend(data, amount);
+	CopyAppend(data, size);
 }
 
 template <typename T>
@@ -468,7 +470,7 @@ private:
 
 	void increment_ref_count()
 	{
-		int oldRefcount = std::atomic_fetch_add(get_ref_count_ptr(), 1);
+		int oldRefCount = std::atomic_fetch_add(get_ref_count_ptr(), 1);
 		assert(oldRefCount != 0);
 	}
 
@@ -504,7 +506,9 @@ private:
 	}
 
 private:
-/*0x08*/ T* m_data = "";
+	static inline char s_emptyString[] = "";
+
+/*0x08*/ T* m_data = s_emptyString;
 /*0x10*/ int m_length = 0;
 /*0x14*/ int m_space = 0;
 /*0x18*/
@@ -703,7 +707,7 @@ private:
 	void construct(T* other)
 	{
 		m_ptr = other;
-		m_rep = eqNew<Internal::SharedData>();
+		m_rep = eqlib::eqNew<Internal::SharedData>();
 	}
 
 	template <typename U>
@@ -754,7 +758,7 @@ private:
 
 			if (m_rep->m_refs == 0)
 			{
-				eqDelete(m_rep);
+				eqlib::eqDelete(m_rep);
 				m_rep = nullptr;
 			}
 		}
@@ -930,24 +934,6 @@ public:
 	Node*    m_tail;
 	int      m_size;
 };
-
-template <typename T>
-uint8_t* List<T>::Allocate()
-{
-	uint8_t* data = (uint8_t*)SoeUtil::Alloc(sizeof(Node), __alignof(Node));
-
-	int currentAlloc = m_alloc;
-
-	if (amount > currentAlloc)
-	{
-		*allocated = amount * 5 / 4;
-		return (T*)SoeUtil::Alloc(*allocated * sizeof(T), __alignof(T));
-	}
-
-	*allocated = m_alloc;
-	return m_array;
-}
-
 
 //----------------------------------------------------------------------------
 

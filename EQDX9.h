@@ -14,8 +14,7 @@
 
 #pragma once
 
-#include "BuildType.h"
-#include "Common.h"
+#include "Config.h"
 
 #include <d3d9.h>
 #include <wil/com.h>
