@@ -170,6 +170,7 @@
     <ClInclude Include="eqstd\xtree.h" />
     <ClInclude Include="eqstd\xutility.h" />
     <ClInclude Include="Expansions.h" />
+    <ClInclude Include="Config.h" />
     <ClInclude Include="GameFace.h" />
     <ClInclude Include="GraphicsResources.h" />
     <ClInclude Include="Logging.h" />

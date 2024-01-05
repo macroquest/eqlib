@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "Common.h"
+#include "Config.h"
 
 #include <memory>
 
@@ -98,7 +98,7 @@ namespace eqlib {
 
 // custom replacement for delete m;
 template <typename T>
-inline void eqDelete(T* m)
+void eqDelete(T* m)
 {
 	if (m)
 	{
@@ -123,7 +123,7 @@ template <typename T, typename... Types>
 
 // custom delete[]
 template <typename T>
-inline void eqVecDelete(T* m)
+void eqVecDelete(T* m)
 {
 	if (m)
 	{

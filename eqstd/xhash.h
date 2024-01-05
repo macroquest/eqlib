@@ -589,7 +589,7 @@ namespace eqstd
 			}
 
 			_Check_max_size();
-			_List_node_emplace_op2<_Alnode> _Newnode(_List._Getal(), piecewise_construct,
+			_List_node_emplace_op2<_Alnode> _Newnode(_List._Getal(), std::piecewise_construct,
 				_STD forward_as_tuple(_STD forward<_Keyty>(_Keyval_arg)),
 				_STD forward_as_tuple(_STD forward<_Mappedty>(_Mapval)...));
 			if (_Check_rehash_required_1()) {
@@ -611,7 +611,7 @@ namespace eqstd
 
 			_Check_max_size();
 			// might invalidate _Keyval:
-			_List_node_emplace_op2<_Alnode> _Newnode(_List._Getal(), piecewise_construct,
+			_List_node_emplace_op2<_Alnode> _Newnode(_List._Getal(), std::piecewise_construct,
 				_STD forward_as_tuple(_STD forward<_Keyty>(_Keyval_arg)),
 				_STD forward_as_tuple(_STD forward<_Mappedty>(_Mapval)...));
 			if (_Check_rehash_required_1()) {
@@ -1746,7 +1746,7 @@ namespace eqstd
 
 				if (_Left_range_end && _Right_range_end) {
 					// equal_ranges had the same length, check for permutation
-					return { _Check_match_counts(_First1, _Last1, _First2, _Last2, equal_to<>{}), _Last1 };
+					return { _Check_match_counts(_First1, _Last1, _First2, _Last2, std::equal_to<>{}), _Last1 };
 				}
 
 				if (_Left_range_end || _Right_range_end) {

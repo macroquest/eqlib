@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include "Config.h"
 #include "Allocator.h"
 
 #include <fmt/format.h>
@@ -50,6 +51,8 @@ enum ECompareMode
 	CaseSensitive,
 	CaseInsensitive,
 };
+
+struct CStrRep;
 
 class CXFreeList
 {

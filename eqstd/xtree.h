@@ -275,8 +275,8 @@ namespace eqstd
 
 	// tree TYPE WRAPPERS
 	template <class _Value_type, class _Size_type, class _Difference_type, class _Pointer, class _Const_pointer,
-		class _Reference, class _Const_reference, class _Nodeptr_type>
-		struct _Tree_iter_types {
+		class _Nodeptr_type>
+	struct _Tree_iter_types {
 		using value_type = _Value_type;
 		using size_type = _Size_type;
 		using difference_type = _Difference_type;
@@ -799,23 +799,24 @@ namespace eqstd
 	template <class _Traits>
 	class _Tree { // ordered red-black tree for map/multimap/set/multiset
 	public:
+		using key_type = typename _Traits::key_type;
 		using value_type = typename _Traits::value_type;
 		using allocator_type = typename _Traits::allocator_type;
 
 	protected:
 		using _Alty = _Rebind_alloc_t<allocator_type, value_type>;
-		using _Alty_traits = std::allocator_traits<_Alty>;
+		using _Alty_traits = allocator_traits<_Alty>;
 		using _Node = _Tree_node<value_type, typename _Alty_traits::void_pointer>;
 		using _Alnode = _Rebind_alloc_t<allocator_type, _Node>;
-		using _Alnode_traits = std::allocator_traits<_Alnode>;
+		using _Alnode_traits = allocator_traits<_Alnode>;
 		using _Nodeptr = typename _Alnode_traits::pointer;
 
-		using _Scary_val = _Tree_val<std::conditional_t<_Is_simple_alloc_v<_Alnode>, _Tree_simple_types<value_type>,
+		using _Scary_val = _Tree_val<conditional_t<_Is_simple_alloc_v<_Alnode>, _Tree_simple_types<value_type>,
 			_Tree_iter_types<value_type, typename _Alty_traits::size_type, typename _Alty_traits::difference_type,
-			typename _Alty_traits::pointer, typename _Alty_traits::const_pointer, value_type&, const value_type&,
-			_Nodeptr>>>;
+			typename _Alty_traits::pointer, typename _Alty_traits::const_pointer, _Nodeptr>>>;
 
 		static constexpr bool _Multi = _Traits::_Multi;
+		static constexpr bool _Is_set = is_same_v<key_type, value_type>;
 
 		enum _Redbl { // colors for link to parent
 			_Red,
@@ -823,7 +824,6 @@ namespace eqstd
 		};
 
 	public:
-		using key_type = typename _Traits::key_type;
 		using value_compare = typename _Traits::value_compare;
 
 		using key_compare = typename _Traits::key_compare;
@@ -844,6 +844,11 @@ namespace eqstd
 
 		using reverse_iterator = std::reverse_iterator<iterator>;
 		using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+
+		enum class _Strategy : bool {
+			_Copy,
+			_Move,
+		};
 
 		struct _Copy_tag {
 			explicit _Copy_tag() = default;
@@ -1061,43 +1066,38 @@ namespace eqstd
 			_Scary->_Erase_head(_Getal());
 		}
 
-	private:
-		void _Copy_assign(const _Tree& _Right, std::false_type) {
-			clear();
-			_Getcomp() = _Right._Getcomp();
-			_Pocca(_Getal(), _Right._Getal());
-			_Copy(_Right, _Copy_tag{});
-		}
-
-		void _Copy_assign(const _Tree& _Right, std::true_type) {
-			if (_Getal() == _Right._Getal()) {
-				_Copy_assign(_Right, std::false_type{});
-			}
-			else {
-				clear();
-				const auto _Scary = _Get_scary();
-				_Scary->_Orphan_all();
-				auto& _Al = _Getal();
-				auto&& _Alproxy = _Fake_alloc;
-				const auto& _Right_al = _Right._Getal();
-				auto&& _Right_alproxy = _Fake_alloc;
-				_Container_proxy_ptr<_Alty> _Proxy(_Right_alproxy, _Leave_proxy_unbound{});
-				auto _Right_al_non_const = _Right_al;
-				auto _Newhead = _Node::_Buyheadnode(_Right_al_non_const);
-				_Node::_Freenode0(_Al, _Scary->_Myhead);
-				_Pocca(_Al, _Right_al);
-				_Scary->_Myhead = _Newhead;
-				_Proxy._Bind(_Alproxy, _Scary);
-				_Getcomp() = _Right._Getcomp();
-				_Copy(_Right, _Copy_tag{});
-			}
-		}
-
 	public:
 		_Tree& operator=(const _Tree& _Right) {
-			if (this != std::addressof(_Right)) {
-				_Copy_assign(_Right, _Choose_pocca<_Alnode>{});
+			if (this == _STD addressof(_Right)) {
+				return *this;
 			}
+
+			auto& _Al = _Getal();
+			auto& _Right_al = _Right._Getal();
+			if constexpr (_Choose_pocca_v<_Alnode>) {
+				if (_Al != _Right_al) {
+					clear();
+					const auto _Scary = _Get_scary();
+					_Scary->_Orphan_all();
+					auto&& _Alproxy = _Al;
+					auto&& _Right_alproxy = _Right_al;
+					_Container_proxy_ptr<_Alty> _Proxy(_Right_alproxy, _Leave_proxy_unbound{});
+					auto _Right_al_non_const = _Right_al;
+					auto _Newhead = _Node::_Buyheadnode(_Right_al_non_const);
+					_Node::_Freenode0(_Al, _Scary->_Myhead);
+					_Pocca(_Al, _Right_al);
+					_Scary->_Myhead = _Newhead;
+					_Proxy._Bind(_Alproxy, _Scary);
+					_Getcomp() = _Right._Getcomp();
+					_Copy<_Strategy::_Copy>(_Right);
+					return *this;
+				}
+			}
+
+			clear();
+			_Getcomp() = _Right._Getcomp();
+			_Pocca(_Al, _Right_al);
+			_Copy<_Strategy::_Copy>(_Right);
 
 			return *this;
 		}
@@ -1176,7 +1176,7 @@ namespace eqstd
 
 		[[nodiscard]] size_type max_size() const noexcept {
 			return (std::min)(
-				static_cast<size_type>((numeric_limits<difference_type>::max)()), _Alnode_traits::max_size(_Getal()));
+				static_cast<size_type>((std::numeric_limits<difference_type>::max)()), _Alnode_traits::max_size(_Getal()));
 		}
 
 		[[nodiscard]] bool empty() const noexcept {
@@ -1649,7 +1649,7 @@ namespace eqstd
 					_Pnode = _Pnode->_Right; // descend right subtree
 				}
 				else { // _Pnode not less than _Keyval, remember it
-					if (_Hinode->_Isnil && static_cast<bool(_Comp(_Keyval, _Nodekey))) {
+					if (_Hinode->_Isnil && static_cast<bool>(_Comp(_Keyval, _Nodekey))) {
 						_Hinode = _Pnode; // _Pnode greater, remember it
 					}
 
