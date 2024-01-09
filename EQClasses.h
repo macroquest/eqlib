@@ -1579,6 +1579,8 @@ enum eDatabaseStringType
 	eMercenaryAbilityDescription = 38,
 
 	eClaimFeatureDescription = 41,
+
+	eFactionName = 45,
 };
 
 class DatabaseStringTable
