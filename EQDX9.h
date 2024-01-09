@@ -17,7 +17,6 @@
 #include "Common.h"
 
 #include <d3d9.h>
-#include <wil/com.h>
 #include <guiddef.h>
 
 #if IS_TEST_CLIENT
@@ -84,7 +83,7 @@ public:
 /*0x18*/ uint64_t            Unknown0x18;
 /*0x20*/ uint32_t            Unknown0x20;
 /*0x24*/ uint32_t            Unknown0x24;
-/*0x28*/ wil::com_ptr<IDXGIFactory> pFactory;
+/*0x28*/ IDXGIFactory*       pFactory;
 /*0x30*/
 };
 
