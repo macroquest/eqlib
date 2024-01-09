@@ -380,6 +380,7 @@ struct STempTableRow;
 struct zoneHeader;
 struct EQLogin;
 struct MercenaryInfo;
+struct ChatColorFilterData;
 
 class CRaid;
 using EQRAID = CRaid;

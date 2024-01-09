@@ -58,6 +58,7 @@
 #define __LoginName_x                                              0x140C8E6CC
 #define __CurrentMapLabel_x                                        0x140CA1CE0
 #define __LabelCache_x                                             0x140CA28B0
+#define __ChatFilterDefs_x                                         0x140848A00
 #define Teleport_Table_Size_x                                      0x140C0CD84
 #define Teleport_Table_x                                           0x140C0A8B0
 

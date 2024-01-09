@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include "ChatFilters.h"
 #include "Common.h"
 #include "EQData.h"
 #include "Globals.h"
@@ -25,24 +26,6 @@ namespace eqlib {
 
 class ChatBufferEntry;
 class EQCamera;
-
-
-enum ChatFilterValues
-{
-	ChatFilterValue_Invalid = -1,
-	ChatFilterValue_Show = 0,
-	ChatFilterValue_Hide = 1,
-	ChatFilterValue_Me = 2,
-	ChatFilterValue_Group = 3,
-
-	ChatFilterValue_Max,
-};
-
-class ChatFilterData
-{
-public:
-	ChatFilterValues      chatFilters[NUM_CHAT_FILTERS];
-};
 
 
 //============================================================================

@@ -672,7 +672,7 @@ CChatWindow* CChatWindowManager::GetLockedActiveChatWindow() const
 {
 	if (LockedActive != -1)
 	{
-		return ChatWnd[LockedActive];
+		return ChatWindows[LockedActive];
 	}
 
 	return nullptr;
