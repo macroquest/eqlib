@@ -1579,6 +1579,8 @@ enum eDatabaseStringType
 	eMercenaryAbilityDescription = 38,
 
 	eClaimFeatureDescription = 41,
+
+	eFactionName = 45,
 };
 
 class DatabaseStringTable
@@ -1770,7 +1772,7 @@ public:
 /*0x200*/ uint32_t     HoverTargetID;                    // id of the entity our cursor is over
 /*0x204*/ bool         freeTargetingEnabled;
 /*0x208*/ float        freeTargetingRangeSquared;
-/*0x20c*/ glm::vec3    lastFreeTargetingPosition;
+/*0x20c*/ CVector3     lastFreeTargetingPosition;
 /*0x218*/ bool         lastFreeTargetingInRange;         // 0=red 1=green
 /*0x21c*/
 };

@@ -21,9 +21,6 @@
 #include "ForwardDecls.h"
 #include "base/Color.h"
 
-#include <glm/glm.hpp>
-
-
 struct ID3DXBuffer;
 
 namespace eqlib {
@@ -264,15 +261,15 @@ public:
 /*0x07C*/ virtual void SetGammaLevel(float gamma) = 0;
 /*0x080*/ virtual void RestoreDesktopGammaRamp() = 0;
 /*0x084*/ virtual void SetDesktopGammaRampForWindowedMode() = 0;
-/*0x088*/ virtual void DrawLine2D(const glm::vec3& point1, const glm::vec3& point2, RGB color) = 0;
-/*0x08C*/ virtual void DrawLine3D(const glm::vec3& point1, const glm::vec3& point2, RGB color) = 0;
+/*0x088*/ virtual void DrawLine2D(const CVector3& point1, const CVector3& point2, RGB color) = 0;
+/*0x08C*/ virtual void DrawLine3D(const CVector3& point1, const CVector3& point2, RGB color) = 0;
 /*0x090*/ virtual int DrawWrappedText(int font, const char* text, const CXRect& rect, const CXRect& clip,
 	COLORREF color, uint16_t flags, int offset) = 0;
 /*0x094*/ virtual int DrawWrappedText(CTextObjectInterface* textObj) = 0;
-/*0x098*/ virtual int DrawTexturedQuad(glm::vec3* points, glm::vec2* texCoords, RGB color, BMI* bmi) = 0;
-/*0x09C*/ virtual void DrawTintedBlendTexturedQuad(glm::vec3* points, glm::vec2* texCoords, int tint1, int tint2,
+/*0x098*/ virtual int DrawTexturedQuad(CVector3* points, CVector2* texCoords, RGB color, BMI* bmi) = 0;
+/*0x09C*/ virtual void DrawTintedBlendTexturedQuad(CVector3* points, CVector2* texCoords, int tint1, int tint2,
 	BMI* bmi1, BMI* bmi2, bool border) = 0;
-/*0x0A0*/ virtual void DrawQuad(glm::vec3* points, RGB color) = 0;
+/*0x0A0*/ virtual void DrawQuad(CVector3* points, RGB color) = 0;
 /*0x0A4*/ virtual void ClearDeferred2D() = 0;
 /*0x0A8*/ virtual void ClearBackBufferToBlack() = 0;
 /*0x0AC*/ virtual void RenderScene() = 0;
@@ -287,8 +284,8 @@ public:
 /*0x0D0*/ virtual void RotateStats() = 0;
 /*0x0D4*/ virtual void SetItemPlacementStats(const SItemPlacementStatsDisplay* stats, bool) = 0;
 /*0x0D8*/ virtual void ShowItemPlacementStats(bool) = 0;
-/*0x0DC*/ virtual void TransformWorldToCamera(const glm::vec3& world, glm::vec3& camera) = 0;
-/*0x0E0*/ virtual void GetEyeOffset(glm::vec3& pos) = 0;
+/*0x0DC*/ virtual void TransformWorldToCamera(const CVector3& world, CVector3& camera) = 0;
+/*0x0E0*/ virtual void GetEyeOffset(CVector3& pos) = 0;
 /*0x0E4*/ virtual uint32_t SetDebugFlags(uint32_t flags) = 0;
 /*0x0E8*/ virtual const char* GetCurrentDeviceName() = 0;
 /*0x0EC*/ virtual void ParsePatchLighting(uint32_t patch, const char* filename) = 0;
@@ -368,13 +365,13 @@ public:
 /*0x1051*/ bool                      bWindowedGammaEverToggled;
 /*0x1052*/ bool                      bLinearGammaContent;
 /*0x1058*/ ID3DXBuffer*              screenCapFileData;
-/*0x1060*/ __declspec(align(16)) glm::mat4x4 matrixIdentity;
-/*0x10a0*/ __declspec(align(16)) glm::mat4x4 aMatrixWorldCurrent[NUM_BLEND_MATRICES];
-/*0x12a0*/ __declspec(align(16)) glm::mat4x4 aMatrixWorldInverse[NUM_BLEND_MATRICES];
-/*0x14a0*/ __declspec(align(16)) glm::mat4x4 aMatrixWorldInverseTransposed[NUM_BLEND_MATRICES];
-/*0x16a0*/ glm::mat4x4*              apMatrixWorld[NUM_BLEND_MATRICES];
-/*0x16e0*/ glm::mat4x4               matrixViewProj;
-/*0x1720*/ glm::mat4x4               matrixView;
+/*0x1060*/ __declspec(align(16)) CMatrix44 matrixIdentity;
+/*0x10a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldCurrent[NUM_BLEND_MATRICES];
+/*0x12a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverse[NUM_BLEND_MATRICES];
+/*0x14a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverseTransposed[NUM_BLEND_MATRICES];
+/*0x16a0*/ CMatrix44*                apMatrixWorld[NUM_BLEND_MATRICES];
+/*0x16e0*/ CMatrix44                 matrixViewProj;
+/*0x1720*/ CMatrix44                 matrixView;
 /*0x1760*/ IDirect3DIndexBuffer9*    pIndexBufferLitData;
 /*0x1768*/ CBufferSet*               apBufferSets[MAX_BUFFER_SET];
 /*0x1878*/ CEffect*                  apEffects[MAX_EFFECTS];
@@ -405,7 +402,7 @@ public:
 /*0x871d*/ SItemPlacementStatsDisplay itemPlacementStats;
 /*0x8f38*/ float                     fColorIntensityLookup[256];
 /*0x9338*/ float                     fLookup[2048];
-/*0xb338*/ glm::vec3                 eyeOffset;
+/*0xb338*/ CVector3                  eyeOffset;
 /*0xb344*/ uint32_t                  uRegionCount;
 /*0xb348*/ bool                      bFogEnabled;
 /*0xb34c*/ RGB                       rgbFogColor;
@@ -799,10 +796,10 @@ public:
 /*0x1d8*/ virtual bool SetConditionalHide(int, bool, bool) = 0;
 /*0x1e0*/ virtual bool IsConditionalHide(int) = 0;
 /*0x1e8*/ virtual float GetScaledAmbient() = 0;
-/*0x1f0*/ virtual void GetBonePosition(int, glm::vec3*, bool) const = 0;
-/*0x1f8*/ virtual void GetBoneWorldPosition(int, glm::vec3*, bool) const = 0;
-/*0x200*/ virtual void GetBoneWorldPosition(CBoneInterface*, glm::vec3*, bool) = 0;
-/*0x208*/ virtual glm::mat4x4* GetObjectToWorldMatrix() = 0;
+/*0x1f0*/ virtual void GetBonePosition(int, CVector3*, bool) const = 0;
+/*0x1f8*/ virtual void GetBoneWorldPosition(int, CVector3*, bool) const = 0;
+/*0x200*/ virtual void GetBoneWorldPosition(CBoneInterface*, CVector3*, bool) = 0;
+/*0x208*/ virtual CMatrix44* GetObjectToWorldMatrix() = 0;
 /*0x210*/ virtual void SetConstantAmbient(const RGB*) = 0;
 /*0x218*/ virtual bool SetMaterialLayer(int, const char*, int, bool) = 0;
 /*0x220*/ virtual void SetInvisibleAsAttachment(bool) = 0;
@@ -815,7 +812,7 @@ public:
 /*0x258*/ virtual void SetBoneOrientation(int, CVector3&) = 0;
 /*0x260*/ virtual void GetBoneOrientation(int, CVector3&) = 0;
 /*0x268*/ virtual void SetBonePosition(int, CVector3&) = 0;
-/*0x270*/ virtual void* ChangeBoneAttachment(int, const char*, const glm::mat4x4*) = 0;
+/*0x270*/ virtual void* ChangeBoneAttachment(int, const char*, const CMatrix44*) = 0;
 /*0x278*/ virtual int GetBoneIndexByName(const char*) const = 0;
 /*0x280*/ virtual bool ReplaceCloakMaterials(int, RGB*) = 0;
 /*0x288*/ virtual bool ReplaceSpecialCloakMaterials(const char*) = 0;
@@ -904,8 +901,8 @@ public:
 /*0x024*/ uint32_t               interpolateAmbientTick;
 /*0x028*/ CActor*                pParentActor;
 /*0x030*/ void*                  pDPVSObject;
-/*0x038*/ glm::vec3              updateAmbientPosition;
-/*0x044*/ glm::vec3              surfaceNormal;
+/*0x038*/ CVector3               updateAmbientPosition;
+/*0x044*/ CVector3               surfaceNormal;
 /*0x050*/ uint32_t               visibleIndex;
 /*0x054*/ float                  alpha;
 /*0x058*/ bool                   bCastShadow;
@@ -921,14 +918,14 @@ public:
 /*0x0a8*/ EActorType             actorType;
 /*0x0b0*/ CTerrainObject*        pTerrainObject;
 /*0x0b8*/ SHighlightData*        highlightData;
-/*0x0c0*/ __declspec(align(16)) glm::mat4x4 attachmentMtx;
+/*0x0c0*/ __declspec(align(16)) CMatrix44 attachmentMtx;
 /*0x100*/ bool                   bHasAttachSRT;
 /*0x101*/ bool                   bDisableDesignOverride;
 
 // everything after this point is technically part of subclasses via CActorDataBase
 /*0x108*/ uint64_t               pad[2];
-/*0x118*/ glm::mat4x4            positionMtx;
-/*0x158*/ glm::vec3              orientation;
+/*0x118*/ CMatrix44              positionMtx;
+/*0x158*/ CVector3               orientation;
 /*0x164*/ int                    actorIndex;
 /*0x168*/ const char*            szActorTag;
 /*0x170*/ const char*            szActorName;

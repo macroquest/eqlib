@@ -15,12 +15,12 @@
 #pragma once
 
 #include "ForwardDecls.h"
+#include "ChatFilters.h"
 #include "Common.h"
 #include "Constants.h"
 #include "Containers.h"
 #include "CXStr.h"
 #include "CXWnd.h"
-#include "Containers.h"
 #include "GameFace.h"
 #include "GraphicsResources.h"
 #include "Items.h"
@@ -2580,104 +2580,9 @@ public:
 // CChatWindowManager
 //============================================================================
 
-#define MAX_CHAT_WINDOWS     32
-#define MAX_HITMODES         8
+constexpr int MAX_CHAT_WINDOWS = 32;
 
-enum ChatFilterEnum
-{
-	CHAT_FILTER_SAY,
-	CHAT_FILTER_TELL,
-	CHAT_FILTER_GROUP,
-	CHAT_FILTER_RAID,
-	CHAT_FILTER_GUILD,
-	CHAT_FILTER_OOC,
-	CHAT_FILTER_AUCTION,
-	CHAT_FILTER_SHOUT,
-	CHAT_FILTER_EMOTE,
-	CHAT_FILTER_MELEE_YOUR_HITS,
-	CHAT_FILTER_SPELLS_MINE,
-	CHAT_FILTER_SKILLS,
-	CHAT_FILTER_CHAT1,
-	CHAT_FILTER_CHAT2,
-	CHAT_FILTER_CHAT3,
-	CHAT_FILTER_CHAT4,
-	CHAT_FILTER_CHAT5,
-	CHAT_FILTER_CHAT6,
-	CHAT_FILTER_CHAT7,
-	CHAT_FILTER_CHAT8,
-	CHAT_FILTER_CHAT9,
-	CHAT_FILTER_CHAT10,
-	CHAT_FILTER_OTHER,
-	CHAT_FILTER_MELEE_YOUR_MISSES,
-	CHAT_FILTER_MELEE_YOU_BEING_HIT,
-	CHAT_FILTER_MELEE_YOU_BEING_MISSED,
-	CHAT_FILTER_MELEE_OTHERS_HITS,
-	CHAT_FILTER_MELEE_OTHERS_MISSES,
-	CHAT_FILTER_MELEE_MY_DEATH,
-	CHAT_FILTER_MELEE_OTHER_PC_DEATH,
-	CHAT_FILTER_MELEE_CRITICAL_HITS,
-	CHAT_FILTER_MELEE_DISCIPLINES,
-	CHAT_FILTER_MELEE_WARNINGS,
-	CHAT_FILTER_MELEE_NPC_RAMPAGE,
-	CHAT_FILTER_MELEE_NPC_FLURRY,
-	CHAT_FILTER_MELEE_NPC_ENRAGE,
-	CHAT_FILTER_SPELLS_OTHERS,
-	CHAT_FILTER_SPELLS_FAILURES,
-	CHAT_FILTER_SPELLS_CRITICALS,
-	CHAT_FILTER_SPELLS_WORN_OFF,
-	CHAT_FILTER_SPELLS_DD_YOURS,
-	CHAT_FILTER_FOCUS_EFFECTS,
-	CHAT_FILTER_RANDOM_YOUR_ROLLS,
-	CHAT_FILTER_PET_MESSAGES,
-	CHAT_FILTER_PET_RAMPAGE_FLURRY,
-	CHAT_FILTER_PET_CRITICALS,
-	CHAT_FILTER_DAMAGE_SHIELDS_YOU_ATTACKING,
-	CHAT_FILTER_EXPERIENCE_MESSAGES,
-	CHAT_FILTER_NPC_EMOTES,
-	CHAT_FILTER_SYSTEM_MESSAGES,
-	CHAT_FILTER_WHO,
-	CHAT_FILTER_PET_SPELLS,
-	CHAT_FILTER_PET_RESPONSES,
-	CHAT_FILTER_ITEM_SPEECH,
-	CHAT_FILTER_FELLOWSHIP_MESSAGES,
-	CHAT_FILTER_MERCENARY_MESSAGES,
-	CHAT_FILTER_PVP_MESSAGES,
-	CHAT_FILTER_MELEE_YOUR_FLURRY,
-	CHAT_FILTER_DEBUG,                           // todo: check this not 100% sure its it...
-	CHAT_FILTER_MELEE_NPC_DEATH,
-	CHAT_FILTER_RANDOM_OTHERS_ROLLS,
-	CHAT_FILTER_RANDOM_GROUP_RAID_ROLLS,
-	CHAT_FILTER_ENVIRONMENTAL_DAMAGE_YOURS,
-	CHAT_FILTER_ENVIRONMENTAL_DAMAGE_OTHERS,
-	CHAT_FILTER_DAMAGE_SHIELDS_YOU_DEFENDING,
-	CHAT_FILTER_DAMAGE_SHIELDS_OTHERS,
-	CHAT_FILTER_EVENT_MESSAGES,
-	CHAT_FILTER_OVERWRITTEN_DETRIMENTAL_SPELL_MESSAGES,
-	CHAT_FILTER_OVERWRITTEN_BENEFICIAL_SPELL_MESSAGES,
-	CHAT_FILTER_YOU_CANT_USE_THAT_COMMAND,       // Added chat color and filtering options for 'You can't use that command' messages.
-	CHAT_FILTER_COMBAT_ABILITY_REUSE,            // Added chat color and filtering options for combat ability and AA ability reuse time messages.
-	CHAT_FILTER_SPELLS_AA_ABILITY_REUSE,
-	CHAT_FILTER_ITEM_DESTROYED,
-	CHAT_FILTER_SPELLS_AURAS_YOU,
-	CHAT_FILTER_SPELLS_AURAS_OTHERS,
-	CHAT_FILTER_SPELLS_HEALS_YOURS,
-	CHAT_FILTER_SPELLS_HEALS_OTHERS,
-	CHAT_FILTER_SPELLS_DOTS_YOURS,
-	CHAT_FILTER_SPELLS_DOTS_OTHERS,
-	CHAT_FILTER_SPELLS_SONGS,
-	CHAT_FILTER_SPELLS_DD_OTHERS,
-	CHAT_FILTER_ZERO_HEALS,
-	CHAT_FILTER_SOMETHING,
-	CHAT_FILTER_SOMETHING1,
-	CHAT_FILTER_SOMETHING2,
-	CHAT_FILTER_OTHERS_DISCIPLINES,
-	CHAT_FILTER_UNKNOWN_86,
-
-	MAX_CHAT_FILTERS = CHAT_FILTER_UNKNOWN_86
-};
-
-
-// Size 0x6b0 in eqgame dated 05 Mar 2019 Test (see 0x5418AB)
+// size: 0x700
 class [[offsetcomments]] CChatWindowManager
 {
 public:
@@ -2709,25 +2614,16 @@ public:
 	//EQLIB_OBJECT void UpdateContextMenus(CChatWindow*);
 	//EQLIB_OBJECT void UpdateTellMenus(CChatWindow*);
 
-/*0x000*/ CChatWindow* ChatWnd[MAX_CHAT_WINDOWS];
-
-	// this is likely a class as a member variable
-// fixme x64
-/*0x100*/ void*              ChatContainerWindow_vfTable;
-/*0x108*/ uint32_t           Unknown1;
-/*0x10c*/ uint32_t           Unknown2;
-/*0x110*/ uint32_t           Unknown3;
-/*0x114*/ uint32_t           Unknown4;
-/*0x118*/ uint32_t           Unknown5;
-/*0x11c*/ uint32_t           Unknown6;
-/*0x120*/ CChatContainerWindow* ChatContainerWindow[MAX_CHAT_WINDOWS];
+/*0x000*/ CChatContainerWindow* ChatContainerWindows[MAX_CHAT_WINDOWS];
+/*0x100*/ SoeUtil::List<CChatWindow*> ChatWindowList;
+/*0x120*/ CChatWindow*       ChatWindows[MAX_CHAT_WINDOWS];
 /*0x220*/ int                Unknown7;
 /*0x224*/ int                NumWindows;
 /*0x228*/ int                LockedWindow;
 /*0x22c*/ int                ActiveWindow;
 /*0x230*/ int                CurrentActive;                      // CurrentActive... CChat::GetActiveChatWindow
 /*0x234*/ int                LockedActive;                       // LockedActive... CChatManager__GetLockedActiveChatWindow_x
-/*0x238*/ CChatWindow*       ChannelMap[MAX_CHAT_FILTERS];       // channel map
+/*0x238*/ CChatWindow*       ChannelMap[NUM_CHAT_CHANNELS];      // channel map
 /*0x4e8*/ CContextMenu*      pMainContextMenu;
 /*0x4f0*/ int                ScrollbarIndex;
 /*0x4f4*/ int                UnknownContextMenuID1[6];
@@ -2790,10 +2686,19 @@ public:
 /*0x694*/
 };
 
-inline namespace deprecated {
-	using EQCHATMGR DEPRECATE("Use CChatWindowManager instead of EQCHATMGR") = CChatWindowManager;
-	using PEQCHATMGR DEPRECATE("Use CChatWindowManager* instead of PEQCHATMGR") = CChatWindowManager*;
-}
+//============================================================================
+// CChatWindow
+//============================================================================
+
+class [[offsetcomments]] CChatContainerWindow : public CSidlScreenWnd
+{
+	FORCE_SYMBOLS
+
+public:
+	EQLIB_OBJECT CChatContainerWindow(CXWnd* parent);
+	EQLIB_OBJECT virtual ~CChatContainerWindow();
+
+};
 
 //============================================================================
 // CChatWindow
