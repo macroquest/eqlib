@@ -725,11 +725,11 @@ public:
 /*0x060*/ CXRect             OldLocation;
 /*0x070*/ CStaticTintedBlendAnimationTemplate* TitlePiece2;
 /*0x078*/ CXRect             IconRect;
-/*0x088*/ bool               bBorder2;
+/*0x088*/ bool               bCaptureTitle;
 /*0x090*/ CXWnd*             ParentWindow;
 /*0x098*/ uint32_t           BackgroundDrawType;
 /*0x09c*/ bool               bMaximizable;
-/*0x09d*/ bool               bBorder;
+/*0x09d*/ bool               bEscapableLocked;
 /*0x0a0*/ uint32_t           XMLIndex;
 /*0x0a4*/ int                VScrollPos;
 /*0x0a8*/ int                Transition;
@@ -784,7 +784,7 @@ public:
 /*0x1d0*/ CXWnd*             FocusProxy;
 /*0x1d8*/ bool               bMarkedForDelete;
 /*0x1dc*/ int                TopOffset;
-/*0x1e0*/ bool               bEscapableLocked;
+/*0x1e0*/ bool               bShowBorderLocked;
 /*0x1e4*/ int                BottomOffset;
 /*0x1e8*/ uint8_t            StartAlpha;
 /*0x1e9*/ bool               bLeftAnchoredToLeft;
@@ -798,11 +798,11 @@ public:
 /*0x210*/ bool               Locked;
 /*0x214*/ uint32_t           BlinkFadeStartTime;
 /*0x218*/ CStaticTintedBlendAnimationTemplate* TitlePiece;
-/*0x220*/ bool               bCaptureTitle;
+/*0x220*/ bool               bEscapable;
 /*0x221*/ bool               Fades;
 /*0x224*/ COLORREF           BGColor;
 /*0x228*/ int                ParentAndContextMenuArrayIndex;
-/*0x22c*/ bool               CloseOnESC;
+/*0x22c*/ bool               bShowBorder;
 /*0x230*/ CLayoutStrategy*   pLayoutStrategy;
 /*0x238*/ int                DeleteCount;
 /*0x23c*/ bool               Minimized;
@@ -825,6 +825,9 @@ public:
 /*0x278*/ bool               bUsesClassicUI;
 /*0x27c*/
 
+	ALT_MEMBER_ALIAS(bool, bEscapable, CloseOnESC);
+	ALT_MEMBER_ALIAS_DEPRECATED(bool, bShowBorderLocked, bBorder, "Use bShowBorderLocked instead of bBorder");
+	ALT_MEMBER_ALIAS_DEPRECATED(bool, bShowBorder, bBorder2, "Use bShowBorder instead of bBorder2");
 };
 
 inline namespace deprecated {
