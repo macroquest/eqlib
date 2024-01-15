@@ -103,7 +103,7 @@ public:
 	virtual bool AboutToHide() override;
 	virtual int RequestDockInfo(EDockAction action, CXWnd* wnd, CXRect* rect) override;
 	virtual CXStr GetTooltip() const override;
-	virtual void Unknown0x0EC() override;
+	virtual void ClickThroughMenuItemTriggered() override;
 	virtual void SetLocked(bool bValue) override;
 	virtual int HitTest(const CXPoint& pos, int* result) const override;
 	virtual CXRect GetHitTestRect(int code) const override;

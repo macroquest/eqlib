@@ -451,10 +451,10 @@ export ?AboutToHide@CXWnd@eqlib@@UEAA_NXZ
 	call_cxwnd_vtable 0x1d0
 
 
-; public: virtual void eqlib::CXWnd::Unknown0x0EC(void)
-global ?Unknown0x0EC@CXWnd@eqlib@@UEAAXXZ
-export ?Unknown0x0EC@CXWnd@eqlib@@UEAAXXZ
-?Unknown0x0EC@CXWnd@eqlib@@UEAAXXZ:
+; public: virtual void eqlib::CXWnd::ClickThroughMenuItemTriggered(void)
+global ?ClickThroughMenuItemTriggered@CXWnd@eqlib@@UEAAXXZ
+export ?ClickThroughMenuItemTriggered@CXWnd@eqlib@@UEAAXXZ
+?ClickThroughMenuItemTriggered@CXWnd@eqlib@@UEAAXXZ:
 	call_cxwnd_vtable 0x1e8
 
 
