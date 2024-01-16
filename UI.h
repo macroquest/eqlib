@@ -2624,66 +2624,66 @@ public:
 /*0x230*/ int                CurrentActive;                      // CurrentActive... CChat::GetActiveChatWindow
 /*0x234*/ int                LockedActive;                       // LockedActive... CChatManager__GetLockedActiveChatWindow_x
 /*0x238*/ CChatWindow*       ChannelMap[NUM_CHAT_CHANNELS];      // channel map
-/*0x4e8*/ CContextMenu*      pMainContextMenu;
-/*0x4f0*/ int                ScrollbarIndex;
-/*0x4f4*/ int                UnknownContextMenuID1[6];
-/*0x510*/ CContextMenu*      pLanguageContextMenu;
-/*0x518*/ int                LanguageMenuIndex;
-/*0x520*/ CContextMenu*      pFilterContextMenu;
-/*0x528*/ int                FilterMenuIndex;
-/*0x52c*/ int                ChatChannelFilterMenuIndex;
-/*0x530*/ int                MeleeFilterSubMenuIndex;
-/*0x534*/ int                SpellsFilterSubMenuIndex;
-/*0x538*/ CContextMenu*      pMeleeFilterContextMenu;
-/*0x540*/ int                MeleeFilterMenuIndex;
-/*0x548*/ CContextMenu*      pSpellsFilterContextMenu;
-/*0x550*/ int                SpellsMenuIndex;
-/*0x558*/ CContextMenu*      pChatChannelFilterContextMenu;
-/*0x560*/ int                ChannelMenuIndex;
-/*0x568*/ CContextMenu*      pDefaultChannelContextMenu;
+/*0x528*/ CContextMenu*      pMainContextMenu;
+/*0x530*/ int                ScrollbarIndex;
+/*0x534*/ int                UnknownContextMenuID1[6];
+/*0x550*/ CContextMenu*      pLanguageContextMenu;
+/*0x558*/ int                LanguageMenuIndex;
+/*0x560*/ CContextMenu*      pFilterContextMenu;
+/*0x568*/ int                FilterMenuIndex;
+/*0x56c*/ int                ChatChannelFilterMenuIndex;
+/*0x570*/ int                MeleeFilterSubMenuIndex;
+/*0x574*/ int                SpellsFilterSubMenuIndex;
+/*0x578*/ CContextMenu*      pMeleeFilterContextMenu;
+/*0x580*/ int                MeleeFilterMenuIndex;
+/*0x588*/ CContextMenu*      pSpellsFilterContextMenu;
+/*0x590*/ int                SpellsMenuIndex;
+/*0x598*/ CContextMenu*      pChatChannelFilterContextMenu;
+/*0x5a0*/ int                ChannelMenuIndex;
+/*0x5a8*/ CContextMenu*      pDefaultChannelContextMenu;
 
 	// data members beyond this point are not validated and likely incorrect
-/*0x570*/ int                DefaultChannelMenu;
-/*0x574*/ int                DefaultChannelMenu2;
-/*0x578*/ CContextMenu*      pCM_ChatChannelDefChan;
-/*0x580*/ int                ChatChannelDefChanIndex;
-/*0x588*/ CContextMenu*      pCM_YourHitsMenu;
-/*0x590*/ int                YourHitsMenuIndex;
-/*0x598*/ CContextMenu*      pCM_YourMissesMenu;
-/*0x5a0*/ int                YourMissesMenuindex;
-/*0x5a8*/ CContextMenu*      pCM_YouBeingHitMenu;
-/*0x5b0*/ int                YouBeingHitMenuindex;
-/*0x5b8*/ CContextMenu*      pCM_OthersHitsMenu;
-/*0x5c0*/ int                OthersHitsMenuindex;
-/*0x5c8*/ CContextMenu*      pCM_OthersMissesMenu;
-/*0x5d0*/ int                OthersMissesMenuindex;
-/*0x5d8*/ CContextMenu*      pCM_AllContextMenu;
-/*0x5e0*/ int                AllContextMenuindex;
-/*0x5e8*/ CContextMenu*      pCM_HitModesMenu;
-/*0x5f0*/ int                HitModesMenuindex;
-/*0x5f8*/ CContextMenu*      pCM_ReplyToMenu;
-/*0x600*/ int                ReplyToMenuindex;
-/*0x608*/ CContextMenu*      pCM_TellFriendMenu;
-/*0x610*/ int                TellFriendMenuindex;
-/*0x618*/ CContextMenu*      pCM_TellRaidmemberMenu;
-/*0x620*/ int                TellRaidmemberMenuindex;
-/*0x624*/ int                ReplyToSubIndex;
-/*0x628*/ int                TellFriendSubIndex;
-/*0x62c*/ int                TellRaidmemberSubIndex;
-/*0x630*/ int                HitModes[MAX_HITMODES];
-/*0x650*/ int                DefaultChannel;
-/*0x658*/ CContextMenu*      pRandomFilterContextMenu;              // 0x680
-/*0x660*/ int                RandomFilterIndex;
-/*0x664*/ int                RandomFilterSubIndex;
-/*0x668*/ CContextMenu*      pEnvironmentalDamageFilterContextMenu; // 0x690
-/*0x670*/ int                EnvironmentalDamageIndex;
-/*0x674*/ int                EnvironmentalDamageSubIndex;
-/*0x678*/ CContextMenu*      pDamageShieldsFilterContextMenu;      // 0x6a0
-/*0x680*/ int                DamageShieldsFilterIndex;
-/*0x684*/ int                DamageShieldsFilterSubIndex;
-/*0x688*/ CContextMenu*      pCM_BeneficialSpellsFilterMenu;
-/*0x690*/ int                BeneficialSpellsFilteIndex;
-/*0x694*/
+/*0x5b0*/ int                DefaultChannelMenu;
+/*0x5b4*/ int                DefaultChannelMenu2;
+/*0x5b8*/ CContextMenu*      pCM_ChatChannelDefChan;
+/*0x5c0*/ int                ChatChannelDefChanIndex;
+/*0x5c8*/ CContextMenu*      pCM_YourHitsMenu;
+/*0x5d0*/ int                YourHitsMenuIndex;
+/*0x5d8*/ CContextMenu*      pCM_YourMissesMenu;
+/*0x5e0*/ int                YourMissesMenuindex;
+/*0x5e8*/ CContextMenu*      pCM_YouBeingHitMenu;
+/*0x5f0*/ int                YouBeingHitMenuindex;
+/*0x5f8*/ CContextMenu*      pCM_OthersHitsMenu;
+/*0x600*/ int                OthersHitsMenuindex;
+/*0x608*/ CContextMenu*      pCM_OthersMissesMenu;
+/*0x610*/ int                OthersMissesMenuindex;
+/*0x618*/ CContextMenu*      pCM_AllContextMenu;
+/*0x620*/ int                AllContextMenuindex;
+/*0x628*/ CContextMenu*      pCM_HitModesMenu;
+/*0x630*/ int                HitModesMenuindex;
+/*0x638*/ CContextMenu*      pCM_ReplyToMenu;
+/*0x640*/ int                ReplyToMenuindex;
+/*0x648*/ CContextMenu*      pCM_TellFriendMenu;
+/*0x650*/ int                TellFriendMenuindex;
+/*0x658*/ CContextMenu*      pCM_TellRaidmemberMenu;
+/*0x660*/ int                TellRaidmemberMenuindex;
+/*0x664*/ int                ReplyToSubIndex;
+/*0x668*/ int                TellFriendSubIndex;
+/*0x66c*/ int                TellRaidmemberSubIndex;
+/*0x670*/ int                HitModes[MAX_HITMODES];
+/*0x690*/ int                DefaultChannel;
+/*0x698*/ CContextMenu*      pRandomFilterContextMenu;              // 0x680
+/*0x6a0*/ int                RandomFilterIndex;
+/*0x6a4*/ int                RandomFilterSubIndex;
+/*0x6a8*/ CContextMenu*      pEnvironmentalDamageFilterContextMenu; // 0x690
+/*0x6b0*/ int                EnvironmentalDamageIndex;
+/*0x6b4*/ int                EnvironmentalDamageSubIndex;
+/*0x6b8*/ CContextMenu*      pDamageShieldsFilterContextMenu;      // 0x6a0
+/*0x6c0*/ int                DamageShieldsFilterIndex;
+/*0x6c4*/ int                DamageShieldsFilterSubIndex;
+/*0x6c8*/ CContextMenu*      pCM_BeneficialSpellsFilterMenu;
+/*0x6d0*/ int                BeneficialSpellsFilteIndex;
+/*0x6d4*/
 };
 
 //============================================================================

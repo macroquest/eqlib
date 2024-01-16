@@ -365,11 +365,11 @@ public:
 	//virtual PlayerBase* GetPlayerCorpseFromHashKey(uint64_t hashKey);
 	//virtual PlayerBase* GetPlayerFromHashKey(uint64_t hashKey);
 
-/*0x08*/ uint32_t                          m_uNextId;
-/*0x10*/ TList<PlayerClient*>              m_PlayerList;
-/*0x20*/ HashTable<PlayerClient*>*         m_pPlayerNameHashTable;
-/*0x28*/ HashTable<PlayerClient*>*         m_pPlayerIdHashTable;
-/*0x30*/ PlayerHashTable                   m_hashTable;
+/*0x0008*/ uint32_t                          m_uNextId;
+/*0x0010*/ TList<PlayerClient*>              m_PlayerList;
+/*0x0020*/ HashTable<PlayerClient*>*         m_pPlayerNameHashTable;
+/*0x0028*/ HashTable<PlayerClient*>*         m_pPlayerIdHashTable;
+/*0x0030*/ PlayerHashTable                   m_hashTable;
 /*0x2f88*/
 
 	PlayerClient* get_FirstSpawn() const { return (PlayerClient*)m_PlayerList.GetFirstNode(); }
