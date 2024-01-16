@@ -139,6 +139,7 @@
     <ClInclude Include="base\Color.h" />
     <ClInclude Include="base\Primitives.h" />
     <ClInclude Include="BuildType.h" />
+    <ClInclude Include="ChatFilters.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Containers.h" />

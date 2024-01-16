@@ -14,6 +14,7 @@
 
 #pragma once
 
+#include "ChatFilters.h"
 #include "Common.h"
 #include "EQData.h"
 #include "Globals.h"
@@ -37,13 +38,6 @@ enum ChatFilterValues
 
 	ChatFilterValue_Max,
 };
-
-class ChatFilterData
-{
-public:
-	ChatFilterValues      chatFilters[NUM_CHAT_FILTERS];
-};
-
 
 //============================================================================
 // ZoneHeader

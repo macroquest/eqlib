@@ -16,11 +16,14 @@
 #include "EQLib.h"
 #include "Logging.h"
 
+#include "mq/base/Color.h"
 #include "Common/StringUtils.h"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/logger.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+
+using mq::MQColor;
 
 namespace eqlib {
 
@@ -203,6 +206,108 @@ const char* szExpansions[NUM_EXPANSIONS + 1] = {
 };
 static_assert(lengthof(szExpansions) - 1 == NUM_EXPANSIONS,
 	"Need to update szExpansions to match NUM_EXPANSIONS");
+
+MQColor gDefaultUserDefinedColors[NUM_USER_COLORS] = {
+	MQColor(255, 255, 255), //  1 Say
+	MQColor(190, 40,  190), //  2 Tell
+	MQColor(0,   255, 255), //  3 Group
+	MQColor(40,  240, 40),  //  4 Guild
+	MQColor(0,   128, 0),   //  5 OOC
+	MQColor(0,   128, 0),   //  6 Auction
+	MQColor(255, 0,   0),   //  7 Shout
+	MQColor(90,  90,  255), //  8 Emote
+	MQColor(90,  90,  255), //  9 Spells
+	MQColor(255, 255, 255), // 10 You hit other
+	MQColor(255, 0,   0),   // 11 Other hits you
+	MQColor(255, 255, 255), // 12 You miss other
+	MQColor(255, 255, 255), // 13 Other misses you
+	MQColor(255, 255, 0),   // 14 Broadcasts
+	MQColor(90,  90,  255), // 15 Skills
+	MQColor(255, 255, 255), // 16 Combat Abilities / Disciplines (You)
+	MQColor(255, 255, 255), // 17 Unused at this time
+	MQColor(255, 255, 255), // 18 Default Text
+	MQColor(255, 255, 255), // 19 Faction Messages
+	MQColor(240, 240, 0),   // 20 Merchant Offer Price
+	MQColor(240, 240, 0),   // 21 Merchant Buy/Sell
+	MQColor(255, 255, 255), // 22 Death Notification - You
+	MQColor(255, 255, 255), // 23 Death Notification - Other PCs
+	MQColor(255, 255, 255), // 24 Other damage other
+	MQColor(255, 255, 255), // 25 Other miss other
+	MQColor(128, 0,   128), // 26 Who slash command results
+	MQColor(255, 255, 255), // 27 Yell for help
+	MQColor(0,   114, 255), // 28 Spell Damage
+	MQColor(240, 240, 0),   // 29 Spell worn off
+	MQColor(0,   140, 0),   // 30 Money Splits
+	MQColor(90,  90,  255), // 31 Loot Messages
+	MQColor(255, 0,   0),   // 32 Dice Roll (/random) - Mine
+	MQColor(90,  90,  255), // 33 Others spells
+	MQColor(255, 0,   0),   // 34 Spell Failures
+	MQColor(215, 154, 66),  // 35 Chat Channel
+	MQColor(110, 143, 176), // 36 Chat Channel 1
+	MQColor(110, 143, 176), // 37 Chat Channel 2
+	MQColor(110, 143, 176), // 38 Chat Channel 3
+	MQColor(110, 143, 176), // 39 Chat Channel 4
+	MQColor(110, 143, 176), // 40 Chat Channel 5
+	MQColor(110, 143, 176), // 41 Chat Channel 6
+	MQColor(110, 143, 176), // 42 Chat Channel 7
+	MQColor(110, 143, 176), // 43 Chat Channel 8
+	MQColor(110, 143, 176), // 44 Chat Channel 9
+	MQColor(110, 143, 176), // 45 Chat Channel 10
+	MQColor(255, 255, 255), // 46 Melee Crits
+	MQColor(255, 255, 255), // 47 Spell Crits
+	MQColor(255, 0,   0),   // 48 Too far away (melee)
+	MQColor(255, 0,   0),   // 49 NPC Rampage
+	MQColor(255, 0,   0),   // 50 NPC Flurry
+	MQColor(255, 0,   0),   // 51 NPC Enrage
+	MQColor(255, 255, 255), // 52 Say echo
+	MQColor(255, 255, 255), // 53 Tell echo
+	MQColor(255, 255, 255), // 54 Group echo
+	MQColor(255, 255, 255), // 55 Guild echo
+	MQColor(255, 255, 255), // 56 OOC echo
+	MQColor(255, 255, 255), // 57 Auction echo
+	MQColor(255, 255, 255), // 58 Shout echo
+	MQColor(255, 255, 255), // 59 Emote echo
+	MQColor(215, 154, 66),  // 60 Chat Channel 1 echo
+	MQColor(215, 154, 66),  // 61 Chat Channel 2 echo
+	MQColor(215, 154, 66),  // 62 Chat Channel 3 echo
+	MQColor(215, 154, 66),  // 63 Chat Channel 4 echo
+	MQColor(215, 154, 66),  // 64 Chat Channel 5 echo
+	MQColor(215, 154, 66),  // 65 Chat Channel 6 echo
+	MQColor(215, 154, 66),  // 66 Chat Channel 7 echo
+	MQColor(215, 154, 66),  // 67 Chat Channel 8 echo
+	MQColor(215, 154, 66),  // 68 Chat Channel 9 echo
+	MQColor(215, 154, 66),  // 69 Chat Channel 10 echo
+	MQColor(255, 255, 0),   // 70 Avatar Command Output
+	MQColor(255, 0,   255), // 71 Item Links
+	MQColor(0,   200, 200), // 72 Raid Say
+	MQColor(255, 255, 255), // 73 My Pet Melee
+	MQColor(255, 255, 255), // 74 Damage Shields (You Attacking)
+	MQColor(0,   255, 255), // 75 Group / Raid Role Messages
+	MQColor(255, 0,   0),   // 76 Pet Rampage/Flurry
+	MQColor(255, 255, 255), // 77 Pet Crits
+	MQColor(90,  90,  255), // 78 Focus Effects
+	MQColor(255, 255, 0),   // 79 Experience Messages
+	MQColor(255, 255, 0),   // 80 System Messages
+	MQColor(255, 255, 255), // 81 Pet Spells
+	MQColor(255, 255, 255), // 82 Pet Responses
+	MQColor(255, 255, 255), // 83 Item Speech
+	MQColor(255, 255, 255), // 84 Strikethrough messages
+	MQColor(255, 255, 255), // 85 Stun messages
+	MQColor(255, 155, 155), // 86 Swarm Pet Death
+	MQColor(90,  90,  255), // 87 Fellowship Chat
+	MQColor(255, 255, 255), // 88 Death Text (NPCs)
+	MQColor(255, 255, 255), // 89 NPC dialogue to you
+	MQColor(255, 255, 255), // 90 Guild messages
+	MQColor(255, 255, 255), // 91 Mercenary Messages
+	MQColor(255, 127, 0),   // 92 Achievement Links
+	MQColor(255, 255, 255), // 93 Emote achievement messages
+	MQColor(255, 255, 255), // 94 Guild achievement messages
+	MQColor(255, 255, 255), // 95 PvP Messages
+	MQColor(192, 0,   0),   // 96 Hotbutton Cooldown Overlay
+	MQColor(0,   255, 0),   // 97 Aggro Labels - Low
+	MQColor(255, 255, 0),   // 98 Aggro Labels - Warning
+	MQColor(255, 0,   0),   // 99 Aggro Labels - Most
+};
 
 //============================================================================
 // Offset Definitions & Initialization

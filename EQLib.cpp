@@ -78,7 +78,7 @@ uint32_t GetStringCRC(std::string_view sv)
 
 void GetFactionName(int FactionID, char* szBuffer, size_t bufferSize)
 {
-	if (FactionID < MAX_FACTIONNAMES)
+	if (FactionID < static_cast<int>(MAX_FACTIONNAMES))
 	{
 		strcpy_s(szBuffer, bufferSize, szFactionNames[FactionID]);
 	}

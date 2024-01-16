@@ -45,6 +45,7 @@
 #include "EQClasses.h"
 
 // ui components
+#include "ChatFilters.h"
 #include "CXWnd.h"
 #include "UI.h"
 #include "XMLData.h"
