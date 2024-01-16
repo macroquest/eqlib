@@ -589,14 +589,14 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x751f0*/ double            UiScale;
 /*0x751f8*/ float             TributeMod1;
 /*0x751fc*/ float             TributeMod2;
-/*0x751fc*/ float             TributeMod3;
-/*0x751fc*/ float             TributeMod4;
-/*0x75200*/ bool              bUseNewUIEngine;
-/*0x75201*/ bool              bAutoAttack;
-/*0x75202*/ bool              bAutoRangeAttack;
-/*0x75204*/ int               ItemPending;
-/*0x75208*/ int               RequestPending;
-/*0x7520c*/
+/*0x75200*/ float             TributeMod3;
+/*0x75204*/ float             TributeMod4;
+/*0x75208*/ bool              bUseNewUIEngine;
+/*0x75209*/ bool              bAutoAttack;
+/*0x7520a*/ bool              bAutoRangeAttack;
+/*0x7520c*/ int               ItemPending;
+/*0x75210*/ int               RequestPending;
+/*0x75214*/
 };
 using EVERQUESTINFO = EverQuestinfo;
 using PEVERQUESTINFO = EVERQUESTINFO*;
