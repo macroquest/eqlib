@@ -305,7 +305,7 @@ public:
 	EQLIB_OBJECT virtual int RequestDockInfo(EDockAction action, CXWnd* wnd, CXRect* rect) { return 0; }
 	EQLIB_OBJECT virtual CXStr GetTooltip() const { return Tooltip; }
 	EQLIB_OBJECT void SetTooltip(const CXStr& Value) { Tooltip = Value; }
-	EQLIB_OBJECT virtual void Unknown0x0EC() {}
+	EQLIB_OBJECT virtual void ClickThroughMenuItemTriggered() {}
 	EQLIB_OBJECT virtual int HitTest(const CXPoint& pos, int* result) const { return 0; }
 	EQLIB_OBJECT virtual CXRect GetHitTestRect(int code) const { return CXRect(); }
 	EQLIB_OBJECT virtual CXRect GetInnerRect() const { return CXRect(); }
@@ -415,7 +415,7 @@ public:
 
 	EQLIB_OBJECT CTextureFont* GetFont() const { return pFont; }
 
-	EQLIB_OBJECT void SetEscapable(bool bValue) { CloseOnESC = bValue; }
+	EQLIB_OBJECT void SetEscapable(bool bValue) { bEscapable = bValue; }
 	EQLIB_OBJECT void SetEscapableLocked(bool bValue) { bEscapableLocked = bValue; }
 
 	EQLIB_OBJECT CXWnd* GetParentWindow() const { return ParentWindow; }
@@ -610,7 +610,7 @@ public:
 	/*0x1c0*/ void* AboutToHide;
 	/*0x1c8*/ void* RequestDockInfo;
 	/*0x1d0*/ void* GetTooltip;
-	/*0x1d8*/ void* Unknown0x0EC;
+	/*0x1d8*/ void* ClickThroughMenuItemTriggered;
 	/*0x1e0*/ void* HitTest;
 	/*0x1e8*/ void* GetHitTestRect;
 	/*0x1f0*/ void* GetInnerRect;

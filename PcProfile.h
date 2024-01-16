@@ -186,8 +186,8 @@ public:
 /*0x15e8*/ int                                   thirstlevel;
 /*0x15ec*/ int                                   hungerlevel;
 /*0x15f0*/ bool                                  bIsHeadStartCharacter;
-/*0x15f4*/ int                                   heroicType;
-/*0x15f8*/ int                                   StartingCity;
+/*0x15f4*/ int                                   StartingCity;
+/*0x15f8*/ int                                   heroicType;
 /*0x15fc*/ eProfileType                          profileType;
 /*0x1600*/ int                                   Shrouded;                               // templateId
 /*0x1604*/ int                                   systemId;
