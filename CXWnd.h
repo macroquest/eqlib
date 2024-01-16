@@ -516,7 +516,7 @@ public:
 
 	DEPRECATE("Use GetClickThrough instead of GetClickable")
 	bool GetClickable() const { return bClickThrough; }
-	DEPRECATE("Use SetClickThrough isntead of SetClickable")
+	DEPRECATE("Use SetClickThrough instead of SetClickable")
 	void SetClickable(bool bValue) { bClickThrough = bValue; }
 
 	bool GetClickThrough() const { return bClickThrough; }
