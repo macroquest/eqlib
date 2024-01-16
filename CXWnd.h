@@ -726,10 +726,10 @@ public:
 /*0x058*/ CXStr              Tooltip;
 /*0x060*/ CXRect             OldLocation;
 /*0x070*/ bool               MouseOver;
-/*0x071*/ bool               bCaptureTitle;
+/*0x071*/ bool               bEscapable;
 /*0x074*/ int                VScrollPos;
 /*0x078*/ bool               bActive;
-/*0x079*/ bool               Clickable;
+/*0x079*/ bool               bClickThrough;
 /*0x07a*/ bool               bFullyScreenClipped;
 /*0x07c*/ int                BottomOffset;
 /*0x080*/ uint32_t           BGType;
@@ -744,7 +744,7 @@ public:
 /*0x0b8*/ uint32_t           BlinkFadeFreq;
 /*0x0bc*/ uint8_t            bResizableMask;
 /*0x0bd*/ bool               Minimized;
-/*0x0be*/ bool               CloseOnESC;
+/*0x0be*/ bool               bShowBorder;
 /*0x0c0*/ uint32_t           LastTimeMouseOver;
 /*0x0c4*/ uint8_t            TargetAlpha;
 /*0x0c8*/ CXWndDrawTemplate* DrawTemplate;
@@ -753,9 +753,9 @@ public:
 /*0x0d8*/ CXWnd*             FocusProxy;
 /*0x0e0*/ CLayoutStrategy*   pLayoutStrategy;
 /*0x0e8*/ CStaticTintedBlendAnimationTemplate* TitlePiece;
-/*0x0f0*/ bool               bEscapableLocked;
+/*0x0f0*/ bool               bEnableShowBorder;
 /*0x0f4*/ uint32_t           BackgroundDrawType;
-/*0x0f8*/ bool               bBorder2;
+/*0x0f8*/ bool               bCaptureTitle;
 /*0x0f9*/ bool               Unlockable;
 /*0x100*/ CTextObjectInterface* pTipTextObject;
 /*0x108*/ bool               bIsTransitioning;
@@ -796,7 +796,7 @@ public:
 /*0x1a8*/ CTextureAnimation* IconTextureAnim;
 /*0x1b0*/ uint8_t            FadeAlpha;
 /*0x1b1*/ bool               bMaximized;
-/*0x1b2*/ bool               bClickThrough;
+/*0x1b2*/ bool               bClickThroughToBackground;
 /*0x1b3*/ bool               Enabled;
 /*0x1b4*/ bool               bRightAnchoredToLeft;
 /*0x1b8*/ CXSize             MinClientSize;
@@ -813,7 +813,7 @@ public:
 /*0x1e4*/ CXRect             TransitionRect;
 /*0x1f4*/ CXRect             Location;
 /*0x204*/ uint32_t           BlinkFadeDuration;
-/*0x208*/ bool               bBorder;
+/*0x208*/ bool               bEscapableLocked;
 /*0x210*/ ArrayClass2<uint32_t> RuntimeTypes;
 /*0x230*/ CTextObjectInterface* pTextObject;
 /*0x238*/ bool               bClickThroughMenuItemStatus;
