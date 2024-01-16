@@ -1244,6 +1244,9 @@ public:
 };
 
 
+EQLIB_API void GetFactionName(int FactionID, char* szBuffer, size_t bufferSize);
+
+
 //constexpr uint32_t EQ_ASSIST          = 0x2529;        // 2022-03-03 (live) @ 0x140252E54
 
 // FIXME: Find a place for this

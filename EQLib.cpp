@@ -76,6 +76,17 @@ uint32_t GetStringCRC(std::string_view sv)
 	return GetBufferCRC(sv.data(), sv.length());
 }
 
+void GetFactionName(int FactionID, char* szBuffer, size_t bufferSize)
+{
+	if (const char* ptr = pCDBStr->GetString(FactionID, eFactionName, nullptr))
+	{
+		strcpy_s(szBuffer, bufferSize, ptr);
+	}
+	else
+	{
+		sprintf_s(szBuffer, bufferSize, "Unknown Faction[%d]", FactionID);
+	}
+}
 
 } // namespace eqlib
 
