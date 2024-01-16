@@ -5785,8 +5785,6 @@ public:
 /*0x268*/ unsigned int       LastRefresh;
 /*0x26c*/ D3DCOLOR           SpellGemTintArray[11];
 /*0x298*/ int                SpellGemAlphaArray[11];
-/*0x2c4*/ int                Unknown0x02f4;
-/*0x2c8*/ int                Unknown0x02f8;
 /*0x2cc*/ int                SpellIconOffsetX;
 /*0x2d0*/ int                SpellIconOffsetY;
 /*0x2d4*/ int                spellicon;                // if this is equal to FFFFFFFF there is no spell memmed in this slot...
