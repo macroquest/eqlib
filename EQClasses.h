@@ -284,7 +284,7 @@ struct [[offsetcomments]] LabelCache
 //============================================================================
 //============================================================================
 
-// @sizeof(EQGroundItem) == 0xa0 :: 2023-12-12 (live) @ 0x1401e698d
+// @sizeof(EQGroundItem) == 0xa0 :: 2024-01-08 (test) @ 0x1401E6B8E
 constexpr size_t EQGroundItem_size = 0xa0;
 
 class [[offsetcomments]] EQGroundItem
@@ -533,8 +533,8 @@ struct [[offsetcomments]] CTaskElement
 
 const int MAX_TASK_ELEMENTS = 20;
 
-// @sizeof(CTaskEntry) == 0x3d60 :: 2023-12-12 (live) @ 0x140048bc4
-constexpr size_t CTaskEntry_size = 0x3d60;
+// @sizeof(CTaskEntry) == 0x3d70 :: 2024-01-08 (test) @ 0x140048bc4
+constexpr size_t CTaskEntry_size = 0x3d70;
 
 struct [[offsetcomments]] CTaskEntry
 {
@@ -561,7 +561,11 @@ struct [[offsetcomments]] CTaskEntry
 /*0x3d40*/ bool              bTemplateSelectionLocked;
 /*0x3d41*/ bool              bHasRewardSet;
 /*0x3d48*/ SoeUtil::String   UnknownString;
-/*0x3d60*/
+/*0x3d60*/ int               MinPlayers;
+/*0x3d64*/ int               MaxPlayers;
+/*0x3d68*/ int               MinLevel;
+/*0x3d6c*/ int               MaxLevel;
+/*0x3d70*/
 };
 
 SIZE_CHECK(CTaskEntry, CTaskEntry_size);
@@ -589,14 +593,14 @@ class [[offsetcomments]] CTaskManager : public PopDialogHandler
 {
 public:
 /*0x000008*/ CTaskEntry                TaskEntries[MAX_TASK_ENTRIES];
-/*0x003d68*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
-/*0x073148*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
-/*0x076ea8*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
-/*0x136b68*/ int                       AddPlayerID;
-/*0x136b6c*/ bool                      bAddPlayerIsSwap;
-/*0x136b6d*/ char                      AddPlayerSwapeeName[0x40];
-/*0x136bb0*/ SharedTaskClientPlayerInfo* pFirstMember;
-/*0x136bb8*/
+/*0x003d78*/ CTaskEntry                QuestEntries[MAX_QUEST_ENTRIES];
+/*0x073328*/ CTaskEntry                SharedTaskEntries[MAX_SHARED_TASK_ENTRIES];
+/*0x077098*/ CTaskEntry                QuestHistoryEntries[MAX_QUEST_HISTORY_ENTRIES];
+/*0x137078*/ int                       AddPlayerID;
+/*0x13707c*/ bool                      bAddPlayerIsSwap;
+/*0x13707d*/ char                      AddPlayerSwapeeName[0x40];
+/*0x1370c0*/ SharedTaskClientPlayerInfo* pFirstMember;
+/*0x1370c8*/
 
 	EQLIB_OBJECT CTaskManager(CXWnd*);
 
@@ -1129,7 +1133,7 @@ inline namespace deprecated {
 }
 
 
-// @sizeof(EQWorldData) == 0x1f88 :: 2023-12-12 (live) @ 0x14024dde3
+// @sizeof(EQWorldData) == 0x1f88 :: 2024-01-08 (test) @ 0x14024DD7D
 constexpr size_t EQWorldData_size = 0x1f88;
 
 class [[offsetcomments]] EQWorldData
@@ -1639,7 +1643,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-// @sizeof(SkillManager) == 0x376a00 :: 2023-12-12 (live) @ 0x14024df23
+// @sizeof(SkillManager) == 0x376a00 :: 2024-01-08 (test) @ 0x14024DEBD
 constexpr size_t SkillManager_size = 0x376a00;
 
 class [[offsetcomments]] SkillManager

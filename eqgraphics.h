@@ -15,23 +15,23 @@
 #pragma once
 
 //
-// EQGraphicsDX9.dll offsets
+// EQGraphics.dll offsets
 //
 
-#define __eqgraphics_fopen_x                                       0x180190A5C
+#define __eqgraphics_fopen_x                                       0x18026AF08
 
-#define CEQGBitmap__GetFirstBitmap_x                               0x180002EA0
+#define CEQGBitmap__GetFirstBitmap_x                               0x180003410
 
-#define CParticleSystem__Render_x                                  0x1800B0B50
-#define CParticleSystem__CreateSpellEmitter_x                      0x1800A0800
+#define CParticleSystem__Render_x                                  0x1800A70B0
+#define CParticleSystem__CreateSpellEmitter_x                      0x180096D10
 
-#define CRender__RenderScene_x                                     0x1800CD6E0
-#define CRender__RenderBlind_x                                     0x1800CD5A0
-#define CRender__ResetDevice_x                                     0x1800CE230
-#define CRender__UpdateDisplay_x                                   0x1800CF630
-#define __bRenderSceneCalled_x                                     0x1802282C0
+#define CRender__RenderScene_x                                     0x1800C4A10
+#define CRender__RenderBlind_x                                     0x1800C48D0
+#define CRender__ResetDevice_x                                     0x1800C5560
+#define CRender__UpdateDisplay_x                                   0x1800C6720
+#define __bRenderSceneCalled_x                                     0x18033E000
 
-#define C2DPrimitiveManager__AddCachedText_x                       0x1800E7520
+#define C2DPrimitiveManager__AddCachedText_x                       0x1800DE7A0
 
 #if __has_include("../private/eqgraphics-private.h")
 #include "../private/eqgraphics-private.h"
