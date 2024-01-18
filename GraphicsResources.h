@@ -117,7 +117,7 @@ public:
 	// Return a pointer suitable for drawing a texture
 	void* GetTexture() const
 	{
-#if IS_TEST_CLIENT
+#if HAS_DIRECTX_11
 		if (m_bHasTexture && m_pD3DTexture)
 			return m_pD3DTexture->GetShaderResourceView();
 #else

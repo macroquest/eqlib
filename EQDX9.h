@@ -19,7 +19,7 @@
 #include <d3d9.h>
 #include <guiddef.h>
 
-#if IS_TEST_CLIENT
+#if HAS_DIRECTX_11
 #include <d3d11.h>
 #include <dxgi.h>
 #endif
@@ -28,7 +28,7 @@
 
 namespace eqlib {
 
-#if !IS_TEST_CLIENT
+#if !HAS_DIRECTX_11
 
 using Direct3D9 = IDirect3D9;
 using Direct3DDevice9 = IDirect3DDevice9;
@@ -273,6 +273,6 @@ SIZE_CHECK(TextureImpl, TextureImpl_size);
 } // namespace DX11
 } // namespace DX9Wrapper
 
-#endif // ^^ IS_TEST_CLIENT
+#endif // ^^ HAS_DIRECTX_11
 
 } // namespace eqlib
