@@ -949,7 +949,7 @@ enum eMercenaryStats {
 	MercStat_SpellDamage,
 };
 
-// This lives here temporarily beacuse it gets used by the mercenary manager, but it should
+// This lives here temporarily because it gets used by the mercenary manager, but it should
 // be better understood and moved into its own home.
 namespace EQUtil
 {
