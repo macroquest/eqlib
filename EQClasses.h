@@ -1582,6 +1582,9 @@ enum eDatabaseStringType
 	eSpellDescription = 6,
 	eItemLoreGroup = 7,
 
+	eAltCurrencyName = 17,
+	eAltCurrencyNamePlural = 18,
+
 	eAltAbilityCategory = 19,
 	eExpansionName = 20,
 	eMercenaryCategory = 21,
