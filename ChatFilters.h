@@ -83,7 +83,7 @@ namespace eqlib {
 #define USERCOLOR_CHAT_9                         299 // 44 - Chat Channel 9
 #define USERCOLOR_CHAT_10                        300 // 45 - Chat Channel 10
 #define USERCOLOR_MELEE_CRIT                     301 // 46 - Melee Crits (Yours)
-#define USERCOLOR_SPELL_CRIT                     302 // 47 - Spell & Dot Crits (Yours)
+#define USERCOLOR_SPELL_CRIT                     302 // 47 - Direct Damage Crits (Yours)
 #define USERCOLOR_TOO_FAR_AWAY                   303 // 48 - Too far away (melee)
 #define USERCOLOR_NPC_RAMPAGE                    304 // 49 - NPC Rampage
 #define USERCOLOR_NPC_FLURRY                     305 // 50 - NPC Flurry
