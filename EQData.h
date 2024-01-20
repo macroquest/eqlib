@@ -901,7 +901,8 @@ struct [[offsetcomments]] MERCSLIST
 enum eMercenaryState {
 	MercenaryState_Dead             = 0,
 	MercenaryState_Suspended        = 1,
-	MercenaryState_Active           = 5,
+
+	MercenaryState_Active           = 6,
 };
 
 class [[offsetcomments]] MercenaryClientData
@@ -1005,10 +1006,10 @@ public:
 /*0x2d8*/ // extra stuff related to event handling at the end
 /*0x2fc*/ // 370
 
-	inline bool HasMercenary() const { return currentMercenary.hasMercenary; }
-	inline eMercenaryState GetMercenaryState() const { return currentMercenary.suspendedState; }
+	bool HasMercenary() const { return currentMercenary.hasMercenary; }
+	eMercenaryState GetMercenaryState() const { return currentMercenary.suspendedState; }
 
-	inline const MercenaryStanceInfo* GetActiveMercenaryStance() const
+	const MercenaryStanceInfo* GetActiveMercenaryStance() const
 	{
 		for (const MercenaryStanceInfo* info : mercenaryStanceList)
 		{
