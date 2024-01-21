@@ -112,10 +112,12 @@ public:
 	CEQGBitmap* GetPreviousBitmap() { return TListNode<CEQGBitmap>::GetPrevious(); }
 	const CEQGBitmap* GetPreviousBitmap() const { return TListNode<CEQGBitmap>::GetPrevious(); }
 
+	Direct3DTexture9* GetD3DTexture() const { return m_bHasTexture ? m_pD3DTexture : nullptr; }
+
 	// Return a pointer suitable for drawing a texture
 	void* GetTexture() const
 	{
-#if IS_TEST_CLIENT
+#if HAS_DIRECTX_11
 		if (m_bHasTexture && m_pD3DTexture)
 			return m_pD3DTexture->GetShaderResourceView();
 #else
