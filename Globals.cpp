@@ -31,7 +31,7 @@ namespace eqlib {
 // at static initialization time because of this.
 uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
 
-#if IS_TEST_CLIENT
+#if HAS_DIRECTX_11
 #define GRAPHICS_DLL_NAME "EQGraphics.dll"
 #else
 #define GRAPHICS_DLL_NAME "EQGraphicsDX9.dll"

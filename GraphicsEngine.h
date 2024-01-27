@@ -316,7 +316,7 @@ constexpr int MAX_RENDER_EFFECTS = 217;
 constexpr int MAX_VERTEX_DECLARATIONS = 20;
 constexpr int MAX_EFFECT_PASS_COUNT = 6;
 
-#if !IS_TEST_CLIENT
+#if !HAS_DIRECTX_11
 
 class [[offsetcomments]] CRender : public CRenderInterface
 {
