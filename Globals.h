@@ -577,6 +577,8 @@ EQLIB_VAR uintptr_t CSkillMgr__GetSkillCap;
 EQLIB_VAR uintptr_t CSkillMgr__IsActivatedSkill;
 EQLIB_VAR uintptr_t CSkillMgr__IsAvailable;
 EQLIB_VAR uintptr_t CSkillMgr__IsCombatSkill;
+EQLIB_VAR uintptr_t CSkillMgr__GetSkillTimerDuration;
+EQLIB_VAR uintptr_t CSkillMgr__GetSkillLastUsed;
 EQLIB_VAR uintptr_t CSliderWnd__GetValue;
 EQLIB_VAR uintptr_t CSliderWnd__SetNumTicks;
 EQLIB_VAR uintptr_t CSliderWnd__SetValue;

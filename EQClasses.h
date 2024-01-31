@@ -1668,6 +1668,8 @@ public:
 	EQLIB_OBJECT unsigned long GetReuseTime(int);
 	EQLIB_OBJECT bool IsAvailable(int);
 	EQLIB_OBJECT bool IsCombatSkill(int);
+	EQLIB_OBJECT unsigned long GetSkillTimerDuration(int);
+	EQLIB_OBJECT unsigned long GetSkillLastUsed(int);
 
 	// 363
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;

@@ -644,6 +644,12 @@ FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetReuseTime(int), CSkillMgr__G
 #ifdef CSkillMgr__IsAvailable_x
 FUNCTION_AT_ADDRESS(bool, SkillManager::IsAvailable(int), CSkillMgr__IsAvailable);
 #endif
+#ifdef CSkillMgr__GetSkillTimerDuration_x
+FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetSkillTimerDuration(int), CSkillMgr__GetSkillTimerDuration);
+#endif
+#ifdef CSkillMgr__GetSkillLastUsed_x
+FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetSkillLastUsed(int), CSkillMgr__GetSkillLastUsed);
+#endif
 
 //----------------------------------------------------------------------------
 // CTargetManager
