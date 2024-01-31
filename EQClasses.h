@@ -1661,15 +1661,15 @@ class [[offsetcomments]] SkillManager
 {
 public:
 	EQLIB_OBJECT int GetNameToken(int);
-	EQLIB_OBJECT unsigned long GetSkillCap(PcZoneClient*, int level, EQClass, int skillNum, bool bIncludeItems, bool bIncludeAA, bool bIncludeBuffs);
-	EQLIB_OBJECT unsigned long SkillAvailableAtLevel(int, int);
+	EQLIB_OBJECT unsigned int GetSkillCap(PcZoneClient*, int level, EQClass, int skillNum, bool bIncludeItems, bool bIncludeAA, bool bIncludeBuffs);
+	EQLIB_OBJECT unsigned int SkillAvailableAtLevel(int, int);
 	EQLIB_OBJECT bool IsActivatedSkill(int);
-	EQLIB_OBJECT unsigned long GetBaseDamage(int);
-	EQLIB_OBJECT unsigned long GetReuseTime(int);
+	EQLIB_OBJECT unsigned int GetBaseDamage(int);
+	EQLIB_OBJECT unsigned int GetReuseTime(int);
 	EQLIB_OBJECT bool IsAvailable(int);
 	EQLIB_OBJECT bool IsCombatSkill(int);
-	EQLIB_OBJECT unsigned long GetSkillTimerDuration(int);
-	EQLIB_OBJECT unsigned long GetSkillLastUsed(int);
+	EQLIB_OBJECT unsigned int GetSkillTimerDuration(int);
+	EQLIB_OBJECT unsigned int GetSkillLastUsed(int);
 
 	// 363
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;

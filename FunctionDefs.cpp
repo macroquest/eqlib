@@ -627,28 +627,28 @@ FUNCTION_AT_ADDRESS(int, SkillManager::GetNameToken(int), CSkillMgr__GetNameToke
 FUNCTION_AT_ADDRESS(bool, SkillManager::IsCombatSkill(int), CSkillMgr__IsCombatSkill);
 #endif
 #ifdef CSkillMgr__GetSkillCap_x
-FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetSkillCap(PcZoneClient*, int, EQClass, int, bool, bool, bool), CSkillMgr__GetSkillCap);
+FUNCTION_AT_ADDRESS(unsigned int, SkillManager::GetSkillCap(PcZoneClient*, int, EQClass, int, bool, bool, bool), CSkillMgr__GetSkillCap);
 #endif
 #ifdef CSkillMgr__SkillAvailableAtLevel_x
-FUNCTION_AT_ADDRESS(unsigned long, SkillManager::SkillAvailableAtLevel(int, int), CSkillMgr__SkillAvailableAtLevel);
+FUNCTION_AT_ADDRESS(unsigned int, SkillManager::SkillAvailableAtLevel(int, int), CSkillMgr__SkillAvailableAtLevel);
 #endif
 #ifdef CSkillMgr__IsActivatedSkill_x
 FUNCTION_AT_ADDRESS(bool, SkillManager::IsActivatedSkill(int), CSkillMgr__IsActivatedSkill);
 #endif
 #ifdef CSkillMgr__GetBaseDamage_x
-FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetBaseDamage(int), CSkillMgr__GetBaseDamage);
+FUNCTION_AT_ADDRESS(unsigned int, SkillManager::GetBaseDamage(int), CSkillMgr__GetBaseDamage);
 #endif
 #ifdef CSkillMgr__GetReuseTime_x
-FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetReuseTime(int), CSkillMgr__GetReuseTime);
+FUNCTION_AT_ADDRESS(unsigned int, SkillManager::GetReuseTime(int), CSkillMgr__GetReuseTime);
 #endif
 #ifdef CSkillMgr__IsAvailable_x
 FUNCTION_AT_ADDRESS(bool, SkillManager::IsAvailable(int), CSkillMgr__IsAvailable);
 #endif
 #ifdef CSkillMgr__GetSkillTimerDuration_x
-FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetSkillTimerDuration(int), CSkillMgr__GetSkillTimerDuration);
+FUNCTION_AT_ADDRESS(unsigned int, SkillManager::GetSkillTimerDuration(int), CSkillMgr__GetSkillTimerDuration);
 #endif
 #ifdef CSkillMgr__GetSkillLastUsed_x
-FUNCTION_AT_ADDRESS(unsigned long, SkillManager::GetSkillLastUsed(int), CSkillMgr__GetSkillLastUsed);
+FUNCTION_AT_ADDRESS(unsigned int, SkillManager::GetSkillLastUsed(int), CSkillMgr__GetSkillLastUsed);
 #endif
 
 //----------------------------------------------------------------------------
