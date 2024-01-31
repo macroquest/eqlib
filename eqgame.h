@@ -525,6 +525,8 @@
 #define CSkillMgr__GetNameToken_x                                  0x140314270
 #define CSkillMgr__IsActivatedSkill_x                              0x1403146F0
 #define CSkillMgr__IsCombatSkill_x                                 0x140314730
+#define CSkillMgr__GetSkillTimerDuration_x                         0x140314660
+#define CSkillMgr__GetSkillLastUsed_x                              0x1403142C0
 
 // CSliderWnd
 #define CSliderWnd__GetValue_x                                     0x1404E6040
