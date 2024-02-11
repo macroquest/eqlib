@@ -1641,7 +1641,7 @@ public:
 	EQLIB_OBJECT ItemPtr GetItemByItemClass(int itemclass, ItemIndex* itemindex = nullptr);
 	EQLIB_OBJECT void RemoveBuffEffect(int Index, int SpawnID);
 	EQLIB_OBJECT void BandolierSwap(int index);
-	EQLIB_OBJECT uint32_t GetLinkedSpellReuseTimer(int index);
+	uint32_t GetLinkedSpellReuseTimer(int index) { return GetCurrentPcProfile()->GetLinkedSpellReuseTimer(index); }
 	EQLIB_OBJECT uint32_t GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype);
 
 	// Unverified
@@ -1650,7 +1650,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3280 :: 2024-01-16 (live) @ 0x14026b1fb
+// @sizeof(PcClient) == 0x3280 :: 2024-02-01 (live) @ 0x14026b1fb
 constexpr size_t PcClient_size = 0x3280;
 
 class [[offsetcomments]] PcClient : public PcZoneClient

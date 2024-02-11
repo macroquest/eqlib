@@ -724,7 +724,6 @@ EQLIB_VAR uintptr_t PcZoneClient__DestroyHeldItemOrMoney;
 EQLIB_VAR uintptr_t PcZoneClient__doCombatAbility;
 EQLIB_VAR uintptr_t PcZoneClient__GetItemByID;
 EQLIB_VAR uintptr_t PcZoneClient__GetItemRecastTimer;
-EQLIB_VAR uintptr_t PcZoneClient__GetLinkedSpellReuseTimer;
 EQLIB_VAR uintptr_t PcZoneClient__GetPcSkillLimit;
 EQLIB_VAR uintptr_t PcZoneClient__HasAlternateAbility;
 EQLIB_VAR uintptr_t PcZoneClient__HasCombatAbility;

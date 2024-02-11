@@ -3202,9 +3202,6 @@ FUNCTION_AT_ADDRESS(void, PcZoneClient::RemoveBuffEffect(int Index, int SpawnID)
 #ifdef PcZoneClient__BandolierSwap_x
 FUNCTION_AT_ADDRESS(void, PcZoneClient::BandolierSwap(int index), PcZoneClient__BandolierSwap);
 #endif
-#ifdef PcZoneClient__GetLinkedSpellReuseTimer_x
-FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::GetLinkedSpellReuseTimer(int index), PcZoneClient__GetLinkedSpellReuseTimer);
-#endif
 #ifdef PcZoneClient__doCombatAbility_x
 FUNCTION_AT_ADDRESS(bool, PcZoneClient::DoCombatAbility(int spellID, bool allowLowerRank), PcZoneClient__doCombatAbility);
 #endif
