@@ -5916,11 +5916,11 @@ public:
 /*0x340*/ unsigned int       LastRefresh;
 /*0x344*/ D3DCOLOR           SpellGemTintArray[11];
 /*0x370*/ int                SpellGemAlphaArray[11];
-/*0x39c*/ int                Unknown0x02f4;
-/*0x3a0*/ int                Unknown0x02f8;
-/*0x3a4*/ int                SpellIconOffsetX;
-/*0x3a8*/ int                SpellIconOffsetY;
-/*0x3ac*/ int                spellicon;                // if this is equal to FFFFFFFF there is no spell memmed in this slot...
+/*0x39c*/ int                SpellIconOffsetX;
+/*0x3a0*/ int                SpellIconOffsetY;
+/*0x3a4*/ int                SpellIconWidth;
+/*0x3a8*/ int                SpellIconHeight;
+/*0x3ac*/ int                SpellIconIndex;           // if this is equal to -1 there is no spell memmed in this slot
 /*0x3b0*/ int                spellstate;               // 1 = cast in progress or refreshtime not met 2 means we ducked or aborted cast, 0 means its ok to cast, should really rename this to tintstage
 /*0x3b4*/ int                TintIndex;
 /*0x3b8*/ CTextureAnimation* SpellIconTexture;         // CTextureAnimation
@@ -5929,6 +5929,8 @@ public:
 /*0x3cc*/ int                Percent;
 /*0x3d0*/ CSpellGemDrawTemplate DrawTemplate;
 /*0x3f0*/
+
+	ALT_MEMBER_GETTER(int, SpellIconIndex, spellicon);
 };
 
 inline namespace deprecated {
