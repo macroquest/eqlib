@@ -948,50 +948,54 @@ public:
 /*0x31c4*/ int                                   BankGold;
 /*0x31c8*/ int                                   BankSilver;
 /*0x31cc*/ int                                   BankCopper;
-/*0x31d0*/ int                                   STR;
-/*0x31d4*/ int                                   STA;
-/*0x31d8*/ int                                   CHA;
-/*0x31dc*/ int                                   DEX;
-/*0x31e0*/ int                                   INT;
-/*0x31e4*/ int                                   AGI;
-/*0x31e8*/ int                                   WIS;
-/*0x31ec*/ int                                   LCK;
-/*0x31f0*/ int                                   SavePoison;
-/*0x31f4*/ int                                   SaveMagic;
-/*0x31f8*/ int                                   SaveDisease;
-/*0x31fc*/ int                                   SaveCorruption;
-/*0x3200*/ int                                   SaveFire;
-/*0x3204*/ int                                   SaveCold;
-/*0x3208*/ int                                   SavePhysical;
-/*0x320c*/ int                                   UncappedStr;
-/*0x3210*/ int                                   UncappedSta;
-/*0x3214*/ int                                   UncappedCha;
-/*0x3218*/ int                                   UncappedDex;
-/*0x321c*/ int                                   UncappedInt;
-/*0x3220*/ int                                   UncappedAgi;
-/*0x3224*/ int                                   UncappedWis;
-/*0x3228*/ int                                   UncappedResistPoison;
-/*0x322c*/ int                                   UncappedResistMagic;
-/*0x3230*/ int                                   UncappedResistDisease;
-/*0x3234*/ int                                   UncappedResistCorruption;
-/*0x3238*/ int                                   UncappedResistFire;
-/*0x323c*/ int                                   UncappedResistCold;
-/*0x3240*/ int                                   UncappedResistPhysical;
-/*0x3244*/ int                                   NoBuffStr;
-/*0x3248*/ int                                   NoBuffSta;
-/*0x324c*/ int                                   NoBuffCha;
-/*0x3250*/ int                                   NoBuffDex;
-/*0x3254*/ int                                   NoBuffInt;
-/*0x3258*/ int                                   NoBuffAgi;
-/*0x325c*/ int                                   NoBuffWis;
-/*0x3260*/ int                                   NoBuffResistPoison;
-/*0x3264*/ int                                   NoBuffResistMagic;
-/*0x3268*/ int                                   NoBuffResistDisease;
-/*0x326c*/ int                                   NoBuffResistCorruption;
-/*0x3270*/ int                                   NoBuffResistFire;
-/*0x3274*/ int                                   NoBuffResistCold;
-/*0x3278*/ int                                   NoBuffResistPhysical;
-/*0x327c*/
+/*0x31d0*/ int                                   Platinum;
+/*0x31d4*/ int                                   Gold;
+/*0x31d8*/ int                                   Silver;
+/*0x31dc*/ int                                   Copper;
+/*0x31e0*/ int                                   STR;
+/*0x31e4*/ int                                   STA;
+/*0x31e8*/ int                                   CHA;
+/*0x31ec*/ int                                   DEX;
+/*0x31f0*/ int                                   INT;
+/*0x31f4*/ int                                   AGI;
+/*0x31f8*/ int                                   WIS;
+/*0x31fc*/ int                                   LCK;
+/*0x3200*/ int                                   SavePoison;
+/*0x3204*/ int                                   SaveMagic;
+/*0x3208*/ int                                   SaveDisease;
+/*0x320c*/ int                                   SaveCorruption;
+/*0x3210*/ int                                   SaveFire;
+/*0x3214*/ int                                   SaveCold;
+/*0x3218*/ int                                   SavePhysical;
+/*0x321c*/ int                                   UncappedStr;
+/*0x3220*/ int                                   UncappedSta;
+/*0x3224*/ int                                   UncappedCha;
+/*0x3228*/ int                                   UncappedDex;
+/*0x322c*/ int                                   UncappedInt;
+/*0x3230*/ int                                   UncappedAgi;
+/*0x3234*/ int                                   UncappedWis;
+/*0x3238*/ int                                   UncappedResistPoison;
+/*0x323c*/ int                                   UncappedResistMagic;
+/*0x3240*/ int                                   UncappedResistDisease;
+/*0x3244*/ int                                   UncappedResistCorruption;
+/*0x3248*/ int                                   UncappedResistFire;
+/*0x324c*/ int                                   UncappedResistCold;
+/*0x3250*/ int                                   UncappedResistPhysical;
+/*0x3254*/ int                                   NoBuffStr;
+/*0x3258*/ int                                   NoBuffSta;
+/*0x325c*/ int                                   NoBuffCha;
+/*0x3260*/ int                                   NoBuffDex;
+/*0x3264*/ int                                   NoBuffInt;
+/*0x3268*/ int                                   NoBuffAgi;
+/*0x326c*/ int                                   NoBuffWis;
+/*0x3270*/ int                                   NoBuffResistPoison;
+/*0x3274*/ int                                   NoBuffResistMagic;
+/*0x3278*/ int                                   NoBuffResistDisease;
+/*0x327c*/ int                                   NoBuffResistCorruption;
+/*0x3280*/ int                                   NoBuffResistFire;
+/*0x3284*/ int                                   NoBuffResistCold;
+/*0x3288*/ int                                   NoBuffResistPhysical;
+/*0x328c*/
 
 	virtual void Copy(const CharacterBase& other) {}
 	virtual ~CharacterBase() {}
@@ -1650,8 +1654,8 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3280 :: 2024-02-01 (live) @ 0x14026b1fb
-constexpr size_t PcClient_size = 0x3280;
+// @sizeof(PcClient) == 0x3290 :: 2024-02-13 (test) @ 0x14026b98b
+constexpr size_t PcClient_size = 0x3290;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
