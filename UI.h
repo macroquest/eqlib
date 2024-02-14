@@ -395,22 +395,22 @@ public:
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
-	/*0x338*/ void* IsChecked;
-	/*0x340*/ void* SetRadioGroup;
-	/*0x348*/ void* DrawWndText;
-	/*0x350*/ void* DrawCooldown;
-	/*0x358*/ void* DrawCooldownRect;
-	/*0x360*/ void* SetCheck;
-	/*0x368*/ void* SetCoolDownCompletionTimeDelta;
-	/*0x370*/ void* SetCoolDownCompletionTime;
-	/*0x378*/ void* SetCoolDownCompletionTime2;
-	/*0x380*/ void* SetCoolDownBeginTime;
-	/*0x388*/ void* SetCoolDownUpdatedBeginTime;
-	/*0x390*/ void* GetCoolDownBeginTime;
-	/*0x398*/ void* GetCoolDownTotalDuration;
-	/*0x3a0*/ void* GetCoolDownTimeRemaining;
-	/*0x3a8*/ void* ClearCoolDownCompletionTime;
-	/*0x3b0*/
+	/*0x348*/ void* IsChecked;
+	/*0x350*/ void* SetRadioGroup;
+	/*0x358*/ void* DrawWndText;
+	/*0x360*/ void* DrawCooldown;
+	/*0x368*/ void* DrawCooldownRect;
+	/*0x370*/ void* SetCheck;
+	/*0x378*/ void* SetCoolDownCompletionTimeDelta;
+	/*0x380*/ void* SetCoolDownCompletionTime;
+	/*0x388*/ void* SetCoolDownCompletionTime2;
+	/*0x390*/ void* SetCoolDownBeginTime;
+	/*0x398*/ void* SetCoolDownUpdatedBeginTime;
+	/*0x3a0*/ void* GetCoolDownBeginTime;
+	/*0x3a8*/ void* GetCoolDownTotalDuration;
+	/*0x3b0*/ void* GetCoolDownTimeRemaining;
+	/*0x3b8*/ void* ClearCoolDownCompletionTime;
+	/*0x3c0*/
 	};
 
 	// points to the eq instance of the virtual function table for this class
@@ -1120,18 +1120,18 @@ public:
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
-	/*0x338*/ void* OnColumnClick;
-	/*0x340*/ void* OnHeaderClick;
-	/*0x348*/ void* DrawColumnSeparators;
-	/*0x350*/ void* DrawSeparator;
-	/*0x358*/ void* DrawLine;
-	/*0x360*/ void* DrawHeader;
-	/*0x368*/ void* DrawItem;
-	/*0x370*/ void* DeleteAll;
-	/*0x378*/ void* Compare;
-	/*0x380*/ void* Unknown0x188;
-	/*0x388*/ void* Sort;
-	/*0x390*/
+	/*0x348*/ void* OnColumnClick;
+	/*0x350*/ void* OnHeaderClick;
+	/*0x358*/ void* DrawColumnSeparators;
+	/*0x360*/ void* DrawSeparator;
+	/*0x368*/ void* DrawLine;
+	/*0x370*/ void* DrawHeader;
+	/*0x378*/ void* DrawItem;
+	/*0x380*/ void* DeleteAll;
+	/*0x388*/ void* Compare;
+	/*0x390*/ void* Unknown0x188;
+	/*0x398*/ void* Sort;
+	/*0x3a0*/
 	};
 
 	// points to the eq instance of the virtual function table for this class
