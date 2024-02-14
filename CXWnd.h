@@ -245,7 +245,7 @@ public:
 
 // @sizeof(CXWnd) == 0x258 :: 2024-02-13 (test) @ 0x1405b5e51
 constexpr size_t CXWnd_size = 0x258;
-constexpr size_t CXWnd_vftable_size = 0x338;
+constexpr size_t CXWnd_vftable_size = 0x348;
 
 class [[offsetcomments]] CXWnd
 	: public TListNode<CXWnd>   // node in list of siblings
@@ -350,6 +350,8 @@ public:
 	CXStr GetWindowText() const { return WindowText; }
 	EQLIB_OBJECT virtual void SetTooltip(const CXStr& Value) { Tooltip = Value; }
 	EQLIB_OBJECT virtual void Center();
+	EQLIB_OBJECT virtual void CenterVertically();
+	EQLIB_OBJECT virtual void CenterHorizontally();
 	EQLIB_OBJECT virtual void Top(bool center = true);
 	EQLIB_OBJECT virtual void Bottom(bool center = true);
 	EQLIB_OBJECT virtual void Right(bool center = true);
@@ -677,27 +679,29 @@ public:
 	/*0x280*/ void* SetWindowText;
 	/*0x288*/ void* SetTooltip;
 	/*0x290*/ void* Center;
-	/*0x298*/ void* Top;
-	/*0x2a0*/ void* Bottom;
-	/*0x2a8*/ void* Right;
-	/*0x2b0*/ void* Left;
-	/*0x2b8*/ void* MoveToCursor;
-	/*0x2c0*/ void* GetChildWndAt;
-	/*0x2c8*/ void* GetSidlPiece;
-	/*0x2d0*/ void* GetWindowName;
-	/*0x2d8*/ void* SetVScrollPos;
-	/*0x2e0*/ void* SetHScrollPos;
-	/*0x2e8*/ void* AutoSetVScrollPos;
-	/*0x2f0*/ void* AutoSetHScrollPos;
-	/*0x2f8*/ void* SetAttributesFromSidl;
-	/*0x300*/ void* OnReloadSidl;
-	/*0x308*/ void* HasActivatedFirstTimeAlert;
-	/*0x310*/ void* SetHasActivatedFirstTimeAlert;
-	/*0x318*/ void* GetMinClientSize;
-	/*0x320*/ void* GetMaxClientSize;
-	/*0x328*/ void* GetActiveEditWnd;
-	/*0x330*/ void* UpdateLayout;
-	/*0x338*/
+	/*0x298*/ void* CenterVertically;
+	/*0x2a0*/ void* CenterHorizontally;
+	/*0x2a8*/ void* Top;
+	/*0x2b0*/ void* Bottom;
+	/*0x2b8*/ void* Right;
+	/*0x2c0*/ void* Left;
+	/*0x2c8*/ void* MoveToCursor;
+	/*0x2d0*/ void* GetChildWndAt;
+	/*0x2d8*/ void* GetSidlPiece;
+	/*0x2e0*/ void* GetWindowName;
+	/*0x2e8*/ void* SetVScrollPos;
+	/*0x2f0*/ void* SetHScrollPos;
+	/*0x2f8*/ void* AutoSetVScrollPos;
+	/*0x300*/ void* AutoSetHScrollPos;
+	/*0x308*/ void* SetAttributesFromSidl;
+	/*0x310*/ void* OnReloadSidl;
+	/*0x318*/ void* HasActivatedFirstTimeAlert;
+	/*0x320*/ void* SetHasActivatedFirstTimeAlert;
+	/*0x328*/ void* GetMinClientSize;
+	/*0x330*/ void* GetMaxClientSize;
+	/*0x338*/ void* GetActiveEditWnd;
+	/*0x340*/ void* UpdateLayout;
+	/*0x348*/
 	};
 
 	// Returns the current instance of this class's vftable. Might represent some other
@@ -862,7 +866,7 @@ enum eIniFlags
 
 // @sizeof(CSidlScreenWnd) == 0x2c0 :: 2024-02-13 (test) @ 0x1405b08b1
 constexpr size_t CSidlScreenWnd_size = 0x2c0;
-constexpr size_t CSidlScreenWnd_vftable_size = 0x370;
+constexpr size_t CSidlScreenWnd_vftable_size = 0x380;
 
 class [[offsetcomments]] CSidlScreenWnd : public CXWnd
 {
@@ -938,14 +942,14 @@ public:
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CXWnd::VirtualFunctionTable
 	{
-	/*0x338*/ void* Unknown0x330;
-	/*0x340*/ void* OnZone;
-	/*0x348*/ void* OnPreZone;
-	/*0x350*/ void* LoadIniInfo;
-	/*0x358*/ void* StoreIniInfo;
-	/*0x360*/ void* AsSidlScreenWnd;
-	/*0x368*/ void* GetScreenWndType;
-	/*0x370*/
+	/*0x348*/ void* Unknown0x330;
+	/*0x350*/ void* OnZone;
+	/*0x358*/ void* OnPreZone;
+	/*0x360*/ void* LoadIniInfo;
+	/*0x368*/ void* StoreIniInfo;
+	/*0x370*/ void* AsSidlScreenWnd;
+	/*0x378*/ void* GetScreenWndType;
+	/*0x380*/
 	};
 
 	// Returns the current instance of this class's vftable. Might represent some other

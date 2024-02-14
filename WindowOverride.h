@@ -125,6 +125,8 @@ public:
 	virtual void SetWindowText(const CXStr& text) override;
 	virtual void SetTooltip(const CXStr& Value) override;
 	virtual void Center() override;
+	virtual void CenterVertically() override;
+	virtual void CenterHorizontally() override;
 	virtual void Top(bool center = true) override;
 	virtual void Bottom(bool center = true) override;
 	virtual void Right(bool center = true) override;
