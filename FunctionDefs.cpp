@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2023 MacroQuest Authors
+ * Copyright (C) 2002-present MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -3201,9 +3201,6 @@ FUNCTION_AT_ADDRESS(void, PcZoneClient::RemoveBuffEffect(int Index, int SpawnID)
 #endif
 #ifdef PcZoneClient__BandolierSwap_x
 FUNCTION_AT_ADDRESS(void, PcZoneClient::BandolierSwap(int index), PcZoneClient__BandolierSwap);
-#endif
-#ifdef PcZoneClient__GetLinkedSpellReuseTimer_x
-FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::GetLinkedSpellReuseTimer(int index), PcZoneClient__GetLinkedSpellReuseTimer);
 #endif
 #ifdef PcZoneClient__doCombatAbility_x
 FUNCTION_AT_ADDRESS(bool, PcZoneClient::DoCombatAbility(int spellID, bool allowLowerRank), PcZoneClient__doCombatAbility);

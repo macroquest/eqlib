@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2023 MacroQuest Authors
+ * Copyright (C) 2002-present MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -65,6 +65,29 @@ public:
 		return !(*this == other);
 	}
 
+	CXPoint operator+(int value)
+	{
+		return CXPoint(x + value, y + value);
+	}
+
+	CXPoint operator+(const CXPoint& other)
+	{
+		return CXPoint(x + other.x, y + other.y);
+	}
+
+	CXPoint operator-(int value)
+	{
+		return CXPoint(x - value, y - value);
+	}
+
+	CXPoint operator-(const CXPoint& other)
+	{
+		return CXPoint(x - other.x, y - other.y);
+	}
+
+	CXPoint operator+(const CXSize& other);
+	CXPoint operator-(const CXSize& other);
+
 	int x = 0;
 	int y = 0;
 };
@@ -118,14 +141,44 @@ public:
 		return !(*this == other);
 	}
 
+	CXSize operator+(int value)
+	{
+		return CXSize(cx + value, cy + value);
+	}
+
+	CXSize operator-(int value)
+	{
+		return CXSize(cx - value, cy - value);
+	}
+
+	CXSize operator+(const CXSize& other)
+	{
+		return CXSize(cx + other.cx, cy + other.cy);
+	}
+
+	CXSize operator-(const CXSize& other)
+	{
+		return CXSize(cx - other.cx, cy - other.cy);
+	}
+
 	int cx = 0, cy = 0;
 };
-
 
 inline CXPoint::CXPoint(const CXSize& other)
 	: x(other.cx), y(other.cy)
 {
 }
+
+inline CXPoint CXPoint::operator+(const CXSize& other)
+{
+	return CXPoint(x + other.cx, y + other.cy);
+}
+
+inline CXPoint CXPoint::operator-(const CXSize& other)
+{
+	return CXPoint(x - other.cx, y - other.cy);
+}
+
 
 class CXRect
 {
@@ -226,6 +279,32 @@ public:
 	{
 		CXRect temp = *this;
 		temp += other;
+		return temp;
+	}
+
+	CXRect& operator*=(float scalar)
+	{
+		SetSize(GetSize() * scalar);
+		return *this;
+	}
+
+	CXRect operator*(float scalar)
+	{
+		CXRect temp = *this;
+		temp.SetSize(temp.GetSize() * scalar);
+		return temp;
+	}
+
+	CXRect& operator/=(float scalar)
+	{
+		SetSize(GetSize() / scalar);
+		return *this;
+	}
+
+	CXRect operator/(float scalar)
+	{
+		CXRect temp = *this;
+		temp.SetSize(temp.GetSize() / scalar);
 		return temp;
 	}
 

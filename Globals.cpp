@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2023 MacroQuest Authors
+ * Copyright (C) 2002-present MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -969,7 +969,6 @@ INITIALIZE_EQGAME_OFFSET(PcZoneClient__DestroyHeldItemOrMoney);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__doCombatAbility);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetItemByID);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetItemRecastTimer);
-INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetLinkedSpellReuseTimer);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetPcSkillLimit);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__HasAlternateAbility);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__RemoveBuffEffect);

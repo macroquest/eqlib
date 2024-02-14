@@ -1,6 +1,6 @@
 /*
  * MacroQuest: The extension platform for EverQuest
- * Copyright (C) 2002-2023 MacroQuest Authors
+ * Copyright (C) 2002-present MacroQuest Authors
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2, as published by
@@ -319,7 +319,9 @@ struct PetObjectData;
 // PcProfile
 //============================================================================
 
-// @sizeof(PcProfile) == 0x6a90 :: 2024-01-23 (test) @ 0x14061e034
+constexpr int MAX_LINKED_SPELL_TIMERS = 25;
+
+// @sizeof(PcProfile) == 0x6a90 :: 2024-02-01 (live) @ 0x14061dc84
 constexpr size_t PcProfile_size = 0x6a90;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
@@ -336,7 +338,7 @@ public:
 /*0x4bb0*/ uint32_t                              SpellRecastTimer[15];
 /*0x4bec*/ uint32_t                              CombatAbilityTimers[NUM_COMBAT_ABILITY_TIMERS];
 /*0x4c50*/ TList<CombatAbilityTimer>             CombatAbilityTimersList;
-/*0x4c60*/ uint32_t                              LinkedSpellTimers[25];                            // we used to call this CombatAbilityTimes
+/*0x4c60*/ uint32_t                              LinkedSpellTimers[MAX_LINKED_SPELL_TIMERS];
 /*0x4cc4*/ uint32_t                              ItemRecastTimers[100];
 /*0x4e54*/ uint32_t                              AATimers[100];
 /*0x4fe4*/ BandolierSet                          Bandolier[MAX_BANDOLIER_ITEMS];
@@ -378,6 +380,14 @@ public:
 /*0x6a84*/ int                                   NewBodyTint;
 /*0x6a88*/ int                                   CurrentMercenaryIndex;
 /*0x6a8c*/
+
+	uint32_t GetLinkedSpellReuseTimer(int index) const
+	{
+		if (index >= 0 && index < MAX_LINKED_SPELL_TIMERS)
+			return LinkedSpellTimers[index];
+
+		return 0;
+	}
 };
 
 inline namespace deprecated {
