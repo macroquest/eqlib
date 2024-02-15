@@ -162,10 +162,10 @@ public:
 /*0x1594*/ int                                   BaseAGI;
 /*0x1598*/ int                                   BaseWIS;
 /*0x159c*/ int8_t                                Face;
-/*0x15a0*/ int                                   Plat;
-/*0x15a4*/ int                                   Gold;
-/*0x15a8*/ int                                   Silver;
-/*0x15ac*/ int                                   Copper;
+/*0x15a0*/ int                                   DeprecatedPlat;     // These currencies were moved to CharacterBase.
+/*0x15a4*/ int                                   DeprecatedGold;     // They are no longer populated here, and will likely be removed.
+/*0x15a8*/ int                                   DeprecatedSilver;   // Use pLocalPC->GetPlatinum() etc instead.
+/*0x15ac*/ int                                   DeprecatedCopper;
 /*0x15b0*/ int                                   CursorPlat;
 /*0x15b4*/ int                                   CursorGold;
 /*0x15b8*/ int                                   CursorSilver;
@@ -254,6 +254,18 @@ public:
 	DEPRECATE("Use GetInventorySlot(slot) instead directly accessing member variable pInventoryrArray");
 	INVENTORYARRAY* getter_pInventoryArray() { return reinterpret_cast<INVENTORYARRAY*>(&InventoryContainer.Items[0]); }
 	__declspec(property(get = getter_pInventoryArray)) INVENTORYARRAY* pInventoryArray;
+
+	//DEPRECATE("Use pLocalPC->GetPlatinum() instead if accessing BaseProfile->Plat directly")
+	EQLIB_OBJECT int get_Platinum() const; __declspec(property(get = get_Platinum)) int Plat;
+
+	//DEPRECATE("Use pLocalPC->GetGold() instead if accessing BaseProfile->Gold directly")
+	EQLIB_OBJECT int get_Gold() const; __declspec(property(get = get_Gold)) int Gold;
+
+	//DEPRECATE("Use pLocalPC->GetSilver() instead if accessing BaseProfile->Silver directly")
+	EQLIB_OBJECT int get_Silver() const; __declspec(property(get = get_Silver)) int Silver;
+	
+	//DEPRECATE("Use pLocalPC->GetCopper() instead if accessing BaseProfile->Copper directly")
+	EQLIB_OBJECT int get_Copper() const; __declspec(property(get = get_Copper)) int Copper;
 };
 
 //============================================================================

@@ -15,7 +15,30 @@
 #include "pch.h"
 #include "PcProfile.h"
 
+#include "Globals.h"
+#include "PcClient.h"
+
 namespace eqlib {
+
+int BaseProfile::get_Platinum() const
+{
+	return pLocalPC->GetPlatinum();
+}
+
+int BaseProfile::get_Gold() const
+{
+	return pLocalPC->GetGold();
+}
+
+int BaseProfile::get_Silver() const
+{
+	return pLocalPC->GetSilver();
+}
+
+int BaseProfile::get_Copper() const
+{
+	return pLocalPC->GetCopper();
+}
 
 
 } // namespace eqlib

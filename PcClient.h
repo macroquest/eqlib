@@ -1036,10 +1036,9 @@ public:
 	EQLIB_OBJECT ItemIndex FindItemByGuid(const EqItemGuid& ItemGuid);
 	EQLIB_OBJECT ItemIndex FindItemById(int ItemId);
 
-
 	// Fix Typo
 	DEPRECATE("Use GetItemPossessions instead of GetItemPosessions")
-	inline ItemContainer& GetItemPosessions() { return GetItemPossessions(); }
+	ItemContainer& GetItemPosessions() { return GetItemPossessions(); }
 
 	// Accessors
 	int GetRace() const { return GetCurrentBaseProfile().GetRace(); }
@@ -1053,6 +1052,18 @@ public:
 	int GetAgility() const { return AGI; }
 	int GetWisdom() const { return WIS; }
 	int GetLuck() const { return LCK; }
+
+	int GetPlatinum() const { return Platinum; }
+	int GetGold() const { return Gold; }
+	int GetSilver() const { return Silver; }
+	int GetCopper() const { return Copper; }
+	uint64_t GetTotalCash() const
+	{
+		return static_cast<uint64_t>(Platinum) * 1000
+			+ static_cast<uint64_t>(Gold) * 100
+			+ static_cast<uint64_t>(Silver) * 10
+			+ Copper;
+	}
 
 	EQ_Affect& GetEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetEffect(nBuffSlot); }
 	EQ_Affect& GetTempEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetTempEffect(nBuffSlot); }
