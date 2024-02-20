@@ -208,6 +208,10 @@ public:
 
 	int GetRace() const { return Race; }
 	int GetClass() const { return Class; }
+	int GetPlatinum() const { return Plat; }
+	int GetGold() const { return Gold; }
+	int GetSilver() const { return Silver; }
+	int GetCopper() const { return Copper; }
 
 	// Can be used to access both short and long buffs
 	const EQ_Affect& GetEffect(uint32_t index) const

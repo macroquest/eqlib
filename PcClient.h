@@ -999,6 +999,20 @@ public:
 	int GetWisdom() const { return WIS; }
 	int GetLuck() const { return 0; }
 
+	int GetPlatinum() const { return GetCurrentBaseProfile().GetPlatinum(); }
+	int GetGold() const { return GetCurrentBaseProfile().GetGold(); }
+	int GetSilver() const { return GetCurrentBaseProfile().GetSilver(); }
+	int GetCopper() const { return GetCurrentBaseProfile().GetCopper(); }
+	uint64_t GetTotalCash() const
+	{
+		const BaseProfile& profile = GetCurrentBaseProfile();
+
+		return static_cast<uint64_t>(profile.GetPlatinum()) * 1000
+			+ static_cast<uint64_t>(profile.GetGold()) * 100
+			+ static_cast<uint64_t>(profile.GetSilver()) * 10
+			+ profile.GetCopper();
+	}
+
 	EQ_Affect& GetEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetEffect(nBuffSlot); }
 	EQ_Affect& GetTempEffect(int nBuffSlot) { return GetCurrentBaseProfile().GetTempEffect(nBuffSlot); }
 
