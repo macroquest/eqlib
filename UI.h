@@ -3178,7 +3178,7 @@ public:
 /*0x228*/ int                       Index;
 /*0x22c*/ EqItemGuid                ItemGuid;
 /*0x240*/ int                       ItemID;
-/*0x244*/ int                       Qty;
+/*0x244*/ int                       Quantity;
 /*0x248*/ CXStr                     ButtonText;
 /*0x24c*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
 /*0x250*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
@@ -3187,6 +3187,8 @@ public:
 /*0x25c*/ CTextObjectInterface*     pButtonTextObjectInterface;
 /*0x260*/ int                       TextFontStyle;
 /*0x264*/
+
+	ALT_MEMBER_GETTER(int, Quantity, Qty);
 };
 
 //============================================================================
@@ -6574,8 +6576,8 @@ public:
 	EQLIB_OBJECT void LoadSidl(const CXStr& Path, const CXStr& DefaultPath, const CXStr& Filename, const CXStr& DefaultClientPath = "UIFiles\\default\\");
 	EQLIB_OBJECT CXStr& GetParsingErrorMsg();
 
-	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(CScreenPieceTemplate*) const;
-	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(CParamScreenPiece*) const;
+	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(const CScreenPieceTemplate*) const;
+	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(const CParamScreenPiece*) const;
 
 	EQLIB_OBJECT CScrollbarTemplate* FindScrollbarTemplate(const CXStr& name) const;
 	EQLIB_OBJECT CScrollbarTemplate* FindScrollbarTemplate(uint32_t) const;

@@ -88,6 +88,32 @@ void GetFactionName(int FactionID, char* szBuffer, size_t bufferSize)
 	}
 }
 
+CCachedFont* CCachedFont::Get(int fontStyle)
+{
+	if (!pGraphicsEngine) return nullptr;
+	auto resourceMgr = pGraphicsEngine->pResourceManager;
+	if (!resourceMgr) return nullptr;
+
+	CCachedFont* pCachedFont = nullptr;
+	EStatus status;
+
+	// GetCachedFont may crash here if the font manager hasn't been created yet, but we're
+	// using this routine to get access to the font manager. If it throws an access violation,
+	// the application state is fine, we can just bail on this attempt.
+	__try {
+		status = resourceMgr->GetCachedFont(fontStyle, reinterpret_cast<CCachedFontInterface**>(&pCachedFont));
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER) {
+		status = eStatusFailure;
+	}
+
+	if (status == eStatusFailure)
+		return nullptr;
+
+	return pCachedFont;
+}
+
+
 } // namespace eqlib
 
 #if __has_include("../private/EQLib-private.cpp")
