@@ -143,16 +143,6 @@ bool CScreenPieceTemplate::IsType(uint32_t type) const
 	return false;
 }
 
-uint32_t CScreenPieceTemplate::GetUltimateType() const
-{
-	if (arRuntimeTypes.GetLength() > 0)
-	{
-		return arRuntimeTypes[arRuntimeTypes.GetLength() - 1];
-	}
-
-	return 0;
-}
-
 const char* XWndBackgroundTypeToString(XWndBackgroundType type)
 {
 	switch (type)

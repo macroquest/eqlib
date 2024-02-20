@@ -127,10 +127,13 @@ public:
 	EQLIB_OBJECT void SetCurCell(int);
 	int GetCurCell() const { return CurCell; }
 
+	const CXRect& GetCurCellRect() const { return CellRect; }
+
 	const CXStr& GetName() const { return Name; }
-	CXSize GetSize() const { return Size; }
+	const CXSize& GetSize() const { return Size; }
 	int GetWidth() const { return Size.cx; }
 	int GetHeight() const { return Size.cy; }
+	bool IsGrid() const { return bGrid; }
 
 	// todo
 	EQLIB_OBJECT int Draw(const CXRect& rect, const CXRect& clip, COLORREF color = 0xffffffff, COLORREF color2 = 0xff000000) const;
@@ -138,6 +141,8 @@ public:
 	//EQLIB_OBJECT int Draw(const CXRect&, const CXRect&, unsigned long, unsigned long) const;
 	//EQLIB_OBJECT int Preload();
 	//EQLIB_OBJECT void Reset();
+
+	const CUITexturePiece& GetCurTexturePiece() const { return Frames[GetCurFrame()].Piece; }
 
 	//----------------------------------------------------------------------------
 	// data members

@@ -1024,4 +1024,24 @@ constexpr const float DEG_TO_HEADING_RATIO = 360.f / 512.f;
 // Experience percentage ratio
 constexpr const float EXP_TO_PCT_RATIO = 1000.0f;
 
+// Fonts Styles!
+
+enum FontStyles
+{
+	FontStyle_10,
+	FontStyle_12,
+	FontStyle_14,
+	FontStyle_15,
+	FontStyle_16,
+	FontStyle_20_Bold,
+	FontStyle_24_Bold,
+	FontStyle_20,
+	FontStyle_24,
+	FontStyle_Courier_14,
+	FontStyle_NameFont,
+
+	NumFontStyles
+};
+
+
 } // namespace eqlib
