@@ -711,6 +711,30 @@ CButtonDrawTemplate* CSidlManagerBase::FindButtonDrawTemplate(std::string_view N
 	return nullptr;
 }
 
+EStaticScreenPieceClasses CSidlManagerBase::GetScreenPieceEnum(const CScreenPieceTemplate* pTemplate) const
+{
+	int index = pTemplate->GetUltimateType();
+
+	for (int i = 0; i < StaticScreenPieceMax; ++i)
+	{
+		if (ScreenPieceClassIndex[i] == index)
+			return static_cast<EStaticScreenPieceClasses>(i);
+	}
+
+	return StaticScreenPieceUnknown;
+}
+
+EStaticScreenPieceClasses CSidlManagerBase::GetScreenPieceEnum(const CParamScreenPiece* pPiece) const
+{
+	for (int i = 0; i < StaticScreenPieceMax; ++i)
+	{
+		if (ScreenPieceClassIndex[i] == pPiece->nClassIdx)
+			return static_cast<EStaticScreenPieceClasses>(i);
+	}
+
+	return StaticScreenPieceUnknown;
+}
+
 //============================================================================
 // CascadeItemBase and friends
 //============================================================================

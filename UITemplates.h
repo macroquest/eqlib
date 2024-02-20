@@ -191,9 +191,18 @@ public:
 
 	EQLIB_OBJECT void DeclareType(uint32_t type);
 	EQLIB_OBJECT bool IsType(uint32_t type) const;
-	EQLIB_OBJECT uint32_t GetUltimateType() const;
 
-/*0x08*/ ArrayClass2<uint32_t> arRuntimeTypes;
+	int GetUltimateType() const
+	{
+		if (arRuntimeTypes.GetLength() > 0)
+		{
+			return arRuntimeTypes[arRuntimeTypes.GetLength() - 1];
+		}
+
+		return 0;
+	}
+
+/*0x08*/ ArrayClass2<int>    arRuntimeTypes;
 /*0x28*/ CXStr               strName;
 /*0x30*/ uint32_t            uParamObjectId = 0;
 /*0x38*/ CXStr               strScreenId;

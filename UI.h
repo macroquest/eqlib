@@ -3213,20 +3213,22 @@ public:
 /*0x4b8*/ UIStaticAnimationTemplate uiAnimComponent2;
 /*0x558*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
 /*0x560*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
-/*0x568*/ CTextObjectInterface*     pTextObjectInterface;
-/*0x570*/ CTextObjectInterface*     pButtonTextObjectInterface;
+/*0x568*/ CTextObject*              pTextObject;
+/*0x570*/ CTextObject*              pButtonTextObject;
 /*0x578*/ int                       TextFontStyle;
 /*0x57c*/ int                       Type;
 /*0x580*/ int                       Index;
 /*0x584*/ EqItemGuid                ItemGuid;
 /*0x598*/ int                       ItemID;
-/*0x59c*/ int                       Qty;
+/*0x59c*/ int                       Quantity;
 /*0x5a0*/ int                       IconID;
 /*0x5a4*/ int                       ContextMenu;
 /*0x5a8*/ SoeUtil::StringFixed<64>  AssignedName;
 /*0x608*/ CXStr                     ButtonText;
 /*0x610*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
 /*0x618*/
+
+	ALT_MEMBER_GETTER(int, Quantity, Qty);
 };
 
 SIZE_CHECK(CCursorAttachment, CCursorAttachment_size);
@@ -6649,8 +6651,8 @@ public:
 	EQLIB_OBJECT void LoadSidl(const CXStr& Path, const CXStr& DefaultPath, const CXStr& Filename, const CXStr& DefaultClientPath = "UIFiles\\default\\");
 	EQLIB_OBJECT CXStr& GetParsingErrorMsg();
 
-	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(CScreenPieceTemplate*) const;
-	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(CParamScreenPiece*) const;
+	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(const CScreenPieceTemplate*) const;
+	EQLIB_OBJECT EStaticScreenPieceClasses GetScreenPieceEnum(const CParamScreenPiece*) const;
 
 	EQLIB_OBJECT CScrollbarTemplate* FindScrollbarTemplate(const CXStr& name) const;
 	EQLIB_OBJECT CScrollbarTemplate* FindScrollbarTemplate(uint32_t) const;
