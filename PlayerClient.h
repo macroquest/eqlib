@@ -733,7 +733,7 @@ enum SeeInvisLevels {
 // PlayerClient
 //============================================================================
 
-// @sizeof(PlayerClient) == 0x1f60 :: 2024-02-20 (live) @ 0x1402e28de
+// @sizeof(PlayerClient) == 0x1f60 :: 2024-02-22 (live) @ 0x1402e28de
 constexpr size_t PlayerClient_size = 0x1f60;
 
 class [[offsetcomments]] PlayerClient : public PlayerZoneClient
