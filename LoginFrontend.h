@@ -104,8 +104,26 @@ class [[offsetcomments]] LoginServerCallback
 {
 public:
 	virtual void OnConnect() {}
-	virtual void OnDisconnect(bool) {}
-	// more virtuals...
+	virtual void OnConnectionTerminated(bool clientSide) {}
+	virtual void OnCallback(void*, void*) {}
+	virtual void OnHandshake(bool, int, CXStr, CXStr) {}
+	virtual void OnPlayerLogin(bool, int, CXStr, void*, void*) {}
+	virtual void OnGetServerList(bool, int, CXStr, void*, void*) {}
+	virtual void OnJoinServer(bool, int, CXStr, int, void*) {}
+	virtual void OnJoinChat(bool, int, CXStr, CXStr&, int, CXStr&, CXStr&, CXStr&, CXStr&, int, void*) {}
+	virtual void OnSetGMList(void*) {}
+	virtual void OnModifyGMList(void*, void*) {}
+	virtual void OnJoinAdminChannel(bool, int, CXStr, CXStr&, CXStr, void*) {}
+	virtual void OnCommandResult(bool, int, CXStr, CXStr, void*) {}
+	virtual void OnCommandExecute(uint32_t, int, uint32_t, CXStr, void*) {}
+	virtual void OnServerChatMessageList(void*, void*) {}
+	virtual void OnServerChatSTLookupList(void*, void*) {}
+	virtual void OnSetBanner(CXStr&) {}
+	virtual void OnReconnectToChat(CXStr&, int, CXStr&, CXStr&, CXStr&, CXStr&, bool, void*) {}
+	virtual void OnBoot(CXStr) {}
+	virtual void JoinServer(void*) {}
+	virtual void OnSetGameFeatures(void*) {}
+	virtual void OnKickMyPlayerReply(bool, int, CXStr, void*) {}
 };
 
 class [[offsetcomments]] ChannelServerHandler
