@@ -17,6 +17,7 @@
 #include "CXWnd.h"
 #include "EQClasses.h"
 #include "Globals.h"
+#include "LoginFrontend.h"
 
 #include "WindowOverride.h"
 
@@ -52,6 +53,39 @@ void CXWnd::SetClientRectDirty(bool dirty)
 			wnd->SetClientRectDirty(true);
 		}
 	}
+}
+//----------------------------------------------------------------------------
+
+UIType eqmain::CXWnd::GetType() const
+{
+	CXMLDataManager* mgr = pSidlMgr->GetParamManager();
+	return mgr->GetWindowType(reinterpret_cast<const eqlib::CXWnd*>(this));
+}
+
+CXMLData* eqmain::CXWnd::GetXMLData(CXMLDataManager* dataMgr) const
+{
+	if (int xmlIndex = GetXMLIndex())
+	{
+		return dataMgr->GetXMLData(xmlIndex);
+	}
+
+	return nullptr;
+}
+
+CXMLData* eqmain::CXWnd::GetXMLData() const
+{
+	CXMLDataManager* mgr = pSidlMgr->GetParamManager();
+	return GetXMLData(mgr);
+}
+
+CXStr eqmain::CXWnd::GetXMLName() const
+{
+	if (CXMLData* pXMLData = GetXMLData())
+	{
+		return pXMLData->Name;
+	}
+
+	return CXStr();
 }
 
 //----------------------------------------------------------------------------
