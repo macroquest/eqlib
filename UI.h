@@ -3213,8 +3213,8 @@ public:
 /*0x4d8*/ UIStaticAnimationTemplate uiAnimComponent2;
 /*0x578*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
 /*0x580*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
-/*0x588*/ CTextObjectInterface*     pTextObject;
-/*0x590*/ CTextObjectInterface*     pButtonTextObject;
+/*0x588*/ CTextObject*              pTextObject;
+/*0x590*/ CTextObject*              pButtonTextObject;
 /*0x598*/ int                       TextFontStyle;
 /*0x59c*/ int                       Type;
 /*0x5a0*/ int                       Index;
