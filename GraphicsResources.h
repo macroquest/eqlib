@@ -294,17 +294,17 @@ public:
 /*0x00*/ bool                     bIsValidTexture;
 /*0x04*/ uint32_t                 uUnicodeValue;
 /*0x08*/ int                      nCharWidth;
-/*0x10*/ CCachedFontGlyphTextureInfo gti;
-/*0xxx*/
+/*0x0c*/ CCachedFontGlyphTextureInfo gti;
+/*0x28*/
 };
 
 class [[offsetcomments]] CCachedFontGlyphNode
 {
 public:
 /*0x00*/ CCachedFontGlyphInfo     gi;
-/*0xxx*/ CCachedFontGlyphNode*    next;
-/*0xxx*/ CCachedFontGlyphNode*    prev;
-/*0x00*/
+/*0x28*/ CCachedFontGlyphNode*    next;
+/*0x30*/ CCachedFontGlyphNode*    prev;
+/*0x38*/
 };
 
 class [[offsetcomments]] CD3DTexturePointerNode
@@ -321,10 +321,10 @@ class [[offsetcomments]] CD3DTexturePointerList
 public:
 	virtual ~CD3DTexturePointerList() {}
 
-/*0x00*/ int                      nSize;
-/*0x08*/ CD3DTexturePointerNode*  head;
-/*0x10*/ CD3DTexturePointerNode*  tail;
-/*0x18*/
+/*0x08*/ int                      nSize;
+/*0x10*/ CD3DTexturePointerNode*  head;
+/*0x18*/ CD3DTexturePointerNode*  tail;
+/*0x20*/
 };
 
 struct [[offsetcomments]] SCharacterIndex
@@ -450,22 +450,22 @@ class [[offsetcomments]] CCachedFontList
 public:
 	virtual ~CCachedFontList() {}
 
-/*0x00*/ int                      nSize;
-/*0x08*/ CCachedFontNode*         head;
-/*0x10*/ CCachedFontNode*         tail;
-/*0x18*/
+/*0x08*/ int                      nSize;
+/*0x10*/ CCachedFontNode*         head;
+/*0x18*/ CCachedFontNode*         tail;
+/*0x20*/
 };
 
 struct [[offsetcomments]] SLogFontEntry
 {
 /*0x00*/ LOGFONTA                 lf;
-/*0x00*/ CXStr                    strFontName;
-/*0x00*/ int                      nMaxTextures;
-/*0x00*/ int                      nTextureSize;
-/*0x00*/ int                      nDropShadowOffsetX;
-/*0x00*/ int                      nDropShadowOffsetY;
-/*0x00*/ CCachedFontNode*         pFontNode;
-/*0x00*/
+/*0x40*/ CXStr                    strFontName;
+/*0x48*/ int                      nMaxTextures;
+/*0x4c*/ int                      nTextureSize;
+/*0x50*/ int                      nDropShadowOffsetX;
+/*0x54*/ int                      nDropShadowOffsetY;
+/*0x58*/ CCachedFontNode*         pFontNode;
+/*0x60*/
 };
 
 class [[offsetcomments]] CFontManager
@@ -473,18 +473,18 @@ class [[offsetcomments]] CFontManager
 public:
 	virtual ~CFontManager() {}
 
-/*0x00*/ HDC                      hDC;
-/*0x00*/ HDC                      hSrcDC;
-/*0x00*/ Direct3DIndexBuffer9*    pIB;
-/*0x00*/ int                      nIndexStartOffset;
-/*0x00*/ int                      nIndexCurrentOffset;
-/*0x00*/ bool                     bNeedsVBInit;
-/*0x00*/ CD3DTexturePointerList   listTextures;
-/*0x00*/ CCachedFontList          listFonts;
-/*0x00*/ ArrayClass2<ArrayClass2<int>> arFontMatrix;
-/*0x00*/ ArrayClass2<SLogFontEntry> arLogFonts;
-/*0x00*/ int                      eCurrentLanguage;
-/*0x00*/
+/*0x08*/ HDC                      hDC;
+/*0x10*/ HDC                      hSrcDC;
+/*0x18*/ Direct3DIndexBuffer9*    pIB;
+/*0x20*/ int                      nIndexStartOffset;
+/*0x24*/ int                      nIndexCurrentOffset;
+/*0x28*/ bool                     bNeedsVBInit;
+/*0x30*/ CD3DTexturePointerList   listTextures;
+/*0x50*/ CCachedFontList          listFonts;
+/*0x70*/ ArrayClass2<ArrayClass2<int>> arFontMatrix;
+/*0x90*/ ArrayClass2<SLogFontEntry> arLogFonts;
+/*0xb0*/ int                      eCurrentLanguage;
+/*0xb4*/
 };
 
 } // namespace eqlib

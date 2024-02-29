@@ -221,6 +221,10 @@ public:
 
 	int GetRace() const { return Race; }
 	int GetClass() const { return Class; }
+	int GetPlatinum() const { return Plat; }
+	int GetGold() const { return Gold; }
+	int GetSilver() const { return Silver; }
+	int GetCopper() const { return Copper; }
 
 	// Can be used to access both short and long buffs
 	const EQ_Affect& GetEffect(uint32_t index) const
@@ -334,7 +338,7 @@ struct PetObjectData;
 
 constexpr int MAX_LINKED_SPELL_TIMERS = 25;
 
-// @sizeof(PcProfile) == 0x6f40 :: 2024-02-16 (test) @ 0x14061f4f4
+// @sizeof(PcProfile) == 0x6f40 :: 2024-02-22 (live) @ 0x14061f064
 constexpr size_t PcProfile_size = 0x6f40;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
