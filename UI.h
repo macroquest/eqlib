@@ -3183,8 +3183,8 @@ public:
 /*0x24c*/ CStaticAnimationTemplate* pBGStaticAnim;                  // CA_Anim
 /*0x250*/ CStaticAnimationTemplate* pOverlayStaticAnim;             // CA_Anim2
 /*0x254*/ CSpellGemWnd*             pSpellGem;                      // CA_SpellGem
-/*0x258*/ CTextObjectInterface*     pTextObjectInterface;
-/*0x25c*/ CTextObjectInterface*     pButtonTextObjectInterface;
+/*0x258*/ CTextObject*              pTextObjectInterface;
+/*0x25c*/ CTextObject*              pButtonTextObjectInterface;
 /*0x260*/ int                       TextFontStyle;
 /*0x264*/
 
