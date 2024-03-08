@@ -18,7 +18,7 @@
 // EQGraphics.dll offsets
 //
 
-#define __eqgraphics_fopen_x                                       0x180267588
+#define __eqgraphics_fopen_x                                       0x180267678
 
 #define CEQGBitmap__GetFirstBitmap_x                               0x180003410
 

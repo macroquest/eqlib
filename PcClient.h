@@ -1568,10 +1568,10 @@ public:
 /*0x27a0*/ int                                   LastFellowshipJoin;
 /*0x27a8*/ int64_t                               Vitality;
 /*0x27b0*/ int64_t                               AAVitality;
-/*0x27b8*/ int                                   FreeToPlayUnlocks[31];
-/*0x2834*/ // end PcBase / start CharacterZoneClient
+/*0x27b8*/ int                                   FreeToPlayUnlocks[33];
+/*0x283c*/ // end PcBase / start CharacterZoneClient
 
-	// basis: 0x2840
+	// basis: 0x2848
 
 	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
@@ -1635,14 +1635,14 @@ class [[offsetcomments]] PcZoneClient : public PcBase, public CharacterZoneClien
 {
 /*0x285c*/ // vftable
 public:
-/*0x2e58*/ uint32_t                              Flags[3]; // 2e58
-/*0x2e64*/ uint32_t                              TransfersReceived;
-/*0x2e68*/ int                                   LastLanguageSpoken;
-/*0x2e6c*/ int                                   CurPowerSourceDrain;
-/*0x2e70*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
-/*0x2e90*/ uint32_t                              MomentumBalance;
-/*0x2e94*/ uint32_t                              LoyaltyRewardBalance;
-/*0x2e98*/
+/*0x2e60*/ uint32_t                              Flags[3];
+/*0x2e6c*/ uint32_t                              TransfersReceived;
+/*0x2e70*/ int                                   LastLanguageSpoken;
+/*0x2e74*/ int                                   CurPowerSourceDrain;
+/*0x2e78*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
+/*0x2e98*/ uint32_t                              MomentumBalance;
+/*0x2e9c*/ uint32_t                              LoyaltyRewardBalance;
+/*0x2ea0*/
 
 	// Verified
 	EQLIB_OBJECT void DestroyHeldItemOrMoney();
@@ -1665,8 +1665,8 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3290 :: 2024-02-27 (test) @ 0x14026b10b
-constexpr size_t PcClient_size = 0x3290;
+// @sizeof(PcClient) == 0x3298 :: 2024-03-04 (test) @ 0x14026bbab
+constexpr size_t PcClient_size = 0x3298;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
@@ -1674,20 +1674,20 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2e98*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
-/*0x2ea0*/ bool                                  InCombat;
-/*0x2ea4*/ uint32_t                              Downtime;
-/*0x2ea8*/ uint32_t                              DowntimeStart;
-/*0x2eac*/ bool                                  bOverrideAvatarProximity;
-/*0x2eb0*/ CGroup*                               Group;
-/*0x2eb8*/ bool                                  bIAmCreatingGroup;
-/*0x2ec0*/ ItemArray                             ItemsPendingID;
-/*0x2ed8*/ eParcelStatus                         ParcelStatus;
-/*0x2edc*/ int                                   SubscriptionDays;
-/*0x2ee0*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
-/*0x2eea*/ bool                                  bPickZoneFewest;
-/*0x2eec*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
-/*0x2ef0*/
+/*0x2ea0*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
+/*0x2ea8*/ bool                                  InCombat;
+/*0x2eac*/ uint32_t                              Downtime;
+/*0x2eb0*/ uint32_t                              DowntimeStart;
+/*0x2eb4*/ bool                                  bOverrideAvatarProximity;
+/*0x2eb8*/ CGroup*                               Group;
+/*0x2ec0*/ bool                                  bIAmCreatingGroup;
+/*0x2ec8*/ ItemArray                             ItemsPendingID;
+/*0x2ee0*/ eParcelStatus                         ParcelStatus;
+/*0x2ee4*/ int                                   SubscriptionDays;
+/*0x2ee8*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
+/*0x2ef2*/ bool                                  bPickZoneFewest;
+/*0x2ef4*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
+/*0x2ef8*/
 
 	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);  // cannot be null
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);
