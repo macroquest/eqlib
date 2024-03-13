@@ -1665,7 +1665,7 @@ public:
 	EQLIB_OBJECT int GetMaxAirSupply() const;
 };
 
-// @sizeof(PcClient) == 0x3298 :: 2024-03-04 (test) @ 0x14026bbab
+// @sizeof(PcClient) == 0x3298 :: 2024-03-07 (live) @ 0x14026b97b
 constexpr size_t PcClient_size = 0x3298;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
