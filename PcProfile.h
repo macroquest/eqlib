@@ -307,6 +307,8 @@ struct [[offsetcomments]] AssociatedNPCSaveStringNode
 // PcProfile
 //============================================================================
 
+constexpr int MAX_LINKED_SPELL_TIMERS = 20;
+
 // @sizeof(PcProfile) == 0x9950 :: 2013-05-10 (emu) @ 0x7BEC13
 constexpr size_t PcProfile_size = 0x9950;
 
@@ -324,7 +326,7 @@ public:
 /*0x6988*/ uint32_t                              SpellRecastTimer[13];
 /*0x69bc*/ uint32_t                              CombatAbilityTimers[NUM_COMBAT_ABILITY_TIMERS];
 ///*0x6a28*/ TList<CombatAbilityTimer>             CombatAbilityTimersList;
-/*0x6a0c*/ uint32_t                              LinkedSpellTimers[20];
+/*0x6a0c*/ uint32_t                              LinkedSpellTimers[MAX_LINKED_SPELL_TIMERS];
 /*0x6a5c*/ uint32_t                              ItemRecastTimers[100];
 /*0x6bec*/ uint32_t                              AATimers[100];
 /*0x6d7c*/ BandolierSet                          Bandolier[MAX_BANDOLIER_ITEMS];
@@ -366,6 +368,14 @@ public:
 /*0x9948*/ int                                   NewBodyTint;
 /*0x994c*/ int                                   CurrentMercenaryIndex;
 /*0x9950*/
+
+	uint32_t GetLinkedSpellReuseTimer(int index) const
+	{
+		if (index >= 0 && index < MAX_LINKED_SPELL_TIMERS)
+			return LinkedSpellTimers[index];
+
+		return 0;
+	}
 };
 
 inline namespace deprecated {

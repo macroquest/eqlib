@@ -797,7 +797,6 @@
 #define PcZoneClient__GetItemByID_x                                0x585A10
 #define PcZoneClient__RemoveBuffEffect_x                           0x57FCE0
 #define PcZoneClient__BandolierSwap_x                              0x585AA0
-#define PcZoneClient__GetLinkedSpellReuseTimer_x                   0x57F900
 
 // Doors
 #define EQSwitch__UseSwitch_x                                      0x511D70

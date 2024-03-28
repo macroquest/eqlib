@@ -968,7 +968,6 @@ INITIALIZE_EQGAME_OFFSET(PcZoneClient__DestroyHeldItemOrMoney);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__doCombatAbility);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetItemByID);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetItemRecastTimer);
-INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetLinkedSpellReuseTimer);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__GetPcSkillLimit);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__HasAlternateAbility);
 INITIALIZE_EQGAME_OFFSET(PcZoneClient__RemoveBuffEffect);

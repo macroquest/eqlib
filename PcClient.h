@@ -1640,7 +1640,7 @@ public:
 	EQLIB_OBJECT ItemPtr GetItemByItemClass(int itemclass, ItemIndex* itemindex = nullptr);
 	EQLIB_OBJECT void RemoveBuffEffect(int Index, int SpawnID);
 	EQLIB_OBJECT void BandolierSwap(int index);
-	EQLIB_OBJECT uint32_t GetLinkedSpellReuseTimer(int index);
+	uint32_t GetLinkedSpellReuseTimer(int index) { return GetCurrentPcProfile()->GetLinkedSpellReuseTimer(index); }
 
 private:
 	EQLIB_OBJECT uint32_t _GetItemRecastTimer(const ItemPtr& item);
