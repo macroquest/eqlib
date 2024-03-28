@@ -393,20 +393,6 @@ const CTextureAnimation* CListWnd::GetItemIcon(int row, int col) const
 }
 
 //============================================================================
-// CPageWnd
-//============================================================================
-
-CXStr CPageWnd::GetTabText(bool bShowFlashing) const
-{
-	if (bShowFlashing && bFlashing)
-	{
-		return TabText + "*";
-	}
-
-	return TabText;
-}
-
-//============================================================================
 // CTabWnd
 //============================================================================
 

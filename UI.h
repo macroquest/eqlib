@@ -1132,6 +1132,7 @@ public:
 // CPageWnd
 //============================================================================
 
+// Size: 0x234
 class [[offsetcomments]] CPageWnd : public CSidlScreenWnd
 {
 public:
@@ -1139,25 +1140,17 @@ public:
 	virtual ~CPageWnd();
 
 	CTextureAnimation* GetTabIcon() const { return pTATabIcon; }
-
-	EQLIB_OBJECT CXStr GetTabText(bool bShowFlashing = false) const;
+	CXStr GetTabText(bool bShowFlashing = false) const { return TabText; };
 
 	EQLIB_OBJECT void SetTabText(CXStr&) const;
 	EQLIB_OBJECT void FlashTab(bool flash, int msTime) const;
 
 /*0x220*/ CXStr              TabText;
-/*0x224*/ CXStr              OrigTabText;
-/*0x228*/ COLORREF           CRTabText;
-/*0x22c*/ COLORREF           CRTabTextActive;
-/*0x230*/ CTextureAnimation* pTATabIcon;
-/*0x234*/ CTextureAnimation* pTATabIconActive;
-/*0x238*/ int                Unknown0x250;
-/*0x23c*/ int                Unknown0x254;
-/*0x240*/ int64_t            LastFlashTime;
-/*0x248*/ COLORREF           CRHighlightFlashColor;
-/*0x24c*/ bool               bHighlightOnNewMessages;
-/*0x24d*/ bool               bFlashing;
-/*0x250*/
+/*0x224*/ COLORREF           CRTabText;
+/*0x228*/ COLORREF           CRTabTextActive;
+/*0x22c*/ CTextureAnimation* pTATabIcon;
+/*0x230*/ CTextureAnimation* pTATabIconActive;
+/*0x234*/
 };
 
 //============================================================================
