@@ -137,6 +137,11 @@ enum eKeyboardFlags {
 	KeyboardFlags_Alt   = KeyboardFlags_LAlt | KeyboardFlags_RAlt,
 };
 
+// CXWndManager will send mouse clicks as keyboard events
+constexpr int EQ_KEYBOARD_EVENT_MB3 = 240;
+constexpr int EQ_KEYBOARD_EVENT_MB4 = 242;
+constexpr int EQ_KEYBOARD_EVENT_MB5 = 241;
+
 enum EScrollCode
 {
 	ScrollCodeUp,
