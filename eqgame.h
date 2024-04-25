@@ -338,7 +338,7 @@
 #define CEverQuest__ClickedPlayer_x                                0x1402589A0
 #define CEverQuest__CreateTargetIndicator_x                        0x140259260
 #define CEverQuest__DoTellWindow_x                                 0x140105620 // ChatManagerClient__DisplayTellText
-#define CEverQuest__OutputTextToLog_x                              0x0 // ChatManagerClient__WriteTextToLogFile
+#define CEverQuest__OutputTextToLog_x                              0x140105EE0 // ChatManagerClient__WriteTextToLogFile
 #define CEverQuest__DropHeldItemOnGround_x                         0x140264830
 #define CEverQuest__dsp_chat_x                                     0x140105050 // ChatManagerClient__DisplayChatText
 #define CEverQuest__trimName_x                                     0x14028EA10
@@ -842,7 +842,7 @@
 #define COptionsWnd__FillChatFilterList_x                          0x140478760
 
 // CResolutionHandler
-#define CResolutionHandler__UpdateResolution_x                     0x0
+#define CResolutionHandler__UpdateResolution_x                     0x14069C4E0
 #define CResolutionHandler__GetWindowedStyle_x                     0x140319630
 
 // CColorPickerWnd
