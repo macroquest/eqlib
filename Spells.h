@@ -926,13 +926,13 @@ public:
 	EQLIB_OBJECT static bool IsSPAStacking(int Spa);
 	EQLIB_OBJECT static bool IsSPAIgnoredByStacking(int Spa);
 
-	inline bool IsNoDispell() const { return NoDispell; }
-	inline bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
-	inline int GetNoOverwrite() const { return NoOverwrite; }
-	inline bool IsShortEffectDuration() const { return DurationWindow; }
-	inline bool GetIsSkillSpell() const { return IsSkill; }
+	bool IsNoDispell() const { return NoDispell; }
+	bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
+	int GetNoOverwrite() const { return NoOverwrite; }
+	bool IsShortEffectDuration() const { return DurationWindow; }
+	bool GetIsSkillSpell() const { return IsSkill; }
 
-	inline bool IsLullSpell() const
+	bool IsLullSpell() const
 	{
 		for (int i = 0; i < GetNumEffects(); ++i)
 		{
@@ -949,12 +949,12 @@ public:
 		return false;
 	}
 
-	inline bool IsDoTSpell() const
+	bool IsDoTSpell() const
 	{
 		return SpellAffects(0) || SpellAffects(20) || SpellAffects(69) || SpellAffects(114) || SpellAffects(125);
 	}
 
-	inline bool IsStackable() const
+	bool IsStackable() const
 	{
 		if (NotStackableDot)
 			return false;
@@ -966,12 +966,12 @@ public:
 		return SpellAffects(SPA_HP) != 0 || SpellAffects(SPA_GRAVITATE) != 0;
 	}
 
-	inline bool IsBeneficialSpell() const
+	bool IsBeneficialSpell() const
 	{
 		return SpellType >= SpellType_Beneficial;
 	}
 
-	inline bool IsBeneficialSpellUsedDetrimentally() const
+	bool IsBeneficialSpellUsedDetrimentally() const
 	{
 		int attrib = GetEffectAttrib(0);
 
@@ -982,16 +982,15 @@ public:
 			|| IsLullSpell();
 	}
 
-	inline bool IsDetrimentalSpell() const
+	bool IsDetrimentalSpell() const
 	{
 		return !IsBeneficialSpell() || IsBeneficialSpellUsedDetrimentally();
 	}
 
-	inline bool IsNoRemove() const
+	bool IsNoRemove() const
 	{
 		return !IsBeneficialSpell() || NoRemove;
 	}
-
 
 /*0x000*/ float                Range = 0.0f;
 /*0x004*/ float                AERange = 0.0f;
@@ -1314,17 +1313,17 @@ class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
 public:
 	// virtuals
-	EQLIB_OBJECT virtual ~ClientSpellManager();
-	EQLIB_OBJECT virtual bool LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName);
-	EQLIB_OBJECT virtual bool LoadSpellStackingData(const char* StackingFileName);
-	EQLIB_OBJECT virtual bool DoesMeetRequirement(PlayerZoneClient* pPlayer, int SpellAssocID);
-	EQLIB_OBJECT virtual void PrintFailedRequirementString(int StrToken, int StringID);
-	EQLIB_OBJECT virtual int GetSpellStackingGroupID(int SpellID);
-	EQLIB_OBJECT virtual int GetSpellStackingGroupRank(int SpellID);
-	EQLIB_OBJECT virtual ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
-	EQLIB_OBJECT virtual EQ_Spell* GetSpellByID(int SpellID);
-	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffect(int index);
-	EQLIB_OBJECT virtual SpellAffectData* GetSpellAffectEmpty(bool);
+/*0x00*/ EQLIB_OBJECT virtual ~ClientSpellManager();
+/*0x08*/ EQLIB_OBJECT virtual bool LoadSpells(const char* FileName, const char* AssocFilename, const char* StackingFileName);
+/*0x10*/ EQLIB_OBJECT virtual bool LoadSpellStackingData(const char* StackingFileName);
+/*0x18*/ EQLIB_OBJECT virtual bool DoesMeetRequirement(PlayerZoneClient* pPlayer, int SpellAssocID);
+/*0x20*/ EQLIB_OBJECT virtual void PrintFailedRequirementString(int StrToken, int StringID);
+/*0x28*/ EQLIB_OBJECT virtual int GetSpellStackingGroupID(int SpellID);
+/*0x30*/ EQLIB_OBJECT virtual int GetSpellStackingGroupRank(int SpellID);
+/*0x38*/ EQLIB_OBJECT virtual ESpellStackingRules GetSpellStackingGroupRule(int SpellID);
+/*0x40*/ EQLIB_OBJECT virtual EQ_Spell* GetSpellByID(int SpellID);
+/*0x48*/ EQLIB_OBJECT virtual SpellAffectData* GetSpellAffect(int index);
+/*0x50*/ EQLIB_OBJECT virtual SpellAffectData* GetSpellAffectEmpty(bool);
 
 	bool AllSpellsLoaded() const { return SpellStackingFileCRC != 0 && Spells[TOTAL_SPELL_COUNT - 1] != nullptr; }
 

@@ -48,6 +48,8 @@
 #define __gpbCommandEvent_x                                        0x140E3D48C
 #define __ServerHost_x                                             0x140E3D678
 #define __Guilds_x                                                 0x140E41600
+#define __MemCheckBitmask_x                                        0x140E42F73
+#define __MemCheckActive_x                                         0x140E42A78 
 #define __MouseEventTime_x                                         0x140EB7FA8
 #define DI8__MouseState_x                                          0x140EBCBC8
 #define __heqmain_x                                                0x140EBF068
@@ -89,6 +91,7 @@
 #define pinstEQSoundManager_x                                      0x140D8B528
 #define pinstEQSpellStrings_x                                      0x140D6EB30
 #define pinstSGraphicsEngine_x                                     0x141543688
+#define pinstDeviceInputProxy_x                                    0x140E42A9C
 #define pinstLocalPC_x                                             0x140E3AFB8
 #define pinstLocalPlayer_x                                         0x140E3AED0
 #define pinstCMercenaryClientManager_x                             0x140EB9898
@@ -133,9 +136,11 @@
 #define __allowslashcommand_x                                      0x14023DCD0
 #define __CastRay_x                                                0x140236110
 #define __CastRay2_x                                               0x140235E10
+#define __compress_block_x                                         0x140522670
 #define __ConvertItemTags_x                                        0x140236570
 #define __CleanItemTags_x                                          0x140087F10
 #define __CreateCascadeMenuItems_x                                 0x1401856E0
+#define __decompress_block_x                                       0x140566290
 #define __DoesFileExist_x                                          0x14056E8A0
 #define __EQGetTime_x                                              0x14056AFA0
 #define __ExecuteCmd_x                                             0x14020CA60
@@ -153,6 +158,7 @@
 #define __ProcessGameEvents_x                                      0x140272890
 #define __ProcessKeyboardEvents_x                                  0x140331F60
 #define __ProcessMouseEvents_x                                     0x140273DC0
+#define __ProcessDeviceEvents_x                                    0x1402D4520
 #define __SaveColors_x                                             0x1401956E0
 #define __STMLToText_x                                             0x1405731E0
 #define __WndProc_x                                                0x14032EEE0

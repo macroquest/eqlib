@@ -385,6 +385,7 @@ struct ChatColorFilterData;
 class CRaid;
 using EQRAID = CRaid;
 class CRender;
+struct SDeviceInputProxy;
 
 struct LabelCache;
 
