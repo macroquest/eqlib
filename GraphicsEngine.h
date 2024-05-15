@@ -361,108 +361,6 @@ constexpr int MAX_RENDER_EFFECTS = 217;
 constexpr int MAX_VERTEX_DECLARATIONS = 20;
 constexpr int MAX_EFFECT_PASS_COUNT = 6;
 
-#if !HAS_DIRECTX_11
-
-class [[offsetcomments]] CRender : public CRenderInterface
-{
-public:
-/*0x0000*/ //vftable
-/*0x0008*/ SDevice                   aDevices[16];
-/*0x0e48*/ int                       nDeviceCount;
-/*0x0e50*/ SDevice*                  pCurrentDevice;
-/*0x0e58*/ bool                      bDeviceInitialized;
-/*0x0e5c*/ D3DFORMAT                 adapterFormat;
-/*0x0e60*/ int                       nDisplayWidth;
-/*0x0e64*/ int                       nDisplayHeight;
-/*0x0e68*/ int                       nDisplayDepth;
-/*0x0e6c*/ int                       nDisplayRefreshRate;
-/*0x0e70*/ bool                      bFullscreen;
-/*0x0e71*/ bool                      bWindowedModeAvailable;
-/*0x0e78*/ D3DPRESENT_PARAMETERS     d3dpp;
-/*0x0eb8*/ uint32_t                  frameId;
-/*0x0ebc*/ bool                      bSupportsMipMaps;
-/*0x0ebd*/ bool                      bSupportsTrilinearMipMaps;
-/*0x0ebe*/ bool                      bAutoMipMapping;
-/*0x0ec0*/ uint32_t                  uMaxVertexBlendMatrices;
-/*0x0ec4*/ bool                      bSupportsDXT1Textures;
-/*0x0ec5*/ bool                      bSupportsDXT3Textures;
-/*0x0ec6*/ bool                      bSupports4444Textures;
-/*0x0ec7*/ bool                      bSupportsDotProduct3;
-/*0x0ec8*/ bool                      bRGB565Mode;
-/*0x0ec9*/ bool                      bUseMode16A;
-/*0x0eca*/ bool                      bUseSoftwareVertexProcessing;
-/*0x0ecb*/ bool                      bUseMixedVertexProcessing;
-/*0x0ecc*/ bool                      bUseHardwareVertexProcessing;
-/*0x0ecd*/ bool                      bUseHardwareVertexShaders;
-/*0x0ece*/ bool                      bUseHardwareIndexedVertexBlending;
-/*0x0ecf*/ bool                      bUse1PassTechniques;
-/*0x0ed0*/ uint32_t                  uTotalTextureMemory;
-/*0x0ed4*/ int                       nTextureQuality;
-/*0x0ed8*/ HWND                      hWnd;
-/*0x0ee0*/ IDirect3D9*               pDirect3D;             // "CRender::InitDevice: Direct3DCreate9 failed.\n"
-/*0x0ee8*/ IDirect3DDevice9*         pD3DDevice;            // "Failed to create device with error %X.\n"
-/*0x0ef0*/ IDirect3DSurface9*        pD3DBackBuffer;
-/*0x0ef8*/ D3DVIEWPORT9              D3DViewPort;
-/*0x0f10*/ D3DCAPS9                  D3DDeviceCaps;
-/*0x1040*/ float                     GammaLevel;
-/*0x1048*/ IDirect3DSwapChain9*      pD3DSwapChain;
-/*0x1050*/ bool                      bWindowedGamma;
-/*0x1051*/ bool                      bWindowedGammaEverToggled;
-/*0x1052*/ bool                      bLinearGammaContent;
-/*0x1058*/ ID3DXBuffer*              screenCapFileData;
-/*0x1060*/ __declspec(align(16)) CMatrix44 matrixIdentity;
-/*0x10a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldCurrent[NUM_BLEND_MATRICES];
-/*0x12a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverse[NUM_BLEND_MATRICES];
-/*0x14a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverseTransposed[NUM_BLEND_MATRICES];
-/*0x16a0*/ CMatrix44*                apMatrixWorld[NUM_BLEND_MATRICES];
-/*0x16e0*/ CMatrix44                 matrixViewProj;
-/*0x1720*/ CMatrix44                 matrixView;
-/*0x1760*/ IDirect3DIndexBuffer9*    pIndexBufferLitData;
-/*0x1768*/ CBufferSet*               apBufferSets[MAX_BUFFER_SET];
-/*0x1878*/ CEffect*                  apEffects[MAX_EFFECTS];
-/*0x1d18*/ CRenderEffect*            apRenderEffects[MAX_RENDER_EFFECTS];
-/*0x23e0*/ IDirect3DVertexDeclaration9* apVertexDeclarations[MAX_VERTEX_DECLARATIONS];
-/*0x2480*/ IDirect3DTexture9*        pAttenuationLookupTexture;
-/*0x2488*/ IDirect3DTexture9*        pSpecularPower68LookupTexture;
-/*0x2490*/ IDirect3DCubeTexture9*    pNormalizationLookupCubeTexture;
-/*0x2498*/ TNodePool<CBatchNode>*    pBatchNodePool;
-/*0x24a0*/ TNodePool<CSubsetNode>*   pSubsetNodePool;
-/*0x24a8*/ TNodePool<CLitBatchNode>* pLitBatchNodePool;
-/*0x24b0*/ TNodePool<CTerrainBatchNode>* pTerrainBatchNodePool;
-/*0x24b8*/ TList<CRenderNode>        renderNodeListSinglePass[MAX_EFFECT_PASS_COUNT];
-/*0x2518*/ TList<CRenderNode>        renderNodeListZPass[MAX_EFFECT_PASS_COUNT];
-/*0x2578*/ TList<CRenderNode>        renderNodeListTexturePass[MAX_EFFECT_PASS_COUNT];
-/*0x25d8*/ TNodePool<CRenderNode>*   pRenderNodePool;
-/*0x25e0*/ TList<CLightNode>         activeLightList;
-/*0x25f0*/ TNodePool<CLightNode>*    pLightNodePool;
-/*0x25f8*/ int                       renderedTextureCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x33d8*/ int                       renderedTerrainBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x41b8*/ int                       renderedTerrainBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x4f98*/ int                       renderedBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x5d78*/ int                       renderedBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x6b58*/ int                       renderedSubsetCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x7938*/ int                       renderedSubsetTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x8718*/ int                       nStatsType;
-/*0x871c*/ bool                      bShowItemPlacementStats;
-/*0x871d*/ SItemPlacementStatsDisplay itemPlacementStats;
-/*0x8f38*/ float                     fColorIntensityLookup[256];
-/*0x9338*/ float                     fLookup[2048];
-/*0xb338*/ CVector3                  eyeOffset;
-/*0xb344*/ uint32_t                  uRegionCount;
-/*0xb348*/ bool                      bFogEnabled;
-/*0xb34c*/ RGB                       rgbFogColor;
-/*0xb350*/ float                     fFogStart;
-/*0xb354*/ float                     fFogEnd;
-/*0xb358*/ float                     fFogDensity;
-/*0xb360*/ RenderCallbackPtr         pfnRenderCallback;
-/*0xb368*/ bool                      bCensorship;
-/*0xb370*/ CMemoryPoolManager*       pLitTriangleMemoryPoolManager;
-/*0xb378*/ CMemoryPoolManager*       pLitBatchMemoryPoolManager;
-/*0xb380*/ // ... much more
-};
-
-#else
-
 class [[offsetcomments]] CRender : public CRenderInterface
 {
 public:
@@ -502,6 +400,7 @@ public:
 /*0x0edf*/ bool                      bUse1PassTechniques;
 /*0x0ee0*/ uint32_t                  uTotalTextureMemory;
 /*0x0ee4*/ int                       nTextureQuality;
+/*0x0ee8*/ uint64_t                  unknown0xee8;
 /*0x0ee8*/ HWND                      hWnd;
 /*0x0ef0*/ Direct3D9*                pDirect3D;             // "CRender::InitDevice: Direct3DCreate9 failed.\n"
 /*0x0ef8*/ Direct3DDevice9*          pD3DDevice;            // "Failed to create device with error %X.\n"
@@ -564,8 +463,6 @@ public:
 /*0xb388*/ CMemoryPoolManager*       pLitBatchMemoryPoolManager;
 /*0xb390*/ // ... much more
 };
-
-#endif
 
 //----------------------------------------------------------------------------
 
