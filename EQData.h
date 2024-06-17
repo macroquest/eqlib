@@ -327,7 +327,7 @@ struct [[offsetcomments]] TargetSetLoadout
 struct [[offsetcomments]] CMDLIST
 {
 /*0x00*/ char* szName;
-/*0x08*/ void  (*fAddress)(PlayerClient*, char*);
+/*0x08*/ void  (*fAddress)(PlayerClient*, const char*);
 /*0x10*/ DWORD Restriction;
 /*0x14*/ DWORD Category;
 /*0x18*/ DWORD Flags;

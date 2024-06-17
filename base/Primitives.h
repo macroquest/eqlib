@@ -473,6 +473,12 @@ public:
 	float Z = 0.f;
 };
 
+class CIVector3
+{
+public:
+	int X, Y, Z;
+};
+
 class CVector4
 {
 public:
