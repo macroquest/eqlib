@@ -94,16 +94,16 @@ struct [[offsetcomments]] EQClientServerData
 /*0x20*/ int           ExternalPort;
 /*0x24*/ int           InternalPort;
 /*0x28*/ Date          DateCreated;
-/*0x50*/ int           Flags;          // 0x100 = all access
-/*0x54*/ int           ServerType;
+/*0x50*/ int           Flags;             // 0x100 = all access
+/*0x54*/ int           ServerType;        // uninitialized
 /*0x58*/ CXStr         LanguageCode;
 /*0x60*/ CXStr         CountryCode;
 /*0x68*/ CXStr         RuleSet;
 /*0x70*/ CXStr         Description;
 /*0x78*/ eServerStatus StatusFlags;
-/*0x7c*/ int           PopulationRanking;
-/*0x80*/ int           Unknown;
-/*0x84*/ int           TrueBoxStatus;  // 0 = no, 1 = yes, 2 = relaxed
+/*0x7c*/ int           PopulationRanking; // not populated
+/*0x80*/ int           Expansion;
+/*0x84*/ int           TrueBoxStatus;     // 0 = no, 1 = yes, 2 = relaxed
 /*0x88*/
 };
 
