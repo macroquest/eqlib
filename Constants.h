@@ -449,7 +449,7 @@ constexpr int NUM_BLOCKED_BUFFS = 40;
 
 // The number of lbuffs that are displayable in the buffs window. Also used to
 // hold these buffs in the profile.
-constexpr int NUM_LONG_BUFFS = 42;
+constexpr int NUM_LONG_BUFFS = 62;
 // ideally this is the number of short buffs but that name is already taken...
 // This represents the number of short duration buffs that can display in the
 // short duration buff window.
