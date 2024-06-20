@@ -774,6 +774,7 @@ INITIALIZE_EQGAME_OFFSET(CPageWnd__FlashTab);
 INITIALIZE_EQGAME_OFFSET(CPageWnd__SetTabText);
 INITIALIZE_EQGAME_OFFSET(CQuantityWnd__Open);
 INITIALIZE_EQGAME_OFFSET(CResolutionHandler__GetWindowedStyle);
+INITIALIZE_EQGAME_OFFSET(CResolutionHandler__HandleSysCommand);
 INITIALIZE_EQGAME_OFFSET(CResolutionHandler__UpdateResolution);
 INITIALIZE_EQGAME_OFFSET(CScreenPieceTemplate__IsType);
 INITIALIZE_EQGAME_OFFSET(CSidlManager__CreateHotButtonWnd);
