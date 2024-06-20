@@ -848,8 +848,9 @@
 #define COptionsWnd__FillChatFilterList_x                          0x14047A840
 
 // CResolutionHandler
-#define CResolutionHandler__UpdateResolution_x                     0x14069EC60
 #define CResolutionHandler__GetWindowedStyle_x                     0x14031AD90
+#define CResolutionHandler__HandleSysCommand_x                     0x1406A0530
+#define CResolutionHandler__UpdateResolution_x                     0x14069EC60
 
 // CColorPickerWnd
 #define CColorPickerWnd__Open_x                                    0x1403A03D0
