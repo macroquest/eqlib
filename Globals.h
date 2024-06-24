@@ -227,9 +227,11 @@ EQLIB_VAR uintptr_t DI8__Mouse;
 EQLIB_VAR uintptr_t __CastRay;
 EQLIB_VAR uintptr_t __CastRay2;
 EQLIB_VAR uintptr_t __CleanItemTags;
+EQLIB_VAR uintptr_t __compress_block;
 EQLIB_VAR uintptr_t __ConvertItemTags;
 EQLIB_VAR uintptr_t __CopyLayout;
 EQLIB_VAR uintptr_t __CreateCascadeMenuItems;
+EQLIB_VAR uintptr_t __decompress_block;
 EQLIB_VAR uintptr_t __DoesFileExist;
 EQLIB_VAR uintptr_t __eq_delete;
 EQLIB_VAR uintptr_t __eq_new;
@@ -251,6 +253,7 @@ EQLIB_VAR uintptr_t __NewUIINI;
 EQLIB_VAR uintptr_t __ProcessGameEvents;
 EQLIB_VAR uintptr_t __ProcessKeyboardEvents;
 EQLIB_VAR uintptr_t __ProcessMouseEvents;
+EQLIB_VAR uintptr_t __ProcessDeviceEvents;
 EQLIB_VAR uintptr_t __SaveColors;
 EQLIB_VAR uintptr_t __STMLToText;
 EQLIB_VAR uintptr_t __WndProc;
@@ -1084,6 +1087,7 @@ EQLIB_VAR ForeignPointer<CRender>                    g_pDrawHandler;
 EQLIB_VAR ForeignPointer<IDirectInputDevice8A>       g_pDIKeyboard;
 EQLIB_VAR ForeignPointer<IDirectInputDevice8A>       g_pDIMouse;
 EQLIB_VAR DIMOUSESTATE2*                             g_pDIMouseState;
+EQLIB_VAR SDeviceInputProxy*                         g_pDeviceInputProxy;
 
 //----------------------------------------------------------------------------
 

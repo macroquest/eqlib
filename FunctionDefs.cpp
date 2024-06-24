@@ -3333,7 +3333,7 @@ FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::_GetItemRecastTimer(const ItemPtr& i
 FUNCTION_AT_ADDRESS(int, PcClient::GetAlternateAbilityId(int), PcBase__GetAlternateAbilityId);
 #endif
 #ifdef PcBase__GetCombatAbility_x
-FUNCTION_AT_ADDRESS(int, PcClient::GetCombatAbility(int), PcBase__GetCombatAbility);
+//FUNCTION_AT_ADDRESS(int, PcBase::GetCombatAbility(int) const, PcBase__GetCombatAbility);
 #endif
 #ifdef PcBase__GetCombatAbilityTimer_x
 FUNCTION_AT_ADDRESS(uint32_t, PcClient::_GetCombatAbilityTimer(int), PcBase__GetCombatAbilityTimer);

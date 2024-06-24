@@ -101,6 +101,16 @@ int EQ_Spell::GetEffectCalc(int index) const
 	return 0;
 }
 
+/*
+unsigned char EQ_Spell::GetSpellLevelNeeded(EQClass class_) const
+{
+	if (class_ >= MAX_CLASSES + 1)
+		return ClassLevel[Warrior];
+
+	return ClassLevel[class_];
+}
+*/
+
 //============================================================================
 // EQ_Affect
 //============================================================================

@@ -125,6 +125,53 @@ struct [[offsetcomments]] SDevice
 /*0xe4*/
 };
 
+struct [[offsetcomments]] SDeviceInputProxy
+{
+	struct [[offsetcomments]] MouseData
+	{
+	/*0x000*/ CIVector3         Position;
+	/*0x00c*/ char              Unknown0[0xa4];
+	/*0x0b0*/ uint8_t           LastClickState[NUM_MOUSE_BUTTONS];
+	/*0x0b8*/ uint8_t           CurrentClickState[NUM_MOUSE_BUTTONS];
+	/*0x0c0*/ bool              Unknown1[0x58];
+	/*0x118*/ uint32_t          RightButton;
+	/*0x11c*/ uint32_t          LeftButton;
+	/*0x120*/
+	};
+
+	struct [[offsetcomments]] EventData
+	{
+	/*0x0000*/ char              Unknown2[0x5b6];
+	/*0x05b6*/ uint8_t           CurrentEventID;
+	/*0x05b7*/ uint8_t           CurrentEventStatus;
+	/*0x05b8*/ int               Unknown3[0x2c5];
+	/*0x10cc*/ uint16_t          Unknown4;
+	/*0x10ce*/ uint8_t           LastEventID;
+	/*0x10cf*/ uint8_t           LastEventStatus;
+	/*0x10d0*/
+	};
+
+/*0x0000*/ MouseData mouse;
+/*0x0120*/ EventData events;
+/*0x11f0*/
+};
+
+enum SDeviceInputState
+{
+	SDeviceInputState_Blocked        = 1,
+	SDeviceInputState_Triggered      = 2,
+	SDeviceInputState_Pending        = 4,
+	SDeviceInputState_Bypassed       = 8
+};
+
+struct [[offsetcomments]] SDeviceInputEvent
+{
+/*0x000*/ int                Unknown0[0x172];
+/*0x5c8*/ uint32_t           EventStateBitmask;
+/*0x5cc*/
+};
+
+
 // size: 0x818
 struct SItemPlacementStatsDisplay
 {

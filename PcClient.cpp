@@ -393,6 +393,8 @@ ItemPtr PcZoneClient::GetItemByItemClass(int itemClass, ItemIndex* index)
 //	return MountKeyRingItems;
 //}
 
+//----------------------------------------------------------------------------
+
 int PcZoneClient::GetMaxAirSupply() const
 {
 	int race = GetRace();
@@ -409,6 +411,60 @@ int PcZoneClient::GetMaxAirSupply() const
 	int air = bonus * stam;
 
 	return std::clamp(air / 100, 10, bonus);
+}
+
+/* static */
+int PcZoneClient::GetDeityReal(int deity)
+{
+	if (deity == DEITY_Agnostic)
+	{
+		return EQD_Agnostic;
+	}
+
+	// Convert DEITY_xxx -> EQD_xxxx
+	return deity - (DEITY_Bertoxxulous - EQD_Bertoxxulous);
+}
+
+int PcZoneClient::CanUseMeleeCombatAbility(int SpellID) const
+{
+	EQ_Spell* pSpell = pSpellMgr->GetSpellByID(SpellID);
+	if (!pSpell || !pSpell->IsSkill)
+		return 0;
+
+	if (pSpell->GetSpellLevelNeeded(GetClass()) == 255)
+		return -1;
+
+	int Level = GetLevel();
+	if (pSpell->GetSpellLevelNeeded(GetClass()) > Level)
+		return -2;
+
+	if (pSpell->Deity && pSpell->Deity != GetDeityBitmask())
+		return -3;
+
+	int spellTiers = GetGameFeature(GameFeature::SpellTier);
+
+	if (pSpell->SpellGroup > 0)
+	{
+		for (int i = 0; i < NUM_COMBAT_ABILITIES; ++i)
+		{
+			int combatAbilityId = GetCombatAbility(i);
+
+			EQ_Spell* pCombatSpell = pSpellMgr->GetSpellByID(combatAbilityId);
+
+			if (pCombatSpell->SpellGroup == pSpell->SpellGroup
+				&& pCombatSpell->SpellSubGroup == pSpell->SpellSubGroup
+				&& pCombatSpell->SpellRank > pSpell->SpellRank)
+			{
+				if (spellTiers == -1 || spellTiers >= pCombatSpell->SpellRank)
+					return -4;
+			}
+		}
+	}
+
+	if (spellTiers != -1 && spellTiers < pSpell->SpellRank)
+		return -5;
+
+	return 1;
 }
 
 } // namespace eqlib

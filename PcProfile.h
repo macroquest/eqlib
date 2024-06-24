@@ -376,6 +376,8 @@ public:
 
 		return 0;
 	}
+
+	int GetCombatAbility(int index) const { return CombatAbilities[index]; }
 };
 
 inline namespace deprecated {

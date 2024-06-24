@@ -1578,9 +1578,9 @@ public:
 	//EQLIB_OBJECT ItemIndex FindKeyRingItemByGuid(KeyRingType type, const EqItemGuid& guid);
 	//EQLIB_OBJECT ItemIndex FindKeyRingItemById(KeyRingType type, int itemId);
 
-	inline bool IsFamiliarAutoLeaveEnabled() const {
-		return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0;
-	}
+	bool IsFamiliarAutoLeaveEnabled() const { return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0; }
+
+	int GetCombatAbility(int index) const { return GetCurrentPcProfile()->GetCombatAbility(index); }
 
 	// Stores information about purchased Mercenary Abilities
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const { return nullptr; }
@@ -1591,6 +1591,7 @@ public:
 
 	int GetAirSupply() const { return AirSupply; }
 	int GetLevel() const { return GetCurrentPcProfile()->Level; }
+	int GetDeity() const { return GetCurrentPcProfile()->Deity; }
 
 	int GetTradeskillDepotCapacity() const { return 0; }
 	bool GetTradeskillDepotPopulated() const { return false; }
@@ -1656,7 +1657,13 @@ public:
 	// Unverified
 	EQLIB_OBJECT bool HasCombatAbility(int);
 
+	EQLIB_OBJECT int CanUseMeleeCombatAbility(int SpellID) const;
+
 	EQLIB_OBJECT int GetMaxAirSupply() const;
+
+	EQLIB_OBJECT static int GetDeityReal(int diety);
+	int GetDeityReal() const { return GetDeityReal(GetDeity()); }    // Returns values from EQDeity
+	int GetDeityBitmask() const { return 1 << (GetDeityReal() - 1); }
 };
 
 // @sizeof(PcClient) == 0x5804 :: 2013-05-10 (emu) @ 0x53be57
@@ -1699,7 +1706,6 @@ public:
 	EQLIB_OBJECT int CostToTrain(int, float, int);
 	EQLIB_OBJECT int GetAlternateAbilityId(int);
 	EQLIB_OBJECT int GetArmorType(int);
-	EQLIB_OBJECT int GetCombatAbility(int);
 	EQLIB_OBJECT PcZoneClient* GetPcZoneClient() const;
 	EQLIB_OBJECT int HandleMoney(long);
 	EQLIB_OBJECT int IsAGroupMember(char*);

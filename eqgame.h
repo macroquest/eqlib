@@ -127,6 +127,7 @@
 #define pinstEQSoundManager_x                                      0xD20460
 //#define pinstEQSpellStrings_x                                    0x0
 #define pinstSGraphicsEngine_x                                     0x15D4698
+#define pinstDeviceInputProxy_x                                    0xDDF684
 #define pinstLocalPC_x                                             0xDD261C
 #define pinstLocalPlayer_x                                         0xDD2630
 #define pinstCMercenaryClientManager_x                             0xE63E90
@@ -170,9 +171,11 @@
 ////
 #define __CastRay_x                                                0x4FD1D0
 #define __CastRay2_x                                               0x4FCC20
+#define __compress_block_x                                         0x7AEBD0
 #define __ConvertItemTags_x                                        0x4ED110
 #define __CleanItemTags_x                                          0x4ED580
 #define __CreateCascadeMenuItems_x                                 0x494BD0
+#define __decompress_block_x                                       0x7AEC80
 #define __DoesFileExist_x                                          0x80BDD0
 #define __EQGetTime_x                                              0x809810
 #define __ExecuteCmd_x                                             0x4D7230
@@ -192,6 +195,7 @@
 #define __ProcessGameEvents_x                                      0x53A6C0
 #define __ProcessKeyboardEvents_x                                  0x5FDA30
 #define __ProcessMouseEvents_x                                     0x539E60
+#define __ProcessDeviceEvents_x                                    0xDDF684
 #define __SaveColors_x                                             0x489FB0
 #define __STMLToText_x                                             0x860620
 #define __WndProc_x                                                0x5FCD80

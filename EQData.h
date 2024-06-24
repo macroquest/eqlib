@@ -329,7 +329,7 @@ struct [[offsetcomments]] CMDLIST
 /*0x00*/ DWORD LocalizedStringID;
 /*0x04*/ char* szName;
 /*0x08*/ char* szLocalized;
-/*0x0c*/ void  (*fAddress)(PlayerClient*, char*);
+/*0x08*/ void  (*fAddress)(PlayerClient*, const char*);
 /*0x10*/ DWORD Restriction;
 /*0x14*/ DWORD Category;
 /*0x18*/ DWORD Flags;

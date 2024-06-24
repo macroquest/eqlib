@@ -249,9 +249,6 @@ enum eKeyboardMode
 	KeyboardMode_Command,
 };
 
-// left, right, mid, aux1-5
-constexpr int NUM_MOUSE_BUTTONS = 8;
-
 struct [[offsetcomments]] EQCameraOptions
 {
 /*0x00*/ float             distance;

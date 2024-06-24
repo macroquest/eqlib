@@ -321,6 +321,7 @@ constexpr int LORE_NAME_LEN = 80;
 #define HEROIC_MOD_STUN_RESIST                   0xc
 #define HEROIC_MOD_STRIKETHROUGH                 0xd
 
+// Faction Deities
 #define DEITY_Bertoxxulous                       201
 #define DEITY_BrellSerilis                       202
 #define DEITY_CazicThule                         203
@@ -337,6 +338,29 @@ constexpr int LORE_NAME_LEN = 80;
 #define DEITY_TheTribunal                        214
 #define DEITY_Tunare                             215
 #define DEITY_Veeshan                            216
+#define DEITY_Agnostic                           396
+
+// Deities - different from the above values, used for spells and items.
+enum EQDeity
+{
+	EQD_Agnostic = 1,
+	EQD_Bertoxxulous = 2,
+	EQD_BrellSerilis = 3,
+	EQD_CazicThule = 4,
+	EQD_ErollisiMarr = 5,
+	EQD_Bristlebane = 6,
+	EQD_Innoruuk = 7,
+	EQD_Karana = 8,
+	EQD_MithanielMarr = 9,
+	EQD_Prexus = 10,
+	EQD_Quellious = 11,
+	EQD_RallosZek = 12,
+	EQD_RodcetNife = 13,
+	EQD_SolusekRo = 14,
+	EQD_TheTribunal = 15,
+	EQD_Tunare = 16,
+	EQD_Veeshan = 17,
+};
 #define NUM_DEITIES                              16
 
 enum KeyRingType
@@ -405,6 +429,9 @@ constexpr int nEQMappableCommands = 500;
 
 // found using __BindList_x
 constexpr int nNormalEQMappableCommands = nEQMappableCommands - 22;
+
+// left, right, mid, aux1-5
+constexpr int NUM_MOUSE_BUTTONS = 8;
 
 constexpr int MAX_PC_LEVEL = 100;
 constexpr int MAX_NPC_LEVEL = 200;

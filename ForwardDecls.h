@@ -384,6 +384,7 @@ class CKeyRingWnd;
 class CRaid;
 using EQRAID = CRaid;
 class CRender;
+struct SDeviceInputProxy;
 
 struct LabelCache;
 

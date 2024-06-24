@@ -98,6 +98,15 @@ struct [[offsetcomments]] EQClientServerData
 /*0x40*/ eServerStatus StatusFlags;
 /*0x44*/ int           PopulationRanking;
 /*0x48*/
+
+	// Compatibility shims for live
+	CXStr get_EmptyString() const { return CXStr(); }
+	int get_Zero() const { return 0; }
+
+	__declspec(property(get = get_EmptyString)) CXStr RuleSet;
+	__declspec(property(get = get_EmptyString)) CXStr Description;
+	__declspec(property(get = get_Zero)) int TrueBoxStatus;
+	__declspec(property(get = get_Zero)) int Expansion;
 };
 
 class [[offsetcomments]] LoginServerCallback

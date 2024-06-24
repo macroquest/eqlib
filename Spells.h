@@ -928,13 +928,13 @@ public:
 	EQLIB_OBJECT static bool IsSPAStacking(int Spa);
 	EQLIB_OBJECT static bool IsSPAIgnoredByStacking(int Spa);
 
-	inline bool IsNoDispell() const { return NoDispell; }
-	inline bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
-	inline int GetNoOverwrite() const { return NoOverwrite; }
-	inline bool IsShortEffectDuration() const { return DurationWindow; }
-	inline bool GetIsSkillSpell() const { return IsSkill; }
+	bool IsNoDispell() const { return NoDispell; }
+	bool IsStackableOnAnyone() const { return SpellAffects(424) != 0; }
+	int GetNoOverwrite() const { return NoOverwrite; }
+	bool IsShortEffectDuration() const { return DurationWindow; }
+	bool GetIsSkillSpell() const { return IsSkill; }
 
-	inline bool IsLullSpell() const
+	bool IsLullSpell() const
 	{
 		for (int i = 0; i < GetNumEffects(); ++i)
 		{
@@ -951,12 +951,12 @@ public:
 		return false;
 	}
 
-	inline bool IsDoTSpell() const
+	bool IsDoTSpell() const
 	{
 		return SpellAffects(0) || SpellAffects(20) || SpellAffects(69) || SpellAffects(114) || SpellAffects(125);
 	}
 
-	inline bool IsStackable() const
+	bool IsStackable() const
 	{
 		if (NotStackableDot)
 			return false;
@@ -968,12 +968,12 @@ public:
 		return SpellAffects(SPA_HP) != 0 || SpellAffects(SPA_GRAVITATE) != 0;
 	}
 
-	inline bool IsBeneficialSpell() const
+	bool IsBeneficialSpell() const
 	{
 		return SpellType >= SpellType_Beneficial;
 	}
 
-	inline bool IsBeneficialSpellUsedDetrimentally() const
+	bool IsBeneficialSpellUsedDetrimentally() const
 	{
 		int attrib = GetEffectAttrib(0);
 
@@ -984,12 +984,12 @@ public:
 			|| IsLullSpell();
 	}
 
-	inline bool IsDetrimentalSpell() const
+	bool IsDetrimentalSpell() const
 	{
 		return !IsBeneficialSpell() || IsBeneficialSpellUsedDetrimentally();
 	}
 
-	inline bool IsNoRemove() const
+	bool IsNoRemove() const
 	{
 		return !IsBeneficialSpell() || NoRemove;
 	}
