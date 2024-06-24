@@ -62,49 +62,49 @@ class [[offsetcomments]] CEQGBitmap
 	, public TListNode<CEQGBitmap>
 {
 public:
-/*0x040*/ eBitmapType           m_eType;
-/*0x044*/ EMemoryPoolManagerType m_eMemoryPoolManagerType;
-/*0x048*/ const char*           m_pszFileName;
-/*0x050*/ uint32_t              m_uSourceWidth;
-/*0x054*/ uint32_t              m_uSourceHeight;
-/*0x058*/ float                 m_fDetailScale;
-/*0x05c*/ uint32_t              m_uGrassDensity;
-/*0x060*/ uint32_t              m_uWidth;
-/*0x064*/ uint32_t              m_uHeight;
-/*0x068*/ bool                  m_bHasTexture;
+/*0x20*/ eBitmapType           m_eType;
+/*0x24*/ EMemoryPoolManagerType m_eMemoryPoolManagerType;
+/*0x28*/ const char*           m_pszFileName;
+/*0x2c*/ uint32_t              m_uSourceWidth;
+/*0x30*/ uint32_t              m_uSourceHeight;
+/*0x34*/ float                 m_fDetailScale;
+/*0x38*/ uint32_t              m_uGrassDensity;
+/*0x3c*/ uint32_t              m_uWidth;
+/*0x40*/ uint32_t              m_uHeight;
+/*0x44*/ bool                  m_bHasTexture;
 	union
 	{
-/*0x070*/ IDirect3DTexture9*    m_pD3DTexture;
-/*0x070*/ void*                 m_pRawBitmap;
+/*0x48*/ IDirect3DTexture9*    m_pD3DTexture;
+/*0x48*/ void*                 m_pRawBitmap;
 	};
-/*0x078*/ uint32_t              m_uObjectIndex;
-/*0x07c*/ uint32_t              m_uSize;
-/*0x080*/ bool                  m_bForceMipMap;
-/*0x084*/ int                   m_nTrackingType;
-/*0x088*/ float                 m_distanceSq;
-/*0x08c*/ uint32_t              m_lastDistanceTime;
-/*0x090*/ uint32_t              m_lastRenderTime;
-/*0x094*/ uint32_t              m_loadedTime;
-/*0x098*/ CXStr                 m_DeferredFilename;
-/*0x0a0*/ eDeferMode            m_eDeferMode;
-/*0x0a4*/ eDeferMode            m_eOriginalDeferMode;
-/*0x0a8*/ char*                 m_pImageData;
-/*0x0b0*/ uint32_t              m_uImageDataSize;
-/*0x0b4*/ uint32_t              m_uBackgroundWidth;
-/*0x0b8*/ uint32_t              m_uBackgroundHeight;
-/*0x0bc*/ uint32_t              m_uMipLevels;
-/*0x0c0*/ DWORD                 m_dwUsage;
-/*0x0c4*/ D3DFORMAT             m_d3dFormat;
-/*0x0c8*/ D3DPOOL               m_d3dPool;
-/*0x0cc*/ DWORD                 m_dwFilter;
-/*0x0d0*/ DWORD                 m_dwMipFilter;
-/*0x0d4*/ D3DCOLOR              m_d3dColorKey;
-/*0x0d8*/ D3DXIMAGE_INFO        m_srcInfo;
-/*0x0f8*/ PALETTEENTRY*         m_pPalette;
-/*0x100*/ eBitmapTextureQuality m_eTextureQuality;
-/*0x104*/ eBitmapTextureQuality m_eUpsampleBitmapMinTextureQuality;
-/*0x108*/ bool                  m_canReclaim;
-
+/*0x4c*/ uint32_t              m_uObjectIndex;
+/*0x50*/ uint32_t              m_uSize;
+/*0x54*/ bool                  m_bForceMipMap;
+/*0x58*/ int                   m_nTrackingType;
+/*0x5c*/ float                 m_distanceSq;
+/*0x60*/ uint32_t              m_lastDistanceTime;
+/*0x64*/ uint32_t              m_lastRenderTime;
+/*0x68*/ uint32_t              m_loadedTime;
+/*0x6c*/ CXStr                 m_DeferredFilename;
+/*0x70*/ eDeferMode            m_eDeferMode;
+/*0x74*/ eDeferMode            m_eOriginalDeferMode;
+/*0x78*/ char*                 m_pImageData;
+/*0x7c*/ uint32_t              m_uImageDataSize;
+/*0x80*/ uint32_t              m_uBackgroundWidth;
+/*0x84*/ uint32_t              m_uBackgroundHeight;
+/*0x88*/ uint32_t              m_uMipLevels;
+/*0x8c*/ DWORD                 m_dwUsage;
+/*0x90*/ D3DFORMAT             m_d3dFormat;
+/*0x94*/ D3DPOOL               m_d3dPool;
+/*0x98*/ DWORD                 m_dwFilter;
+/*0x9c*/ DWORD                 m_dwMipFilter;
+/*0xa0*/ D3DCOLOR              m_d3dColorKey;
+/*0xa4*/ D3DXIMAGE_INFO        m_srcInfo;
+/*0xc0*/ PALETTEENTRY*         m_pPalette;
+/*0xc4*/ eBitmapTextureQuality m_eTextureQuality;
+/*0xc8*/ eBitmapTextureQuality m_eUpsampleBitmapMinTextureQuality;
+/*0xcc*/ bool                  m_canReclaim;
+/*0xd0*/
 	EQLIB_OBJECT static CEQGBitmap* GetFirstBitmap();
 
 	CEQGBitmap* GetNextBitmap() { return TListNode<CEQGBitmap>::GetNext(); }
@@ -133,9 +133,9 @@ public:
 struct [[offsetcomments]] BMI
 {
 /*0x00*/ const char*        Name;
-/*0x08*/ unsigned int       Flags;
-/*0x10*/ CEQGBitmap*        pBmp;
-/*0x18*/
+/*0x04*/ unsigned int       Flags;
+/*0x08*/ CEQGBitmap*        pBmp;
+/*0x0c*/
 };
 
 class CActorGroupDefinitionStageInterface
@@ -289,26 +289,26 @@ public:
 /*0x00*/ bool                     bIsValidTexture;
 /*0x04*/ uint32_t                 uUnicodeValue;
 /*0x08*/ int                      nCharWidth;
-/*0x10*/ CCachedFontGlyphTextureInfo gti;
-/*0xxx*/
+/*0x0c*/ CCachedFontGlyphTextureInfo gti;
+/*0x28*/
 };
 
 class [[offsetcomments]] CCachedFontGlyphNode
 {
 public:
 /*0x00*/ CCachedFontGlyphInfo     gi;
-/*0xxx*/ CCachedFontGlyphNode*    next;
-/*0xxx*/ CCachedFontGlyphNode*    prev;
-/*0x00*/
+/*0x28*/ CCachedFontGlyphNode*    next;
+/*0x2c*/ CCachedFontGlyphNode*    prev;
+/*0x30*/
 };
 
 class [[offsetcomments]] CD3DTexturePointerNode
 {
 public:
 /*0x00*/ Direct3DTexture9*        pTexture;
-/*0x08*/ CD3DTexturePointerNode*  next;
-/*0x10*/ CD3DTexturePointerNode*  prev;
-/*0x18*/
+/*0x04*/ CD3DTexturePointerNode*  next;
+/*0x08*/ CD3DTexturePointerNode*  prev;
+/*0x0c*/
 };
 
 class [[offsetcomments]] CD3DTexturePointerList
@@ -316,10 +316,10 @@ class [[offsetcomments]] CD3DTexturePointerList
 public:
 	virtual ~CD3DTexturePointerList() {}
 
-/*0x00*/ int                      nSize;
+/*0x04*/ int                      nSize;
 /*0x08*/ CD3DTexturePointerNode*  head;
-/*0x10*/ CD3DTexturePointerNode*  tail;
-/*0x18*/
+/*0x0c*/ CD3DTexturePointerNode*  tail;
+/*0x10*/
 };
 
 struct [[offsetcomments]] SCharacterIndex
@@ -335,8 +335,8 @@ public:
 /*0x00*/ int                      nStartOffset;
 /*0x04*/ int                      nCharacterStartIndex;
 /*0x08*/ int                      nCharacterCount;
-/*0x10*/ ArrayClass<SCharacterIndex> arCharacterIndices;
-/*0x28*/
+/*0x0c*/ ArrayClass<SCharacterIndex> arCharacterIndices;
+/*0x1c*/
 };
 
 struct [[offsetcomments]] SUnicodeCharPos
@@ -349,11 +349,11 @@ struct [[offsetcomments]] SUnicodeCharPos
 struct [[offsetcomments]] SUnicodeCharLine
 {
 /*0x00*/ ArrayClass2<SUnicodeCharPos> arCharPos;
-/*0x20*/ int                      y;
-/*0x24*/ int                      nWidth;
-/*0x28*/ int                      nIndexStart;
-/*0x2c*/ int                      nXOffset;
-/*0x30*/
+/*0x1c*/ int                      y;
+/*0x20*/ int                      nWidth;
+/*0x24*/ int                      nIndexStart;
+/*0x28*/ int                      nXOffset;
+/*0x2c*/
 };
 
 struct [[offsetcomments]] CCachedFontGlyphTextureStatus
@@ -371,11 +371,11 @@ class [[offsetcomments]] CCachedFontGlyphTextureAllocator
 public:
 	virtual ~CCachedFontGlyphTextureAllocator() {}
 
-/*0x08*/ ArrayClass2<CCachedFontGlyphTextureStatus> textureStatus;
-/*0x28*/ int                      nTotalSlots;
-/*0x2c*/ int                      nSlotsFree;
-/*0x30*/ CCachedFontGlyphTextureInfo gtiNextUsed;
-/*0x4c*/
+/*0x04*/ ArrayClass2<CCachedFontGlyphTextureStatus> textureStatus;
+/*0x20*/ int                      nTotalSlots;
+/*0x24*/ int                      nSlotsFree;
+/*0x28*/ CCachedFontGlyphTextureInfo gtiNextUsed;
+/*0x44*/
 };
 
 class [[offsetcomments]] CCachedFontGlyphList
@@ -383,11 +383,11 @@ class [[offsetcomments]] CCachedFontGlyphList
 public:
 	virtual ~CCachedFontGlyphList() {}
 
-/*0x08*/ int                      nSize;
-/*0x10*/ CCachedFontGlyphNode*    head;
-/*0x18*/ CCachedFontGlyphNode*    thead;
-/*0x20*/ CCachedFontGlyphNode*    tail;
-/*0x28*/
+/*0x04*/ int                      nSize;
+/*0x08*/ CCachedFontGlyphNode*    head;
+/*0x0c*/ CCachedFontGlyphNode*    thead;
+/*0x10*/ CCachedFontGlyphNode*    tail;
+/*0x14*/
 };
 
 // Size: 0x178
@@ -402,42 +402,42 @@ public:
 
 	EQLIB_OBJECT static CCachedFont* Get(int fontStyle);
 
-/*0x008*/ HDC                     hDC;
-/*0x010*/ HFONT                   hFont;
-/*0x018*/ HFONT                   hOldFont;
-/*0x020*/ HBITMAP                 hBitmap;
-/*0x028*/ HBITMAP                 hOldBitmap;
-/*0x030*/ uint32_t*               pBitmapBits;
-/*0x038*/ CFontManager*           pFontManager;
-/*0x040*/ int                     eFontId;
-/*0x044*/ int                     nMaxTextures;
-/*0x048*/ int                     nDropShadowOffsetX;
-/*0x04c*/ int                     nDropShadowOffsetY;
-/*0x050*/ int                     nTextureSize;
-/*0x054*/ float                   fTextureSize;
-/*0x058*/ ArrayClass2<CD3DTexturePointerNode*> arTextures;
-/*0x078*/ CCachedFontGlyphTextureAllocator textureAllocator;
-/*0x0c8*/ CXStr                   strFontName;
-/*0x0d0*/ int                     nHeight;
-/*0x0d4*/ int                     nMaxWidth;
-/*0x0d8*/ ArrayClass2<CCachedFontGlyphNode*> arGlyphs;
-/*0x0f8*/ CCachedFontGlyphList    listGlyphs;
-/*0x120*/ ArrayClass2<CTextureVertexBuffer> arBuffers;
-/*0x140*/ FONT_D3DTLVERTEX*       pVertices;
-/*0x148*/ int                     nTotalCharactersToRender;
-/*0x14c*/ int                     nTotalCharactersInserted;
-/*0x150*/ int                     nTotalCharactersRendered;
-/*0x158*/ ArrayClass2<SUnicodeCharLine> textLines;
-/*0x178*/
+/*0x004*/ HDC                     hDC;
+/*0x008*/ HFONT                   hFont;
+/*0x00c*/ HFONT                   hOldFont;
+/*0x010*/ HBITMAP                 hBitmap;
+/*0x014*/ HBITMAP                 hOldBitmap;
+/*0x018*/ uint32_t*               pBitmapBits;
+/*0x01c*/ CFontManager*           pFontManager;
+/*0x020*/ int                     eFontId;
+/*0x024*/ int                     nMaxTextures;
+/*0x028*/ int                     nDropShadowOffsetX;
+/*0x02c*/ int                     nDropShadowOffsetY;
+/*0x030*/ int                     nTextureSize;
+/*0x034*/ float                   fTextureSize;
+/*0x038*/ ArrayClass2<CD3DTexturePointerNode*> arTextures;
+/*0x054*/ CCachedFontGlyphTextureAllocator textureAllocator;
+/*0x098*/ CXStr                   strFontName;
+/*0x09c*/ int                     nHeight;
+/*0x0a0*/ int                     nMaxWidth;
+/*0x0a4*/ ArrayClass2<CCachedFontGlyphNode*> arGlyphs;
+/*0x0c0*/ CCachedFontGlyphList    listGlyphs;
+/*0x0d4*/ ArrayClass2<CTextureVertexBuffer> arBuffers;
+/*0x0f0*/ FONT_D3DTLVERTEX*       pVertices;
+/*0x0f4*/ int                     nTotalCharactersToRender;
+/*0x0f8*/ int                     nTotalCharactersInserted;
+/*0x0fc*/ int                     nTotalCharactersRendered;
+/*0x100*/ ArrayClass2<SUnicodeCharLine> textLines;
+/*0x11c*/
 };
 
 class [[offsetcomments]] CCachedFontNode
 {
 public:
 /*0x00*/ CCachedFont*             pFont;
-/*0x08*/ CCachedFontNode*         next;
-/*0x10*/ CCachedFontNode*         prev;
-/*0x18*/
+/*0x04*/ CCachedFontNode*         next;
+/*0x08*/ CCachedFontNode*         prev;
+/*0x0c*/
 };
 
 class [[offsetcomments]] CCachedFontList
@@ -445,22 +445,22 @@ class [[offsetcomments]] CCachedFontList
 public:
 	virtual ~CCachedFontList() {}
 
-/*0x00*/ int                      nSize;
+/*0x04*/ int                      nSize;
 /*0x08*/ CCachedFontNode*         head;
-/*0x10*/ CCachedFontNode*         tail;
-/*0x18*/
+/*0x0c*/ CCachedFontNode*         tail;
+/*0x10*/
 };
 
 struct [[offsetcomments]] SLogFontEntry
 {
 /*0x00*/ LOGFONTA                 lf;
-/*0x00*/ CXStr                    strFontName;
-/*0x00*/ int                      nMaxTextures;
-/*0x00*/ int                      nTextureSize;
-/*0x00*/ int                      nDropShadowOffsetX;
-/*0x00*/ int                      nDropShadowOffsetY;
-/*0x00*/ CCachedFontNode*         pFontNode;
-/*0x00*/
+/*0x3c*/ CXStr                    strFontName;
+/*0x40*/ int                      nMaxTextures;
+/*0x44*/ int                      nTextureSize;
+/*0x48*/ int                      nDropShadowOffsetX;
+/*0x4c*/ int                      nDropShadowOffsetY;
+/*0x50*/ CCachedFontNode*         pFontNode;
+/*0x54*/
 };
 
 class [[offsetcomments]] CFontManager
@@ -468,18 +468,18 @@ class [[offsetcomments]] CFontManager
 public:
 	virtual ~CFontManager() {}
 
-/*0x00*/ HDC                      hDC;
-/*0x00*/ HDC                      hSrcDC;
-/*0x00*/ Direct3DIndexBuffer9*    pIB;
-/*0x00*/ int                      nIndexStartOffset;
-/*0x00*/ int                      nIndexCurrentOffset;
-/*0x00*/ bool                     bNeedsVBInit;
-/*0x00*/ CD3DTexturePointerList   listTextures;
-/*0x00*/ CCachedFontList          listFonts;
-/*0x00*/ ArrayClass2<ArrayClass2<int>> arFontMatrix;
-/*0x00*/ ArrayClass2<SLogFontEntry> arLogFonts;
-/*0x00*/ int                      eCurrentLanguage;
-/*0x00*/
+/*0x04*/ HDC                      hDC;
+/*0x08*/ HDC                      hSrcDC;
+/*0x0c*/ Direct3DIndexBuffer9*    pIB;
+/*0x10*/ int                      nIndexStartOffset;
+/*0x14*/ int                      nIndexCurrentOffset;
+/*0x18*/ bool                     bNeedsVBInit;
+/*0x1c*/ CD3DTexturePointerList   listTextures;
+/*0x2c*/ CCachedFontList          listFonts;
+/*0x3c*/ ArrayClass2<ArrayClass2<int>> arFontMatrix;
+/*0x58*/ ArrayClass2<SLogFontEntry> arLogFonts;
+/*0x74*/ int                      eCurrentLanguage;
+/*0x78*/
 };
 
 } // namespace eqlib

@@ -329,7 +329,7 @@ struct [[offsetcomments]] CMDLIST
 /*0x00*/ DWORD LocalizedStringID;
 /*0x04*/ char* szName;
 /*0x08*/ char* szLocalized;
-/*0x08*/ void  (*fAddress)(PlayerClient*, const char*);
+/*0x0c*/ void  (*fAddress)(PlayerClient*, const char*);
 /*0x10*/ DWORD Restriction;
 /*0x14*/ DWORD Category;
 /*0x18*/ DWORD Flags;
@@ -1191,22 +1191,22 @@ public:
 struct [[offsetcomments]] ClaimItemData
 {
 /*0x00*/ CXStr itemName;
-/*0x08*/ int itemId;
-/*0x0c*/ int itemCount;
-/*0x10*/
+/*0x04*/ int itemId;
+/*0x08*/ int itemCount;
+/*0x0c*/
 };
 
 constexpr int MAX_ITEMS_PER_FEATURE = 15;
 
 struct [[offsetcomments]] ClaimFeatureData
 {
-/*0x000*/ int featureId;
-/*0x004*/ int featureCount;
-/*0x008*/ int itemCount;
-/*0x00c*/ bool meetsRequirements;
-/*0x010*/ int stringId;
-/*0x018*/ ClaimItemData items[MAX_ITEMS_PER_FEATURE];
-/*0x108*/
+/*0x00*/ int featureId;
+/*0x04*/ int featureCount;
+/*0x08*/ int itemCount;
+/*0x0c*/ bool meetsRequirements;
+/*0x10*/ int stringId;
+/*0x14*/ ClaimItemData items[MAX_ITEMS_PER_FEATURE];
+/*0xc8*/
 };
 
 using ClaimFeatureDataArray = ArrayClass<ClaimFeatureData>;

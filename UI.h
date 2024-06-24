@@ -2604,66 +2604,66 @@ public:
 /*0x12c*/ int                CurrentActive;                      // CurrentActive... CChat::GetActiveChatWindow
 /*0x130*/ int                LockedActive;                       // LockedActive... CChatManager__GetLockedActiveChatWindow_x
 /*0x134*/ CChatWindow*       ChannelMap[NUM_CHAT_CHANNELS];      // channel map
-/*0x28c*/ CContextMenu*      pMainContextMenu;
-/*0x290*/ int                ScrollbarIndex;
-/*0x294*/ int                UnknownContextMenuID1[6];
-/*0x2ac*/ CContextMenu*      pLanguageContextMenu;
-/*0x2b0*/ int                LanguageMenuIndex;
-/*0x2b4*/ CContextMenu*      pFilterContextMenu;
-/*0x2b8*/ int                FilterMenuIndex;
-/*0x2bc*/ int                ChatChannelFilterMenuIndex;
-/*0x2c0*/ int                MeleeFilterSubMenuIndex;
-/*0x2c4*/ int                SpellsFilterSubMenuIndex;
-/*0x2c8*/ CContextMenu*      pMeleeFilterContextMenu;
-/*0x2cc*/ int                MeleeFilterMenuIndex;
-/*0x2d0*/ CContextMenu*      pSpellsFilterContextMenu;
-/*0x2d4*/ int                SpellsMenuIndex;
-/*0x2d8*/ CContextMenu*      pChatChannelFilterContextMenu;
-/*0x2dc*/ int                ChannelMenuIndex;
-/*0x2e0*/ CContextMenu*      pDefaultChannelContextMenu;
+/*0x218*/ CContextMenu*      pMainContextMenu;
+/*0x21c*/ int                ScrollbarIndex;
+/*0x220*/ int                UnknownContextMenuID1[6];
+/*0x238*/ CContextMenu*      pLanguageContextMenu;
+/*0x23c*/ int                LanguageMenuIndex;
+/*0x240*/ CContextMenu*      pFilterContextMenu;
+/*0x244*/ int                FilterMenuIndex;
+/*0x248*/ int                ChatChannelFilterMenuIndex;
+/*0x24c*/ int                MeleeFilterSubMenuIndex;
+/*0x250*/ int                SpellsFilterSubMenuIndex;
+/*0x254*/ CContextMenu*      pMeleeFilterContextMenu;
+/*0x258*/ int                MeleeFilterMenuIndex;
+/*0x25c*/ CContextMenu*      pSpellsFilterContextMenu;
+/*0x260*/ int                SpellsMenuIndex;
+/*0x264*/ CContextMenu*      pChatChannelFilterContextMenu;
+/*0x268*/ int                ChannelMenuIndex;
+/*0x26c*/ CContextMenu*      pDefaultChannelContextMenu;
 
 	// data members beyond this point are not validated and likely incorrect
-/*0x2e4*/ int                DefaultChannelMenu;
-/*0x2e8*/ int                DefaultChannelMenu2;
-/*0x2ec*/ CContextMenu*      pCM_ChatChannelDefChan;
-/*0x2f0*/ int                ChatChannelDefChanIndex;
-/*0x2f4*/ CContextMenu*      pCM_YourHitsMenu;
-/*0x2f8*/ int                YourHitsMenuIndex;
-/*0x2fc*/ CContextMenu*      pCM_YourMissesMenu;
-/*0x300*/ int                YourMissesMenuindex;
-/*0x304*/ CContextMenu*      pCM_YouBeingHitMenu;
-/*0x308*/ int                YouBeingHitMenuindex;
-/*0x30c*/ CContextMenu*      pCM_OthersHitsMenu;
-/*0x310*/ int                OthersHitsMenuindex;
-/*0x314*/ CContextMenu*      pCM_OthersMissesMenu;
-/*0x318*/ int                OthersMissesMenuindex;
-/*0x31c*/ CContextMenu*      pCM_AllContextMenu;
-/*0x320*/ int                AllContextMenuindex;
-/*0x324*/ CContextMenu*      pCM_HitModesMenu;
-/*0x328*/ int                HitModesMenuindex;
-/*0x32c*/ CContextMenu*      pCM_ReplyToMenu;
-/*0x330*/ int                ReplyToMenuindex;
-/*0x334*/ CContextMenu*      pCM_TellFriendMenu;
-/*0x338*/ int                TellFriendMenuindex;
-/*0x33c*/ CContextMenu*      pCM_TellRaidmemberMenu;
-/*0x340*/ int                TellRaidmemberMenuindex;
-/*0x344*/ int                ReplyToSubIndex;
-/*0x348*/ int                TellFriendSubIndex;
-/*0x34c*/ int                TellRaidmemberSubIndex;
-/*0x350*/ int                HitModes[MAX_HITMODES];
-/*0x370*/ int                DefaultChannel;
-/*0x374*/ CContextMenu*      pRandomFilterContextMenu;              // 0x680
-/*0x378*/ int                RandomFilterIndex;
-/*0x37c*/ int                RandomFilterSubIndex;
-/*0x380*/ CContextMenu*      pEnvironmentalDamageFilterContextMenu; // 0x690
-/*0x384*/ int                EnvironmentalDamageIndex;
-/*0x388*/ int                EnvironmentalDamageSubIndex;
-/*0x38c*/ CContextMenu*      pDamageShieldsFilterContextMenu;      // 0x6a0
-/*0x390*/ int                DamageShieldsFilterIndex;
-/*0x394*/ int                DamageShieldsFilterSubIndex;
-/*0x398*/ CContextMenu*      pCM_BeneficialSpellsFilterMenu;
-/*0x39c*/ int                BeneficialSpellsFilteIndex;
-/*0x3a0*/
+/*0x270*/ int                DefaultChannelMenu;
+/*0x274*/ int                DefaultChannelMenu2;
+/*0x278*/ CContextMenu*      pCM_ChatChannelDefChan;
+/*0x27c*/ int                ChatChannelDefChanIndex;
+/*0x280*/ CContextMenu*      pCM_YourHitsMenu;
+/*0x284*/ int                YourHitsMenuIndex;
+/*0x288*/ CContextMenu*      pCM_YourMissesMenu;
+/*0x28c*/ int                YourMissesMenuindex;
+/*0x290*/ CContextMenu*      pCM_YouBeingHitMenu;
+/*0x294*/ int                YouBeingHitMenuindex;
+/*0x298*/ CContextMenu*      pCM_OthersHitsMenu;
+/*0x29c*/ int                OthersHitsMenuindex;
+/*0x2a0*/ CContextMenu*      pCM_OthersMissesMenu;
+/*0x2a4*/ int                OthersMissesMenuindex;
+/*0x2a8*/ CContextMenu*      pCM_AllContextMenu;
+/*0x2ac*/ int                AllContextMenuindex;
+/*0x2b0*/ CContextMenu*      pCM_HitModesMenu;
+/*0x2b4*/ int                HitModesMenuindex;
+/*0x2b8*/ CContextMenu*      pCM_ReplyToMenu;
+/*0x2bc*/ int                ReplyToMenuindex;
+/*0x2c0*/ CContextMenu*      pCM_TellFriendMenu;
+/*0x2c4*/ int                TellFriendMenuindex;
+/*0x2c8*/ CContextMenu*      pCM_TellRaidmemberMenu;
+/*0x2cc*/ int                TellRaidmemberMenuindex;
+/*0x2d0*/ int                ReplyToSubIndex;
+/*0x2d4*/ int                TellFriendSubIndex;
+/*0x2d8*/ int                TellRaidmemberSubIndex;
+/*0x2dc*/ int                HitModes[MAX_HITMODES];
+/*0x2fc*/ int                DefaultChannel;
+/*0x300*/ CContextMenu*      pRandomFilterContextMenu;              // 0x680
+/*0x304*/ int                RandomFilterIndex;
+/*0x308*/ int                RandomFilterSubIndex;
+/*0x30c*/ CContextMenu*      pEnvironmentalDamageFilterContextMenu; // 0x690
+/*0x310*/ int                EnvironmentalDamageIndex;
+/*0x314*/ int                EnvironmentalDamageSubIndex;
+/*0x318*/ CContextMenu*      pDamageShieldsFilterContextMenu;      // 0x6a0
+/*0x31c*/ int                DamageShieldsFilterIndex;
+/*0x320*/ int                DamageShieldsFilterSubIndex;
+/*0x324*/ CContextMenu*      pCM_BeneficialSpellsFilterMenu;
+/*0x328*/ int                BeneficialSpellsFilteIndex;
+/*0x32c*/
 };
 
 inline namespace deprecated {
@@ -4571,14 +4571,14 @@ public:
 class [[offsetcomments]] ClaimWindow : public CSidlScreenWnd, public PopDialogHandler
 {
 public:
-/*0x2e0*/ ClaimFeatureDataCollection claimFeatureData;
-/*0x2f8*/ CListWnd*                  pListFeatures;           // ClaimFeatureList
-/*0x300*/ CListWnd*                  pListItems;              // ClaimListItems
-/*0x308*/ CButtonWnd*                pRefreshButton;          // ClaimRefreshButton
-/*0x310*/ CButtonWnd*                pClaimButton;            // ClaimClaimButton
-/*0x318*/ CButtonWnd*                pCancelButton;           // ClaimCancelButton
-/*0x320*/ CStmlWnd*                  pItemDescription;        // ClaimItemDescription
-/*0x328*/
+/*0x224*/ ClaimFeatureDataCollection claimFeatureData;
+/*0x234*/ CListWnd*                  pListFeatures;           // ClaimFeatureList
+/*0x238*/ CListWnd*                  pListItems;              // ClaimListItems
+/*0x23c*/ CButtonWnd*                pRefreshButton;          // ClaimRefreshButton
+/*0x240*/ CButtonWnd*                pClaimButton;            // ClaimClaimButton
+/*0x244*/ CButtonWnd*                pCancelButton;           // ClaimCancelButton
+/*0x248*/ CStmlWnd*                  pItemDescription;        // ClaimItemDescription
+/*0x24c*/
 };
 
 //============================================================================
@@ -5780,17 +5780,17 @@ public:
 /*0x268*/ unsigned int       LastRefresh;
 /*0x26c*/ D3DCOLOR           SpellGemTintArray[11];
 /*0x298*/ int                SpellGemAlphaArray[11];
-/*0x2cc*/ int                SpellIconOffsetX;
-/*0x2d0*/ int                SpellIconOffsetY;
-/*0x2d4*/ int                SpellIconIndex;           // if this is equal to -1 there is no spell memmed in this slot
-/*0x2d8*/ int                spellstate;               // 1 = cast in progress or refreshtime not met 2 means we ducked or aborted cast, 0 means its ok to cast, should really rename this to tintstage
-/*0x2dc*/ int                TintIndex;
-/*0x2e0*/ CTextureAnimation* SpellIconTexture;         // CTextureAnimation
-/*0x2e4*/ CTextureAnimation* CustomIconTexture;        // CTextureAnimation
-/*0x2e8*/ int                SpellSlot;
-/*0x2ec*/ int                Percent;
-/*0x2f0*/ CSpellGemDrawTemplate DrawTemplate;
-/*0x300*/
+/*0x2c4*/ int                SpellIconOffsetX;
+/*0x2c8*/ int                SpellIconOffsetY;
+/*0x2cc*/ int                SpellIconIndex;           // if this is equal to -1 there is no spell memmed in this slot
+/*0x2d0*/ int                spellstate;               // 1 = cast in progress or refreshtime not met 2 means we ducked or aborted cast, 0 means its ok to cast, should really rename this to tintstage
+/*0x2d4*/ int                TintIndex;
+/*0x2d8*/ CTextureAnimation* SpellIconTexture;         // CTextureAnimation
+/*0x2dc*/ CTextureAnimation* CustomIconTexture;        // CTextureAnimation
+/*0x2e0*/ int                SpellSlot;
+/*0x2e4*/ int                Percent;
+/*0x2e8*/ CSpellGemDrawTemplate DrawTemplate;
+/*0x2f8*/
 
 	ALT_MEMBER_GETTER(int, SpellIconIndex, spellicon);
 };

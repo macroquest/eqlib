@@ -802,7 +802,7 @@ public:
 	/*0x04*/ BitField<NUM_RACES> Races;
 	/*0x08*/ BitField<MAX_PLAYER_CLASSES> Classes;
 	/*0x0c*/ int LimitData[(int)GameFeature::Max];
-	/*0x8c*/
+	/*0x64*/
 };
 
 class IFreeToPlayInfo
