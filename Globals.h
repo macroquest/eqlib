@@ -525,7 +525,6 @@ EQLIB_VAR uintptr_t CPageWnd__FlashTab;
 EQLIB_VAR uintptr_t CPageWnd__SetTabText;
 EQLIB_VAR uintptr_t CQuantityWnd__Open;
 EQLIB_VAR uintptr_t CResolutionHandler__GetWindowedStyle;
-EQLIB_VAR uintptr_t CResolutionHandler__HandleSysCommand;
 EQLIB_VAR uintptr_t CResolutionHandler__UpdateResolution;
 EQLIB_VAR uintptr_t CScreenPieceTemplate__IsType;
 EQLIB_VAR uintptr_t CSidlManager__CreateHotButtonWnd;

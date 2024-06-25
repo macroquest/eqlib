@@ -849,7 +849,6 @@
 
 // CResolutionHandler
 #define CResolutionHandler__GetWindowedStyle_x                     0x14031AD90
-#define CResolutionHandler__HandleSysCommand_x                     0x1406A0180
 #define CResolutionHandler__UpdateResolution_x                     0x14069E8C0
 
 // CColorPickerWnd
