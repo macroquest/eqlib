@@ -18,9 +18,9 @@
 // eqgame.exe offsets
 //
 
-#define __ClientDate                                               20240617u
-#define __ExpectedVersionDate                                     "Jun 17 2024"
-#define __ExpectedVersionTime                                     "11:12:52"
+#define __ClientDate                                               20240624u
+#define __ExpectedVersionDate                                     "Jun 24 2024"
+#define __ExpectedVersionTime                                     "11:24:51"
 #define __ActualVersionDate_x                                      0x140940B00
 #define __ActualVersionTime_x                                      0x140940AF0
 #define __ActualVersionBuild_x                                     0x1408D7540
@@ -144,15 +144,15 @@
 #define __DoesFileExist_x                                          0x140570AB0
 #define __EQGetTime_x                                              0x14056D1B0
 #define __ExecuteCmd_x                                             0x14020D1B0
-#define __FixHeading_x                                             0x140698CD0
+#define __FixHeading_x                                             0x140698930
 #define __FlushDxKeyboard_x                                        0x140331C80
 #define __get_bearing_x                                            0x1402406D0
 #define __get_melee_range_x                                        0x1402407C0
 #define __GetAnimationCache_x                                      0x1403AF660
 #define __GetGaugeValueFromEQ_x                                    0x1404E3270
 #define __GetLabelFromEQ_x                                         0x1404E4870
-#define __GetXTargetType_x                                         0x140699FB0   // ExtendedTargetList::ExtendedTargetRoleName
-#define __HeadingDiff_x                                            0x140698D50
+#define __GetXTargetType_x                                         0x140699C10   // ExtendedTargetList::ExtendedTargetRoleName
+#define __HeadingDiff_x                                            0x1406989B0
 #define __HelpPath_x                                               0x140EBBEB8   // Why?
 #define __NewUIINI_x                                               0x1404F0310   // Why?
 #define __ProcessDeviceEvents_x                                    0x14027EA00
@@ -162,11 +162,11 @@
 #define __SaveColors_x                                             0x140196740
 #define __STMLToText_x                                             0x1405753F0
 #define __WndProc_x                                                0x140330460
-#define CMemoryMappedFile__SetFile_x                               0x1407D0EE0
+#define CMemoryMappedFile__SetFile_x                               0x1407D0B50
 #define DrawNetStatus_x                                            0x1402BDFC0
 #define Util__FastTime_x                                           0x14056C740
-#define __eq_delete_x                                              0x1406A0BD4
-#define __eq_new_x                                                 0x1406A0B90
+#define __eq_delete_x                                              0x1406A0844
+#define __eq_new_x                                                 0x1406A0800
 #define __CopyLayout_x                                             0x1402ABF40
 #define __ThrottleFrameRate_x                                      0x140263144
 #define __ThrottleFrameRateEnd_x                                   0x1402631A4
@@ -819,7 +819,7 @@
 #define SpellManager__GetSpellByGroupAndRank_x                     0x140322100
 
 // CCollisionInfoTargetVisibility
-#define CCollisionInfoTargetVisibility__CCollisionInfoTargetVisibility_x 0x14069A390
+#define CCollisionInfoTargetVisibility__CCollisionInfoTargetVisibility_x 0x140699FF0
 
 // CLargeDialogWnd
 #define CLargeDialogWnd__Open_x                                    0x140421DE0
@@ -849,8 +849,8 @@
 
 // CResolutionHandler
 #define CResolutionHandler__GetWindowedStyle_x                     0x14031AD90
-#define CResolutionHandler__HandleSysCommand_x                     0x1406A0530
-#define CResolutionHandler__UpdateResolution_x                     0x14069EC60
+#define CResolutionHandler__HandleSysCommand_x                     0x1406A0180
+#define CResolutionHandler__UpdateResolution_x                     0x14069E8C0
 
 // CColorPickerWnd
 #define CColorPickerWnd__Open_x                                    0x1403A03D0
