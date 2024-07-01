@@ -2049,7 +2049,7 @@ struct BazaarTraderData
 /*0x00*/ int      ZoneID;
 /*0x04*/ uint32_t UniquePlayerID;
 /*0x08*/ uint32_t SpawnID;
-/*0x0c*/ char     Name[0x40];
+/*0x0c*/ char     Name[EQ_MAX_NAME];
 /*0x4c*/
 };
 
@@ -2071,12 +2071,11 @@ struct [[offsetcomments]] BazaarSearchResults
 /*0x98*/ int        itemID = 0;
 /*0x9c*/ int        count = 0;
 /*0xa0*/ int        statNum = 0;
-/*0xa4*/ float      statNumFloat = 0.f;
-/*0xa8*/ EqItemGuid itemGuid;
-/*0xbc*/
+/*0xa4*/ EqItemGuid itemGuid;
+/*0xb8*/
 };
 
-// CBazaarSearchWnd_size: 0x9720
+// CBazaarSearchWnd_size: 0x92bc
 class [[offsetcomments]] CBazaarSearchWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -2106,45 +2105,45 @@ public:
 
 /*0x0224*/ uint8_t                     UnknownPadding[0x34];
 /*0x0258*/ BazaarSearchResults         searchResults[MAX_BAZAAR_SEARCH_RESULTS];
-/*0x9538*/ HashTable<BazaarTraderData> Traders;
-/*0x9548*/ CListWnd*                   pItemList;                        // BZR_ItemList
-/*0x954c*/ CButtonWnd*                 pQueryButton;
-/*0x9550*/ CButtonWnd*                 pWelcomeButton;
-/*0x9554*/ CButtonWnd*                 pUpdatePlayerButton;
-/*0x9558*/ CButtonWnd*                 pRequestItemButton;
-/*0x955c*/ CButtonWnd*                 pRequestPreviewButton;
-/*0x9560*/ CButtonWnd*                 pFindTraderButton;
-/*0x9564*/ CButtonWnd*                 pHideTradersButton;
-/*0x9568*/ CButtonWnd*                 pDefaultButton;
-/*0x956c*/ CButtonWnd*                 pBuyButton;
-/*0x9570*/ CLabelWnd*                  pItemNameLabel;
-/*0x9574*/ CLabelWnd*                  pPlayersLabel;
-/*0x9578*/ CLabelWnd*                  pItemSlotLabel;
-/*0x957c*/ CLabelWnd*                  pStatSlotLabel;
-/*0x9580*/ CLabelWnd*                  pRaceSlotLabel;
-/*0x9584*/ CLabelWnd*                  pClassSlotLabel;
-/*0x9588*/ CLabelWnd*                  pItemTypeLabel;
-/*0x958c*/ CLabelWnd*                  pSearchResultLabel;
-/*0x9590*/ CLabelWnd*                  pMaxPriceLabel;
-/*0x9594*/ CLabelWnd*                  pMinPriceLabel;
-/*0x9598*/ CLabelWnd*                  pItemPrestigeLabel;
-/*0x959c*/ CLabelWnd*                  pItemAugmentLabel;
-/*0x95a0*/ CComboWnd*                  pItemSlotCombobox;
-/*0x95a4*/ CComboWnd*                  pStatSlotCombobox;
-/*0x95a8*/ CComboWnd*                  pRaceSlotCombobox;
-/*0x95ac*/ CComboWnd*                  pClassSlotCombobox;
-/*0x95b0*/ CComboWnd*                  pItemTypeCombobox;
-/*0x95b4*/ CComboWnd*                  pPlayersCombobox;
-/*0x95b8*/ CComboWnd*                  pItemPrestigeCombobox;
-/*0x95bc*/ CComboWnd*                  pItemAugmentCombobox;
-/*0x95c0*/ CEditWnd*                   pItemNameInput;
-/*0x95c4*/ CEditWnd*                   pMaxPriceInput;
-/*0x95c8*/ CEditWnd*                   pMinPriceInput;
-/*0x95cc*/ CEditWnd*                   pMaxLevelInput;
-/*0x95d0*/ CEditWnd*                   pMinLevelInput;
-/*0x95d4*/ CEditWnd*                   pMaxResultsPerTraderInput;
-/*0x95d8*/ BYTE                        Unknown0x92C8[0x8];
-/*0x95e0*/
+/*0x9218*/ HashTable<BazaarTraderData> Traders;
+/*0x9228*/ CListWnd*                   pItemList;                        // BZR_ItemList
+/*0x922c*/ CButtonWnd*                 pQueryButton;
+/*0x9230*/ CButtonWnd*                 pWelcomeButton;
+/*0x9234*/ CButtonWnd*                 pUpdatePlayerButton;
+/*0x9238*/ CButtonWnd*                 pRequestItemButton;
+/*0x923c*/ CButtonWnd*                 pRequestPreviewButton;
+/*0x9240*/ CButtonWnd*                 pFindTraderButton;
+/*0x9244*/ CButtonWnd*                 pHideTradersButton;
+/*0x9248*/ CButtonWnd*                 pDefaultButton;
+/*0x924c*/ CButtonWnd*                 pBuyButton;
+/*0x9250*/ CLabelWnd*                  pItemNameLabel;
+/*0x9254*/ CLabelWnd*                  pPlayersLabel;
+/*0x9258*/ CLabelWnd*                  pItemSlotLabel;
+/*0x925c*/ CLabelWnd*                  pStatSlotLabel;
+/*0x9260*/ CLabelWnd*                  pRaceSlotLabel;
+/*0x9264*/ CLabelWnd*                  pClassSlotLabel;
+/*0x9268*/ CLabelWnd*                  pItemTypeLabel;
+/*0x926c*/ CLabelWnd*                  pSearchResultLabel;
+/*0x9270*/ CLabelWnd*                  pMaxPriceLabel;
+/*0x9274*/ CLabelWnd*                  pMinPriceLabel;
+/*0x9278*/ CLabelWnd*                  pItemPrestigeLabel;
+/*0x927c*/ CLabelWnd*                  pItemAugmentLabel;
+/*0x9280*/ CComboWnd*                  pItemSlotCombobox;
+/*0x9284*/ CComboWnd*                  pStatSlotCombobox;
+/*0x9288*/ CComboWnd*                  pRaceSlotCombobox;
+/*0x928c*/ CComboWnd*                  pClassSlotCombobox;
+/*0x9290*/ CComboWnd*                  pItemTypeCombobox;
+/*0x9294*/ CComboWnd*                  pPlayersCombobox;
+/*0x9298*/ CComboWnd*                  pItemPrestigeCombobox;
+/*0x929c*/ CComboWnd*                  pItemAugmentCombobox;
+/*0x92a0*/ CEditWnd*                   pItemNameInput;
+/*0x92a4*/ CEditWnd*                   pMaxPriceInput;
+/*0x92a8*/ CEditWnd*                   pMinPriceInput;
+/*0x92ac*/ CEditWnd*                   pMaxLevelInput;
+/*0x92b0*/ CEditWnd*                   pMinLevelInput;
+/*0x92b4*/ CEditWnd*                   pMaxResultsPerTraderInput;
+/*0x92b8*/ BYTE                        Unknown0x92C8[0x8];
+/*0x92c0*/
 };
 
 inline namespace deprecated {
