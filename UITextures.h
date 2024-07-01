@@ -222,12 +222,11 @@ public:
 private:
 /*0x00*/ CXStr              m_name;
 /*0x04*/ CTextureAnimation* m_pta[FrameDraw_Max];
-/*0x38*/ int                Unknown0x38 = -1;                 // FIXME: Check this
-/*0x3c*/ int                m_nOverlapTop = 0;
-/*0x40*/ int                m_nOverlapLeft = 0;
-/*0x44*/ int                m_nOverlapBottom = 0;
-/*0x48*/ int                m_nOverlapRight = 0;
-/*0x4c*/
+/*0x38*/ int                m_nOverlapTop = 0;
+/*0x3c*/ int                m_nOverlapLeft = 0;
+/*0x40*/ int                m_nOverlapBottom = 0;
+/*0x44*/ int                m_nOverlapRight = 0;
+/*0x48*/
 };
 
 

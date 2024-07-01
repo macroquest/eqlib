@@ -115,10 +115,10 @@ public:
 // CScrollbarTemplate
 //============================================================================
 
-// not ScrollbarDrawTemplate ??
+// size: 0xd0
 class [[offsetcomments]] CScrollbarTemplate
 {
-	FORCE_SYMBOLS;
+	FORCE_SYMBOLS
 
 public:
 /*0x00*/ CXStr                       strName;
@@ -126,9 +126,9 @@ public:
 /*0x04*/ CButtonDrawTemplate         bdtUp;
 /*0x38*/ CButtonDrawTemplate         bdtDown;
 /*0x6c*/ CTAFrameDraw                frameThumb;
-/*0xb8*/ CUITextureInfo              tiMiddle;
-/*0xd0*/ D3DCOLOR                    colorMiddleTint = 0;
-/*0xd4*/
+/*0xb4*/ CUITextureInfo              tiMiddle;
+/*0xcc*/ D3DCOLOR                    colorMiddleTint = 0;
+/*0xd0*/
 };
 
 //============================================================================
@@ -164,15 +164,15 @@ public:
 /*0x004*/ CUITextureInfo              tiBackground;
 /*0x01c*/ int                         nBackgroundDrawType = eDrawTile;
 /*0x020*/ CScrollbarTemplate          sbtVScroll;
-/*0x0f4*/ CScrollbarTemplate          sbtHScroll;
-/*0x1c8*/ CButtonDrawTemplate         bdtCloseBox;
-/*0x1fc*/ CButtonDrawTemplate         bdtQMarkBox;
-/*0x230*/ CButtonDrawTemplate         bdtMinimizeBox;
-/*0x264*/ CButtonDrawTemplate         bdtMaximizeBox;
-/*0x298*/ CButtonDrawTemplate         bdtTileBox;
-/*0x2cc*/ CTAFrameDraw                frameBorder;
-/*0x318*/ CTAFrameDraw                frameTitlebar;
-/*0x364*/
+/*0x0f0*/ CScrollbarTemplate          sbtHScroll;
+/*0x1c0*/ CButtonDrawTemplate         bdtCloseBox;
+/*0x1f4*/ CButtonDrawTemplate         bdtQMarkBox;
+/*0x228*/ CButtonDrawTemplate         bdtMinimizeBox;
+/*0x25c*/ CButtonDrawTemplate         bdtMaximizeBox;
+/*0x290*/ CButtonDrawTemplate         bdtTileBox;
+/*0x2c4*/ CTAFrameDraw                frameBorder;
+/*0x30c*/ CTAFrameDraw                frameTitlebar;
+/*0x354*/
 };
 
 //============================================================================
