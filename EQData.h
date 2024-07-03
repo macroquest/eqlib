@@ -531,24 +531,6 @@ using EQSTRINGTABLE DEPRECATE("Use StringTable instead of EQSTRINGTABLE") = Stri
 using PEQSTRINGTABLE DEPRECATE("Use StringTable*I instead of EQSTRINGTABLE*") = StringTable*;
 
 
-// needs to be updated
-struct [[offsetcomments]] connection_t
-{
-/*0x000*/ void* vtable;
-/*0x008*/ BYTE  Unknown0x4[0x110];
-/*0x118*/ DWORD Master;
-/*0x11c*/ DWORD Average;
-/*0x120*/ DWORD Low;
-/*0x124*/ DWORD High;
-/*0x128*/ DWORD Last;
-/*0x12c*/
-};
-
-inline namespace deprecated {
-	using CONNECTION_T DEPRECATE("Use connection_t instead of CONNECTION_T") = connection_t;
-	using PCONNECTION_T DEPRECATE("Use connection_t instead of PCONNECTION_T") = connection_t*;
-}
-
 enum eDynamicZoneType
 {
 	eDZT_Unknown,

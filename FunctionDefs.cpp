@@ -6491,4 +6491,11 @@ FUNCTION_AT_ADDRESS(bool, CXMLDataManager::IsDerivedFrom(int, int), CXMLDataMana
 FUNCTION_AT_ADDRESS(bool, CXMLSOMDocumentBase::XMLRead(const CXStr&, const CXStr&, const CXStr&), CXMLSOMDocumentBase__XMLRead);
 #endif
 
+//----------------------------------------------------------------------------
+// Misc
+//----------------------------------------------------------------------------
+
+FUNCTION_AT_ADDRESS(void, UdpLibrary::UdpConnection::GetStats(UdpLibrary::UdpConnectionStatistics* stats), UdpConnection__GetStats);
+
+
 }
