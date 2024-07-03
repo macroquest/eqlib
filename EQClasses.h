@@ -1797,6 +1797,200 @@ public:
 using TARGETMANAGER DEPRECATE("Use CTargetManager instead of TARGETMANAGER") = CTargetManager;
 using PTARGETMANAGER DEPRECATE("Use CTargetManager instead of TARGETMANAGER") = CTargetManager*;
 
+
+namespace UdpLibrary {
+
+class [[offsetcomments]] UdpRefCount
+{
+public:
+	virtual void AddRef();
+	virtual void Release();
+	virtual void NoRef();
+	virtual int GetRefCount() const;
+
+	virtual ~UdpRefCount();
+
+/*0x04*/ int m_refCount;
+/*0x08*/ bool m_noRef;
+/*0x0c*/
+};
+
+struct UdpPlatformGuardData;
+
+class [[offsetcomments]] UdpPlatformGuardObject
+{
+public:
+	EQLIB_OBJECT void Enter() const;
+	EQLIB_OBJECT void Leave() const;
+
+/*0x00*/ UdpPlatformGuardData* m_data;
+/*0x04*/
+};
+
+class [[offsetcomments]] UdpGuardedRefCount : public UdpRefCount
+{
+public:
+/*0x0c*/ UdpPlatformGuardObject m_guard;
+/*0x10*/
+};
+
+class [[offsetcomments]] UdpGuard
+{
+public:
+	UdpGuard(const UdpPlatformGuardObject* guard)
+		: m_guard(guard)
+	{
+		m_guard->Enter();
+	}
+
+	~UdpGuard()
+	{
+		m_guard->Leave();
+	}
+
+	UdpGuard(const UdpGuard&) = delete;
+	UdpGuard& operator=(const UdpGuard&) = delete;
+
+private:
+/*0x00*/ const UdpPlatformGuardObject* m_guard;
+/*0x04*/
+};
+
+struct [[offsetcomments]] UdpConnectionStatistics
+{
+/*0x00*/ int64_t totalBytesSent;
+/*0x08*/ int64_t totalBytesReceived;
+/*0x10*/ int64_t totalPacketsSent;
+/*0x18*/ int64_t totalPacketsReceived;
+/*0x20*/ int64_t crcRejectedPackets;
+/*0x28*/ int64_t orderRejectedPackets;
+/*0x30*/ int64_t outOfOrderPacketsReceived;
+/*0x38*/ int64_t duplicatePacketsReceived;
+/*0x40*/ int64_t resentPacketsAccelerated;
+/*0x48*/ int64_t resentPacketsTimedOut;
+/*0x50*/ int64_t applicationPacketsSent;
+/*0x58*/ int64_t applicationPacketsReceived;
+/*0x60*/ int64_t iterations;
+/*0x68*/ int64_t corruptPacketErrors;
+/*0x70*/ int32_t masterPingAge;
+/*0x74*/ int32_t masterPingTime;
+/*0x78*/ int32_t averagePingTime;
+/*0x7c*/ int32_t lowPingTime;
+/*0x80*/ int32_t highPingTime;
+/*0x84*/ int32_t lastPingTime;
+/*0x88*/ int32_t reliableAveragePing;
+/*0x90*/ int64_t syncOurSent;
+/*0x98*/ int64_t syncOurReceived;
+/*0xa0*/ int64_t syncTheirSent;
+/*0xa8*/ int64_t syncTheirReceived;
+/*0xb0*/ float percentSentSuccess;
+/*0xb4*/ float percentReceivedSuccess;
+/*0xb8*/
+
+	int64_t get_outOfRangePacketsReceived() { return duplicatePacketsReceived; }
+	__declspec(property(get = get_outOfRangePacketsReceived)) int64_t outOfRangePacketsReceived;
+};
+
+using UdpClockStamp = uint64_t;
+
+
+class UdpMisc
+{
+public:
+	static int ClockDiff(UdpClockStamp start, UdpClockStamp stop)
+	{
+		UdpClockStamp diff = stop - start;
+
+		return diff > INT_MAX ? INT_MAX : static_cast<int>(diff);
+	}
+};
+
+class [[offsetcomments]] UdpManager : public UdpGuardedRefCount
+{
+public:
+	UdpClockStamp CachedClock() const
+	{
+		UdpGuard udpGuard(&m_cachedClockGuard);
+		return m_cachedClock;
+	}
+
+	int CachedClockElapsed(UdpClockStamp start) const
+	{
+		return UdpMisc::ClockDiff(start, CachedClock());
+	}
+
+protected:
+/*0x000*/ // vftable
+/*0x010*/ uint8_t                    Unknown0x0000[0x2a0 - 0x10];
+/*0x2a0*/ UdpClockStamp              m_cachedClock;
+/*0x2a8*/ UdpPlatformGuardObject     m_cachedClockGuard;
+/*0x2ac*/
+};
+
+class [[offsetcomments]] UdpConnection : public UdpGuardedRefCount
+{
+public:
+	EQLIB_OBJECT void GetStats(UdpConnectionStatistics* stats);
+
+	UdpClockStamp CachedClock() const
+	{
+		if (m_udpManager)
+		{
+			return m_udpManager->CachedClock();
+		}
+
+		return m_disconnectTime;
+	}
+
+	int CachedClockElapsed(UdpClockStamp start) const
+	{
+		return UdpMisc::ClockDiff(start, CachedClock());
+	}
+
+	int GetLastReceiveTime() const
+	{
+		UdpGuard udpGuard(&m_guard);
+
+		return CachedClockElapsed(m_lastReceiveTime);
+	}
+
+	int GetAveragePing() const
+	{
+		UdpGuard udpGuard(&m_guard);
+
+		return m_stats.averagePingTime;
+	}
+
+	float GetConnectionStrength() const
+	{
+		int f = std::max<int>(GetLastReceiveTime() - 500, 0);
+		return 1.0f - static_cast<float>(f) / 180000;
+	}
+
+/*0x0000*/ // vftable
+/*0x010*/ uint8_t                   Unknown[0x90 - 0x10];
+/*0x090*/ UdpManager*               m_udpManager;
+/*0x094*/ uint8_t                   Unknown0x0094[0x4];
+/*0x098*/ UdpConnectionStatistics   m_stats;
+/*0x150*/ uint8_t                   Unknown0x0150[0x1c8 - 0x150];
+/*0x1c8*/ UdpClockStamp             m_lastSendTime;
+/*0x1d0*/ UdpClockStamp             m_lastReceiveTime;
+/*0x1d8*/ uint8_t                   Unknown0x01d8[0x10];
+/*0x1e8*/ UdpClockStamp             m_disconnectTime;
+/*0x1f0*/ uint8_t                   Unknown0x0268[0x254 - 0x1f0];
+/*0x254*/ UdpPlatformGuardObject    m_guard;
+/*0x258*/
+
+	// compatibility shim
+	__declspec(property(get = GetAveragePing)) int Last;
+};
+
+} // namespace UdpLibrary
+
+inline namespace deprecated {
+	using connection_t DEPRECATE("Use UdpLibrary::UdpConnection instead of connection_t") = UdpLibrary::UdpConnection;
+}
+
 //----------------------------------------------------------------------------
 
 } // namespace eqlib

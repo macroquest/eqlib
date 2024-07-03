@@ -341,7 +341,6 @@ class SoundManager;
 class SoundObject;
 class SpellManager;
 class StringTable;
-class UdpConnection;
 class UniversalChatProxy;
 class Wave3dInstance;
 class WaveInstance;
@@ -385,6 +384,10 @@ class CRaid;
 using EQRAID = CRaid;
 class CRender;
 struct SDeviceInputProxy;
+
+namespace UdpLibrary {
+	class UdpConnection;
+}
 
 struct LabelCache;
 

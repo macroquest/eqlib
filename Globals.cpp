@@ -1007,6 +1007,7 @@ INITIALIZE_EQGAME_OFFSET(Spellmanager__LoadTextSpells);
 INITIALIZE_EQGAME_OFFSET(StringTable__getString);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table_Size);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table);
+INITIALIZE_EQGAME_OFFSET(UdpConnection__GetStats);
 INITIALIZE_EQGAME_OFFSET(Util__FastTime);
 INITIALIZE_EQGAME_OFFSET(ZoneGuideManagerClient__Instance);
 
@@ -1018,7 +1019,6 @@ CMDLIST*               EQADDR_CMDLIST            = nullptr;
 IDirectInputDevice8A** EQADDR_DIKEYBOARD         = nullptr;
 IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
 POINT*                 EQADDR_DIMOUSECHECK       = nullptr;
-void*                  EQADDR_GWORLD             = nullptr;
 uintptr_t              EQADDR_HWND               = 0;
 MQMouseInfo*           EQADDR_MOUSE              = nullptr;
 char*                  EQADDR_SERVERHOST         = nullptr;
@@ -1081,7 +1081,7 @@ ForeignPointer<AltAdvManager>                    pAltAdvManager;
 ComputedPointer<ClientAuraManager>               pAuraMgr([]{ return ClientAuraManager::GetSingleton(); });
 ForeignPointer<CChatWindowManager>               pChatManager;
 ComputedPointer<UniversalChatProxy>              pChatService([]{ return pEverQuest->chatService; });
-ForeignPointer<connection_t>                     pConnection;
+ForeignPointer<UdpLibrary::UdpConnection>        pConnection;
 ForeignPointer<CContainerMgr>                    pContainerMgr;
 ForeignPointer<CContextMenuManager>              pContextMenuManager;
 ForeignPointer<MAPLABEL>                         pCurrentMapLabel;
@@ -1319,7 +1319,6 @@ void InitializeEQGameOffsets()
 	EQADDR_DIMOUSE                  = (IDirectInputDevice8A**)DI8__Mouse;
 #pragma warning(suppress: 4996)
 	EQADDR_DIMOUSECHECK             = (PPOINT)DI8__MouseState;
-	EQADDR_GWORLD                   = (void*)__gWorld;
 	EQADDR_HWND                     = __HWnd;
 	EQADDR_MOUSE                    = (MQMouseInfo*)__Mouse;
 	EQADDR_SERVERHOST               = (char*)__ServerHost;

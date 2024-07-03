@@ -986,6 +986,9 @@
 #define FreeToPlayClient__Instance_x                               0x7DBA30
 #define FreeToPlayClient__RestrictionInfo_x                        0xA0AA28
 
+// UdpConnection
+#define UdpConnection__GetStats_x                                  0x8C2FD0
+
 #if __has_include("../private/eqgame-private.h")
 #include "../private/eqgame-private.h"
 #endif

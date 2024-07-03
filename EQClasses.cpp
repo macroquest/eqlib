@@ -545,6 +545,27 @@ const RealEstateItem* RealEstateManagerClient::GetItemByRealEstateAndItemIds(int
 	return nullptr;
 }
 
+//----------------------------------------------------------------------------
+
+namespace UdpLibrary {
+
+struct UdpPlatformGuardData
+{
+	CRITICAL_SECTION CriticalSection;
+};
+
+void UdpLibrary::UdpPlatformGuardObject::Enter() const
+{
+	EnterCriticalSection(&m_data->CriticalSection);
+}
+
+void UdpLibrary::UdpPlatformGuardObject::Leave() const
+{
+	LeaveCriticalSection(&m_data->CriticalSection);
+}
+
+}
+
 #pragma warning(pop)
 
 } // namespace eqlib
