@@ -333,6 +333,7 @@ EQLIB_VAR uintptr_t CDisplay__InitCharSelectUI;
 EQLIB_VAR uintptr_t CDisplay__PreZoneMainUI;
 EQLIB_VAR uintptr_t CDisplay__RealRender_World;
 EQLIB_VAR uintptr_t CDisplay__ReloadUI;
+EQLIB_VAR uintptr_t CDisplay__RestartUI;
 EQLIB_VAR uintptr_t CDisplay__SetViewActor;
 EQLIB_VAR uintptr_t CDisplay__ToggleScreenshotMode;
 EQLIB_VAR uintptr_t CDisplay__TrueDistance;

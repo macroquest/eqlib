@@ -315,6 +315,7 @@
 #define CDisplay__GetUserDefinedColor_x                            0x14018A470
 #define CDisplay__InitCharSelectUI_x                               0x14018A720
 #define CDisplay__ReloadUI_x                                       0x1401957C0
+#define CDisplay__RestartUI_x                                      0x1401F3F20
 #define CDisplay__WriteTextHD2_x                                   0x14019C7D0
 #define CDisplay__TrueDistance_x                                   0x14019C480
 #define CDisplay__SetViewActor_x                                   0x140198CC0
