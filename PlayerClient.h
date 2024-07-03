@@ -312,17 +312,17 @@ public:
 struct [[offsetcomments]] PZCPhysicsInfo
 {
 // @start: PZCPhysicsInfo Members
-/*0x0c*/ int Acceleration : 10;
-/*0x04*/ int ZHeading : 12;
-/*0x14*/ float DeltaY;
-/*0x18*/ float DeltaX;
-/*0x00*/ float DeltaZ;
-/*0x1c*/ float Z;
-/*0x20*/ float X;
-/*0x10*/ float Y;
-/*0x0c*/ int DeltaHeading : 10;
-/*0x04*/ int Heading : 12;
-
+/*0x00*/ int Acceleration : 10;
+/*0x00*/ int ZHeading : 12;
+/*0x04*/ float DeltaY;
+/*0x08*/ float DeltaX;
+/*0x0c*/ float DeltaZ;
+/*0x10*/ float Z;
+/*0x14*/ float X;
+/*0x18*/ float Y;
+/*0x1c*/ int DeltaHeading : 10;
+/*0x1c*/ int Heading : 12;
+/*0x20*/
 // @end: PZCPhysicsInfo Members
 };
 
