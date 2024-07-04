@@ -5509,6 +5509,7 @@ FUNCTION_AT_ADDRESS(CXStr, CItemDisplayWnd::CreateEquipmentStatusString(const It
 
 FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::SetSpell(int SpellID, bool HasSpellDescr, int), CSpellDisplayWnd__SetSpell);
 FUNCTION_AT_ADDRESS(void, CSpellDisplayWnd::UpdateStrings(), CSpellDisplayWnd__UpdateStrings);
+FUNCTION_AT_ADDRESS(void, CSpellDisplayManager::ShowSpell(int SpellID, bool NewWindow, bool FullDisplay, int SpellDisplayType), CSpellDisplayManager__ShowSpell);
 
 //----------------------------------------------------------------------------
 // CKeyRingWnd

@@ -6905,13 +6905,15 @@ public:
 	EQLIB_OBJECT virtual int CreateWindowInstance() override;
 	EQLIB_OBJECT void ShowItem(const ItemPtr& pItem);
 
-	inline CItemDisplayWnd* GetWindow(int index) const { return static_cast<CItemDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
+	CItemDisplayWnd* GetWindow(int index) const { return static_cast<CItemDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
 };
 
 class CSpellDisplayManager : public CWndDisplayManager
 {
 public:
-	inline CSpellDisplayWnd* GetWindow(int index) const { return static_cast<CSpellDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
+	CSpellDisplayWnd* GetWindow(int index) const { return static_cast<CSpellDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
+
+	EQLIB_OBJECT void ShowSpell(int SpellID, bool NewWindow, bool FullDisplay, int SpellDisplayType);
 };
 
 //----------------------------------------------------------------------------

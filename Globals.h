@@ -586,6 +586,7 @@ EQLIB_VAR uintptr_t CSliderWnd__GetValue;
 EQLIB_VAR uintptr_t CSliderWnd__SetNumTicks;
 EQLIB_VAR uintptr_t CSliderWnd__SetValue;
 EQLIB_VAR uintptr_t CSpellBookWnd__MemorizeSet;
+EQLIB_VAR uintptr_t CSpellDisplayManager__ShowSpell;
 EQLIB_VAR uintptr_t CSpellDisplayWnd__SetSpell;
 EQLIB_VAR uintptr_t CSpellDisplayWnd__UpdateStrings;
 EQLIB_VAR uintptr_t CStmlWnd__AppendSTML;

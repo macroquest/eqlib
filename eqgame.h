@@ -451,6 +451,9 @@
 // CItemDisplayManager
 #define CItemDisplayManager__CreateWindowInstance_x                0x6A1AE0
 
+// CSpellDisplayManager
+#define CSpellDisplayManager__ShowSpell_x                          0x75FD80
+
 // CKeyRingWnd
 //#define CKeyRingWnd__ExecuteRightClick_x                           0x0
 
