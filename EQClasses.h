@@ -1935,17 +1935,26 @@ public:
 		return UdpMisc::ClockDiff(start, CachedClock());
 	}
 
-	int LastReceive() const
+	int GetLastReceiveTime() const
 	{
 		UdpGuard udpGuard(&m_guard);
 
 		return CachedClockElapsed(m_lastReceiveTime);
 	}
 
+	int GetAveragePing() const
+	{
+		UdpGuard udpGuard(&m_guard);
+
+		return m_stats.averagePingTime;
+	}
+
 /*0x0000*/ // vftable
 /*0x018*/ uint8_t                   Unknown[0xe0 - 0x18];
 /*0x0e0*/ UdpManager*               m_udpManager;
-/*0x0e8*/ uint8_t                   Unknown0x00e8[0x238 - 0xe8];
+/*0x0e8*/ uint8_t                   Unknown0x00e8[0x8];
+/*0x0f0*/ UdpConnectionStatistics   m_stats;
+/*0x1a8*/ uint8_t                   Unknown0x01a8[0x380 - 0x2f0];
 /*0x238*/ UdpClockStamp             m_lastSendTime;
 /*0x240*/ UdpClockStamp             m_lastReceiveTime;
 /*0x248*/ uint8_t                   Unknown0x0248[0x18];
@@ -1953,6 +1962,9 @@ public:
 /*0x268*/ uint8_t                   Unknown0x0268[0x2e0 - 0x268];
 /*0x2e0*/ UdpPlatformGuardObject    m_guard;
 /*0x2e8*/
+
+	// compatibility shim
+	__declspec(property(get = GetAveragePing)) int Last;
 };
 
 } // namespace UdpLibrary
