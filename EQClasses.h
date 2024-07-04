@@ -1868,15 +1868,17 @@ struct [[offsetcomments]] UdpConnectionStatistics
 /*0x78*/ int32_t masterPingAge;
 /*0x7c*/ int32_t masterPingTime;
 /*0x80*/ int32_t averagePingTime;
-/*0x84*/ int32_t highPingTime;
-/*0x88*/ int32_t reliableAveragePing;
-/*0x90*/ int64_t syncOurSent;
-/*0x98*/ int64_t syncOurReceived;
-/*0xa0*/ int64_t syncTheirSent;
-/*0xa8*/ int64_t syncTheirReceived;
-/*0xb0*/ float percentSentSuccess;
-/*0xb4*/ float percentReceivedSuccess;
-/*0xb8*/
+/*0x84*/ int32_t lowPingTime;
+/*0x88*/ int32_t highPingTime;
+/*0x8c*/ int32_t lastPingTime;
+/*0x90*/ int32_t reliableAveragePing;
+/*0x98*/ int64_t syncOurSent;
+/*0xa0*/ int64_t syncOurReceived;
+/*0xa8*/ int64_t syncTheirSent;
+/*0xb0*/ int64_t syncTheirReceived;
+/*0xb8*/ float percentSentSuccess;
+/*0xbc*/ float percentReceivedSuccess;
+/*0xc0*/
 };
 
 using UdpClockStamp = uint64_t;
@@ -1949,12 +1951,18 @@ public:
 		return m_stats.averagePingTime;
 	}
 
+	float GetConnectionStrength() const
+	{
+		int f = std::max<int>(GetLastReceiveTime() - 500, 0);
+		return 1.0f - static_cast<float>(f) / 180000;
+	}
+
 /*0x0000*/ // vftable
 /*0x018*/ uint8_t                   Unknown[0xe0 - 0x18];
 /*0x0e0*/ UdpManager*               m_udpManager;
 /*0x0e8*/ uint8_t                   Unknown0x00e8[0x8];
 /*0x0f0*/ UdpConnectionStatistics   m_stats;
-/*0x1a8*/ uint8_t                   Unknown0x01a8[0x380 - 0x2f0];
+/*0x1b0*/ uint8_t                   Unknown0x01b0[0x238 - 0x1b0];
 /*0x238*/ UdpClockStamp             m_lastSendTime;
 /*0x240*/ UdpClockStamp             m_lastReceiveTime;
 /*0x248*/ uint8_t                   Unknown0x0248[0x18];
