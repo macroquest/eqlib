@@ -197,15 +197,15 @@ public:
 	DEPRECATE("Use GetSlot(0) instead of Slot1")
 	inline int getSlot1() const { return m_slots[0]; }
 	DEPRECATE("Use SetSlot(0) instead of Slot1")
-	inline void setSlot1(int v) { m_slots[0] = v; }
+	inline void setSlot1(int v) { m_slots[0] = (short)v; }
 	DEPRECATE("Use GetSlot(1) instead of Slot2")
 	inline int getSlot2() const { return m_slots[1]; }
 	DEPRECATE("Use SetSlot(1) instead of Slot2")
-	inline void setSlot2(int v) { m_slots[1] = v; }
+	inline void setSlot2(int v) { m_slots[1] = (short)v; }
 	DEPRECATE("Use GetSlot(2) instead of Slot3")
 	inline int getSlot3() const { return m_slots[2]; }
 	DEPRECATE("Use SetSlot(2) instead of Slot3")
-	inline void setSlot3(int v) { m_slots[2] = v; }
+	inline void setSlot3(int v) { m_slots[2] = (short)v; }
 };
 
 

@@ -154,7 +154,7 @@ public:
 		return playersToGroups.FindFirst(playerName) != nullptr;
 	}
 
-	bool HasAccess(GroupEnum group, typename CapabilityEnum capability) const
+	bool HasAccess(GroupEnum group, CapabilityEnum capability) const
 	{
 		return accessGroups[group].HasAccess(capability);
 	}
