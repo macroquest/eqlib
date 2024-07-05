@@ -372,14 +372,19 @@ struct [[offsetcomments]] RaidMember
 {
 /*0x00*/ char      Name[EQ_MAX_NAME];
 /*0x40*/ char      RaidNote[MAX_RAID_NOTE];
-/*0x80*/ int       nLevel;
-/*0x84*/ int       nClass;
-/*0x88*/ bool      RaidLeader;
-/*0x89*/ bool      GroupLeader;
-/*0x8a*/ bool      RaidMainAssist;
-/*0x8b*/ bool      RaidMarker;
-/*0x8c*/ int       MasterLooter; // emu ??
-/*0x90*/ int       GroupNumber;
+/*0x81*/ uint8_t   nLevel;
+/*0x82*/ uint8_t   nClass;
+/*0x83*/ bool      RaidLeader;
+/*0x84*/ bool      GroupLeader;
+/*0x85*/ bool      RaidMainAssist;
+/*0x86*/ bool      RaidMarker;
+/*0x87*/ bool      MasterLooter; // emu ??
+/*0x88*/ int       GroupNumber;
+/*0x8c*/ bool      IsAFK;
+/*0x8d*/ bool      IsDead;
+/*0x8e*/ bool      IsInZone;
+/*0x8f*/ bool      IsInDZ;
+/*0x90*/ bool      IsInSharedTask;
 /*0x94*/
 };
 
