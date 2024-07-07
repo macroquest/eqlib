@@ -722,6 +722,32 @@ public:
 // CHotButton
 //============================================================================
 
+enum HotButtonTypes
+{
+	HotButtonType_None = 0,
+	HotButtonType_WeaponSlot,
+	HotButtonType_CombatSkill,   // deprecated: no longer used
+	HotButtonType_Ability,       // deprecated: no longer used
+	HotButtonType_Social,
+	HotButtonType_InventorySlot,
+	HotButtonType_MenuButton,
+	HotButtonType_SpellGem,
+	HotButtonType_PetCommand,
+	HotButtonType_Skill,
+	HotButtonType_MeleeAbility,
+	HotButtonType_LeadershipAbility,
+	HotButtonType_ItemLink,
+	HotButtonType_KronoSlot,
+	HotButtonType_Command,
+	HotButtonType_CombatAbility,
+	HotButtonType_MountLink,
+	HotButtonType_IllusionLink,
+	HotButtonType_FamiliarLink,
+	HotButtonType_TeleportationLink,
+};
+
+EQLIB_OBJECT const char* HotButtonTypeToString(HotButtonTypes type);
+
 class [[offsetcomments]] CHotButton : public CXWnd
 {
 public:
@@ -732,6 +758,8 @@ public:
 	EQLIB_OBJECT void SetButtonSize(int percent, bool bUpdateParent = true);
 	EQLIB_OBJECT void SetCheck(bool check);
 
+	EQLIB_OBJECT const HotButtonData* GetHotButtonData() const;
+
 	//----------------------------------------------------------------------------
 	// data members
 
@@ -739,7 +767,7 @@ public:
 /*0x264*/ int                ButtonIndex;
 /*0x268*/ uint32_t           Timer;
 /*0x270*/ CTextureAnimation* DecalIcon;
-/*0x278*/ int                LastButtonType;
+/*0x278*/ HotButtonTypes     LastButtonType;
 /*0x27c*/ int                LastButtonSlot;
 /*0x280*/ char               LastButtonPage;
 /*0x281*/ EqItemGuid         LastItemGuid;
@@ -6926,6 +6954,7 @@ enum eIconCacheType
 	IconCacheType_Menu = 2,
 	IconCacheType_SpeakingIndicator = 3,
 };
+EQLIB_OBJECT const char* IconCacheTypeToString(eIconCacheType type);
 
 class [[offsetcomments]] IconCache
 {

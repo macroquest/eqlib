@@ -3285,9 +3285,6 @@ FUNCTION_AT_ADDRESS(unsigned char, PcClient::AtSkillLimit(int), EQ_PC__AtSkillLi
 #ifdef PcZoneClient__GetItemRecastTimer_x
 FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype), PcZoneClient__GetItemRecastTimer);
 #endif
-#ifdef PcBase__GetAlternateAbilityId_x
-FUNCTION_AT_ADDRESS(int, PcClient::GetAlternateAbilityId(int), PcBase__GetAlternateAbilityId);
-#endif
 #ifdef PcBase__GetCombatAbility_x
 //FUNCTION_AT_ADDRESS(int, PcBase::GetCombatAbility(int) const, PcBase__GetCombatAbility);
 #endif

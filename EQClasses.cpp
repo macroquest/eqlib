@@ -148,6 +148,33 @@ const char* CAltAbilityData::GetShortName2() const
 }
 
 //============================================================================
+// AltAdvManager
+//============================================================================
+
+CAltAbilityData* AltAdvManager::GetOwnedAbilityFromGroupID(PcZoneClient* pc, int groupId)
+{
+	if (!pc)
+		return nullptr;
+
+	PcProfile* pProfile = pc->GetCurrentPcProfile();
+	if (!pProfile)
+		return nullptr;
+
+	for (int i = 0; i < AA_CHAR_MAX_REAL; ++i)
+	{
+		if (CAltAbilityData* pAbility = GetAAById(pProfile->GetAlternateAbilityId(i)))
+		{
+			if (pAbility != nullptr && pAbility->GroupID == groupId)
+			{
+				return pAbility;
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+//============================================================================
 // CGuild
 //============================================================================
 

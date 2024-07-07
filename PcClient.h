@@ -1585,6 +1585,7 @@ public:
 
 	bool IsFamiliarAutoLeaveEnabled() const { return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0; }
 
+	int GetAlternateAbilityId(int index) const { return GetCurrentPcProfile()->GetAlternateAbilityId(index); }
 	int GetCombatAbility(int index) const { return GetCurrentPcProfile()->GetCombatAbility(index); }
 
 	// Stores information about purchased Mercenary Abilities
@@ -1712,7 +1713,6 @@ public:
 	EQLIB_OBJECT int CheckDupLoreItems();
 	EQLIB_OBJECT int checkLang(int);
 	EQLIB_OBJECT int CostToTrain(int, float, int);
-	EQLIB_OBJECT int GetAlternateAbilityId(int);
 	EQLIB_OBJECT int GetArmorType(int);
 	EQLIB_OBJECT PcZoneClient* GetPcZoneClient() const;
 	EQLIB_OBJECT int HandleMoney(long);

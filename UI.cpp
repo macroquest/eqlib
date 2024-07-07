@@ -30,6 +30,22 @@ CListWnd::VirtualFunctionTable* CListWnd::sm_vftable = nullptr;
 CSidlScreenWnd::VirtualFunctionTable* MapViewMap::sm_vftable = nullptr;
 
 //============================================================================
+// Misc stuff
+//============================================================================
+
+const char* IconCacheTypeToString(eIconCacheType type)
+{
+	switch (type)
+	{
+	case IconCacheType_Item: return "Item";
+	case IconCacheType_Spell: return "Spell";
+	case IconCacheType_Menu: return "Menu";
+	case IconCacheType_SpeakingIndicator: return "SpeakingIndicator";
+	default: return "Unknown";
+	}
+}
+
+//============================================================================
 
 EQ_Spell* PlayerBuffInfoWrapper::GetSpell() const
 {
@@ -232,6 +248,57 @@ CXRect CGaugeWnd::CalcLinesFillRect(CXRect rect, int value) const
 	rect.right = rect.left + static_cast<int>(width);
 
 	return rect;
+}
+
+//============================================================================
+// CHotButton
+//============================================================================
+
+const char* HotButtonTypeToString(HotButtonTypes type)
+{
+	switch (type)
+	{
+	case HotButtonType_None: return "None";
+	case HotButtonType_WeaponSlot: return "WeaponSlot";
+	case HotButtonType_CombatSkill: return "CombatSkill";
+	case HotButtonType_Ability: return "Ability";
+	case HotButtonType_Social: return "Social";
+	case HotButtonType_InventorySlot: return "InventorySlot";
+	case HotButtonType_MenuButton: return "MenuButton";
+	case HotButtonType_SpellGem: return "SpellGem";
+	case HotButtonType_PetCommand: return "PetCommand";
+	case HotButtonType_Skill: return "Skill";
+	case HotButtonType_MeleeAbility: return "MeleeAbility";
+	case HotButtonType_LeadershipAbility: return "LeadershipAbility";
+	case HotButtonType_ItemLink: return "ItemLink";
+	case HotButtonType_KronoSlot: return "KronoSlot";
+	case HotButtonType_Command: return "Command";
+	case HotButtonType_CombatAbility: return "CombatAbility";
+	case HotButtonType_MountLink: return "MountLink";
+	case HotButtonType_IllusionLink: return "IllusionLink";
+	case HotButtonType_FamiliarLink: return "FamiliarLink";
+	case HotButtonType_TeleportationLink: return "TeleportationLink";
+	default:
+		return "Unknown";
+	}
+}
+
+const HotButtonData* CHotButton::GetHotButtonData() const
+{
+	if (BarIndex >= 0 && BarIndex < NUM_HOTBUTTON_WINDOWS)
+	{
+		int8_t PageIndex = pEverQuestInfo->hotBank[BarIndex];
+
+		if (PageIndex >= 0 && PageIndex < NUM_HOTBUTTON_PAGES)
+		{
+			if (ButtonIndex >= 0 && ButtonIndex < HOTBUTTONS_PER_PAGE)
+			{
+				return &pEverQuestInfo->hotButtons[BarIndex][PageIndex][ButtonIndex];
+			}
+		}
+	}
+
+	return nullptr;
 }
 
 //============================================================================
