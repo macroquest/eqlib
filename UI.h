@@ -35,6 +35,7 @@
 
 #undef FindWindow
 #undef InsertMenuItem
+#undef LoadMenu
 
 struct IShellFolder;
 
@@ -3128,7 +3129,7 @@ public:
 // CContextMenu
 //============================================================================
 
-// Size is 0x290 in eagame 2016 Nov 14
+// Size: 0x348 @ 6/24/2024
 class [[offsetcomments]] CContextMenu : public CListWnd
 {
 	FORCE_SYMBOLS
@@ -3156,8 +3157,14 @@ public:
 	// data members
 
 /*0x340*/ int          NumItems;
-/*0x344*/ int          Unknown0x28C;
-/*0x348*/
+/*0x344*/
+};
+
+class CGFContextMenu : public CContextMenu
+{
+public:
+	EQLIB_OBJECT CGFContextMenu(CXWnd* pParent, uint32_t MenuID, const CXRect& rect);
+	EQLIB_OBJECT virtual ~CGFContextMenu();
 };
 
 //============================================================================
@@ -4177,8 +4184,8 @@ public:
 // CHotButtonWnd
 //============================================================================
 
-// Actual size 0x1c4 10-9-2003
-class CHotButtonWnd : public CSidlScreenWnd, public PopDialogHandler
+// size: 0x460 @ 6/24/2024
+class [[offsetcomments]] CHotButtonWnd : public CSidlScreenWnd, public PopDialogHandler
 {
 public:
 	CHotButtonWnd(CXWnd*);
@@ -4188,7 +4195,7 @@ public:
 	virtual int OnProcessFrame() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
-	EQLIB_OBJECT void DoHotButton(int Button, int AllowAutoRightClick, int something);
+	EQLIB_OBJECT void DoHotButton(int buttonIndex, BOOL bMouseClick, const KeyCombo* keyCombo);
 	EQLIB_OBJECT void DoHotButtonRightClick(int);
 	EQLIB_OBJECT void UpdatePage();
 	EQLIB_OBJECT void SetCheck(bool checked);
@@ -4196,7 +4203,44 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-	// todo
+/*0x2d0*/ CXWnd*          NoSpinnerBarTemplate;            // HB_NoSpinnerBarTemplate
+/*0x2d8*/ CXWnd*          HorizontalBarTemplate;           // HB_HorizontalBarTemplate
+/*0x2e0*/ CXWnd*          VerticalBarTemplate;             // HB_VerticalBarTemplate
+/*0x2e8*/ CTileLayoutWnd* HotButtonLayout;                 // HB_HotButtonLayout
+/*0x2f0*/ CXWnd*          HorizontalBarPageButtons;        // HB_HorizontalBarPageButtons
+/*0x2f8*/ CXWnd*          VerticalBarPageButtons;          // HB_VerticalBarPageButtons
+/*0x300*/ CButtonWnd*     PageUpButton;                    // HB_PageUpButton
+/*0x308*/ CLabel*         HorizontalCurrentPageLabel;      // HB_HorizontalCurrentPageLabel
+/*0x310*/ CButtonWnd*     PageDownButton;                  // HB_PageDownButton
+/*0x318*/ CButtonWnd*     PageLeftButton;                  // HB_PageLeftButton
+/*0x320*/ CLabel*         VerticalCurrentPageLabel;        // HB_VerticalCurrentPageLabel
+/*0x328*/ CButtonWnd*     PageRightButton;                 // HB_PageRightButton
+/*0x330*/ int             Page;
+/*0x338*/ CHotButton*     Buttons[HOTBUTTONS_PER_PAGE];    // HB_Button%d
+/*0x398*/ int             LoadLoadoutContextIndex;
+/*0x39c*/ int             SaveLoadoutContextIndex;
+/*0x3a0*/ int             DeleteLoadoutContextIndex;
+/*0x3a4*/ int             SaveLoadoutIndex;
+/*0x3a8*/ int             ShowKeyMapIndex;
+/*0x3ac*/ int             ShowSpinnerIndex;
+/*0x3b0*/ int             ButtonPercent;
+/*0x3b4*/ int             OpenNewBarIndex;
+/*0x3b8*/ bool            ShowKeyMap;
+/*0x3b9*/ bool            ShowSpinner;
+/*0x3ba*/ bool            LastShowSpinner;
+/*0x3bc*/ FontStyles      TextFontStyle;
+/*0x3c0*/ CXStr           KeyMapStrings[HOTBUTTONS_PER_PAGE];
+/*0x420*/ CButtonWnd*     FileButton;                      // HB_FileButton
+/*0x428*/ CContextMenu*   MainMenu;
+/*0x430*/ CContextMenu*   LoadMenu;
+/*0x438*/ CContextMenu*   SaveMenu;
+/*0x440*/ CContextMenu*   DeleteMenu;
+/*0x448*/ bool            HorizontalBar;
+/*0x44c*/ uint32_t        Timer;
+/*0x450*/ int             HotWindowIndex;
+/*0x454*/ int             ConfirmId;
+/*0x458*/ bool            KeepCurrentSize;
+/*0x460*/
 };
 
 //============================================================================
@@ -4204,19 +4248,20 @@ public:
 //============================================================================
 
 // size: 0x318
-class CInspectWnd : public CSidlScreenWnd, public WndEventHandler
+class [[offsetcomments]] CInspectWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
 
 public:
-	inline ItemContainer& GetInspectItems() { return inspectItems; }
+	ItemContainer& GetInspectItems() { return inspectItems; }
 
-/*0x234*/ uint32_t           nextRefreshTime;
-/*0x238*/ uint32_t           lastInspectTextSaveTime;
-/*0x23c*/ PlayerClient*      inspectPlayer;
-/*0x240*/ ItemContainer      inspectItems;
-/*0x25c*/ CEditWnd*          inspectEdit;
-/*0x260*/ CButtonWnd*        doneButton;
+/*0x2cc*/ uint32_t           nextRefreshTime;
+/*0x2d0*/ uint32_t           lastInspectTextSaveTime;
+/*0x2d8*/ PlayerClient*      inspectPlayer;
+/*0x2e0*/ ItemContainer      inspectItems;
+/*0x308*/ CEditWnd*          inspectEdit;
+/*0x310*/ CButtonWnd*        doneButton;
+/*0x318*/
 };
 
 //============================================================================

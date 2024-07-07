@@ -5283,7 +5283,7 @@ FUNCTION_AT_ADDRESS(CHotButtonWnd::CHotButtonWnd(CXWnd*), CHotButtonWnd__CHotBut
 FUNCTION_AT_ADDRESS(void, CHotButtonWnd::UpdatePage(), CHotButtonWnd__UpdatePage);
 #endif
 #ifdef CHotButtonWnd__DoHotButton_x
-FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButton(int, int, int), CHotButtonWnd__DoHotButton);
+FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButton(int, BOOL, const KeyCombo*), CHotButtonWnd__DoHotButton);
 #endif
 #ifdef CHotButtonWnd__DoHotButtonRightClick_x
 FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButtonRightClick(int), CHotButtonWnd__DoHotButtonRightClick);
