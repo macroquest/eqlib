@@ -1162,6 +1162,8 @@ public:
 
 	ALT_MEMBER_GETTER(PlayerClient*, me, pSpawn);
 
+	int GetMaxEffects() const { return GetCurrentBaseProfile().GetMaxEffects(); }
+
 	// Verified
 	EQLIB_OBJECT /* virtual */ int CalculateInvisLevel(InvisibleTypes Type, bool bIncludeSoS = true);
 	EQLIB_OBJECT bool CanUseItem(const ItemPtr& pItem, bool bUseRequiredLvl, bool bOutput = true);
@@ -1203,7 +1205,6 @@ public:
 	EQLIB_OBJECT EQ_Affect* FindAffectSlot(int SpellID, PlayerClient* Caster, int* slindex, bool bJustTest, int CasterLevel = -1, EQ_Affect* BuffArray = nullptr, int BuffArraySize = 0);
 	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, PlayerClient* pCaster, EQ_Affect* pEffecs = NULL, int EffectsSize = 0, bool bMessageOn = false);
 	EQLIB_OBJECT int BardCastBard(const EQ_Spell* pSpell, signed int caster_class) const;
-	EQLIB_OBJECT unsigned char GetMaxEffects() const;
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
 	EQLIB_OBJECT int GetFirstEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill);
 	EQLIB_OBJECT int GetLastEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, bool bIsDisplay = false);
@@ -1707,6 +1708,9 @@ public:
 
 	virtual int GetGameFeature(GameFeature) const override { return 0; }
 	virtual int GetMembershipLevel() const override { return 0; }
+
+	EQLIB_OBJECT uint32_t GetDowntime();
+	bool IsInCombat() const { return InCombat; }
 
 	// Unverified
 	// TODO: Methods from EQ_PC: The ones we use need to be validated. Not all of them live in PcClient.
