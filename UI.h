@@ -35,6 +35,7 @@
 
 #undef FindWindow
 #undef InsertMenuItem
+#undef LoadMenu
 
 struct IShellFolder;
 
@@ -305,7 +306,7 @@ public:
 // CButtonWnd
 //============================================================================
 
-// @sizeof(CButtonWnd) == 0x340 :: 2024-06-11 (test) @ 0x1405b6ba0
+// @sizeof(CButtonWnd) == 0x340 :: 2024-06-24 (live) @ 0x1405b6d30
 constexpr size_t CButtonWnd_size = 0x340;
 
 class [[offsetcomments]] CButtonWnd : public CXWnd
@@ -722,6 +723,32 @@ public:
 // CHotButton
 //============================================================================
 
+enum HotButtonTypes
+{
+	HotButtonType_None = 0,
+	HotButtonType_WeaponSlot,
+	HotButtonType_CombatSkill,   // deprecated: no longer used
+	HotButtonType_Ability,       // deprecated: no longer used
+	HotButtonType_Social,
+	HotButtonType_InventorySlot,
+	HotButtonType_MenuButton,
+	HotButtonType_SpellGem,
+	HotButtonType_PetCommand,
+	HotButtonType_Skill,
+	HotButtonType_MeleeAbility,
+	HotButtonType_LeadershipAbility,
+	HotButtonType_ItemLink,
+	HotButtonType_KronoSlot,
+	HotButtonType_Command,
+	HotButtonType_CombatAbility,
+	HotButtonType_MountLink,
+	HotButtonType_IllusionLink,
+	HotButtonType_FamiliarLink,
+	HotButtonType_TeleportationLink,
+};
+
+EQLIB_OBJECT const char* HotButtonTypeToString(HotButtonTypes type);
+
 class [[offsetcomments]] CHotButton : public CXWnd
 {
 public:
@@ -732,6 +759,8 @@ public:
 	EQLIB_OBJECT void SetButtonSize(int percent, bool bUpdateParent = true);
 	EQLIB_OBJECT void SetCheck(bool check);
 
+	EQLIB_OBJECT const HotButtonData* GetHotButtonData() const;
+
 	//----------------------------------------------------------------------------
 	// data members
 
@@ -739,7 +768,7 @@ public:
 /*0x264*/ int                ButtonIndex;
 /*0x268*/ uint32_t           Timer;
 /*0x270*/ CTextureAnimation* DecalIcon;
-/*0x278*/ int                LastButtonType;
+/*0x278*/ HotButtonTypes     LastButtonType;
 /*0x27c*/ int                LastButtonSlot;
 /*0x280*/ char               LastButtonPage;
 /*0x281*/ EqItemGuid         LastItemGuid;
@@ -2264,7 +2293,7 @@ enum BuffWindowType
 	BuffWindowShortDuration,
 };
 
-// @sizeof(CBuffWindow) == 0x348 :: 2024-06-11 (test) @ 0x14018c63f
+// @sizeof(CBuffWindow) == 0x348 :: 2024-06-24 (live) @ 0x14018c7df
 constexpr size_t CBuffWindow_size = 0x348;
 
 class [[offsetcomments]] CBuffWindow : public CSidlScreenWnd, public WndEventHandler
@@ -3100,7 +3129,7 @@ public:
 // CContextMenu
 //============================================================================
 
-// Size is 0x290 in eagame 2016 Nov 14
+// Size: 0x348 @ 6/24/2024
 class [[offsetcomments]] CContextMenu : public CListWnd
 {
 	FORCE_SYMBOLS
@@ -3128,8 +3157,14 @@ public:
 	// data members
 
 /*0x340*/ int          NumItems;
-/*0x344*/ int          Unknown0x28C;
-/*0x348*/
+/*0x344*/
+};
+
+class CGFContextMenu : public CContextMenu
+{
+public:
+	EQLIB_OBJECT CGFContextMenu(CXWnd* pParent, uint32_t MenuID, const CXRect& rect);
+	EQLIB_OBJECT virtual ~CGFContextMenu();
 };
 
 //============================================================================
@@ -3162,7 +3197,7 @@ enum ECursorAttachmentType
 	eCursorAttachment_TeleportationKeyRingLink,
 };
 
-// @sizeof(CCursorAttachment) == 0x620 :: 2024-06-11 (test) @ 0x14018b9d8
+// @sizeof(CCursorAttachment) == 0x620 :: 2024-06-24 (live) @ 0x14018bb78
 constexpr size_t CCursorAttachment_size = 0x620;
 
 class [[offsetcomments]] CCursorAttachment : public CGFScreenWnd, public WndEventHandler
@@ -3331,7 +3366,7 @@ public:
 // CFindItemWnd
 //============================================================================
 
-// @sizeof(CFindItemWnd) == 0x3f0 :: 2024-06-11 (test) @ 0x14018d064
+// @sizeof(CFindItemWnd) == 0x3f0 :: 2024-06-24 (live) @ 0x14018d204
 constexpr size_t CFindItemWnd_size = 0x3f0;
 
 class [[offsetcomments]] CFindItemWnd : public CSidlScreenWnd, public WndEventHandler
@@ -3417,7 +3452,7 @@ enum FindLocationType {
 };
 EQLIB_API const char* FindLocationTypeToString(FindLocationType type);
 
-// @sizeof(CFindLocationWnd) == 0x398 :: 2024-06-11 (test) @ 0x14018d822
+// @sizeof(CFindLocationWnd) == 0x398 :: 2024-06-24 (live) @ 0x14018d9c2
 constexpr size_t CFindLocationWnd_size = 0x398;
 
 class [[offsetcomments]] CFindLocationWnd : public CSidlScreenWnd
@@ -3759,7 +3794,7 @@ public:
 // CGroupWnd
 //============================================================================
 
-// @sizeof(CGroupWnd) == 0x6f8 :: 2024-06-11 (test) @ 0x14018c157
+// @sizeof(CGroupWnd) == 0x6f8 :: 2024-06-24 (live) @ 0x14018c2f7
 constexpr size_t CGroupWnd_size = 0x6f8;
 
 class [[offsetcomments]] CGroupWnd : public CGFScreenWnd
@@ -4149,8 +4184,8 @@ public:
 // CHotButtonWnd
 //============================================================================
 
-// Actual size 0x1c4 10-9-2003
-class CHotButtonWnd : public CSidlScreenWnd, public PopDialogHandler
+// size: 0x460 @ 6/24/2024
+class [[offsetcomments]] CHotButtonWnd : public CSidlScreenWnd, public PopDialogHandler
 {
 public:
 	CHotButtonWnd(CXWnd*);
@@ -4160,7 +4195,7 @@ public:
 	virtual int OnProcessFrame() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
-	EQLIB_OBJECT void DoHotButton(int Button, int AllowAutoRightClick, int something);
+	EQLIB_OBJECT void DoHotButton(int buttonIndex, BOOL bMouseClick, const KeyCombo* keyCombo);
 	EQLIB_OBJECT void DoHotButtonRightClick(int);
 	EQLIB_OBJECT void UpdatePage();
 	EQLIB_OBJECT void SetCheck(bool checked);
@@ -4168,7 +4203,44 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-	// todo
+/*0x2d0*/ CXWnd*          NoSpinnerBarTemplate;            // HB_NoSpinnerBarTemplate
+/*0x2d8*/ CXWnd*          HorizontalBarTemplate;           // HB_HorizontalBarTemplate
+/*0x2e0*/ CXWnd*          VerticalBarTemplate;             // HB_VerticalBarTemplate
+/*0x2e8*/ CTileLayoutWnd* HotButtonLayout;                 // HB_HotButtonLayout
+/*0x2f0*/ CXWnd*          HorizontalBarPageButtons;        // HB_HorizontalBarPageButtons
+/*0x2f8*/ CXWnd*          VerticalBarPageButtons;          // HB_VerticalBarPageButtons
+/*0x300*/ CButtonWnd*     PageUpButton;                    // HB_PageUpButton
+/*0x308*/ CLabel*         HorizontalCurrentPageLabel;      // HB_HorizontalCurrentPageLabel
+/*0x310*/ CButtonWnd*     PageDownButton;                  // HB_PageDownButton
+/*0x318*/ CButtonWnd*     PageLeftButton;                  // HB_PageLeftButton
+/*0x320*/ CLabel*         VerticalCurrentPageLabel;        // HB_VerticalCurrentPageLabel
+/*0x328*/ CButtonWnd*     PageRightButton;                 // HB_PageRightButton
+/*0x330*/ int             Page;
+/*0x338*/ CHotButton*     Buttons[HOTBUTTONS_PER_PAGE];    // HB_Button%d
+/*0x398*/ int             LoadLoadoutContextIndex;
+/*0x39c*/ int             SaveLoadoutContextIndex;
+/*0x3a0*/ int             DeleteLoadoutContextIndex;
+/*0x3a4*/ int             SaveLoadoutIndex;
+/*0x3a8*/ int             ShowKeyMapIndex;
+/*0x3ac*/ int             ShowSpinnerIndex;
+/*0x3b0*/ int             ButtonPercent;
+/*0x3b4*/ int             OpenNewBarIndex;
+/*0x3b8*/ bool            ShowKeyMap;
+/*0x3b9*/ bool            ShowSpinner;
+/*0x3ba*/ bool            LastShowSpinner;
+/*0x3bc*/ FontStyles      TextFontStyle;
+/*0x3c0*/ CXStr           KeyMapStrings[HOTBUTTONS_PER_PAGE];
+/*0x420*/ CButtonWnd*     FileButton;                      // HB_FileButton
+/*0x428*/ CContextMenu*   MainMenu;
+/*0x430*/ CContextMenu*   LoadMenu;
+/*0x438*/ CContextMenu*   SaveMenu;
+/*0x440*/ CContextMenu*   DeleteMenu;
+/*0x448*/ bool            HorizontalBar;
+/*0x44c*/ uint32_t        Timer;
+/*0x450*/ int             HotWindowIndex;
+/*0x454*/ int             ConfirmId;
+/*0x458*/ bool            KeepCurrentSize;
+/*0x460*/
 };
 
 //============================================================================
@@ -4176,19 +4248,20 @@ public:
 //============================================================================
 
 // size: 0x318
-class CInspectWnd : public CSidlScreenWnd, public WndEventHandler
+class [[offsetcomments]] CInspectWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
 
 public:
-	inline ItemContainer& GetInspectItems() { return inspectItems; }
+	ItemContainer& GetInspectItems() { return inspectItems; }
 
-/*0x234*/ uint32_t           nextRefreshTime;
-/*0x238*/ uint32_t           lastInspectTextSaveTime;
-/*0x23c*/ PlayerClient*      inspectPlayer;
-/*0x240*/ ItemContainer      inspectItems;
-/*0x25c*/ CEditWnd*          inspectEdit;
-/*0x260*/ CButtonWnd*        doneButton;
+/*0x2cc*/ uint32_t           nextRefreshTime;
+/*0x2d0*/ uint32_t           lastInspectTextSaveTime;
+/*0x2d8*/ PlayerClient*      inspectPlayer;
+/*0x2e0*/ ItemContainer      inspectItems;
+/*0x308*/ CEditWnd*          inspectEdit;
+/*0x310*/ CButtonWnd*        doneButton;
+/*0x318*/
 };
 
 //============================================================================
@@ -4418,7 +4491,7 @@ enum ItemDisplayFlags
 	FROM_BARTER_SEARCH = 0x00000010
 };
 
-// @sizeof(CItemDisplayWnd) == 0xaa0 :: 2024-06-11 (test) @ 0x140410b34
+// @sizeof(CItemDisplayWnd) == 0xaa0 :: 2024-06-24 (live) @ 0x140410b64
 constexpr size_t CItemDisplayWnd_size = 0xaa0;
 
 class [[offsetcomments]] CItemDisplayWnd : public CSidlScreenWnd
@@ -4599,7 +4672,7 @@ public:
 // CKeyRingWnd
 //============================================================================
 
-// @sizeof(CKeyRingWnd) == 0x428 :: 2024-06-11 (test) @ 0x14018cac5
+// @sizeof(CKeyRingWnd) == 0x428 :: 2024-06-24 (live) @ 0x14018cc65
 constexpr size_t CKeyRingWnd_size = 0x428;
 
 class [[offsetcomments]] CKeyRingWnd : public CSidlScreenWnd, public WndEventHandler
@@ -4684,7 +4757,7 @@ public:
 
 struct loot_msg;
 
-// @sizeof(CLootWnd) == 0xcb8 :: 2024-06-11 (test) @ 0x14018cd92
+// @sizeof(CLootWnd) == 0xcb8 :: 2024-06-24 (live) @ 0x14018cf32
 constexpr size_t CLootWnd_size = 0xcb8;
 
 class [[offsetcomments]] CLootWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
@@ -4902,7 +4975,7 @@ public:
 	static VirtualFunctionTable* sm_vftable;
 };
 
-// @sizeof(CMapViewWnd) == 0x848 :: 2024-06-11 (test) @ 0x14018c4b9
+// @sizeof(CMapViewWnd) == 0x848 :: 2024-06-24 (live) @ 0x14018c659
 constexpr size_t CMapViewWnd_size = 0x848;
 
 class [[offsetcomments]] CMapViewWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5325,7 +5398,7 @@ public:
 
 constexpr const int MAX_PET_BUTTONS = 14;
 
-// @sizeof(CPetInfoWnd) == 0x3c8 :: 2024-06-11 (test) @ 0x14018bf7f
+// @sizeof(CPetInfoWnd) == 0x3c8 :: 2024-06-24 (live) @ 0x14018c11f
 constexpr size_t CPetInfoWnd_size = 0x3c8;
 
 class [[offsetcomments]] CPetInfoWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5462,7 +5535,7 @@ enum ECombatState
 };
 
 
-// @sizeof(CPlayerWnd) == 0x400 :: 2024-06-11 (test) @ 0x14018c8ed
+// @sizeof(CPlayerWnd) == 0x400 :: 2024-06-24 (live) @ 0x14018ca8d
 constexpr size_t CPlayerWnd_size = 0x400;
 
 class [[offsetcomments]] CPlayerWnd : public CSidlScreenWnd, public WndEventHandler
@@ -5858,7 +5931,7 @@ enum ESpellDisplayType
 	SpellDisplayType_TargetBuff,
 };
 
-// @sizeof(CSpellDisplayWnd) == 0x3b0 :: 2024-06-11 (test) @ 0x1404df85e
+// @sizeof(CSpellDisplayWnd) == 0x3b0 :: 2024-06-24 (live) @ 0x1404df9be
 constexpr size_t CSpellDisplayWnd_size = 0x3b0;
 
 class [[offsetcomments]] CSpellDisplayWnd : public CSidlScreenWnd
@@ -5961,7 +6034,7 @@ public:
 // CTargetWnd
 //============================================================================
 
-// @sizeof(CTargetWnd) == 0x3c0 :: 2024-06-11 (test) @ 0x14018c78e
+// @sizeof(CTargetWnd) == 0x3c0 :: 2024-06-24 (live) @ 0x14018c92e
 constexpr size_t CTargetWnd_size = 0x3c0;
 
 class [[offsetcomments]] CTargetWnd : public CSidlScreenWnd, public WndEventHandler
@@ -6502,7 +6575,7 @@ public:
 
 using ZonePathArray = ArrayClass<ZonePathData>;
 
-// @sizeof(ZoneGuideManagerClient) == 0xf738 :: 2024-06-11 (test) @ 0x140339e1f
+// @sizeof(ZoneGuideManagerClient) == 0xf738 :: 2024-06-24 (live) @ 0x140339c9f
 constexpr size_t ZoneGuideManagerClient_size = 0xf738;
 
 class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
@@ -6926,6 +6999,7 @@ enum eIconCacheType
 	IconCacheType_Menu = 2,
 	IconCacheType_SpeakingIndicator = 3,
 };
+EQLIB_OBJECT const char* IconCacheTypeToString(eIconCacheType type);
 
 class [[offsetcomments]] IconCache
 {

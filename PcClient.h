@@ -1162,6 +1162,8 @@ public:
 
 	ALT_MEMBER_GETTER(PlayerClient*, me, pSpawn);
 
+	int GetMaxEffects() const { return GetCurrentBaseProfile().GetMaxEffects(); }
+
 	// Verified
 	EQLIB_OBJECT /* virtual */ int CalculateInvisLevel(InvisibleTypes Type, bool bIncludeSoS = true);
 	EQLIB_OBJECT bool CanUseItem(const ItemPtr& pItem, bool bUseRequiredLvl, bool bOutput = true);
@@ -1203,7 +1205,6 @@ public:
 	EQLIB_OBJECT EQ_Affect* FindAffectSlot(int SpellID, PlayerClient* Caster, int* slindex, bool bJustTest, int CasterLevel = -1, EQ_Affect* BuffArray = nullptr, int BuffArraySize = 0);
 	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, PlayerClient* pCaster, EQ_Affect* pEffecs = NULL, int EffectsSize = 0, bool bMessageOn = false);
 	EQLIB_OBJECT int BardCastBard(const EQ_Spell* pSpell, signed int caster_class) const;
-	EQLIB_OBJECT unsigned char GetMaxEffects() const;
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
 	EQLIB_OBJECT int GetFirstEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill);
 	EQLIB_OBJECT int GetLastEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, bool bIsDisplay = false);
@@ -1585,6 +1586,7 @@ public:
 
 	bool IsFamiliarAutoLeaveEnabled() const { return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0; }
 
+	int GetAlternateAbilityId(int index) const { return GetCurrentPcProfile()->GetAlternateAbilityId(index); }
 	int GetCombatAbility(int index) const { return GetCurrentPcProfile()->GetCombatAbility(index); }
 
 	// Stores information about purchased Mercenary Abilities
@@ -1672,7 +1674,7 @@ public:
 	int GetDeityBitmask() const { return 1 << (GetDeityReal() - 1); }
 };
 
-// @sizeof(PcClient) == 0x3388 :: 2024-06-11 (test) @ 0x14027277b
+// @sizeof(PcClient) == 0x3388 :: 2024-06-24 (live) @ 0x14027232b
 constexpr size_t PcClient_size = 0x3388;
 
 class [[offsetcomments]] PcClient : public PcZoneClient
@@ -1707,12 +1709,14 @@ public:
 	virtual int GetGameFeature(GameFeature) const override { return 0; }
 	virtual int GetMembershipLevel() const override { return 0; }
 
+	EQLIB_OBJECT uint32_t GetDowntime();
+	bool IsInCombat() const { return InCombat; }
+
 	// Unverified
 	// TODO: Methods from EQ_PC: The ones we use need to be validated. Not all of them live in PcClient.
 	EQLIB_OBJECT int CheckDupLoreItems();
 	EQLIB_OBJECT int checkLang(int);
 	EQLIB_OBJECT int CostToTrain(int, float, int);
-	EQLIB_OBJECT int GetAlternateAbilityId(int);
 	EQLIB_OBJECT int GetArmorType(int);
 	EQLIB_OBJECT PcZoneClient* GetPcZoneClient() const;
 	EQLIB_OBJECT int HandleMoney(long);

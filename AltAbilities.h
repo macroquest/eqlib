@@ -31,7 +31,7 @@ struct AltAbilityEffectData
 	int slot;
 };
 
-// @sizeof(CAltAbilityData) == 0xe0 :: 2024-06-11 (test) @ 0x1402079ed
+// @sizeof(CAltAbilityData) == 0xe0 :: 2024-06-24 (live) @ 0x1402075cd
 constexpr size_t CAltAbilityData_size = 0xe0;
 
 class [[offsetcomments]] CAltAbilityData
@@ -104,7 +104,7 @@ public:
 	EQLIB_OBJECT bool CanSeeAbility(PcClient*, CAltAbilityData*, bool = true);
 	EQLIB_OBJECT bool CanTrainAbility(PcClient* pWho, CAltAbilityData* pAbility, bool = false, bool = false, bool = false);
 
-	EQLIB_OBJECT CAltAbilityData* GetAAByGroupId(int nGroupId);
+	EQLIB_OBJECT CAltAbilityData* GetOwnedAbilityFromGroupID(PcZoneClient* pc, int groupId);
 
 /*0x000*/ RequirementAssociationManager reqAssocManager;
 /*0x248*/ HashTable<CAltAbilityData*>* abilities;

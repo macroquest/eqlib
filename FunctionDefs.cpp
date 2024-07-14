@@ -2637,9 +2637,6 @@ FUNCTION_AT_ADDRESS(int, CharacterBase::IsExpansionFlag(int), CharacterBase__IsE
 #ifdef CharacterZoneClient__FindAffectSlot_x
 FUNCTION_AT_ADDRESS(EQ_Affect*, CharacterZoneClient::FindAffectSlot(int, PlayerClient*, int*, bool, int, EQ_Affect*, int), CharacterZoneClient__FindAffectSlot);
 #endif
-#ifdef CharacterZoneClient__GetMaxEffects_x
-FUNCTION_AT_ADDRESS(unsigned char, CharacterZoneClient::GetMaxEffects() const, CharacterZoneClient__GetMaxEffects);
-#endif
 #ifdef CharacterZoneClient__GetOpenEffectSlot_x
 FUNCTION_AT_ADDRESS(int, CharacterZoneClient::GetOpenEffectSlot(bool, bool, int), CharacterZoneClient__GetOpenEffectSlot);
 #endif
@@ -3284,9 +3281,6 @@ FUNCTION_AT_ADDRESS(unsigned char, PcClient::AtSkillLimit(int), EQ_PC__AtSkillLi
 #endif
 #ifdef PcZoneClient__GetItemRecastTimer_x
 FUNCTION_AT_ADDRESS(uint32_t, PcZoneClient::GetItemRecastTimer(const ItemPtr& item, ItemSpellTypes etype), PcZoneClient__GetItemRecastTimer);
-#endif
-#ifdef PcBase__GetAlternateAbilityId_x
-FUNCTION_AT_ADDRESS(int, PcClient::GetAlternateAbilityId(int), PcBase__GetAlternateAbilityId);
 #endif
 #ifdef PcBase__GetCombatAbility_x
 //FUNCTION_AT_ADDRESS(int, PcBase::GetCombatAbility(int) const, PcBase__GetCombatAbility);
@@ -5286,7 +5280,7 @@ FUNCTION_AT_ADDRESS(CHotButtonWnd::CHotButtonWnd(CXWnd*), CHotButtonWnd__CHotBut
 FUNCTION_AT_ADDRESS(void, CHotButtonWnd::UpdatePage(), CHotButtonWnd__UpdatePage);
 #endif
 #ifdef CHotButtonWnd__DoHotButton_x
-FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButton(int, int, int), CHotButtonWnd__DoHotButton);
+FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButton(int, BOOL, const KeyCombo*), CHotButtonWnd__DoHotButton);
 #endif
 #ifdef CHotButtonWnd__DoHotButtonRightClick_x
 FUNCTION_AT_ADDRESS(void, CHotButtonWnd::DoHotButtonRightClick(int), CHotButtonWnd__DoHotButtonRightClick);

@@ -337,7 +337,7 @@ struct PetObjectData;
 
 constexpr int MAX_LINKED_SPELL_TIMERS = 25;
 
-// @sizeof(PcProfile) == 0x6a90 :: 2024-06-11 (test) @ 0x140626a74
+// @sizeof(PcProfile) == 0x6a90 :: 2024-06-24 (live) @ 0x140626d54
 constexpr size_t PcProfile_size = 0x6a90;
 
 class [[offsetcomments]] PcProfile : public BaseProfile
@@ -396,6 +396,10 @@ public:
 /*0x6a84*/ int                                   NewBodyTint;
 /*0x6a88*/ int                                   CurrentMercenaryIndex;
 /*0x6a8c*/
+
+	AbilityInfo& GetAlternateAbility(int index) { return AAList[index]; }
+	const AbilityInfo& GetAlternateAbility(int index) const { return AAList[index]; }
+	int GetAlternateAbilityId(int index) const { return AAList[index].AAIndex; }
 
 	uint32_t GetLinkedSpellReuseTimer(int index) const
 	{

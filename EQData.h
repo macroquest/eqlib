@@ -349,11 +349,18 @@ using PEQSOCIAL = EQSocial*;
 
 struct [[offsetcomments]] HotButtonData
 {
-	// needs to be mapped out
-/*0x00*/ void*     unknown[24];
+/*0x00*/ ItemPtr    Item;
+/*0x10*/ EqItemGuid ItemGuid;
+/*0x22*/ char       Label[0x40];
+/*0x62*/ char       ItemName[0x40];
+/*0xa4*/ int        ItemId;
+/*0xa8*/ int        IconType;
+/*0xac*/ int        IconSlot;
+/*0xb0*/ int        IconId;
+/*0xb4*/ int        Slot;
+/*0xb8*/ uint8_t    Type;
+/*0xb9*/ uint8_t    ItemValid;
 /*0xc0*/
-	// 0xa0 iconType
-	// 0xa4 iconSlot
 };
 
 struct [[offsetcomments]] EQFRIENDSLIST
