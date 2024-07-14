@@ -252,7 +252,7 @@ FUNCTION_AT_ADDRESS(void, CGuild::DemoteMember(GuildMember*), CGuild__DemoteMemb
 FUNCTION_AT_ADDRESS(void, CGuild::SetGuildMotd(guildmotdSet*), CGuild__SetGuildMotd);
 #endif
 #ifdef CGuild__HandleGuildMessage_x
-FUNCTION_AT_ADDRESS(void, CGuild::HandleGuildMessage(connection_t*, uint32_t, char*, uint32_t), CGuild__HandleGuildMessage);
+FUNCTION_AT_ADDRESS(void, CGuild::HandleGuildMessage(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t), CGuild__HandleGuildMessage);
 #endif
 #ifdef CGuild__InitializeFromDump_x
 FUNCTION_AT_ADDRESS(void, CGuild::InitializeFromDump(char*), CGuild__InitializeFromDump);
@@ -264,7 +264,7 @@ FUNCTION_AT_ADDRESS(void, CGuild::AddGuildMember(GuildMember*), CGuild__AddGuild
 FUNCTION_AT_ADDRESS(void, CGuild::DeleteAllMembers(), CGuild__DeleteAllMembers);
 #endif
 #ifdef CGuild__HandleGuildInvite_x
-FUNCTION_AT_ADDRESS(void, CGuild::HandleGuildInvite(connection_t*, uint32_t, char*, uint32_t), CGuild__HandleGuildInvite);
+FUNCTION_AT_ADDRESS(void, CGuild::HandleGuildInvite(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t), CGuild__HandleGuildInvite);
 #endif
 #ifdef CGuild__HandleAddGuildMember_x
 FUNCTION_AT_ADDRESS(void, CGuild::HandleAddGuildMember(char*, int), CGuild__HandleAddGuildMember);
@@ -1640,7 +1640,7 @@ FUNCTION_AT_ADDRESS(int, CEverQuest::msgStartIeq(void*), CEverQuest__msgStartIeq
 FUNCTION_AT_ADDRESS(int, CEverQuest::HandleItems(void*, int), CEverQuest__HandleItems);
 #endif
 #ifdef CEverQuest__HandleWorldMessage_x
-FUNCTION_AT_ADDRESS(unsigned char, CEverQuest::HandleWorldMessage(struct connection_t*, uint32_t, char*, uint32_t), CEverQuest__HandleWorldMessage);
+FUNCTION_AT_ADDRESS(unsigned char, CEverQuest::HandleWorldMessage(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t), CEverQuest__HandleWorldMessage);
 #endif
 #ifdef CEverQuest__ChatServerGiveTime_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::ChatServerGiveTime(), CEverQuest__ChatServerGiveTime);
