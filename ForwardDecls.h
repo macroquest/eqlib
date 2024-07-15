@@ -346,7 +346,6 @@ class Wave3dInstance;
 class WaveInstance;
 struct CDynamicZone;
 struct CMDLIST;
-struct connection_t;
 struct CStrRep;
 struct CUITextureInfo;
 struct DynamicZoneClientTimerData;

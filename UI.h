@@ -3953,7 +3953,7 @@ public:
 	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
 	EQLIB_OBJECT void DeleteAllMembers();
 	EQLIB_OBJECT void DemoteMember(GuildMember*);
-	EQLIB_OBJECT void HandleGuildMessage(connection_t*, uint32_t, char*, uint32_t);
+	EQLIB_OBJECT void HandleGuildMessage(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t);
 	EQLIB_OBJECT void SendPublicCommentChange(char*, char*);
 	EQLIB_OBJECT void SetGuildMotd(guildmotdSet*);
 
@@ -3976,7 +3976,7 @@ public:
 	EQLIB_OBJECT void ChangeGuildMemberName(char*);
 	EQLIB_OBJECT void HandleAddGuildMember(char*, int);
 	EQLIB_OBJECT void HandleDeleteGuildResponse(char*);
-	EQLIB_OBJECT void HandleGuildInvite(connection_t*, uint32_t, char*, uint32_t);
+	EQLIB_OBJECT void HandleGuildInvite(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t);
 	EQLIB_OBJECT void HandleMemberLevelUpdate(char*);
 	EQLIB_OBJECT void HandleRemoveGuildMember(char*, int);
 	EQLIB_OBJECT void InitializeFromDump(char*);

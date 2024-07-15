@@ -187,7 +187,6 @@ struct LfgGroupStatus;
 struct LfgGroupQuery;
 struct LfgPlayerStatus;
 struct LfgPlayerQuery;
-struct connection_t;
 
 enum ZONE_REQ_STATUS {};
 enum ZONE_REQ_REASON {};
@@ -945,7 +944,7 @@ public:
 	EQLIB_OBJECT int ReadClientINIInt(char*, char*, int);
 	EQLIB_OBJECT int ReadUIINIInt(char*, char*, int);
 	EQLIB_OBJECT int TypingMode();
-	EQLIB_OBJECT unsigned char HandleWorldMessage(connection_t*, uint32_t, char*, uint32_t);
+	EQLIB_OBJECT unsigned char HandleWorldMessage(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t);
 	EQLIB_OBJECT unsigned char IFoundMyVehicle();
 	EQLIB_OBJECT void DoLoadScreenProgressBar(int, const char*, ...);
 	EQLIB_OBJECT void ApplyPoison(unsigned long);
