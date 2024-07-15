@@ -648,7 +648,8 @@ public:
 /*0x08*/
 };
 
-class [[offsetcomments]] LeadershipAbilities {
+class [[offsetcomments]] LeadershipAbilities
+{
 public:
 /*0x00*/ int     MarkNPC;
 /*0x04*/ int     NPCHealth;
@@ -665,7 +666,8 @@ public:
 /*0x30*/ int     HealthRegen;
 /*0x34*/ int     FindPathPC;
 /*0x38*/ int     HoTT;
-/*0x3c*/ };
+/*0x3c*/
+};
 
 //============================================================================
 // CHARINFO a.k.a. PcClient

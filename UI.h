@@ -4656,6 +4656,35 @@ public:
 };
 
 //============================================================================
+// CLeadershipWnd
+//============================================================================
+
+constexpr int NUM_LEADERSHIP_TYPES = 2;
+
+// size: 0x5a0
+class CLeadershipWnd : public CSidlScreenWnd, public PopDialogHandler, public WndEventHandler
+{
+public:
+/*0x228*/ int         NumLeadershipTypes;                  // = NUM_LEADERSHIP_TYPES
+/*0x22c*/ bool        Initialized;
+/*0x230*/ CButtonWnd* PurchasButton;                       // LEW_PurchaseButton
+/*0x234*/ CButtonWnd* HotkeyButton1;                       // LEW_HotkeyButton1
+/*0x238*/ CButtonWnd* HotkeyButton2;                       // LEW_HotkeyButton2
+/*0x23c*/ CButtonWnd* HotkeyButton3;                       // LEW_HotkeyButton3
+/*0x240*/ CButtonWnd* DoneButton;                          // LEW_DoneButton
+/*0x244*/ CButtonWnd* OnButton;                            // LEW_OnButton
+/*0x248*/ CButtonWnd* OffButton;                           // LEW_OffButton
+/*0x24c*/ CButtonWnd* GroupMentoring;                      // LEW_GroupMentoring
+/*0x250*/ CStmlWnd*   Description;                         // LEW_Description
+/*0x254*/ CStaticTextTemplate* CurrentGroupCount;          // LEW_CurrentGroupCount
+/*0x258*/ CStaticTextTemplate* CurrentRaidCount;           // LEW_CurrentRaidCount
+/*0x25c*/ CTabWnd*    Subwindows;                          // LEW_Subwindows
+/*0x260*/ CPageWnd*   LEPage[NUM_LEADERSHIP_TYPES];        // LEPage%d
+/*0x268*/ CListWnd*   LEList[NUM_LEADERSHIP_TYPES];        // LEList%d
+/*0x270*/
+};
+
+//============================================================================
 // CLootWnd
 //============================================================================
 
