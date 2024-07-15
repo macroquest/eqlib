@@ -233,6 +233,7 @@
 #define CharacterZoneClient__BardCastBard_x                        0x432960
 #define CharacterZoneClient__CalcAffectChange_x                    0x436670
 #define CharacterZoneClient__CalcAffectChangeGeneric_x             0x434DF0
+#define CharacterZoneClient__CanMedOnHorse_x                       0x4434B0
 #define CharacterZoneClient__CanUseItem_x                          0x44C430
 #define CharacterZoneClient__CanUseMemorizedSpellSlot_x            0x433BC0
 #define CharacterZoneClient__CastSpell_x                           0x43A830
@@ -254,7 +255,6 @@
 #define CharacterZoneClient__GetItemCountWorn_x                    0x451DE0
 #define CharacterZoneClient__GetLastEffectSlot_x                   0x438EE0
 #define CharacterZoneClient__GetManaRegen_x                        0x452DF0
-#define CharacterZoneClient__GetMaxEffects_x                       0x432630
 #define CharacterZoneClient__GetModCap_x                           0x57F550
 #define CharacterZoneClient__GetOpenEffectSlot_x                   0x43A6D0
 #define CharacterZoneClient__GetPCSpellAffect_x                    0x433FD0

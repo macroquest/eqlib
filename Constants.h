@@ -420,7 +420,7 @@ constexpr int SOCIAL_NAME_LEN = 16;
 constexpr int SOCIAL_NUM_LINES = 5;
 constexpr int SOCIAL_LINE_LEN = 256;
 
-constexpr int NUM_HOTBUTTON_WINDOWS = 11;
+constexpr int NUM_HOTBUTTON_WINDOWS = 10;
 constexpr int NUM_HOTBUTTON_PAGES = 10;
 constexpr int HOTBUTTONS_PER_PAGE = 12;
 

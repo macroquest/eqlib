@@ -413,6 +413,7 @@ EQLIB_VAR uintptr_t CharacterZoneClient__ApplyDamage;
 EQLIB_VAR uintptr_t CharacterZoneClient__BardCastBard;
 EQLIB_VAR uintptr_t CharacterZoneClient__CalcAffectChange;
 EQLIB_VAR uintptr_t CharacterZoneClient__CalcAffectChangeGeneric;
+EQLIB_VAR uintptr_t CharacterZoneClient__CanMedOnHorse;
 EQLIB_VAR uintptr_t CharacterZoneClient__CanUseItem;
 EQLIB_VAR uintptr_t CharacterZoneClient__CanUseMemorizedSpellSlot;
 EQLIB_VAR uintptr_t CharacterZoneClient__CastSpell;
@@ -440,7 +441,6 @@ EQLIB_VAR uintptr_t CharacterZoneClient__GetItemCountInInventory;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetItemCountWorn;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetLastEffectSlot;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetManaRegen;
-EQLIB_VAR uintptr_t CharacterZoneClient__GetMaxEffects;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetModCap;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetOpenEffectSlot;
 #if defined(CharacterZoneClient__GetPctModAndMin_x)

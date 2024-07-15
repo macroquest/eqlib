@@ -693,24 +693,22 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x367d4*/ bool              bLoadFriendsList;
 /*0x367d8*/ ClaimDataCollection ClaimPrizeData;
 /*0x367e8*/ ArrayClass<ChatBufferEntry*> chatBuffer;
-/*0x367f8*/ char              WorldServerShortname[64]; // 367F8
-/*0x36838*/ int               combatSkill[4];
-/*0x36848*/ int               abilities[6];
-/*0x36860*/ int               combatAbilities[8];
-/*0x36880*/ int               Unknown0x36880[6];
-/*0x36898*/ bool              bSocialChanged[NUM_SOCIAL_PAGES][SOCIALS_PER_PAGE];
-/*0x36910*/ EQSocial          socials[NUM_SOCIAL_PAGES][SOCIALS_PER_PAGE];
-/*0x5ce30*/ EQSocial          tempSocial;
-/*0x5d34c*/ int8_t            socialIndex;
-/*0x5d34d*/ char              selSlot;
-// these need to be mapped out
-///*0x5d34e*/ bool              bHotButtonChanged[NUM_HOTBUTTON_WINDOWS][NUM_HOTBUTTON_PAGES][HOTBUTTONS_PER_PAGE];
-///*0x5d85e*/ int8_t            hotBank[NUM_HOTBUTTON_WINDOWS];
-///*0x5d878*/ HotButtonData     hotButtons[NUM_HOTBUTTON_WINDOWS][NUM_HOTBUTTON_PAGES][HOTBUTTONS_PER_PAGE]; // +3b4c0
-///*0x7b2d8*/ HotButtonData     dragButton
-/*0x5d34e*/ char              temp[0x1ff4e];
-/*0x7d29c*/ SpellLoadout      spellLoadouts[NUM_SPELL_SETS]; // +7D29C
-/*0x7d594*/ HotButtonLoadout  hotbuttonLoadouts[NUM_HOTBUTTON_SETS]; // +7D594
+/*0x367f8*/ char              WorldServerShortname[40];
+/*0x36820*/ int               combatSkill[4];
+/*0x36830*/ int               abilities[6];
+/*0x36848*/ int               combatAbilities[8];
+/*0x36868*/ int               Unknown0x36880[6];
+/*0x36880*/ bool              bSocialChanged[NUM_SOCIAL_PAGES][SOCIALS_PER_PAGE];
+/*0x368f8*/ EQSocial          socials[NUM_SOCIAL_PAGES][SOCIALS_PER_PAGE];
+/*0x5ce18*/ EQSocial          tempSocial;
+/*0x5d334*/ int8_t            socialIndex;
+/*0x5d335*/ char              selSlot;
+/*0x5d336*/ bool              bHotButtonChanged[NUM_HOTBUTTON_WINDOWS][NUM_HOTBUTTON_PAGES][HOTBUTTONS_PER_PAGE];
+/*0x5d7e6*/ int8_t            hotBank[NUM_HOTBUTTON_WINDOWS];
+/*0x5d7f0*/ HotButtonData     hotButtons[NUM_HOTBUTTON_WINDOWS][NUM_HOTBUTTON_PAGES][HOTBUTTONS_PER_PAGE];
+/*0x7d230*/ HotButtonData     dragButton;
+/*0x7d29c*/ SpellLoadout      spellLoadouts[NUM_SPELL_SETS];
+/*0x7d594*/ HotButtonLoadout  hotbuttonLoadouts[NUM_HOTBUTTON_SETS];
 /*0x7e214*/ GroupRoleLoadout  groupRoleLoadouts[NUM_GROUP_ROLE_SETS];
 /*0x8021c*/ TargetSetLoadout  targetSetLoadouts[NUM_XTARGET_SETS];
 /*0x83dc4*/ int               InspectLines;

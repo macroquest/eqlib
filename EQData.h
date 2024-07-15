@@ -351,11 +351,25 @@ using PEQSOCIAL = EQSOCIAL*;
 
 struct [[offsetcomments]] HotButtonData
 {
-	// needs to be mapped out
-/*0x00*/ void*     unknown[23];
-/*0x5c*/
-	// 0xa0 iconType
-	// 0xa4 iconSlot
+/*0x00*/ uint8_t    Type;
+/*0x04*/ int        Slot;
+/*0x08*/ ItemPtr    Item;
+/*0x0c*/ EqItemGuid ItemGuid;
+/*0x1e*/ char       Label[0x40];
+/*0x60*/ int        IconType;
+/*0x64*/ int        IconSlot;
+/*0x68*/ int        Unknown;
+/*0x6c*/
+
+	const char* get_ItemName() const { return ""; }
+	__declspec(property(get = get_ItemName)) const char* ItemName;
+
+	int get_UndefinedIntField() const { return 0; }
+	__declspec(property(get = get_UndefinedIntField)) int ItemId;
+	__declspec(property(get = get_UndefinedIntField)) int IconId;
+	
+	uint8_t get_IsItemValid() const { return this->Item != nullptr ? 1 : 0; }
+	__declspec(property(get = get_IsItemValid)) uint8_t ItemValid;
 };
 
 struct [[offsetcomments]] EQFRIENDSLIST
@@ -372,13 +386,13 @@ struct [[offsetcomments]] RaidMember
 {
 /*0x00*/ char      Name[EQ_MAX_NAME];
 /*0x40*/ char      RaidNote[MAX_RAID_NOTE];
-/*0x81*/ uint8_t   nLevel;
-/*0x82*/ uint8_t   nClass;
-/*0x83*/ bool      RaidLeader;
-/*0x84*/ bool      GroupLeader;
-/*0x85*/ bool      RaidMainAssist;
-/*0x86*/ bool      RaidMarker;
-/*0x87*/ bool      MasterLooter; // emu ??
+/*0x80*/ uint8_t   nLevel;
+/*0x81*/ uint8_t   nClass;
+/*0x82*/ bool      RaidLeader;
+/*0x83*/ bool      GroupLeader;
+/*0x84*/ bool      RaidMainAssist;
+/*0x85*/ bool      RaidMarker;
+/*0x86*/ bool      MasterLooter; // emu ??
 /*0x88*/ int       GroupNumber;
 /*0x8c*/ bool      IsAFK;
 /*0x8d*/ bool      IsDead;

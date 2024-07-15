@@ -467,4 +467,21 @@ int PcZoneClient::CanUseMeleeCombatAbility(int SpellID) const
 	return 1;
 }
 
+uint32_t PcClient::GetDowntime()
+{
+	if (DowntimeStart == 0)
+		return 0;
+
+	int elapsed = GetFastTime() - DowntimeStart;
+	int remaining = static_cast<int>(Downtime) - elapsed;
+
+	if (remaining > 0)
+	{
+		return static_cast<uint32_t>(remaining);
+	}
+
+	DowntimeStart = 0;
+	return 0;
+}
+
 } // namespace eqlib

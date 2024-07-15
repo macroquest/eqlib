@@ -369,6 +369,10 @@ public:
 /*0x994c*/ int                                   CurrentMercenaryIndex;
 /*0x9950*/
 
+	AbilityInfo& GetAlternateAbility(int index) { return AAList[index]; }
+	const AbilityInfo& GetAlternateAbility(int index) const { return AAList[index]; }
+	int GetAlternateAbilityId(int index) const { return AAList[index].AAIndex; }
+
 	uint32_t GetLinkedSpellReuseTimer(int index) const
 	{
 		if (index >= 0 && index < MAX_LINKED_SPELL_TIMERS)
