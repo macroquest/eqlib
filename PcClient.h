@@ -1683,7 +1683,7 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2de0*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null  // 2f90
+/*0x2de0*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
 /*0x2de8*/ bool                                  InCombat;
 /*0x2dec*/ uint32_t                              Downtime;
 /*0x2df0*/ uint32_t                              DowntimeStart;
@@ -1696,7 +1696,7 @@ public:
 /*0x2e28*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
 /*0x2e32*/ bool                                  bPickZoneFewest;
 /*0x2e34*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
-/*0x2e38*/ // 2e38
+/*0x2e38*/
 
 	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);  // cannot be null
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);
@@ -1755,29 +1755,29 @@ public:
 	// Deprecated properties
 
 	DEPRECATE("pBankArraySize is deprecated. Use BankItems.GetSize() instead.")
-	inline int get_pBankArraySize() const { return BankItems.GetSize(); }
+	int get_pBankArraySize() const { return BankItems.GetSize(); }
 	__declspec(property(get = get_pBankArraySize)) int pBankArraySize;
 
 	DEPRECATE("pBankArraySpec is deprecated. Use BankItems.GetContainerType() instead.")
-	inline int get_pBankArraySpec() const { return BankItems.GetContainerType(); }
+	int get_pBankArraySpec() const { return BankItems.GetContainerType(); }
 	__declspec(property(get = get_pBankArraySpec)) int pBankArraySpec;
 
 	DEPRECATE("pBankArray is deprecated. Adapt the code to use BankItems instead.")
 #pragma warning(suppress: 4996)
-	inline deprecated::BANKARRAY* get_pBankArray() { return reinterpret_cast<deprecated::BANKARRAY*>(BankItems.ContainedItems.pItems); }
+	deprecated::BANKARRAY* get_pBankArray() { return reinterpret_cast<deprecated::BANKARRAY*>(BankItems.ContainedItems.pItems); }
 	__declspec(property(get = get_pBankArray)) deprecated::BANKARRAY* pBankArray;
 
 	DEPRECATE("NumBankSlots is deprecated. Use BankItems.GetSize() instead.")
-	inline int get_NumBankSlots() const { return BankItems.GetSize(); }
+	int get_NumBankSlots() const { return BankItems.GetSize(); }
 	__declspec(property(get = get_NumBankSlots)) int NumBankSlots;
 
 	DEPRECATE("pSharedBankArray is deprecated. Adapt the code to use BankItems instead.")
 #pragma warning(suppress: 4996)
-	inline deprecated::SHAREDBANKARRAY* get_pSharedBankArray() { return reinterpret_cast<deprecated::SHAREDBANKARRAY*>(SharedBankItems.ContainedItems.pItems); }
+	deprecated::SHAREDBANKARRAY* get_pSharedBankArray() { return reinterpret_cast<deprecated::SHAREDBANKARRAY*>(SharedBankItems.ContainedItems.pItems); }
 	__declspec(property(get = get_pSharedBankArray)) deprecated::SHAREDBANKARRAY* pSharedBankArray;
 
 	DEPRECATE("NumSharedSlots is deprecated. Use SharedBankItems.GetSize() instead.")
-	inline int get_NumSharedSlots() const { return SharedBankItems.GetSize(); }
+	int get_NumSharedSlots() const { return SharedBankItems.GetSize(); }
 	__declspec(property(get = get_NumSharedSlots)) int NumSharedSlots;
 
 	// This is used a lot, so its provided here for convenience. If you need more than this,
