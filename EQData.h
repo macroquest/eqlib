@@ -360,7 +360,7 @@ struct [[offsetcomments]] HotButtonData
 /*0xb4*/ int        Slot;
 /*0xb8*/ uint8_t    Type;
 /*0xb9*/ uint8_t    ItemValid;
-/*0xc0*/
+/*0xbc*/
 };
 
 struct [[offsetcomments]] EQFRIENDSLIST

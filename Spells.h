@@ -906,7 +906,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-// @sizeof(EQ_Spell) == 0x210 :: 2024-06-24 (live) @ 0x1401d1d17
+// @sizeof(EQ_Spell) == 0x210 :: 2024-07-11 (test) @ 0x1401d1e67
 constexpr size_t EQ_Spell_size = 0x210;
 
 class [[offsetcomments]] EQ_Spell
@@ -1017,106 +1017,106 @@ public:
 /*0x07c*/ int                  SpellIcon = 0;
 /*0x080*/ int                  DurationParticleEffect = 0;
 /*0x084*/ int                  NPCUsefulness = 0;
-/*0x088*/ int                  ID = 0;
-/*0x08c*/ int                  Autocast = 0;                  // SpellID of spell to instacast on caster when current spell lands on target
-/*0x090*/ int                  Category = 0;
-/*0x094*/ int                  Subcategory = 0;
-/*0x098*/ int                  Subcategory2 = 0;
-/*0x09c*/ int                  HateMod = 0;                   // Additional hate
-/*0x0a0*/ int                  ResistPerLevel = 0;
-/*0x0a4*/ int                  ResistCap = 0;
-/*0x0a8*/ int                  EnduranceCost = 0;             // CA Endurance Cost
-/*0x0ac*/ int                  EnduranceValue = 0;            // Unsure
-/*0x0b0*/ int                  ReuseTimerIndex = 0;           // ID of combat timer, i think.
-/*0x0b4*/ int                  EnduranceUpkeep = 0;
-/*0x0b8*/ int                  HateGenerated = 0;             // Hate override
-/*0x0bc*/ int                  HitCountType = 0;
-/*0x0c0*/ int                  HitCount = 0;
-/*0x0c4*/ int                  ConeStartAngle = 0;
-/*0x0c8*/ int                  ConeEndAngle = 0;
-/*0x0cc*/ int                  PvPResistBase = 0;
-/*0x0d0*/ int                  PvPCalc = 0;
-/*0x0d4*/ int                  PvPResistCap = 0;
-/*0x0d8*/ uint32_t             PvPDuration = 0;               // DurationType for PVP
-/*0x0dc*/ uint32_t             PvPDurationCap = 0;
-/*0x0e0*/ int                  PCNPCOnlyFlag = 0;
-/*0x0e4*/ int                  NPCMemCategory = 0;
-/*0x0e8*/ int                  SpellGroup = 0;
-/*0x0ec*/ int                  SpellSubGroup = 0;
-/*0x0f0*/ int                  SpellRank = 0;
-/*0x0f4*/ int                  SpellClass = 0;
-/*0x0f8*/ int                  SpellSubClass = 0;
-/*0x0fc*/ int                  SpellReqAssociationID = 0;
-/*0x100*/ int                  CasterRequirementID = 0;
-/*0x104*/ int                  MaxResist = 0;
-/*0x108*/ int                  MinResist = 0;
-/*0x10c*/ int                  MinSpreadTime = 0;
-/*0x110*/ int                  MaxSpreadTime = 0;
-/*0x114*/ int                  SpreadRadius = 0;
-/*0x118*/ int                  BaseEffectsFocusCap = 0;       // song cap, maybe other things?
-/*0x11c*/ int                  CritChanceOverride = 0;
-/*0x120*/ int                  MaxTargets = 0;                // how many targets a spell will affect
-/*0x124*/ uint32_t             AIValidTargets = 0;
-/*0x128*/ int                  BaseEffectsFocusOffset = 0;
-/*0x12c*/ float                BaseEffectsFocusSlope = 1.0f;
-/*0x130*/ CVector2             DistanceModStart = { 0, 0 };
-/*0x138*/ CVector2             DistanceModEnd = { 0, 0 };
-/*0x140*/ int                  Unknown1 = -1;
-/*0x144*/ float                MinRange = 0.0f;
-/*0x148*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
-/*0x149*/ bool                 Feedbackable = false;
-/*0x14a*/ bool                 Reflectable = false;
-/*0x14b*/ bool                 NoPartialSave = false;
-/*0x14c*/ bool                 NoResist = false;
-/*0x14d*/ bool                 UsesPersistentParticles = false;
-/*0x14e*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
-/*0x14f*/ bool                 Uninterruptable = false;
-/*0x150*/ bool                 NotStackableDot = false;
-/*0x151*/ bool                 Deletable = false;
-/*0x152*/ bool                 BypassRegenCheck = false;
-/*0x153*/ bool                 CanCastInCombat = false;
-/*0x154*/ bool                 CanCastOutOfCombat = false;
-/*0x155*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
-/*0x156*/ bool                 OnlyDuringFastRegen = false;
-/*0x157*/ bool                 CastNotStanding = false;
-/*0x158*/ bool                 CanMGB = false;
-/*0x159*/ bool                 NoDispell = false;
-/*0x15a*/ bool                 AffectInanimate = false;       // ldon trap spells etc
-/*0x15b*/ bool                 IsSkill = false;
-/*0x15c*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
-/*0x15d*/ bool                 bShowDoTMessage = false;
-/*0x15e*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
-/*0x182*/ uint8_t              LightType = 0;
-/*0x183*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x184*/ uint8_t              Resist = 0;                    // enum eResistType
-/*0x185*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
-/*0x186*/ uint8_t              CastDifficulty = 0;
-/*0x187*/ uint8_t              Skill = 0;
-/*0x188*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
-/*0x189*/ uint8_t              Environment = 0;
-/*0x18a*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
-/*0x18b*/ uint8_t              CastingAnim = 0;
-/*0x18c*/ uint8_t              AnimVariation = 0;
-/*0x18d*/ uint8_t              TargetAnim = 0;
-/*0x18e*/ uint8_t              TravelType = 0;
-/*0x18f*/ uint8_t              CancelOnSit = 0;
-/*0x190*/ bool                 CountdownHeld = false;
-/*0x191*/ char                 Name[64];
-/*0x1d1*/ int                  ActorTagId = 0;
-/*0x1d5*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
-/*0x1f5*/ bool                 ShowWearOffMessage = false;
-/*0x1f6*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
-/*0x1f7*/ bool                 SneakAttack = false;
-/*0x1f8*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
-/*0x1f9*/ bool                 NoHate = false;
-/*0x1fa*/ bool                 StacksWithSelf = false;
-/*0x1fb*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
-/*0x1fc*/ bool                 NoBuffBlock = false;
-/*0x1fd*/ int                  Scribable = 1;                 // int?
-/*0x201*/ bool                 NoStripOnDeath = false;
-/*0x202*/ bool                 NoRemove = false;              // spell can't be clicked off?
-/*0x203*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
-/*0x207*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
+/*0x088*/ int                  ActorTagId = 0;
+/*0x08c*/ int                  ID = 0;
+/*0x090*/ int                  Autocast = 0;                  // SpellID of spell to instacast on caster when current spell lands on target
+/*0x094*/ int                  Category = 0;
+/*0x098*/ int                  Subcategory = 0;
+/*0x09c*/ int                  Subcategory2 = 0;
+/*0x0a0*/ int                  HateMod = 0;                   // Additional hate
+/*0x0a4*/ int                  ResistPerLevel = 0;
+/*0x0a8*/ int                  ResistCap = 0;
+/*0x0ac*/ int                  EnduranceCost = 0;             // CA Endurance Cost
+/*0x0b0*/ int                  EnduranceValue = 0;            // Unsure
+/*0x0b4*/ int                  ReuseTimerIndex = 0;           // ID of combat timer, i think.
+/*0x0b8*/ int                  EnduranceUpkeep = 0;
+/*0x0bc*/ int                  HateGenerated = 0;             // Hate override -> bc
+/*0x0c0*/ int                  HitCountType = 0;
+/*0x0c4*/ int                  HitCount = 0;
+/*0x0c8*/ int                  ConeStartAngle = 0;
+/*0x0cc*/ int                  ConeEndAngle = 0;
+/*0x0d0*/ int                  PvPResistBase = 0;
+/*0x0d4*/ int                  PvPCalc = 0;
+/*0x0d8*/ int                  PvPResistCap = 0;
+/*0x0dc*/ uint32_t             PvPDuration = 0;               // DurationType for PVP
+/*0x0e0*/ uint32_t             PvPDurationCap = 0;
+/*0x0e4*/ int                  PCNPCOnlyFlag = 0;
+/*0x0e8*/ int                  NPCMemCategory = 0;
+/*0x0ec*/ int                  SpellGroup = 0;
+/*0x0f0*/ int                  SpellSubGroup = 0;
+/*0x0f4*/ int                  SpellRank = 0;
+/*0x0f8*/ int                  SpellClass = 0;
+/*0x0fc*/ int                  SpellSubClass = 0;
+/*0x100*/ int                  SpellReqAssociationID = 0;
+/*0x104*/ int                  CasterRequirementID = 0;
+/*0x108*/ int                  MaxResist = 0;
+/*0x10c*/ int                  MinResist = 0;
+/*0x110*/ int                  MinSpreadTime = 0;
+/*0x114*/ int                  MaxSpreadTime = 0;
+/*0x118*/ int                  SpreadRadius = 0;
+/*0x11c*/ int                  BaseEffectsFocusCap = 0;       // song cap, maybe other things?
+/*0x120*/ int                  CritChanceOverride = 0;
+/*0x124*/ int                  MaxTargets = 0;                // how many targets a spell will affect
+/*0x128*/ uint32_t             AIValidTargets = 0;
+/*0x12c*/ int                  BaseEffectsFocusOffset = 0;
+/*0x130*/ float                BaseEffectsFocusSlope = 1.0f;
+/*0x134*/ CVector2             DistanceModStart = { 0, 0 };
+/*0x13c*/ CVector2             DistanceModEnd = { 0, 0 };
+/*0x144*/ int                  Unknown1 = -1;
+/*0x148*/ float                MinRange = 0.0f;
+/*0x14c*/ int                  Scribable = 1;
+/*0x150*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
+/*0x154*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
+/*0x158*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
+/*0x17c*/ uint8_t              LightType = 0;
+/*0x17d*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
+/*0x17e*/ uint8_t              Resist = 0;                    // enum eResistType
+/*0x17f*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
+/*0x180*/ uint8_t              CastDifficulty = 0;
+/*0x181*/ uint8_t              Skill = 0;
+/*0x182*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
+/*0x183*/ uint8_t              Environment = 0;
+/*0x184*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
+/*0x185*/ uint8_t              CastingAnim = 0;
+/*0x186*/ uint8_t              AnimVariation = 0;
+/*0x187*/ uint8_t              TargetAnim = 0;
+/*0x188*/ uint8_t              TravelType = 0;
+/*0x189*/ uint8_t              CancelOnSit = 0;
+/*0x18a*/ bool                 CountdownHeld = false;
+/*0x18b*/ char                 Name[64];
+/*0x1cb*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
+/*0x1eb*/ bool                 ShowWearOffMessage = false;
+/*0x1ec*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
+/*0x1ed*/ bool                 SneakAttack = false;
+/*0x1ee*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
+/*0x1ef*/ bool                 NoHate = false;
+/*0x1f0*/ bool                 StacksWithSelf = false;
+/*0x1f1*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
+/*0x1f2*/ bool                 NoBuffBlock = false;
+/*0x1f3*/ bool                 NoStripOnDeath = false;
+/*0x1f4*/ bool                 NoRemove = false;              // spell can't be clicked off? -> 1f4
+/*0x1f5*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
+/*0x1f6*/ bool                 Feedbackable = false;
+/*0x1f7*/ bool                 Reflectable = false;
+/*0x1f8*/ bool                 NoPartialSave = false;
+/*0x1f9*/ bool                 NoResist = false;
+/*0x1fa*/ bool                 UsesPersistentParticles = false;
+/*0x1fb*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
+/*0x1fc*/ bool                 Uninterruptable = false;
+/*0x1fd*/ bool                 NotStackableDot = false;
+/*0x1fe*/ bool                 Deletable = false;
+/*0x1ff*/ bool                 BypassRegenCheck = false;
+/*0x200*/ bool                 CanCastInCombat = false;
+/*0x201*/ bool                 CanCastOutOfCombat = false;
+/*0x202*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
+/*0x203*/ bool                 OnlyDuringFastRegen = false;
+/*0x204*/ bool                 CastNotStanding = false;
+/*0x205*/ bool                 CanMGB = false;
+/*0x206*/ bool                 NoDispell = false;
+/*0x207*/ bool                 AffectInanimate = false;       // ldon trap spells etc
+/*0x208*/ bool                 IsSkill = false;
+/*0x209*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
+/*0x20a*/ bool                 bShowDoTMessage = false;
 /*0x20b*/ uint8_t              CRC32Marker = 0;
 /*0x20c*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
 /*0x210*/
@@ -1306,7 +1306,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-// @sizeof(ClientSpellManager) == 0x3ea220 :: 2024-06-24 (live) @ 0x14025ff4b
+// @sizeof(ClientSpellManager) == 0x3ea220 :: 2024-07-11 (test) @ 0x140260f9b
 constexpr size_t ClientSpellManager_size = 0x3ea220;
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
