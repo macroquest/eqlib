@@ -1034,8 +1034,9 @@ enum class ServerID : int {
 	Thornblade = 172,
 	Vaniki = 173,
 	Yelinak = 175,
+	Oakwynd = 177,
 
-	NumServers = 24,
+	NumServers = 25,
 	Invalid = -1,
 };
 
