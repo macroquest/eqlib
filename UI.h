@@ -5502,7 +5502,7 @@ public:
 /*0x3c7*/ bool               Hold;
 /*0x3c8*/ bool               GHold;
 /*0x3c9*/ bool               Focus;
-/*0x3cc*/
+/*0x3ca*/ bool               SpellHold;
 };
 
 SIZE_CHECK(CPetInfoWnd, CPetInfoWnd_size);
