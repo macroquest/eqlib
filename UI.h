@@ -5502,6 +5502,7 @@ public:
 /*0x3b7*/ bool               Hold;
 /*0x3b8*/ bool               GHold;
 /*0x3b9*/ bool               Focus;
+/*0x3ba*/ bool               SpellHold;
 /*0x3bc*/
 };
 
