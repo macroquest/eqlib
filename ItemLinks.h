@@ -63,12 +63,18 @@ struct TextTagInfo
 EQLIB_OBJECT size_t ExtractLinks(std::string_view str, TextTagInfo* outTagInfo, size_t numTagInfos);
 
 // The max number of links that are possible to find in a single message.
-constexpr const int MAX_EXTRACT_LINKS = 11;
+constexpr int MAX_EXTRACT_LINKS = 11;
 
 // Returns the first link found in the given string. This information references the input string and
 // is only valid for as long as the input string is valid.
 EQLIB_OBJECT TextTagInfo ExtractLink(std::string_view inputString);
 
+
+struct DialogLinkInfo
+{
+	std::string_view keyword;
+	std::string_view text;
+};
 
 struct ItemLinkInfo
 {
@@ -83,7 +89,7 @@ struct ItemLinkInfo
 	uint32_t itemHash;
 	std::string_view itemName;       // only provided if full link is passed.
 
-	inline bool IsSocketed() const
+	bool IsSocketed() const
 	{
 		for (int i = 0; i < MAX_AUG_SOCKETS; ++i)
 		{
@@ -94,9 +100,23 @@ struct ItemLinkInfo
 	}
 };
 
+struct SpellLinkInfo
+{
+	int spellID;
+	std::string_view spellName;
+};
+
+
 // Parses an item link. Can take a full link or just the data part. If only the data
 // is provided, then the item name will be absent.
 EQLIB_API bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo);
+
+
+// Parses a spell link.
+EQLIB_API bool ParseSpellLink(std::string_view link, SpellLinkInfo& linkInfo);
+
+// Parses a dialog link.
+EQLIB_API bool ParseDialogLink(std::string_view link, DialogLinkInfo& linkInfo);
 
 // Strips all links from the provided mutable text buffer. If you want to use this on a
 // immutable buffer, use CleanItemTags instead. Returns the same buffer back.
@@ -110,15 +130,23 @@ EQLIB_API bool ExecuteTextLink(const TextTagInfo& link);
 //----------------------------------------------------------------------------
 // Link Formatting
 
+// Create an achievement link for the given achievement.
+EQLIB_API void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* achievement,
+	std::string_view playerName);
+
 // Create an item link from the given item.
 EQLIB_API void FormatItemLink(char* Buffer, size_t BufferSize, ItemClient* Item);
 
 // Create a spell link for the given spell, with optional spell name override. Spells on items often have
 // spell name overrides that changes the display name of the spell.
-EQLIB_API void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const char* spellNameOverride = nullptr);
+EQLIB_API void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell,
+	const char* spellNameOverride = nullptr);
 
-// Create an achievement link for the given achievement.
-EQLIB_API void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* achievement, std::string_view playerName);
+// Format text into a clickable dialog link. The keyword is the text that will be displayed in the chat window,
+// and the text is the text that will be sent to the server when the link is clicked. If no text is provided,
+// then the keyword will be used as the text.
+EQLIB_API void FormatDialogLink(char* Buffer, size_t BufferSize, std::string_view keyword,
+	std::string_view text = {});
 
 //----------------------------------------------------------------------------
 // EQ Functions
@@ -139,8 +167,7 @@ EQLIB_OBJECT void ConvertItemTags(CXStr& str, bool canDisplay = true);
 EQLIB_API bool GetItemLink(ItemClient* Item, char* Buffer, size_t BufferSize, bool Clickable = true);
 
 template <size_t Size>
-inline bool GetItemLink(ItemClient* Item, char(&Buffer)[Size], bool Clickable = true) { return GetItemLink(Item, Buffer, Size, Clickable); }
-
+bool GetItemLink(ItemClient* Item, char(&Buffer)[Size], bool Clickable = true) { return GetItemLink(Item, Buffer, Size, Clickable); }
 
 } // namespace eqlib
 
