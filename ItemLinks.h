@@ -116,6 +116,9 @@ EQLIB_API bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo);
 EQLIB_API bool ParseSpellLink(std::string_view link, SpellLinkInfo& linkInfo);
 
 // Parses a dialog link.
+//
+// Note: On EMU clients, this will also attempt to parse EMU "SayLinks" which are
+// Specially crafted item links.
 EQLIB_API bool ParseDialogLink(std::string_view link, DialogLinkInfo& linkInfo);
 
 // Strips all links from the provided mutable text buffer. If you want to use this on a
@@ -145,6 +148,8 @@ EQLIB_API void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell,
 // Format text into a clickable dialog link. The keyword is the text that will be displayed in the chat window,
 // and the text is the text that will be sent to the server when the link is clicked. If no text is provided,
 // then the keyword will be used as the text.
+//
+// Note: Not supported by EMU clients.
 EQLIB_API void FormatDialogLink(char* Buffer, size_t BufferSize, std::string_view keyword,
 	std::string_view text = {});
 

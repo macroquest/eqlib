@@ -102,6 +102,13 @@ TextTagInfo ExtractLink(std::string_view inputString)
 			case ETAG_ITEM:
 				textStart = i + (tagSize - 1);
 				link.text = inputString.substr(textStart, end - textStart);
+
+				// If the itemID is 0xFFFFF, then this is a dialog link.
+				if (mq::ci_equals(link.link.substr(2, 5), "FFFFF"))
+				{
+					link.tagCode = ETAG_DIALOG_RESPONSE;
+				}
+
 				return link;
 
 			case ETAG_PLAYER:
@@ -220,11 +227,8 @@ void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const cha
 
 void FormatDialogLink(char* Buffer, size_t BufferSize, std::string_view keyword, std::string_view text)
 {
-	if (text.empty())
-		snprintf(Buffer, BufferSize, "%c%d%.*s%c", ITEM_TAG_CHAR, ETAG_DIALOG_RESPONSE, (int)keyword.length(), keyword.data(), ITEM_TAG_CHAR);
-	else
-		snprintf(Buffer, BufferSize, "%c%d%.*s:%.*s%c", ITEM_TAG_CHAR, ETAG_DIALOG_RESPONSE, (int)keyword.length(), keyword.data(),
-			(int)text.length(), text.data(), ITEM_TAG_CHAR);
+	// EMU doesn't support dialog links, so we just return back the raw keyword.
+	snprintf(Buffer, BufferSize, "%.*s", (int)keyword.length(), keyword.data());
 }
 
 void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* achievement, std::string_view playerName)
@@ -359,23 +363,24 @@ bool ParseDialogLink(std::string_view link, DialogLinkInfo& linkInfo)
 		return false;
 
 	// First char should be the link type
-	if (link[0] != ('0' + ETAG_DIALOG_RESPONSE))
-		return false;
+	ETagCodes linkType = (ETagCodes)(link[0] - '0');
 
-	link = link.substr(1);
-
-	if (size_t colon = link.find(':'); colon != std::string_view::npos)
+	// EQEmu Server special "hack" to support dialog links via specially crafted item links
+	if (linkType == ETAG_ITEM)
 	{
-		linkInfo.keyword = link.substr(0, colon);
-		linkInfo.text = link.substr(colon + 1);
-	}
-	else
-	{
-		linkInfo.keyword = link;
-		linkInfo.text = link;
+		// Skip the first marker and the tag code.
+		std::string_view itemID = tagInfo.link.substr(2, 5);
+
+		// If the itemID is 0xFFFFF, then this is a dialog link.
+		if (mq::ci_equals(itemID, "FFFFF"))
+		{
+			linkInfo.keyword = tagInfo.text;
+			linkInfo.text = tagInfo.text;
+			return true;
+		}
 	}
 
-	return true;
+	return false;
 }
 
 static int TagCodeToWndNotification(ETagCodes tagCode)
@@ -384,11 +389,10 @@ static int TagCodeToWndNotification(ETagCodes tagCode)
 	{
 	case ETAG_ACHIEVEMENT:
 		return XWM_ACHIEVEMENTLINK;
-	case ETAG_DIALOG_RESPONSE:
-		return XWM_DIALOGRESPONSELINK;
 	case ETAG_FACTION:
 		return XWM_FACTION_LINK;
 	case ETAG_ITEM:
+	case ETAG_DIALOG_RESPONSE:
 		return XWM_LINK;
 	case ETAG_SPELL:
 		return XWM_SPELL_LINK;
@@ -413,13 +417,6 @@ bool ExecuteTextLink(const TextTagInfo& link)
 		{
 			// strip the \x12 and the text portion
 			std::string_view linkCode = link.link.substr(2, link.text.data() - link.link.data() - 2);
-
-			if (link.tagCode == ETAG_DIALOG_RESPONSE)
-			{
-				DialogLinkInfo linkInfo;
-				if (ParseDialogLink(link.link, linkInfo))
-					linkCode = linkInfo.text.empty() ? linkInfo.keyword : linkInfo.text;
-			}
 
 			char szTempLink[MAX_STRING];
 			sprintf_s(szTempLink, "%.*s", static_cast<int>(linkCode.size()), linkCode.data());
