@@ -126,6 +126,16 @@ namespace eqlib {
 #define USERCOLOR_NPC_SPEECH                     343 // 88 - npc dialogue
 #define USERCOLOR_NPC_SPEECH_TO_YOU              344 // 89 - npc dialogue to you
 #define USERCOLOR_GUILD_MSG                      345 // 90 - guild messages
+#define USERCOLOR_MERCENARY_GRP                  346 // 91 - mercenary tells group
+#define USERCOLOR_ACHIEVEMENT                    347 // 92 - Achievement Links
+#define USERCOLOR_ACHIEVEMENTS_YOU               348 // 93 - Achievements (Emote)
+#define USERCOLOR_ACHIEVEMENTS_OTHERS            349 // 94 - Achievements (Guild)
+#define USERCOLOR_PVP                            350 // 95 - PvP Messages
+#define USERCOLOR_HOTBUTTON_COOLDOWN             351 // 96 - Hotbutton Cooldown Overlay
+#define USERCOLOR_AGGRO_LOW                      352 // 97 - Aggro Labels - Low
+#define USERCOLOR_AGGRO_WARNING                  353 // 98 - Aggro Labels - Warning
+#define USERCOLOR_AGGRO_MOST                     354 // 99 - Aggro Labels - Most
+
 
 constexpr int NUM_USER_COLORS = 99;
 
