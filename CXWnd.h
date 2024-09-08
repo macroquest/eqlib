@@ -93,6 +93,8 @@ class CTextureFont;
 #define XWM_RAIDINVITE_LINK              52
 #define XWM_FACTION_LINK                 53
 
+#define XWM_USER_DEFINED                 1000
+
 // Defines for CXWnd WindowStyle
 #define CWS_VSCROLL                              0x00000001
 #define CWS_HSCROLL                              0x00000002

@@ -5960,7 +5960,7 @@ public:
 /*0x390*/ bool               bFailed;
 /*0x394*/ ESpellDisplayType  SpellDisplayType;
 /*0x398*/ int                SpellID;
-/*0x39c*/ int                Unknown;
+/*0x39c*/ int                Unknown;                   // Used in 3rd param of spell tag string %d
 /*0x3a0*/ int                LastUpdateTime;
 /*0x3a4*/
 };

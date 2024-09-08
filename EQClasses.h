@@ -284,7 +284,7 @@ struct [[offsetcomments]] LabelCache
 //============================================================================
 //============================================================================
 
-// @sizeof(EQGroundItem) == 0xa0 :: 2024-08-15 (live) @ 0x1401ecbca
+// @sizeof(EQGroundItem) == 0xa0 :: 2024-08-15 (live) @ 0x1401ECCCA
 constexpr size_t EQGroundItem_size = 0xa0;
 
 class [[offsetcomments]] EQGroundItem

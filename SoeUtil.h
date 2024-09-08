@@ -415,7 +415,7 @@ private:
 			ensure_writable(len + 1);
 
 			std::memcpy(m_data, other, len + 1);
-			m_length = len;
+			m_length = static_cast<int>(len);
 		}
 	}
 
@@ -428,7 +428,7 @@ private:
 			ensure_writable(length + 1);
 			std::memcpy(m_data, other, length);
 			m_data[length] = 0;
-			m_length = length;
+			m_length = static_cast<int>(length);
 		}
 	}
 
@@ -456,7 +456,7 @@ private:
 			new (data) std::atomic_int(shared ? 1 : 0);
 
 			T* newData = reinterpret_cast<T*>(data + sizeof(std::atomic_int));
-			int newSpace = allocated - sizeof(std::atomic_int);
+			int newSpace = static_cast<int>(allocated - sizeof(std::atomic_int));
 			int newLength = m_length;
 			std::memcpy(newData, c_str(), m_length + 1);
 

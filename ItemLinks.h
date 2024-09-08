@@ -103,6 +103,7 @@ struct ItemLinkInfo
 struct SpellLinkInfo
 {
 	int spellID;
+	int unknown;
 	std::string_view spellName;
 };
 
