@@ -98,7 +98,7 @@
 #define __LabelCache_x                                             0xF74AB0
 #define Teleport_Table_Size_x                                      0xDD25B4
 #define Teleport_Table_x                                           0xDD02E0
-#define __ExceptionFilter_x                                        0x5FA950
+#define __ExceptionFilter_x                                        0x8E3338
 
 ////
 //Section 1: Vital Offsets
