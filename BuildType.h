@@ -18,6 +18,8 @@
 // Defines the EverQuest build type (LIVE, TEST, etc)
 //----------------------------------------------------------------------------
 
+// Do not change this value. This value identifies the version of the client
+// that this branch of code is designed to work with.
 #define LIVE
 
 
@@ -139,6 +141,19 @@
 
 // Tradeskill Depot was added with Night of Shadows expansion
 #define HAS_TRADESKILL_DEPOT IS_EXPANSION_LEVEL(EXPANSION_LEVEL_NOS)
+
+//----------------------------------------------------------------------------
+// Compiler architecture error detection
+
+#if IS_EMU_CLIENT
+#if defined(_M_AMD64)
+#error Win32 Configuration is required to build this
+#endif // defined(_M_AMD64)
+#else
+#if !defined(_M_AMD64)
+#error x64 Configuration is required to build this
+#endif
+#endif
 
 //----------------------------------------------------------------------------
 // Legacy Defines
