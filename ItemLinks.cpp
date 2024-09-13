@@ -213,7 +213,9 @@ void FormatItemLink(char* Buffer, size_t BufferSize, ItemClient* pItem)
 
 void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const char* spellNameOverride /* = nullptr */)
 {
-	snprintf(Buffer, BufferSize, "%c%d3^%d^'%s%c", ITEM_TAG_CHAR, ETAG_SPELL, Spell->ID,
+	// the third param corresponds with the "Unknown" param of the CSpellDisplayWnd
+
+	snprintf(Buffer, BufferSize, "%c%d3^%d^0^'%s%c", ITEM_TAG_CHAR, ETAG_SPELL, Spell->ID,
 		spellNameOverride && spellNameOverride[0] ? spellNameOverride : Spell->Name, ITEM_TAG_CHAR);
 }
 
@@ -332,11 +334,11 @@ bool ParseSpellLink(std::string_view link, SpellLinkInfo& linkInfo)
 	const char* data = link.data();
 
 	// First char should be a 3
-	if (data[0] != '3')
+	if (data[0] != '3' || data[1] != '^')
 		return false;
 
-	data += 1;
-	sscanf_s(data, "^%d", &linkInfo.spellID);
+	data += 2;
+	sscanf_s(data, "%d^%d^", &linkInfo.spellID, &linkInfo.unknown);
 
 	return true;
 }

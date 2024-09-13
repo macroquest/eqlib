@@ -44,6 +44,31 @@ namespace eqstd
 	template <class _Alloc>
 	using _Alloc_ptr_t = typename allocator_traits<_Alloc>::pointer;
 
+	template <class _Alloc>
+	using _Alloc_size_t = typename allocator_traits<_Alloc>::size_type;
+
+	template <class _Alloc>
+	_CONSTEXPR20 void _Pocca(_Alloc& _Left, const _Alloc& _Right) noexcept {
+		if constexpr (allocator_traits<_Alloc>::propagate_on_container_copy_assignment::value) {
+			_Left = _Right;
+		}
+	}
+
+	template <class _Alloc>
+	_CONSTEXPR20 void _Pocma(_Alloc& _Left, _Alloc& _Right) noexcept { // (maybe) propagate on container move assignment
+		if constexpr (allocator_traits<_Alloc>::propagate_on_container_move_assignment::value) {
+			_Left = std::move(_Right);
+		}
+	}
+
+	template <class _Alloc>
+	_CONSTEXPR20 void _Pocs(_Alloc& _Left, _Alloc& _Right) noexcept {
+		if constexpr (allocator_traits<_Alloc>::propagate_on_container_swap::value) {
+			swap(_Left, _Right); // intentional ADL
+		}
+	}
+
+
 	// STRUCT TEMPLATE _Alloc_construct_ptr
 	template <class _Alloc>
 	struct _Alloc_construct_ptr { // pointer used to help construct 1 _Alloc::value_type without EH
