@@ -18,13 +18,13 @@
 // eqmain.dll offsets
 //
 
-#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x1800852E0
-#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x18001A5A0
+#define EQMain__CEQSuiteTextureLoader__GetTexture_x                0x180084E90
+#define EQMain__CLoginViewManager__HandleLButtonUp_x               0x18001A590
 //#define EQMain__CXWndManager__GetCursorToDisplay_x                 0x0          // inlined into CXWndManager::DrawCursor
-#define EQMain__LoginController__GiveTime_x                        0x180015D80
-#define EQMain__LoginController__Shutdown_x                        0x180016580
-#define EQMain__LoginServerAPI__JoinServer_x                       0x180017790
-#define EQMain__WndProc_x                                          0x18000BCC0
+#define EQMain__LoginController__GiveTime_x                        0x180015D70
+#define EQMain__LoginController__Shutdown_x                        0x180016570
+#define EQMain__LoginServerAPI__JoinServer_x                       0x180017780
+#define EQMain__WndProc_x                                          0x18000BCB0
 
 #define EQMain__pinstCEQSuiteTextureLoader_x                       0x180173360
 #define EQMain__pinstCLoginViewManager_x                           0x18017B188

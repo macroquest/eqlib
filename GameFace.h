@@ -73,9 +73,9 @@ public:
 
 	virtual void HandleEvent(void* a, void* b);
 
-/*0x2d0*/ UIScreenComponent                                 WindowComponent;
-/*0x378*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
-/*0x3b8*/
+/*0x2c8*/ UIScreenComponent                                 WindowComponent;
+/*0x370*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
+/*0x3b0*/
 };
 
 namespace cohtml {
