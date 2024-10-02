@@ -145,7 +145,7 @@
 //----------------------------------------------------------------------------
 // Compiler architecture error detection
 
-#if IS_EMU_CLIENT
+#if IS_EMU_CLIENT && !defined(MQ_BUILD_AS_X64)
 #if defined(_M_AMD64)
 #error Win32 Configuration is required to build this
 #endif // defined(_M_AMD64)
