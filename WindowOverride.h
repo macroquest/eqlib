@@ -149,21 +149,6 @@ public:
 	virtual void UpdateLayout(bool finish = false) override;
 };
 
-#if 0
-// This is what the final version might look something like,
-// but this currently doesn't optimize correctly without /O2. Instead, all the implementations
-// are in an asm file.
-#define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature)                  \
-	FUNCTION_CHECKS_OFF()                                                                   \
-	template <typename Target>                                                              \
-	RetType Class<Target>::Name Signature {                                                 \
-		static_assert(eqlib::detail::is_size_ok<RetType>::value == 1, "Cannot use this macro with a return type that would spill"); \
-		using TargetFunction = RetType(*)();                                                \
-		return ((TargetFunction)(Class<Target>::s_originalVTable->Name))();                 \
-	}                                                                                       \
-	FUNCTION_CHECKS_ON()
-#endif
-
 template <typename Target>
 class CSidlScreenWndTrampoline : public CXWndTrampoline<Target>
 {

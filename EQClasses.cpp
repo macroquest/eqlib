@@ -210,6 +210,8 @@ bool EQWorldData::IsFlagSet(EQZoneIndex zoneId, uint64_t flag) const
 // MercenaryAlternateAdvancementManagerClient
 //============================================================================
 
+#if HAS_MERCENARY_AA
+
 const char* MercenaryAbilitiesData::GetNameString() const
 {
 	return pDBStr->GetString(nName, eMercenaryAbilityName);
@@ -396,6 +398,8 @@ bool MercenaryAlternateAdvancementManagerClient::CanTrainAbility(int abilityId) 
 
 	return false;
 }
+
+#endif // HAS_MERCENARY_AA
 
 //============================================================================
 // RealEstateManagerClient

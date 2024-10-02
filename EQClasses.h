@@ -367,7 +367,7 @@ public:
 class CDistillerInfo
 {
 public:
-	static EQLIB_OBJECT CDistillerInfo &Instance();
+	static EQLIB_OBJECT CDistillerInfo& Instance();
 	EQLIB_OBJECT int GetIDFromRecordNum(int ID, bool bWhat);
 };
 
@@ -833,6 +833,8 @@ public:
 
 //============================================================================
 
+#if HAS_FACTION_WINDOW
+
 class [[offsetcomments]] FactionManagerClient
 {
 public:
@@ -842,6 +844,8 @@ public:
 	EQLIB_OBJECT static FactionManagerClient& Instance();
 	EQLIB_OBJECT void HandleFactionMessage(UINT MessageID, char* pData, unsigned int DataLength);
 };
+
+#endif
 
 EQLIB_OBJECT char* build_token_string_PARAM(char* pBuffer, int token,
 	const char* param0 = nullptr,
@@ -1258,6 +1262,8 @@ public:
 /*0x133c*/
 };
 
+#if HAS_ADVANCED_LOOT
+
 enum LootFilterOp
 {
 	LootFilterOp_Load = 0,
@@ -1295,6 +1301,8 @@ public:
 	EQLIB_OBJECT bool RemoveItemLootFilter(int ItemID, int FilterTypes = 0);
 	EQLIB_OBJECT bool SetItemLootFilter(int ItemID, int IconID, const char* ItemName, int FilterTypes, bool bKeepRndSetting = false, bool bScrollToIt = false);
 };
+
+#endif
 
 enum InstanceType
 {

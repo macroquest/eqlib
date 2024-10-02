@@ -14,6 +14,7 @@ namespace eqstd
 {
 	using std::bidirectional_iterator_tag;
 	using std::_Move_allocator_tag;
+	using std::initializer_list;
 
 	template <class _Mylist, class _Base = _Iterator_base0>
 	class _List_unchecked_const_iterator : public _Base {

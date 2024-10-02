@@ -498,7 +498,7 @@ uint32_t PcClient::GetDowntime()
 	{
 		return static_cast<uint32_t>(remaining);
 	}
-	
+
 	DowntimeStart = 0;
 	return 0;
 }
