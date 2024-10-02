@@ -224,20 +224,6 @@ CParamRGB::~CParamRGB()
 
 //----------------------------------------------------------------------------
 
-#if 0 // emu
-CParamTextRGB::CParamTextRGB()
-{
-	nClassIdx = UI_TextRGB;
-	sClassName = UITypeToString(UI_TextRGB);
-}
-
-CParamTextRGB::~CParamTextRGB()
-{
-}
-#endif
-
-//----------------------------------------------------------------------------
-
 CParamPoint::CParamPoint()
 {
 	nClassIdx = UI_Point;

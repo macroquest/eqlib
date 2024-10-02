@@ -202,10 +202,15 @@ const char* szExpansions[NUM_EXPANSIONS + 1] = {
 #if IS_EXPANSION_LEVEL(EXPANSION_LEVEL_NOS)
 	"Night of Shadows",
 #endif
+#if IS_EXPANSION_LEVEL(EXPANSION_LEVEL_LS)
+	"Laurion's Song",
+#endif
 	nullptr
 };
 static_assert(lengthof(szExpansions) - 1 == NUM_EXPANSIONS,
 	"Need to update szExpansions to match NUM_EXPANSIONS");
+
+//============================================================================
 
 MQColor gDefaultUserDefinedColors[NUM_USER_COLORS] = {
 	MQColor(255, 255, 255), //  1 Say

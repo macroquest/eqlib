@@ -28,17 +28,6 @@ class ChatBufferEntry;
 class EQCamera;
 
 
-enum ChatFilterValues
-{
-	ChatFilterValue_Invalid = -1,
-	ChatFilterValue_Show = 0,
-	ChatFilterValue_Hide = 1,
-	ChatFilterValue_Me = 2,
-	ChatFilterValue_Group = 3,
-
-	ChatFilterValue_Max,
-};
-
 //============================================================================
 // ZoneHeader
 //============================================================================
@@ -1136,12 +1125,6 @@ public:
 	
 	ALT_MEMBER_GETTER(UniversalChatProxy*, chatService, ChatService);
 };
-
-inline namespace deprecated {
-	using _EVERQUEST DEPRECATE("Use EVERQUEST instead of _EVERQUEST") = CEverQuest;
-	using PEVERQUEST DEPRECATE("Use EVERQUEST* instead of PEVERQUEST") = CEverQuest*;
-}
-using EVERQUEST = CEverQuest;
 
 //SIZE_CHECK(CEverQuest, CEverQuest_size);
 

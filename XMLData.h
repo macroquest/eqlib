@@ -896,23 +896,6 @@ public:
 };
 
 //============================================================================
-#if 0 // emu
-class [[offsetcomments]] CParamTextRGB : public CParamClass
-{
-public:
-	EQLIB_OBJECT CParamTextRGB();
-	EQLIB_OBJECT virtual ~CParamTextRGB();
-
-	// XML Data
-/*0x20*/ int nAlpha = 255;
-/*0x24*/ int nR = 255;
-/*0x28*/ int nG = 255;
-/*0x2c*/ int nB = 255;
-/*0x30*/
-};
-#endif
-
-//============================================================================
 class [[offsetcomments]] CParamPoint : public CParam
 {
 public:

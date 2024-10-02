@@ -359,4 +359,19 @@
 			<Item Name="test">getXmlData()</Item>
 		</Expand>-->
 	</Type>
+
+	<Type Name="eqlib::PlayerClient">
+		<DisplayString>[PlayerClient #{SpawnID,d}, {Name,s}]</DisplayString>
+	</Type>
+
+	<Type Name="eqlib::PlayerHashTable">
+		<DisplayString>{{Size={m_count}}}</DisplayString>
+		<Expand>
+			<LinkedListItems>
+				<HeadPointer>m_head</HeadPointer>
+				<NextPointer>m_prev</NextPointer>
+				<ValueNode>m_value</ValueNode>
+			</LinkedListItems>
+		</Expand>
+	</Type>
 </AutoVisualizer>

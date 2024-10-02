@@ -38,7 +38,7 @@ int AchievementManager::GetAchievementCategoryIndexByName(std::string_view name)
 	{
 		const AchievementCategory& category = categories[index];
 
-		if (category.parentId == -1 && mq::ci_equals(category.name, name))
+		if (category.parentId <= 0 && mq::ci_equals(category.name, name))
 			return index;
 	}
 

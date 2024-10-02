@@ -343,23 +343,23 @@ constexpr int LORE_NAME_LEN = 80;
 // Deities - different from the above values, used for spells and items.
 enum EQDeity
 {
-	EQD_Agnostic = 1,
-	EQD_Bertoxxulous = 2,
-	EQD_BrellSerilis = 3,
-	EQD_CazicThule = 4,
-	EQD_ErollisiMarr = 5,
-	EQD_Bristlebane = 6,
-	EQD_Innoruuk = 7,
-	EQD_Karana = 8,
-	EQD_MithanielMarr = 9,
-	EQD_Prexus = 10,
-	EQD_Quellious = 11,
-	EQD_RallosZek = 12,
-	EQD_RodcetNife = 13,
-	EQD_SolusekRo = 14,
-	EQD_TheTribunal = 15,
-	EQD_Tunare = 16,
-	EQD_Veeshan = 17,
+	EQD_Agnostic                               = 1,
+	EQD_Bertoxxulous                           = 2,
+	EQD_BrellSerilis                           = 3,
+	EQD_CazicThule                             = 4,
+	EQD_ErollisiMarr                           = 5,
+	EQD_Bristlebane                            = 6,
+	EQD_Innoruuk                               = 7,
+	EQD_Karana                                 = 8,
+	EQD_MithanielMarr                          = 9,
+	EQD_Prexus                                 = 10,
+	EQD_Quellious                              = 11,
+	EQD_RallosZek                              = 12,
+	EQD_RodcetNife                             = 13,
+	EQD_SolusekRo                              = 14,
+	EQD_TheTribunal                            = 15,
+	EQD_Tunare                                 = 16,
+	EQD_Veeshan                                = 17,
 };
 #define NUM_DEITIES                              16
 
@@ -534,6 +534,7 @@ enum EQExpansion
 	EQExpansionCOV                  = EXPANSION_LEVEL_COV,
 	EQExpansionTOL                  = EXPANSION_LEVEL_TOL,
 	EQExpansionNOS                  = EXPANSION_LEVEL_NOS,
+	EQExpansionLS                   = EXPANSION_LEVEL_LS,
 };
 
 #define EQ_EXPANSION(x)             (1 << (x - 1))
@@ -869,7 +870,7 @@ enum ALTCURRENCY
 	ALTCURRENCY_TIMELESSTOKEN = 59, // LS Anniversary
 
 	ALTCURRENCY_FIRST = ALTCURRENCY_DOUBLOONS,
-	ALTCURRENCY_LAST = ALTCURRENCY_SHADOWSTONES,
+	ALTCURRENCY_LAST = ALTCURRENCY_TIMELESSTOKEN,
 
 	ALTCURRENCY_CROWNS = 999999,
 

@@ -181,6 +181,7 @@ namespace eqlib::detail{
 #define ALT_MEMBER_ALIAS_DEPRECATED(type, orig, name, msg) \
 	DEPRECATE(msg) \
     type& getter_ ## name() { return orig; } \
+	DEPRECATE(msg) \
     void setter_ ## name(const type& v) { orig = v; } \
     __declspec(property(get=getter_ ## name, put=setter_ ## name)) type name;
 

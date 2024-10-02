@@ -67,11 +67,14 @@
 // AdvancedLoot was released on March 25, 2015
 #define HAS_ADVANCED_LOOT IS_CLIENT_DATE(20150325)
 
+// Personas feature added in Laurion's Song
+#define HAS_ALTERNATE_PERSONAS IS_EXPANSION_LEVEL(EXPANSION_LEVEL_LS)
+
 // Autoskills was added April 19, 2017
 #define HAS_AUTOSKILLS IS_CLIENT_DATE(20170419)
 
-// DirectX 11 Support added to Test on 9/12/2023
-#define HAS_DIRECTX_11 (IS_CLIENT_DATE(20230912) && IS_TEST_CLIENT)
+// DirectX 11 Support added to Test on 9/12/2023 and Live on 1/16/2024
+#define HAS_DIRECTX_11 ((IS_CLIENT_DATE(20230912) && IS_TEST_CLIENT) || IS_CLIENT_DATE(20240116))
 #define HAS_DIRECTX_9 (!HAS_DIRECTX_11)
 
 // Dragon Hoard was added with the Claws of Veeshan Expansion

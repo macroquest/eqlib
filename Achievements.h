@@ -130,7 +130,7 @@ public:
 /*0x04*/ AchievementInfoArray     achievements;
 /*0x14*/ ArrayClass<int>          childCategories;
 /*0x24*/ int                      id = -1;
-/*0x28*/ int                      parentId = -1;
+/*0x28*/ int                      parentId = 0;
 /*0x2c*/ CXStr                    name;
 /*0x30*/ CXStr                    description;
 /*0x34*/ CXStr                    bitmapId;

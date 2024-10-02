@@ -1671,7 +1671,6 @@ public:
 	EQLIB_OBJECT unsigned int GetSkillTimerDuration(int);
 	EQLIB_OBJECT unsigned int GetSkillLastUsed(int);
 
-	// 363
 /*0x000000*/ TSafeArrayStatic<EQ_Skill*, NUM_SKILLS> pSkill;
 /*0x000190*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
 /*0x1632d0*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];

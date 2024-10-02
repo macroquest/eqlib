@@ -1387,7 +1387,7 @@ Visitor& ItemContainer::VisitItemsImpl(int beginSlot, int endSlot, int depth, It
 	while (iter != endIter)
 	{
 		// Update the cursor
-		cursor.SetSlot(m_atDepth, slot);
+		cursor.SetSlot(m_atDepth, static_cast<short>(slot));
 		const ItemPtr& ptr = *iter;
 
 		if (ptr != nullptr)

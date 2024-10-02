@@ -127,6 +127,8 @@ public:
 
 		return nullptr;
 	}
+
+	bool HasTexture() const { return m_bHasTexture; }
 };
 
 
