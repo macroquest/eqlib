@@ -284,6 +284,9 @@
 // CBazaarSearchWnd
 #define CBazaarSearchWnd__HandleSearchResults_x                    0x635530
 
+// CBuffWindow
+#define CBuffWindow__WndNotification_x                             0x641810
+
 // CButtonWnd
 #define CButtonWnd__vftable_x                                      0xA1B41C
 
@@ -444,6 +447,7 @@
 // CSpellDisplayWnd
 #define CSpellDisplayWnd__SetSpell_x                               0x75F060
 #define CSpellDisplayWnd__UpdateStrings_x                          0x75EAC0
+#define CSpellDisplayWnd__vftable_x                                0x9FB100
 
 // CWndDisplayManager
 #define CWndDisplayManager__FindWindow_x                           0x796420

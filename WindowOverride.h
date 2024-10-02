@@ -134,22 +134,6 @@ public:
 	virtual void UpdateLayout(bool finish = false) override;
 };
 
-#if defined(_M_AMD64)
-
-// FIXME: This is just to get it to compile, the final version might look something like
-// this, but this currently doesn't optimize correctly without /O2
-#define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature)                  \
-	FUNCTION_CHECKS_OFF()                                                                   \
-	template <typename Target>                                                              \
-	RetType Class<Target>::Name Signature {                                                 \
-		static_assert(eqlib::detail::is_size_ok<RetType>::value == 1, "Cannot use this macro with a return type that would spill"); \
-		using TargetFunction = RetType(*)();                                                \
-		return ((TargetFunction)(Class<Target>::s_originalVTable->Name))();                 \
-	}                                                                                       \
-	FUNCTION_CHECKS_ON()
-
-#else
-
 #define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature) \
 	template <typename Target>                                             \
 	__declspec(naked) RetType Class<Target>::Name Signature {              \
@@ -249,8 +233,6 @@ IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, const CXSize&, GetMaxClientS
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, CEditWnd*, GetActiveEditWnd, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, void, UpdateLayout, (bool finish));
 
-#endif
-
 template <typename Target>
 class CSidlScreenWndTrampoline : public CXWndTrampoline<Target>
 {
@@ -266,16 +248,12 @@ public:
 	virtual bool GetScreenWndType();
 };
 
-#if !defined(_M_AMD64)
-
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, int, OnZone, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, int, OnPreZone, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, void, LoadIniInfo, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, void, StoreIniInfo, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, CSidlScreenWnd*, AsSidlScreenWnd, ());
 IMPLEMENT_VTABLE_TRAMPOLINE(CSidlScreenWnd, CSidlScreenWndTrampoline, bool, GetScreenWndType, ());
-
-#endif
 
 #undef IMPLEMENT_VTABLE_TRAMPOLINE
 
@@ -422,7 +400,7 @@ private:
 		Derived::OnAboutToUnhook(static_cast<Derived*>(pThis));
 
 		// put the original table back
-		pThis->ReplaceVFTable(Trampoline::s_originalVTable );
+		pThis->ReplaceVFTable(Trampoline::s_originalVTable);
 
 		s_hooked = hooked;
 	}

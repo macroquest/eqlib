@@ -50,6 +50,9 @@ struct TextTagInfo
 	std::string_view text;
 };
 
+// Token used to signal the item tag in a text string
+constexpr char ITEM_TAG_CHAR = '\x12';
+
 //----------------------------------------------------------------------------
 // Link Parsing
 
@@ -110,7 +113,6 @@ struct SpellLinkInfo
 // Parses an item link. Can take a full link or just the data part. If only the data
 // is provided, then the item name will be absent.
 EQLIB_API bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo);
-
 
 // Parses a spell link.
 EQLIB_API bool ParseSpellLink(std::string_view link, SpellLinkInfo& linkInfo);

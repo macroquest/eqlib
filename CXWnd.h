@@ -70,30 +70,33 @@ class CTextureFont;
 #define XWM_MAXIMIZEBOX                  29
 #define XWM_TITLEBAR                     30
 #define XWM_ACHIEVEMENTLINK              31
-#define XWM_DIALOGRESPONSELINK           32
-#define XWM_FOCUS                        33
-#define XWM_LOSTFOCUS                    34
-#define XWM_RELOAD_FROM_SIDL             35
-#define XWM_ACTIVATE                     36
-#define XWM_SLIDER_COMPLETE              37
-#define XWM_SLIDER_COMPLEX_EX            38
-#define XWM_COLORPICKER_COMPLETE         39
-#define XWM_TEXTENTRY_COMPLETE           40
-#define XWM_FILESELECTION_COMPLETE       41
-#define XWM_ICONSELECTION_COMPLETE       42
-#define XWM_RELOAD_INI                   43
-#define XWM_THUMBTRACK                   44
-#define XWM_SELITEM_DOWN                 45
-#define XWM_FIRST_USER                   46
-#define XWM_RSELITEM_DOWN                47
-#define XWM_OUTPUT_TEXT                  48
-#define XWM_COMMANDLINK                  49
+#define XWM_FOCUS                        32
+#define XWM_LOSTFOCUS                    33
+#define XWM_RELOAD_FROM_SIDL             34
+#define XWM_ACTIVATE                     35
+#define XWM_SLIDER_COMPLETE              36
+#define XWM_COLORPICKER_COMPLETE         37
+#define XWM_TEXTENTRY_COMPLETE           38
+#define XWM_FILESELECTION_COMPLETE       39
+#define XWM_ICONSELECTION_COMPLETE       40
+#define XWM_RELOAD_INI                   41
+#define XWM_THUMBTRACK                   42
+#define XWM_SELITEM_DOWN                 43
+#define XWM_FIRST_USER                   44
+#define XWM_RSELITEM_DOWN                45
+#define XWM_OUTPUT_TEXT                  46
 
-// These messages are not valid in this version fo the game
+#define XWM_USER_DEFINED                 1000
+
+// These messages are not valid in this version of the game
+#define XWM_SPELL_LINK                   (XWM_USER_DEFINED + 1)
+
 #define XWM_NOTSURE32                    99
-#define XWM_SPELL_LINK                   99
 #define XWM_RAIDINVITE_LINK              99
+#define XWM_DIALOGRESPONSELINK           99
 #define XWM_FACTION_LINK                 99
+#define XWM_COMMANDLINK                  99
+#define XWM_SLIDER_COMPLEX_EX            99
 
 // Defines for CXWnd WindowStyle
 #define CWS_VSCROLL                              0x00000001

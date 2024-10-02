@@ -36,9 +36,6 @@ constexpr int TagSizes[ETAG_COUNT] = {
 	0,
 };
 
-// Token used to signal the item tag in a text string
-constexpr char ITEM_TAG_CHAR = '\x12';
-
 // Looks for a link in the provided string. Returns the link if it exists. If no link is
 // found, returns a link with ETAG_INVALID.
 TextTagInfo ExtractLink(std::string_view inputString)

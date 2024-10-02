@@ -28,6 +28,7 @@ namespace eqlib {
 CButtonWnd::VirtualFunctionTable* CButtonWnd::sm_vftable = nullptr;
 CListWnd::VirtualFunctionTable* CListWnd::sm_vftable = nullptr;
 CSidlScreenWnd::VirtualFunctionTable* MapViewMap::sm_vftable = nullptr;
+CSidlScreenWnd::VirtualFunctionTable* CSpellDisplayWnd::sm_vftable = nullptr;
 
 //============================================================================
 // Misc stuff
@@ -191,7 +192,6 @@ bool CCursorAttachment::AttachSpellToCursor(int spellID)
 	AttachToCursor(&taOverlay, nullptr, eCursorAttachment_MemorizeSpell, bookSlot, nullptr, nullptr);
 	return GetType() == eCursorAttachment_MemorizeSpell;
 }
-
 
 //============================================================================
 // CEditWnd
@@ -780,6 +780,16 @@ CChatWindow* CChatWindowManager::GetLockedActiveChatWindow() const
 	return nullptr;
 }
 
+CChatWindow* CChatWindowManager::GetActiveChatWindow() const
+{
+	if (LockedActive != -1)
+	{
+		return ChatWnd[LockedActive];
+	}
+
+	return ChatWnd[CurrentActive];
+}
+
 //============================================================================
 // CChatWindow
 //============================================================================
@@ -894,6 +904,7 @@ void InitializeUI()
 	CButtonWnd::sm_vftable = reinterpret_cast<CButtonWnd::VirtualFunctionTable*>(CButtonWnd__vftable);
 	CListWnd::sm_vftable = reinterpret_cast<CListWnd::VirtualFunctionTable*>(CListWnd__vftable);
 	MapViewMap::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(MapViewMap__vftable);
+	CSpellDisplayWnd::sm_vftable = reinterpret_cast<CSidlScreenWnd::VirtualFunctionTable*>(CSpellDisplayWnd__vftable);
 }
 
 

@@ -614,7 +614,7 @@ public:
 	EQLIB_OBJECT void ProcessText();
 
 	EQLIB_OBJECT bool ReplaceSelection(CXStr, bool bFilter = true);
-	inline bool ReplaceSelection(char ch, bool bFilter = true)
+	bool ReplaceSelection(char ch, bool bFilter = true)
 	{
 		CXStr str(1, ch);
 		return ReplaceSelection(str, bFilter);
@@ -2580,7 +2580,7 @@ public:
 
 constexpr int MAX_CHAT_WINDOWS = 32;
 
-// Size 0x6b0 in eqgame dated 05 Mar 2019 Test (see 0x5418AB)
+// Size 0x248
 class [[offsetcomments]] CChatWindowManager
 {
 public:
@@ -2595,6 +2595,7 @@ public:
 	EQLIB_OBJECT void CreateChatWindow(CXWnd* pParentWnd, int ID, char* Name, int Language, int DefaultChannel,
 		int ChatChannel, char* szTellTarget, int FontStyle, bool bScrollbar, bool bHighLight, COLORREF HighlightColor);
 
+	EQLIB_OBJECT CChatWindow* GetActiveChatWindow() const;
 	//EQLIB_OBJECT CChatWindow* GetActiveChatWindow();
 	//EQLIB_OBJECT CChatWindow* GetChannelMap(int);
 	//EQLIB_OBJECT CXStr GetAllVisibleText(CXStr);
@@ -2612,85 +2613,59 @@ public:
 	//EQLIB_OBJECT void UpdateContextMenus(CChatWindow*);
 	//EQLIB_OBJECT void UpdateTellMenus(CChatWindow*);
 
-/*0x000*/ CChatWindow* ChatWnd[MAX_CHAT_WINDOWS];
-
-	// this is likely a class as a member variable
-// fixme x64
-/*0x080*/ void*              ChatContainerWindow_vfTable;
-/*0x084*/ uint32_t           Unknown1;
-/*0x088*/ uint32_t           Unknown2;
-/*0x08c*/ uint32_t           Unknown3;
-/*0x090*/ uint32_t           Unknown4;
-/*0x094*/ uint32_t           Unknown5;
-/*0x098*/ uint32_t           Unknown6;
-/*0x09c*/ CChatContainerWindow* ChatContainerWindow[MAX_CHAT_WINDOWS];
-/*0x11c*/ int                Unknown7;
-/*0x120*/ int                NumWindows;
-/*0x124*/ int                LockedWindow;
-/*0x128*/ int                ActiveWindow;
-/*0x12c*/ int                CurrentActive;                      // CurrentActive... CChat::GetActiveChatWindow
-/*0x130*/ int                LockedActive;                       // LockedActive... CChatManager__GetLockedActiveChatWindow_x
-/*0x134*/ CChatWindow*       ChannelMap[NUM_CHAT_CHANNELS];      // channel map
-/*0x218*/ CContextMenu*      pMainContextMenu;
-/*0x21c*/ int                ScrollbarIndex;
-/*0x220*/ int                UnknownContextMenuID1[6];
-/*0x238*/ CContextMenu*      pLanguageContextMenu;
-/*0x23c*/ int                LanguageMenuIndex;
-/*0x240*/ CContextMenu*      pFilterContextMenu;
-/*0x244*/ int                FilterMenuIndex;
-/*0x248*/ int                ChatChannelFilterMenuIndex;
-/*0x24c*/ int                MeleeFilterSubMenuIndex;
-/*0x250*/ int                SpellsFilterSubMenuIndex;
-/*0x254*/ CContextMenu*      pMeleeFilterContextMenu;
-/*0x258*/ int                MeleeFilterMenuIndex;
-/*0x25c*/ CContextMenu*      pSpellsFilterContextMenu;
-/*0x260*/ int                SpellsMenuIndex;
-/*0x264*/ CContextMenu*      pChatChannelFilterContextMenu;
-/*0x268*/ int                ChannelMenuIndex;
-/*0x26c*/ CContextMenu*      pDefaultChannelContextMenu;
-
-	// data members beyond this point are not validated and likely incorrect
-/*0x270*/ int                DefaultChannelMenu;
-/*0x274*/ int                DefaultChannelMenu2;
-/*0x278*/ CContextMenu*      pCM_ChatChannelDefChan;
-/*0x27c*/ int                ChatChannelDefChanIndex;
-/*0x280*/ CContextMenu*      pCM_YourHitsMenu;
-/*0x284*/ int                YourHitsMenuIndex;
-/*0x288*/ CContextMenu*      pCM_YourMissesMenu;
-/*0x28c*/ int                YourMissesMenuindex;
-/*0x290*/ CContextMenu*      pCM_YouBeingHitMenu;
-/*0x294*/ int                YouBeingHitMenuindex;
-/*0x298*/ CContextMenu*      pCM_OthersHitsMenu;
-/*0x29c*/ int                OthersHitsMenuindex;
-/*0x2a0*/ CContextMenu*      pCM_OthersMissesMenu;
-/*0x2a4*/ int                OthersMissesMenuindex;
-/*0x2a8*/ CContextMenu*      pCM_AllContextMenu;
-/*0x2ac*/ int                AllContextMenuindex;
-/*0x2b0*/ CContextMenu*      pCM_HitModesMenu;
-/*0x2b4*/ int                HitModesMenuindex;
-/*0x2b8*/ CContextMenu*      pCM_ReplyToMenu;
-/*0x2bc*/ int                ReplyToMenuindex;
-/*0x2c0*/ CContextMenu*      pCM_TellFriendMenu;
-/*0x2c4*/ int                TellFriendMenuindex;
-/*0x2c8*/ CContextMenu*      pCM_TellRaidmemberMenu;
-/*0x2cc*/ int                TellRaidmemberMenuindex;
-/*0x2d0*/ int                ReplyToSubIndex;
-/*0x2d4*/ int                TellFriendSubIndex;
-/*0x2d8*/ int                TellRaidmemberSubIndex;
-/*0x2dc*/ int                HitModes[MAX_HITMODES];
-/*0x2fc*/ int                DefaultChannel;
-/*0x300*/ CContextMenu*      pRandomFilterContextMenu;              // 0x680
-/*0x304*/ int                RandomFilterIndex;
-/*0x308*/ int                RandomFilterSubIndex;
-/*0x30c*/ CContextMenu*      pEnvironmentalDamageFilterContextMenu; // 0x690
-/*0x310*/ int                EnvironmentalDamageIndex;
-/*0x314*/ int                EnvironmentalDamageSubIndex;
-/*0x318*/ CContextMenu*      pDamageShieldsFilterContextMenu;      // 0x6a0
-/*0x31c*/ int                DamageShieldsFilterIndex;
-/*0x320*/ int                DamageShieldsFilterSubIndex;
-/*0x324*/ CContextMenu*      pCM_BeneficialSpellsFilterMenu;
-/*0x328*/ int                BeneficialSpellsFilteIndex;
-/*0x32c*/
+/*0x000*/ CChatWindow*       ChatWnd[MAX_CHAT_WINDOWS];
+/*0x080*/ int                NumWindows;
+/*0x084*/ int                CurrentActive;
+/*0x088*/ int                LockedActive;
+/*0x08c*/ CChatWindow*       ChannelMap[NUM_CHAT_CHANNELS];
+/*0x170*/ CContextMenu*      pMainContextMenu;
+/*0x174*/ int                ScrollbarIndex;
+/*0x178*/ CContextMenu*      pLanguageContextMenu;
+/*0x17c*/ int                LanguageMenuIndex;
+/*0x180*/ CContextMenu*      pFilterContextMenu;
+/*0x184*/ int                FilterMenuIndex;
+/*0x188*/ int                ChatChannelFilterMenuIndex;
+/*0x18c*/ int                MeleeFilterSubMenuIndex;
+/*0x190*/ int                SpellsFilterSubMenuIndex;
+/*0x194*/ CContextMenu*      pMeleeFilterContextMenu;
+/*0x198*/ int                MeleeFilterMenuIndex;
+/*0x19c*/ CContextMenu*      pSpellsFilterContextMenu;
+/*0x1a0*/ int                SpellsMenuIndex;
+/*0x1a4*/ CContextMenu*      pChatChannelFilterContextMenu;
+/*0x1a8*/ int                ChannelMenuIndex;
+/*0x1ac*/ CContextMenu*      pDefaultChannelContextMenu;
+/*0x1b0*/ int                DefaultChannelMenu;
+/*0x1b4*/ int                ChatChannelDefMenuItemIndex;
+/*0x1b8*/ CContextMenu*      ChatChannelDefChanContextMenu;
+/*0x1bc*/ int                ChatChannelDefChanMenuIndex;
+/*0x1c0*/ CContextMenu*      HitModeYourHitsContextMenu;
+/*0x1c4*/ int                HitModeYourHitsMenuIndex;
+/*0x1c8*/ CContextMenu*      HitModeYourMissesContextMenu;
+/*0x1cc*/ int                HitModeYourMissesMenuIndex;
+/*0x1d0*/ CContextMenu*      HitModeYouBeingHitContextMenu;
+/*0x1d4*/ int                HitModeYouBeingHitMenuIndex;
+/*0x1d8*/ CContextMenu*      HitModeYouBeingMissedContextMenu;
+/*0x1dc*/ int                HitModeYouBeingMissedMenuItem;
+/*0x1e0*/ CContextMenu*      HitModeOthersHitsContextMenu;
+/*0x1e4*/ int                HitModeOthersHitsMenuIndex;
+/*0x1e8*/ CContextMenu*      HitModeOthersMissesContextMenu;
+/*0x1ec*/ int                HitModeOthersMissesMenuIndex;
+/*0x1f0*/ CContextMenu*      HitModeAllContextMenu;
+/*0x1f4*/ int                HitModeAllMenuIndex;
+/*0x1f8*/ CContextMenu*      HitModesContextMenu;
+/*0x1fc*/ int                HitModesMenuIndex;
+/*0x200*/ CContextMenu*      ReplyToContextMenu;
+/*0x204*/ int                ReplyToMenuIndex;
+/*0x208*/ CContextMenu*      TellFriendContextMenu;
+/*0x20c*/ int                TellFriendMenuIndex;
+/*0x210*/ CContextMenu*      TellRaidmemberContextMenu;
+/*0x214*/ int                TellRaidmemberMenuIndex;
+/*0x218*/ int                ReplyToSubIndex;
+/*0x21c*/ int                TellFriendSubIndex;
+/*0x220*/ int                TellRaidmemberSubIndex;
+/*0x224*/ int                HitModes[MAX_HITMODES];
+/*0x244*/ int                DefaultChannel;
+/*0x248*/
 };
 
 inline namespace deprecated {
@@ -5820,10 +5795,14 @@ class [[offsetcomments]] CSpellDisplayWnd : public CSidlScreenWnd
 
 public:
 	CSpellDisplayWnd(CXWnd* parent, ESpellDisplayType displayType);
-	virtual ~CSpellDisplayWnd();
+	EQLIB_OBJECT CSpellDisplayWnd() {}
+	EQLIB_OBJECT virtual ~CSpellDisplayWnd() {}
 
 	EQLIB_OBJECT void SetSpell(int SpellID, bool HasSpellDescr, int);
 	EQLIB_OBJECT void UpdateStrings();
+
+	// points to the eq instance of the virtual function table for this class
+	EQLIB_OBJECT static VirtualFunctionTable* sm_vftable;
 
 /*0x220*/ int                WindowID;
 /*0x224*/ CLabelWnd*         pDuration;
@@ -5841,11 +5820,6 @@ public:
 /*0x254*/ int                LastUpdateTime;
 /*0x258*/
 };
-
-inline namespace deprecated {
-	using EQSPELLINFOWINDOW DEPRECATE("Use CSpellDisplayWnd instead of EQSPELLINFOWINDOW") = CSpellDisplayWnd;
-	using PEQSPELLINFOWINDOW DEPRECATE("Use CSpellDisplayWnd& instead of PEQSPELLINFOWINDOW") = CSpellDisplayWnd*;
-}
 
 //============================================================================
 // CSpellGemWnd
@@ -7007,7 +6981,7 @@ class CSpellDisplayManager : public CWndDisplayManager
 public:
 	CSpellDisplayWnd* GetWindow(int index) const { return static_cast<CSpellDisplayWnd*>(CWndDisplayManager::GetWindow(index)); }
 
-	EQLIB_OBJECT void ShowSpell(int SpellID, bool NewWindow, bool FullDisplay, int SpellDisplayType);
+	EQLIB_OBJECT void ShowSpell(int SpellID, bool NewWindow, bool FullDisplay, ESpellDisplayType SpellDisplayType);
 };
 
 //----------------------------------------------------------------------------
