@@ -443,10 +443,11 @@ private:
 
 	void ensure_writable(size_t length)
 	{
-		if ((int)length > m_space || ref_count() > 1)
+		if (length > static_cast<size_t>(m_space) || ref_count() > 1)
 		{
-			if (length < m_length + 1)
-				length = m_length + 1;
+			size_t neededSize = static_cast<size_t>(m_length + 1);
+			if (length < neededSize)
+				length = neededSize;
 
 			// data we need includes the std::atomic_int
 			size_t spaceNeeded = length + sizeof(std::atomic_int);
@@ -458,7 +459,7 @@ private:
 			T* newData = reinterpret_cast<T*>(data + sizeof(std::atomic_int));
 			int newSpace = static_cast<int>(allocated - sizeof(std::atomic_int));
 			int newLength = m_length;
-			std::memcpy(newData, c_str(), m_length + 1);
+			std::memcpy(newData, c_str(), neededSize);
 
 			decrement_ref_count();
 

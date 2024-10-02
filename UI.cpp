@@ -243,7 +243,7 @@ CXRect CGaugeWnd::CalcLinesFillRect(CXRect rect, int value) const
 {
 	if (value < 0)
 		value = 0;
-	
+
 	float width = static_cast<float>((value - 1) % 200) * 0.005f * rect.GetWidth();
 	rect.right = rect.left + static_cast<int>(width);
 
