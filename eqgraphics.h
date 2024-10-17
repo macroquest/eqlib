@@ -32,6 +32,11 @@
 #define __bRenderSceneCalled_x                                     0x18033C010
 
 #define C2DPrimitiveManager__AddCachedText_x                       0x1800DEDF0
+#define C2DPrimitiveManager__Render_x                              0x1800DFF90
+
+#define ObjectPreviewView__Render_x                                0x180026840
+
+#define EQGraphics_DebugAPI_Ptr_x                                  0x18039DA98
 
 #if __has_include("../private/eqgraphics-private.h")
 #include "../private/eqgraphics-private.h"

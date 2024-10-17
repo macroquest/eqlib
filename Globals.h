@@ -1104,6 +1104,9 @@ EQLIB_VAR uintptr_t CRender__UpdateDisplay;
 EQLIB_VAR uintptr_t CRender__ResetDevice;
 EQLIB_VAR BOOL* g_bRenderSceneCalled;
 EQLIB_VAR uintptr_t C2DPrimitiveManager__AddCachedText;
+EQLIB_VAR uintptr_t C2DPrimitiveManager__Render;
+EQLIB_VAR uintptr_t ObjectPreviewView__Render;
+EQLIB_VAR uintptr_t EQGraphics_DebugAPI_Ptr;
 
 //============================================================================
 // eqmain.dll Offsets
