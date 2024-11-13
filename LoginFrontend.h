@@ -78,8 +78,11 @@ struct [[offsetcomments]] Date
 
 enum eServerStatus : uint32_t
 {
-	eServerStatus_Down = 1,
-	eServerStatus_Locked = 4
+	eServerStatus_Down           = 1,
+	eServerStatus_Locked         = 4,
+	eServerStatus_PopulationLow  = 0x10,
+	eServerStatus_PopulationHigh = 0x20,
+
 };
 
 struct [[offsetcomments]] EQClientServerData
@@ -98,6 +101,15 @@ struct [[offsetcomments]] EQClientServerData
 /*0x68*/ eServerStatus StatusFlags;
 /*0x6c*/ int           PopulationRanking;
 /*0x70*/
+
+	// Compatibility shims for live
+	CXStr get_EmptyString() const { return CXStr(); }
+	int get_Zero() const { return 0; }
+
+	__declspec(property(get = get_EmptyString)) CXStr RuleSet;
+	__declspec(property(get = get_EmptyString)) CXStr Description;
+	__declspec(property(get = get_Zero)) int TrueBoxStatus;
+	__declspec(property(get = get_Zero)) int Expansion;
 };
 
 class [[offsetcomments]] LoginServerCallback

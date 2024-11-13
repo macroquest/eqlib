@@ -47,5 +47,6 @@ namespace eqlib {
 #define EXPANSION_LEVEL_TOL             28  // Terror of Luclin
 #define EXPANSION_LEVEL_NOS             29  // Night of Shadows
 #define EXPANSION_LEVEL_LS              30  // Laurion's Song
+#define EXPANSION_LEVEL_TOB				31  // The Outer Brood
 
 } // namespace eqlib

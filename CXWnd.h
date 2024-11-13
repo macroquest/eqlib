@@ -93,6 +93,8 @@ class CTextureFont;
 #define XWM_RAIDINVITE_LINK              52
 #define XWM_FACTION_LINK                 53
 
+#define XWM_USER_DEFINED                 1000
+
 // Defines for CXWnd WindowStyle
 #define CWS_VSCROLL                              0x00000001
 #define CWS_HSCROLL                              0x00000002
@@ -136,6 +138,11 @@ enum eKeyboardFlags {
 
 	KeyboardFlags_Alt   = KeyboardFlags_LAlt | KeyboardFlags_RAlt,
 };
+
+// CXWndManager will send mouse clicks as keyboard events
+constexpr int EQ_KEYBOARD_EVENT_MB3 = 240;
+constexpr int EQ_KEYBOARD_EVENT_MB4 = 242;
+constexpr int EQ_KEYBOARD_EVENT_MB5 = 241;
 
 enum EScrollCode
 {

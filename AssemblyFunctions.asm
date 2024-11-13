@@ -77,8 +77,8 @@ export ??1MapViewMap@eqlib@@UAE@XZ
 ;---------------------------------------------------------------------------------------
 
 ; void __thiscall eqlib::ItemClient::~ItemClient(eqlib::ItemClient *__hidden this)
-global ??1ItemClient@eqlib@@UAE@XZ:
-export ??1ItemClient@eqlib@@UAE@XZ:
+global ??1ItemClient@eqlib@@UAE@XZ
+export ??1ItemClient@eqlib@@UAE@XZ
 ??1ItemClient@eqlib@@UAE@XZ:
 	mov eax, [_ItemClient__dItemClient]
 	jmp eax

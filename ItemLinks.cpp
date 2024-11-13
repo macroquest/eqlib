@@ -36,9 +36,6 @@ constexpr int TagSizes[ETAG_COUNT] = {
 	0,
 };
 
-// Token used to signal the item tag in a text string
-constexpr char ITEM_TAG_CHAR = '\x12';
-
 // Looks for a link in the provided string. Returns the link if it exists. If no link is
 // found, returns a link with ETAG_INVALID.
 TextTagInfo ExtractLink(std::string_view inputString)
@@ -88,7 +85,8 @@ TextTagInfo ExtractLink(std::string_view inputString)
 			// character after the tag code.
 			const size_t tagSize = TagSizes[link.tagCode];
 
-			if (tagSize > link.link.size())
+			// If the length of the tag from i is bigger than the string we know it's invalid
+			if (i + tagSize > inputString.size())
 			{
 				link.tagCode = ETAG_INVALID;
 				return link;
@@ -125,6 +123,13 @@ TextTagInfo ExtractLink(std::string_view inputString)
 				}
 				return link;
 
+			case ETAG_DIALOG_RESPONSE:
+				textStart = i + tagSize + 2; // 2 skips the first marker and the tag code.
+				link.text = inputString.substr(textStart, end - textStart);
+				if (size_t colon = link.text.find(':'); colon != std::string_view::npos)
+					link.text = link.text.substr(0, colon);
+				return link;
+
 			case ETAG_COMMAND2:
 				textStart = inputString.find(':', i + 1);
 				if (textStart != std::string_view::npos)
@@ -134,7 +139,6 @@ TextTagInfo ExtractLink(std::string_view inputString)
 					return link;
 				}
 				// fallthrough
-			case ETAG_DIALOG_RESPONSE:
 			case ETAG_COMMAND:
 			default:
 				textStart = i + tagSize + 2; // 2 skips the first marker and the tag code.
@@ -207,10 +211,20 @@ void FormatItemLink(char* Buffer, size_t BufferSize, ItemClient* pItem)
 
 void FormatSpellLink(char* Buffer, size_t BufferSize, EQ_Spell* Spell, const char* spellNameOverride /* = nullptr */)
 {
-	snprintf(Buffer, BufferSize, "%c%d3^%d^'%s%c", ITEM_TAG_CHAR, ETAG_SPELL, Spell->ID,
+	// the third param corresponds with the "Unknown" param of the CSpellDisplayWnd
+
+	snprintf(Buffer, BufferSize, "%c%d3^%d^0^'%s%c", ITEM_TAG_CHAR, ETAG_SPELL, Spell->ID,
 		spellNameOverride && spellNameOverride[0] ? spellNameOverride : Spell->Name, ITEM_TAG_CHAR);
 }
 
+void FormatDialogLink(char* Buffer, size_t BufferSize, std::string_view keyword, std::string_view text)
+{
+	if (text.empty())
+		snprintf(Buffer, BufferSize, "%c%d%.*s%c", ITEM_TAG_CHAR, ETAG_DIALOG_RESPONSE, (int)keyword.length(), keyword.data(), ITEM_TAG_CHAR);
+	else
+		snprintf(Buffer, BufferSize, "%c%d%.*s:%.*s%c", ITEM_TAG_CHAR, ETAG_DIALOG_RESPONSE, (int)keyword.length(), keyword.data(),
+			(int)text.length(), text.data(), ITEM_TAG_CHAR);
+}
 
 void FormatAchievementLink(char* Buffer, size_t BufferSize, const Achievement* achievement, std::string_view playerName)
 {
@@ -295,6 +309,76 @@ bool ParseItemLink(std::string_view link, ItemLinkInfo& linkInfo)
 	return ch == (2 * MAX_AUG_SOCKETS) + 7;
 }
 
+bool ParseSpellLink(std::string_view link, SpellLinkInfo& linkInfo)
+{
+	if (link.empty())
+		return false;
+
+	if (link[0] != ITEM_TAG_CHAR)
+		return false;
+	
+	TextTagInfo tagInfo = ExtractLink(link);
+	if (tagInfo.tagCode != ETAG_SPELL)
+		return false;
+
+	std::string_view linkData = tagInfo.link.substr(2);
+	link = linkData.substr(0, tagInfo.text.data() - linkData.data());
+
+	linkInfo.spellName = tagInfo.text;
+
+	if (link.empty())
+		return false;
+
+	const char* data = link.data();
+
+	// First char should be a 3
+	if (data[0] != '3' || data[1] != '^')
+		return false;
+
+	data += 2;
+	sscanf_s(data, "%d^%d^", &linkInfo.spellID, &linkInfo.unknown);
+
+	return true;
+}
+
+bool ParseDialogLink(std::string_view link, DialogLinkInfo& linkInfo)
+{
+	if (link.empty())
+		return false;
+
+	if (link[0] != ITEM_TAG_CHAR)
+		return false;
+
+	TextTagInfo tagInfo = ExtractLink(link);
+	if (tagInfo.tagCode != ETAG_DIALOG_RESPONSE)
+		return false;
+
+	// Trim the surrounding tags
+	link = tagInfo.link.substr(1, tagInfo.link.length() - 2);
+
+	if (link.empty())
+		return false;
+
+	// First char should be the link type
+	if (link[0] != ('0' + ETAG_DIALOG_RESPONSE))
+		return false;
+
+	link = link.substr(1);
+
+	if (size_t colon = link.find(':'); colon != std::string_view::npos)
+	{
+		linkInfo.keyword = link.substr(0, colon);
+		linkInfo.text = link.substr(colon + 1);
+	}
+	else
+	{
+		linkInfo.keyword = link;
+		linkInfo.text = link;
+	}
+
+	return true;
+}
+
 static int TagCodeToWndNotification(ETagCodes tagCode)
 {
 	switch (tagCode)
@@ -328,9 +412,16 @@ bool ExecuteTextLink(const TextTagInfo& link)
 	{
 		if (pWnd)
 		{
+			// strip the \x12 and the text portion
 			std::string_view linkCode = link.link.substr(2, link.text.data() - link.link.data() - 2);
 
-			// strip the \x12 and the text portion
+			if (link.tagCode == ETAG_DIALOG_RESPONSE)
+			{
+				DialogLinkInfo linkInfo;
+				if (ParseDialogLink(link.link, linkInfo))
+					linkCode = linkInfo.text.empty() ? linkInfo.keyword : linkInfo.text;
+			}
+
 			char szTempLink[MAX_STRING];
 			sprintf_s(szTempLink, "%.*s", static_cast<int>(linkCode.size()), linkCode.data());
 

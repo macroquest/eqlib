@@ -327,7 +327,7 @@ struct [[offsetcomments]] TargetSetLoadout
 struct [[offsetcomments]] CMDLIST
 {
 /*0x00*/ char* szName;
-/*0x08*/ void  (*fAddress)(PlayerClient*, char*);
+/*0x08*/ void  (*fAddress)(PlayerClient*, const char*);
 /*0x10*/ DWORD Restriction;
 /*0x14*/ DWORD Category;
 /*0x18*/ DWORD Flags;
@@ -349,11 +349,18 @@ using PEQSOCIAL = EQSocial*;
 
 struct [[offsetcomments]] HotButtonData
 {
-	// needs to be mapped out
-/*0x00*/ void*     unknown[24];
-/*0xc0*/
-	// 0xa0 iconType
-	// 0xa4 iconSlot
+/*0x00*/ ItemPtr    Item;
+/*0x10*/ EqItemGuid ItemGuid;
+/*0x22*/ char       Label[0x40];
+/*0x62*/ char       ItemName[0x40];
+/*0xa4*/ int        ItemId;
+/*0xa8*/ int        IconType;
+/*0xac*/ int        IconSlot;
+/*0xb0*/ int        IconId;
+/*0xb4*/ int        Slot;
+/*0xb8*/ uint8_t    Type;
+/*0xb9*/ uint8_t    ItemValid;
+/*0xbc*/
 };
 
 struct [[offsetcomments]] EQFRIENDSLIST
@@ -530,24 +537,6 @@ public:
 using EQSTRINGTABLE DEPRECATE("Use StringTable instead of EQSTRINGTABLE") = StringTable;
 using PEQSTRINGTABLE DEPRECATE("Use StringTable*I instead of EQSTRINGTABLE*") = StringTable*;
 
-
-// needs to be updated
-struct [[offsetcomments]] connection_t
-{
-/*0x000*/ void* vtable;
-/*0x008*/ BYTE  Unknown0x4[0x110];
-/*0x118*/ DWORD Master;
-/*0x11c*/ DWORD Average;
-/*0x120*/ DWORD Low;
-/*0x124*/ DWORD High;
-/*0x128*/ DWORD Last;
-/*0x12c*/
-};
-
-inline namespace deprecated {
-	using CONNECTION_T DEPRECATE("Use connection_t instead of CONNECTION_T") = connection_t;
-	using PCONNECTION_T DEPRECATE("Use connection_t instead of PCONNECTION_T") = connection_t*;
-}
 
 enum eDynamicZoneType
 {

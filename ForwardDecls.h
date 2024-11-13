@@ -346,13 +346,11 @@ class SoundManager;
 class SoundObject;
 class SpellManager;
 class StringTable;
-class UdpConnection;
 class UniversalChatProxy;
 class Wave3dInstance;
 class WaveInstance;
 struct CDynamicZone;
 struct CMDLIST;
-struct connection_t;
 struct CStrRep;
 struct CUITextureInfo;
 struct DynamicZoneClientTimerData;
@@ -385,6 +383,11 @@ struct ChatColorFilterData;
 class CRaid;
 using EQRAID = CRaid;
 class CRender;
+struct SDeviceInputProxy;
+
+namespace UdpLibrary {
+	class UdpConnection;
+}
 
 struct LabelCache;
 

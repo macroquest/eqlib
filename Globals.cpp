@@ -31,11 +31,7 @@ namespace eqlib {
 // at static initialization time because of this.
 uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
 
-#if HAS_DIRECTX_11
 #define GRAPHICS_DLL_NAME "EQGraphics.dll"
-#else
-#define GRAPHICS_DLL_NAME "EQGraphicsDX9.dll"
-#endif
 
 uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle(GRAPHICS_DLL_NAME);
 
@@ -99,6 +95,7 @@ ServerID ServerIDArray[static_cast<int>(ServerID::NumServers)] = {
 	ServerID::Mangler,
 	ServerID::Mayong,
 	ServerID::Mischief,
+	ServerID::Oakwynd,
 	ServerID::Povar,
 	ServerID::Ragefire,
 	ServerID::Rathe,
@@ -129,6 +126,7 @@ const char* GetServerNameFromServerID(ServerID id)
 	case ServerID::Mangler: return "mangler";
 	case ServerID::Mayong: return "mayong";
 	case ServerID::Mischief: return "mischief";
+	case ServerID::Oakwynd: return "oakwynd";
 	case ServerID::Povar: return "povar";
 	case ServerID::Ragefire: return "ragefire";
 	case ServerID::Rathe: return "rathe";
@@ -163,6 +161,7 @@ ServerID GetServerIDFromServerName(const char* serverName)
 		{ "mangler", ServerID::Mangler },
 		{ "mayong", ServerID::Mayong },
 		{ "mischief", ServerID::Mischief },
+		{ "oakwynd", ServerID::Oakwynd },
 		{ "povar", ServerID::Povar },
 		{ "ragefire", ServerID::Ragefire },
 		{ "rathe", ServerID::Rathe },
@@ -391,6 +390,8 @@ INITIALIZE_EQGAME_OFFSET(__heqmain);
 INITIALIZE_EQGAME_OFFSET(__HWnd);
 INITIALIZE_EQGAME_OFFSET(__LabelCache);
 INITIALIZE_EQGAME_OFFSET(__LoginName);
+INITIALIZE_EQGAME_OFFSET(__MemCheckBitmask);
+INITIALIZE_EQGAME_OFFSET(__MemCheckActive);
 INITIALIZE_EQGAME_OFFSET(__Mouse);
 INITIALIZE_EQGAME_OFFSET(__MouseEventTime);
 INITIALIZE_EQGAME_OFFSET(__ScreenMode);
@@ -443,6 +444,7 @@ INITIALIZE_EQGAME_OFFSET(pinstModelPlayer);
 INITIALIZE_EQGAME_OFFSET(pinstRenderInterface);
 INITIALIZE_EQGAME_OFFSET(pinstPlayerPath);
 INITIALIZE_EQGAME_OFFSET(pinstSGraphicsEngine);
+INITIALIZE_EQGAME_OFFSET(pinstDeviceInputProxy);
 INITIALIZE_EQGAME_OFFSET(pinstSkillMgr);
 INITIALIZE_EQGAME_OFFSET(pinstSpawnManager);
 INITIALIZE_EQGAME_OFFSET(pinstSpellManager);
@@ -468,9 +470,11 @@ INITIALIZE_EQGAME_OFFSET(__allowslashcommand);
 INITIALIZE_EQGAME_OFFSET(__CastRay);
 INITIALIZE_EQGAME_OFFSET(__CastRay2);
 INITIALIZE_EQGAME_OFFSET(__CleanItemTags);
+INITIALIZE_EQGAME_OFFSET(__compress_block);
 INITIALIZE_EQGAME_OFFSET(__ConvertItemTags);
 INITIALIZE_EQGAME_OFFSET(__CopyLayout);
 INITIALIZE_EQGAME_OFFSET(__CreateCascadeMenuItems);
+INITIALIZE_EQGAME_OFFSET(__decompress_block);
 INITIALIZE_EQGAME_OFFSET(__DoesFileExist);
 INITIALIZE_EQGAME_OFFSET(__eq_delete);
 INITIALIZE_EQGAME_OFFSET(__eq_new);
@@ -491,6 +495,7 @@ INITIALIZE_EQGAME_OFFSET(__NewUIINI);
 INITIALIZE_EQGAME_OFFSET(__ProcessGameEvents);
 INITIALIZE_EQGAME_OFFSET(__ProcessKeyboardEvents);
 INITIALIZE_EQGAME_OFFSET(__ProcessMouseEvents);
+INITIALIZE_EQGAME_OFFSET(__ProcessDeviceEvents);
 INITIALIZE_EQGAME_OFFSET(__SaveColors);
 INITIALIZE_EQGAME_OFFSET(__STMLToText);
 INITIALIZE_EQGAME_OFFSET(__WndProc);
@@ -578,6 +583,7 @@ INITIALIZE_EQGAME_OFFSET(CDisplay__InitCharSelectUI);
 INITIALIZE_EQGAME_OFFSET(CDisplay__PreZoneMainUI);
 INITIALIZE_EQGAME_OFFSET(CDisplay__RealRender_World);
 INITIALIZE_EQGAME_OFFSET(CDisplay__ReloadUI);
+INITIALIZE_EQGAME_OFFSET(CDisplay__RestartUI);
 INITIALIZE_EQGAME_OFFSET(CDisplay__SetViewActor);
 INITIALIZE_EQGAME_OFFSET(CDisplay__ToggleScreenshotMode);
 INITIALIZE_EQGAME_OFFSET(CDisplay__TrueDistance);
@@ -642,6 +648,7 @@ INITIALIZE_EQGAME_OFFSET(CharacterBase__IsExpansionFlag);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__BardCastBard);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__CalcAffectChange);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__CalcAffectChangeGeneric);
+INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__CanMedOnHorse);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__CanUseItem);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__CanUseMemorizedSpellSlot);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__CastSpell);
@@ -663,7 +670,6 @@ INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetItemCountInInventory);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetItemCountWorn);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetLastEffectSlot);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetManaRegen);
-INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetMaxEffects);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetModCap);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetOpenEffectSlot);
 INITIALIZE_EQGAME_OFFSET(CharacterZoneClient__GetPctModAndMin);
@@ -1002,6 +1008,7 @@ INITIALIZE_EQGAME_OFFSET(Spellmanager__LoadTextSpells);
 INITIALIZE_EQGAME_OFFSET(StringTable__getString);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table_Size);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table);
+INITIALIZE_EQGAME_OFFSET(UdpConnection__GetStats);
 INITIALIZE_EQGAME_OFFSET(Util__FastTime);
 INITIALIZE_EQGAME_OFFSET(ZoneGuideManagerClient__Instance);
 
@@ -1013,7 +1020,6 @@ CMDLIST*               EQADDR_CMDLIST            = nullptr;
 IDirectInputDevice8A** EQADDR_DIKEYBOARD         = nullptr;
 IDirectInputDevice8A** EQADDR_DIMOUSE            = nullptr;
 POINT*                 EQADDR_DIMOUSECHECK       = nullptr;
-void*                  EQADDR_GWORLD             = nullptr;
 uintptr_t              EQADDR_HWND               = 0;
 MQMouseInfo*           EQADDR_MOUSE              = nullptr;
 char*                  EQADDR_SERVERHOST         = nullptr;
@@ -1022,6 +1028,8 @@ BYTE*                  EQbCommandStates          = nullptr;
 ChatColorFilterData*   gpChatFilterDefs          = nullptr;
 HMODULE*               ghEQMainInstance          = nullptr;
 DWORD*                 gpbCommandEvent           = nullptr;
+uint8_t*               gpMemCheckBitmask         = nullptr;
+uint8_t*               gpMemCheckActive          = nullptr;
 DWORD*                 gpMouseEventTime          = nullptr;
 CDynamicZone*          pDynamicZone              = nullptr;
 EQLogin*               pEQLogin                  = nullptr;
@@ -1077,7 +1085,7 @@ ForeignPointer<AltAdvManager>                    pAltAdvManager;
 ComputedPointer<ClientAuraManager>               pAuraMgr([]{ return ClientAuraManager::GetSingleton(); });
 ForeignPointer<CChatWindowManager>               pChatManager;
 ComputedPointer<UniversalChatProxy>              pChatService([]{ return pEverQuest->chatService; });
-ForeignPointer<connection_t>                     pConnection;
+ForeignPointer<UdpLibrary::UdpConnection>        pConnection;
 ForeignPointer<CContainerMgr>                    pContainerMgr;
 ForeignPointer<CContextMenuManager>              pContextMenuManager;
 ForeignPointer<MAPLABEL>                         pCurrentMapLabel;
@@ -1273,6 +1281,7 @@ ForeignPointer<CSidlScreenWnd>                   pVoteWnd;
 ForeignPointer<CZoneGuideWnd>                    pZoneGuideWnd;
 ForeignPointer<CZonePathWnd>                     pZonePathWnd;
 
+SDeviceInputProxy*                               g_pDeviceInputProxy;
 ForeignPointer<CRender>                          g_pDrawHandler;
 ForeignPointer<IDirectInputDevice8A>             g_pDIKeyboard;
 ForeignPointer<IDirectInputDevice8A>             g_pDIMouse;
@@ -1306,7 +1315,6 @@ void InitializeEQGameOffsets()
 	EQADDR_DIMOUSE                  = (IDirectInputDevice8A**)DI8__Mouse;
 #pragma warning(suppress: 4996)
 	EQADDR_DIMOUSECHECK             = (PPOINT)DI8__MouseState;
-	EQADDR_GWORLD                   = (void*)__gWorld;
 	EQADDR_HWND                     = __HWnd;
 	EQADDR_MOUSE                    = (MQMouseInfo*)__Mouse;
 	EQADDR_SERVERHOST               = (char*)__ServerHost;
@@ -1315,6 +1323,8 @@ void InitializeEQGameOffsets()
 	gpChatFilterDefs                = (ChatColorFilterData*)__ChatFilterDefs;
 	ghEQMainInstance                = (HINSTANCE*)__heqmain;
 	gpbCommandEvent                 = (DWORD*)__gpbCommandEvent;
+	gpMemCheckBitmask               = (uint8_t*)__MemCheckBitmask;
+	gpMemCheckActive                = (uint8_t*)__MemCheckActive;
 	gpMouseEventTime                = (DWORD*)__MouseEventTime;
 	pDynamicZone                    = (CDynamicZone*)instDynamicZone;
 	pEQLogin                        = (EQLogin*)pinstEqLogin;
@@ -1414,6 +1424,7 @@ void InitializeEQGameOffsets()
 	pWndMgr                         = pinstCXWndManager;
 	pWorldData                      = pinstWorldData;
 
+	g_pDeviceInputProxy             = (SDeviceInputProxy*)pinstDeviceInputProxy;
 	g_pDrawHandler                  = pinstRenderInterface;
 	g_pDIKeyboard                   = DI8__Keyboard;
 	g_pDIMouse                      = DI8__Mouse;
@@ -1445,6 +1456,9 @@ INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderBlind);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__UpdateDisplay);
 INITIALIZE_EQGRAPHICS_OFFSET(CRender__ResetDevice);
 INITIALIZE_EQGRAPHICS_OFFSET(C2DPrimitiveManager__AddCachedText);
+INITIALIZE_EQGRAPHICS_OFFSET(C2DPrimitiveManager__Render);
+INITIALIZE_EQGRAPHICS_OFFSET(ObjectPreviewView__Render);
+INITIALIZE_EQGRAPHICS_OFFSET(EQGraphics_DebugAPI_Ptr);
 
 INITIALIZE_EQGRAPHICS_OFFSET(__bRenderSceneCalled);
 BOOL* g_bRenderSceneCalled = (BOOL*)__bRenderSceneCalled;
@@ -1467,6 +1481,9 @@ void InitializeEQGraphicsOffsets()
 		CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
 		g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
 		C2DPrimitiveManager__AddCachedText = FixEQGraphicsOffset(C2DPrimitiveManager__AddCachedText_x);
+		C2DPrimitiveManager__Render = FixEQGraphicsOffset(C2DPrimitiveManager__Render_x);
+		ObjectPreviewView__Render = FixEQGraphicsOffset(ObjectPreviewView__Render_x);
+		EQGraphics_DebugAPI_Ptr = FixEQGraphicsOffset(EQGraphics_DebugAPI_Ptr_x);
 	}
 }
 

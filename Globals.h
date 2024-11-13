@@ -35,6 +35,12 @@ constexpr uintptr_t EQGamePreferredAddress = 0x140000000;
 constexpr uintptr_t EQGamePreferredAddress = 0x400000;
 #endif // defined(_M_AMD64)
 
+#if defined(_M_AMD64)
+constexpr uintptr_t EQLibraryPreferredAddress = 0x180000000;
+#else
+constexpr uintptr_t EQLibraryPreferredAddress = 0x10000000;
+#endif
+
 // the base address of eqgame.exe
 EQLIB_VAR uintptr_t EQGameBaseAddress;
 
@@ -55,19 +61,19 @@ EQLIB_VAR uintptr_t Kernel32BaseAddress;
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQGameOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x140000000) + EQGameBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQGamePreferredAddress) + EQGameBaseAddress;
 }
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQGraphicsOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180000000) + EQGraphicsBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQLibraryPreferredAddress) + EQGraphicsBaseAddress;
 }
 
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 inline uintptr_t FixEQMainOffset(T nOffset)
 {
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(0x180000000) + EQMainBaseAddress;
+	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQLibraryPreferredAddress) + EQMainBaseAddress;
 }
 
 #define INITIALIZE_EQGAME_OFFSET(var) uintptr_t var = FixEQGameOffset(var##_x)
@@ -137,6 +143,8 @@ EQLIB_VAR uintptr_t __HotkeyPage;
 EQLIB_VAR uintptr_t __HWnd;
 EQLIB_VAR uintptr_t __LabelCache;
 EQLIB_VAR uintptr_t __LoginName;
+EQLIB_VAR uintptr_t __MemCheckBitmask;
+EQLIB_VAR uintptr_t __MemCheckActive;
 EQLIB_VAR uintptr_t __Mouse;
 EQLIB_VAR uintptr_t __MouseEventTime;
 EQLIB_VAR uintptr_t __ScreenMode;
@@ -214,9 +222,11 @@ EQLIB_VAR uintptr_t __allowslashcommand;
 EQLIB_VAR uintptr_t __CastRay;
 EQLIB_VAR uintptr_t __CastRay2;
 EQLIB_VAR uintptr_t __CleanItemTags;
+EQLIB_VAR uintptr_t __compress_block;
 EQLIB_VAR uintptr_t __ConvertItemTags;
 EQLIB_VAR uintptr_t __CopyLayout;
 EQLIB_VAR uintptr_t __CreateCascadeMenuItems;
+EQLIB_VAR uintptr_t __decompress_block;
 EQLIB_VAR uintptr_t __DoesFileExist;
 EQLIB_VAR uintptr_t __eq_delete;
 EQLIB_VAR uintptr_t __eq_new;
@@ -237,6 +247,7 @@ EQLIB_VAR uintptr_t __NewUIINI;
 EQLIB_VAR uintptr_t __ProcessGameEvents;
 EQLIB_VAR uintptr_t __ProcessKeyboardEvents;
 EQLIB_VAR uintptr_t __ProcessMouseEvents;
+EQLIB_VAR uintptr_t __ProcessDeviceEvents;
 EQLIB_VAR uintptr_t __SaveColors;
 EQLIB_VAR uintptr_t __STMLToText;
 EQLIB_VAR uintptr_t __WndProc;
@@ -328,6 +339,7 @@ EQLIB_VAR uintptr_t CDisplay__InitCharSelectUI;
 EQLIB_VAR uintptr_t CDisplay__PreZoneMainUI;
 EQLIB_VAR uintptr_t CDisplay__RealRender_World;
 EQLIB_VAR uintptr_t CDisplay__ReloadUI;
+EQLIB_VAR uintptr_t CDisplay__RestartUI;
 EQLIB_VAR uintptr_t CDisplay__SetViewActor;
 EQLIB_VAR uintptr_t CDisplay__ToggleScreenshotMode;
 EQLIB_VAR uintptr_t CDisplay__TrueDistance;
@@ -394,6 +406,7 @@ EQLIB_VAR uintptr_t CharacterZoneClient__ApplyDamage;
 EQLIB_VAR uintptr_t CharacterZoneClient__BardCastBard;
 EQLIB_VAR uintptr_t CharacterZoneClient__CalcAffectChange;
 EQLIB_VAR uintptr_t CharacterZoneClient__CalcAffectChangeGeneric;
+EQLIB_VAR uintptr_t CharacterZoneClient__CanMedOnHorse;
 EQLIB_VAR uintptr_t CharacterZoneClient__CanUseItem;
 EQLIB_VAR uintptr_t CharacterZoneClient__CanUseMemorizedSpellSlot;
 EQLIB_VAR uintptr_t CharacterZoneClient__CastSpell;
@@ -415,7 +428,6 @@ EQLIB_VAR uintptr_t CharacterZoneClient__GetItemCountInInventory;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetItemCountWorn;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetLastEffectSlot;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetManaRegen;
-EQLIB_VAR uintptr_t CharacterZoneClient__GetMaxEffects;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetModCap;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetOpenEffectSlot;
 EQLIB_VAR uintptr_t CharacterZoneClient__GetPctModAndMin;
@@ -759,6 +771,7 @@ EQLIB_VAR uintptr_t Spellmanager__LoadTextSpells;
 EQLIB_VAR uintptr_t StringTable__getString;
 EQLIB_VAR uintptr_t Teleport_Table_Size;
 EQLIB_VAR uintptr_t Teleport_Table;
+EQLIB_VAR uintptr_t UdpConnection__GetStats;
 EQLIB_VAR uintptr_t Util__FastTime;
 EQLIB_VAR uintptr_t Window__getProgress;
 EQLIB_VAR uintptr_t Window__getStatus;
@@ -775,7 +788,6 @@ EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIKEYBOARD DEPRECATE
 EQLIB_VAR IDirectInputDevice8A**                     EQADDR_DIMOUSE DEPRECATE("Use g_pMouse instead of EQADDR_DIMOUSE");
 EQLIB_VAR PPOINT                                     EQADDR_DIMOUSECHECK DEPRECATE("Use g_pDIMouseState instead of EQADDR_DIMOUSECHECK");
 EQLIB_VAR MQMouseInfo*                               EQADDR_MOUSE;
-EQLIB_VAR void*                                      EQADDR_GWORLD;
 EQLIB_VAR uintptr_t                                  EQADDR_HWND;
 EQLIB_VAR char*                                      EQADDR_SERVERHOST;
 EQLIB_VAR char**                                     EQMappableCommandList;
@@ -783,6 +795,8 @@ EQLIB_VAR BYTE*                                      EQbCommandStates;
 EQLIB_VAR ChatColorFilterData*                       gpChatFilterDefs;
 EQLIB_VAR HMODULE*                                   ghEQMainInstance;
 EQLIB_VAR DWORD*                                     gpbCommandEvent;
+EQLIB_VAR uint8_t*                                   gpMemCheckBitmask;
+EQLIB_VAR uint8_t*                                   gpMemCheckActive;
 EQLIB_VAR DWORD*                                     gpMouseEventTime;
 EQLIB_VAR CDynamicZone*                              pDynamicZone;
 EQLIB_VAR CTribute*                                  pTribute;
@@ -842,7 +856,7 @@ EQLIB_VAR ForeignPointer<AltAdvManager>              pAltAdvManager;
 EQLIB_VAR ComputedPointer<ClientAuraManager>         pAuraMgr;
 EQLIB_VAR ForeignPointer<CChatWindowManager>         pChatManager;
 EQLIB_VAR ComputedPointer<UniversalChatProxy>        pChatService;
-EQLIB_VAR ForeignPointer<connection_t>               pConnection;
+EQLIB_VAR ForeignPointer<UdpLibrary::UdpConnection>  pConnection;
 EQLIB_VAR ForeignPointer<CContainerMgr>              pContainerMgr;
 EQLIB_VAR ForeignPointer<CContextMenuManager>        pContextMenuManager;
 EQLIB_VAR ForeignPointer<DatabaseStringTable>        pDBStr;
@@ -1046,6 +1060,7 @@ EQLIB_VAR ForeignPointer<CRender>                    g_pDrawHandler;
 EQLIB_VAR ForeignPointer<IDirectInputDevice8A>       g_pDIKeyboard;
 EQLIB_VAR ForeignPointer<IDirectInputDevice8A>       g_pDIMouse;
 EQLIB_VAR DIMOUSESTATE2*                             g_pDIMouseState;
+EQLIB_VAR SDeviceInputProxy*                         g_pDeviceInputProxy;
 
 //----------------------------------------------------------------------------
 
@@ -1089,6 +1104,9 @@ EQLIB_VAR uintptr_t CRender__UpdateDisplay;
 EQLIB_VAR uintptr_t CRender__ResetDevice;
 EQLIB_VAR BOOL* g_bRenderSceneCalled;
 EQLIB_VAR uintptr_t C2DPrimitiveManager__AddCachedText;
+EQLIB_VAR uintptr_t C2DPrimitiveManager__Render;
+EQLIB_VAR uintptr_t ObjectPreviewView__Render;
+EQLIB_VAR uintptr_t EQGraphics_DebugAPI_Ptr;
 
 //============================================================================
 // eqmain.dll Offsets

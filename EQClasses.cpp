@@ -148,6 +148,33 @@ const char* CAltAbilityData::GetShortName2() const
 }
 
 //============================================================================
+// AltAdvManager
+//============================================================================
+
+CAltAbilityData* AltAdvManager::GetOwnedAbilityFromGroupID(PcZoneClient* pc, int groupId)
+{
+	if (!pc)
+		return nullptr;
+
+	PcProfile* pProfile = pc->GetCurrentPcProfile();
+	if (!pProfile)
+		return nullptr;
+
+	for (int i = 0; i < AA_CHAR_MAX_REAL; ++i)
+	{
+		if (CAltAbilityData* pAbility = GetAAById(pProfile->GetAlternateAbilityId(i)))
+		{
+			if (pAbility != nullptr && pAbility->GroupID == groupId)
+			{
+				return pAbility;
+			}
+		}
+	}
+
+	return nullptr;
+}
+
+//============================================================================
 // CGuild
 //============================================================================
 
@@ -182,6 +209,8 @@ bool EQWorldData::IsFlagSet(EQZoneIndex zoneId, uint64_t flag) const
 //============================================================================
 // MercenaryAlternateAdvancementManagerClient
 //============================================================================
+
+#if HAS_MERCENARY_AA
 
 const char* MercenaryAbilitiesData::GetNameString() const
 {
@@ -370,6 +399,8 @@ bool MercenaryAlternateAdvancementManagerClient::CanTrainAbility(int abilityId) 
 	return false;
 }
 
+#endif // HAS_MERCENARY_AA
+
 //============================================================================
 // RealEstateManagerClient
 //============================================================================
@@ -549,6 +580,27 @@ const RealEstateItem* RealEstateManagerClient::GetItemByRealEstateAndItemIds(int
 	}
 
 	return nullptr;
+}
+
+//----------------------------------------------------------------------------
+
+namespace UdpLibrary {
+
+struct UdpPlatformGuardData
+{
+	CRITICAL_SECTION CriticalSection;
+};
+
+void UdpLibrary::UdpPlatformGuardObject::Enter() const
+{
+	EnterCriticalSection(&m_data->CriticalSection);
+}
+
+void UdpLibrary::UdpPlatformGuardObject::Leave() const
+{
+	LeaveCriticalSection(&m_data->CriticalSection);
+}
+
 }
 
 #pragma warning(pop)

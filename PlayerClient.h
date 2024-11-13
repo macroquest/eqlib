@@ -493,7 +493,7 @@ private:
 class [[offsetcomments]] PlayerZoneClient : public PlayerBase
 {
 public:
-/*0x01c8*/ unsigned int                 LastIntimidateUse; // 1c8
+/*0x01c8*/ unsigned int             LastIntimidateUse;
 
 // @start: PlayerZoneClient Members
 /*0x01cc*/ int                      NpcTintIndex;

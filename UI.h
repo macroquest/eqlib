@@ -35,6 +35,7 @@
 
 #undef FindWindow
 #undef InsertMenuItem
+#undef LoadMenu
 
 struct IShellFolder;
 
@@ -722,6 +723,32 @@ public:
 // CHotButton
 //============================================================================
 
+enum HotButtonTypes
+{
+	HotButtonType_None = 0,
+	HotButtonType_WeaponSlot,
+	HotButtonType_CombatSkill,   // deprecated: no longer used
+	HotButtonType_Ability,       // deprecated: no longer used
+	HotButtonType_Social,
+	HotButtonType_InventorySlot,
+	HotButtonType_MenuButton,
+	HotButtonType_SpellGem,
+	HotButtonType_PetCommand,
+	HotButtonType_Skill,
+	HotButtonType_MeleeAbility,
+	HotButtonType_LeadershipAbility,
+	HotButtonType_ItemLink,
+	HotButtonType_KronoSlot,
+	HotButtonType_Command,
+	HotButtonType_CombatAbility,
+	HotButtonType_MountLink,
+	HotButtonType_IllusionLink,
+	HotButtonType_FamiliarLink,
+	HotButtonType_TeleportationLink,
+};
+
+EQLIB_OBJECT const char* HotButtonTypeToString(HotButtonTypes type);
+
 class [[offsetcomments]] CHotButton : public CXWnd
 {
 public:
@@ -732,6 +759,8 @@ public:
 	EQLIB_OBJECT void SetButtonSize(int percent, bool bUpdateParent = true);
 	EQLIB_OBJECT void SetCheck(bool check);
 
+	EQLIB_OBJECT const HotButtonData* GetHotButtonData() const;
+
 	//----------------------------------------------------------------------------
 	// data members
 
@@ -739,7 +768,7 @@ public:
 /*0x274*/ int                ButtonIndex;
 /*0x278*/ uint32_t           Timer;
 /*0x280*/ CTextureAnimation* DecalIcon;
-/*0x288*/ int                LastButtonType;
+/*0x288*/ HotButtonTypes     LastButtonType;
 /*0x28c*/ int                LastButtonSlot;
 /*0x290*/ char               LastButtonPage;
 /*0x291*/ EqItemGuid         LastItemGuid;
@@ -3100,7 +3129,7 @@ public:
 // CContextMenu
 //============================================================================
 
-// Size is 0x290 in eagame 2016 Nov 14
+// Size: 0x348 @ 6/24/2024
 class [[offsetcomments]] CContextMenu : public CListWnd
 {
 	FORCE_SYMBOLS
@@ -3128,8 +3157,14 @@ public:
 	// data members
 
 /*0x350*/ int          NumItems;
-/*0x354*/ int          Unknown0x28C;
 /*0x358*/
+};
+
+class CGFContextMenu : public CContextMenu
+{
+public:
+	EQLIB_OBJECT CGFContextMenu(CXWnd* pParent, uint32_t MenuID, const CXRect& rect);
+	EQLIB_OBJECT virtual ~CGFContextMenu();
 };
 
 //============================================================================
@@ -4032,7 +4067,7 @@ public:
 	EQLIB_OBJECT GuildMember* FindMemberByName(const char*);
 	EQLIB_OBJECT void DeleteAllMembers();
 	EQLIB_OBJECT void DemoteMember(GuildMember*);
-	EQLIB_OBJECT void HandleGuildMessage(connection_t*, uint32_t, char*, uint32_t);
+	EQLIB_OBJECT void HandleGuildMessage(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t);
 	EQLIB_OBJECT void SendPublicCommentChange(char*, char*);
 	EQLIB_OBJECT void SetGuildMotd(guildmotdSet*);
 
@@ -4052,7 +4087,7 @@ public:
 	EQLIB_OBJECT void ChangeGuildMemberName(char*);
 	EQLIB_OBJECT void HandleAddGuildMember(char*, int);
 	EQLIB_OBJECT void HandleDeleteGuildResponse(char*);
-	EQLIB_OBJECT void HandleGuildInvite(connection_t*, uint32_t, char*, uint32_t);
+	EQLIB_OBJECT void HandleGuildInvite(UdpLibrary::UdpConnection*, uint32_t, char*, uint32_t);
 	EQLIB_OBJECT void HandleMemberLevelUpdate(char*);
 	EQLIB_OBJECT void HandleRemoveGuildMember(char*, int);
 	EQLIB_OBJECT void InitializeFromDump(char*);
@@ -4149,8 +4184,8 @@ public:
 // CHotButtonWnd
 //============================================================================
 
-// Actual size 0x1c4 10-9-2003
-class CHotButtonWnd : public CSidlScreenWnd, public PopDialogHandler
+// size: 0x460 @ 6/24/2024
+class [[offsetcomments]] CHotButtonWnd : public CSidlScreenWnd, public PopDialogHandler
 {
 public:
 	CHotButtonWnd(CXWnd*);
@@ -4160,7 +4195,7 @@ public:
 	virtual int OnProcessFrame() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
-	EQLIB_OBJECT void DoHotButton(int Button, int AllowAutoRightClick, int something);
+	EQLIB_OBJECT void DoHotButton(int buttonIndex, BOOL bMouseClick, const KeyCombo* keyCombo);
 	EQLIB_OBJECT void DoHotButtonRightClick(int);
 	EQLIB_OBJECT void UpdatePage();
 	EQLIB_OBJECT void SetCheck(bool checked);
@@ -4168,7 +4203,44 @@ public:
 	//----------------------------------------------------------------------------
 	// data members
 
-	// todo
+/*0x2c8*/ CXWnd*          NoSpinnerBarTemplate;            // HB_NoSpinnerBarTemplate
+/*0x2d0*/ CXWnd*          HorizontalBarTemplate;           // HB_HorizontalBarTemplate
+/*0x2d8*/ CXWnd*          VerticalBarTemplate;             // HB_VerticalBarTemplate
+/*0x2e0*/ CTileLayoutWnd* HotButtonLayout;                 // HB_HotButtonLayout
+/*0x2e8*/ CXWnd*          HorizontalBarPageButtons;        // HB_HorizontalBarPageButtons
+/*0x2f0*/ CXWnd*          VerticalBarPageButtons;          // HB_VerticalBarPageButtons
+/*0x2f8*/ CButtonWnd*     PageUpButton;                    // HB_PageUpButton
+/*0x300*/ CLabel*         HorizontalCurrentPageLabel;      // HB_HorizontalCurrentPageLabel
+/*0x308*/ CButtonWnd*     PageDownButton;                  // HB_PageDownButton
+/*0x310*/ CButtonWnd*     PageLeftButton;                  // HB_PageLeftButton
+/*0x318*/ CLabel*         VerticalCurrentPageLabel;        // HB_VerticalCurrentPageLabel
+/*0x320*/ CButtonWnd*     PageRightButton;                 // HB_PageRightButton
+/*0x328*/ int             Page;
+/*0x330*/ CHotButton*     Buttons[HOTBUTTONS_PER_PAGE];    // HB_Button%d
+/*0x390*/ int             LoadLoadoutContextIndex;
+/*0x394*/ int             SaveLoadoutContextIndex;
+/*0x398*/ int             DeleteLoadoutContextIndex;
+/*0x39c*/ int             SaveLoadoutIndex;
+/*0x3a0*/ int             ShowKeyMapIndex;
+/*0x3a4*/ int             ShowSpinnerIndex;
+/*0x3a8*/ int             ButtonPercent;
+/*0x3ac*/ int             OpenNewBarIndex;
+/*0x3b0*/ bool            ShowKeyMap;
+/*0x3b1*/ bool            ShowSpinner;
+/*0x3b2*/ bool            LastShowSpinner;
+/*0x3b4*/ FontStyles      TextFontStyle;
+/*0x3b8*/ CXStr           KeyMapStrings[HOTBUTTONS_PER_PAGE];
+/*0x418*/ CButtonWnd*     FileButton;                      // HB_FileButton
+/*0x420*/ CContextMenu*   MainMenu;
+/*0x428*/ CContextMenu*   LoadMenu;
+/*0x430*/ CContextMenu*   SaveMenu;
+/*0x438*/ CContextMenu*   DeleteMenu;
+/*0x440*/ bool            HorizontalBar;
+/*0x444*/ uint32_t        Timer;
+/*0x448*/ int             HotWindowIndex;
+/*0x44c*/ int             ConfirmId;
+/*0x450*/ bool            KeepCurrentSize;
+/*0x454*/
 };
 
 //============================================================================
@@ -4176,12 +4248,12 @@ public:
 //============================================================================
 
 // size: 0x318
-class CInspectWnd : public CSidlScreenWnd, public WndEventHandler
+class [[offsetcomments]] CInspectWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
 
 public:
-	inline ItemContainer& GetInspectItems() { return inspectItems; }
+	ItemContainer& GetInspectItems() { return inspectItems; }
 
 /*0x234*/ uint32_t           nextRefreshTime;
 /*0x238*/ uint32_t           lastInspectTextSaveTime;
@@ -5429,6 +5501,7 @@ public:
 /*0x3cf*/ bool               Hold;
 /*0x3d0*/ bool               GHold;
 /*0x3d1*/ bool               Focus;
+/*0x3d2*/ bool               SpellHold;
 /*0x3d4*/
 };
 
@@ -6926,6 +6999,7 @@ enum eIconCacheType
 	IconCacheType_Menu = 2,
 	IconCacheType_SpeakingIndicator = 3,
 };
+EQLIB_OBJECT const char* IconCacheTypeToString(eIconCacheType type);
 
 class [[offsetcomments]] IconCache
 {

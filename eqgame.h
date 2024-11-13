@@ -48,6 +48,8 @@
 #define __gpbCommandEvent_x                                        0x140E36424
 #define __ServerHost_x                                             0x140E36608
 #define __Guilds_x                                                 0x140E3A590
+#define __MemCheckBitmask_x                                        0x140E3BF13
+#define __MemCheckActive_x                                         0x140E3D5FD
 #define __MouseEventTime_x                                         0x140EB0F48
 #define DI8__MouseState_x                                          0x140EB5100
 #define __heqmain_x                                                0x140EB7598
@@ -86,6 +88,7 @@
 #define pinstDZTimerInfo_x                                         0x140E3A570
 #define pinstEqLogin_x                                             0x140EB7600
 #define instTribute_x                                              0x140CF5D50
+#define pinstDeviceInputProxy_x                                    0x140E3BA3C
 #define pinstEQSoundManager_x                                      0x140D844C8
 #define pinstEQSpellStrings_x                                      0x140D67B10
 #define pinstSGraphicsEngine_x                                     0x14153C5D8
@@ -133,9 +136,11 @@
 #define __allowslashcommand_x                                      0x140238310
 #define __CastRay_x                                                0x140230680
 #define __CastRay2_x                                               0x140230380
+#define __compress_block_x                                         0x14051A1F0
 #define __ConvertItemTags_x                                        0x140230AE0
 #define __CleanItemTags_x                                          0x140087DC0
 #define __CreateCascadeMenuItems_x                                 0x140180D10
+#define __decompress_block_x                                       0x1405602C0
 #define __DoesFileExist_x                                          0x1405688D0
 #define __EQGetTime_x                                              0x140564FD0
 #define __ExecuteCmd_x                                             0x140206A90
@@ -150,6 +155,7 @@
 #define __HeadingDiff_x                                            0x140690770
 #define __HelpPath_x                                               0x140EB0E10   // Why?
 #define __NewUIINI_x                                               0x1404E8300   // Why?
+#define __ProcessDeviceEvents_x                                    0x140277FE0
 #define __ProcessGameEvents_x                                      0x14026CEC0
 #define __ProcessKeyboardEvents_x                                  0x14032C5E0
 #define __ProcessMouseEvents_x                                     0x14026E3F0
@@ -191,6 +197,7 @@
 #define CharacterZoneClient__BardCastBard_x                        0x1400D0A20
 #define CharacterZoneClient__CalcAffectChange_x                    0x1400D1860
 #define CharacterZoneClient__CalcAffectChangeGeneric_x             0x1400D1AB0
+#define CharacterZoneClient__CanMedOnHorse_x                       0x1400E5920
 #define CharacterZoneClient__CanUseItem_x                          0x1400E5D50
 #define CharacterZoneClient__CanUseMemorizedSpellSlot_x            0x1400D2480
 #define CharacterZoneClient__CastSpell_x                           0x1400D2520
@@ -212,7 +219,6 @@
 #define CharacterZoneClient__GetItemCountWorn_x                    0x1400EF930
 #define CharacterZoneClient__GetLastEffectSlot_x                   0x1400D6970
 #define CharacterZoneClient__GetManaRegen_x                        0x1400F0710
-#define CharacterZoneClient__GetMaxEffects_x                       0x1400D6B70
 #define CharacterZoneClient__GetModCap_x                           0x1400F7CD0
 #define CharacterZoneClient__GetOpenEffectSlot_x                   0x1400D6C00
 #define CharacterZoneClient__GetPCSpellAffect_x                    0x1400D6E10
@@ -309,6 +315,7 @@
 #define CDisplay__GetUserDefinedColor_x                            0x140184BD0
 #define CDisplay__InitCharSelectUI_x                               0x140184E80
 #define CDisplay__ReloadUI_x                                       0x14018FEC0
+#define CDisplay__RestartUI_x                                      0x1401EDD00
 #define CDisplay__WriteTextHD2_x                                   0x140196F00
 #define CDisplay__TrueDistance_x                                   0x140196BB0
 #define CDisplay__SetViewActor_x                                   0x1401933F0
@@ -842,8 +849,8 @@
 #define COptionsWnd__FillChatFilterList_x                          0x140472F90
 
 // CResolutionHandler
-#define CResolutionHandler__UpdateResolution_x                     0x140697370
 #define CResolutionHandler__GetWindowedStyle_x                     0x140313F80
+#define CResolutionHandler__UpdateResolution_x                     0x140697370
 
 // CColorPickerWnd
 #define CColorPickerWnd__Open_x                                    0x140398E60
@@ -913,6 +920,9 @@
 // FreeToPlayClient
 #define FreeToPlayClient__Instance_x                               0x140640350
 #define FreeToPlayClient__RestrictionInfo_x                        0x140AA24D0
+
+// UdpConnection
+#define UdpConnection__GetStats_x                                  0x140520510
 
 #if __has_include("../private/eqgame-private.h")
 #include "../private/eqgame-private.h"

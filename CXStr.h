@@ -1322,21 +1322,38 @@ public:
 
 	CXStr& replace(size_type pos, size_type count, const char* cstr, size_type count2)
 	{
+		// replace [pos, pos + count) with [cstr, cstr + count2)
 		CheckOffset(pos);
 		count = ClampSuffixSize(pos, count);
+		char* insertAt = m_data->utf8 + pos;
 
-		const size_type oldSize = size();
-		const size_type newSize = oldSize - (count - count2);
-
-		Assure(newSize + 1, StringEncodingUtf8);
-
-		if (count == count2)
-		{
-			traits_type::move(m_data->utf8 + pos, cstr, count2);
+		if (count == count2) {
+			// no resize required
+			traits_type::move(insertAt, cstr, count2);
 			return *this;
 		}
 
+		const size_type oldSize = size();
+		const size_type suffixSize = oldSize - pos - count + 1;
+		const size_type newSize = oldSize - (count - count2);
+
+		if (count2 < count) {
+			// shrink
+			traits_type::move(insertAt, cstr, count2);
+			traits_type::move(insertAt + count2, insertAt + count, suffixSize);
+
+			m_data->length = static_cast<uint32_t>(newSize);
+			return *this;
+		}
+
+		// grow
+		Assure(newSize + 1, StringEncodingUtf8);
 		m_data->length = static_cast<uint32_t>(newSize);
+
+		traits_type::move(insertAt + count2, insertAt + count, suffixSize);
+		traits_type::move(insertAt, cstr, count2);
+
+		return *this;
 	}
 
 	CXStr& replace(const_iterator first, const_iterator last,
@@ -1432,6 +1449,8 @@ public:
 		{
 			traits_type::copy(dest, m_data->utf8 + pos, count);
 		}
+
+		return count;
 	}
 
 	// Resizes the string to contain count characters. If the current size is less
@@ -1611,7 +1630,7 @@ private:
 	void FreeRep(CStrRep* rep);
 	void FreeRepNoLock(CStrRep* rep);
 
-	[[noreturn]] void CheckOffset(const size_type offset) const
+	void CheckOffset(const size_type offset) const
 	{
 		if (size() < offset)
 		{
@@ -1619,7 +1638,7 @@ private:
 		}
 	}
 
-	[[noreturn]] void CheckOffsetExclusive(const size_type offset) const
+	void CheckOffsetExclusive(const size_type offset) const
 	{
 		if (size() <= offset)
 		{

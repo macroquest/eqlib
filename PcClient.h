@@ -1162,6 +1162,8 @@ public:
 
 	ALT_MEMBER_GETTER(PlayerClient*, me, pSpawn);
 
+	int GetMaxEffects() const { return GetCurrentBaseProfile().GetMaxEffects(); }
+
 	// Verified
 	EQLIB_OBJECT /* virtual */ int CalculateInvisLevel(InvisibleTypes Type, bool bIncludeSoS = true);
 	EQLIB_OBJECT bool CanUseItem(const ItemPtr& pItem, bool bUseRequiredLvl, bool bOutput = true);
@@ -1203,7 +1205,6 @@ public:
 	EQLIB_OBJECT EQ_Affect* FindAffectSlot(int SpellID, PlayerClient* Caster, int* slindex, bool bJustTest, int CasterLevel = -1, EQ_Affect* BuffArray = nullptr, int BuffArraySize = 0);
 	EQLIB_OBJECT bool IsStackBlocked(const EQ_Spell* pSpell, PlayerClient* pCaster, EQ_Affect* pEffecs = NULL, int EffectsSize = 0, bool bMessageOn = false);
 	EQLIB_OBJECT int BardCastBard(const EQ_Spell* pSpell, signed int caster_class) const;
-	EQLIB_OBJECT unsigned char GetMaxEffects() const;
 	EQLIB_OBJECT int GetOpenEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, int Index = -1);
 	EQLIB_OBJECT int GetFirstEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill);
 	EQLIB_OBJECT int GetLastEffectSlot(bool bIsShortBuff, bool bIsMeleeSkill, bool bIsDisplay = false);
@@ -1583,9 +1584,10 @@ public:
 	EQLIB_OBJECT ItemIndex FindKeyRingItemByGuid(KeyRingType type, const EqItemGuid& guid);
 	EQLIB_OBJECT ItemIndex FindKeyRingItemById(KeyRingType type, int itemId);
 
-	inline bool IsFamiliarAutoLeaveEnabled() const {
-		return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0;
-	}
+	bool IsFamiliarAutoLeaveEnabled() const { return GetGameFeature(GameFeature::FamiliarAutoLeave) != 0; }
+
+	int GetAlternateAbilityId(int index) const { return GetCurrentPcProfile()->GetAlternateAbilityId(index); }
+	int GetCombatAbility(int index) const { return GetCurrentPcProfile()->GetCombatAbility(index); }
 
 	// Stores information about purchased Mercenary Abilities
 	EQLIB_OBJECT const MercenaryAbilityInfo* GetMercenaryAbilityInfo(int abilityId) const;
@@ -1596,6 +1598,7 @@ public:
 
 	int GetAirSupply() const { return AirSupply; }
 	int GetLevel() const { return GetCurrentPcProfile()->Level; }
+	int GetDeity() const { return GetCurrentPcProfile()->Deity; }
 
 	int GetTradeskillDepotCapacity() const { return TradeskillDepotCapacity; }
 	bool GetTradeskillDepotPopulated() const { return TradeskillDepotPopulated != 0; }
@@ -1662,7 +1665,13 @@ public:
 	// Unverified
 	EQLIB_OBJECT bool HasCombatAbility(int);
 
+	EQLIB_OBJECT int CanUseMeleeCombatAbility(int SpellID) const;
+
 	EQLIB_OBJECT int GetMaxAirSupply() const;
+
+	EQLIB_OBJECT static int GetDeityReal(int diety);
+	int GetDeityReal() const { return GetDeityReal(GetDeity()); }    // Returns values from EQDeity
+	int GetDeityBitmask() const { return 1 << (GetDeityReal() - 1); }
 };
 
 // @sizeof(PcClient) == 0x3298 :: 2024-04-01 (live) @ 0x14026b91b
@@ -1700,14 +1709,15 @@ public:
 	virtual int GetGameFeature(GameFeature) const override { return 0; }
 	virtual int GetMembershipLevel() const override { return 0; }
 
+	EQLIB_OBJECT uint32_t GetDowntime();
+	bool IsInCombat() const { return InCombat; }
+
 	// Unverified
 	// TODO: Methods from EQ_PC: The ones we use need to be validated. Not all of them live in PcClient.
 	EQLIB_OBJECT int CheckDupLoreItems();
 	EQLIB_OBJECT int checkLang(int);
 	EQLIB_OBJECT int CostToTrain(int, float, int);
-	EQLIB_OBJECT int GetAlternateAbilityId(int);
 	EQLIB_OBJECT int GetArmorType(int);
-	EQLIB_OBJECT int GetCombatAbility(int);
 	EQLIB_OBJECT PcZoneClient* GetPcZoneClient() const;
 	EQLIB_OBJECT int HandleMoney(long);
 	EQLIB_OBJECT int IsAGroupMember(char*);
@@ -1745,29 +1755,29 @@ public:
 	// Deprecated properties
 
 	DEPRECATE("pBankArraySize is deprecated. Use BankItems.GetSize() instead.")
-	inline int get_pBankArraySize() const { return BankItems.GetSize(); }
+	int get_pBankArraySize() const { return BankItems.GetSize(); }
 	__declspec(property(get = get_pBankArraySize)) int pBankArraySize;
 
 	DEPRECATE("pBankArraySpec is deprecated. Use BankItems.GetContainerType() instead.")
-	inline int get_pBankArraySpec() const { return BankItems.GetContainerType(); }
+	int get_pBankArraySpec() const { return BankItems.GetContainerType(); }
 	__declspec(property(get = get_pBankArraySpec)) int pBankArraySpec;
 
 	DEPRECATE("pBankArray is deprecated. Adapt the code to use BankItems instead.")
 #pragma warning(suppress: 4996)
-	inline deprecated::BANKARRAY* get_pBankArray() { return reinterpret_cast<deprecated::BANKARRAY*>(BankItems.ContainedItems.pItems); }
+	deprecated::BANKARRAY* get_pBankArray() { return reinterpret_cast<deprecated::BANKARRAY*>(BankItems.ContainedItems.pItems); }
 	__declspec(property(get = get_pBankArray)) deprecated::BANKARRAY* pBankArray;
 
 	DEPRECATE("NumBankSlots is deprecated. Use BankItems.GetSize() instead.")
-	inline int get_NumBankSlots() const { return BankItems.GetSize(); }
+	int get_NumBankSlots() const { return BankItems.GetSize(); }
 	__declspec(property(get = get_NumBankSlots)) int NumBankSlots;
 
 	DEPRECATE("pSharedBankArray is deprecated. Adapt the code to use BankItems instead.")
 #pragma warning(suppress: 4996)
-	inline deprecated::SHAREDBANKARRAY* get_pSharedBankArray() { return reinterpret_cast<deprecated::SHAREDBANKARRAY*>(SharedBankItems.ContainedItems.pItems); }
+	deprecated::SHAREDBANKARRAY* get_pSharedBankArray() { return reinterpret_cast<deprecated::SHAREDBANKARRAY*>(SharedBankItems.ContainedItems.pItems); }
 	__declspec(property(get = get_pSharedBankArray)) deprecated::SHAREDBANKARRAY* pSharedBankArray;
 
 	DEPRECATE("NumSharedSlots is deprecated. Use SharedBankItems.GetSize() instead.")
-	inline int get_NumSharedSlots() const { return SharedBankItems.GetSize(); }
+	int get_NumSharedSlots() const { return SharedBankItems.GetSize(); }
 	__declspec(property(get = get_NumSharedSlots)) int NumSharedSlots;
 
 	// This is used a lot, so its provided here for convenience. If you need more than this,
