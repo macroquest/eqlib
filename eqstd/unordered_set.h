@@ -306,11 +306,11 @@ namespace eqstd
 				return *this;
 			}
 
-			_NODISCARD hasher hash_function() const {
+			[[nodiscard]] hasher hash_function() const {
 				return this->_Traitsobj._Mypair._Get_first();
 			}
 
-			_NODISCARD key_equal key_eq() const {
+			[[nodiscard]] key_equal key_eq() const {
 				return this->_Traitsobj._Mypair._Myval2._Get_first();
 			}
 
@@ -387,14 +387,14 @@ namespace eqstd
 #endif // _HAS_CXX20
 
 	template <class _Kty, class _Hasher, class _Keyeq, class _Alloc>
-	_NODISCARD bool operator==(const unordered_set<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
+	[[nodiscard]] bool operator==(const unordered_set<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
 		const unordered_set<_Kty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return _Hash_equal(_Left, _Right);
 	}
 
 #if !_HAS_CXX20
 	template <class _Kty, class _Hasher, class _Keyeq, class _Alloc>
-	_NODISCARD bool operator!=(const unordered_set<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
+	[[nodiscard]] bool operator!=(const unordered_set<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
 		const unordered_set<_Kty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return !(_Left == _Right);
 	}
@@ -646,11 +646,11 @@ namespace eqstd
 				return *this;
 			}
 
-			_NODISCARD hasher hash_function() const {
+			[[nodiscard]] hasher hash_function() const {
 				return this->_Traitsobj._Mypair._Get_first();
 			}
 
-			_NODISCARD key_equal key_eq() const {
+			[[nodiscard]] key_equal key_eq() const {
 				return this->_Traitsobj._Mypair._Myval2._Get_first();
 			}
 
@@ -728,14 +728,14 @@ namespace eqstd
 #endif // _HAS_CXX20
 
 	template <class _Kty, class _Hasher, class _Keyeq, class _Alloc>
-		_NODISCARD bool operator==(const unordered_multiset<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
+		[[nodiscard]] bool operator==(const unordered_multiset<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
 			const unordered_multiset<_Kty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return _Hash_equal(_Left, _Right);
 	}
 
 #if !_HAS_CXX20
 	template <class _Kty, class _Hasher, class _Keyeq, class _Alloc>
-	_NODISCARD bool operator!=(const unordered_multiset<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
+	[[nodiscard]] bool operator!=(const unordered_multiset<_Kty, _Hasher, _Keyeq, _Alloc>& _Left,
 		const unordered_multiset<_Kty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return !(_Left == _Right);
 	}

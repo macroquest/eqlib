@@ -66,23 +66,23 @@ namespace eqstd
 			: _Mypair(_One_then_variadic_args_t{}, _Hasharg, _One_then_variadic_args_t{}, _Keyeqarg, 0.0f) {}
 
 		template <class _Keyty>
-		_NODISCARD size_t operator()(const _Keyty& _Keyval) const noexcept(_Nothrow_hash<_Hasher, _Keyty>) {
+		[[nodiscard]] size_t operator()(const _Keyty& _Keyval) const noexcept(_Nothrow_hash<_Hasher, _Keyty>) {
 			// hash _Keyval to size_t value
 			return static_cast<size_t>(_Mypair._Get_first()(_Keyval));
 		}
 
 		template <class _Keyty1, class _Keyty2>
-		_NODISCARD bool operator()(const _Keyty1& _Keyval1, const _Keyty2& _Keyval2) const
+		[[nodiscard]] bool operator()(const _Keyty1& _Keyval1, const _Keyty2& _Keyval2) const
 			noexcept(_Nothrow_compare<_Keyeq, _Keyty1, _Keyty2>) {
 			// test if _Keyval1 NOT equal to _Keyval2
 			return !static_cast<bool>(_Mypair._Myval2._Get_first()(_Keyval1, _Keyval2));
 		}
 
-		_NODISCARD float& _Get_max_bucket_size() noexcept {
+		[[nodiscard]] float& _Get_max_bucket_size() noexcept {
 			return _Mypair._Myval2._Myval2;
 		}
 
-		_NODISCARD const float& _Get_max_bucket_size() const noexcept {
+		[[nodiscard]] const float& _Get_max_bucket_size() const noexcept {
 			return _Mypair._Myval2._Myval2;
 		}
 
@@ -119,12 +119,12 @@ namespace eqstd
 
 		// post ++ intentionally omitted
 
-		_NODISCARD_FRIEND bool operator==(const _Reinterpret_move_iter& _Lhs, const _Reinterpret_move_iter& _Rhs) {
+		[[nodiscard]] friend bool operator==(const _Reinterpret_move_iter& _Lhs, const _Reinterpret_move_iter& _Rhs) {
 			return _Lhs._Base == _Rhs._Base;
 		}
 
 #if !_HAS_CXX20
-		_NODISCARD_FRIEND bool operator!=(const _Reinterpret_move_iter& _Lhs, const _Reinterpret_move_iter& _Rhs) {
+		[[nodiscard]] friend bool operator!=(const _Reinterpret_move_iter& _Lhs, const _Reinterpret_move_iter& _Rhs) {
 			return _Lhs._Base != _Rhs._Base;
 		}
 #endif // !_HAS_CXX20
@@ -150,7 +150,7 @@ namespace eqstd
 		_List_head_construct_ptr(const _List_head_construct_ptr&) = delete;
 		_List_head_construct_ptr& operator=(const _List_head_construct_ptr&) = delete;
 
-		_NODISCARD pointer _Release() noexcept {
+		[[nodiscard]] pointer _Release() noexcept {
 			return _STD exchange(_Newhead, nullptr);
 		}
 
@@ -192,16 +192,16 @@ namespace eqstd
 		_Hash_vec(const _Hash_vec&) = delete;
 		_Hash_vec& operator=(const _Hash_vec&) = delete;
 
-		_NODISCARD size_type size() const noexcept {
+		[[nodiscard]] size_type size() const noexcept {
 			return static_cast<size_type>(_Mypair._Myval2._Mylast - _Mypair._Myval2._Myfirst);
 		}
 
-		_NODISCARD size_type max_size() const noexcept {
+		[[nodiscard]] size_type max_size() const noexcept {
 			return (_STD min)(static_cast<size_type>((std::numeric_limits<difference_type>::max)()),
 				_Aliter_traits::max_size(_Mypair._Get_first()));
 		}
 
-		_NODISCARD size_type capacity() const noexcept {
+		[[nodiscard]] size_type capacity() const noexcept {
 			// This implementation never has capacity() differ from size(), but the previous implementation could.
 			// We need to handle that situation gracefully since we may link to old code (See GH-2774).
 			return static_cast<size_type>(_Mypair._Myval2._Myend - _Mypair._Myval2._Myfirst);
@@ -360,7 +360,7 @@ namespace eqstd
 			pointer _Base;
 			_Min_buckets_construct_ptr(_Aliter& _Al_) : _Al(_Al_), _Base(_Al.allocate(_Min_buckets * 2)) {}
 			_Min_buckets_construct_ptr(const _Min_buckets_construct_ptr&) = delete;
-			_NODISCARD pointer _Release(_Unchecked_iterator _Newend) noexcept {
+			[[nodiscard]] pointer _Release(_Unchecked_iterator _Newend) noexcept {
 				_STD uninitialized_fill(_Base, _Base + _Min_buckets * 2, _Newend);
 				return _STD exchange(_Base, nullptr);
 			}
@@ -376,7 +376,7 @@ namespace eqstd
 			_Pocma(_Vec._Mypair._Get_first(), _Right._Vec._Mypair._Get_first());
 		}
 
-		struct _NODISCARD _Clear_guard {
+		struct [[nodiscard]] _Clear_guard {
 			_Hash* _Target;
 
 			explicit _Clear_guard(_Hash* const _Target_) : _Target(_Target_) {}
@@ -668,19 +668,19 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD iterator begin() noexcept {
+		[[nodiscard]] iterator begin() noexcept {
 			return _List.begin();
 		}
 
-		_NODISCARD const_iterator begin() const noexcept {
+		[[nodiscard]] const_iterator begin() const noexcept {
 			return _List.begin();
 		}
 
-		_NODISCARD iterator end() noexcept {
+		[[nodiscard]] iterator end() noexcept {
 			return _List.end();
 		}
 
-		_NODISCARD const_iterator end() const noexcept {
+		[[nodiscard]] const_iterator end() const noexcept {
 			return _List.end();
 		}
 
@@ -700,47 +700,47 @@ namespace eqstd
 			return _List._Unchecked_end();
 		}
 
-		_NODISCARD const_iterator cbegin() const noexcept {
+		[[nodiscard]] const_iterator cbegin() const noexcept {
 			return begin();
 		}
 
-		_NODISCARD const_iterator cend() const noexcept {
+		[[nodiscard]] const_iterator cend() const noexcept {
 			return end();
 		}
 
-		_NODISCARD size_type size() const noexcept {
+		[[nodiscard]] size_type size() const noexcept {
 			return _List.size();
 		}
 
-		_NODISCARD size_type max_size() const noexcept {
+		[[nodiscard]] size_type max_size() const noexcept {
 			return _List.max_size();
 		}
 
-		_NODISCARD_EMPTY_MEMBER bool empty() const noexcept {
+		[[nodiscard]] bool empty() const noexcept {
 			return _List.empty();
 		}
 
-		_NODISCARD allocator_type get_allocator() const noexcept {
+		[[nodiscard]] allocator_type get_allocator() const noexcept {
 			return static_cast<allocator_type>(_List.get_allocator());
 		}
 
 		using local_iterator = iterator;
 		using const_local_iterator = const_iterator;
 
-		_NODISCARD size_type bucket_count() const noexcept {
+		[[nodiscard]] size_type bucket_count() const noexcept {
 			return _Maxidx;
 		}
 
-		_NODISCARD size_type max_bucket_count() const noexcept {
+		[[nodiscard]] size_type max_bucket_count() const noexcept {
 			return _Vec.max_size() >> 1;
 		}
 
-		_NODISCARD size_type bucket(const key_type& _Keyval) const
+		[[nodiscard]] size_type bucket(const key_type& _Keyval) const
 			noexcept(_Nothrow_hash<_Traits, key_type>) /* strengthened */ {
 			return _Traitsobj(_Keyval) & _Mask;
 		}
 
-		_NODISCARD size_type bucket_size(size_type _Bucket) const noexcept /* strengthened */ {
+		[[nodiscard]] size_type bucket_size(size_type _Bucket) const noexcept /* strengthened */ {
 			_Unchecked_iterator _Bucket_lo = _Vec._Mypair._Myval2._Myfirst[_Bucket << 1];
 			if (_Bucket_lo == _Unchecked_end()) {
 				return 0;
@@ -749,15 +749,15 @@ namespace eqstd
 			return static_cast<size_type>(_STD distance(_Bucket_lo, _Vec._Mypair._Myval2._Myfirst[(_Bucket << 1) + 1])) + 1;
 		}
 
-		_NODISCARD local_iterator begin(size_type _Bucket) noexcept /* strengthened */ {
+		[[nodiscard]] local_iterator begin(size_type _Bucket) noexcept /* strengthened */ {
 			return _List._Make_iter(_Vec._Mypair._Myval2._Myfirst[_Bucket << 1]._Ptr);
 		}
 
-		_NODISCARD const_local_iterator begin(size_type _Bucket) const noexcept /* strengthened */ {
+		[[nodiscard]] const_local_iterator begin(size_type _Bucket) const noexcept /* strengthened */ {
 			return _List._Make_const_iter(_Vec._Mypair._Myval2._Myfirst[_Bucket << 1]._Ptr);
 		}
 
-		_NODISCARD local_iterator end(size_type _Bucket) noexcept /* strengthened */ {
+		[[nodiscard]] local_iterator end(size_type _Bucket) noexcept /* strengthened */ {
 			_Nodeptr _Bucket_hi = _Vec._Mypair._Myval2._Myfirst[(_Bucket << 1) + 1]._Ptr;
 			if (_Bucket_hi != _List._Mypair._Myval2._Myhead) {
 				_Bucket_hi = _Bucket_hi->_Next;
@@ -766,7 +766,7 @@ namespace eqstd
 			return _List._Make_iter(_Bucket_hi);
 		}
 
-		_NODISCARD const_local_iterator end(size_type _Bucket) const noexcept /* strengthened */ {
+		[[nodiscard]] const_local_iterator end(size_type _Bucket) const noexcept /* strengthened */ {
 			_Nodeptr _Bucket_hi = _Vec._Mypair._Myval2._Myfirst[(_Bucket << 1) + 1]._Ptr;
 			if (_Bucket_hi != _List._Mypair._Myval2._Myhead) {
 				_Bucket_hi = _Bucket_hi->_Next;
@@ -775,11 +775,11 @@ namespace eqstd
 			return _List._Make_const_iter(_Bucket_hi);
 		}
 
-		_NODISCARD const_local_iterator cbegin(size_type _Bucket) const noexcept /* strengthened */ {
+		[[nodiscard]] const_local_iterator cbegin(size_type _Bucket) const noexcept /* strengthened */ {
 			return _List._Make_const_iter(_Vec._Mypair._Myval2._Myfirst[_Bucket << 1]._Ptr);
 		}
 
-		_NODISCARD const_local_iterator cend(size_type _Bucket) const noexcept /* strengthened */ {
+		[[nodiscard]] const_local_iterator cend(size_type _Bucket) const noexcept /* strengthened */ {
 			_Nodeptr _Bucket_hi = _Vec._Mypair._Myval2._Myfirst[(_Bucket << 1) + 1]._Ptr;
 			if (_Bucket_hi != _List._Mypair._Myval2._Myhead) {
 				_Bucket_hi = _Bucket_hi->_Next;
@@ -788,11 +788,11 @@ namespace eqstd
 			return _List._Make_const_iter(_Bucket_hi);
 		}
 
-		_NODISCARD float load_factor() const noexcept {
+		[[nodiscard]] float load_factor() const noexcept {
 			return static_cast<float>(size()) / static_cast<float>(bucket_count());
 		}
 
-		_NODISCARD float max_load_factor() const noexcept {
+		[[nodiscard]] float max_load_factor() const noexcept {
 			return _Max_bucket_size();
 		}
 
@@ -1046,7 +1046,7 @@ namespace eqstd
 
 	private:
 		template <class _Keyty>
-		_NODISCARD _Nodeptr _Find_first(const _Keyty& _Keyval, const size_t _Hashval) const {
+		[[nodiscard]] _Nodeptr _Find_first(const _Keyty& _Keyval, const size_t _Hashval) const {
 			// find node pointer to first node matching _Keyval (with hash _Hashval) if it exists; otherwise, end
 			const size_type _Bucket = _Hashval & _Mask;
 			_Nodeptr _Where = _Vec._Mypair._Myval2._Myfirst[_Bucket << 1]._Ptr;
@@ -1093,24 +1093,24 @@ namespace eqstd
 
 	public:
 		template <class _Keyty = void>
-		_NODISCARD iterator find(typename _Traits::template _Deduce_key<_Keyty> _Keyval) {
+		[[nodiscard]] iterator find(typename _Traits::template _Deduce_key<_Keyty> _Keyval) {
 			return _List._Make_iter(_Find(_Keyval, _Traitsobj(_Keyval)));
 		}
 
 		template <class _Keyty = void>
-		_NODISCARD const_iterator find(typename _Traits::template _Deduce_key<_Keyty> _Keyval) const {
+		[[nodiscard]] const_iterator find(typename _Traits::template _Deduce_key<_Keyty> _Keyval) const {
 			return _List._Make_const_iter(_Find(_Keyval, _Traitsobj(_Keyval)));
 		}
 
 #if _HAS_CXX20
 		template <class _Keyty = void>
-		_NODISCARD bool contains(typename _Traits::template _Deduce_key<_Keyty> _Keyval) const {
+		[[nodiscard]] bool contains(typename _Traits::template _Deduce_key<_Keyty> _Keyval) const {
 			return static_cast<bool>(_Find_last(_Keyval, _Traitsobj(_Keyval))._Duplicate);
 		}
 #endif // _HAS_CXX20
 
 		template <class _Keyty = void>
-		_NODISCARD size_type count(typename _Traits::template _Deduce_key<_Keyty> _Keyval) const {
+		[[nodiscard]] size_type count(typename _Traits::template _Deduce_key<_Keyty> _Keyval) const {
 			const size_t _Hashval = _Traitsobj(_Keyval);
 			if constexpr (_Multi) {
 				return _Equal_range(_Keyval, _Hashval)._Distance;
@@ -1120,15 +1120,15 @@ namespace eqstd
 			}
 		}
 
-		_NODISCARD iterator lower_bound(const key_type& _Keyval) {
+		[[nodiscard]] iterator lower_bound(const key_type& _Keyval) {
 			return _List._Make_iter(_Find(_Keyval, _Traitsobj(_Keyval)));
 		}
 
-		_NODISCARD const_iterator lower_bound(const key_type& _Keyval) const {
+		[[nodiscard]] const_iterator lower_bound(const key_type& _Keyval) const {
 			return _List._Make_const_iter(_Find(_Keyval, _Traitsobj(_Keyval)));
 		}
 
-		_NODISCARD iterator upper_bound(const key_type& _Keyval) {
+		[[nodiscard]] iterator upper_bound(const key_type& _Keyval) {
 			auto _Target = _Find_last(_Keyval, _Traitsobj(_Keyval))._Duplicate;
 			if (_Target) {
 				_Target = _Target->_Next;
@@ -1140,7 +1140,7 @@ namespace eqstd
 			return _List._Make_iter(_Target);
 		}
 
-		_NODISCARD const_iterator upper_bound(const key_type& _Keyval) const {
+		[[nodiscard]] const_iterator upper_bound(const key_type& _Keyval) const {
 			auto _Target = _Find_last(_Keyval, _Traitsobj(_Keyval))._Duplicate;
 			if (_Target) {
 				_Target = _Target->_Next;
@@ -1160,7 +1160,7 @@ namespace eqstd
 		};
 
 		template <class _Keyty>
-		_NODISCARD _Equal_range_result _Equal_range(const _Keyty& _Keyval, const size_t _Hashval) const
+		[[nodiscard]] _Equal_range_result _Equal_range(const _Keyty& _Keyval, const size_t _Hashval) const
 			noexcept(_Nothrow_compare<_Traits, key_type, _Keyty>&& _Nothrow_compare<_Traits, _Keyty, key_type>) {
 			const size_type _Bucket = _Hashval & _Mask;
 			_Unchecked_const_iterator _Where = _Vec._Mypair._Myval2._Myfirst[_Bucket << 1];
@@ -1209,13 +1209,13 @@ namespace eqstd
 
 	public:
 		template <class _Keyty = void>
-		_NODISCARD pair<iterator, iterator> equal_range(typename _Traits::template _Deduce_key<_Keyty> _Keyval) {
+		[[nodiscard]] pair<iterator, iterator> equal_range(typename _Traits::template _Deduce_key<_Keyty> _Keyval) {
 			const auto _Result = _Equal_range(_Keyval, _Traitsobj(_Keyval));
 			return { _List._Make_iter(_Result._First._Ptr), _List._Make_iter(_Result._Last._Ptr) };
 		}
 
 		template <class _Keyty = void>
-		_NODISCARD pair<const_iterator, const_iterator> equal_range(
+		[[nodiscard]] pair<const_iterator, const_iterator> equal_range(
 			typename _Traits::template _Deduce_key<_Keyty> _Keyval) const {
 			const auto _Result = _Equal_range(_Keyval, _Traitsobj(_Keyval));
 			return { _List._Make_const_iter(_Result._First._Ptr), _List._Make_const_iter(_Result._Last._Ptr) };
@@ -1415,7 +1415,7 @@ namespace eqstd
 
 	protected:
 		template <class _Keyty>
-		_NODISCARD _Hash_find_last_result<_Nodeptr> _Find_last(const _Keyty& _Keyval, const size_t _Hashval) const {
+		[[nodiscard]] _Hash_find_last_result<_Nodeptr> _Find_last(const _Keyty& _Keyval, const size_t _Hashval) const {
 			// find the insertion point for _Keyval and whether an element identical to _Keyval is already in the container
 			const size_type _Bucket = _Hashval & _Mask;
 			_Nodeptr _Where = _Vec._Mypair._Myval2._Myfirst[(_Bucket << 1) + 1]._Ptr;
@@ -1446,7 +1446,7 @@ namespace eqstd
 		}
 
 		template <class _Keyty>
-		_NODISCARD _Hash_find_last_result<_Nodeptr> _Find_hint(
+		[[nodiscard]] _Hash_find_last_result<_Nodeptr> _Find_hint(
 			const _Nodeptr _Hint, const _Keyty& _Keyval, const size_t _Hashval) const {
 			// if _Hint points to an element equivalent to _Keyval, returns _Hint; otherwise,
 			// returns _Find_last(_Keyval, _Hashval)
@@ -1532,12 +1532,12 @@ namespace eqstd
 			}
 		}
 
-		_NODISCARD size_type _Min_load_factor_buckets(const size_type _For_size) const noexcept {
+		[[nodiscard]] size_type _Min_load_factor_buckets(const size_type _For_size) const noexcept {
 			// returns the minimum number of buckets necessary for the elements in _List
 			return static_cast<size_type>(_CSTD ceilf(static_cast<float>(_For_size) / max_load_factor()));
 		}
 
-		_NODISCARD size_type _Desired_grow_bucket_count(const size_type _For_size) const noexcept {
+		[[nodiscard]] size_type _Desired_grow_bucket_count(const size_type _For_size) const noexcept {
 			const size_type _Old_buckets = bucket_count();
 			const size_type _Req_buckets = (_STD max)(_Min_buckets, _Min_load_factor_buckets(_For_size));
 			if (_Old_buckets >= _Req_buckets) {
@@ -1668,7 +1668,7 @@ namespace eqstd
 			_Unchecked_const_iterator _Subsequent_first{}; // only useful if _Equal_possible
 		};
 
-		_NODISCARD _Multi_equal_check_result _Multi_equal_check_equal_range(
+		[[nodiscard]] _Multi_equal_check_result _Multi_equal_check_equal_range(
 			const _Hash& _Right, _Unchecked_const_iterator _First1) const {
 			// check that an equal_range of elements starting with *_First1 are a permutation of the corresponding
 			// equal_range of elements in _Right
@@ -1757,7 +1757,7 @@ namespace eqstd
 		}
 
 		template <bool _Multi2 = _Traits::_Multi, enable_if_t<_Multi2, int> = 0>
-		_NODISCARD bool _Multi_equal(const _Hash& _Right) const {
+		[[nodiscard]] bool _Multi_equal(const _Hash& _Right) const {
 			static_assert(_Traits::_Multi, "This function only works with multi containers");
 			const auto _Last1 = _Unchecked_end();
 			auto _First1 = _Unchecked_begin();
@@ -1789,7 +1789,7 @@ namespace eqstd
 #endif // _HAS_CXX17
 
 	template <class _Traits>
-		_NODISCARD bool _Hash_equal(const _Hash<_Traits>& _Left, const _Hash<_Traits>& _Right) {
+		[[nodiscard]] bool _Hash_equal(const _Hash<_Traits>& _Left, const _Hash<_Traits>& _Right) {
 		if (_Left.size() != _Right.size()) {
 			return false;
 		}

@@ -37,11 +37,11 @@ namespace eqstd
 			this->_Adopt(_Pvector);
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator*() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator*() const noexcept {
 			return *_Ptr;
 		}
 
-		_NODISCARD _CONSTEXPR20 pointer operator->() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 pointer operator->() const noexcept {
 			return _Ptr;
 		}
 
@@ -77,13 +77,13 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD _CONSTEXPR20 _Vector_const_iterator operator+(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vector_const_iterator operator+(const difference_type _Off) const noexcept {
 			_Vector_const_iterator _Tmp = *this;
 			_Tmp += _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD_FRIEND _CONSTEXPR20 _Vector_const_iterator operator+(
+		[[nodiscard]] friend _CONSTEXPR20 _Vector_const_iterator operator+(
 			const difference_type _Off, _Vector_const_iterator _Next) noexcept {
 			_Next += _Off;
 			return _Next;
@@ -93,50 +93,50 @@ namespace eqstd
 			return *this += -_Off;
 		}
 
-		_NODISCARD _CONSTEXPR20 _Vector_const_iterator operator-(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vector_const_iterator operator-(const difference_type _Off) const noexcept {
 			_Vector_const_iterator _Tmp = *this;
 			_Tmp -= _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD _CONSTEXPR20 difference_type operator-(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 difference_type operator-(const _Vector_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Ptr - _Right._Ptr;
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
 			return *(*this + _Off);
 		}
 
-		_NODISCARD _CONSTEXPR20 bool operator==(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 bool operator==(const _Vector_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Ptr == _Right._Ptr;
 		}
 
 #if _HAS_CXX20
-		_NODISCARD constexpr std::strong_ordering operator<=>(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] constexpr std::strong_ordering operator<=>(const _Vector_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Unfancy(_Ptr) <=> _Unfancy(_Right._Ptr);
 		}
 #else // ^^^ _HAS_CXX20 ^^^ / vvv !_HAS_CXX20 vvv
-		_NODISCARD bool operator!=(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator!=(const _Vector_const_iterator& _Right) const noexcept {
 			return !(*this == _Right);
 		}
 
-		_NODISCARD bool operator<(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator<(const _Vector_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Ptr < _Right._Ptr;
 		}
 
-		_NODISCARD bool operator>(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator>(const _Vector_const_iterator& _Right) const noexcept {
 			return _Right < *this;
 		}
 
-		_NODISCARD bool operator<=(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator<=(const _Vector_const_iterator& _Right) const noexcept {
 			return !(_Right < *this);
 		}
 
-		_NODISCARD bool operator>=(const _Vector_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator>=(const _Vector_const_iterator& _Right) const noexcept {
 			return !(*this < _Right);
 		}
 #endif // !_HAS_CXX20
@@ -148,7 +148,7 @@ namespace eqstd
 
 		using _Prevent_inheriting_unwrap = _Vector_const_iterator;
 
-		_NODISCARD _CONSTEXPR20 const value_type* _Unwrapped() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const value_type* _Unwrapped() const noexcept {
 			return _Unfancy(_Ptr);
 		}
 
@@ -166,7 +166,7 @@ namespace eqstd
 		using element_type = const typename pointer::value_type;
 		using difference_type = typename pointer::difference_type;
 
-		_NODISCARD static constexpr element_type* to_address(const pointer _Iter) noexcept {
+		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
 			return _STD to_address(_Iter._Ptr);
 		}
 	};
@@ -188,11 +188,11 @@ namespace eqstd
 
 		using _Mybase::_Mybase;
 
-		_NODISCARD _CONSTEXPR20 reference operator*() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator*() const noexcept {
 			return const_cast<reference>(_Mybase::operator*());
 		}
 
-		_NODISCARD _CONSTEXPR20 pointer operator->() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 pointer operator->() const noexcept {
 			return this->_Ptr;
 		}
 
@@ -223,13 +223,13 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD _CONSTEXPR20 _Vector_iterator operator+(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vector_iterator operator+(const difference_type _Off) const noexcept {
 			_Vector_iterator _Tmp = *this;
 			_Tmp += _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD_FRIEND _CONSTEXPR20 _Vector_iterator operator+(
+		[[nodiscard]] friend _CONSTEXPR20 _Vector_iterator operator+(
 			const difference_type _Off, _Vector_iterator _Next) noexcept {
 			_Next += _Off;
 			return _Next;
@@ -242,19 +242,19 @@ namespace eqstd
 
 		using _Mybase::operator-;
 
-		_NODISCARD _CONSTEXPR20 _Vector_iterator operator-(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vector_iterator operator-(const difference_type _Off) const noexcept {
 			_Vector_iterator _Tmp = *this;
 			_Tmp -= _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
 			return const_cast<reference>(_Mybase::operator[](_Off));
 		}
 
 		using _Prevent_inheriting_unwrap = _Vector_iterator;
 
-		_NODISCARD _CONSTEXPR20 value_type* _Unwrapped() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 value_type* _Unwrapped() const noexcept {
 			return _Unfancy(this->_Ptr);
 		}
 	};
@@ -266,7 +266,7 @@ namespace eqstd
 		using element_type = typename pointer::value_type;
 		using difference_type = typename pointer::difference_type;
 
-		_NODISCARD static constexpr element_type* to_address(const pointer _Iter) noexcept {
+		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
 			return _STD to_address(_Iter._Ptr);
 		}
 	};
@@ -1457,113 +1457,113 @@ namespace eqstd
 				}
 			}
 
-			_NODISCARD _CONSTEXPR20 _Ty* data() noexcept {
+			[[nodiscard]] _CONSTEXPR20 _Ty* data() noexcept {
 				return _Unfancy_maybe_null(_Mypair._Myval2._Myfirst);
 			}
 
-			_NODISCARD _CONSTEXPR20 const _Ty* data() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const _Ty* data() const noexcept {
 				return _Unfancy_maybe_null(_Mypair._Myval2._Myfirst);
 			}
 
-			_NODISCARD _CONSTEXPR20 iterator begin() noexcept {
+			[[nodiscard]] _CONSTEXPR20 iterator begin() noexcept {
 				auto& _My_data = _Mypair._Myval2;
 				return iterator(_My_data._Myfirst, _STD addressof(_My_data));
 			}
 
-			_NODISCARD _CONSTEXPR20 const_iterator begin() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_iterator begin() const noexcept {
 				auto& _My_data = _Mypair._Myval2;
 				return const_iterator(_My_data._Myfirst, _STD addressof(_My_data));
 			}
 
-			_NODISCARD _CONSTEXPR20 iterator end() noexcept {
+			[[nodiscard]] _CONSTEXPR20 iterator end() noexcept {
 				auto& _My_data = _Mypair._Myval2;
 				return iterator(_My_data._Mylast, _STD addressof(_My_data));
 			}
 
-			_NODISCARD _CONSTEXPR20 const_iterator end() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_iterator end() const noexcept {
 				auto& _My_data = _Mypair._Myval2;
 				return const_iterator(_My_data._Mylast, _STD addressof(_My_data));
 			}
 
-			_NODISCARD _CONSTEXPR20 reverse_iterator rbegin() noexcept {
+			[[nodiscard]] _CONSTEXPR20 reverse_iterator rbegin() noexcept {
 				return reverse_iterator(end());
 			}
 
-			_NODISCARD _CONSTEXPR20 const_reverse_iterator rbegin() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_reverse_iterator rbegin() const noexcept {
 				return const_reverse_iterator(end());
 			}
 
-			_NODISCARD _CONSTEXPR20 reverse_iterator rend() noexcept {
+			[[nodiscard]] _CONSTEXPR20 reverse_iterator rend() noexcept {
 				return reverse_iterator(begin());
 			}
 
-			_NODISCARD _CONSTEXPR20 const_reverse_iterator rend() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_reverse_iterator rend() const noexcept {
 				return const_reverse_iterator(begin());
 			}
 
-			_NODISCARD _CONSTEXPR20 const_iterator cbegin() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_iterator cbegin() const noexcept {
 				return begin();
 			}
 
-			_NODISCARD _CONSTEXPR20 const_iterator cend() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_iterator cend() const noexcept {
 				return end();
 			}
 
-			_NODISCARD _CONSTEXPR20 const_reverse_iterator crbegin() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_reverse_iterator crbegin() const noexcept {
 				return rbegin();
 			}
 
-			_NODISCARD _CONSTEXPR20 const_reverse_iterator crend() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_reverse_iterator crend() const noexcept {
 				return rend();
 			}
 
-			_NODISCARD _CONSTEXPR20 pointer _Unchecked_begin() noexcept {
+			[[nodiscard]] _CONSTEXPR20 pointer _Unchecked_begin() noexcept {
 				return _Mypair._Myval2._Myfirst;
 			}
 
-			_NODISCARD _CONSTEXPR20 const_pointer _Unchecked_begin() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_pointer _Unchecked_begin() const noexcept {
 				return _Mypair._Myval2._Myfirst;
 			}
 
-			_NODISCARD _CONSTEXPR20 pointer _Unchecked_end() noexcept {
+			[[nodiscard]] _CONSTEXPR20 pointer _Unchecked_end() noexcept {
 				return _Mypair._Myval2._Mylast;
 			}
 
-			_NODISCARD _CONSTEXPR20 const_pointer _Unchecked_end() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const_pointer _Unchecked_end() const noexcept {
 				return _Mypair._Myval2._Mylast;
 			}
 
-			_NODISCARD_EMPTY_MEMBER _CONSTEXPR20 bool empty() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 bool empty() const noexcept {
 				auto& _My_data = _Mypair._Myval2;
 				return _My_data._Myfirst == _My_data._Mylast;
 			}
 
-			_NODISCARD _CONSTEXPR20 size_type size() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 size_type size() const noexcept {
 				auto& _My_data = _Mypair._Myval2;
 				return static_cast<size_type>(_My_data._Mylast - _My_data._Myfirst);
 			}
 
-			_NODISCARD _CONSTEXPR20 size_type max_size() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 size_type max_size() const noexcept {
 				return (_STD min)(
 					static_cast<size_type>((std::numeric_limits<difference_type>::max)()), _Alty_traits::max_size(_Getal()));
 			}
 
-			_NODISCARD _CONSTEXPR20 size_type capacity() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 size_type capacity() const noexcept {
 				auto& _My_data = _Mypair._Myval2;
 				return static_cast<size_type>(_My_data._Myend - _My_data._Myfirst);
 			}
 
-			_NODISCARD _CONSTEXPR20 _Ty& operator[](const size_type _Pos) noexcept /* strengthened */ {
+			[[nodiscard]] _CONSTEXPR20 _Ty& operator[](const size_type _Pos) noexcept /* strengthened */ {
 				auto& _My_data = _Mypair._Myval2;
 				return _My_data._Myfirst[_Pos];
 			}
 
-			_NODISCARD _CONSTEXPR20 const _Ty& operator[](const size_type _Pos) const noexcept /* strengthened */ {
+			[[nodiscard]] _CONSTEXPR20 const _Ty& operator[](const size_type _Pos) const noexcept /* strengthened */ {
 				auto& _My_data = _Mypair._Myval2;
 				return _My_data._Myfirst[_Pos];
 			}
 
-			_NODISCARD _CONSTEXPR20 _Ty& at(const size_type _Pos) {
+			[[nodiscard]] _CONSTEXPR20 _Ty& at(const size_type _Pos) {
 				auto& _My_data = _Mypair._Myval2;
 				if (static_cast<size_type>(_My_data._Mylast - _My_data._Myfirst) <= _Pos) {
 					_Xrange();
@@ -1572,7 +1572,7 @@ namespace eqstd
 				return _My_data._Myfirst[_Pos];
 			}
 
-			_NODISCARD _CONSTEXPR20 const _Ty& at(const size_type _Pos) const {
+			[[nodiscard]] _CONSTEXPR20 const _Ty& at(const size_type _Pos) const {
 				auto& _My_data = _Mypair._Myval2;
 				if (static_cast<size_type>(_My_data._Mylast - _My_data._Myfirst) <= _Pos) {
 					_Xrange();
@@ -1581,27 +1581,27 @@ namespace eqstd
 				return _My_data._Myfirst[_Pos];
 			}
 
-			_NODISCARD _CONSTEXPR20 _Ty& front() noexcept /* strengthened */ {
+			[[nodiscard]] _CONSTEXPR20 _Ty& front() noexcept /* strengthened */ {
 				auto& _My_data = _Mypair._Myval2;
 				return *_My_data._Myfirst;
 			}
 
-			_NODISCARD _CONSTEXPR20 const _Ty& front() const noexcept /* strengthened */ {
+			[[nodiscard]] _CONSTEXPR20 const _Ty& front() const noexcept /* strengthened */ {
 				auto& _My_data = _Mypair._Myval2;
 				return *_My_data._Myfirst;
 			}
 
-			_NODISCARD _CONSTEXPR20 _Ty& back() noexcept /* strengthened */ {
+			[[nodiscard]] _CONSTEXPR20 _Ty& back() noexcept /* strengthened */ {
 				auto& _My_data = _Mypair._Myval2;
 				return _My_data._Mylast[-1];
 			}
 
-			_NODISCARD _CONSTEXPR20 const _Ty& back() const noexcept /* strengthened */ {
+			[[nodiscard]] _CONSTEXPR20 const _Ty& back() const noexcept /* strengthened */ {
 				auto& _My_data = _Mypair._Myval2;
 				return _My_data._Mylast[-1];
 			}
 
-			_NODISCARD _CONSTEXPR20 allocator_type get_allocator() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 allocator_type get_allocator() const noexcept {
 				return static_cast<allocator_type>(_Getal());
 			}
 
@@ -1775,19 +1775,19 @@ namespace eqstd
 
 			_CONSTEXPR20 void _Orphan_range(pointer, pointer) const {}
 
-			_NODISCARD _CONSTEXPR20 _Alty& _Getal() noexcept {
+			[[nodiscard]] _CONSTEXPR20 _Alty& _Getal() noexcept {
 				return _Mypair._Get_first();
 			}
 
-			_NODISCARD _CONSTEXPR20 const _Alty& _Getal() const noexcept {
+			[[nodiscard]] _CONSTEXPR20 const _Alty& _Getal() const noexcept {
 				return _Mypair._Get_first();
 			}
 
-			_NODISCARD _CONSTEXPR20 iterator _Make_iterator(const pointer _Ptr) noexcept {
+			[[nodiscard]] _CONSTEXPR20 iterator _Make_iterator(const pointer _Ptr) noexcept {
 				return iterator(_Ptr, _STD addressof(_Mypair._Myval2));
 			}
 
-			_NODISCARD _CONSTEXPR20 iterator _Make_iterator_offset(const size_type _Offset) noexcept {
+			[[nodiscard]] _CONSTEXPR20 iterator _Make_iterator_offset(const size_type _Offset) noexcept {
 				// return the iterator begin() + _Offset without a debugging check
 				auto& _My_data = _Mypair._Myval2;
 				return iterator(_My_data._Myfirst + _Offset, _STD addressof(_My_data));
@@ -1816,7 +1816,7 @@ namespace eqstd
 	_INLINE_VAR constexpr int _VBITS = 8 * sizeof(_Vbase); // at least CHAR_BITS bits per word
 
 	template <class _Ty, class _Alloc>
-		_NODISCARD _CONSTEXPR20 bool operator==(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
+		[[nodiscard]] _CONSTEXPR20 bool operator==(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		if (_Left.size() != _Right.size()) {
 			return false;
 		}
@@ -1832,7 +1832,7 @@ namespace eqstd
 
 #if !_HAS_CXX20
 	template <class _Ty, class _Alloc>
-	_NODISCARD bool operator!=(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] bool operator!=(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		return !(_Left == _Right);
 	}
 #endif // !_HAS_CXX20
@@ -1854,7 +1854,7 @@ namespace eqstd
 
 	template <class _Ret>
 	struct _Vbase_compare_three_way {
-		_NODISCARD constexpr _Ret operator()(const _Vbase _Left, const _Vbase _Right) const noexcept {
+		[[nodiscard]] constexpr _Ret operator()(const _Vbase _Left, const _Vbase _Right) const noexcept {
 			const _Vbase _Differing_bits = _Left ^ _Right;
 
 			if (_Differing_bits == 0) { // improves _Countr_zero codegen below
@@ -1880,7 +1880,7 @@ namespace eqstd
 
 #if defined(__cpp_lib_concepts) && 0
 	template <class _Ty, class _Alloc>
-		_NODISCARD constexpr _Synth_three_way_result<_Ty> operator<=>(
+		[[nodiscard]] constexpr _Synth_three_way_result<_Ty> operator<=>(
 			const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		if constexpr (is_same_v<_Ty, bool>) {
 			// This optimization works because vector<bool> "trims" its underlying storage by zeroing out unused bits.
@@ -1906,7 +1906,7 @@ namespace eqstd
 	}
 #else // ^^^ defined(__cpp_lib_concepts) / !defined(__cpp_lib_concepts) vvv
 	template <class _Ty, class _Alloc>
-	_NODISCARD _CONSTEXPR20 bool operator<(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] _CONSTEXPR20 bool operator<(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		if constexpr (is_same_v<_Ty, bool>) {
 			// This optimization works because vector<bool> "trims" its underlying storage by zeroing out unused bits.
 			auto _First = _Left._Myvec._Unchecked_begin();
@@ -1935,17 +1935,17 @@ namespace eqstd
 	}
 
 	template <class _Ty, class _Alloc>
-	_NODISCARD _CONSTEXPR20 bool operator>(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] _CONSTEXPR20 bool operator>(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		return _Right < _Left;
 	}
 
 	template <class _Ty, class _Alloc>
-	_NODISCARD _CONSTEXPR20 bool operator<=(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] _CONSTEXPR20 bool operator<=(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		return !(_Right < _Left);
 	}
 
 	template <class _Ty, class _Alloc>
-	_NODISCARD _CONSTEXPR20 bool operator>=(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] _CONSTEXPR20 bool operator>=(const vector<_Ty, _Alloc>& _Left, const vector<_Ty, _Alloc>& _Right) {
 		return !(_Left < _Right);
 	}
 #endif // ^^^ !defined(__cpp_lib_concepts) ^^^
@@ -2090,7 +2090,7 @@ namespace eqstd
 		_CONSTEXPR20 _Vb_const_iterator(const _Vbase* _Ptr, const _Container_base* _Mypvbool) noexcept
 			: _Mybase(_Ptr, 0, _Mypvbool) {}
 
-		_NODISCARD _CONSTEXPR20 const_reference operator*() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reference operator*() const noexcept {
 			return _Reft(*this);
 		}
 
@@ -2130,13 +2130,13 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD _CONSTEXPR20 _Vb_const_iterator operator+(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vb_const_iterator operator+(const difference_type _Off) const noexcept {
 			_Vb_const_iterator _Tmp = *this;
 			_Tmp += _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD_FRIEND _CONSTEXPR20 _Vb_const_iterator operator+(
+		[[nodiscard]] friend _CONSTEXPR20 _Vb_const_iterator operator+(
 			const difference_type _Off, _Vb_const_iterator _Right) noexcept {
 			_Right += _Off;
 			return _Right;
@@ -2146,29 +2146,29 @@ namespace eqstd
 			return *this += -_Off;
 		}
 
-		_NODISCARD _CONSTEXPR20 _Vb_const_iterator operator-(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vb_const_iterator operator-(const difference_type _Off) const noexcept {
 			_Vb_const_iterator _Tmp = *this;
 			_Tmp -= _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD _CONSTEXPR20 difference_type operator-(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 difference_type operator-(const _Vb_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return static_cast<difference_type>(_VBITS * (this->_Myptr - _Right._Myptr))
 				+ static_cast<difference_type>(this->_Myoff) - static_cast<difference_type>(_Right._Myoff);
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference operator[](const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reference operator[](const difference_type _Off) const noexcept {
 			return *(*this + _Off);
 		}
 
-		_NODISCARD _CONSTEXPR20 bool operator==(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 bool operator==(const _Vb_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return this->_Myptr == _Right._Myptr && this->_Myoff == _Right._Myoff;
 		}
 
 #if _HAS_CXX20
-		_NODISCARD constexpr std::strong_ordering operator<=>(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] constexpr std::strong_ordering operator<=>(const _Vb_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			if (const auto _CmpResult = this->_Myptr <=> _Right._Myptr; _CmpResult != 0) {
 				return _CmpResult;
@@ -2176,24 +2176,24 @@ namespace eqstd
 			return this->_Myoff <=> _Right._Myoff;
 		}
 #else // ^^^ _HAS_CXX20 ^^^ / vvv !_HAS_CXX20 vvv
-		_NODISCARD bool operator!=(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator!=(const _Vb_const_iterator& _Right) const noexcept {
 			return !(*this == _Right);
 		}
 
-		_NODISCARD bool operator<(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator<(const _Vb_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return this->_Myptr < _Right._Myptr || (this->_Myptr == _Right._Myptr && this->_Myoff < _Right._Myoff);
 		}
 
-		_NODISCARD bool operator>(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator>(const _Vb_const_iterator& _Right) const noexcept {
 			return _Right < *this;
 		}
 
-		_NODISCARD bool operator<=(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator<=(const _Vb_const_iterator& _Right) const noexcept {
 			return !(_Right < *this);
 		}
 
-		_NODISCARD bool operator>=(const _Vb_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator>=(const _Vb_const_iterator& _Right) const noexcept {
 			return !(*this < _Right);
 		}
 #endif // !_HAS_CXX20
@@ -2242,7 +2242,7 @@ namespace eqstd
 
 		using _Mybase::_Mybase;
 
-		_NODISCARD _CONSTEXPR20 reference operator*() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator*() const noexcept {
 			return _Reft(*this);
 		}
 
@@ -2273,13 +2273,13 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD _CONSTEXPR20 _Vb_iterator operator+(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vb_iterator operator+(const difference_type _Off) const noexcept {
 			_Vb_iterator _Tmp = *this;
 			_Tmp += _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD_FRIEND _CONSTEXPR20 _Vb_iterator operator+(const difference_type _Off, _Vb_iterator _Right) noexcept {
+		[[nodiscard]] friend _CONSTEXPR20 _Vb_iterator operator+(const difference_type _Off, _Vb_iterator _Right) noexcept {
 			_Right += _Off;
 			return _Right;
 		}
@@ -2291,13 +2291,13 @@ namespace eqstd
 
 		using _Mybase::operator-;
 
-		_NODISCARD _CONSTEXPR20 _Vb_iterator operator-(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Vb_iterator operator-(const difference_type _Off) const noexcept {
 			_Vb_iterator _Tmp = *this;
 			_Tmp -= _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
 			return *(*this + _Off);
 		}
 
@@ -2527,55 +2527,55 @@ namespace eqstd
 			this->_Myvec.reserve(this->_Nw(_Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type capacity() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type capacity() const noexcept {
 			return this->_Myvec.capacity() * _VBITS;
 		}
 
-		_NODISCARD _CONSTEXPR20 iterator begin() noexcept {
+		[[nodiscard]] _CONSTEXPR20 iterator begin() noexcept {
 			return iterator(this->_Myvec.data(), this);
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator begin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator begin() const noexcept {
 			return const_iterator(this->_Myvec.data(), this);
 		}
 
-		_NODISCARD _CONSTEXPR20 iterator end() noexcept {
+		[[nodiscard]] _CONSTEXPR20 iterator end() noexcept {
 			return begin() + static_cast<difference_type>(this->_Mysize);
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator end() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator end() const noexcept {
 			return begin() + static_cast<difference_type>(this->_Mysize);
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator cbegin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator cbegin() const noexcept {
 			return begin();
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator cend() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator cend() const noexcept {
 			return end();
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator crbegin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator crbegin() const noexcept {
 			return rbegin();
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator crend() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator crend() const noexcept {
 			return rend();
 		}
 
-		_NODISCARD _CONSTEXPR20 iterator _Unchecked_begin() noexcept {
+		[[nodiscard]] _CONSTEXPR20 iterator _Unchecked_begin() noexcept {
 			return iterator(this->_Myvec.data(), this);
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator _Unchecked_begin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator _Unchecked_begin() const noexcept {
 			return const_iterator(this->_Myvec.data(), this);
 		}
 
-		_NODISCARD _CONSTEXPR20 iterator _Unchecked_end() noexcept {
+		[[nodiscard]] _CONSTEXPR20 iterator _Unchecked_end() noexcept {
 			return _Unchecked_begin() + static_cast<difference_type>(this->_Mysize);
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator _Unchecked_end() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator _Unchecked_end() const noexcept {
 			return _Unchecked_begin() + static_cast<difference_type>(this->_Mysize);
 		}
 
@@ -2595,19 +2595,19 @@ namespace eqstd
 			return _Tmp;
 		}
 
-		_NODISCARD _CONSTEXPR20 reverse_iterator rbegin() noexcept {
+		[[nodiscard]] _CONSTEXPR20 reverse_iterator rbegin() noexcept {
 			return reverse_iterator(end());
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator rbegin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator rbegin() const noexcept {
 			return const_reverse_iterator(end());
 		}
 
-		_NODISCARD _CONSTEXPR20 reverse_iterator rend() noexcept {
+		[[nodiscard]] _CONSTEXPR20 reverse_iterator rend() noexcept {
 			return reverse_iterator(begin());
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator rend() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator rend() const noexcept {
 			return const_reverse_iterator(begin());
 		}
 
@@ -2620,11 +2620,11 @@ namespace eqstd
 			}
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type size() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type size() const noexcept {
 			return this->_Mysize;
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type max_size() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type max_size() const noexcept {
 			constexpr auto _Diff_max = static_cast<size_type>((std::numeric_limits<difference_type>::max)());
 			const size_type _Ints_max = this->_Myvec.max_size();
 			if (_Ints_max > _Diff_max / _VBITS) { // max_size bound by difference_type limits
@@ -2635,15 +2635,15 @@ namespace eqstd
 			return _Ints_max * _VBITS;
 		}
 
-		_NODISCARD_EMPTY_MEMBER _CONSTEXPR20 bool empty() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 bool empty() const noexcept {
 			return this->_Mysize == 0;
 		}
 
-		_NODISCARD _CONSTEXPR20 allocator_type get_allocator() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 allocator_type get_allocator() const noexcept {
 			return static_cast<allocator_type>(this->_Myvec.get_allocator());
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference at(size_type _Off) const {
+		[[nodiscard]] _CONSTEXPR20 const_reference at(size_type _Off) const {
 			if (size() <= _Off) {
 				_Xran();
 			}
@@ -2651,7 +2651,7 @@ namespace eqstd
 			return (*this)[_Off];
 		}
 
-		_NODISCARD _CONSTEXPR20 reference at(size_type _Off) {
+		[[nodiscard]] _CONSTEXPR20 reference at(size_type _Off) {
 			if (size() <= _Off) {
 				_Xran();
 			}
@@ -2659,31 +2659,31 @@ namespace eqstd
 			return (*this)[_Off];
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference operator[](size_type _Off) const noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 const_reference operator[](size_type _Off) const noexcept /* strengthened */ {
 			const_iterator _It = begin();
 			_It._Advance(_Off);
 			return *_It;
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator[](size_type _Off) noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 reference operator[](size_type _Off) noexcept /* strengthened */ {
 			iterator _It = begin();
 			_It._Advance(_Off);
 			return *_It;
 		}
 
-		_NODISCARD _CONSTEXPR20 reference front() noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 reference front() noexcept /* strengthened */ {
 			return *begin();
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference front() const noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 const_reference front() const noexcept /* strengthened */ {
 			return *begin();
 		}
 
-		_NODISCARD _CONSTEXPR20 reference back() noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 reference back() noexcept /* strengthened */ {
 			return *(end() - 1);
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference back() const noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 const_reference back() const noexcept /* strengthened */ {
 			return *(end() - 1);
 		}
 
@@ -2952,7 +2952,7 @@ namespace std {
 		using _ARGUMENT_TYPE_NAME _CXX17_DEPRECATE_ADAPTOR_TYPEDEFS = eqstd::vector<bool, _Alloc>;
 		using _RESULT_TYPE_NAME _CXX17_DEPRECATE_ADAPTOR_TYPEDEFS = size_t;
 
-		_NODISCARD size_t operator()(const eqstd::vector<bool, _Alloc>& _Keyval) const noexcept {
+		[[nodiscard]] size_t operator()(const eqstd::vector<bool, _Alloc>& _Keyval) const noexcept {
 			return eqstd::_Hash_array_representation(_Keyval._Myvec.data(), _Keyval._Myvec.size());
 		}
 	};
@@ -3017,7 +3017,7 @@ namespace eqstd {
 	}
 
 	template <class _VbIt>
-	_NODISCARD _CONSTEXPR20 _VbIt _Find_vbool(_VbIt _First, const _VbIt _Last, const bool _Val) noexcept {
+	[[nodiscard]] _CONSTEXPR20 _VbIt _Find_vbool(_VbIt _First, const _VbIt _Last, const bool _Val) noexcept {
 		// Find _Val in [_First, _Last)
 		if (_First == _Last) {
 			return _First;
@@ -3066,7 +3066,7 @@ namespace eqstd {
 	}
 
 	template <class _VbIt>
-	_NODISCARD _CONSTEXPR20 _Iter_diff_t<_VbIt> _Count_vbool(_VbIt _First, const _VbIt _Last, const bool _Val) noexcept {
+	[[nodiscard]] _CONSTEXPR20 _Iter_diff_t<_VbIt> _Count_vbool(_VbIt _First, const _VbIt _Last, const bool _Val) noexcept {
 		if (_First == _Last) {
 			return 0;
 		}
