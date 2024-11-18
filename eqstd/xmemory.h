@@ -230,7 +230,7 @@ namespace eqstd
 	using allocator = eqlib::everquest_allocator<T>;
 
 	template <class _Ty>
-	struct _NODISCARD _Tidy_guard { // class with destructor that calls _Tidy
+	struct [[nodiscard]] _Tidy_guard { // class with destructor that calls _Tidy
 		_Ty* _Target;
 		_CONSTEXPR20 ~_Tidy_guard() {
 			if (_Target) {
@@ -240,7 +240,7 @@ namespace eqstd
 	};
 
 	template <class _Ty>
-	struct _NODISCARD _Tidy_deallocate_guard { // class with destructor that calls _Tidy_deallocate
+	struct [[nodiscard]] _Tidy_deallocate_guard { // class with destructor that calls _Tidy_deallocate
 		_Ty* _Target;
 		_CONSTEXPR20 ~_Tidy_deallocate_guard() {
 			if (_Target) {
@@ -306,7 +306,7 @@ namespace eqstd
 	};
 
 	template <class _Size_type, class _Unsigned_type>
-	_NODISCARD constexpr _Size_type _Convert_size(const _Unsigned_type _Len) noexcept(
+	[[nodiscard]] constexpr _Size_type _Convert_size(const _Unsigned_type _Len) noexcept(
 		sizeof(_Unsigned_type) <= sizeof(_Size_type)) {
 		// convert _Unsigned_type to _Size_type, avoiding truncation
 		_STL_INTERNAL_STATIC_ASSERT(_Unsigned_type(-1) > 0);
@@ -329,7 +329,7 @@ namespace eqstd
 		: is_same<typename allocator<_Ty>::_From_primary, allocator<_Ty>>::type {};
 
 	template <class _Ptrty>
-	_NODISCARD constexpr auto _Unfancy(_Ptrty _Ptr) noexcept { // converts from a fancy pointer to a plain pointer
+	[[nodiscard]] constexpr auto _Unfancy(_Ptrty _Ptr) noexcept { // converts from a fancy pointer to a plain pointer
 		return std::addressof(*_Ptr);
 	}
 	template <class _Void, class... _Types>
@@ -358,11 +358,11 @@ namespace eqstd
 			value_type _Value;
 		};
 
-		_NODISCARD _CONSTEXPR20 value_type& _Get_value() noexcept {
+		[[nodiscard]] _CONSTEXPR20 value_type& _Get_value() noexcept {
 			return _Value;
 		}
 
-		_NODISCARD _CONSTEXPR20 const value_type& _Get_value() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const value_type& _Get_value() const noexcept {
 			return _Value;
 		}
 

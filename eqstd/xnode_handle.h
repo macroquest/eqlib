@@ -147,7 +147,7 @@ namespace eqstd
 			return reinterpret_cast<const _Alloc&>(_Alloc_storage);
 		}
 
-		_NODISCARD allocator_type get_allocator() const noexcept /* strengthened */ {
+		[[nodiscard]] allocator_type get_allocator() const noexcept /* strengthened */ {
 			return _Getal();
 		}
 
@@ -155,7 +155,7 @@ namespace eqstd
 			return _Ptr != nullptr;
 		}
 
-		_NODISCARD bool empty() const noexcept {
+		[[nodiscard]] bool empty() const noexcept {
 			return _Ptr == nullptr;
 		}
 

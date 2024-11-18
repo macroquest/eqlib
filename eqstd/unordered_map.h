@@ -427,11 +427,11 @@ namespace eqstd
 				return *this;
 			}
 
-			_NODISCARD hasher hash_function() const {
+			[[nodiscard]] hasher hash_function() const {
 				return _Mybase::_Traitsobj._Mypair._Get_first();
 			}
 
-			_NODISCARD key_equal key_eq() const {
+			[[nodiscard]] key_equal key_eq() const {
 				return _Mybase::_Traitsobj._Mypair._Myval2._Get_first();
 			}
 
@@ -439,7 +439,7 @@ namespace eqstd
 				return this->_Try_emplace(_Keyval).first->_Myval.second;
 			}
 
-			_NODISCARD mapped_type& at(const key_type& _Keyval) {
+			[[nodiscard]] mapped_type& at(const key_type& _Keyval) {
 				const auto _Target = this->_Find_last(_Keyval, this->_Traitsobj(_Keyval));
 				if (_Target._Duplicate) {
 					return _Target._Duplicate->_Myval.second;
@@ -448,7 +448,7 @@ namespace eqstd
 				_Xout_of_range("invalid unordered_map<K, T> key");
 			}
 
-			_NODISCARD const mapped_type& at(const key_type& _Keyval) const {
+			[[nodiscard]] const mapped_type& at(const key_type& _Keyval) const {
 				const auto _Target = this->_Find_last(_Keyval, this->_Traitsobj(_Keyval));
 				if (_Target._Duplicate) {
 					return _Target._Duplicate->_Myval.second;
@@ -539,14 +539,14 @@ namespace eqstd
 #endif // _HAS_CXX20
 
 	template <class _Kty, class _Ty, class _Hasher, class _Keyeq, class _Alloc>
-		_NODISCARD bool operator==(const unordered_map<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
+		[[nodiscard]] bool operator==(const unordered_map<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
 			const unordered_map<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return _Hash_equal(_Left, _Right);
 	}
 
 #if !_HAS_CXX20
 	template <class _Kty, class _Ty, class _Hasher, class _Keyeq, class _Alloc>
-	_NODISCARD bool operator!=(const unordered_map<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
+	[[nodiscard]] bool operator!=(const unordered_map<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
 		const unordered_map<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return !(_Left == _Right);
 	}
@@ -816,11 +816,11 @@ namespace eqstd
 				return *this;
 			}
 
-			_NODISCARD hasher hash_function() const {
+			[[nodiscard]] hasher hash_function() const {
 				return _Mybase::_Traitsobj._Mypair._Get_first();
 			}
 
-			_NODISCARD key_equal key_eq() const {
+			[[nodiscard]] key_equal key_eq() const {
 				return _Mybase::_Traitsobj._Mypair._Myval2._Get_first();
 			}
 
@@ -908,14 +908,14 @@ namespace eqstd
 #endif // _HAS_CXX20
 
 	template <class _Kty, class _Ty, class _Hasher, class _Keyeq, class _Alloc>
-		_NODISCARD bool operator==(const unordered_multimap<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
+		[[nodiscard]] bool operator==(const unordered_multimap<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
 			const unordered_multimap<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return _Hash_equal(_Left, _Right);
 	}
 
 #if !_HAS_CXX20
 	template <class _Kty, class _Ty, class _Hasher, class _Keyeq, class _Alloc>
-	_NODISCARD bool operator!=(const unordered_multimap<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
+	[[nodiscard]] bool operator!=(const unordered_multimap<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Left,
 		const unordered_multimap<_Kty, _Ty, _Hasher, _Keyeq, _Alloc>& _Right) {
 		return !(_Left == _Right);
 	}

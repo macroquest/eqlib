@@ -40,13 +40,13 @@ namespace eqstd
 	using _Get_comparison_category_t = _Get_comparison_category<_Traits>::type;
 
 	_EXPORT_STD template <class _Elem, class _Traits>
-		_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
+		[[nodiscard]] constexpr _Get_comparison_category_t<_Traits> operator<=>(
 			const basic_string_view<_Elem, _Traits> _Lhs, const basic_string_view<_Elem, _Traits> _Rhs) noexcept {
 		return static_cast<_Get_comparison_category_t<_Traits>>(_Lhs.compare(_Rhs) <=> 0);
 	}
 
 	_EXPORT_STD template <class _Elem, class _Traits, int = 2> // TRANSITION, VSO-409326
-		_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
+		[[nodiscard]] constexpr _Get_comparison_category_t<_Traits> operator<=>(
 			const basic_string_view<_Elem, _Traits> _Lhs, const _Identity_t<basic_string_view<_Elem, _Traits>> _Rhs) noexcept {
 		return static_cast<_Get_comparison_category_t<_Traits>>(_Lhs.compare(_Rhs) <=> 0);
 	}
@@ -447,12 +447,12 @@ namespace eqstd
 			this->_Adopt(_Pstring);
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator*() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator*() const noexcept {
 			_Analysis_assume_(_Ptr);
 			return *_Ptr;
 		}
 
-		_NODISCARD _CONSTEXPR20 pointer operator->() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 pointer operator->() const noexcept {
 			return pointer_traits<pointer>::pointer_to(**this);
 		}
 
@@ -487,13 +487,13 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD _CONSTEXPR20 _String_const_iterator operator+(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _String_const_iterator operator+(const difference_type _Off) const noexcept {
 			_String_const_iterator _Tmp = *this;
 			_Tmp += _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD_FRIEND _CONSTEXPR20 _String_const_iterator operator+(
+		[[nodiscard]] friend _CONSTEXPR20 _String_const_iterator operator+(
 			const difference_type _Off, _String_const_iterator _Next) noexcept {
 			_Next += _Off;
 			return _Next;
@@ -503,50 +503,50 @@ namespace eqstd
 			return *this += -_Off;
 		}
 
-		_NODISCARD _CONSTEXPR20 _String_const_iterator operator-(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _String_const_iterator operator-(const difference_type _Off) const noexcept {
 			_String_const_iterator _Tmp = *this;
 			_Tmp -= _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD _CONSTEXPR20 difference_type operator-(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 difference_type operator-(const _String_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Ptr - _Right._Ptr;
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
 			return *(*this + _Off);
 		}
 
-		_NODISCARD _CONSTEXPR20 bool operator==(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 bool operator==(const _String_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Ptr == _Right._Ptr;
 		}
 
 	#if _HAS_CXX20
-		_NODISCARD constexpr std::strong_ordering operator<=>(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] constexpr std::strong_ordering operator<=>(const _String_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Unfancy(_Ptr) <=> _Unfancy(_Right._Ptr);
 		}
 	#else // ^^^ _HAS_CXX20 ^^^ / vvv !_HAS_CXX20 vvv
-		_NODISCARD bool operator!=(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator!=(const _String_const_iterator& _Right) const noexcept {
 			return !(*this == _Right);
 		}
 
-		_NODISCARD bool operator<(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator<(const _String_const_iterator& _Right) const noexcept {
 			_Compat(_Right);
 			return _Ptr < _Right._Ptr;
 		}
 
-		_NODISCARD bool operator>(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator>(const _String_const_iterator& _Right) const noexcept {
 			return _Right < *this;
 		}
 
-		_NODISCARD bool operator<=(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator<=(const _String_const_iterator& _Right) const noexcept {
 			return !(_Right < *this);
 		}
 
-		_NODISCARD bool operator>=(const _String_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator>=(const _String_const_iterator& _Right) const noexcept {
 			return !(*this < _Right);
 		}
 	#endif // !_HAS_CXX20
@@ -558,7 +558,7 @@ namespace eqstd
 
 		using _Prevent_inheriting_unwrap = _String_const_iterator;
 
-		_NODISCARD _CONSTEXPR20 const value_type* _Unwrapped() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const value_type* _Unwrapped() const noexcept {
 			return _Unfancy(_Ptr);
 		}
 
@@ -576,7 +576,7 @@ namespace eqstd
 		using element_type    = const typename pointer::value_type;
 		using difference_type = typename pointer::difference_type;
 
-		_NODISCARD static constexpr element_type* to_address(const pointer _Iter) noexcept {
+		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
 			const auto _Rawptr = _STD to_address(_Iter._Ptr);
 			return _Rawptr;
 		}
@@ -599,11 +599,11 @@ namespace eqstd
 
 		using _Mybase::_Mybase;
 
-		_NODISCARD _CONSTEXPR20 reference operator*() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator*() const noexcept {
 			return const_cast<reference>(_Mybase::operator*());
 		}
 
-		_NODISCARD _CONSTEXPR20 pointer operator->() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 pointer operator->() const noexcept {
 			return pointer_traits<pointer>::pointer_to(**this);
 		}
 
@@ -634,13 +634,13 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD _CONSTEXPR20 _String_iterator operator+(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _String_iterator operator+(const difference_type _Off) const noexcept {
 			_String_iterator _Tmp = *this;
 			_Tmp += _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD_FRIEND _CONSTEXPR20 _String_iterator operator+(
+		[[nodiscard]] friend _CONSTEXPR20 _String_iterator operator+(
 			const difference_type _Off, _String_iterator _Next) noexcept {
 			_Next += _Off;
 			return _Next;
@@ -653,19 +653,19 @@ namespace eqstd
 
 		using _Mybase::operator-;
 
-		_NODISCARD _CONSTEXPR20 _String_iterator operator-(const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _String_iterator operator-(const difference_type _Off) const noexcept {
 			_String_iterator _Tmp = *this;
 			_Tmp -= _Off;
 			return _Tmp;
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 reference operator[](const difference_type _Off) const noexcept {
 			return const_cast<reference>(_Mybase::operator[](_Off));
 		}
 
 		using _Prevent_inheriting_unwrap = _String_iterator;
 
-		_NODISCARD _CONSTEXPR20 value_type* _Unwrapped() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 value_type* _Unwrapped() const noexcept {
 			return const_cast<value_type*>(_Unfancy(this->_Ptr));
 		}
 	};
@@ -677,7 +677,7 @@ namespace eqstd
 		using element_type    = typename pointer::value_type;
 		using difference_type = typename pointer::difference_type;
 
-		_NODISCARD static constexpr element_type* to_address(const pointer _Iter) noexcept {
+		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
 			const auto _Rawptr = _STD to_address(_Iter._Ptr);
 			return const_cast<element_type*>(_Rawptr);
 		}
@@ -1296,7 +1296,7 @@ namespace eqstd
 			_Tidy_init();
 		}
 
-		_NODISCARD bool _Move_assign_from_buffer(_Elem* const _Right, const size_type _Size, const size_type _Res) {
+		[[nodiscard]] bool _Move_assign_from_buffer(_Elem* const _Right, const size_type _Size, const size_type _Res) {
 			// Move assign from a buffer, used exclusively by basic_stringbuf; returns _Large_string_engaged()
 			auto& _My_data = _Mypair._Myval2;
 			_Traits::assign(_Right[_Size], _Elem());
@@ -1322,7 +1322,7 @@ namespace eqstd
 			size_type _Res;
 		};
 
-		_NODISCARD _Released_buffer _Release_to_buffer(_Alloc& _Al) {
+		[[nodiscard]] _Released_buffer _Release_to_buffer(_Alloc& _Al) {
 			// Release to a buffer, or allocate a new one if in small string mode; used exclusively by basic_stringbuf
 			_Released_buffer _Result;
 			auto& _My_data = _Mypair._Myval2;
@@ -2224,71 +2224,71 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX23 && defined(__cpp_lib_concepts)
 
-		_NODISCARD _CONSTEXPR20 iterator begin() noexcept {
+		[[nodiscard]] _CONSTEXPR20 iterator begin() noexcept {
 			return iterator(_Refancy<pointer>(_Mypair._Myval2._Myptr()), _STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator begin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator begin() const noexcept {
 			return const_iterator(_Refancy<const_pointer>(_Mypair._Myval2._Myptr()), _STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD _CONSTEXPR20 iterator end() noexcept {
+		[[nodiscard]] _CONSTEXPR20 iterator end() noexcept {
 			return iterator(
 				_Refancy<pointer>(_Mypair._Myval2._Myptr()) + static_cast<difference_type>(_Mypair._Myval2._Mysize),
 				_STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator end() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator end() const noexcept {
 			return const_iterator(
 				_Refancy<const_pointer>(_Mypair._Myval2._Myptr()) + static_cast<difference_type>(_Mypair._Myval2._Mysize),
 				_STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD _CONSTEXPR20 _Elem* _Unchecked_begin() noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Elem* _Unchecked_begin() noexcept {
 			return _Mypair._Myval2._Myptr();
 		}
 
-		_NODISCARD _CONSTEXPR20 const _Elem* _Unchecked_begin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const _Elem* _Unchecked_begin() const noexcept {
 			return _Mypair._Myval2._Myptr();
 		}
 
-		_NODISCARD _CONSTEXPR20 _Elem* _Unchecked_end() noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Elem* _Unchecked_end() noexcept {
 			return _Mypair._Myval2._Myptr() + _Mypair._Myval2._Mysize;
 		}
 
-		_NODISCARD _CONSTEXPR20 const _Elem* _Unchecked_end() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const _Elem* _Unchecked_end() const noexcept {
 			return _Mypair._Myval2._Myptr() + _Mypair._Myval2._Mysize;
 		}
 
-		_NODISCARD _CONSTEXPR20 reverse_iterator rbegin() noexcept {
+		[[nodiscard]] _CONSTEXPR20 reverse_iterator rbegin() noexcept {
 			return reverse_iterator(end());
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator rbegin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator rbegin() const noexcept {
 			return const_reverse_iterator(end());
 		}
 
-		_NODISCARD _CONSTEXPR20 reverse_iterator rend() noexcept {
+		[[nodiscard]] _CONSTEXPR20 reverse_iterator rend() noexcept {
 			return reverse_iterator(begin());
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator rend() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator rend() const noexcept {
 			return const_reverse_iterator(begin());
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator cbegin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator cbegin() const noexcept {
 			return begin();
 		}
 
-		_NODISCARD _CONSTEXPR20 const_iterator cend() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_iterator cend() const noexcept {
 			return end();
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator crbegin() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator crbegin() const noexcept {
 			return rbegin();
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reverse_iterator crend() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 const_reverse_iterator crend() const noexcept {
 			return rend();
 		}
 
@@ -2323,24 +2323,24 @@ namespace eqstd
 			}
 		}
 
-		_NODISCARD _CONSTEXPR20 reference at(const size_type _Off) {
+		[[nodiscard]] _CONSTEXPR20 reference at(const size_type _Off) {
 			_Mypair._Myval2._Check_offset_exclusive(_Off);
 			return _Mypair._Myval2._Myptr()[_Off];
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference at(const size_type _Off) const {
+		[[nodiscard]] _CONSTEXPR20 const_reference at(const size_type _Off) const {
 			_Mypair._Myval2._Check_offset_exclusive(_Off);
 			return _Mypair._Myval2._Myptr()[_Off];
 		}
 
-		_NODISCARD _CONSTEXPR20 reference operator[](const size_type _Off) noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 reference operator[](const size_type _Off) noexcept /* strengthened */ {
 	#if _CONTAINER_DEBUG_LEVEL > 0
 			_STL_VERIFY(_Off <= _Mypair._Myval2._Mysize, "string subscript out of range");
 	#endif // _CONTAINER_DEBUG_LEVEL > 0
 			return _Mypair._Myval2._Myptr()[_Off];
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference operator[](const size_type _Off) const noexcept
+		[[nodiscard]] _CONSTEXPR20 const_reference operator[](const size_type _Off) const noexcept
 		/* strengthened */ {
 	#if _CONTAINER_DEBUG_LEVEL > 0
 			_STL_VERIFY(_Off <= _Mypair._Myval2._Mysize, "string subscript out of range");
@@ -2380,7 +2380,7 @@ namespace eqstd
 			_Eos(_Old_size - 1);
 		}
 
-		_NODISCARD _CONSTEXPR20 reference front() noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 reference front() noexcept /* strengthened */ {
 	#if _CONTAINER_DEBUG_LEVEL > 0
 			_STL_VERIFY(_Mypair._Myval2._Mysize != 0, "front() called on empty string");
 	#endif // _CONTAINER_DEBUG_LEVEL > 0
@@ -2388,7 +2388,7 @@ namespace eqstd
 			return _Mypair._Myval2._Myptr()[0];
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference front() const noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 const_reference front() const noexcept /* strengthened */ {
 	#if _CONTAINER_DEBUG_LEVEL > 0
 			_STL_VERIFY(_Mypair._Myval2._Mysize != 0, "front() called on empty string");
 	#endif // _CONTAINER_DEBUG_LEVEL > 0
@@ -2396,7 +2396,7 @@ namespace eqstd
 			return _Mypair._Myval2._Myptr()[0];
 		}
 
-		_NODISCARD _CONSTEXPR20 reference back() noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 reference back() noexcept /* strengthened */ {
 	#if _CONTAINER_DEBUG_LEVEL > 0
 			_STL_VERIFY(_Mypair._Myval2._Mysize != 0, "back() called on empty string");
 	#endif // _CONTAINER_DEBUG_LEVEL > 0
@@ -2404,7 +2404,7 @@ namespace eqstd
 			return _Mypair._Myval2._Myptr()[_Mypair._Myval2._Mysize - 1];
 		}
 
-		_NODISCARD _CONSTEXPR20 const_reference back() const noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 const_reference back() const noexcept /* strengthened */ {
 	#if _CONTAINER_DEBUG_LEVEL > 0
 			_STL_VERIFY(_Mypair._Myval2._Mysize != 0, "back() called on empty string");
 	#endif // _CONTAINER_DEBUG_LEVEL > 0
@@ -2412,29 +2412,29 @@ namespace eqstd
 			return _Mypair._Myval2._Myptr()[_Mypair._Myval2._Mysize - 1];
 		}
 
-		_NODISCARD _CONSTEXPR20 _Ret_z_ const _Elem* c_str() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Ret_z_ const _Elem* c_str() const noexcept {
 			return _Mypair._Myval2._Myptr();
 		}
 
-		_NODISCARD _CONSTEXPR20 _Ret_z_ const _Elem* data() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Ret_z_ const _Elem* data() const noexcept {
 			return _Mypair._Myval2._Myptr();
 		}
 
 	#if _HAS_CXX17
-		_NODISCARD _CONSTEXPR20 _Ret_z_ _Elem* data() noexcept {
+		[[nodiscard]] _CONSTEXPR20 _Ret_z_ _Elem* data() noexcept {
 			return _Mypair._Myval2._Myptr();
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 size_type length() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type length() const noexcept {
 			return _Mypair._Myval2._Mysize;
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type size() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type size() const noexcept {
 			return _Mypair._Myval2._Mysize;
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type max_size() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type max_size() const noexcept {
 			const size_type _Alloc_max   = _Alty_traits::max_size(_Getal());
 			const size_type _Storage_max = // can always store small string
 				(_STD max)(_Alloc_max, static_cast<size_type>(_BUF_SIZE));
@@ -2477,7 +2477,7 @@ namespace eqstd
 	#pragma warning(pop)
 	#endif // _HAS_CXX23
 
-		_NODISCARD _CONSTEXPR20 size_type capacity() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type capacity() const noexcept {
 			return _Mypair._Myval2._Myres;
 		}
 
@@ -2533,7 +2533,7 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX20
 
-		_NODISCARD_EMPTY_MEMBER _CONSTEXPR20 bool empty() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 bool empty() const noexcept {
 			return _Mypair._Myval2._Mysize == 0;
 		}
 
@@ -2616,7 +2616,7 @@ namespace eqstd
 
 	#if _HAS_CXX17
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 size_type find(const _StringViewIsh& _Right, const size_type _Off = 0) const
+		[[nodiscard]] _CONSTEXPR20 size_type find(const _StringViewIsh& _Right, const size_type _Off = 0) const
 			noexcept(_Is_nothrow_convertible_v<const _StringViewIsh&, basic_string_view<_Elem, _Traits>>) {
 			// look for _Right beginning at or after _Off
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2625,27 +2625,27 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 size_type find(const basic_string& _Right, const size_type _Off = 0) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type find(const basic_string& _Right, const size_type _Off = 0) const noexcept {
 			// look for _Right beginning at or after _Off
 			return static_cast<size_type>(_Traits_find<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off,
 				_Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
+		[[nodiscard]] _CONSTEXPR20 size_type find(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
 			const size_type _Count) const noexcept /* strengthened */ {
 			// look for [_Ptr, _Ptr + _Count) beginning at or after _Off
 			return static_cast<size_type>(
 				_Traits_find<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find(_In_z_ const _Elem* const _Ptr, const size_type _Off = 0) const noexcept
+		[[nodiscard]] _CONSTEXPR20 size_type find(_In_z_ const _Elem* const _Ptr, const size_type _Off = 0) const noexcept
 		/* strengthened */ {
 			// look for [_Ptr, <null>) beginning at or after _Off
 			return static_cast<size_type>(_Traits_find<_Traits>(
 				_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Traits::length(_Ptr)));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find(const _Elem _Ch, const size_type _Off = 0) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type find(const _Elem _Ch, const size_type _Off = 0) const noexcept {
 			// look for _Ch at or after _Off
 			return static_cast<size_type>(
 				_Traits_find_ch<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ch));
@@ -2653,7 +2653,7 @@ namespace eqstd
 
 	#if _HAS_CXX17
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 size_type rfind(const _StringViewIsh& _Right, const size_type _Off = npos) const
+		[[nodiscard]] _CONSTEXPR20 size_type rfind(const _StringViewIsh& _Right, const size_type _Off = npos) const
 			noexcept(_Is_nothrow_convertible_v<const _StringViewIsh&, basic_string_view<_Elem, _Traits>>) {
 			// look for _Right beginning before _Off
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2662,27 +2662,27 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 size_type rfind(const basic_string& _Right, const size_type _Off = npos) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type rfind(const basic_string& _Right, const size_type _Off = npos) const noexcept {
 			// look for _Right beginning before _Off
 			return static_cast<size_type>(_Traits_rfind<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off,
 				_Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type rfind(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
+		[[nodiscard]] _CONSTEXPR20 size_type rfind(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
 			const size_type _Count) const noexcept /* strengthened */ {
 			// look for [_Ptr, _Ptr + _Count) beginning before _Off
 			return static_cast<size_type>(
 				_Traits_rfind<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type rfind(_In_z_ const _Elem* const _Ptr, const size_type _Off = npos) const noexcept
+		[[nodiscard]] _CONSTEXPR20 size_type rfind(_In_z_ const _Elem* const _Ptr, const size_type _Off = npos) const noexcept
 		/* strengthened */ {
 			// look for [_Ptr, <null>) beginning before _Off
 			return static_cast<size_type>(_Traits_rfind<_Traits>(
 				_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Traits::length(_Ptr)));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type rfind(const _Elem _Ch, const size_type _Off = npos) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type rfind(const _Elem _Ch, const size_type _Off = npos) const noexcept {
 			// look for _Ch before _Off
 			return static_cast<size_type>(
 				_Traits_rfind_ch<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ch));
@@ -2690,7 +2690,7 @@ namespace eqstd
 
 	#if _HAS_CXX17
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 size_type find_first_of(const _StringViewIsh& _Right, const size_type _Off = 0) const
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_of(const _StringViewIsh& _Right, const size_type _Off = 0) const
 			noexcept(_Is_nothrow_convertible_v<const _StringViewIsh&, basic_string_view<_Elem, _Traits>>) {
 			// look for one of _Right at or after _Off
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2699,28 +2699,28 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_of(
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_of(
 			const basic_string& _Right, const size_type _Off = 0) const noexcept {
 			// look for one of _Right at or after _Off
 			return static_cast<size_type>(_Traits_find_first_of<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize,
 				_Off, _Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_of(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_of(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
 			const size_type _Count) const noexcept /* strengthened */ {
 			// look for one of [_Ptr, _Ptr + _Count) at or after _Off
 			return static_cast<size_type>(
 				_Traits_find_first_of<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_of(
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_of(
 			_In_z_ const _Elem* const _Ptr, const size_type _Off = 0) const noexcept /* strengthened */ {
 			// look for one of [_Ptr, <null>) at or after _Off
 			return static_cast<size_type>(_Traits_find_first_of<_Traits>(
 				_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Traits::length(_Ptr)));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_of(const _Elem _Ch, const size_type _Off = 0) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_of(const _Elem _Ch, const size_type _Off = 0) const noexcept {
 			// look for _Ch at or after _Off
 			return static_cast<size_type>(
 				_Traits_find_ch<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ch));
@@ -2728,7 +2728,7 @@ namespace eqstd
 
 	#if _HAS_CXX17
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 size_type find_last_of(const _StringViewIsh& _Right, const size_type _Off = npos) const
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_of(const _StringViewIsh& _Right, const size_type _Off = npos) const
 			noexcept(_Is_nothrow_convertible_v<const _StringViewIsh&, basic_string_view<_Elem, _Traits>>) {
 			// look for one of _Right before _Off
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2737,27 +2737,27 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_of(const basic_string& _Right, size_type _Off = npos) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_of(const basic_string& _Right, size_type _Off = npos) const noexcept {
 			// look for one of _Right before _Off
 			return static_cast<size_type>(_Traits_find_last_of<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize,
 				_Off, _Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_of(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_of(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
 			const size_type _Count) const noexcept /* strengthened */ {
 			// look for one of [_Ptr, _Ptr + _Count) before _Off
 			return static_cast<size_type>(
 				_Traits_find_last_of<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_of(
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_of(
 			_In_z_ const _Elem* const _Ptr, const size_type _Off = npos) const noexcept /* strengthened */ {
 			// look for one of [_Ptr, <null>) before _Off
 			return static_cast<size_type>(_Traits_find_last_of<_Traits>(
 				_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Traits::length(_Ptr)));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_of(const _Elem _Ch, const size_type _Off = npos) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_of(const _Elem _Ch, const size_type _Off = npos) const noexcept {
 			// look for _Ch before _Off
 			return static_cast<size_type>(
 				_Traits_rfind_ch<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ch));
@@ -2765,7 +2765,7 @@ namespace eqstd
 
 	#if _HAS_CXX17
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 size_type find_first_not_of(const _StringViewIsh& _Right, const size_type _Off = 0) const
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_not_of(const _StringViewIsh& _Right, const size_type _Off = 0) const
 			noexcept(_Is_nothrow_convertible_v<const _StringViewIsh&, basic_string_view<_Elem, _Traits>>) {
 			// look for none of _Right at or after _Off
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2774,28 +2774,28 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_not_of(
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_not_of(
 			const basic_string& _Right, const size_type _Off = 0) const noexcept {
 			// look for none of _Right at or after _Off
 			return static_cast<size_type>(_Traits_find_first_not_of<_Traits>(_Mypair._Myval2._Myptr(),
 				_Mypair._Myval2._Mysize, _Off, _Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_not_of(_In_reads_(_Count) const _Elem* const _Ptr,
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_not_of(_In_reads_(_Count) const _Elem* const _Ptr,
 			const size_type _Off, const size_type _Count) const noexcept /* strengthened */ {
 			// look for none of [_Ptr, _Ptr + _Count) at or after _Off
 			return static_cast<size_type>(
 				_Traits_find_first_not_of<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_not_of(
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_not_of(
 			_In_z_ const _Elem* const _Ptr, size_type _Off = 0) const noexcept /* strengthened */ {
 			// look for one of [_Ptr, <null>) at or after _Off
 			return static_cast<size_type>(_Traits_find_first_not_of<_Traits>(
 				_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Traits::length(_Ptr)));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_first_not_of(const _Elem _Ch, const size_type _Off = 0) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type find_first_not_of(const _Elem _Ch, const size_type _Off = 0) const noexcept {
 			// look for non-_Ch at or after _Off
 			return static_cast<size_type>(
 				_Traits_find_not_ch<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ch));
@@ -2803,7 +2803,7 @@ namespace eqstd
 
 	#if _HAS_CXX17
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 size_type find_last_not_of(const _StringViewIsh& _Right, const size_type _Off = npos) const
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_not_of(const _StringViewIsh& _Right, const size_type _Off = npos) const
 			noexcept(_Is_nothrow_convertible_v<const _StringViewIsh&, basic_string_view<_Elem, _Traits>>) {
 			// look for none of _Right before _Off
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2812,41 +2812,41 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_not_of(
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_not_of(
 			const basic_string& _Right, const size_type _Off = npos) const noexcept {
 			// look for none of _Right before _Off
 			return static_cast<size_type>(_Traits_find_last_not_of<_Traits>(_Mypair._Myval2._Myptr(),
 				_Mypair._Myval2._Mysize, _Off, _Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_not_of(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_not_of(_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Off,
 			const size_type _Count) const noexcept /* strengthened */ {
 			// look for none of [_Ptr, _Ptr + _Count) before _Off
 			return static_cast<size_type>(
 				_Traits_find_last_not_of<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_not_of(
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_not_of(
 			_In_z_ const _Elem* const _Ptr, const size_type _Off = npos) const noexcept /* strengthened */ {
 			// look for none of [_Ptr, <null>) before _Off
 			return static_cast<size_type>(_Traits_find_last_not_of<_Traits>(
 				_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ptr, _Traits::length(_Ptr)));
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type find_last_not_of(const _Elem _Ch, const size_type _Off = npos) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type find_last_not_of(const _Elem _Ch, const size_type _Off = npos) const noexcept {
 			// look for non-_Ch before _Off
 			return static_cast<size_type>(
 				_Traits_rfind_not_ch<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Off, _Ch));
 		}
 
 	#if _HAS_CXX17
-		_NODISCARD bool _Starts_with(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
+		[[nodiscard]] bool _Starts_with(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
 			// Used exclusively by filesystem
 			return basic_string_view<_Elem, _Traits>(*this)._Starts_with(_Right);
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 basic_string substr(const size_type _Off = 0, const size_type _Count = npos)
+		[[nodiscard]] _CONSTEXPR20 basic_string substr(const size_type _Off = 0, const size_type _Count = npos)
 	#if _HAS_CXX23
 			const&
 	#else // _HAS_CXX23
@@ -2858,7 +2858,7 @@ namespace eqstd
 		}
 
 	#if _HAS_CXX23
-		_NODISCARD constexpr basic_string substr(const size_type _Off = 0, const size_type _Count = npos) && {
+		[[nodiscard]] constexpr basic_string substr(const size_type _Off = 0, const size_type _Count = npos) && {
 			// return [_Off, _Off + _Count) as new string, potentially moving, default-constructing its allocator
 			return basic_string{_STD move(*this), _Off, _Count};
 		}
@@ -2877,7 +2877,7 @@ namespace eqstd
 
 	#if _HAS_CXX17
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 int compare(const _StringViewIsh& _Right) const
+		[[nodiscard]] _CONSTEXPR20 int compare(const _StringViewIsh& _Right) const
 			noexcept(_Is_nothrow_convertible_v<const _StringViewIsh&, basic_string_view<_Elem, _Traits>>) {
 			// compare [0, size()) with _Right
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2886,7 +2886,7 @@ namespace eqstd
 		}
 
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx, const _StringViewIsh& _Right) const {
+		[[nodiscard]] _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx, const _StringViewIsh& _Right) const {
 			// compare [_Off, _Off + _Nx) with _Right
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
 			_Mypair._Myval2._Check_offset(_Off);
@@ -2895,7 +2895,7 @@ namespace eqstd
 		}
 
 		template <class _StringViewIsh, _Is_string_view_ish<_StringViewIsh> = 0>
-		_NODISCARD _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx, const _StringViewIsh& _Right,
+		[[nodiscard]] _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx, const _StringViewIsh& _Right,
 			const size_type _Roff, const size_type _Count = npos) const {
 			// compare [_Off, _Off + _Nx) with _Right [_Roff, _Roff + _Count)
 			basic_string_view<_Elem, _Traits> _As_view = _Right;
@@ -2906,20 +2906,20 @@ namespace eqstd
 		}
 	#endif // _HAS_CXX17
 
-		_NODISCARD _CONSTEXPR20 int compare(const basic_string& _Right) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 int compare(const basic_string& _Right) const noexcept {
 			// compare [0, size()) with _Right
 			return _Traits_compare<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize,
 				_Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize);
 		}
 
-		_NODISCARD _CONSTEXPR20 int compare(size_type _Off, size_type _Nx, const basic_string& _Right) const {
+		[[nodiscard]] _CONSTEXPR20 int compare(size_type _Off, size_type _Nx, const basic_string& _Right) const {
 			// compare [_Off, _Off + _Nx) with _Right
 			_Mypair._Myval2._Check_offset(_Off);
 			return _Traits_compare<_Traits>(_Mypair._Myval2._Myptr() + _Off, _Mypair._Myval2._Clamp_suffix_size(_Off, _Nx),
 				_Right._Mypair._Myval2._Myptr(), _Right._Mypair._Myval2._Mysize);
 		}
 
-		_NODISCARD _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx, const basic_string& _Right,
+		[[nodiscard]] _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx, const basic_string& _Right,
 			const size_type _Roff, const size_type _Count = npos) const {
 			// compare [_Off, _Off + _Nx) with _Right [_Roff, _Roff + _Count)
 			_Mypair._Myval2._Check_offset(_Off);
@@ -2928,12 +2928,12 @@ namespace eqstd
 				_Right._Mypair._Myval2._Myptr() + _Roff, _Right._Mypair._Myval2._Clamp_suffix_size(_Roff, _Count));
 		}
 
-		_NODISCARD _CONSTEXPR20 int compare(_In_z_ const _Elem* const _Ptr) const noexcept /* strengthened */ {
+		[[nodiscard]] _CONSTEXPR20 int compare(_In_z_ const _Elem* const _Ptr) const noexcept /* strengthened */ {
 			// compare [0, size()) with [_Ptr, <null>)
 			return _Traits_compare<_Traits>(_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize, _Ptr, _Traits::length(_Ptr));
 		}
 
-		_NODISCARD _CONSTEXPR20 int compare(
+		[[nodiscard]] _CONSTEXPR20 int compare(
 			const size_type _Off, const size_type _Nx, _In_z_ const _Elem* const _Ptr) const {
 			// compare [_Off, _Off + _Nx) with [_Ptr, <null>)
 			_Mypair._Myval2._Check_offset(_Off);
@@ -2941,7 +2941,7 @@ namespace eqstd
 				_Ptr, _Traits::length(_Ptr));
 		}
 
-		_NODISCARD _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx,
+		[[nodiscard]] _CONSTEXPR20 int compare(const size_type _Off, const size_type _Nx,
 			_In_reads_(_Count) const _Elem* const _Ptr, const size_type _Count) const {
 			// compare [_Off, _Off + _Nx) with [_Ptr, _Ptr + _Count)
 			_Mypair._Myval2._Check_offset(_Off);
@@ -2950,51 +2950,51 @@ namespace eqstd
 		}
 
 	#if _HAS_CXX20
-		_NODISCARD constexpr bool starts_with(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
+		[[nodiscard]] constexpr bool starts_with(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.starts_with(_Right);
 		}
 
-		_NODISCARD constexpr bool starts_with(const _Elem _Right) const noexcept {
+		[[nodiscard]] constexpr bool starts_with(const _Elem _Right) const noexcept {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.starts_with(_Right);
 		}
 
-		_NODISCARD constexpr bool starts_with(const _Elem* const _Right) const noexcept /* strengthened */ {
+		[[nodiscard]] constexpr bool starts_with(const _Elem* const _Right) const noexcept /* strengthened */ {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.starts_with(_Right);
 		}
 
-		_NODISCARD constexpr bool ends_with(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
+		[[nodiscard]] constexpr bool ends_with(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.ends_with(_Right);
 		}
 
-		_NODISCARD constexpr bool ends_with(const _Elem _Right) const noexcept {
+		[[nodiscard]] constexpr bool ends_with(const _Elem _Right) const noexcept {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.ends_with(_Right);
 		}
 
-		_NODISCARD constexpr bool ends_with(const _Elem* const _Right) const noexcept /* strengthened */ {
+		[[nodiscard]] constexpr bool ends_with(const _Elem* const _Right) const noexcept /* strengthened */ {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.ends_with(_Right);
 		}
 	#endif // _HAS_CXX20
 
 	#if _HAS_CXX23
-		_NODISCARD constexpr bool contains(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
+		[[nodiscard]] constexpr bool contains(const basic_string_view<_Elem, _Traits> _Right) const noexcept {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.contains(_Right);
 		}
 
-		_NODISCARD constexpr bool contains(const _Elem _Right) const noexcept {
+		[[nodiscard]] constexpr bool contains(const _Elem _Right) const noexcept {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.contains(_Right);
 		}
 
-		_NODISCARD constexpr bool contains(const _Elem* const _Right) const noexcept /* strengthened */ {
+		[[nodiscard]] constexpr bool contains(const _Elem* const _Right) const noexcept /* strengthened */ {
 			return basic_string_view<_Elem, _Traits>{_Mypair._Myval2._Myptr(), _Mypair._Myval2._Mysize}.contains(_Right);
 		}
 	#endif // _HAS_CXX23
 
-		_NODISCARD _CONSTEXPR20 allocator_type get_allocator() const noexcept {
+		[[nodiscard]] _CONSTEXPR20 allocator_type get_allocator() const noexcept {
 			return static_cast<allocator_type>(_Getal());
 		}
 
 	private:
-		_NODISCARD static _CONSTEXPR20 size_type _Calculate_growth(
+		[[nodiscard]] static _CONSTEXPR20 size_type _Calculate_growth(
 			const size_type _Requested, const size_type _Old, const size_type _Max) noexcept {
 			const size_type _Masked = _Requested | _ALLOC_MASK;
 			if (_Masked > _Max) { // the mask overflows, settle for max_size()
@@ -3008,7 +3008,7 @@ namespace eqstd
 			return (_STD max)(_Masked, _Old + _Old / 2);
 		}
 
-		_NODISCARD _CONSTEXPR20 size_type _Calculate_growth(const size_type _Requested) const noexcept {
+		[[nodiscard]] _CONSTEXPR20 size_type _Calculate_growth(const size_type _Requested) const noexcept {
 			return _Calculate_growth(_Requested, _Mypair._Myval2._Myres, max_size());
 		}
 
@@ -3179,7 +3179,7 @@ namespace eqstd
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		const auto _Left_size  = _Left.size();
 		const auto _Right_size = _Right.size();
@@ -3191,7 +3191,7 @@ namespace eqstd
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		using _Size_type       = typename basic_string<_Elem, _Traits, _Alloc>::size_type;
 		const auto _Left_size  = _Convert_size<_Size_type>(_Traits::length(_Left));
@@ -3204,7 +3204,7 @@ namespace eqstd
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const _Elem _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		const auto _Right_size = _Right.size();
 		if (_Right_size == _Right.max_size()) {
@@ -3215,7 +3215,7 @@ namespace eqstd
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		using _Size_type       = typename basic_string<_Elem, _Traits, _Alloc>::size_type;
 		const auto _Left_size  = _Left.size();
@@ -3228,7 +3228,7 @@ namespace eqstd
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const _Elem _Right) {
 		const auto _Left_size = _Left.size();
 		if (_Left_size == _Left.max_size()) {
@@ -3239,155 +3239,155 @@ namespace eqstd
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
 		return _STD move(_Right.insert(0, _Left));
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return _STD move(_Left.append(_Right));
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
 		return {_String_constructor_concat_tag{}, _Left, _Right};
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		_In_z_ const _Elem* const _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
 		return _STD move(_Right.insert(0, _Left));
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		const _Elem _Left, basic_string<_Elem, _Traits, _Alloc>&& _Right) {
 		return _STD move(_Right.insert(0, 1, _Left));
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, _In_z_ const _Elem* const _Right) {
 		return _STD move(_Left.append(_Right));
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
+	[[nodiscard]] _CONSTEXPR20 basic_string<_Elem, _Traits, _Alloc> operator+(
 		basic_string<_Elem, _Traits, _Alloc>&& _Left, const _Elem _Right) {
 		_Left.push_back(_Right);
 		return _STD move(_Left);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 bool operator==(
+	[[nodiscard]] _CONSTEXPR20 bool operator==(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return _Left._Equal(_Right);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD _CONSTEXPR20 bool operator==(
+	[[nodiscard]] _CONSTEXPR20 bool operator==(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return _Left._Equal(_Right);
 	}
 
 	#if _HAS_CXX20
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
+	[[nodiscard]] constexpr _Get_comparison_category_t<_Traits> operator<=>(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return static_cast<_Get_comparison_category_t<_Traits>>(_Left.compare(_Right) <=> 0);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD constexpr _Get_comparison_category_t<_Traits> operator<=>(
+	[[nodiscard]] constexpr _Get_comparison_category_t<_Traits> operator<=>(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return static_cast<_Get_comparison_category_t<_Traits>>(_Left.compare(_Right) <=> 0);
 	}
 	#else // ^^^ _HAS_CXX20 / !_HAS_CXX20 vvv
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator==(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
+	[[nodiscard]] bool operator==(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return _Right._Equal(_Left);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator!=(
+	[[nodiscard]] bool operator!=(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return !(_Left == _Right);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator!=(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
+	[[nodiscard]] bool operator!=(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return !(_Left == _Right);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator!=(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
+	[[nodiscard]] bool operator!=(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return !(_Left == _Right);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator<(
+	[[nodiscard]] bool operator<(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return _Left.compare(_Right) < 0;
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator<(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
+	[[nodiscard]] bool operator<(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return _Right.compare(_Left) > 0;
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator<(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
+	[[nodiscard]] bool operator<(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return _Left.compare(_Right) < 0;
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator>(
+	[[nodiscard]] bool operator>(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return _Right < _Left;
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator>(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
+	[[nodiscard]] bool operator>(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return _Right < _Left;
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator>(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
+	[[nodiscard]] bool operator>(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return _Right < _Left;
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator<=(
+	[[nodiscard]] bool operator<=(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return !(_Right < _Left);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator<=(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
+	[[nodiscard]] bool operator<=(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return !(_Right < _Left);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator<=(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
+	[[nodiscard]] bool operator<=(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return !(_Right < _Left);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator>=(
+	[[nodiscard]] bool operator>=(
 		const basic_string<_Elem, _Traits, _Alloc>& _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) noexcept {
 		return !(_Left < _Right);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator>=(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
+	[[nodiscard]] bool operator>=(_In_z_ const _Elem* const _Left, const basic_string<_Elem, _Traits, _Alloc>& _Right) {
 		return !(_Left < _Right);
 	}
 
 	template <class _Elem, class _Traits, class _Alloc>
-	_NODISCARD bool operator>=(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
+	[[nodiscard]] bool operator>=(const basic_string<_Elem, _Traits, _Alloc>& _Left, _In_z_ const _Elem* const _Right) {
 		return !(_Left < _Right);
 	}
 	#endif // ^^^ !_HAS_CXX20 ^^^
@@ -3402,7 +3402,7 @@ namespace std {
 template <class _Elem, class _Alloc>
 struct hash<eqstd::basic_string<_Elem, eqstd::char_traits<_Elem>, _Alloc>>
 	: _Conditionally_enabled_hash<eqstd::basic_string<_Elem, char_traits<_Elem>, _Alloc>, _Is_EcharT<_Elem>> {
-	_NODISCARD static size_t _Do_hash(const eqstd::basic_string<_Elem, char_traits<_Elem>, _Alloc>& _Keyval) noexcept {
+	[[nodiscard]] static size_t _Do_hash(const eqstd::basic_string<_Elem, char_traits<_Elem>, _Alloc>& _Keyval) noexcept {
 		return _Hash_array_representation(_Keyval.c_str(), _Keyval.size());
 	}
 };

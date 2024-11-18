@@ -33,11 +33,11 @@ namespace eqstd
 			this->_Adopt(_Plist);
 		}
 
-		_NODISCARD reference operator*() const noexcept {
+		[[nodiscard]] reference operator*() const noexcept {
 			return _Ptr->_Myval;
 		}
 
-		_NODISCARD pointer operator->() const noexcept {
+		[[nodiscard]] pointer operator->() const noexcept {
 			return pointer_traits<pointer>::pointer_to(**this);
 		}
 
@@ -63,12 +63,12 @@ namespace eqstd
 			return _Tmp;
 		}
 
-		_NODISCARD bool operator==(const _List_unchecked_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator==(const _List_unchecked_const_iterator& _Right) const noexcept {
 			return _Ptr == _Right._Ptr;
 		}
 
 	#if !_HAS_CXX20
-		_NODISCARD bool operator!=(const _List_unchecked_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator!=(const _List_unchecked_const_iterator& _Right) const noexcept {
 			return !(*this == _Right);
 		}
 	#endif // !_HAS_CXX20
@@ -90,11 +90,11 @@ namespace eqstd
 
 		using _Mybase::_Mybase;
 
-		_NODISCARD reference operator*() const noexcept {
+		[[nodiscard]] reference operator*() const noexcept {
 			return const_cast<reference>(_Mybase::operator*());
 		}
 
-		_NODISCARD pointer operator->() const noexcept {
+		[[nodiscard]] pointer operator->() const noexcept {
 			return pointer_traits<pointer>::pointer_to(**this);
 		}
 
@@ -135,11 +135,11 @@ namespace eqstd
 
 		using _Mybase::_Mybase;
 
-		_NODISCARD reference operator*() const noexcept {
+		[[nodiscard]] reference operator*() const noexcept {
 			return this->_Ptr->_Myval;
 		}
 
-		_NODISCARD pointer operator->() const noexcept {
+		[[nodiscard]] pointer operator->() const noexcept {
 			return pointer_traits<pointer>::pointer_to(**this);
 		}
 
@@ -166,19 +166,19 @@ namespace eqstd
 			return _Tmp;
 		}
 
-		_NODISCARD bool operator==(const _List_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator==(const _List_const_iterator& _Right) const noexcept {
 			return this->_Ptr == _Right._Ptr;
 		}
 
 	#if !_HAS_CXX20
-		_NODISCARD bool operator!=(const _List_const_iterator& _Right) const noexcept {
+		[[nodiscard]] bool operator!=(const _List_const_iterator& _Right) const noexcept {
 			return !(*this == _Right);
 		}
 	#endif // !_HAS_CXX20
 
 		using _Prevent_inheriting_unwrap = _List_const_iterator;
 
-		_NODISCARD _List_unchecked_const_iterator<_Mylist> _Unwrapped() const noexcept {
+		[[nodiscard]] _List_unchecked_const_iterator<_Mylist> _Unwrapped() const noexcept {
 			return _List_unchecked_const_iterator<_Mylist>(this->_Ptr, static_cast<const _Mylist*>(this->_Getcont()));
 		}
 
@@ -201,11 +201,11 @@ namespace eqstd
 
 		using _Mybase::_Mybase;
 
-		_NODISCARD reference operator*() const noexcept {
+		[[nodiscard]] reference operator*() const noexcept {
 			return const_cast<reference>(_Mybase::operator*());
 		}
 
-		_NODISCARD pointer operator->() const noexcept {
+		[[nodiscard]] pointer operator->() const noexcept {
 			return pointer_traits<pointer>::pointer_to(**this);
 		}
 
@@ -233,7 +233,7 @@ namespace eqstd
 
 		using _Prevent_inheriting_unwrap = _List_iterator;
 
-		_NODISCARD _List_unchecked_iterator<_Mylist> _Unwrapped() const noexcept {
+		[[nodiscard]] _List_unchecked_iterator<_Mylist> _Unwrapped() const noexcept {
 			return _List_unchecked_iterator<_Mylist>(this->_Ptr, static_cast<const _Mylist*>(this->_Getcont()));
 		}
 	};
@@ -946,19 +946,19 @@ namespace eqstd
 			return *this;
 		}
 
-		_NODISCARD iterator begin() noexcept {
+		[[nodiscard]] iterator begin() noexcept {
 			return iterator(_Mypair._Myval2._Myhead->_Next, _STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD const_iterator begin() const noexcept {
+		[[nodiscard]] const_iterator begin() const noexcept {
 			return const_iterator(_Mypair._Myval2._Myhead->_Next, _STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD iterator end() noexcept {
+		[[nodiscard]] iterator end() noexcept {
 			return iterator(_Mypair._Myval2._Myhead, _STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD const_iterator end() const noexcept {
+		[[nodiscard]] const_iterator end() const noexcept {
 			return const_iterator(_Mypair._Myval2._Myhead, _STD addressof(_Mypair._Myval2));
 		}
 
@@ -986,35 +986,35 @@ namespace eqstd
 			return const_iterator(_Where, _STD addressof(_Mypair._Myval2));
 		}
 
-		_NODISCARD reverse_iterator rbegin() noexcept {
+		[[nodiscard]] reverse_iterator rbegin() noexcept {
 			return reverse_iterator(end());
 		}
 
-		_NODISCARD const_reverse_iterator rbegin() const noexcept {
+		[[nodiscard]] const_reverse_iterator rbegin() const noexcept {
 			return const_reverse_iterator(end());
 		}
 
-		_NODISCARD reverse_iterator rend() noexcept {
+		[[nodiscard]] reverse_iterator rend() noexcept {
 			return reverse_iterator(begin());
 		}
 
-		_NODISCARD const_reverse_iterator rend() const noexcept {
+		[[nodiscard]] const_reverse_iterator rend() const noexcept {
 			return const_reverse_iterator(begin());
 		}
 
-		_NODISCARD const_iterator cbegin() const noexcept {
+		[[nodiscard]] const_iterator cbegin() const noexcept {
 			return begin();
 		}
 
-		_NODISCARD const_iterator cend() const noexcept {
+		[[nodiscard]] const_iterator cend() const noexcept {
 			return end();
 		}
 
-		_NODISCARD const_reverse_iterator crbegin() const noexcept {
+		[[nodiscard]] const_reverse_iterator crbegin() const noexcept {
 			return rbegin();
 		}
 
-		_NODISCARD const_reverse_iterator crend() const noexcept {
+		[[nodiscard]] const_reverse_iterator crend() const noexcept {
 			return rend();
 		}
 
@@ -1047,36 +1047,36 @@ namespace eqstd
 			}
 		}
 
-		_NODISCARD size_type size() const noexcept {
+		[[nodiscard]] size_type size() const noexcept {
 			return _Mypair._Myval2._Mysize;
 		}
 
-		_NODISCARD size_type max_size() const noexcept {
+		[[nodiscard]] size_type max_size() const noexcept {
 			return (_STD min)(
 				static_cast<size_type>((std::numeric_limits<difference_type>::max)()), _Alnode_traits::max_size(_Getal()));
 		}
 
-		_NODISCARD_EMPTY_MEMBER bool empty() const noexcept {
+		[[nodiscard]] bool empty() const noexcept {
 			return _Mypair._Myval2._Mysize == 0;
 		}
 
-		_NODISCARD allocator_type get_allocator() const noexcept {
+		[[nodiscard]] allocator_type get_allocator() const noexcept {
 			return static_cast<allocator_type>(_Getal());
 		}
 
-		_NODISCARD reference front() noexcept /* strengthened */ {
+		[[nodiscard]] reference front() noexcept /* strengthened */ {
 			return _Mypair._Myval2._Myhead->_Next->_Myval;
 		}
 
-		_NODISCARD const_reference front() const noexcept /* strengthened */ {
+		[[nodiscard]] const_reference front() const noexcept /* strengthened */ {
 			return _Mypair._Myval2._Myhead->_Next->_Myval;
 		}
 
-		_NODISCARD reference back() noexcept /* strengthened */ {
+		[[nodiscard]] reference back() noexcept /* strengthened */ {
 			return _Mypair._Myval2._Myhead->_Prev->_Myval;
 		}
 
-		_NODISCARD const_reference back() const noexcept /* strengthened */ {
+		[[nodiscard]] const_reference back() const noexcept /* strengthened */ {
 			return _Mypair._Myval2._Myhead->_Prev->_Myval;
 		}
 
@@ -1601,43 +1601,43 @@ namespace eqstd
 	}
 
 	template <class _Ty, class _Alloc>
-	_NODISCARD bool operator==(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] bool operator==(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return _Left.size() == _Right.size()
 			&& _STD equal(_Left._Unchecked_begin(), _Left._Unchecked_end(), _Right._Unchecked_begin());
 	}
 
 	#if !_HAS_CXX20
 	template <class _Ty, class _Alloc>
-	_NODISCARD bool operator!=(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] bool operator!=(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return !(_Left == _Right);
 	}
 	#endif // !_HAS_CXX20
 
 	#if defined(__cpp_lib_concepts) && 0
 	template <class _Ty, class _Alloc>
-	_NODISCARD _Synth_three_way_result<_Ty> operator<=>(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] _Synth_three_way_result<_Ty> operator<=>(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return _STD lexicographical_compare_three_way(_Left._Unchecked_begin(), _Left._Unchecked_end(),
 			_Right._Unchecked_begin(), _Right._Unchecked_end(), _Synth_three_way{});
 	}
 	#else // ^^^ defined(__cpp_lib_concepts) / !defined(__cpp_lib_concepts) vvv
 	template <class _Ty, class _Alloc>
-	_NODISCARD bool operator<(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] bool operator<(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return _STD lexicographical_compare(
 			_Left._Unchecked_begin(), _Left._Unchecked_end(), _Right._Unchecked_begin(), _Right._Unchecked_end());
 	}
 
 	template <class _Ty, class _Alloc>
-	_NODISCARD bool operator>(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] bool operator>(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return _Right < _Left;
 	}
 
 	template <class _Ty, class _Alloc>
-	_NODISCARD bool operator<=(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] bool operator<=(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return !(_Right < _Left);
 	}
 
 	template <class _Ty, class _Alloc>
-	_NODISCARD bool operator>=(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
+	[[nodiscard]] bool operator>=(const list<_Ty, _Alloc>& _Left, const list<_Ty, _Alloc>& _Right) {
 		return !(_Left < _Right);
 	}
 	#endif // ^^^ !defined(__cpp_lib_concepts) ^^^

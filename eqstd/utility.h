@@ -246,13 +246,13 @@ namespace eqstd
 	}
 
 	template <class _Ty1, class _Ty2>
-		_NODISCARD constexpr bool operator==(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
+		[[nodiscard]] constexpr bool operator==(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		return _Left.first == _Right.first && _Left.second == _Right.second;
 	}
 
 #if defined(__cpp_lib_concepts) && 0
 	template <class _Ty1, class _Ty2>
-		_NODISCARD constexpr common_comparison_category_t<_Synth_three_way_result<_Ty1>, _Synth_three_way_result<_Ty2>>
+		[[nodiscard]] constexpr common_comparison_category_t<_Synth_three_way_result<_Ty1>, _Synth_three_way_result<_Ty2>>
 		operator<=>(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		if (auto _Result = _Synth_three_way{}(_Left.first, _Right.first); _Result != 0) {
 			return _Result;
@@ -262,28 +262,28 @@ namespace eqstd
 #else // ^^^ defined(__cpp_lib_concepts) / !defined(__cpp_lib_concepts) vvv
 #if !_HAS_CXX20
 	template <class _Ty1, class _Ty2>
-	_NODISCARD constexpr bool operator!=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
+	[[nodiscard]] constexpr bool operator!=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		return !(_Left == _Right);
 	}
 #endif // !_HAS_CXX20
 
 	template <class _Ty1, class _Ty2>
-	_NODISCARD constexpr bool operator<(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
+	[[nodiscard]] constexpr bool operator<(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		return _Left.first < _Right.first || (!(_Right.first < _Left.first) && _Left.second < _Right.second);
 	}
 
 	template <class _Ty1, class _Ty2>
-	_NODISCARD constexpr bool operator>(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
+	[[nodiscard]] constexpr bool operator>(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		return _Right < _Left;
 	}
 
 	template <class _Ty1, class _Ty2>
-	_NODISCARD constexpr bool operator<=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
+	[[nodiscard]] constexpr bool operator<=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		return !(_Right < _Left);
 	}
 
 	template <class _Ty1, class _Ty2>
-	_NODISCARD constexpr bool operator>=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
+	[[nodiscard]] constexpr bool operator>=(const pair<_Ty1, _Ty2>& _Left, const pair<_Ty1, _Ty2>& _Right) {
 		return !(_Left < _Right);
 	}
 #endif // ^^^ !defined(__cpp_lib_concepts) ^^^
@@ -321,7 +321,7 @@ namespace eqstd
 	using _Unrefwrap_t = typename _Unrefwrap_helper<decay_t<_Ty>>::type;
 
 	template <class _Ty1, class _Ty2>
-	_NODISCARD constexpr pair<_Unrefwrap_t<_Ty1>, _Unrefwrap_t<_Ty2>> make_pair(_Ty1&& _Val1, _Ty2&& _Val2) noexcept(
+	[[nodiscard]] constexpr pair<_Unrefwrap_t<_Ty1>, _Unrefwrap_t<_Ty2>> make_pair(_Ty1&& _Val1, _Ty2&& _Val2) noexcept(
 			is_nothrow_constructible_v<_Unrefwrap_t<_Ty1>, _Ty1>&&
 			is_nothrow_constructible_v<_Unrefwrap_t<_Ty2>, _Ty2>) /* strengthened */ {
 		// return pair composed from arguments
