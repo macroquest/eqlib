@@ -20,7 +20,7 @@
 
 // Do not change this value. This value identifies the version of the client
 // that this branch of code is designed to work with.
-#define LIVE
+#define EMULATOR
 
 
 //----------------------------------------------------------------------------
@@ -58,6 +58,9 @@
 	#define IS_TEST_CLIENT 0
 	#define IS_EMU_CLIENT 0
 #endif
+
+
+#define IS_EXPANSION_LEVEL_AT_MOST(x) (MQ_EXPANSION_LEVEL <= x)
 
 
 //----------------------------------------------------------------------------
@@ -145,14 +148,18 @@
 //----------------------------------------------------------------------------
 // Compiler architecture error detection
 
-#if IS_EMU_CLIENT && !defined(MQ_BUILD_AS_X64)
+#if IS_EMU_CLIENT && !defined(MQ_BUILD_AS_X64) && (MQ_EXPANSION_LEVEL == EXPANSION_LEVEL_ROF)
 #if defined(_M_AMD64)
 #error Win32 Configuration is required to build this
 #endif // defined(_M_AMD64)
+#define IS_32BIT_CLIENT 1
+#define IS_64BIT_CLIENT 0
 #else
 #if !defined(_M_AMD64)
 #error x64 Configuration is required to build this
 #endif
+#define IS_64BIT_CLIENT 1
+#define IS_32BIT_CLIENT 0
 #endif
 
 //----------------------------------------------------------------------------
