@@ -156,18 +156,36 @@ public:
 	using CXWndTrampoline<Target>::CXWndTrampoline;
 	using Super = CSidlScreenWndTrampoline<Target>;
 
-	virtual void Unknown0x330(const char* pUnkA, bool bUnkB);
-	virtual int OnZone();
-	virtual int OnPreZone();
-	virtual void LoadIniInfo();
-	virtual void StoreIniInfo();
-	virtual CSidlScreenWnd* AsSidlScreenWnd();
-	virtual bool GetScreenWndType();
+	virtual void Unknown0x330(const char* pUnkA, bool bUnkB) override;
+	virtual int OnZone() override;
+	virtual int OnPreZone() override;
+	virtual void LoadIniInfo() override;
+	virtual void StoreIniInfo() override;
+	virtual CSidlScreenWnd* AsSidlScreenWnd() override;
+	virtual bool GetScreenWndType() override;
+};
+
+template <typename Target>
+class CGFScreenWndTrampoline : public CSidlScreenWndTrampoline<Target>
+{
+public:
+	using CSidlScreenWndTrampoline<Target>::CSidlScreenWndTrampoline;
+	using Super = CGFScreenWndTrampoline<Target>;
+
+	virtual void HandleJsEvent(void* a, void* b) override;
+	virtual void Unknown0x388() override;
+	virtual void Unknown0x390(const CXRect& rect) override;
 };
 
 template <typename T>
-using TrampolineSelectorT = std::conditional_t<std::is_base_of_v<eqlib::CSidlScreenWnd, T>,
-	CSidlScreenWndTrampoline<T>, CXWndTrampoline<T>>;
+using TrampolineSelectorT = std::conditional_t<
+	std::is_base_of_v<eqlib::CGFScreenWnd, T>, CGFScreenWndTrampoline<T>,
+		std::conditional_t<std::is_base_of_v<eqlib::CSidlScreenWnd, T>, CSidlScreenWndTrampoline<T>, CXWndTrampoline<T>>>;
+
+template <typename T>
+using ParentWndSelectorT = std::conditional_t<
+	std::is_base_of_v<eqlib::CGFScreenWnd, T>, eqlib::CGFScreenWnd,
+	std::conditional_t<std::is_base_of_v<eqlib::CSidlScreenWnd, T>, eqlib::CSidlScreenWnd, eqlib::CXWnd>>;
 
 constexpr size_t vtableBytesCopySize = 4096;
 

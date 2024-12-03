@@ -924,6 +924,12 @@
 // UdpConnection
 #define UdpConnection__GetStats_x                                  0x14052EE60
 
+// CGFSCreenWnd
+#define CGFScreenWnd__vftable_x                                    0x140819548
+#define CGFScreenWnd__CGFScreenWnd_x                               0x140070220
+#define CGFScreenWnd__CGFScreenWnd1_x                              0x1400703B0
+#define CGFScreenWnd__dCGFScreenWnd_x                              0x140070730
+
 #if __has_include("../private/eqgame-private.h")
 #include "../private/eqgame-private.h"
 #endif

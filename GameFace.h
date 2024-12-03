@@ -111,17 +111,60 @@ public:
 class [[offsetcomments]] CGFScreenWnd : public CSidlScreenWnd
 {
 public:
-	CGFScreenWnd(CXWnd* parent, bool useClassicUI, const CXStr& screenName, int IniFlags, int IniVersion, const char* BlockName);
-	CGFScreenWnd(CXWnd* parent, bool useClassicUI, const CXStr& screenName);
+	EQLIB_OBJECT CGFScreenWnd(CXWnd* parent = nullptr, bool useClassicUI = true, const CXStr& screenName = CXStr());
+	EQLIB_OBJECT CGFScreenWnd(CXWnd* parent, bool useClassicUI, const CXStr& screenName, int IniFlags, int IniVersion, const char* BlockName);
+	EQLIB_OBJECT virtual ~CGFScreenWnd();
 
 	void SetupComponent(UIComponent& component, const eqstd::string& ScreenID, bool required);
 
-	virtual void HandleEvent(void* a, void* b);
+	virtual void HandleJsEvent(void* a, void* b);
+	virtual void Unknown0x388();
+	virtual void Unknown0x390(const CXRect& rect);
 
 /*0x2c0*/ UIScreenComponent                                 WindowComponent;
 /*0x368*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
 /*0x3a8*/
+
+	struct [[offsetcomments]] VirtualFunctionTable : public CSidlScreenWnd::VirtualFunctionTable
+	{
+	/*0x380*/ void* HandleJsEvent;  // Probably something like HandleJSEvent
+	/*0x388*/ void* Unknown0x388;
+	/*0x390*/ void* Unknown0x390;   // Probably Center()
+	};
+
+	// Returns the current instance of this class's vftable. Might represent some other
+	// inherited class (and not CSidlScreenWnd's)
+	VirtualFunctionTable* GetVFTable()
+	{
+		if (this == nullptr) return nullptr;
+		return *reinterpret_cast<VirtualFunctionTable**>(this);
+	}
+
+	void ReplaceVFTable(VirtualFunctionTable* table)
+	{
+		if (this == nullptr) return;
+		*reinterpret_cast<VirtualFunctionTable**>(this) = table;
+	}
+
+	// points to the eq instance of the virtual function table for this class
+	static VirtualFunctionTable* sm_vftable;
 };
+
+//----------------------------------------------------------------------------
+
+EQLIB_VAR bool gbUseNewUIEngine;
+
+template <typename Component, typename T = typename Component::XWndType>
+T* GetNewUIEngineWindow(T* old, const Component& component)
+{
+	if (gbUseNewUIEngine)
+	{
+		return component.name.empty() ? nullptr : static_cast<T*>(component.target);
+	}
+
+	return old;
+}
+
 
 namespace cohtml {
 

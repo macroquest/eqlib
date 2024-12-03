@@ -64,21 +64,6 @@ using CPopDialogWnd = CConfirmationDialog;
 
 //----------------------------------------------------------------------------
 
-EQLIB_VAR bool gbUseNewUIEngine;
-
-template <typename Component, typename T = typename Component::XWndType>
-T* GetNewUIEngineWindow(T* old, const Component& component)
-{
-	if (gbUseNewUIEngine)
-	{
-		return component.name.empty() ? nullptr : static_cast<T*>(component.target);
-	}
-
-	return old;
-}
-
-//----------------------------------------------------------------------------
-
 class WndEventHandler
 {
 public:

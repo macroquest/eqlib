@@ -16,6 +16,7 @@
 #include "Common.h"
 #include "CXWnd.h"
 #include "EQClasses.h"
+#include "GameFace.h"
 #include "Globals.h"
 #include "LoginFrontend.h"
 
@@ -27,10 +28,12 @@ namespace eqlib {
 
 CXWnd::VirtualFunctionTable* CXWnd::sm_vftable = nullptr;
 CSidlScreenWnd::VirtualFunctionTable* CSidlScreenWnd::sm_vftable = nullptr;
+CGFScreenWnd::VirtualFunctionTable* CGFScreenWnd::sm_vftable = nullptr;
 
 namespace detail {
 	CXWndTrampoline<CXWnd>::VirtualFunctionTable* s_baseCXWndTrampolineVTable = nullptr;
 	CSidlScreenWndTrampoline<CSidlScreenWnd>::VirtualFunctionTable* s_baseCSidlScreenWndTrampolineVFTable = nullptr;
+	CGFScreenWndTrampoline<CGFScreenWnd>::VirtualFunctionTable* s_baseCGFScreenWndTrampolineVFTable = nullptr;
 }
 
 //----------------------------------------------------------------------------

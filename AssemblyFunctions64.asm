@@ -808,6 +808,73 @@ export ?GetScreenWndType@CSidlScreenWnd@eqlib@@UEAA_NXZ
 
 ;---------------------------------------------------------------------------------------
 ;---------------------------------------------------------------------------------------
+; CGFScreenWnd
+
+; eqlib::CGFScreenWnd::VirtualFunctionTable * eqlib::CGFScreenWnd::sm_vftable
+extern ?sm_vftable@CGFScreenWnd@eqlib@@2PEAUVirtualFunctionTable@12@EA
+
+extern CGFScreenWnd__CGFScreenWnd
+extern CGFScreenWnd__CGFScreenWnd1
+extern CGFScreenWnd__dCGFScreenWnd
+
+
+; public: eqlib::CGFScreenWnd::CGFScreenWnd(class eqlib::CXWnd *, bool, class eqlib::CXStr const &)
+global ??0CGFScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@_NAEBVCXStr@1@@Z
+export ??0CGFScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@_NAEBVCXStr@1@@Z
+??0CGFScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@_NAEBVCXStr@1@@Z:
+	mov rax, [qword CGFScreenWnd__CGFScreenWnd]
+	jmp rax
+
+
+; public: eqlib::CGFScreenWnd::CGFScreenWnd(class eqlib::CXWnd *, bool, class eqlib::CXStr const &, int, int, char const *)
+global ??0CGFScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@_NAEBVCXStr@1@HHPEBD@Z
+export ??0CGFScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@_NAEBVCXStr@1@HHPEBD@Z
+??0CGFScreenWnd@eqlib@@QEAA@PEAVCXWnd@1@_NAEBVCXStr@1@HHPEBD@Z:
+	mov rax, [qword CGFScreenWnd__CGFScreenWnd1]
+	jmp rax
+
+
+; public: virtual eqlib::CGFScreenWnd::~CGFScreenWnd(void)
+global ??1CGFScreenWnd@eqlib@@UEAA@XZ
+export ??1CGFScreenWnd@eqlib@@UEAA@XZ
+??1CGFScreenWnd@eqlib@@UEAA@XZ:
+	mov rax, [qword CGFScreenWnd__dCGFScreenWnd]
+	jmp rax
+
+
+;---------------------------------------------------------------------------------------
+; CSidlScreenWnd Virtual Functions
+
+%macro call_cgfscreenwnd_vtable 1
+	mov  rax, [rel ?sm_vftable@CGFScreenWnd@eqlib@@2PEAUVirtualFunctionTable@12@EA]
+	jmp  [rax+%1]
+
+%endmacro
+
+
+; public: virtual void eqlib::CGFScreenWnd::HandleJsEvent(void *, void *)
+global ?HandleJsEvent@CGFScreenWnd@eqlib@@UEAAXPEAX0@Z
+export ?HandleJsEvent@CGFScreenWnd@eqlib@@UEAAXPEAX0@Z
+?HandleJsEvent@CGFScreenWnd@eqlib@@UEAAXPEAX0@Z:
+	call_cgfscreenwnd_vtable 0x380
+
+
+; public: virtual void eqlib::CGFScreenWnd::Unknown0x388(void)
+global ?Unknown0x388@CGFScreenWnd@eqlib@@UEAAXXZ
+export ?Unknown0x388@CGFScreenWnd@eqlib@@UEAAXXZ
+?Unknown0x388@CGFScreenWnd@eqlib@@UEAAXXZ:
+	call_cgfscreenwnd_vtable 0x388
+
+
+; public: virtual void eqlib::CGFScreenWnd::Unknown0x390(class eqlib::CXRect const &)
+global ?Unknown0x390@CGFScreenWnd@eqlib@@UEAAXAEBVCXRect@2@@Z
+export ?Unknown0x390@CGFScreenWnd@eqlib@@UEAAXAEBVCXRect@2@@Z
+?Unknown0x390@CGFScreenWnd@eqlib@@UEAAXAEBVCXRect@2@@Z:
+	call_cgfscreenwnd_vtable 0x390
+
+
+;---------------------------------------------------------------------------------------
+;---------------------------------------------------------------------------------------
 ; CButtonWnd
 
 
