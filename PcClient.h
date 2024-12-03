@@ -1678,7 +1678,7 @@ public:
 	int GetDeityBitmask() const { return 1 << (GetDeityReal() - 1); }
 };
 
-constexpr size_t PcClient_size = 0x3218; // @sizeof(PcClient) :: 2024-11-27 (beta) @ 0x140274CFB
+constexpr size_t PcClient_size = 0x3218; // @sizeof(PcClient) :: 2024-12-02 (beta) @ 0x14027530B
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
