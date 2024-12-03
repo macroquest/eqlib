@@ -73,7 +73,12 @@ class [[offsetcomments]] UIButtonComponent : public BaseComponent<CButtonWnd>
 {
 public:
 	virtual eqstd::string GetTypeName() const override { return "UIButton"; }
+};
 
+class [[offsetcomments]] UIListComponent : public BaseComponent<CListWnd>
+{
+public:
+	virtual eqstd::string GetTypeName() const override { return "UIList"; }
 };
 
 class [[offsetcomments]] UIStmlComponent : public BaseComponent<CStmlWnd>
@@ -113,9 +118,9 @@ public:
 
 	virtual void HandleEvent(void* a, void* b);
 
-/*0x2c0*/ UIScreenComponent                                 WindowComponent;
-/*0x368*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
-/*0x3a8*/
+/*0x2c8*/ UIScreenComponent                                 WindowComponent;
+/*0x370*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
+/*0x3b0*/
 };
 
 namespace cohtml {

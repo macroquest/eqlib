@@ -1086,7 +1086,7 @@ public:
 };
 
 // The starting offset is the size of PcBase
-class [[offsetcomments(0x2780)]] CharacterZoneClient : virtual public CharacterBase
+class [[offsetcomments(0x27B8)]] CharacterZoneClient : virtual public CharacterBase
 {
 	virtual void vftableph() {};
 
@@ -1094,71 +1094,71 @@ class [[offsetcomments(0x2780)]] CharacterZoneClient : virtual public CharacterB
 	// +0x08: const PcClient::`vbtable'{for `CharacterZoneClient'}
 
 public:
-/*0x2790*/ PlayerClient*                         me;
-/*0x2798*/ bool                                  statDirtyFlag;
-/*0x2799*/ bool                                  zoningStatProcessing;
-/*0x279c*/ int                                   ArmorClassBonus;
-/*0x27a0*/ int                                   CurrWeight;
-/*0x27a4*/ int                                   LastHitPointSendPercent;
-/*0x27a8*/ int                                   LastManaPointSendPercent;
-/*0x27ac*/ int                                   LastEndurancePointSendPercent;
-/*0x27b0*/ int                                   HPBonus;
-/*0x27b4*/ int                                   ManaBonus;
-/*0x27b8*/ int                                   EnduranceBonus;
-/*0x27bc*/ int                                   EnduranceCostPerSecond;
-/*0x27c0*/ int                                   CombatEffectsBonus;
-/*0x27c4*/ int                                   ShieldingBonus;
-/*0x27c8*/ int                                   SpellShieldBonus;
-/*0x27cc*/ int                                   AvoidanceBonus;
-/*0x27d0*/ int                                   AccuracyBonus;
-/*0x27d4*/ int                                   StunResistBonus;
-/*0x27d8*/ int                                   StrikeThroughBonus;
-/*0x27dc*/ int                                   DoTShieldBonus;
-/*0x27e0*/ int                                   DamageShieldMitigationBonus;
-/*0x27e4*/ int                                   DamageShieldBonus;
-/*0x27e8*/ int                                   ItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
-/*0x280c*/ int                                   SkillMinDamageModBonus[NUM_ITEM_SKILL_DMG_MOD];
-/*0x2830*/ int                                   HeroicSTRBonus;
-/*0x2834*/ int                                   HeroicINTBonus;
-/*0x2838*/ int                                   HeroicWISBonus;
-/*0x283c*/ int                                   HeroicAGIBonus;
-/*0x2840*/ int                                   HeroicDEXBonus;
-/*0x2844*/ int                                   HeroicSTABonus;
-/*0x2848*/ int                                   HeroicCHABonus;
-/*0x284c*/ int                                   HealAmountBonus;
-/*0x2850*/ int                                   SpellDamageBonus;
-/*0x2854*/ int                                   ClairvoyanceBonus;
-/*0x2858*/ int                                   AttackBonus;
-/*0x285c*/ int                                   HPRegenBonus;
-/*0x2860*/ int                                   ManaRegenBonus;
-/*0x2864*/ int                                   EnduranceRegenBonus;
-/*0x2868*/ int                                   AttackSpeed;
-/*0x286c*/ int                                   NoBuffItemHitpointAdjustment;
-/*0x2870*/ int                                   NoBuffItemManaAdjustment;
-/*0x2874*/ int                                   NoBuffItemEnduranceAdjustment;
-/*0x2878*/ int                                   NoBuffItemBaseChanceProc;
-/*0x287c*/ int                                   NoBuffItemMinDamageMod;
-/*0x2880*/ int                                   NoBuffItemInnateSpellRune;
-/*0x2884*/ int                                   NoBuffItemAvoidance;
-/*0x2888*/ int                                   NoBuffItemToHit;
-/*0x288c*/ int                                   NoBuffItemResistStunChance;
-/*0x2890*/ int                                   NoBuffItemDotShieldingEffect;
-/*0x2894*/ int                                   NoBuffItemStrikeThroughChance;
-/*0x2898*/ int                                   NoBuffItemAttack;
-/*0x289c*/ int                                   NoBuffItemHitPointRegen;
-/*0x28a0*/ int                                   NoBuffItemManaRegen;
-/*0x28a4*/ int                                   NoBuffItemEnduranceRegen;
-/*0x28a8*/ int                                   NoBuffItemDamageShield;
-/*0x28ac*/ int                                   NoBuffItemDamageShieldMitigation;
-/*0x28b0*/ int                                   NoBuffItemHaste;
-/*0x28b4*/ int                                   NoBuffItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
-/*0x28d8*/ bool                                  bOutputHpRegen;
-/*0x28d9*/ bool                                  bInvulnerable;
-/*0x28da*/ bool                                  bOnAVehicle;
-/*0x28e0*/ SpellCache                            spellCache;
-/*0x2970*/ HashListSet<int, 128>                 DoomEffectsBySlot;
-/*0x2d90*/ uint32_t                              LastHitEval;
-/*0x2d94*/
+/*0x27c8*/ PlayerClient*                         me;
+/*0x27d0*/ bool                                  statDirtyFlag;
+/*0x27d1*/ bool                                  zoningStatProcessing;
+/*0x27d4*/ int                                   ArmorClassBonus;
+/*0x27d8*/ int                                   CurrWeight;
+/*0x27dc*/ int                                   LastHitPointSendPercent;
+/*0x27e0*/ int                                   LastManaPointSendPercent;
+/*0x27e4*/ int                                   LastEndurancePointSendPercent;
+/*0x27e8*/ int                                   HPBonus;
+/*0x27ec*/ int                                   ManaBonus;
+/*0x27f0*/ int                                   EnduranceBonus;
+/*0x27f4*/ int                                   EnduranceCostPerSecond;
+/*0x27f8*/ int                                   CombatEffectsBonus;
+/*0x27fc*/ int                                   ShieldingBonus;
+/*0x2800*/ int                                   SpellShieldBonus;
+/*0x2804*/ int                                   AvoidanceBonus;
+/*0x2808*/ int                                   AccuracyBonus;
+/*0x280c*/ int                                   StunResistBonus;
+/*0x2810*/ int                                   StrikeThroughBonus;
+/*0x2814*/ int                                   DoTShieldBonus;
+/*0x2818*/ int                                   DamageShieldMitigationBonus;
+/*0x281c*/ int                                   DamageShieldBonus;
+/*0x2820*/ int                                   ItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
+/*0x2844*/ int                                   SkillMinDamageModBonus[NUM_ITEM_SKILL_DMG_MOD];
+/*0x2868*/ int                                   HeroicSTRBonus;
+/*0x286c*/ int                                   HeroicINTBonus;
+/*0x2870*/ int                                   HeroicWISBonus;
+/*0x2874*/ int                                   HeroicAGIBonus;
+/*0x2878*/ int                                   HeroicDEXBonus;
+/*0x287c*/ int                                   HeroicSTABonus;
+/*0x2880*/ int                                   HeroicCHABonus;
+/*0x2884*/ int                                   HealAmountBonus;
+/*0x2888*/ int                                   SpellDamageBonus;
+/*0x288c*/ int                                   ClairvoyanceBonus;
+/*0x2890*/ int                                   AttackBonus;
+/*0x2894*/ int                                   HPRegenBonus;
+/*0x2898*/ int                                   ManaRegenBonus;
+/*0x289c*/ int                                   EnduranceRegenBonus;
+/*0x28a0*/ int                                   AttackSpeed;
+/*0x28a4*/ int                                   NoBuffItemHitpointAdjustment;
+/*0x28a8*/ int                                   NoBuffItemManaAdjustment;
+/*0x28ac*/ int                                   NoBuffItemEnduranceAdjustment;
+/*0x28b0*/ int                                   NoBuffItemBaseChanceProc;
+/*0x28b4*/ int                                   NoBuffItemMinDamageMod;
+/*0x28b8*/ int                                   NoBuffItemInnateSpellRune;
+/*0x28bc*/ int                                   NoBuffItemAvoidance;
+/*0x28c0*/ int                                   NoBuffItemToHit;
+/*0x28c4*/ int                                   NoBuffItemResistStunChance;
+/*0x28c8*/ int                                   NoBuffItemDotShieldingEffect;
+/*0x28cc*/ int                                   NoBuffItemStrikeThroughChance;
+/*0x28d0*/ int                                   NoBuffItemAttack;
+/*0x28d4*/ int                                   NoBuffItemHitPointRegen;
+/*0x28d8*/ int                                   NoBuffItemManaRegen;
+/*0x28dc*/ int                                   NoBuffItemEnduranceRegen;
+/*0x28e0*/ int                                   NoBuffItemDamageShield;
+/*0x28e4*/ int                                   NoBuffItemDamageShieldMitigation;
+/*0x28e8*/ int                                   NoBuffItemHaste;
+/*0x28ec*/ int                                   NoBuffItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
+/*0x2910*/ bool                                  bOutputHpRegen;
+/*0x2911*/ bool                                  bInvulnerable;
+/*0x2912*/ bool                                  bOnAVehicle;
+/*0x2918*/ SpellCache                            spellCache;
+/*0x29a8*/ HashListSet<int, 128>                 DoomEffectsBySlot;
+/*0x2dc8*/ uint32_t                              LastHitEval;
+/*0x2dcc*/
 
 	//EQLIB_OBJECT CharacterZoneClient();
 
@@ -1566,16 +1566,17 @@ public:
 /*0x26a8*/ int                                   MercAAPoints;                 // number of unspent merc AA points
 /*0x26ac*/ int                                   MercAAPointsSpent;            // number of spent merc AA points
 /*0x26b0*/ ArrayClass<MercenaryAbilityInfo*>     MercenaryAbilities;
-/*0x26c8*/ AchievementTable                      CompletedAchievements;
-/*0x26e0*/ AchievementSubComponentCountTable     CompletedEventBasedSubComponents;
-/*0x26f8*/ AchievementSubComponentCountTable     OpenEventBasedSubComponents;
-/*0x2710*/ int                                   LastFellowshipJoin;
-/*0x2718*/ int64_t                               Vitality;
-/*0x2720*/ int64_t                               AAVitality;
-/*0x2728*/ int                                   FreeToPlayUnlocks[33];
-/*0x27ac*/ // end PcBase / start CharacterZoneClient
+/*0x26c8*/ void*                                 Unknown26c8;
+/*0x26d0*/ AchievementTable                      CompletedAchievements;
+/*0x26e8*/ AchievementSubComponentCountTable     CompletedEventBasedSubComponents;
+/*0x2700*/ AchievementSubComponentCountTable     OpenEventBasedSubComponents;
+/*0x2718*/ int                                   LastFellowshipJoin;
+/*0x2720*/ int64_t                               Vitality;
+/*0x2728*/ int64_t                               AAVitality;
+/*0x2730*/ int                                   FreeToPlayUnlocks[33];
+/*0x27b4*/ // end PcBase / start CharacterZoneClient
 
-	// basis: 0x2788 +30 = 0x27B8
+	// basis: 0x27C0
 
 	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
@@ -1641,14 +1642,14 @@ class [[offsetcomments]] PcZoneClient : public PcBase, public CharacterZoneClien
 {
 /*0x2d98*/ // vftable
 public:
-/*0x2dd0*/ uint32_t                              Flags[3]; // 2da0
-/*0x2ddc*/ uint32_t                              TransfersReceived;
-/*0x2de0*/ int                                   LastLanguageSpoken;
-/*0x2de4*/ int                                   CurPowerSourceDrain;
-/*0x2de8*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
-/*0x2e08*/ uint32_t                              MomentumBalance;
-/*0x2e0c*/ uint32_t                              LoyaltyRewardBalance;
-/*0x2e10*/
+/*0x2dd8*/ uint32_t                              Flags[3]; // 2da0
+/*0x2de4*/ uint32_t                              TransfersReceived;
+/*0x2de8*/ int                                   LastLanguageSpoken;
+/*0x2dec*/ int                                   CurPowerSourceDrain;
+/*0x2df0*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
+/*0x2e10*/ uint32_t                              MomentumBalance;
+/*0x2e14*/ uint32_t                              LoyaltyRewardBalance;
+/*0x2e18*/
 
 	// Verified
 	EQLIB_OBJECT void DestroyHeldItemOrMoney();
@@ -1677,7 +1678,7 @@ public:
 	int GetDeityBitmask() const { return 1 << (GetDeityReal() - 1); }
 };
 
-constexpr size_t PcClient_size = 0x3210; // @sizeof(PcClient) :: 2024-11-27 (test) @ 0x140274B9B
+constexpr size_t PcClient_size = 0x3218; // @sizeof(PcClient) :: 2024-11-27 (beta) @ 0x140274CFB
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
@@ -1685,20 +1686,20 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2e10*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
-/*0x2e18*/ bool                                  InCombat;
-/*0x2e1c*/ uint32_t                              Downtime;
-/*0x2e20*/ uint32_t                              DowntimeStart;
-/*0x2e24*/ bool                                  bOverrideAvatarProximity;
-/*0x2e28*/ CGroup*                               Group;
-/*0x2e30*/ bool                                  bIAmCreatingGroup;
-/*0x2e38*/ ItemArray                             ItemsPendingID;
-/*0x2e50*/ eParcelStatus                         ParcelStatus;
-/*0x2e54*/ int                                   SubscriptionDays;
-/*0x2e58*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
-/*0x2e64*/ bool                                  bPickZoneFewest;
-/*0x2e68*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
-/*0x2e6c*/
+/*0x2e18*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
+/*0x2e20*/ bool                                  InCombat;
+/*0x2e24*/ uint32_t                              Downtime;
+/*0x2e28*/ uint32_t                              DowntimeStart;
+/*0x2e2c*/ bool                                  bOverrideAvatarProximity;
+/*0x2e30*/ CGroup*                               Group;
+/*0x2e38*/ bool                                  bIAmCreatingGroup;
+/*0x2e40*/ ItemArray                             ItemsPendingID;
+/*0x2e58*/ eParcelStatus                         ParcelStatus;
+/*0x2e5c*/ int                                   SubscriptionDays;
+/*0x2e60*/ short                                 BaseKeyRingSlots[eKeyRingTypeCount];
+/*0x2e6c*/ bool                                  bPickZoneFewest;
+/*0x2e70*/ int                                   Unknown0x28a4;                // used in CContainerWnd::HandleCombine
+/*0x2e74*/
 
 	ALT_MEMBER_GETTER(ExtendedTargetList*, pExtendedTargetList, pXTargetMgr);  // cannot be null
 	ALT_MEMBER_GETTER(uint32_t, DowntimeStart, DowntimeStamp);
