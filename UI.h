@@ -788,6 +788,9 @@ public:
 	virtual void UpdateText();
 	virtual void ResizeHeightToText();
 
+	CXStr GetText() const { return Text; }
+	void SetText(const CXStr& text) { Text = text; }
+
 	// data members
 /*0x1d8*/ bool         bNoWrap;
 /*0x1d9*/ bool         bAlignRight;
@@ -1388,8 +1391,10 @@ public:
 	EQLIB_OBJECT void ResetTempVariablesForNewLine(SParseVariables*);
 	EQLIB_OBJECT void StripFirstSTMLLines(int);
 	EQLIB_OBJECT void UpdateHistoryString(int32_t, const CXStr&);
-
-	inline CXStr GetSTMLText() const { return STMLText; }
+	
+	CXStr GetSTMLText() const { return STMLText; }
+	CXStr GetText() const { return STMLText; }
+	void SetText(const CXStr& str) { STMLText = str; }
 
 	//----------------------------------------------------------------------------
 	// data members
