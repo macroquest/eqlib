@@ -111,7 +111,7 @@ FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::UpdateGeometry(const CXRect&, bool, bool,
 FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::Move(const CXPoint&), CXWnd, Move);
 // SetWindowText
 FORWARD_FUNCTION_TO_VTABLE(CXWnd*, CXWnd::GetChildWndAt(const CXPoint&, bool, bool) const, CXWnd, GetChildWndAt);
-FORWARD_FUNCTION_TO_VTABLE(CScreenPieceTemplate*, CXWnd::GetSidlPiece(const CXStr&, bool) const, CXWND, GetSidlPiece);
+FORWARD_FUNCTION_TO_VTABLE(CScreenPieceTemplate*, CXWnd::GetSidlPiece(const CXStr&, bool) const, CXWnd, GetSidlPiece);
 // GetWindowName
 FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::SetVScrollPos(int), CXWnd, SetVScrollPos);
 FORWARD_FUNCTION_TO_VTABLE(int, CXWnd::SetHScrollPos(int), CXWnd, SetHScrollPos);

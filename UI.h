@@ -1391,8 +1391,9 @@ public:
 	EQLIB_OBJECT void ResetTempVariablesForNewLine(SParseVariables*);
 	EQLIB_OBJECT void StripFirstSTMLLines(int);
 	EQLIB_OBJECT void UpdateHistoryString(int32_t, const CXStr&);
-	
+
 	CXStr GetSTMLText() const { return STMLText; }
+
 	CXStr GetText() const { return STMLText; }
 	void SetText(const CXStr& str) { STMLText = str; }
 

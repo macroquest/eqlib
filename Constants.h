@@ -535,9 +535,10 @@ enum EQExpansion
 	EQExpansionTOL                  = EXPANSION_LEVEL_TOL,
 	EQExpansionNOS                  = EXPANSION_LEVEL_NOS,
 	EQExpansionLS                   = EXPANSION_LEVEL_LS,
+	EQExpansionTOB                  = EXPANSION_LEVEL_TOB,
 };
 
-#define EQ_EXPANSION(x)             (1 << (x - 1))
+#define EQ_EXPANSION(x)             (1ll << (x - 1))
 
 // These macros define the bit mask representing expansion flags, often used to determine
 // expansion ownership or requirements
@@ -571,6 +572,7 @@ enum EQExpansion
 #define EXPANSION_TOL               EQ_EXPANSION(EXPANSION_LEVEL_TOL)
 #define EXPANSION_NOS               EQ_EXPANSION(EXPANSION_LEVEL_NOS)
 #define EXPANSION_LS                EQ_EXPANSION(EXPANSION_LEVEL_LS)
+#define EXPANSION_TOB               EQ_EXPANSION(EXPANSION_LEVEL_TOB)
 
 // Enumeration defining expansion bit mask representing expansion flags. Often used to
 // determine expansion ownership or requirements.
@@ -607,10 +609,11 @@ enum EQExpansionOwned
 	EQExpansionTOLOwned             = EXPANSION_TOL,
 	EQExpansionNOSOwned             = EXPANSION_NOS,
 	EQExpansionLSOwned              = EXPANSION_LS,
+	EQExpansionTOBOwned             = EXPANSION_TOB,
 
 	// Mask representing all expansions
 	EQExpansionHighestOwnedPlusOne_,
-	EQExpansionAllOwned             = ((EQExpansionHighestOwnedPlusOne_ - 1) << 1) - 1,
+	EQExpansionAllOwned             = ((EQExpansionHighestOwnedPlusOne_ - 1ll) << 1) - 1,
 };
 
 constexpr int NUM_EXPANSIONS = MQ_EXPANSION_LEVEL;

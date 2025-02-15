@@ -1367,6 +1367,10 @@ public:
 
 	bool AllSpellsLoaded() const { return Spells[TOTAL_SPELL_COUNT - 1] != nullptr; }
 
+	int GetMaxSpellID() const { return TOTAL_SPELL_COUNT - 1; }
+	uint32_t GetSpellCount() const { return TOTAL_SPELL_COUNT; }
+	uint32_t GetSpellAffectsCount() const { return TOTAL_SPELL_AFFECT_COUNT; }
+
 /*0x2c180*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];                       // 0x41960        0x2c180
 /*0x580a4*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0       0x580a4
 /*0xafeec*/
