@@ -501,6 +501,8 @@ constexpr int NUM_INNATE = 25;
 constexpr int CONCURRENT_SKILLS = 2;
 constexpr int NUM_ITEM_SKILL_DMG_MOD = 9;  // the number of skill weapon mods
 
+constexpr float MAX_INTERACT_DISTANCE = 20.0f;
+constexpr float MAX_INTERACT_DISTANCE_SQUARED = MAX_INTERACT_DISTANCE * MAX_INTERACT_DISTANCE;
 
 enum EQExpansion
 {
