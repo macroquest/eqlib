@@ -1890,6 +1890,7 @@ public:
 // CBankWnd
 //============================================================================
 
+
 class [[offsetcomments]] CBankWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
@@ -1897,19 +1898,17 @@ public:
 /*0x228*/ unsigned int NextRefreshTime;
 /*0x22c*/ bool         bInventoryWasActive;
 /*0x22d*/ bool         bRealEstateManagementWasActive;
-/*0x230*/ CButtonWnd*  MoneyButtons[5];          // including shared plat
-/*0x244*/ CLabel*      BankerNameLabel;
-/*0x248*/ CInvSlotWnd* InvSlotWindows[NUM_BANK_SLOTS];
-/*0x2a8*/ CLabel*      SharedBankLabel;
-/*0x2ac*/ CInvSlotWnd* SharedSlotWindows[NUM_SHAREDBANK_SLOTS];
-/*0x2c4*/ CButtonWnd*  DoneButton;
-/*0x2c8*/ CButtonWnd*  ChangeButton;
-/*0x2cc*/ CButtonWnd*  AutoButton;
-/*0x2d0*/ CButtonWnd*  AltStorageButton;
-/*0x2d4*/ CButtonWnd*  FindItemButton;
-/*0x2d8*/ CButtonWnd*  DragonHoardButton;
-/*0x2dc*/ int          BankSize;
-/*0x2e0*/
+/*0x230*/ CButtonWnd*  MoneyButtons[5];                              // BW_Money%d (0-3), BW_SharedMoney0 (4)
+/*0x244*/ CLabel*      BankerNameLabel;                              // BW_BankerName
+/*0x248*/ CInvSlotWnd* InvSlotWindows[NUM_BANK_SLOTS];               // BW_BankSlot%d
+/*0x2a8*/ CLabel*      SharedBankLabel;                              // BW_SharedBankLabel
+/*0x2ac*/ CInvSlotWnd* SharedSlotWindows[NUM_SHAREDBANK_SLOTS];      // BW_SharedBankSlot%d
+/*0x2b4*/ CButtonWnd*  DoneButton;                                   // DoneButton
+/*0x2b8*/ CButtonWnd*  ChangeButton;                                 // ChangeButton
+/*0x2bc*/ CButtonWnd*  AutoButton;                                   // AutoButton
+/*0x2c0*/ CButtonWnd*  AltStorageButton;                             // AltStorageButton
+/*0x2c4*/ int          BankSize;
+/*0x2c8*/
 
 	CBankWnd(CXWnd*, CXStr);
 	virtual ~CBankWnd();
@@ -1925,6 +1924,7 @@ public:
 	EQLIB_OBJECT void ClickedMoneyButton(int, int);
 	EQLIB_OBJECT void UpdateMoneyDisplay();
 };
+static_assert(sizeof(CBankWnd) == 0x2c8, "Size of CBankWnd is incorrect"); // 0x498C41
 
 //============================================================================
 // CBarterWnd
