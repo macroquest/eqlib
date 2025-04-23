@@ -285,6 +285,9 @@
     <NASM Include="AssemblyFunctions.asm">
       <Filter>Source Files</Filter>
     </NASM>
+    <NASM Include="AssemblyMacros.asm">
+      <Filter>Source Files</Filter>
+    </NASM>
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="EQLib.natvis">
