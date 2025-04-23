@@ -79,6 +79,7 @@ struct [[offsetcomments]] CStrRep
 /*0x08*/ uint32_t length;
 /*0x0c*/ EStringEncoding encoding;
 /*0x10*/ CXFreeList* freeList;
+/*0x14*/
 	// The actual string data. Size does not matter, the length
 	// is dynamic and manually allocated.
 	union

@@ -1890,7 +1890,6 @@ public:
 // CBankWnd
 //============================================================================
 
-
 class [[offsetcomments]] CBankWnd : public CSidlScreenWnd, public WndEventHandler
 {
 public:
