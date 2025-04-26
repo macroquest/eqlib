@@ -961,7 +961,7 @@ EQLIB_VAR ForeignPointer<CBuffWindow>                pSongWnd;
 EQLIB_VAR ForeignPointer<CBugReportWnd>              pBugReportWnd;
 EQLIB_VAR ForeignPointer<CCastingWnd>                pCastingWnd;
 EQLIB_VAR ForeignPointer<CCastSpellWnd>              pCastSpellWnd;
-EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pCharacterCreation;
+EQLIB_VAR ForeignPointer<CCharacterCreation>         pCharacterCreation;
 EQLIB_VAR ForeignPointer<CCharacterListWnd>          pCharacterListWnd;
 EQLIB_VAR ForeignPointer<ClaimWindow>                pClaimWnd;
 EQLIB_VAR ForeignPointer<CColorPickerWnd>            pColorPickerWnd;

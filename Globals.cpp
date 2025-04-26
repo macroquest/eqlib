@@ -1167,7 +1167,7 @@ ForeignPointer<CBuffWindow>                      pSongWnd;
 ForeignPointer<CBugReportWnd>                    pBugReportWnd;
 ForeignPointer<CCastingWnd>                      pCastingWnd;
 ForeignPointer<CCastSpellWnd>                    pCastSpellWnd;
-ForeignPointer<CSidlScreenWnd>                   pCharacterCreation;
+ForeignPointer<CCharacterCreation>               pCharacterCreation;
 ForeignPointer<CCharacterListWnd>                pCharacterListWnd;
 ForeignPointer<ClaimWindow>                      pClaimWnd;
 ForeignPointer<CColorPickerWnd>                  pColorPickerWnd;
