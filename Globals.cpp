@@ -17,25 +17,10 @@
 #include "Logging.h"
 
 #include "mq/base/Color.h"
-#include "Common/StringUtils.h"
-
-#include <spdlog/spdlog.h>
-#include <spdlog/logger.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
 
 using mq::MQColor;
 
 namespace eqlib {
-
-// These don't change during the execution of the program. They can be loaded
-// at static initialization time because of this.
-uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
-
-uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle("EQGraphicsDX9.dll");
-
-uintptr_t EQMainBaseAddress = (uintptr_t)GetModuleHandle("eqmain.dll");
-
-uintptr_t Kernel32BaseAddress = (uintptr_t)GetModuleHandle("kernel32.dll");
 
 //============================================================================
 // Data
@@ -451,7 +436,6 @@ INITIALIZE_EQGAME_OFFSET(__HeadingDiff);
 INITIALIZE_EQGAME_OFFSET(__HelpPath);
 INITIALIZE_EQGAME_OFFSET(__InitMouse);
 INITIALIZE_EQGAME_OFFSET(__msgTokenTextParam);
-INITIALIZE_EQGAME_OFFSET(__NewUIINI);
 INITIALIZE_EQGAME_OFFSET(__ProcessGameEvents);
 INITIALIZE_EQGAME_OFFSET(__ProcessKeyboardEvents);
 INITIALIZE_EQGAME_OFFSET(__ProcessMouseEvents);
@@ -1299,10 +1283,6 @@ ForeignPointer<IDirectInputDevice8A>             g_pDIKeyboard;
 ForeignPointer<IDirectInputDevice8A>             g_pDIMouse;
 DIMOUSESTATE2*                                   g_pDIMouseState;
 
-
-fEQNewUIINI            NewUIINI                  = nullptr;
-fEQProcGameEvts        ProcessGameEvents         = nullptr;
-fGetLabelFromEQ        GetLabelFromEQ            = nullptr;
 uintptr_t              __ModuleList              = 0;
 uintptr_t              __ProcessList             = 0;
 
@@ -1445,10 +1425,6 @@ void InitializeEQGameOffsets()
 	g_pDIMouse                      = DI8__Mouse;
 	g_pDIMouseState                 = (DIMOUSESTATE2*)DI8__MouseState;
 	g_labelCache                    = (LabelCache*)__LabelCache;
-
-	NewUIINI                        = (fEQNewUIINI)__NewUIINI;
-	ProcessGameEvents               = (fEQProcGameEvts)__ProcessGameEvents;
-	GetLabelFromEQ                  = (fGetLabelFromEQ)__GetLabelFromEQ;
 
 	FreeToPlayClient::RestrictionInfo = (RestrictionInfo*)FreeToPlayClient__RestrictionInfo;
 
@@ -1634,43 +1610,52 @@ void CleanupEQMainOffsets()
 
 #pragma endregion
 
+uint32_t GetStringCRC(std::string_view sv)
+{
+	return GetBufferCRC(sv.data(), sv.length());
+}
+
+void GetFactionName(int FactionID, char* szBuffer, size_t bufferSize)
+{
+	if (FactionID < static_cast<int>(MAX_FACTIONNAMES))
+	{
+		strcpy_s(szBuffer, bufferSize, szFactionNames[FactionID]);
+	}
+	else
+	{
+		sprintf_s(szBuffer, bufferSize, "Unknown Faction[%d]", FactionID);
+	}
+}
+
+CCachedFont* CCachedFont::Get(int fontStyle)
+{
+	if (!pGraphicsEngine) return nullptr;
+	auto resourceMgr = pGraphicsEngine->pResourceManager;
+	if (!resourceMgr) return nullptr;
+
+	CCachedFont* pCachedFont = nullptr;
+	EStatus status;
+
+	// GetCachedFont may crash here if the font manager hasn't been created yet, but we're
+	// using this routine to get access to the font manager. If it throws an access violation,
+	// the application state is fine, we can just bail on this attempt.
+	__try {
+		status = resourceMgr->GetCachedFont(fontStyle, reinterpret_cast<CCachedFontInterface**>(&pCachedFont));
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER) {
+		status = eStatusFailure;
+	}
+
+	if (status == eStatusFailure)
+		return nullptr;
+
+	return pCachedFont;
+}
+
+
 //============================================================================
 //
 
-static const std::string logger_name = "eqlib";
-
-void InitializeLogging(const std::shared_ptr<spdlog::logger>& in_logger)
-{
-	auto logger = spdlog::get(logger_name);
-	if (!logger)
-	{
-		auto& sinks = in_logger->sinks();
-
-		logger = std::make_shared<spdlog::logger>(logger_name, std::begin(sinks), std::end(sinks));
-		spdlog::set_pattern("%L %Y-%m-%d %T.%f [%n] %v (%@)");
-		spdlog::set_default_logger(logger);
-	}
-
-	SPDLOG_DEBUG("Logging initialized");
-}
-
-void ShutdownLogging()
-{
-	spdlog::shutdown();
-}
-
-void InitializeGlobals()
-{
-	ZeroMemory(gDiKeyName, sizeof(gDiKeyName));
-	for (int i = 0; gDiKeyID[i].Id; i++)
-	{
-		gDiKeyName[gDiKeyID[i].Id] = gDiKeyID[i].szName;
-	}
-
-	InitializeGlobalOffsets();
-	InitializeEQGameOffsets();
-	InitializeEQGraphicsOffsets();
-}
 
 } // namespace eqlib
 

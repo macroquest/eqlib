@@ -14,7 +14,8 @@
 
 #pragma once
 
-#include <mq/base/Deprecation.h>
+#include "mq/base/Deprecation.h"
+
 #include <cstdint>
 
 namespace eqlib {

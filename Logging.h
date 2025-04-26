@@ -17,7 +17,12 @@
 
 #include "Common.h"
 
-#include <spdlog/spdlog.h>
+#include <memory>
+
+namespace spdlog
+{
+	class logger;
+}
 
 namespace eqlib {
 

@@ -523,10 +523,10 @@ union EqGuid
 		uint16_t Reserved;
 	};
 
-	inline operator uint64_t() const { return GUID; }
-	inline explicit operator bool() const { return GUID != 0; }
-	inline bool operator==(EqGuid& other) { return GUID == other.GUID; }
-	inline bool operator!=(EqGuid& other) { return GUID != other.GUID; }
+	operator uint64_t() const { return GUID; }
+	explicit operator bool() const { return GUID != 0; }
+	bool operator==(EqGuid& other) { return GUID == other.GUID; }
+	bool operator!=(EqGuid& other) { return GUID != other.GUID; }
 
 	EqGuid() : GUID(0) {}
 };

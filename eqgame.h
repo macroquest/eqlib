@@ -191,7 +191,6 @@
 #define __HeadingDiff_x                                            0x8D1FC0
 #define __HelpPath_x                                               0xE63870
 #define __InitMouse_x                                              0x5FC850
-#define __NewUIINI_x                                               0x761D40
 #define __ProcessGameEvents_x                                      0x53A6C0
 #define __ProcessKeyboardEvents_x                                  0x5FDA30
 #define __ProcessMouseEvents_x                                     0x539E60

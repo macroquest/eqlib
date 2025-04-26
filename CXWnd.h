@@ -1189,6 +1189,4 @@ inline namespace deprecated {
 
 //----------------------------------------------------------------------------
 
-void InitializeCXWnd();
-
 } // namespace eqlib

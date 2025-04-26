@@ -1654,7 +1654,13 @@ FUNCTION_AT_ADDRESS(void, FlushDxKeyboard(), __FlushDxKeyboard);
 FUNCTION_AT_ADDRESS(bool, CopyLayout(const CXStr& currlayout, const CXStr& newlayout, bool bHotbuttons, bool bLoadouts, bool bSocials, CXStr& ErrorOut, bool bForceReload), __CopyLayout);
 #endif
 
+#ifdef __MemChecker1_x
 FUNCTION_AT_ADDRESS(uint32_t, GetBufferCRC(const char* szBuffer, size_t bufferLength, int baseValue), __MemChecker1);
+#endif
+
+#ifdef __GetLabelFromEQ_x
+FUNCTION_AT_ADDRESS(bool, GetLabelFromEQ(int, CXStr*, bool*, COLORREF*), __GetLabelFromEQ);
+#endif
 
 //============================================================================
 // Function Addresses: EverQuest

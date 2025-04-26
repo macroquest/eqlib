@@ -424,6 +424,8 @@ constexpr int NUM_HOTBUTTON_WINDOWS = 10;
 constexpr int NUM_HOTBUTTON_PAGES = 10;
 constexpr int HOTBUTTONS_PER_PAGE = 12;
 
+constexpr int MAX_HOTBUTTON_WNDS = 12;
+
 // KeypressHandler__HandleKeyUp_x has this one
 constexpr int nEQMappableCommands = 500;
 

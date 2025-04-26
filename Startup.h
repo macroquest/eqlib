@@ -14,19 +14,34 @@
 
 #pragma once
 
-#include "eqlib/eqstd/map.h"
-#include "eqlib/eqstd/memory.h"
-#include "eqlib/eqstd/type_traits.h"
-#include "eqlib/eqstd/xmemory.h"
-#include "eqlib/eqstd/xtree.h"
+#include "eqlib/Config.h"
 
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
+namespace eqlib
+{
+	inline namespace bindings
+	{
+		int TestVariable;
+	}
+}
 
-#include <spdlog/spdlog.h>
+namespace eqlib {
 
+/**
+ * 
+ */
+class EQLibNotificationkInterface
+{
+public:
+	virtual ~EQLibNotificationkInterface() {}
+
+};
+
+class EQLibConfiguration
+{
+	
+};
+
+EQLIB_API bool InitializeEQLib(EQLibConfiguration* config);
+
+
+} // namespace eqlib

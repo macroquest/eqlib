@@ -21,6 +21,11 @@
 
 #include "BuildType.h"
 
+#ifdef EQLIB_STATIC
+#define EQLIB_API
+#define EQLIB_VAR
+#define EQLIB_OBJECT
+#else
 #ifdef EQLIB_EXPORTS
 #define EQLIB_API extern "C" __declspec(dllexport)
 #define EQLIB_VAR extern "C" __declspec(dllexport)
@@ -29,6 +34,5 @@
 #define EQLIB_API extern "C" __declspec(dllimport)
 #define EQLIB_VAR extern "C" __declspec(dllimport)
 #define EQLIB_OBJECT __declspec(dllimport)
-#endif
-
-#include <cstdint>
+#endif // !EQLIB_EXPORTS
+#endif // !EQLIB_STATIC

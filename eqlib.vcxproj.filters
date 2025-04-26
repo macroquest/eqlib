@@ -19,6 +19,9 @@
     <Filter Include="Header Files\eqstd">
       <UniqueIdentifier>{07e78fd2-2adc-450b-8432-d639c46d1e04}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\base">
+      <UniqueIdentifier>{162562d6-f184-479b-8a7e-86383ada461f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\eqdata">
       <UniqueIdentifier>{ade88f9f-9650-49b4-ae51-5b53100a8f06}</UniqueIdentifier>
     </Filter>
@@ -73,9 +76,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ForwardDecls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OffsetUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LoginFrontend.h">
@@ -210,6 +210,21 @@
     <ClInclude Include="ChatFilters.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="base\Offsets.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\Iterator.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\WindowsUndefs.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryPatcher.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Startup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CXStr.cpp">
@@ -271,6 +286,9 @@
     </ClCompile>
     <ClCompile Include="FunctionDefs.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="base\Offsets.cpp">
+      <Filter>Source Files\base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

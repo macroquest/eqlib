@@ -13,7 +13,14 @@
  */
 
 #include "pch.h"
-#include "EQLib.h"
+
+#include "eqlib/base/Offsets.h"
+#include "eqlib/Globals.h"
+#include "eqlib/Startup.h"
+
+#include <spdlog/spdlog.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <memory>
 
 namespace eqlib {
 
@@ -48,6 +55,50 @@ namespace SoeUtil
 FUNCTION_AT_ADDRESS(void*, eqAllocImpl(size_t), __eq_new);// Exception to Separate Function Addresses
 FUNCTION_AT_ADDRESS(void, eqFreeImpl(void*), __eq_delete);// Exception to Separate Function Addresses
 
+static const std::string logger_name = "eqlib";
+
+void InitializeGlobalOffsets();
+void InitializeEQGameOffsets();
+void InitializeEQGraphicsOffsets();
+void InitializeUI();
+void InitializeCXWnd();
+void InitializeCXStr();
+
+void ShutdownCXStr();
+
+void InitializeLogging(const std::shared_ptr<spdlog::logger>& in_logger)
+{
+	auto logger = spdlog::get(logger_name);
+	if (!logger)
+	{
+		auto& sinks = in_logger->sinks();
+
+		logger = std::make_shared<spdlog::logger>(logger_name, std::begin(sinks), std::end(sinks));
+		spdlog::set_pattern("%L %Y-%m-%d %T.%f [%n] %v (%@)");
+		spdlog::set_default_logger(logger);
+	}
+
+	SPDLOG_DEBUG("Logging initialized");
+}
+
+void ShutdownLogging()
+{
+	spdlog::shutdown();
+}
+
+void InitializeGlobals()
+{
+	ZeroMemory(gDiKeyName, sizeof(gDiKeyName));
+	for (int i = 0; gDiKeyID[i].Id; i++)
+	{
+		gDiKeyName[gDiKeyID[i].Id] = gDiKeyID[i].szName;
+	}
+
+	InitializeGlobalOffsets();
+	InitializeEQGameOffsets();
+	InitializeEQGraphicsOffsets();
+}
+
 void InitializeEQLib()
 {
 	eqAlloc_ = eqAllocImpl;
@@ -70,49 +121,6 @@ void ShutdownEQLib()
 {
 	ShutdownCXStr();
 }
-
-uint32_t GetStringCRC(std::string_view sv)
-{
-	return GetBufferCRC(sv.data(), sv.length());
-}
-
-void GetFactionName(int FactionID, char* szBuffer, size_t bufferSize)
-{
-	if (FactionID < static_cast<int>(MAX_FACTIONNAMES))
-	{
-		strcpy_s(szBuffer, bufferSize, szFactionNames[FactionID]);
-	}
-	else
-	{
-		sprintf_s(szBuffer, bufferSize, "Unknown Faction[%d]", FactionID);
-	}
-}
-
-CCachedFont* CCachedFont::Get(int fontStyle)
-{
-	if (!pGraphicsEngine) return nullptr;
-	auto resourceMgr = pGraphicsEngine->pResourceManager;
-	if (!resourceMgr) return nullptr;
-
-	CCachedFont* pCachedFont = nullptr;
-	EStatus status;
-
-	// GetCachedFont may crash here if the font manager hasn't been created yet, but we're
-	// using this routine to get access to the font manager. If it throws an access violation,
-	// the application state is fine, we can just bail on this attempt.
-	__try {
-		status = resourceMgr->GetCachedFont(fontStyle, reinterpret_cast<CCachedFontInterface**>(&pCachedFont));
-	}
-	__except (EXCEPTION_EXECUTE_HANDLER) {
-		status = eStatusFailure;
-	}
-
-	if (status == eStatusFailure)
-		return nullptr;
-
-	return pCachedFont;
-}
-
 
 } // namespace eqlib
 

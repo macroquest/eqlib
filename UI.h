@@ -6991,8 +6991,6 @@ public:
 
 //----------------------------------------------------------------------------
 
-void InitializeUI();
-
 EQLIB_OBJECT void InitializeInGameUI();
 
 } // namespace eqlib
