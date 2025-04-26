@@ -134,84 +134,84 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\eqdata\actordef.h" />
-    <ClInclude Include="..\eqdata\combines.h" />
-    <ClInclude Include="..\eqdata\dikeys.h" />
-    <ClInclude Include="..\eqdata\factionnames.h" />
-    <ClInclude Include="..\eqdata\itemclasses.h" />
-    <ClInclude Include="..\eqdata\skills.h" />
-    <ClInclude Include="..\eqdata\spelleffects.h" />
-    <ClInclude Include="Achievements.h" />
-    <ClInclude Include="Allocator.h" />
-    <ClInclude Include="AltAbilities.h" />
-    <ClInclude Include="base\Color.h" />
-    <ClInclude Include="base\Iterator.h" />
-    <ClInclude Include="base\Offsets.h" />
-    <ClInclude Include="base\Primitives.h" />
-    <ClInclude Include="base\WindowsUndefs.h" />
-    <ClInclude Include="BuildType.h" />
-    <ClInclude Include="ChatFilters.h" />
-    <ClInclude Include="Common.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Containers.h" />
-    <ClInclude Include="CXStr.h" />
-    <ClInclude Include="CXWnd.h" />
-    <ClInclude Include="MemoryPatcher.h" />
-    <ClInclude Include="EQDX9.h" />
-    <ClInclude Include="eqstd\map.h" />
-    <ClInclude Include="eqstd\memory.h" />
-    <ClInclude Include="eqstd\type_traits.h" />
-    <ClInclude Include="eqstd\xmemory.h" />
-    <ClInclude Include="eqstd\xtree.h" />
-    <ClInclude Include="Expansions.h" />
-    <ClInclude Include="Config.h" />
-    <ClInclude Include="GraphicsResources.h" />
-    <ClInclude Include="Logging.h" />
-    <ClInclude Include="RealEstate.h" />
-    <ClInclude Include="Requirements.h" />
-    <ClInclude Include="Startup.h" />
-    <ClInclude Include="WindowOverride.h" />
-    <ClInclude Include="EQClasses.h" />
-    <ClInclude Include="EQData.h" />
-    <ClInclude Include="eqgame.h" />
-    <ClInclude Include="eqgraphics.h" />
-    <ClInclude Include="EQLib.h" />
-    <ClInclude Include="eqmain.h" />
-    <ClInclude Include="EQUIStructs.h" />
-    <ClInclude Include="EverQuest.h" />
-    <ClInclude Include="ForwardDecls.h" />
-    <ClInclude Include="Globals.h" />
-    <ClInclude Include="GraphicsEngine.h" />
-    <ClInclude Include="ItemLinks.h" />
-    <ClInclude Include="Items.h" />
-    <ClInclude Include="KeyCombo.h" />
-    <ClInclude Include="LoginFrontend.h" />
-    <ClInclude Include="Mutex.h" />
-    <ClInclude Include="PcClient.h" />
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="PcProfile.h" />
-    <ClInclude Include="PlayerClient.h" />
-    <ClInclude Include="SerializeBuffer.h" />
-    <ClInclude Include="UITextures.h" />
-    <ClInclude Include="XMLData.h" />
-    <ClInclude Include="UITemplates.h" />
-    <ClInclude Include="SoeUtil.h" />
-    <ClInclude Include="Spells.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="UIHelpers.h" />
-    <ClInclude Include="resource.h" />
+    <ClInclude Include="include\eqdata\actordef.h" />
+    <ClInclude Include="include\eqdata\combines.h" />
+    <ClInclude Include="include\eqdata\dikeys.h" />
+    <ClInclude Include="include\eqdata\factionnames.h" />
+    <ClInclude Include="include\eqdata\itemclasses.h" />
+    <ClInclude Include="include\eqdata\skills.h" />
+    <ClInclude Include="include\eqdata\spelleffects.h" />
+    <ClInclude Include="include\eqlib\Achievements.h" />
+    <ClInclude Include="include\eqlib\Allocator.h" />
+    <ClInclude Include="include\eqlib\AltAbilities.h" />
+    <ClInclude Include="include\eqlib\base\Color.h" />
+    <ClInclude Include="include\eqlib\base\Iterator.h" />
+    <ClInclude Include="include\eqlib\base\Offsets.h" />
+    <ClInclude Include="include\eqlib\base\Primitives.h" />
+    <ClInclude Include="include\eqlib\base\WindowsUndefs.h" />
+    <ClInclude Include="include\eqlib\BuildType.h" />
+    <ClInclude Include="include\eqlib\ChatFilters.h" />
+    <ClInclude Include="include\eqlib\Common.h" />
+    <ClInclude Include="include\eqlib\Config.h" />
+    <ClInclude Include="include\eqlib\Constants.h" />
+    <ClInclude Include="include\eqlib\Containers.h" />
+    <ClInclude Include="include\eqlib\CXStr.h" />
+    <ClInclude Include="include\eqlib\CXWnd.h" />
+    <ClInclude Include="include\eqlib\EQClasses.h" />
+    <ClInclude Include="include\eqlib\EQData.h" />
+    <ClInclude Include="include\eqlib\EQDX9.h" />
+    <ClInclude Include="include\eqlib\eqgame.h" />
+    <ClInclude Include="include\eqlib\eqgraphics.h" />
+    <ClInclude Include="include\eqlib\EQLib.h" />
+    <ClInclude Include="include\eqlib\eqmain.h" />
+    <ClInclude Include="include\eqlib\EQUIStructs.h" />
+    <ClInclude Include="include\eqlib\EverQuest.h" />
+    <ClInclude Include="include\eqlib\Expansions.h" />
+    <ClInclude Include="include\eqlib\ForwardDecls.h" />
+    <ClInclude Include="include\eqlib\Globals.h" />
+    <ClInclude Include="include\eqlib\GraphicsEngine.h" />
+    <ClInclude Include="include\eqlib\GraphicsResources.h" />
+    <ClInclude Include="include\eqlib\ItemLinks.h" />
+    <ClInclude Include="include\eqlib\Items.h" />
+    <ClInclude Include="include\eqlib\KeyCombo.h" />
+    <ClInclude Include="include\eqlib\Logging.h" />
+    <ClInclude Include="include\eqlib\LoginFrontend.h" />
+    <ClInclude Include="include\eqlib\MemoryPatcher.h" />
+    <ClInclude Include="include\eqlib\Mutex.h" />
+    <ClInclude Include="include\eqlib\PcClient.h" />
+    <ClInclude Include="include\eqlib\PcProfile.h" />
+    <ClInclude Include="include\eqlib\PlayerClient.h" />
+    <ClInclude Include="include\eqlib\RealEstate.h" />
+    <ClInclude Include="include\eqlib\Requirements.h" />
+    <ClInclude Include="include\eqlib\SerializeBuffer.h" />
+    <ClInclude Include="include\eqlib\SoeUtil.h" />
+    <ClInclude Include="include\eqlib\Spells.h" />
+    <ClInclude Include="include\eqlib\Startup.h" />
+    <ClInclude Include="include\eqlib\UI.h" />
+    <ClInclude Include="include\eqlib\UIHelpers.h" />
+    <ClInclude Include="include\eqlib\UITemplates.h" />
+    <ClInclude Include="include\eqlib\UITextures.h" />
+    <ClInclude Include="include\eqlib\WindowOverride.h" />
+    <ClInclude Include="include\eqlib\XMLData.h" />
+    <ClInclude Include="include\eqstd\map.h" />
+    <ClInclude Include="include\eqstd\memory.h" />
+    <ClInclude Include="include\eqstd\type_traits.h" />
+    <ClInclude Include="include\eqstd\xmemory.h" />
+    <ClInclude Include="include\eqstd\xtree.h" />
+    <ClInclude Include="src\pch.h" />
+    <ClInclude Include="src\resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="eqlib.rc" />
+    <ResourceCompile Include="src\eqlib.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="base\Offsets.cpp" />
-    <ClCompile Include="CXStr.cpp" />
-    <ClCompile Include="CXWnd.cpp" />
-    <ClCompile Include="EQClasses.cpp" />
-    <ClCompile Include="EQLib.cpp" />
-    <ClCompile Include="EverQuest.cpp" />
-    <ClCompile Include="ExceptionsDisabled.cpp">
+    <ClCompile Include="src\base\Offsets.cpp" />
+    <ClCompile Include="src\CXStr.cpp" />
+    <ClCompile Include="src\CXWnd.cpp" />
+    <ClCompile Include="src\EQClasses.cpp" />
+    <ClCompile Include="src\EQLib.cpp" />
+    <ClCompile Include="src\EverQuest.cpp" />
+    <ClCompile Include="src\ExceptionsDisabled.cpp">
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExceptionHandling>
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExceptionHandling>
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExceptionHandling>
@@ -223,44 +223,44 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="FunctionDefs.cpp" />
-    <ClCompile Include="Globals.cpp" />
-    <ClCompile Include="GraphicsEngine.cpp" />
-    <ClCompile Include="Items.cpp" />
-    <ClCompile Include="PcClient.cpp" />
-    <ClCompile Include="pch.cpp">
+    <ClCompile Include="src\FunctionDefs.cpp" />
+    <ClCompile Include="src\Globals.cpp" />
+    <ClCompile Include="src\GraphicsEngine.cpp" />
+    <ClCompile Include="src\Items.cpp" />
+    <ClCompile Include="src\PcClient.cpp" />
+    <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="PcProfile.cpp" />
-    <ClCompile Include="PlayerClient.cpp" />
-    <ClCompile Include="UITextures.cpp" />
-    <ClCompile Include="XMLData.cpp" />
-    <ClCompile Include="UITemplates.cpp" />
-    <ClCompile Include="ItemLinks.cpp" />
-    <ClCompile Include="Spells.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="src\PcProfile.cpp" />
+    <ClCompile Include="src\PlayerClient.cpp" />
+    <ClCompile Include="src\UITextures.cpp" />
+    <ClCompile Include="src\XMLData.cpp" />
+    <ClCompile Include="src\UITemplates.cpp" />
+    <ClCompile Include="src\ItemLinks.cpp" />
+    <ClCompile Include="src\Spells.cpp" />
+    <ClCompile Include="src\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <NASM Include="AssemblyFunctions.asm">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </NASM>
-    <NASM Include="AssemblyFunctions64.asm">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </NASM>
-    <NASM Include="AssemblyMacros.asm">
+    <NASM Include="include\eqlib\AssemblyMacros.asm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </NASM>
+    <NASM Include="src\AssemblyFunctions.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </NASM>
+    <NASM Include="src\AssemblyFunctions64.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </NASM>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="EQLib.natvis" />
+    <Natvis Include="src\eqlib.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

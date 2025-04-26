@@ -12,7 +12,7 @@ if (-Not (Test-Path $eqlibDir -PathType Container)) {
     exit 1
 }
 
-$functionDefs = "FunctionDefs.cpp", "ExceptionsDisabled.cpp"
+$functionDefs = "src/FunctionDefs.cpp", "src/ExceptionsDisabled.cpp"
 
 $functionDefs | ForEach-Object {
     if (-Not (Test-Path $eqlibDir/$_ -PathType Leaf)) {
@@ -81,7 +81,7 @@ $functionDefs | ForEach-Object {
 
 $prevErrorCount = $errorCount
 
-$files = Get-ChildItem $eqlibDir -Filter "*.cpp"
+$files = Get-ChildItem $eqlibDir -Filter "src/*.cpp"
 if (($files | Measure-Object).Count -gt 0)
 {
     $files | ForEach-Object {
