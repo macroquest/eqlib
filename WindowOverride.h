@@ -284,6 +284,7 @@ public:
 	// Default constructor is implemented in ASM, this allows us to default construct
 	// without the compiler trying to chain it to the base class.
 	WindowOverride();
+	virtual ~WindowOverride();
 
 	static void InstallHooks(Target* pWnd)
 	{
