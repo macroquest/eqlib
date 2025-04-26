@@ -29,6 +29,10 @@
       <UniqueIdentifier>{97897388-cb8a-4e41-8baa-9cfe8cf3d8cd}</UniqueIdentifier>
       <Extensions>asm</Extensions>
     </Filter>
+    <Filter Include="Natvis Files">
+      <UniqueIdentifier>{08ac3404-db3b-47de-a43d-3bc23b2bbb55}</UniqueIdentifier>
+      <Extensions>natvis</Extensions>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h">
@@ -154,15 +158,6 @@
     <ClInclude Include="include\eqlib\RealEstate.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\eqstd\map.h">
-      <Filter>Header Files\eqstd</Filter>
-    </ClInclude>
-    <ClInclude Include="include\eqstd\xtree.h">
-      <Filter>Header Files\eqstd</Filter>
-    </ClInclude>
-    <ClInclude Include="include\eqstd\xmemory.h">
-      <Filter>Header Files\eqstd</Filter>
-    </ClInclude>
     <ClInclude Include="include\eqlib\Expansions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -193,12 +188,6 @@
     <ClInclude Include="include\eqdata\spelleffects.h">
       <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="include\eqstd\memory.h">
-      <Filter>Header Files\eqstd</Filter>
-    </ClInclude>
-    <ClInclude Include="include\eqstd\type_traits.h">
-      <Filter>Header Files\eqstd</Filter>
-    </ClInclude>
     <ClInclude Include="include\eqlib\EQDX9.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -228,6 +217,48 @@
     </ClInclude>
     <ClInclude Include="include\eqlib\Startup.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\list.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\map.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\memory.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\string.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\type_traits.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\unordered_map.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\unordered_set.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\utility.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\vector.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xhash.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xmemory.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xnode_handle.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xtree.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xutility.h">
+      <Filter>Header Files\eqstd</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -313,7 +344,10 @@
   </ItemGroup>
   <ItemGroup>
     <Natvis Include="src\eqlib.natvis">
-      <Filter>Resource Files</Filter>
+      <Filter>Natvis Files</Filter>
+    </Natvis>
+    <Natvis Include="include\eqstd\eqstd.natvis">
+      <Filter>Natvis Files</Filter>
     </Natvis>
   </ItemGroup>
 </Project>

@@ -99,7 +99,7 @@ void InitializeGlobals()
 	InitializeEQGraphicsOffsets();
 }
 
-void InitializeEQLib()
+bool InitializeEQLib(EQLibConfiguration* config)
 {
 	eqAlloc_ = eqAllocImpl;
 	eqFree_ = eqFreeImpl;
@@ -109,6 +109,8 @@ void InitializeEQLib()
 	InitializeUI();
 	InitializeCXWnd();
 	InitializeCXStr();
+
+	return true;
 }
 
 void InitializeEQLibForTesting()

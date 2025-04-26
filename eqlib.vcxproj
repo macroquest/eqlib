@@ -193,11 +193,20 @@
     <ClInclude Include="include\eqlib\UITextures.h" />
     <ClInclude Include="include\eqlib\WindowOverride.h" />
     <ClInclude Include="include\eqlib\XMLData.h" />
+    <ClInclude Include="include\eqstd\list.h" />
     <ClInclude Include="include\eqstd\map.h" />
     <ClInclude Include="include\eqstd\memory.h" />
+    <ClInclude Include="include\eqstd\string.h" />
     <ClInclude Include="include\eqstd\type_traits.h" />
+    <ClInclude Include="include\eqstd\unordered_map.h" />
+    <ClInclude Include="include\eqstd\unordered_set.h" />
+    <ClInclude Include="include\eqstd\utility.h" />
+    <ClInclude Include="include\eqstd\vector.h" />
+    <ClInclude Include="include\eqstd\xhash.h" />
     <ClInclude Include="include\eqstd\xmemory.h" />
+    <ClInclude Include="include\eqstd\xnode_handle.h" />
     <ClInclude Include="include\eqstd\xtree.h" />
+    <ClInclude Include="include\eqstd\xutility.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\resource.h" />
   </ItemGroup>
@@ -260,6 +269,7 @@
     </NASM>
   </ItemGroup>
   <ItemGroup>
+    <Natvis Include="include\eqstd\eqstd.natvis" />
     <Natvis Include="src\eqlib.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

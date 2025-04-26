@@ -14,7 +14,7 @@
       <AdditionalIncludeDirectories>$(eqlibRoot)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <NASM>
-      <IncludePaths>$(eqlibRoot)include\eqlib</IncludePaths>
+      <IncludePaths>$(eqlibRoot)include</IncludePaths>
       <AdditionalDependencies>$(eqlibRoot)include\eqlib\AssemblyMacros.asm;%(AdditionalDependencies)</AdditionalDependencies>
       <PreprocessorDefinitions>$(eqlibClientDefine);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </NASM>

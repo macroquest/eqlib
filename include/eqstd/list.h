@@ -7,8 +7,8 @@
 
 #pragma once
 
-#include "eqlib/eqstd/xmemory.h"
-#include "eqlib/eqstd/xutility.h"
+#include "eqstd/xmemory.h"
+#include "eqstd/xutility.h"
 
 namespace eqstd
 {

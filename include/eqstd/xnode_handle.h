@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "eqlib/eqstd/xmemory.h"
+#include "eqstd/xmemory.h"
 
 #if !_HAS_CXX17
 #error Node handles are only available with C++17. (Also, you should not include this internal header.)

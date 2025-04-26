@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "eqlib/eqstd/xhash.h"
+#include "eqstd/xhash.h"
 
 #include <utility>
 

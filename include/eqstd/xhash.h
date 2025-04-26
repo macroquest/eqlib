@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include "eqlib/eqstd/type_traits.h"
-#include "eqlib/eqstd/list.h"
-#include "eqlib/eqstd/vector.h"
+#include "eqstd/type_traits.h"
+#include "eqstd/list.h"
+#include "eqstd/vector.h"
 
 #if _HAS_CXX17
-#include "eqlib/eqstd/xnode_handle.h"
+#include "eqstd/xnode_handle.h"
 #endif // _HAS_CXX17
 
 #include <xbit_ops.h>

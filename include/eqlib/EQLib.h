@@ -15,58 +15,58 @@
 #pragma once
 
 // EQLib Configuration
-#include "Config.h"
+#include "eqlib/Config.h"
 
 // pull in offsets first
-#include "eqgame.h"
-#include "eqgraphics.h"
-#include "eqmain.h"
+#include "eqlib/eqgame.h"
+#include "eqlib/eqgraphics.h"
+#include "eqlib/eqmain.h"
 
 // Common defines all the commonly used macros, tools, functions, etc
 // that are used by pretty much everything else.
-#include "Common.h"
+#include "eqlib/Common.h"
 
 // Globals that are used throughout the eqlib project
-#include "Globals.h"
+#include "eqlib/Globals.h"
 
 // Data structures and class definitions, broken up by topic. If any of these
 // gets too large, or has too many unrelated components, they should probably
 // be broken up into smaller chunks.
 
 // general purpose utilities
-#include "Allocator.h"
-#include "Containers.h"
-#include "CXStr.h"
-#include "SoeUtil.h"
+#include "eqlib/Allocator.h"
+#include "eqlib/Containers.h"
+#include "eqlib/CXStr.h"
+#include "eqlib/SoeUtil.h"
 
 // data structures - old headers. Eventually these will be consolidated
-#include "EQUIStructs.h"
-#include "EQData.h"
-#include "EQClasses.h"
+#include "eqlib/EQUIStructs.h"
+#include "eqlib/EQData.h"
+#include "eqlib/EQClasses.h"
 
 // ui components
-#include "ChatFilters.h"
-#include "CXWnd.h"
-#include "UI.h"
-#include "XMLData.h"
-#include "UITemplates.h"
-#include "UITextures.h"
+#include "eqlib/ChatFilters.h"
+#include "eqlib/CXWnd.h"
+#include "eqlib/UI.h"
+#include "eqlib/XMLData.h"
+#include "eqlib/UITemplates.h"
+#include "eqlib/UITextures.h"
 
 // game components
-#include "EverQuest.h"
-#include "Achievements.h"
-#include "AltAbilities.h"
-#include "Items.h"
-#include "PlayerClient.h"
-#include "PcClient.h"
-#include "RealEstate.h"
-#include "Spells.h"
+#include "eqlib/EverQuest.h"
+#include "eqlib/Achievements.h"
+#include "eqlib/AltAbilities.h"
+#include "eqlib/Items.h"
+#include "eqlib/PlayerClient.h"
+#include "eqlib/PcClient.h"
+#include "eqlib/RealEstate.h"
+#include "eqlib/Spells.h"
 
 // misc components
-#include "GraphicsEngine.h"
-#include "GraphicsResources.h"
-#include "LoginFrontend.h"
-#include "ItemLinks.h"
+#include "eqlib/GraphicsEngine.h"
+#include "eqlib/GraphicsResources.h"
+#include "eqlib/LoginFrontend.h"
+#include "eqlib/ItemLinks.h"
 
 #if __has_include("../private/EQLib-private.h")
 #include "../private/EQLib-private.h"

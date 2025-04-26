@@ -7,10 +7,10 @@
 
 #pragma once
 
-#include "eqlib/eqstd/type_traits.h"
-#include "eqlib/eqstd/utility.h"
-#include "eqlib/eqstd/xmemory.h"
-#include "eqlib/eqstd/xhash.h"
+#include "eqstd/type_traits.h"
+#include "eqstd/utility.h"
+#include "eqstd/xmemory.h"
+#include "eqstd/xhash.h"
 
 #include <utility>
 
