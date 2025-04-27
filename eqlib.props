@@ -16,7 +16,15 @@
     <NASM>
       <IncludePaths>$(eqlibRoot)include</IncludePaths>
       <AdditionalDependencies>$(eqlibRoot)include\eqlib\AssemblyMacros.asm;%(AdditionalDependencies)</AdditionalDependencies>
-      <PreprocessorDefinitions>$(eqlibClientDefine);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <PreprocessorDefinitions Condition="'$(Platform)'=='x64'">ARCH_X64;$(eqlibClientDefine);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Platform)'=='Win32'">ARCH_X86;$(eqlibClientDefine);%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </NASM>
   </ItemDefinitionGroup>
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(eqlibRoot)tools\build_scripts\nasm\nasm.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(eqlibRoot)tools\build_scripts\nasm\nasm.props" />
+  </ImportGroup>
 </Project>
