@@ -14,60 +14,71 @@
 
 #pragma once
 
-// EQLib Configuration
-#include "eqlib/Config.h"
-
-// pull in offsets first
-#include "eqlib/eqgame.h"
-#include "eqlib/eqgraphics.h"
-#include "eqlib/eqmain.h"
-
 // Common defines all the commonly used macros, tools, functions, etc
 // that are used by pretty much everything else.
 #include "eqlib/Common.h"
 
+// pull in offsets first
+#include "eqlib/offsets/eqgame.h"
+#include "eqlib/offsets/eqgraphics.h"
+#include "eqlib/offsets/eqmain.h"
+
 // Globals that are used throughout the eqlib project
-#include "eqlib/Globals.h"
+#include "eqlib/game/Constants.h"
+#include "eqlib/game/Globals.h"
 
 // Data structures and class definitions, broken up by topic. If any of these
 // gets too large, or has too many unrelated components, they should probably
 // be broken up into smaller chunks.
 
 // general purpose utilities
-#include "eqlib/Allocator.h"
-#include "eqlib/Containers.h"
-#include "eqlib/CXStr.h"
-#include "eqlib/SoeUtil.h"
+#include "eqlib/game/Allocator.h"
+#include "eqlib/game/Color.h"
+#include "eqlib/game/Containers.h"
+#include "eqlib/game/CXStr.h"
+#include "eqlib/game/SoeUtil.h"
+#include "eqlib/game/MathTypes.h"
+#include "eqlib/game/Mutex.h"
+#include "eqlib/game/SerializeBuffer.h"
+#include "eqlib/game/Types.h"
 
 // data structures - old headers. Eventually these will be consolidated
-#include "eqlib/EQUIStructs.h"
-#include "eqlib/EQData.h"
-#include "eqlib/EQClasses.h"
+#include "eqlib/game/EQClasses.h"
+#include "eqlib/game/EQData.h"
 
 // ui components
-#include "eqlib/ChatFilters.h"
-#include "eqlib/CXWnd.h"
-#include "eqlib/UI.h"
-#include "eqlib/XMLData.h"
-#include "eqlib/UITemplates.h"
-#include "eqlib/UITextures.h"
+#include "eqlib/game/ChatFilters.h"
+#include "eqlib/game/CXWnd.h"
+#include "eqlib/game/UI.h"
+#include "eqlib/game/UITemplates.h"
+#include "eqlib/game/UITextures.h"
+#include "eqlib/game/UITypes.h"
+#include "eqlib/game/XMLData.h"
 
 // game components
-#include "eqlib/EverQuest.h"
-#include "eqlib/Achievements.h"
-#include "eqlib/AltAbilities.h"
-#include "eqlib/Items.h"
-#include "eqlib/PlayerClient.h"
-#include "eqlib/PcClient.h"
-#include "eqlib/RealEstate.h"
-#include "eqlib/Spells.h"
+#include "eqlib/game/Actors.h"
+#include "eqlib/game/Achievements.h"
+#include "eqlib/game/AltAbilities.h"
+#include "eqlib/game/EQGuid.h"
+#include "eqlib/game/EverQuest.h"
+#include "eqlib/game/Items.h"
+#include "eqlib/game/Objects.h"
+#include "eqlib/game/PcClient.h"
+#include "eqlib/game/PcProfile.h"
+#include "eqlib/game/PlayerClient.h"
+#include "eqlib/game/RealEstate.h"
+#include "eqlib/game/Requirements.h"
+#include "eqlib/game/Spells.h"
+#include "eqlib/game/TaskSystem.h"
 
 // misc components
-#include "eqlib/GraphicsEngine.h"
-#include "eqlib/GraphicsResources.h"
-#include "eqlib/LoginFrontend.h"
-#include "eqlib/ItemLinks.h"
+#include "eqlib/game/GraphicsEngine.h"
+#include "eqlib/game/GraphicsResources.h"
+#include "eqlib/game/ItemLinks.h"
+#include "eqlib/game/KeyCombo.h"
+#include "eqlib/game/LoginFrontend.h"
 
+// add private include
 #if __has_include("../private/EQLib-private.h")
 #include "../private/EQLib-private.h"
 #endif

@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "eqlib/CXWnd.h"
+#include "eqlib/game/CXWnd.h"
 
 namespace eqlib {
 

@@ -14,23 +14,20 @@
 
 #pragma once
 
-#include "eqstd/list.h"
-#include "eqstd/map.h"
-#include "eqstd/memory.h"
-#include "eqstd/string.h"
-#include "eqstd/type_traits.h"
-#include "eqstd/unordered_map.h"
-#include "eqstd/unordered_set.h"
-#include "eqstd/utility.h"
-#include "eqstd/vector.h"
+#include "eqlib/Common.h"
 
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
+#include <d3d9.h>
+#include <wil/com.h>
+#include <guiddef.h>
 
-#include <spdlog/spdlog.h>
+namespace eqlib {
 
+using Direct3D9 = IDirect3D9;
+using Direct3DDevice9 = IDirect3DDevice9;
+using Direct3DSwapChain9 = IDirect3DSwapChain9;
+using Direct3DTexture9 = IDirect3DTexture9;
+using Direct3DSurface9 = IDirect3DSurface9;
+using Direct3DVertexBuffer9 = IDirect3DVertexBuffer9;
+using Direct3DIndexBuffer9 = IDirect3DIndexBuffer9;
+
+} // namespace eqlib

@@ -36,3 +36,7 @@
 #define EQLIB_OBJECT __declspec(dllimport)
 #endif // !EQLIB_EXPORTS
 #endif // !EQLIB_STATIC
+
+#ifndef IMGUI_CONVERSION_FUNCTIONS
+#define IMGUI_CONVERSION_FUNCTIONS 1
+#endif

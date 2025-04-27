@@ -12,25 +12,11 @@
  * GNU General Public License for more details.
  */
 
-#pragma once
+#include "pch.h"
 
-#include "eqstd/list.h"
-#include "eqstd/map.h"
-#include "eqstd/memory.h"
-#include "eqstd/string.h"
-#include "eqstd/type_traits.h"
-#include "eqstd/unordered_map.h"
-#include "eqstd/unordered_set.h"
-#include "eqstd/utility.h"
-#include "eqstd/vector.h"
+#include "eqlib/game/PcProfile.h"
 
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
+namespace eqlib {
 
-#include <spdlog/spdlog.h>
 
+} // namespace eqlib

@@ -14,23 +14,42 @@
 
 #pragma once
 
-#include "eqstd/list.h"
-#include "eqstd/map.h"
-#include "eqstd/memory.h"
-#include "eqstd/string.h"
-#include "eqstd/type_traits.h"
-#include "eqstd/unordered_map.h"
-#include "eqstd/unordered_set.h"
-#include "eqstd/utility.h"
-#include "eqstd/vector.h"
+#include "eqlib/Common.h"
 
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
+#include "eqlib/Deprecate.h"
 
-#include <spdlog/spdlog.h>
+namespace eqlib {
 
+union RGB
+{
+	struct
+	{
+		uint8_t Blue;
+		uint8_t Green;
+		uint8_t Red;
+		uint8_t Alpha;
+	};
+	uint32_t ARGB;
+};
+
+struct ARGBCOLOR
+{
+	union
+	{
+		struct
+		{
+			uint8_t B;
+			uint8_t G;
+			uint8_t R;
+			uint8_t A;
+		};
+
+		uint32_t ARGB;
+	};
+};
+using PARGBCOLOR DEPRECATE("Use ARGBCOLOR* instead of PARGBCOLOR") = ARGBCOLOR *;
+
+} // namespace eqlib
+
+// Actually a windef.h type, but we use it nontheless. Needs to match the windows definition.
+typedef unsigned long COLORREF;

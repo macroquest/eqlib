@@ -14,23 +14,12 @@
 
 #pragma once
 
-#include "eqstd/list.h"
-#include "eqstd/map.h"
-#include "eqstd/memory.h"
-#include "eqstd/string.h"
-#include "eqstd/type_traits.h"
-#include "eqstd/unordered_map.h"
-#include "eqstd/unordered_set.h"
-#include "eqstd/utility.h"
-#include "eqstd/vector.h"
+#if defined(DEPRECATE)
+#undef (DEPRECATE)
+#endif
 
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
-
-#include <spdlog/spdlog.h>
-
+#if defined(COMMENT_UPDATER)
+#define DEPRECATE(x)
+#else
+#define DEPRECATE(x) [[deprecated(x)]]
+#endif

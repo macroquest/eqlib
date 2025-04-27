@@ -14,9 +14,11 @@
 
 #include "pch.h"
 
-#include "eqlib/base/Offsets.h"
-#include "eqlib/Globals.h"
 #include "eqlib/Startup.h"
+#include "eqlib/Offsets.h"
+
+#include "eqlib/EQLib.h"
+#include "eqlib/game/Globals.h"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/stdout_color_sinks.h>

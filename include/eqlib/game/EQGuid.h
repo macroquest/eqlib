@@ -14,23 +14,27 @@
 
 #pragma once
 
-#include "eqstd/list.h"
-#include "eqstd/map.h"
-#include "eqstd/memory.h"
-#include "eqstd/string.h"
-#include "eqstd/type_traits.h"
-#include "eqstd/unordered_map.h"
-#include "eqstd/unordered_set.h"
-#include "eqstd/utility.h"
-#include "eqstd/vector.h"
+#include <cstdint>
 
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
+namespace eqlib {
 
-#include <spdlog/spdlog.h>
+union EqGuid
+{
+	uint64_t GUID;
 
+	struct
+	{
+		uint32_t UniqueEntityID;
+		uint16_t WorldUniqueID;
+		uint16_t Reserved;
+	};
+
+	operator uint64_t() const { return GUID; }
+	explicit operator bool() const { return GUID != 0; }
+	bool operator==(EqGuid& other) { return GUID == other.GUID; }
+	bool operator!=(EqGuid& other) { return GUID != other.GUID; }
+
+	EqGuid() : GUID(0) {}
+};
+
+} // namespace eqlib

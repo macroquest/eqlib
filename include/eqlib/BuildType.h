@@ -26,12 +26,14 @@
 //----------------------------------------------------------------------------
 #if !defined(RC_INVOKED)
 
-#include "eqlib/Expansions.h"
-#include "eqlib/eqgame.h"
+// Grab eqgame offset which is used for build identification
+#include "eqlib/offsets/eqgame.h"
+
+// Grab expansion list whic is used for feature checks
+#include "eqlib/game/Expansions.h"
 
 // Defines the expansion level of this build.
 #define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_ROF
-
 
 //----------------------------------------------------------------------------
 // MacroQuest Build Flags

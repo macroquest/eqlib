@@ -13,7 +13,6 @@
 namespace eqstd
 {
 	using std::bidirectional_iterator_tag;
-	using std::_Move_allocator_tag;
 	using std::initializer_list;
 
 	template <class _Mylist, class _Base = _Iterator_base0>
@@ -620,6 +619,10 @@ namespace eqstd
 
 	template <class _Traits>
 	class _Hash;
+
+	struct _Move_allocator_tag {
+		explicit _Move_allocator_tag() = default;
+	};
 
 	template <class _Ty, class _Alloc = allocator<_Ty>>
 	class list { // bidirectional linked list
