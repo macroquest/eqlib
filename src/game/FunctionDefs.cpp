@@ -4014,6 +4014,9 @@ FUNCTION_AT_ADDRESS(void, CEditBaseWnd::SetSel(int, int), CEditBaseWnd__SetSel);
 #endif
 
 // CEditWnd
+#ifdef CEditWnd__ReplaceSelection_x
+FUNCTION_AT_ADDRESS(bool, CEditWnd::ReplaceSelection(CXStr, bool) noexcept, CEditWnd__ReplaceSelection);
+#endif
 #ifdef CEditWnd__GetLineForPrintableChar_x
 FUNCTION_AT_ADDRESS(int, CEditWnd::GetLineForPrintableChar(int) const, CEditWnd__GetLineForPrintableChar);
 #endif
@@ -4099,6 +4102,11 @@ FUNCTION_AT_ADDRESS(void, CLabel::SetAlignCenter(bool), CLabel__SetAlignCenter);
 // CListWnd
 //----------------------------------------------------------------------------
 
+#ifdef CListWnd__AddColumn1_x
+FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width,
+	uint32_t Flags, CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver,
+	bool bResizeable, CXSize TextureSize, CXPoint TextureOffset) noexcept, CListWnd__AddColumn1);
+#endif
 #ifdef CListWnd__GetCurSel_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetCurSel() const, CListWnd__GetCurSel);
 #endif
@@ -4410,6 +4418,15 @@ FUNCTION_AT_ADDRESS(void, CStmlWnd::GoToBackHistoryLink(), CStmlWnd__GoToBackHis
 #endif
 #ifdef CStmlWnd__CanGoBackward_x
 FUNCTION_AT_ADDRESS(bool, CStmlWnd::CanGoBackward(), CStmlWnd__CanGoBackward);
+#endif
+#ifdef CStmlWnd__AppendSTML_x
+FUNCTION_AT_ADDRESS(CXSize, CStmlWnd::AppendSTML(CXStr) noexcept, CStmlWnd__AppendSTML);
+#endif
+#ifdef CStmlWnd__GetVisibleText_x
+FUNCTION_AT_ADDRESS(CXStr, CStmlWnd::GetVisibleText(CXStr, const CXRect&) const noexcept, CStmlWnd__GetVisibleText);
+#endif
+#ifdef CStmlWnd__SetSTMLText_x
+FUNCTION_AT_ADDRESS(void, CStmlWnd::SetSTMLText(CXStr, bool, SLinkInfo*) noexcept, CStmlWnd__SetSTMLText);
 #endif
 
 FUNCTION_AT_ADDRESS(CXStr, CStmlWnd::MakeWndNotificationTag(uint32_t, const CXStr&, const CXStr&), CStmlWnd__MakeWndNotificationTag);
@@ -5314,6 +5331,9 @@ FUNCTION_AT_ADDRESS(void, CGuildMgmtWnd::LoadINI(), CGuildMgmtWnd__LoadINI);
 #ifdef CHelpWnd__CHelpWnd_x
 FUNCTION_AT_ADDRESS(CHelpWnd::CHelpWnd(CXWnd*), CHelpWnd__CHelpWnd);
 #endif
+#ifdef CHelpWnd__SetFile_x
+FUNCTION_AT_ADDRESS(void, CHelpWnd::SetFile(CXStr) noexcept, CHelpWnd__SetFile);
+#endif
 
 //----------------------------------------------------------------------------
 // CHotButtonWnd
@@ -5513,6 +5533,15 @@ FUNCTION_AT_ADDRESS(int, CKeyRingWnd::ExecuteRightClick(KeyRingType keyRingType,
 #endif
 
 #endif // HAS_KEYRING_WINDOW
+
+//----------------------------------------------------------------------------
+// CLargeDialogWnd
+//----------------------------------------------------------------------------
+
+#ifdef CLargeDialogWnd__Open_x
+FUNCTION_AT_ADDRESS(void, CLargeDialogWnd::Open(bool bYesNoEnabled, CXStr DialogText, unsigned long closeTimer/*0 means never*/,
+	CXStr DialogTitle, bool bShowVolumeControls, CXStr YesText, CXStr NoText) noexcept, CLargeDialogWnd__Open);
+#endif
 
 //----------------------------------------------------------------------------
 // CLootWnd
@@ -6452,6 +6481,9 @@ FUNCTION_AT_ADDRESS(CEditWnd*, CChatWindow::GetInputWnd(), CChatWindow__GetInput
 #endif
 #ifdef CChatWindow__WndNotification_x
 FUNCTION_AT_ADDRESS(int, CChatWindow::WndNotification(CXWnd*, uint32_t, void*), CChatWindow__WndNotification);
+#endif
+#ifdef CChatWindow__AddHistory_x
+FUNCTION_AT_ADDRESS(void, CChatWindow::AddHistory(CXStr) noexcept, CChatWindow__AddHistory);
 #endif
 
 //----------------------------------------------------------------------------

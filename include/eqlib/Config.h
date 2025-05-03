@@ -23,7 +23,7 @@
 
 #ifdef EQLIB_STATIC
 #define EQLIB_API
-#define EQLIB_VAR
+#define EQLIB_VAR extern
 #define EQLIB_OBJECT
 #else
 #ifdef EQLIB_EXPORTS

@@ -402,9 +402,6 @@ class PcClient;
 using CHARINFO = PcClient;
 using PCHARINFO /*[[deprecated]]*/ = PcClient*;
 
-using CHARINFONEW DEPRECATE("Use PcClient instead of CHARINFONEW") = PcClient;
-using CHARINFOOLD DEPRECATE("Use PcClient instead of CHARINFOOLD") = PcClient;
-
 class PcClient;
 class PcZoneClient;
 class PlayerZoneClient;

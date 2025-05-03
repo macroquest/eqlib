@@ -614,7 +614,7 @@ public:
 	EQLIB_OBJECT void FilterInputStr(CXStr&);
 	EQLIB_OBJECT void ProcessText();
 
-	EQLIB_OBJECT bool ReplaceSelection(CXStr, bool bFilter = true);
+	EQLIB_OBJECT bool ReplaceSelection(CXStr, bool bFilter = true) noexcept;
 	bool ReplaceSelection(char ch, bool bFilter = true)
 	{
 		CXStr str(1, ch);
@@ -1006,7 +1006,7 @@ public:
 	EQLIB_OBJECT CXStr GetColumnLabel(int) const;
 	EQLIB_OBJECT int AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width, uint32_t Flags, CXStr Tooltip = "",
 		uint32_t Type = CellTypeTextIcon, CTextureAnimation* pTASelected = nullptr, CTextureAnimation* pTAMouseOver = nullptr,
-		bool bResizeable = false, CXSize TextureSize = {}, CXPoint TextureOffset = {});
+		bool bResizeable = false, CXSize TextureSize = {}, CXPoint TextureOffset = {}) noexcept;
 	EQLIB_OBJECT int AddColumn(const CXStr& Label, int Width, uint32_t Flags, uint32_t Type = CellTypeTextIcon);
 	EQLIB_OBJECT int AddLine(SListWndLine*);
 
@@ -1345,15 +1345,15 @@ public:
 	virtual void SetWindowText(const CXStr&) override;
 
 	EQLIB_OBJECT bool CanGoBackward();
-	EQLIB_OBJECT CXSize AppendSTML(CXStr);
-	EQLIB_OBJECT CXStr GetVisibleText(CXStr, const CXRect&) const;
+	EQLIB_OBJECT CXSize AppendSTML(CXStr) noexcept;
+	EQLIB_OBJECT CXStr GetVisibleText(CXStr, const CXRect&) const noexcept;
 	EQLIB_OBJECT static CXStr MakeStmlColorTag(unsigned long);
 	EQLIB_OBJECT static CXStr MakeWndNotificationTag(uint32_t, const CXStr&, const CXStr&);
 	EQLIB_OBJECT void ActivateLink(SLinkInfo);
 	EQLIB_OBJECT void ForceParseNow();
 	EQLIB_OBJECT void GoToBackHistoryLink();
 	// EQLIB_OBJECT void LoadPage(CXStr, enum ESTMLTargetValue, bool);
-	EQLIB_OBJECT void SetSTMLText(CXStr, bool addToHistory = true, SLinkInfo* = nullptr);
+	EQLIB_OBJECT void SetSTMLText(CXStr, bool addToHistory = true, SLinkInfo* = nullptr) noexcept;
 	EQLIB_OBJECT void SetSTMLTextWithoutHistory(CXStr);
 
 	// protected
@@ -2703,7 +2703,7 @@ public:
 	virtual void Deactivate() override;
 
 	EQLIB_OBJECT void Clear();
-	EQLIB_OBJECT void AddHistory(CXStr Text);
+	EQLIB_OBJECT void AddHistory(CXStr Text) noexcept;
 	EQLIB_OBJECT CEditWnd* GetInputWnd() { return InputWnd; }
 	EQLIB_OBJECT CStmlWnd* GetOutputWnd() { return OutputWnd; }
 
@@ -4072,7 +4072,7 @@ public:
 	virtual int OnProcessFrame() override;
 	virtual int WndNotification(CXWnd*, uint32_t, void*) override;
 
-	EQLIB_OBJECT void SetFile(CXStr);
+	EQLIB_OBJECT void SetFile(CXStr) noexcept;
 };
 
 //============================================================================
@@ -4630,7 +4630,7 @@ class CLargeDialogWnd : public CSidlScreenWnd
 {
 public:
 	EQLIB_OBJECT void Open(bool bYesNoEnabled, CXStr DialogText, unsigned long closeTimer /* 0 means never */,
-		CXStr DialogTitle, bool bShowVolumeControls, CXStr YesText, CXStr NoText);
+		CXStr DialogTitle, bool bShowVolumeControls, CXStr YesText, CXStr NoText) noexcept;
 };
 
 //============================================================================

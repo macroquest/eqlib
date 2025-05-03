@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\eqstd">
+      <UniqueIdentifier>{07e78fd2-2adc-450b-8432-d639c46d1e04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\eqdata">
+      <UniqueIdentifier>{ade88f9f-9650-49b4-ae51-5b53100a8f06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Natvis Files">
+      <UniqueIdentifier>{08ac3404-db3b-47de-a43d-3bc23b2bbb55}</UniqueIdentifier>
+      <Extensions>natvis</Extensions>
+    </Filter>
+    <Filter Include="Header Files\eqlib">
+      <UniqueIdentifier>{8b522328-134c-4088-90f2-44a6dcec0f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\eqlib\game">
+      <UniqueIdentifier>{2b329c50-2c85-4338-99eb-a32982fd8de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\eqlib\offsets">
+      <UniqueIdentifier>{3370b604-9bed-40d1-974c-d0f87f7d85ad}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <NASM Include="src\AssemblyFunctions.asm">
+      <Filter>Source Files</Filter>
+    </NASM>
+    <NASM Include="src\AssemblyFunctions64.asm">
+      <Filter>Source Files</Filter>
+    </NASM>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\EQLibStatic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\eqlib\EQLibStatic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

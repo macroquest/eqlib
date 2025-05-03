@@ -275,13 +275,13 @@
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
     <ClInclude Include="include\eqlib\Deprecate.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\eqlib</Filter>
     </ClInclude>
     <ClInclude Include="include\eqlib\Iterator.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\eqlib</Filter>
     </ClInclude>
-    <ClInclude Include="include\eqlib\WindowsUndefs.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqlib\ComputedPointer.h">
+      <Filter>Header Files\eqlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -310,9 +310,6 @@
       <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="src\game\EverQuest.cpp">
-      <Filter>Source Files\game</Filter>
-    </ClCompile>
-    <ClCompile Include="src\game\ExceptionsDisabled.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="src\game\FunctionDefs.cpp">
