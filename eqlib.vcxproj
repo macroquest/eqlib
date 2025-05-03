@@ -143,9 +143,11 @@
     <ClInclude Include="include\eqdata\spelleffects.h" />
     <ClInclude Include="include\eqlib\BuildType.h" />
     <ClInclude Include="include\eqlib\Common.h" />
+    <ClInclude Include="include\eqlib\ComputedPointer.h" />
     <ClInclude Include="include\eqlib\Config.h" />
     <ClInclude Include="include\eqlib\Deprecate.h" />
     <ClInclude Include="include\eqlib\EQLib.h" />
+    <ClInclude Include="include\eqlib\ForeignPointer.h" />
     <ClInclude Include="include\eqlib\game\Achievements.h" />
     <ClInclude Include="include\eqlib\game\Actors.h" />
     <ClInclude Include="include\eqlib\game\Allocator.h" />

@@ -274,6 +274,12 @@
     <ClInclude Include="include\eqlib\Offsets.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
+    <ClInclude Include="include\eqlib\ForeignPointer.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\WindowsUndefs.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
     <ClInclude Include="include\eqlib\Deprecate.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>

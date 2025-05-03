@@ -15,6 +15,7 @@
 #pragma once
 
 #include "eqlib/Common.h"
+#include "eqlib/ForeignPointer.h"
 #include "eqlib/SizeChecks.h"
 
 #include "eqlib/game/Achievements.h"
@@ -1774,5 +1775,13 @@ inline namespace deprecated {
 // PcClient
 // CharacterBase
 SIZE_CHECK(PcClient, PcClient_size);
+
+// Pointer to the instance of our own PcClient.
+EQLIB_VAR ForeignPointer<PcClient> pLocalPC;
+
+// Deprecated alternate naming of pLocalPC. Use pLocalPC instead of pCharData.
+EQLIB_VAR ForeignPointer<PcClient> pCharData DEPRECATE("Use pLocalPC instead of pCharData");
+// Deprecated alternate naming of pLocalPC. Use pLocalPC instead of pPCData.
+EQLIB_VAR ForeignPointer<PcClient> pPCData DEPRECATE("Use pLocalPC instead of pPCData");
 
 } // namespace eqlib

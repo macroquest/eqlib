@@ -15,6 +15,7 @@
 #pragma once
 
 #include "eqlib/Common.h"
+#include "eqlib/ForeignPointer.h"
 #include "eqlib/SizeChecks.h"
 
 #include "eqlib/game/Actors.h"
@@ -940,5 +941,25 @@ inline namespace deprecated {
 }
 
 SIZE_CHECK(PlayerClient, PlayerClient_size);
+
+// The local player
+EQLIB_VAR ForeignPointer<PlayerClient> pLocalPlayer;
+
+// The player that thte user is currently controlling (mount, eye of zomm, etc).
+EQLIB_VAR ForeignPointer<PlayerClient> pControlledPlayer;
+
+// The current target
+EQLIB_VAR ForeignPointer<PlayerClient> pTarget;
+
+EQLIB_VAR ForeignPointer<PlayerClient> pActiveBanker;
+EQLIB_VAR ForeignPointer<PlayerClient> pActiveCorpse;
+EQLIB_VAR ForeignPointer<PlayerClient> pActiveGMaster;
+EQLIB_VAR ForeignPointer<PlayerClient> pActiveMerchant;
+EQLIB_VAR ForeignPointer<PlayerClient> pTradeTarget;
+
+/**
+ * @deprecated The current player. Use pLocalPlayer or pControlledPlayer instead, as appropriate.
+ */
+EQLIB_VAR ForeignPointer<PlayerClient> pCharSpawn;
 
 } // namespace eqlib

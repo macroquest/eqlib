@@ -799,21 +799,6 @@ EQLIB_VAR char*                                      EQADDR_SERVERNAME DEPRECATE
 EQLIB_VAR int*                                       EQADDR_DOABILITYLIST DEPRECATE("Use pEverQuestInfo->combatSkill instead of EQADDR_DOABILITYLIST");
 EQLIB_VAR BYTE*                                      EQADDR_ATTACK DEPRECATE("Use pEverQuestInfo->bAutoAttack instead of EQADDR_ATTACK");
 
-
-// Spawn/Char related
-EQLIB_VAR ForeignPointer<PcClient>                   pCharData /*DEPRECATE("Use pLocalPC instead of pCharData")*/;
-EQLIB_VAR ForeignPointer<PcClient>                   pPCData /*DEPRECATE("Use pLocalPC instead of pPCData")*/;
-EQLIB_VAR ForeignPointer<PcClient>                   pLocalPC;
-EQLIB_VAR ForeignPointer<PlayerClient>               pActiveBanker;
-EQLIB_VAR ForeignPointer<PlayerClient>               pActiveCorpse;
-EQLIB_VAR ForeignPointer<PlayerClient>               pActiveGMaster;
-EQLIB_VAR ForeignPointer<PlayerClient>               pActiveMerchant;
-EQLIB_VAR ForeignPointer<PlayerClient>               pCharSpawn /*DEPRECATE("pCharSpawn is deprecated. Use either pLocalPlayer (for your own player) or pControlledPlayer (for the player that your movement controls)")*/;
-EQLIB_VAR ForeignPointer<PlayerClient>               pControlledPlayer; // the controlled player (mount, eye of zomm, etc)
-EQLIB_VAR ForeignPointer<PlayerClient>               pLocalPlayer;      // the local player
-EQLIB_VAR ForeignPointer<PlayerClient>               pTarget;
-EQLIB_VAR ForeignPointer<PlayerClient>               pTradeTarget;
-
 // Non-UI Foreign Pointers (pointer types in eq)
 EQLIB_VAR ComputedPointer<AggroMeterManagerClient>   pAggroInfo;
 EQLIB_VAR ForeignPointer<AltAdvManager>              pAltAdvManager;
