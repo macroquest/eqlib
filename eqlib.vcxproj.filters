@@ -124,7 +124,7 @@
     <ClInclude Include="src\resource.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
-    <ClInclude Include="include\eqlib\Startup.h">
+    <ClInclude Include="include\eqlib\Init.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
     <ClInclude Include="include\eqlib\WindowOverride.h">
@@ -283,15 +283,15 @@
     <ClInclude Include="include\eqlib\Deprecate.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
-    <ClInclude Include="include\eqlib\Iterator.h">
+    <ClInclude Include="include\eqlib\ComputedPointer.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
-    <ClInclude Include="include\eqlib\ComputedPointer.h">
+    <ClInclude Include="include\eqlib\Events.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\EQLib.cpp">
+    <ClCompile Include="src\Init.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\pch.cpp">

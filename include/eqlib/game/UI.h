@@ -16,7 +16,6 @@
 
 #include "eqlib/Common.h"
 #include "eqlib/Offsets.h"
-#include "eqlib/Iterator.h"
 
 #include "eqlib/game/ChatFilters.h"
 #include "eqlib/game/ForwardDecls.h"
@@ -30,6 +29,8 @@
 #include "eqlib/game/XMLData.h"
 #include "eqlib/game/UITemplates.h"
 #include "eqlib/game/EQData.h"
+
+#include "mq/base/Iterator.h"
 
 #include <list>
 #include <functional>
@@ -2354,12 +2355,12 @@ public:
 	}
 
 	using BuffIterator = PlayerBuffInfoWrapper::Iterator<BuffWindowPlayerBuffInfoWrapper>;
-	eqlib::IteratorRange<BuffIterator> GetBuffRange() const
+	mq::IteratorRange<BuffIterator> GetBuffRange() const
 	{
 		int maxIndex = GetMaxBuffs();
 		auto window = firstEffectSlot == 0 ? PlayerBuffInfoWrapper::BuffWindow::Buff : PlayerBuffInfoWrapper::BuffWindow::ShortBuff;
 
-		return eqlib::make_iterator_range(BuffIterator(0, maxIndex, window), BuffIterator(maxIndex, maxIndex, window));
+		return mq::make_iterator_range(BuffIterator(0, maxIndex, window), BuffIterator(maxIndex, maxIndex, window));
 	}
 
 	ALT_MEMBER_GETTER_ARRAY(CButtonWnd*, MAX_BUFF_ICONS, pBuffButtons, pBuff);
@@ -5312,11 +5313,11 @@ public:
 	CTextureAnimation* GetBuffIcon(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffIcon(); }
 
 	using BuffIterator = PlayerBuffInfoWrapper::Iterator<PlayerBuffInfoWrapper>;
-	eqlib::IteratorRange<BuffIterator> GetBuffRange() const
+	mq::IteratorRange<BuffIterator> GetBuffRange() const
 	{
 		int maxIndex = GetMaxBuffs();
 
-		return eqlib::make_iterator_range(
+		return mq::make_iterator_range(
 			BuffIterator(0, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Pet),
 			BuffIterator(maxIndex, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Pet)
 		);
@@ -5944,11 +5945,11 @@ public:
 	CTextureAnimation* GetBuffIcon(int buffIndex) const { return GetBuffInfo(buffIndex).GetBuffIcon(); }
 
 	using BuffIterator = PlayerBuffInfoWrapper::Iterator<PlayerBuffInfoWrapper>;
-	eqlib::IteratorRange<BuffIterator> GetBuffRange() const
+	mq::IteratorRange<BuffIterator> GetBuffRange() const
 	{
 		int maxIndex = GetMaxBuffs();
 
-		return eqlib::make_iterator_range(
+		return mq::make_iterator_range(
 			BuffIterator(0, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Target),
 			BuffIterator(maxIndex, maxIndex, PlayerBuffInfoWrapper::BuffWindow::Target)
 		);

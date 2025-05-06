@@ -147,6 +147,7 @@
     <ClInclude Include="include\eqlib\Config.h" />
     <ClInclude Include="include\eqlib\Deprecate.h" />
     <ClInclude Include="include\eqlib\EQLib.h" />
+    <ClInclude Include="include\eqlib\Events.h" />
     <ClInclude Include="include\eqlib\ForeignPointer.h" />
     <ClInclude Include="include\eqlib\game\Achievements.h" />
     <ClInclude Include="include\eqlib\game\Actors.h" />
@@ -191,7 +192,6 @@
     <ClInclude Include="include\eqlib\game\UITextures.h" />
     <ClInclude Include="include\eqlib\game\UITypes.h" />
     <ClInclude Include="include\eqlib\game\XMLData.h" />
-    <ClInclude Include="include\eqlib\Iterator.h" />
     <ClInclude Include="include\eqlib\Logging.h" />
     <ClInclude Include="include\eqlib\MemoryPatcher.h" />
     <ClInclude Include="include\eqlib\Offsets.h" />
@@ -199,7 +199,7 @@
     <ClInclude Include="include\eqlib\offsets\eqgraphics.h" />
     <ClInclude Include="include\eqlib\offsets\eqmain.h" />
     <ClInclude Include="include\eqlib\SizeChecks.h" />
-    <ClInclude Include="include\eqlib\Startup.h" />
+    <ClInclude Include="include\eqlib\Init.h" />
     <ClInclude Include="include\eqlib\WindowOverride.h" />
     <ClInclude Include="include\eqlib\WindowsUndefs.h" />
     <ClInclude Include="include\eqstd\list.h" />
@@ -223,7 +223,7 @@
     <ResourceCompile Include="src\eqlib.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\EQLib.cpp" />
+    <ClCompile Include="src\Init.cpp" />
     <ClCompile Include="src\game\CXStr.cpp" />
     <ClCompile Include="src\game\CXWnd.cpp" />
     <ClCompile Include="src\game\EQClasses.cpp" />

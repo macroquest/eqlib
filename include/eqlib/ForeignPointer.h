@@ -222,4 +222,114 @@ public:
 	}
 };
 
+template <typename T>
+class ForeignReference
+{
+	using ValueType = std::remove_cv_t<std::remove_reference_t<T>>;
+
+public:
+	constexpr ForeignReference(nullptr_t) noexcept
+		: m_ptr(nullptr)
+	{
+	}
+	constexpr explicit ForeignReference(ValueType* ptr) noexcept
+		: m_ptr(ptr)
+	{}
+
+	constexpr explicit ForeignReference(uintptr_t address) noexcept
+		: m_ptr(reinterpret_cast<ValueType*>(address))
+	{}
+
+	constexpr ForeignReference(const ForeignReference& other) noexcept
+	{
+		m_ptr = other.m_ptr;
+	}
+
+	// assignment
+	constexpr ForeignReference& operator=(const ForeignReference& other) noexcept
+	{
+		m_ptr = other.m_ptr;
+		return *this;
+	}
+
+	constexpr ForeignReference& operator=(ForeignReference&& other) noexcept
+	{
+		m_ptr = other.m_ptr;
+		return *this;
+	}
+
+	constexpr ForeignReference& operator=(T value) noexcept
+	{
+		*m_ptr = value;
+		return *this;
+	}
+
+	// getters
+	constexpr const ValueType& get() const noexcept
+	{
+		return *m_ptr;
+	}
+
+	constexpr ValueType& get() noexcept
+	{
+		return *m_ptr;
+	}
+
+	constexpr operator const ValueType& () noexcept
+	{
+		return *m_ptr;
+	}
+
+	// setters
+	constexpr void set(ValueType& value) noexcept
+	{
+		*m_ptr = value;
+	}
+
+	constexpr operator ValueType&() noexcept
+	{
+		return *m_ptr;
+	}
+
+	// comparison operators
+	template <typename U>
+	constexpr bool operator==(const U& other) const noexcept
+	{
+		return *m_ptr == other;
+	}
+
+	template <typename U>
+	constexpr bool operator!=(const U& other) const noexcept
+	{
+		return *m_ptr != other;
+	}
+
+	template <typename U>
+	constexpr bool operator<(const U& other) const noexcept
+	{
+		return *m_ptr < other;
+	}
+
+	template <typename U>
+	constexpr bool operator>(const U& other) const noexcept
+	{
+		return *m_ptr > other;
+	}
+
+	template <typename U>
+	constexpr bool operator<=(const U& other) const noexcept
+	{
+		return *m_ptr <= other;
+	}
+
+	template <typename U>
+	constexpr bool operator>=(const U& other) const noexcept
+	{
+		return *m_ptr >= other;
+	}
+
+private:
+	ValueType* m_ptr;
+};
+
 } // namespace eqlib

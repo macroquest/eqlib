@@ -761,16 +761,20 @@ EQLIB_VAR char**                                     EQMappableCommandList;
 EQLIB_VAR BYTE*                                      EQbCommandStates;
 EQLIB_VAR HMODULE*                                   ghEQMainInstance;
 EQLIB_VAR DWORD*                                     gpbCommandEvent;
+EQLIB_VAR ForeignReference<DWORD>                    gbCommandEvent;
 EQLIB_VAR DWORD*                                     gpMouseEventTime;
+EQLIB_VAR ForeignReference<DWORD>                    gMouseEventTime;
 EQLIB_VAR CDynamicZone*                              pDynamicZone;
 EQLIB_VAR CTribute*                                  pTribute;
 EQLIB_VAR CTribute*                                  pEQMisc DEPRECATE("Use pTribute instead of pEQMisc");
 EQLIB_VAR CEQSuiteTextureLoader*                     pEQSuiteTextureLoader;
-EQLIB_VAR INT*                                       pgCurrentSocial;
+EQLIB_VAR int*                                       pgCurrentSocial;
+EQLIB_VAR ForeignReference<int>                      gCurrentSocial;
 EQLIB_VAR CGuild*                                    pGuild;
 EQLIB_VAR CGuild*                                    pGuildList DEPRECATE("Use pGuild instead of pGuildList");
 EQLIB_VAR CRaid*                                     pRaid;
 EQLIB_VAR DWORD*                                     pScreenMode;
+EQLIB_VAR ForeignReference<DWORD>                    ScreenMode;
 
 EQLIB_VAR SpellLoadout*                              pSpellSets;
 EQLIB_VAR CTaskManager*                              pTaskManager;
@@ -782,13 +786,22 @@ EQLIB_VAR LabelCache*                                g_labelCache;
 
 // pEverQuestInfo pointers
 EQLIB_VAR EverQuestinfo*                             pEverQuestInfo;
+
+// These accessors are all deprecated, and should be using pEverQuestInfo instead.
 EQLIB_VAR int*                                       pScreenX;
+EQLIB_VAR ForeignReference<int>                      ScreenX;
 EQLIB_VAR int*                                       pScreenY;
+EQLIB_VAR ForeignReference<int>                      ScreenY;
 EQLIB_VAR int*                                       pScreenXMax;
+EQLIB_VAR ForeignReference<int>                      ScreenXMax;
 EQLIB_VAR int*                                       pScreenYMax;
+EQLIB_VAR ForeignReference<int>                      ScreenYMax;
 EQLIB_VAR uint8_t*                                   pMouseLook;
+EQLIB_VAR ForeignReference<uint8_t>                  bMouseLook;
 EQLIB_VAR bool*                                      gpbShowNetStatus;
+EQLIB_VAR ForeignReference<bool>                     gbShowNetStatus;
 EQLIB_VAR bool*                                      gpShiftKeyDown;
+EQLIB_VAR ForeignReference<bool>                     gShiftKeyDown;
 EQLIB_VAR EQSOCIAL*                                  pSocialList;
 EQLIB_VAR BYTE*                                      gpAutoFire;
 
@@ -1022,18 +1035,6 @@ EQLIB_VAR DIMOUSESTATE2*                             g_pDIMouseState;
 EQLIB_VAR SDeviceInputProxy*                         g_pDeviceInputProxy;
 
 //----------------------------------------------------------------------------
-
-#define ScreenMode (*pScreenMode)
-#define ScreenX (*pScreenX)
-#define ScreenXMax (*pScreenXMax)
-#define ScreenY (*pScreenY)
-#define ScreenYMax (*pScreenYMax)
-#define bMouseLook (*pMouseLook)
-#define gbCommandEvent (*gpbCommandEvent)
-#define gbShowNetStatus (*gpbShowNetStatus)
-#define gCurrentSocial (*pgCurrentSocial)
-#define gMouseEventTime (*gpMouseEventTime)
-#define gShiftKeyDown (*gpShiftKeyDown)
 
 EQLIB_VAR uintptr_t __ModuleList;
 EQLIB_VAR uintptr_t __ProcessList;

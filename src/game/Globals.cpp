@@ -1029,17 +1029,21 @@ char**                 EQMappableCommandList     = nullptr;
 BYTE*                  EQbCommandStates          = nullptr;
 HMODULE*               ghEQMainInstance          = nullptr;
 DWORD*                 gpbCommandEvent           = nullptr;
+ForeignReference<DWORD> gbCommandEvent           = nullptr;
 DWORD*                 gpMouseEventTime          = nullptr;
+ForeignReference<DWORD> gMouseEventTime          = nullptr;
 CDynamicZone*          pDynamicZone              = nullptr;
 EQLogin*               pEQLogin                  = nullptr;
 CTribute*              pTribute                  = nullptr;
 CTribute*              pEQMisc                   = nullptr;
 CEQSuiteTextureLoader* pEQSuiteTextureLoader     = nullptr;
-INT*                   pgCurrentSocial           = nullptr;
+int*                   pgCurrentSocial           = nullptr;
+ForeignReference<int>  gCurrentSocial            = nullptr;
 CGuild*                pGuild                    = nullptr;
 CGuild*                pGuildList                = nullptr;
 CRaid*                 pRaid                     = nullptr;
 DWORD*                 pScreenMode               = nullptr;
+ForeignReference<DWORD> ScreenMode               = nullptr;
 SpellLoadout*          pSpellSets                = nullptr;
 CTaskManager*          pTaskManager              = nullptr;
 BYTE*                  pTributeActive            = nullptr;
@@ -1050,12 +1054,19 @@ LabelCache*            g_labelCache              = nullptr;
 // pEverQuestInfo pointers
 EverQuestinfo*         pEverQuestInfo            = nullptr;
 int*                   pScreenX                  = nullptr;
+ForeignReference<int>  ScreenX                   = nullptr;
 int*                   pScreenY                  = nullptr;
+ForeignReference<int>  ScreenY                   = nullptr;
 int*                   pScreenXMax               = nullptr;
+ForeignReference<int>  ScreenXMax                = nullptr;
 int*                   pScreenYMax               = nullptr;
+ForeignReference<int>  ScreenYMax                = nullptr;
 uint8_t*               pMouseLook                = nullptr;
+ForeignReference<uint8_t> bMouseLook             = nullptr;
 bool*                  gpbShowNetStatus          = nullptr;
+ForeignReference<bool> gbShowNetStatus           = nullptr;
 bool*                  gpShiftKeyDown            = nullptr; // addr+1=ctrl, addr+2=alt
+ForeignReference<bool> gShiftKeyDown             = nullptr;
 EQSOCIAL*              pSocialList               = nullptr;
 uint8_t*               EQADDR_NOTINCHATMODE      = nullptr;
 uint8_t*               EQADDR_RUNWALKSTATE       = nullptr;
@@ -1297,10 +1308,51 @@ DIMOUSESTATE2*                                   g_pDIMouseState;
 uintptr_t              __ModuleList              = 0;
 uintptr_t              __ProcessList             = 0;
 
+
+// allocate memory as if by using eq's malloc.
+using eqAllocFn = void* (*)(std::size_t amount);
+eqAllocFn eqAlloc_ = nullptr;
+
+void* eqAlloc(std::size_t sz)
+{
+	return eqAlloc_(sz);
+}
+
+// free memory as if by using eq's free.
+using eqFreeFn = void (*)(void*);
+eqFreeFn eqFree_ = nullptr;
+
+void eqFree(void* ptr)
+{
+	eqFree_(ptr);
+}
+
+namespace SoeUtil
+{
+	void* Alloc(size_t bytes, int align) {
+		return eqAlloc(bytes);
+	}
+	void Free(void* p, int align) {
+		return eqFree(p);
+	}
+}
+
+FUNCTION_AT_ADDRESS(void*, eqAllocImpl(size_t), __eq_new);// Exception to Separate Function Addresses
+FUNCTION_AT_ADDRESS(void, eqFreeImpl(void*), __eq_delete);// Exception to Separate Function Addresses
+
 void InitializeGlobalOffsets()
 {
 	__ModuleList = (uintptr_t)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcessModules");
 	__ProcessList = (uintptr_t)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcesses");
+
+	eqAlloc_ = eqAllocImpl;
+	eqFree_ = eqFreeImpl;
+}
+
+void InitializeGlobalsForTesting()
+{
+	eqAlloc_ = malloc;
+	eqFree_ = free;
 }
 
 void InitializeEQGameOffsets()
@@ -1325,19 +1377,23 @@ void InitializeEQGameOffsets()
 	EQMappableCommandList           = (char**)__BindList;
 	ghEQMainInstance                = (HINSTANCE*)__heqmain;
 	gpbCommandEvent                 = (DWORD*)__gpbCommandEvent;
+	gbCommandEvent                  = __gpbCommandEvent;
 	gpMouseEventTime                = (DWORD*)__MouseEventTime;
+	gMouseEventTime                 = __MouseEventTime;
 	pDynamicZone                    = (CDynamicZone*)instDynamicZone;
 	pEQLogin                        = (EQLogin*)pinstEqLogin;
 	pTribute                        = (CTribute*)instTribute;
 #pragma warning(suppress: 4996)
 	pEQMisc                         = (CTribute*)instTribute;
 	pEQSuiteTextureLoader           = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
-	pgCurrentSocial                 = (INT*)__CurrentSocial;
+	pgCurrentSocial                 = (int*)__CurrentSocial;
+	gCurrentSocial                  = __CurrentSocial;
 	pGuild                          = (CGuild*)__Guilds;
 #pragma warning(suppress: 4996)
 	pGuildList                      = (CGuild*)__Guilds;
 	pRaid                           = (CRaid*)instCRaid;
 	pScreenMode                     = (DWORD*)__ScreenMode;
+	ScreenMode                      = __ScreenMode;
 	pTaskManager                    = (CTaskManager*)pinstCTaskManager;
 	pTributeActive                  = (BYTE*)instTributeActive;
 	pZoneInfo                       = (ZONEINFO*)instEQZoneInfo;
@@ -1346,14 +1402,21 @@ void InitializeEQGameOffsets()
 
 	// pEverQuestInfo pointers - to be phased out.
 	pScreenX                        = &pEverQuestInfo->Render_MinX;
+	ScreenX                         = ForeignReference<int>(&pEverQuestInfo->Render_MinX);
 	pScreenY                        = &pEverQuestInfo->Render_MinY;
+	ScreenY                         = ForeignReference<int>(&pEverQuestInfo->Render_MinY);
 	pScreenXMax                     = &pEverQuestInfo->Render_MaxX;
+	ScreenXMax                      = ForeignReference<int>(&pEverQuestInfo->Render_MaxX);
 	pScreenYMax                     = &pEverQuestInfo->Render_MaxY;
+	ScreenYMax                      = ForeignReference<int>(&pEverQuestInfo->Render_MaxY);
 	EQADDR_NOTINCHATMODE            = (uint8_t*)&pEverQuestInfo->KeyboardMode;
 	EQADDR_RUNWALKSTATE             = &pEverQuestInfo->RunMode;
 	pMouseLook                      = &pEverQuestInfo->MouseLook;
+	bMouseLook                      = ForeignReference<uint8_t>(&pEverQuestInfo->MouseLook);
 	gpbShowNetStatus                = &pEverQuestInfo->bNetstat;
+	gbShowNetStatus                 = ForeignReference<bool>(&pEverQuestInfo->bNetstat);
 	gpShiftKeyDown                  = &pEverQuestInfo->bIsPressedShift;
+	gShiftKeyDown                   = ForeignReference<bool>(&pEverQuestInfo->bIsPressedShift);
 	pSocialList                     = &pEverQuestInfo->socials[0][0];
 	pSpellSets                      = &pEverQuestInfo->spellLoadouts[0];
 	gpAutoFire                      = (BYTE*)&pEverQuestInfo->bAutoRangeAttack;

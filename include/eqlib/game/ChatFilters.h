@@ -50,7 +50,7 @@ namespace eqlib {
 #define USERCOLOR_OTHER_HIT_YOU                  266 // 11 - Other hits you
 #define USERCOLOR_YOU_MISS_OTHER                 267 // 12 - You miss other
 #define USERCOLOR_OTHER_MISS_YOU                 268 // 13 - Other misses you
-#define USERCOLOR_DUELS                          269 // 14 - Broadcasts (duels, etc)
+#define USERCOLOR_BROADCAST                      269 // 14 - Broadcasts (duels, etc)
 #define USERCOLOR_SKILLS                         270 // 15 - Skills (ups, non-combat use, etc.)
 #define USERCOLOR_DISCIPLINES                    271 // 16 - Disciplines or special abilities
 #define USERCOLOR_UNUSED001                      272 // 17 - Unused at this time
@@ -137,6 +137,7 @@ namespace eqlib {
 #define USERCOLOR_AGGRO_WARNING                  353 // 98 - Aggro Labels - Warning
 #define USERCOLOR_AGGRO_MOST                     354 // 99 - Aggro Labels - Most
 
+#define USERCOLOR_DUELS                          USERCOLOR_BROADCAST
 
 constexpr int NUM_USER_COLORS = 99;
 

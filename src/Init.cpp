@@ -14,10 +14,8 @@
 
 #include "pch.h"
 
-#include "eqlib/Startup.h"
+#include "eqlib/Init.h"
 #include "eqlib/Offsets.h"
-
-#include "eqlib/EQLib.h"
 #include "eqlib/game/Globals.h"
 
 #include <spdlog/spdlog.h>
@@ -25,37 +23,6 @@
 #include <memory>
 
 namespace eqlib {
-
-// allocate memory as if by using eq's malloc.
-using eqAllocFn = void* (*)(std::size_t amount);
-eqAllocFn eqAlloc_ = nullptr;
-
-void* eqAlloc(std::size_t sz)
-{
-	return eqAlloc_(sz);
-}
-
-// free memory as if by using eq's free.
-using eqFreeFn = void (*)(void*);
-eqFreeFn eqFree_ = nullptr;
-
-void eqFree(void* ptr)
-{
-	eqFree_(ptr);
-}
-
-namespace SoeUtil
-{
-	void* Alloc(size_t bytes, int align) {
-		return eqAlloc(bytes);
-	}
-	void Free(void* p, int align) {
-		return eqFree(p);
-	}
-}
-
-FUNCTION_AT_ADDRESS(void*, eqAllocImpl(size_t), __eq_new);// Exception to Separate Function Addresses
-FUNCTION_AT_ADDRESS(void, eqFreeImpl(void*), __eq_delete);// Exception to Separate Function Addresses
 
 static const std::string logger_name = "eqlib";
 
@@ -101,11 +68,8 @@ void InitializeGlobals()
 	InitializeEQGraphicsOffsets();
 }
 
-bool InitializeEQLib(EQLibConfiguration* config)
+bool InitializeEQLib(LibraryConfig* config)
 {
-	eqAlloc_ = eqAllocImpl;
-	eqFree_ = eqFreeImpl;
-
 	InitializeGlobals();
 
 	InitializeUI();
@@ -113,12 +77,6 @@ bool InitializeEQLib(EQLibConfiguration* config)
 	InitializeCXStr();
 
 	return true;
-}
-
-void InitializeEQLibForTesting()
-{
-	eqAlloc_ = malloc;
-	eqFree_ = free;
 }
 
 void ShutdownEQLib()

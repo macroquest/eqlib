@@ -31,11 +31,6 @@ namespace eqlib {
 CXWnd::VirtualFunctionTable* CXWnd::sm_vftable = nullptr;
 CSidlScreenWnd::VirtualFunctionTable* CSidlScreenWnd::sm_vftable = nullptr;
 
-namespace detail {
-	CXWndTrampoline<CXWnd>::VirtualFunctionTable* s_baseCXWndTrampolineVTable = nullptr;
-	CSidlScreenWndTrampoline<CSidlScreenWnd>::VirtualFunctionTable* s_baseCSidlScreenWndTrampolineVFTable = nullptr;
-}
-
 //----------------------------------------------------------------------------
 
 CONSTRUCTOR_AT_ADDRESS(CXWnd::CXWnd(CXWnd*, uint32_t, CXRect), CXWnd__CXWnd);

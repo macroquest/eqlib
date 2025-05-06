@@ -527,16 +527,6 @@ enum eFilterSkill
 	FILTERSKILL_NONE = 2,
 };
 
-enum eFilterMacro
-{
-	FILTERMACRO_ALL = 0,
-	FILTERMACRO_ENHANCED = 1,
-	FILTERMACRO_NONE = 2,
-	FILTERMACRO_MACROENDED = 3,
-
-	FILTERMACRO_MAX,
-};
-
 // Inventory Slots
 enum eInventorySlot
 {

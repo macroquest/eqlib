@@ -14,21 +14,26 @@
 
 #pragma once
 
+#include "eqlib/Config.h"
+
 namespace eqlib {
 
-template <typename IteratorType>
-struct IteratorRange
+/**
+ * @brief Structure that provides configuration for EQLib.
+ */
+struct LibraryConfig
 {
-	IteratorType i1, i2;
+	/**
+	 * If true, chat events will be enabled in the EventInterface
+	 */
+	bool enableChatFilter = false;
 
-	IteratorType begin() { return i1; }
-	IteratorType end() { return i2; }
+	/**
+	 * If true, incoming network eventst will be enabled in the EventInterface.
+	 */
+	bool enableNetworkEvents = false;
 };
 
-template <typename IteratorType>
-IteratorRange<IteratorType> make_iterator_range(IteratorType i1, IteratorType i2)
-{
-	return IteratorRange<IteratorType>{ i1, i2 };
-}
+EQLIB_API bool InitializeEQLib(LibraryConfig* config);
 
 } // namespace eqlib

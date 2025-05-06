@@ -15,7 +15,7 @@
 #include "eqlib/EQLibStatic.h"
 
 // Include all cpp files from the project to produce a single static lib.
-#include "EQLib.cpp"
+#include "Init.cpp"
 #include "Offsets.cpp"
 
 #include "game/CXStr.cpp"
