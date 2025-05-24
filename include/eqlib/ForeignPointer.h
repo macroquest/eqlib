@@ -275,7 +275,7 @@ public:
 		return *m_ptr;
 	}
 
-	constexpr operator const ValueType& () noexcept
+	constexpr operator const ValueType& () const& noexcept // const-ref context converts to const-ref
 	{
 		return *m_ptr;
 	}
@@ -286,7 +286,12 @@ public:
 		*m_ptr = value;
 	}
 
-	constexpr operator ValueType&() noexcept
+	constexpr operator ValueType&() & noexcept // ref context converts to ref
+	{
+		return *m_ptr;
+	}
+
+	constexpr operator ValueType() && noexcept // r-value ref context converts to value
 	{
 		return *m_ptr;
 	}

@@ -13,7 +13,6 @@
  */
 
 #include "pch.h"
-#include "eqlib/Common.h"
 
 #include "eqlib/game/CXStr.h"
 #include "eqlib/game/Mutex.h"
@@ -41,10 +40,6 @@ void InitializeCXStr()
 {
 	gFreeLists = (CXFreeList*)CXStr__gFreeLists;
 	gCXStrMutex = (CMutexSync*)CXStr__gCXStrAccess;
-}
-
-void ShutdownCXStr()
-{
 }
 
 CXFreeList* internal::GetCXFreeList()

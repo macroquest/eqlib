@@ -18,6 +18,9 @@
 
 namespace eqlib {
 
+class EQGroundItem;
+class PlayerClient;
+
 /**
  * Event parameters for OnChatMessage.
  */
@@ -102,9 +105,9 @@ struct UniversalChatMessageParams
 /**
  * Event parameters for OnIncomingNetworkMessage
  */
-struct IncomingNetworkMessageParams
+struct IncomingWorldMessageParams
 {
-	
+	// NYI
 };
 
 /**
@@ -114,6 +117,74 @@ class EventInterface
 {
 public:
 	virtual ~EventInterface() {}
+
+	/**
+	 * Event that occurs every frame.
+	 */
+	virtual void OnProcessFrame()
+	{
+	}
+
+	/**
+	 * Event that occurs when the game state changes
+	 */
+	virtual void OnGameStateChanged(int newGameState)
+	{
+		UNUSED(newGameState);
+	}
+
+	/**
+	 * Event that occurs when the game has entered the login frontend of the client. This is when it would
+	 * be most appropriate to handle any kind of initialization that is specific to the login flow.
+	 */
+	virtual void OnLoginFrontendEntered()
+	{
+	}
+
+	/**
+	 * Event that occurs when the game has left the login frontend of the client. This will occur just prior
+	 * to entering the character select screen. This is when it would be most appropriate to handle any kind of
+	 * tear down form the login flow.
+	 */
+	virtual void OnLoginFrontendExited()
+	{
+	}
+
+	/**
+	 * Event that occurs when the SIDL UI system has loaded. This is when it would be most appropriate
+	 * to create new UI windows.
+	 *
+	 * Requires that UI system events are enabled in configuration.
+	 */
+	virtual void OnCreateUI()
+	{
+	}
+
+	/**
+	 * Event that occurs when the SIDL UI system is about to be destroyed. This is when it would be most
+	 * appropriate to tear down any UI windows that were created.
+	 *
+	 * Requires that UI system events are enabled in configuration.
+	 */
+	virtual void OnDestroyUI()
+	{
+	}
+
+	/**
+	 * Event that occurs when the player is about to zone. This is a good time to perform any zone-specific
+	 * cleanup prior to loading the new zone.
+	 */
+	virtual void OnPreZoneUI()
+	{
+	}
+
+	/**
+	 * Event that occurs when the player has finished zoning. This is a good time to perform any zone-specific
+	 * initialization after entering a new zone.
+	 */
+	virtual void OnPostZoneUI()
+	{
+	}
 
 	/**
 	 * Event that occurs when a standard chat message is received by the client.
@@ -129,7 +200,7 @@ public:
 
 	/**
 	 * Event that occurs when a message is received through a tell window
-	 * The receiver can modify the parametesr or filter the message out by returning true.
+	 * The receiver can modify the parameters or filter the message out by returning true.
 	 *
 	 * Requires that chat filtering is enabled in configuration.
 	 */
@@ -150,15 +221,54 @@ public:
 	}
 
 	/**
-	 * Event that occurs when an incoming message is received on an udp connection.
-	 * The receiver 
+	 * Event that occurs when a world message is received on an udp connection.
 	 *
-	 * Requires that incoming network message events are enabled in configuration.
+	 * Requires that world message events are enabled in configuration.
 	 */
-	virtual bool OnIncomingNetworkMessage(IncomingNetworkMessageParams& params)
+	virtual bool OnIncomingWorldMessage(IncomingWorldMessageParams& params)
 	{
 		UNUSED(params);
 		return false;
+	}
+
+	/**
+	 * Event that occurs when a new PlayerClient ("Spawn") is created and added to the world.
+	 *
+	 * Requires actor events to be enabled in configuration.
+	 */
+	virtual void OnSpawnAdded(PlayerClient* player)
+	{
+		UNUSED(player);
+	}
+
+	/**
+	 * Event that occurs when a PlayerClient ("Spawn") is removed from the world.
+	 *
+	 * Requires actor events to be enabled in configuration.
+	 */
+	virtual void OnSpawnRemoved(PlayerClient* player)
+	{
+		UNUSED(player);
+	}
+
+	/*
+	 * Event that occurs when a ground item is added to the world.
+	 *
+	 * Requires actor events to be enabled in configuration.
+	 */
+	virtual void OnGroundItemAdded(EQGroundItem* groundItem)
+	{
+		UNUSED(groundItem);
+	}
+
+	/*
+	 * Event that occurs when a ground item is removed from the world.
+	 *
+	 * Requires actor events to be enabled in configuration.
+	 */
+	virtual void OnGroundItemRemoved(EQGroundItem* groundItem)
+	{
+		UNUSED(groundItem);
 	}
 };
 

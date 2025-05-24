@@ -74,6 +74,7 @@ DIKEYID gDiKeyID[] = {
 };
 
 const char* gDiKeyName[256];
+const char* szEQMappableCommands[nEQMappableCommands];
 
 ServerID ServerIDArray[static_cast<int>(ServerID::NumServers)] = {
 	ServerID::Test,
@@ -1355,6 +1356,45 @@ void InitializeGlobalsForTesting()
 	eqFree_ = free;
 }
 
+void InitializeGlobals()
+{
+	ZeroMemory(gDiKeyName, sizeof(gDiKeyName));
+	for (int i = 0; gDiKeyID[i].Id; i++)
+	{
+		gDiKeyName[gDiKeyID[i].Id] = gDiKeyID[i].szName;
+	}
+
+	ZeroMemory(szEQMappableCommands, sizeof(szEQMappableCommands));
+	for (int i = 0; i < nNormalEQMappableCommands; i++)
+	{
+		szEQMappableCommands[i] = EQMappableCommandList[i];
+	}
+
+	szEQMappableCommands[nNormalEQMappableCommands +  0] = "INSERT";
+	szEQMappableCommands[nNormalEQMappableCommands +  1] = "ERASE";
+	szEQMappableCommands[nNormalEQMappableCommands +  2] = "CHAT_SEMICOLON";   // ; chat mode
+	szEQMappableCommands[nNormalEQMappableCommands +  3] = "CHAT_SLASH";       // / chat mode
+	szEQMappableCommands[nNormalEQMappableCommands +  4] = "UNKNOWN483";
+	szEQMappableCommands[nNormalEQMappableCommands +  5] = "UNKNOWN484";
+	szEQMappableCommands[nNormalEQMappableCommands +  6] = "INSTANT_CAMP";
+	szEQMappableCommands[nNormalEQMappableCommands +  7] = "UNKNOWN486";
+	szEQMappableCommands[nNormalEQMappableCommands +  8] = "UNKNOWN487";
+	szEQMappableCommands[nNormalEQMappableCommands +  9] = "TOGGLE_KEYBOARD_MODE";
+	szEQMappableCommands[nNormalEQMappableCommands + 10] = "TOGGLE_WINDOW_MODE";
+	szEQMappableCommands[nNormalEQMappableCommands + 11] = "UNKNOWN490";
+	szEQMappableCommands[nNormalEQMappableCommands + 12] = "UNKNOWN491";
+	szEQMappableCommands[nNormalEQMappableCommands + 13] = "TOGGLE_FACEPICK";
+	szEQMappableCommands[nNormalEQMappableCommands + 14] = "CHARSELECT_NEXTCHAR";
+	szEQMappableCommands[nNormalEQMappableCommands + 15] = "CHARSELECT_PREVCHAR";
+	szEQMappableCommands[nNormalEQMappableCommands + 16] = "CHARSELECT_QUIT";
+	szEQMappableCommands[nNormalEQMappableCommands + 17] = "CHARSELECT_ENTERGAME";
+	szEQMappableCommands[nNormalEQMappableCommands + 18] = "CHARSELECT_NEXTPAGE";
+	szEQMappableCommands[nNormalEQMappableCommands + 19] = "CHARSELECT_PREVPAGE";
+	szEQMappableCommands[nNormalEQMappableCommands + 20] = "CHAT_BRACKET";     // [ chat mode
+
+	InitializeGlobalOffsets();
+}
+
 void InitializeEQGameOffsets()
 {
 	if (!EQGameBaseAddress)
@@ -1512,42 +1552,55 @@ void InitializeEQGameOffsets()
 //============================================================================
 //
 // EQGraphicsDX9.dll Offsets
-INITIALIZE_EQGRAPHICS_OFFSET(__eqgraphics_fopen);
-INITIALIZE_EQGRAPHICS_OFFSET(CEQGBitmap__GetFirstBitmap);
-INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__Render);
-INITIALIZE_EQGRAPHICS_OFFSET(CParticleSystem__CreateSpellEmitter);
-INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderScene);
-INITIALIZE_EQGRAPHICS_OFFSET(CRender__RenderBlind);
-INITIALIZE_EQGRAPHICS_OFFSET(CRender__UpdateDisplay);
-INITIALIZE_EQGRAPHICS_OFFSET(CRender__ResetDevice);
-INITIALIZE_EQGRAPHICS_OFFSET(C2DPrimitiveManager__AddCachedText);
-INITIALIZE_EQGRAPHICS_OFFSET(C2DPrimitiveManager__Render);
-INITIALIZE_EQGRAPHICS_OFFSET(ObjectPreviewView__Render);
+uintptr_t __eqgraphics_fopen = 0;
+uintptr_t CEQGBitmap__GetFirstBitmap = 0;
+uintptr_t CParticleSystem__Render = 0;
+uintptr_t CParticleSystem__CreateSpellEmitter = 0;
+uintptr_t CRender__RenderScene = 0;
+uintptr_t CRender__RenderBlind = 0;
+uintptr_t CRender__UpdateDisplay = 0;
+uintptr_t CRender__ResetDevice = 0;
+uintptr_t C2DPrimitiveManager__AddCachedText = 0;
+uintptr_t C2DPrimitiveManager__Render = 0;
+uintptr_t ObjectPreviewView__Render = 0;
 
-INITIALIZE_EQGRAPHICS_OFFSET(__bRenderSceneCalled);
-BOOL* g_bRenderSceneCalled = (BOOL*)__bRenderSceneCalled;
+uintptr_t __bRenderSceneCalled = 0;
+BOOL* g_bRenderSceneCalled = nullptr;
 
-void InitializeEQGraphicsOffsets()
+void InitializeEQGraphicsOffsets(uintptr_t BaseAddress)
 {
-	if (!EQGraphicsBaseAddress)
-	{
-		// no EQGraphicsDx9.dll loaded yet
-		HMODULE hLibrary = LoadLibrary("EQGraphicsDX9.dll");
-		EQGraphicsBaseAddress = (uintptr_t)hLibrary;
+	EQGraphicsBaseAddress = BaseAddress;
 
-		__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);
-		CEQGBitmap__GetFirstBitmap = FixEQGraphicsOffset(CEQGBitmap__GetFirstBitmap_x);
-		CParticleSystem__Render = FixEQGraphicsOffset(CParticleSystem__Render_x);
-		CParticleSystem__CreateSpellEmitter = FixEQGraphicsOffset(CParticleSystem__CreateSpellEmitter_x);
-		CRender__RenderScene = FixEQGraphicsOffset(CRender__RenderScene_x);
-		CRender__RenderBlind = FixEQGraphicsOffset(CRender__RenderBlind_x);
-		CRender__UpdateDisplay = FixEQGraphicsOffset(CRender__UpdateDisplay_x);
-		CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
-		g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
-		C2DPrimitiveManager__AddCachedText = FixEQGraphicsOffset(C2DPrimitiveManager__AddCachedText_x);
-		C2DPrimitiveManager__Render = FixEQGraphicsOffset(C2DPrimitiveManager__Render_x);
-		ObjectPreviewView__Render = FixEQGraphicsOffset(ObjectPreviewView__Render_x);
-	}
+	__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);
+	CEQGBitmap__GetFirstBitmap = FixEQGraphicsOffset(CEQGBitmap__GetFirstBitmap_x);
+	CParticleSystem__Render = FixEQGraphicsOffset(CParticleSystem__Render_x);
+	CParticleSystem__CreateSpellEmitter = FixEQGraphicsOffset(CParticleSystem__CreateSpellEmitter_x);
+	CRender__RenderScene = FixEQGraphicsOffset(CRender__RenderScene_x);
+	CRender__RenderBlind = FixEQGraphicsOffset(CRender__RenderBlind_x);
+	CRender__UpdateDisplay = FixEQGraphicsOffset(CRender__UpdateDisplay_x);
+	CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
+	g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
+	C2DPrimitiveManager__AddCachedText = FixEQGraphicsOffset(C2DPrimitiveManager__AddCachedText_x);
+	C2DPrimitiveManager__Render = FixEQGraphicsOffset(C2DPrimitiveManager__Render_x);
+	ObjectPreviewView__Render = FixEQGraphicsOffset(ObjectPreviewView__Render_x);
+}
+
+void CleanupEQGraphicsOffsets()
+{
+	EQGraphicsBaseAddress = 0;
+
+	__eqgraphics_fopen = 0;
+	CEQGBitmap__GetFirstBitmap = 0;
+	CParticleSystem__Render = 0;
+	CParticleSystem__CreateSpellEmitter = 0;
+	CRender__RenderScene = 0;
+	CRender__RenderBlind = 0;
+	CRender__UpdateDisplay = 0;
+	CRender__ResetDevice = 0;
+	g_bRenderSceneCalled = nullptr;
+	C2DPrimitiveManager__AddCachedText = 0;
+	C2DPrimitiveManager__Render = 0;
+	ObjectPreviewView__Render = 0;
 }
 
 #pragma endregion
@@ -1584,70 +1637,65 @@ ForeignPointer<LoginClient> g_pLoginClient;
 ForeignPointer<LoginController> g_pLoginController;
 ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 
-bool InitializeEQMainOffsets()
+void InitializeEQMainOffsets(uintptr_t BaseAddress)
 {
-	if (*ghEQMainInstance)
-	{
-		EQMainBaseAddress = (uintptr_t)*ghEQMainInstance;
+	EQMainBaseAddress = BaseAddress;
 
-		EQMain__CEQSuiteTextureLoader__GetTexture = FixEQMainOffset(EQMain__CEQSuiteTextureLoader__GetTexture_x);
-		EQMain__CLoginViewManager__HandleLButtonUp = FixEQMainOffset(EQMain__CLoginViewManager__HandleLButtonUp_x);
+	EQMain__CEQSuiteTextureLoader__GetTexture = FixEQMainOffset(EQMain__CEQSuiteTextureLoader__GetTexture_x);
+	EQMain__CLoginViewManager__HandleLButtonUp = FixEQMainOffset(EQMain__CLoginViewManager__HandleLButtonUp_x);
 #if defined(EQMain__CXWndManager__GetCursorToDisplay_x)
-		EQMain__CXWndManager__GetCursorToDisplay = FixEQMainOffset(EQMain__CXWndManager__GetCursorToDisplay_x);
+	EQMain__CXWndManager__GetCursorToDisplay = FixEQMainOffset(EQMain__CXWndManager__GetCursorToDisplay_x);
 #endif
-		EQMain__LoginController__GiveTime = FixEQMainOffset(EQMain__LoginController__GiveTime_x);
-		EQMain__LoginServerAPI__JoinServer = FixEQMainOffset(EQMain__LoginServerAPI__JoinServer_x);
-		EQMain__LoginController__Shutdown = FixEQMainOffset(EQMain__LoginController__Shutdown_x);
-		EQMain__WndProc = FixEQMainOffset(EQMain__WndProc_x);
+	EQMain__LoginController__GiveTime = FixEQMainOffset(EQMain__LoginController__GiveTime_x);
+	EQMain__LoginServerAPI__JoinServer = FixEQMainOffset(EQMain__LoginServerAPI__JoinServer_x);
+	EQMain__LoginController__Shutdown = FixEQMainOffset(EQMain__LoginController__Shutdown_x);
+	EQMain__WndProc = FixEQMainOffset(EQMain__WndProc_x);
 
-		EQMain__pinstCEQSuiteTextureLoader = FixEQMainOffset(EQMain__pinstCEQSuiteTextureLoader_x);
-		EQMain__pinstCLoginViewManager = FixEQMainOffset(EQMain__pinstCLoginViewManager_x);
-		EQMain__pinstCSidlManager = FixEQMainOffset(EQMain__pinstCSidlManager_x);
-		EQMain__pinstCXWndManager = FixEQMainOffset(EQMain__pinstCXWndManager_x);
-		EQMain__pinstLoginController = FixEQMainOffset(EQMain__pinstLoginController_x);
-		EQMain__pinstLoginServerAPI = FixEQMainOffset(EQMain__pinstLoginServerAPI_x);
-		EQMain__pinstLoginClient = EQMain__pinstCLoginViewManager - sizeof(uintptr_t);
+	EQMain__pinstCEQSuiteTextureLoader = FixEQMainOffset(EQMain__pinstCEQSuiteTextureLoader_x);
+	EQMain__pinstCLoginViewManager = FixEQMainOffset(EQMain__pinstCLoginViewManager_x);
+	EQMain__pinstCSidlManager = FixEQMainOffset(EQMain__pinstCSidlManager_x);
+	EQMain__pinstCXWndManager = FixEQMainOffset(EQMain__pinstCXWndManager_x);
+	EQMain__pinstLoginController = FixEQMainOffset(EQMain__pinstLoginController_x);
+	EQMain__pinstLoginServerAPI = FixEQMainOffset(EQMain__pinstLoginServerAPI_x);
+	EQMain__pinstLoginClient = EQMain__pinstCLoginViewManager - sizeof(uintptr_t);
 
-		if (EQMain__LoginController__GiveTime)
-		{
+	if (EQMain__LoginController__GiveTime)
+	{
 #if defined(_M_AMD64)
-			//.text:18001BAC0                     public: void __thiscall LoginController::GiveTime(void) proc near
-			//.text:18001BAC0 40 53                               push    rbx
-			//.text:18001BAC2 48 83 EC 20                         sub     rsp, 20h
-			//.text:18001BAC6 48 8B D9                            mov     rbx, rcx
-			//.text:18001BAC9 E8 02 02 00 00                      call    LoginController::PollAndProcessDXKeyboard(void)
-			EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 9, 1, 4);
-			//.text:18001BACE 48 8B CB                            mov     rcx, rbx
-			//.text:18001BAD1 48 83 C4 20                         add     rsp, 20h
-			//.text:18001BAD5 5B                                  pop     rbx
-			//.text:18001BAD6 E9 25 06 00 00                      jmp     LoginController::PollAndProcessDXMouse(void)
-			EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 22, 1, 4);
+		//.text:18001BAC0                     public: void __thiscall LoginController::GiveTime(void) proc near
+		//.text:18001BAC0 40 53                               push    rbx
+		//.text:18001BAC2 48 83 EC 20                         sub     rsp, 20h
+		//.text:18001BAC6 48 8B D9                            mov     rbx, rcx
+		//.text:18001BAC9 E8 02 02 00 00                      call    LoginController::PollAndProcessDXKeyboard(void)
+		EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 9, 1, 4);
+		//.text:18001BACE 48 8B CB                            mov     rcx, rbx
+		//.text:18001BAD1 48 83 C4 20                         add     rsp, 20h
+		//.text:18001BAD5 5B                                  pop     rbx
+		//.text:18001BAD6 E9 25 06 00 00                      jmp     LoginController::PollAndProcessDXMouse(void)
+		EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 22, 1, 4);
 #else
-			//.text:10014B00                      public: void __thiscall LoginController::GiveTime(void) proc near
-			//.text:10014B00 56                                   push    esi
-			//.text:10014B01 8B F1                                mov     esi, this
-			//.text:10014B03 E8 D8 06 00 00                       call    LoginController::ProcessKeyboardEvents(void)
-			EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 3, 1, 4);
-			//.text:10014B08 8B CE                                mov     this, esi       ; this
-			//.text:10014B0A 5E                                   pop     esi
-			//.text:10014B0B E9 A0 08 00 00                       jmp     LoginController::ProcessMouseEvents(void)
-			EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 11, 1, 4);
+		//.text:10014B00                      public: void __thiscall LoginController::GiveTime(void) proc near
+		//.text:10014B00 56                                   push    esi
+		//.text:10014B01 8B F1                                mov     esi, this
+		//.text:10014B03 E8 D8 06 00 00                       call    LoginController::ProcessKeyboardEvents(void)
+		EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 3, 1, 4);
+		//.text:10014B08 8B CE                                mov     this, esi       ; this
+		//.text:10014B0A 5E                                   pop     esi
+		//.text:10014B0B E9 A0 08 00 00                       jmp     LoginController::ProcessMouseEvents(void)
+		EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 11, 1, 4);
 #endif
-		}
-
-		g_pLoginViewManager = EQMain__pinstCLoginViewManager;
-		g_pLoginController = EQMain__pinstLoginController;
-		g_pLoginServerAPI = EQMain__pinstLoginServerAPI;
-		g_pLoginClient = EQMain__pinstLoginClient;
-
-		// Update addresses shared with eqgame.exe
-		CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
-		pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)EQMain__pinstCEQSuiteTextureLoader;
-
-		return true;
 	}
 
-	return false;
+	g_pLoginViewManager = EQMain__pinstCLoginViewManager;
+	g_pLoginController = EQMain__pinstLoginController;
+	g_pLoginServerAPI = EQMain__pinstLoginServerAPI;
+	g_pLoginClient = EQMain__pinstLoginClient;
+
+	// Update addresses shared with eqgame.exe
+	CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
+	pEQSuiteTextureLoader             = (CEQSuiteTextureLoader*)EQMain__pinstCEQSuiteTextureLoader;
+	pWndMgr                           = EQMain__pinstCXWndManager;
+	pSidlMgr                          = EQMain__pinstCSidlManager;
 }
 
 void CleanupEQMainOffsets()
@@ -1678,8 +1726,10 @@ void CleanupEQMainOffsets()
 	g_pLoginClient.reset();
 
 	// re-initialize offsets that were overwritten by eqmain
-	pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
 	CEQSuiteTextureLoader__GetTexture = FixEQGameOffset(CEQSuiteTextureLoader__GetTexture_x);
+	pEQSuiteTextureLoader             = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
+	pWndMgr                           = pinstCXWndManager;
+	pSidlMgr                          = pinstCSidlManager;
 }
 
 #pragma endregion

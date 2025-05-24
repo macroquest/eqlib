@@ -18,19 +18,25 @@
 
 namespace eqlib {
 
-// These don't change during the execution of the program. They can be loaded
-// at static initialization time because of this.
-uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
+// The name of eqmain.dll
+constexpr const wchar_t* EQMainModuleName = L"eqmain.dll";
 
+// The name of eqgraphics.dll
 #if HAS_DIRECTX_9
-uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle("EQGraphicsDX9.dll");
+constexpr const wchar_t* EQGraphicsModuleName = L"EQGraphicsDX9.dll";
 #else
-uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle("EQGraphics.dll");
+constexpr const wchar_t* EQGraphicsModuleName = L"EQGraphics.dll";
 #endif
 
-uintptr_t EQMainBaseAddress = (uintptr_t)GetModuleHandle("eqmain.dll");
+// These don't change during the execution of the program. They can be loaded
+// at static initialization time because of this.
+uintptr_t EQGameBaseAddress = (uintptr_t)::GetModuleHandleW(nullptr);
 
-uintptr_t Kernel32BaseAddress = (uintptr_t)GetModuleHandle("kernel32.dll");
+uintptr_t EQGraphicsBaseAddress = (uintptr_t)::GetModuleHandleW(EQGraphicsModuleName);
+
+uintptr_t EQMainBaseAddress = (uintptr_t)::GetModuleHandleW(EQMainModuleName);
+
+uintptr_t Kernel32BaseAddress = (uintptr_t)::GetModuleHandleW(L"kernel32.dll");
 
 #pragma warning(push)
 #pragma warning(disable: 4312) // remove the warnings for the reinterpret cast from pointer to byte

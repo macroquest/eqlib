@@ -430,9 +430,22 @@ constexpr int MAX_HOTBUTTON_WNDS = 12;
 
 // KeypressHandler__HandleKeyUp_x has this one
 constexpr int nEQMappableCommands = 500;
-
 // found using __BindList_x
-constexpr int nNormalEQMappableCommands = nEQMappableCommands - 22;
+constexpr int nNormalEQMappableCommands = 479;
+
+constexpr int GAMESTATE_PRECHARSELECT = -1;
+constexpr int GAMESTATE_CHARSELECT = 1;
+constexpr int GAMESTATE_CHARCREATE = 2;
+constexpr int GAMESTATE_POSTCHARSELECT = 3;
+constexpr int GAMESTATE_SOMETHING = 4;
+constexpr int GAMESTATE_INGAME = 5;
+constexpr int GAMESTATE_LOGGINGIN = 253;
+constexpr int GAMESTATE_UNLOADING = 255;
+
+constexpr int XKF_SHIFT              = 1;
+constexpr int XKF_CTRL               = 2;
+constexpr int XKF_LALT               = 4;
+constexpr int XKF_RALT               = 8;
 
 // left, right, mid, aux1-5
 constexpr int NUM_MOUSE_BUTTONS = 8;

@@ -192,7 +192,6 @@
     <ClInclude Include="include\eqlib\game\UITextures.h" />
     <ClInclude Include="include\eqlib\game\UITypes.h" />
     <ClInclude Include="include\eqlib\game\XMLData.h" />
-    <ClInclude Include="include\eqlib\Logging.h" />
     <ClInclude Include="include\eqlib\MemoryPatcher.h" />
     <ClInclude Include="include\eqlib\Offsets.h" />
     <ClInclude Include="include\eqlib\offsets\eqgame.h" />
@@ -216,6 +215,10 @@
     <ClInclude Include="include\eqstd\xnode_handle.h" />
     <ClInclude Include="include\eqstd\xtree.h" />
     <ClInclude Include="include\eqstd\xutility.h" />
+    <ClInclude Include="src\EQLibImpl.h" />
+    <ClInclude Include="src\eqlibVersionInfo.h" />
+    <ClInclude Include="src\Logging.h" />
+    <ClInclude Include="src\MemoryPatcherImpl.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\resource.h" />
   </ItemGroup>
@@ -223,7 +226,7 @@
     <ResourceCompile Include="src\eqlib.rc" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Init.cpp" />
+    <ClCompile Include="src\EQLibImpl.cpp" />
     <ClCompile Include="src\game\CXStr.cpp" />
     <ClCompile Include="src\game\CXWnd.cpp" />
     <ClCompile Include="src\game\EQClasses.cpp" />
@@ -241,6 +244,7 @@
     <ClCompile Include="src\game\UITemplates.cpp" />
     <ClCompile Include="src\game\UITextures.cpp" />
     <ClCompile Include="src\game\XMLData.cpp" />
+    <ClCompile Include="src\MemoryPatcherImpl.cpp" />
     <ClCompile Include="src\Offsets.cpp" />
     <ClCompile Include="src\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>

@@ -50,6 +50,12 @@ EQLIB_VAR uintptr_t EQMainBaseAddress;
 // the base address of kernel32.dll
 EQLIB_VAR uintptr_t Kernel32BaseAddress;
 
+// The name of eqmain.dll
+EQLIB_VAR constexpr const wchar_t* EQMainModuleName;
+
+// The name of eqgraphics.dll
+EQLIB_VAR constexpr const wchar_t* EQGraphicsModuleName;
+
 // These macros are used for statically building offsets. If using dynamic offset generation
 // with the pattern matching, don't use the macro.
 

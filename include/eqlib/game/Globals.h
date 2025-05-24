@@ -65,6 +65,7 @@ EQLIB_VAR DIKEYID gDiKeyID[];
 EQLIB_VAR const char* gDiKeyName[256];
 
 EQLIB_VAR const char* szExpansions[NUM_EXPANSIONS + 1];
+EQLIB_VAR const char* szEQMappableCommands[eqlib::nEQMappableCommands];
 
 //============================================================================
 // EQGame.exe Offsets
@@ -1107,8 +1108,11 @@ EQLIB_API bool GetLabelFromEQ(int, CXStr*, bool*, COLORREF*);
 
 //----------------------------------------------------------------------------
 
-EQLIB_API bool InitializeEQMainOffsets();
+EQLIB_API void InitializeEQMainOffsets(uintptr_t BaseAddress);
 EQLIB_API void CleanupEQMainOffsets();
+
+EQLIB_API void InitializeEQGraphicsOffsets(uintptr_t BaseAddress);
+EQLIB_API void CleanupEQGraphicsOffsets();
 
 //----------------------------------------------------------------------------
 
