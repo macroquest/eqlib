@@ -22,18 +22,36 @@ class EQGroundItem;
 class PlayerClient;
 
 /**
+ * Event parameters for OnReloadGameUI
+ */
+struct ReloadUIParams
+{
+	/**
+	 * True if ini should be used to restore the UI state. Will be false if user requests
+	 * something like /loadskin default 0 to reset the ui.
+	 */
+	bool loadIni;
+
+	/**
+	 * On LS clients, this is true when the UI is being refreshed during a persona switch. Otherwise,
+	 * it will be false.
+	 */
+	bool fastReload;
+};
+
+/**
  * Event parameters for OnChatMessage.
  */
 struct ChatMessageParams
 {
 	/** The chat message. Contains the full original message without any percent replacements or escaping. */
-	const char* chatMessage;
+	const char* message;
 
 	/**
 	 * The message's chat color. Chat colors are used to identify message categories. A full list of
 	 * chat color values can be found in ChatFilters.h (i.e. USERCOLOR_SAY, etc.)
 	 */
-	uint32_t chatColor;
+	int color;
 
 	/** If true, the message will be logged to the eq log file. */
 	bool allowLog;
@@ -47,6 +65,14 @@ struct ChatMessageParams
 	 * ROF2 clients do not support this flag and always escape STML characters.
 	 */
 	bool makeStmlSafe;
+
+
+	using Handler = void(*)(const ChatMessageParams&);
+
+	/**
+	 * Function that can be called to handle the chat message.
+	 */
+	Handler handleMessage = nullptr;
 };
 
 /**
@@ -55,7 +81,13 @@ struct ChatMessageParams
 struct TellWindowMessageParams
 {
 	/** The chat message. Includes only the body of the message. */
-	const char* messageBody;
+	const char* message;
+
+	/**
+	 * The message's chat color. Chat colors are used to identify message categories. A full list of
+	 * chat color values can be found in ChatFilters.h (i.e. USERCOLOR_SAY, etc.)
+	 */
+	int color;
 
 	/** The sender of the message. */
 	const char* senderName;
@@ -66,40 +98,19 @@ struct TellWindowMessageParams
 	 */
 	const char* conversationName;
 
-	/**
-	 * The message's chat color. Chat colors are used to identify message categories. A full list of
-	 * chat color values can be found in ChatFilters.h (i.e. USERCOLOR_SAY, etc.)
-	 */
-	uint32_t chatColor;
+	/** If using an alternate language, this is the language name. i.e. "Common Tongue" */
+	const char* language;
 
 	/** If true, the message will be logged to the eq log file. */
 	bool allowLog;
-};
 
-/**
- * Event parameters for OnUniversalChatMessage.
- */
-struct UniversalChatMessageParams
-{
-	/**
-	 * Name of the player
-	 */
-	const char* playerName;
+
+	using Handler = void(*)(const TellWindowMessageParams&);
 
 	/**
-	 * Name of the channel
+	 * Function that can be called to handle the chat message.
 	 */
-	const char* channelName;
-
-	/**
-	 * Channel number
-	 */
-	int channelNumber;
-
-	/**
-	 * True if entering the channel. False if leaving.
-	 */
-	bool isEntering;
+	Handler handleMessage;
 };
 
 /**
@@ -151,22 +162,18 @@ public:
 	}
 
 	/**
-	 * Event that occurs when the SIDL UI system has loaded. This is when it would be most appropriate
-	 * to create new UI windows.
-	 *
-	 * Requires that UI system events are enabled in configuration.
+	 * Event that occurs when the SIDL UI system is about to be destroyed. This is when it would be most
+	 * appropriate to tear down any UI windows that were created.
 	 */
-	virtual void OnCreateUI()
+	virtual void OnCleanUI()
 	{
 	}
 
 	/**
-	 * Event that occurs when the SIDL UI system is about to be destroyed. This is when it would be most
-	 * appropriate to tear down any UI windows that were created.
-	 *
-	 * Requires that UI system events are enabled in configuration.
+	 * Event that occurs when the SIDL UI system has loaded in game. This is when it would be most appropriate
+	 * to create new UI windows for in game.
 	 */
-	virtual void OnDestroyUI()
+	virtual void OnReloadUI(const ReloadUIParams& params)
 	{
 	}
 
@@ -188,36 +195,32 @@ public:
 
 	/**
 	 * Event that occurs when a standard chat message is received by the client.
-	 * The receiver can modify the parametesr or filter the message out by returning true.
+	 *
+	 * To block this message from being received by the client, return false. To modify
+	 * or replace the contents of this message, either modify the parameters, or call
+	 * the `handleMessage` function with the modified parameters.
 	 *
 	 * Requires that chat filtering is enabled in configuration.
 	 */
 	virtual bool OnChatMessage(ChatMessageParams& params)
 	{
 		UNUSED(params);
-		return false;
+		return true;
 	}
 
 	/**
 	 * Event that occurs when a message is received through a tell window
-	 * The receiver can modify the parameters or filter the message out by returning true.
+	 *
+	 * To block this message from being received by the client, return false. To modify
+	 * or replace the contents of this message, either modify the parameters, or call
+	 * the `handleMessage` function with the modified parameters.
 	 *
 	 * Requires that chat filtering is enabled in configuration.
 	 */
 	virtual bool OnTellWindowMessage(TellWindowMessageParams& params)
 	{
 		UNUSED(params);
-		return false;
-	}
-
-	/**
-	 * Event that occurs when a player joins/leaves a universal chat channel.
-	 *
-	 * Requires that chat filtering is enabled in configuration.
-	 */
-	virtual void OnUniversalChatNotification(UniversalChatMessageParams& params)
-	{
-		UNUSED(params);
+		return true;
 	}
 
 	/**

@@ -19,13 +19,13 @@
 namespace eqlib {
 
 // The name of eqmain.dll
-constexpr const wchar_t* EQMainModuleName = L"eqmain.dll";
+const wchar_t* EQMainModuleName = L"eqmain.dll";
 
 // The name of eqgraphics.dll
 #if HAS_DIRECTX_9
-constexpr const wchar_t* EQGraphicsModuleName = L"EQGraphicsDX9.dll";
+const wchar_t* EQGraphicsModuleName = L"EQGraphicsDX9.dll";
 #else
-constexpr const wchar_t* EQGraphicsModuleName = L"EQGraphics.dll";
+const wchar_t* EQGraphicsModuleName = L"EQGraphics.dll";
 #endif
 
 // These don't change during the execution of the program. They can be loaded

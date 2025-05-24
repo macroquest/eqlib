@@ -964,15 +964,13 @@ public:
 	EQLIB_OBJECT void DoNewCharacterCreation();
 	EQLIB_OBJECT void DoPercentConvert(char* line, bool bOutGoing);
 	EQLIB_OBJECT void DoSplit(char*);
-	EQLIB_OBJECT void DoTellWindow(char*, char*, char*, void*, int, bool);
+	EQLIB_OBJECT void DoTellWindow(const char* message, const char* senderName, const char* conversationName, const char* language, int color, bool allowLog = true);
 	EQLIB_OBJECT void OutputTextToLog(const char* Text);
 	EQLIB_OBJECT void doUnInvite(char*);
 	EQLIB_OBJECT void DropHeldItemOnGround(int);
 	EQLIB_OBJECT void DropHeldMoneyOnGround(int);
 	EQLIB_OBJECT void DropItemOrMoneyOnPlayer(PlayerClient*);
-	EQLIB_OBJECT void dsp_chat(const char*);
-	EQLIB_OBJECT void dsp_chat(const char* line, int color = 273, bool bLogIsOk = true, bool bConvertPercent = true, char* SomeStr = NULL);
-	EQLIB_OBJECT void dsp_chat(const char*, int, bool);
+	EQLIB_OBJECT void dsp_chat(const char* message, int color = USERCOLOR_DEFAULT, bool allowLog = true, bool doPercentConversion = true);
 	EQLIB_OBJECT void Emote();
 	EQLIB_OBJECT int Follow();
 	inline int Follow(int) { return Follow(); }

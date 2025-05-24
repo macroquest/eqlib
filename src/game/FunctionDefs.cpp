@@ -1954,13 +1954,13 @@ FUNCTION_AT_ADDRESS(char*, CEverQuest::stripName(char*), CEverQuest__stripName);
 FUNCTION_AT_ADDRESS(void, CEverQuest::clr_chat_input(), CEverQuest__clr_chat_input);
 #endif
 #ifdef CEverQuest__dsp_chat_x
-FUNCTION_AT_ADDRESS(void, CEverQuest::dsp_chat(const char* line, int color, bool bLogIsOk, bool bConvertPercent, char* SomeStr), CEverQuest__dsp_chat);
+FUNCTION_AT_ADDRESS(void, CEverQuest::dsp_chat(const char* message, int color, bool allowLog, bool doPercentConversion), CEverQuest__dsp_chat);
 #endif
 #ifdef CEverQuest__OutputTextToLog_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::OutputTextToLog(const char* Text), CEverQuest__OutputTextToLog);
 #endif
 #ifdef CEverQuest__DoTellWindow_x
-FUNCTION_AT_ADDRESS(void, CEverQuest::DoTellWindow(char* message, char* name, char* name2, void* unknown, int color, bool b), CEverQuest__DoTellWindow);
+FUNCTION_AT_ADDRESS(void, CEverQuest::DoTellWindow(const char* message, const char* senderName, const char* conversationName, const char* language, int color, bool allowLog), CEverQuest__DoTellWindow);
 #endif
 #ifdef CEverQuest__dsp_chat1_x
 FUNCTION_AT_ADDRESS(void, CEverQuest::dsp_chat(const char*), CEverQuest__dsp_chat1);

@@ -36,12 +36,11 @@ class EventInterface;
 enum class ConfigFlags
 {
 	None                          = 0,
-	EnableUILifecycleEvents       = 1 << 0, /** Enable ui lifecycle events in the EventInterface */
-	EnableActorEvents             = 1 << 1, /** Enable actor events in the EventInterface */
-	EnableChatEvents              = 1 << 2, /** Enable chat events in the EventInterface */
-	EnableNetworkEvents           = 1 << 3, /** Enable network events in the EventInterface */
+	EnableActorEvents             = 1 << 0, /** Enable actor events in the EventInterface */
+	EnableChatEvents              = 1 << 1, /** Enable chat events in the EventInterface */
+	EnableNetworkEvents           = 1 << 2, /** Enable network events in the EventInterface */
 
-	EnableAllEvents = EnableUILifecycleEvents | EnableActorEvents | EnableChatEvents | EnableNetworkEvents,
+	EnableAllEvents = EnableActorEvents | EnableChatEvents | EnableNetworkEvents,
 };
 constexpr bool has_bitwise_operations(ConfigFlags) { return true; }
 

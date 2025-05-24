@@ -21,6 +21,7 @@
 #include "eqlib/game/Constants.h"
 #include "eqlib/game/EverQuest.h"
 #include "eqlib/game/Globals.h"
+#include "eqlib/game/UI.h"
 
 #include "mq/base/Enum.h"
 #include "mq/base/WString.h"
@@ -49,10 +50,7 @@ EQLibImpl::EQLibImpl(LibraryConfig* config)
 {
 	if (config)
 	{
-		m_isStaticLoad = config->isStaticLoad;
-
 		logger = config->logger;
-		m_enableUIEvents = !!(config->flags & ConfigFlags::EnableUILifecycleEvents);
 		m_enableActorEvents = !!(config->flags & ConfigFlags::EnableActorEvents);
 		m_enableChatFilter = !!(config->flags & ConfigFlags::EnableChatEvents);
 		m_enableNetworkEvents = !!(config->flags & ConfigFlags::EnableNetworkEvents);
@@ -126,8 +124,6 @@ void EQLibImpl::HandleProcessGameEvents()
 		if (m_zoning
 			&& (currentGameState == GAMESTATE_CHARSELECT || currentGameState == GAMESTATE_CHARCREATE))
 		{
-			m_zoning = false;
-
 			HandleZoneMainUI();
 		}
 	}
@@ -148,6 +144,34 @@ void EQLibImpl::HandleSetGameState(int gameState)
 	}
 }
 
+void EQLibImpl::HandleCleanGameUI()
+{
+	if (m_eventReceiver)
+	{
+		m_eventReceiver->OnCleanUI();
+	}
+}
+
+void EQLibImpl::HandleReloadUI(const ReloadUIParams& params)
+{
+	InitializeInGameUI();
+
+	if (m_eventReceiver)
+	{
+		m_eventReceiver->OnReloadUI(params);
+	}
+}
+
+void EQLibImpl::HandleCreateCharSelectUI()
+{
+	InitializeInGameUI();
+
+	//if (m_eventReceiver)
+	//{
+	//	m_eventReceiver->OnCreateCharSelectUI();
+	//}
+}
+
 void EQLibImpl::HandlePreZoneMainUI()
 {
 	m_zoning = true;
@@ -162,7 +186,7 @@ void EQLibImpl::HandleZoneMainUI()
 {
 	m_zoning = false;
 
-	if (m_enableUIEvents)
+	if (m_eventReceiver)
 	{
 		m_eventReceiver->OnPostZoneUI();
 	}
@@ -207,21 +231,139 @@ int ProcessGameEvents_Detour()
 	return result;
 }
 
-class CEverQuest_Detours
+class CEverQuest_Detours : public CEverQuest
 {
 public:
-	DETOUR_TRAMPOLINE_DEF(void, SetGameState_Trampoline, (int GameState))
-		void SetGameState_Detour(int GameState)
+	DETOUR_TRAMPOLINE_DEF(void, SetGameState_Trampoline, (int))
+		void SetGameState_Detour(int gameState)
 	{
-		SetGameState_Trampoline(GameState);
+		SetGameState_Trampoline(gameState);
 
-		s_eqlibInstance->HandleSetGameState(GameState);
+		s_eqlibInstance->HandleSetGameState(gameState);
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, dsp_chat_Trampoline, (const char*, int, bool, bool))
+		void dsp_chat_Detour(const char* message, int color = USERCOLOR_DEFAULT, bool allowLog = true, bool doPercentConversion = true)
+	{
+		ChatMessageParams params;
+		params.message = message;
+		params.color = color;
+		params.allowLog = allowLog;
+		params.doPercentConversion = doPercentConversion;
+		params.makeStmlSafe = true;
+
+		if (!s_eqlibInstance->HandleChatMessage(params))
+			return;
+
+		dsp_chat_Trampoline(
+			params.message,
+			params.color,
+			params.allowLog,
+			params.doPercentConversion);
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, DoTellWindow_Trampoline, (const char*, const char*, const char*, const char*, int, bool))
+		void DoTellWindow_Detour(const char* message, const char* senderName, const char* conversationName, const char* language, int color, bool allowLog = true)
+	{
+		TellWindowMessageParams params;
+		params.message = message;
+		params.color = color;
+		params.senderName = senderName;
+		params.conversationName = conversationName;
+		params.language = language;
+		params.allowLog = allowLog;
+
+		if (!s_eqlibInstance->HandleTellWindowMessage(params))
+			return;
+
+		DoTellWindow_Trampoline(
+			params.message,
+			params.senderName,
+			params.conversationName,
+			language,
+			color,
+			allowLog);
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, UniversalChatProxyNotificationFlush_Trampoline, ())
+	void UniversalChatProxyNotificationFlush_Detour()
+	{
+		// In EQ, this function actually calls DisplayChatText, however in the RoF2 client, this call is inlined, and the
+		// chat hook does not capture it. So we will manually render the notification here.
+
+		// in the live client, this is no longer needed because the call is not inlined.
+
+		if (ucNotificationCount > 0)
+		{
+			fmt::memory_buffer buffer;
+			auto iter = fmt::appender(buffer);
+
+			if (ucNotificationEntering)
+				fmt::format_to(iter, "* {} has entered channel ", ucNotificationPlayerName);
+			else
+				fmt::format_to(iter, "* {} has left channel ", ucNotificationPlayerName);
+
+			for (int index = 0; index < ucNotificationCount; index++)
+			{
+				if (index != 0)
+					fmt::format_to(iter, ", {}:{}", ucNotificationChannelName[index], ucNotificationChannelNumber[index] + 1);
+				else
+					fmt::format_to(iter, "{}:{}", ucNotificationChannelName[index], ucNotificationChannelNumber[index] + 1);
+			}
+
+			*iter = 0;
+
+			dsp_chat(buffer.data(), USERCOLOR_CHAT_CHANNEL);
+
+			ucNotificationCount = 0; // reset the notification count
+			ucNotificationPlayerName[0] = 0;
+		}
 	}
 };
 
 class CDisplay_Detours
 {
 public:
+	DETOUR_TRAMPOLINE_DEF(void, CleanGameUI_Trampoline, ())
+	void CleanGameUI_Detour()
+	{
+		s_eqlibInstance->HandleCleanGameUI();
+
+		CleanGameUI_Trampoline();
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, ReloadUI_Trampoline, (bool))
+	void ReloadUI_Detour(bool useIni)
+	{
+		ReloadUI_Trampoline(useIni);
+
+		ReloadUIParams params;
+		params.loadIni = useIni;
+		params.fastReload = false;
+
+		s_eqlibInstance->HandleReloadUI(params);
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, FastReloadUI_Trampoline, ())
+	void FastReloadUI_Detour()
+	{
+		FastReloadUI_Trampoline();
+
+		ReloadUIParams params;
+		params.loadIni = true;
+		params.fastReload = true;
+
+		s_eqlibInstance->HandleReloadUI(params);
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, InitCharSelectUI_Trampoline, ())
+		void InitCharSelectUI_Detour()
+	{
+		InitCharSelectUI_Trampoline();
+
+		s_eqlibInstance->HandleCreateCharSelectUI();
+	}
+
 	DETOUR_TRAMPOLINE_DEF(void, PreZoneMainUI_Trampoline, ())
 	void PreZoneMainUI_Detour()
 	{
@@ -318,8 +460,23 @@ void EQLibImpl::InitializeHooks()
 {
 	m_memoryPatcher->EzDetour(__ProcessGameEvents, ProcessGameEvents_Detour, ProcessGameEvents_Trampoline);
 	m_memoryPatcher->EzDetour(CEverQuest__SetGameState, &CEverQuest_Detours::SetGameState_Detour, &CEverQuest_Detours::SetGameState_Trampoline);
+
+	// TODO: Need to check some of these for overlaps
+	m_memoryPatcher->EzDetour(CDisplay__CleanGameUI, &CDisplay_Detours::CleanGameUI_Detour, &CDisplay_Detours::CleanGameUI_Trampoline);
+	m_memoryPatcher->EzDetour(CDisplay__ReloadUI, &CDisplay_Detours::ReloadUI_Detour, &CDisplay_Detours::ReloadUI_Trampoline);
+	m_memoryPatcher->EzDetour(CDisplay__InitCharSelectUI, &CDisplay_Detours::InitCharSelectUI_Detour, &CDisplay_Detours::InitCharSelectUI_Trampoline);
 	m_memoryPatcher->EzDetour(CDisplay__ZoneMainUI, &CDisplay_Detours::ZoneMainUI_Detour, &CDisplay_Detours::ZoneMainUI_Trampoline);
 	m_memoryPatcher->EzDetour(CDisplay__PreZoneMainUI, &CDisplay_Detours::PreZoneMainUI_Detour, &CDisplay_Detours::PreZoneMainUI_Trampoline);
+#ifdef CDisplay__RestartUI_x
+	m_memoryPatcher->EzDetour(CDisplay__RestartUI, &CDisplay_Detours::FastReloadUI_Detour, &CDisplay_Detours::FastReloadUI_Trampoline);
+#endif
+
+	if (m_enableChatFilter && m_eventReceiver != nullptr)
+	{
+		m_memoryPatcher->EzDetour(CEverQuest__dsp_chat, &CEverQuest_Detours::dsp_chat_Detour, &CEverQuest_Detours::dsp_chat_Trampoline);
+		m_memoryPatcher->EzDetour(CEverQuest__DoTellWindow, &CEverQuest_Detours::DoTellWindow_Detour, &CEverQuest_Detours::DoTellWindow_Trampoline);
+		m_memoryPatcher->EzDetour(CEverQuest__UPCNotificationFlush, &CEverQuest_Detours::UniversalChatProxyNotificationFlush_Detour, &CEverQuest_Detours::UniversalChatProxyNotificationFlush_Trampoline);
+	}
 
 	// Check if EQMain has already been loaded, and hook it if it has.
 	HMODULE hEQMainModule = ::GetModuleHandleW(EQMainModuleName);
@@ -337,7 +494,8 @@ void EQLibImpl::InitializeHooks()
 
 	// Otherwise we wait for any of the modules we need to be loaded.
 	PLDR_REGISTER_DLL_NOTIFICATION pLdrRegisterDllNotification =
-		(PLDR_REGISTER_DLL_NOTIFICATION)GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "LdrRegisterDllNotification");
+		reinterpret_cast<PLDR_REGISTER_DLL_NOTIFICATION>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"),
+			"LdrRegisterDllNotification"));
 	pLdrRegisterDllNotification(0, &LdrDllNotificationCallback, nullptr, &m_loaderNotificationCookie);
 }
 
@@ -347,7 +505,8 @@ void EQLibImpl::ShutdownHooks()
 
 	// Unregister the loader notification callback
 	PLDR_UNREGISTER_DLL_NOTIFICATION pLdrUnregisterDllNotification =
-		(PLDR_UNREGISTER_DLL_NOTIFICATION)GetProcAddress(GetModuleHandleW(L"ntdll.dll"), "LdrUnregisterDllNotification");
+		reinterpret_cast<PLDR_UNREGISTER_DLL_NOTIFICATION>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"),
+			"LdrUnregisterDllNotification"));
 	pLdrUnregisterDllNotification(m_loaderNotificationCookie);
 	m_loaderNotificationCookie = nullptr;
 
@@ -398,6 +557,72 @@ void EQLibImpl::InitializeEQGraphics(uintptr_t BaseAddress)
 	SPDLOG_INFO("Initializing EQGraphics");
 
 	InitializeEQGraphicsOffsets(BaseAddress);
+}
+
+//=================================================================================================
+
+static bool s_handlingDisplayChatText = false;
+static void HandleMessage_DisplayChatText(const ChatMessageParams& params)
+{
+	if (!s_handlingDisplayChatText)
+		return;
+
+	pEverQuest.get_as<CEverQuest_Detours>()->dsp_chat_Trampoline(
+		params.message,
+		params.color,
+		params.allowLog,
+		params.doPercentConversion);
+
+	s_handlingDisplayChatText = false;
+}
+
+bool EQLibImpl::HandleChatMessage(ChatMessageParams& params)
+{
+	params.handleMessage = HandleMessage_DisplayChatText;
+
+	s_handlingDisplayChatText = true;
+
+	bool result = m_eventReceiver->OnChatMessage(params);
+
+	// If we sent the message with the handler, don't try to send it again.
+	if (!s_handlingDisplayChatText)
+		result = false;
+	s_handlingDisplayChatText = false;
+
+	return result;
+}
+
+static bool s_handlingDisplayTellText = false;
+static void HandleMessage_DisplayTellText(const TellWindowMessageParams& params)
+{
+	if (!s_handlingDisplayTellText)
+		return;
+
+	pChatManager.get_as<CEverQuest_Detours>()->DoTellWindow_Trampoline(
+		params.message,
+		params.senderName,
+		params.conversationName,
+		params.language,
+		params.color,
+		params.allowLog);
+
+	s_handlingDisplayTellText = false;
+}
+
+bool EQLibImpl::HandleTellWindowMessage(TellWindowMessageParams& params)
+{
+	params.handleMessage = HandleMessage_DisplayTellText;
+
+	s_handlingDisplayTellText = true;
+
+	bool result = m_eventReceiver->OnTellWindowMessage(params);
+
+	// If we sent the message with the handler, don't try to send it again.
+	if (!s_handlingDisplayTellText)
+		result = false;
+	s_handlingDisplayTellText = false;
+
+	return result;
 }
 
 //=================================================================================================

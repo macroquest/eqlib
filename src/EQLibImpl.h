@@ -14,13 +14,14 @@
 
 #pragma once
 
+#include "eqlib/Events.h"
 #include "eqlib/Init.h"
 
 namespace eqlib {
 
 class MemoryPatcherImpl;
 
-class EQLibImpl : public EQLibInterface
+class EQLibImpl final : public EQLibInterface
 {
 public:
 	EQLibImpl(LibraryConfig* config);
@@ -33,11 +34,16 @@ public:
 
 	void HandleProcessGameEvents();
 	void HandleSetGameState(int gameState);
+	void HandleLoginPulse();
 
+	void HandleCleanGameUI();
+	void HandleReloadUI(const ReloadUIParams& params);
+	void HandleCreateCharSelectUI();
 	void HandlePreZoneMainUI();
 	void HandleZoneMainUI();
 
-	void HandleLoginPulse();
+	bool HandleChatMessage(ChatMessageParams& params);
+	bool HandleTellWindowMessage(TellWindowMessageParams& params);
 
 	void InitializeEQMain(uintptr_t BaseAddress);
 	void ShutdownEQMain();
@@ -52,7 +58,6 @@ private:
 	std::unique_ptr<MemoryPatcherImpl> m_memoryPatcher;
 	EventInterface* m_eventReceiver = nullptr;
 
-	bool m_enableUIEvents = false;
 	bool m_enableActorEvents = false;
 	bool m_enableChatFilter = false;
 	bool m_enableNetworkEvents = false;
