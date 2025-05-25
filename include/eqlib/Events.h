@@ -237,7 +237,7 @@ public:
 	/**
 	 * Event that occurs when a new PlayerClient ("Spawn") is created and added to the world.
 	 *
-	 * Requires actor events to be enabled in configuration.
+	 * Requires spawn events to be enabled in configuration.
 	 */
 	virtual void OnSpawnAdded(PlayerClient* player)
 	{
@@ -247,7 +247,7 @@ public:
 	/**
 	 * Event that occurs when a PlayerClient ("Spawn") is removed from the world.
 	 *
-	 * Requires actor events to be enabled in configuration.
+	 * Requires spawn events to be enabled in configuration.
 	 */
 	virtual void OnSpawnRemoved(PlayerClient* player)
 	{
@@ -257,7 +257,7 @@ public:
 	/*
 	 * Event that occurs when a ground item is added to the world.
 	 *
-	 * Requires actor events to be enabled in configuration.
+	 * Requires spawn events to be enabled in configuration.
 	 */
 	virtual void OnGroundItemAdded(EQGroundItem* groundItem)
 	{
@@ -267,7 +267,7 @@ public:
 	/*
 	 * Event that occurs when a ground item is removed from the world.
 	 *
-	 * Requires actor events to be enabled in configuration.
+	 * Requires spawn events to be enabled in configuration.
 	 */
 	virtual void OnGroundItemRemoved(EQGroundItem* groundItem)
 	{

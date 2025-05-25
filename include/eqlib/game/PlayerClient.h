@@ -796,7 +796,7 @@ public:
 /*0x1229*/ bool              bIdleAnimationOff;
 /*0x122a*/ bool              bIsInteractiveObject;
 /*0x122b*/ uint8_t           InteractiveObjectModelName[0x80];
-/*0x12ab*/ uint8_t           InteractiveObjectOtherName[0x80];
+/*0x12ab*/ uint8_t           InteractiveObjectReplaceName[0x80];
 /*0x132b*/ uint8_t           InteractiveObjectName[0x40];
 /*0x136c*/ CPhysicsInfo      PhysicsBeforeLastPort;
 /*0x139c*/ SFellowship       Fellowship; // 139c

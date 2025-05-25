@@ -21,6 +21,7 @@
 #include "eqlib/game/Constants.h"
 #include "eqlib/game/EverQuest.h"
 #include "eqlib/game/Globals.h"
+#include "eqlib/game/Objects.h"
 #include "eqlib/game/UI.h"
 
 #include "mq/base/Enum.h"
@@ -51,7 +52,7 @@ EQLibImpl::EQLibImpl(LibraryConfig* config)
 	if (config)
 	{
 		logger = config->logger;
-		m_enableActorEvents = !!(config->flags & ConfigFlags::EnableActorEvents);
+		m_enableSpawnEvents = !!(config->flags & ConfigFlags::EnableSpawnEvents);
 		m_enableChatFilter = !!(config->flags & ConfigFlags::EnableChatEvents);
 		m_enableNetworkEvents = !!(config->flags & ConfigFlags::EnableNetworkEvents);
 		m_eventReceiver = config->eventReceiver;
@@ -130,6 +131,16 @@ void EQLibImpl::HandleProcessGameEvents()
 
 	if (m_eventReceiver)
 	{
+		if (!m_pendingGroundItems.empty())
+		{
+			for (EQGroundItem* pGroundItem : m_pendingGroundItems)
+			{
+				m_eventReceiver->OnGroundItemAdded(pGroundItem);
+			}
+
+			m_pendingGroundItems.clear();
+		}
+
 		m_eventReceiver->OnProcessFrame();
 	}
 }
@@ -215,6 +226,34 @@ void EQLibImpl::HandleLoginPulse()
 	if (m_eventReceiver)
 	{
 		m_eventReceiver->OnProcessFrame();
+	}
+}
+
+void EQLibImpl::HandleCreatePlayer(PlayerClient* player)
+{
+	m_eventReceiver->OnSpawnAdded(player);
+}
+
+void EQLibImpl::HandleDestroyPlayer(PlayerClient* player)
+{
+	m_eventReceiver->OnSpawnRemoved(player);
+}
+
+void EQLibImpl::HandleCreateGroundItem(EQGroundItem* groundItem)
+{
+	m_pendingGroundItems.push_back(groundItem);
+}
+
+void EQLibImpl::HandleDestroyGroundItem(EQGroundItem* groundItem)  
+{
+	auto it = std::find(m_pendingGroundItems.begin(), m_pendingGroundItems.end(), groundItem);
+	if (it != m_pendingGroundItems.end())
+	{
+		m_pendingGroundItems.erase(it);
+	}
+	else
+	{
+		m_eventReceiver->OnGroundItemRemoved(groundItem);
 	}
 }
 
@@ -379,6 +418,87 @@ public:
 	}
 };
 
+class PlayerManagerClient_Detours : public PlayerManagerClient
+{
+	static inline uint32_t s_lastRemovedSpawnID = 0;
+
+public:
+	DETOUR_TRAMPOLINE_DEF(PlayerClient*, CreatePlayer_Trampoline, (CUnSerializeBuffer*, uint8_t, EQRace, EQClass, const char*, bool, const char*, const char*))
+	PlayerClient* CreatePlayer_Detour(CUnSerializeBuffer* pBuffer, uint8_t gender, EQRace nRace, EQClass nClass, const char* playerName, bool addToList, const char* ioGroupName, const char* ioReplaceName)
+	{
+		PlayerClient* pSpawn = CreatePlayer_Trampoline(pBuffer, gender, nRace, nClass, playerName, addToList, ioGroupName, ioReplaceName);
+
+		s_eqlibInstance->HandleCreatePlayer(pSpawn);
+
+		// Set the last removed spawn to zero if the ID was reused.
+		if (s_lastRemovedSpawnID == pSpawn->GetId())
+			s_lastRemovedSpawnID = 0;
+
+		return pSpawn;
+	}
+
+	DETOUR_TRAMPOLINE_DEF(PlayerClient*, PrepForDestroyPlayer_Trampoline, (PlayerClient*))
+		PlayerClient* PrepForDestroyPlayer_Detour(PlayerClient* pSpawn)
+	{
+		if (s_lastRemovedSpawnID != pSpawn->GetId())
+		{
+			// Store the ID of the spawn that is being removed so we can check if it is reused.
+			s_lastRemovedSpawnID = pSpawn->GetId();
+			s_eqlibInstance->HandleDestroyPlayer(pSpawn);
+		}
+
+		return PrepForDestroyPlayer_Trampoline(pSpawn);
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, DestroyAllPlayers_Trampoline, ())
+	void DestroyAllPlayers_Detour()
+	{
+		PlayerClient* pSpawn = FirstSpawn;
+		while (pSpawn)
+		{
+			s_eqlibInstance->HandleDestroyPlayer(pSpawn);
+
+			pSpawn = pSpawn->GetNext();
+		}
+
+		return DestroyAllPlayers_Trampoline();
+	}
+};
+
+class EQGroundItemListManager_Detours : public EQGroundItemListManager
+{
+public:
+	DETOUR_TRAMPOLINE_DEF(void, Add_Trampoline, (EQGroundItem*))
+	void Add_Detour(EQGroundItem* groundItem)
+	{
+		Add_Trampoline(groundItem);
+
+		s_eqlibInstance->HandleCreateGroundItem(groundItem);
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, Clear_Trampoline, ())
+	void Clear_Detour()
+	{
+		EQGroundItem* pItem = Top;
+		while (pItem)
+		{
+			s_eqlibInstance->HandleDestroyGroundItem(pItem);
+
+			pItem = pItem->pNext;
+		}
+
+		Clear_Trampoline();
+	}
+
+	DETOUR_TRAMPOLINE_DEF(void, Delete_Trampoline, (EQGroundItem*))
+	void Delete_Detour(EQGroundItem* groundItem)
+	{
+		s_eqlibInstance->HandleDestroyGroundItem(groundItem);
+
+		Delete_Trampoline(groundItem);
+	}
+};
+
 // Used to acquire a pulse during login
 class LoginController_Detours
 {
@@ -476,6 +596,16 @@ void EQLibImpl::InitializeHooks()
 		m_memoryPatcher->EzDetour(CEverQuest__dsp_chat, &CEverQuest_Detours::dsp_chat_Detour, &CEverQuest_Detours::dsp_chat_Trampoline);
 		m_memoryPatcher->EzDetour(CEverQuest__DoTellWindow, &CEverQuest_Detours::DoTellWindow_Detour, &CEverQuest_Detours::DoTellWindow_Trampoline);
 		m_memoryPatcher->EzDetour(CEverQuest__UPCNotificationFlush, &CEverQuest_Detours::UniversalChatProxyNotificationFlush_Detour, &CEverQuest_Detours::UniversalChatProxyNotificationFlush_Trampoline);
+	}
+
+	if (m_enableSpawnEvents && m_eventReceiver != nullptr)
+	{
+		m_memoryPatcher->EzDetour(EQGroundItemListManager__Add, &EQGroundItemListManager_Detours::Add_Detour, &EQGroundItemListManager_Detours::Add_Trampoline);
+		m_memoryPatcher->EzDetour(EQGroundItemListManager__Clear, &EQGroundItemListManager_Detours::Clear_Detour, &EQGroundItemListManager_Detours::Clear_Trampoline);
+		m_memoryPatcher->EzDetour(EQGroundItemListManager__Delete, &EQGroundItemListManager_Detours::Delete_Detour, &EQGroundItemListManager_Detours::Delete_Trampoline);
+		m_memoryPatcher->EzDetour(PlayerManagerClient__CreatePlayer, &PlayerManagerClient_Detours::CreatePlayer_Detour, &PlayerManagerClient_Detours::CreatePlayer_Trampoline);
+		m_memoryPatcher->EzDetour(PlayerManagerBase__PrepForDestroyPlayer, &PlayerManagerClient_Detours::PrepForDestroyPlayer_Detour, &PlayerManagerClient_Detours::PrepForDestroyPlayer_Trampoline);
+		m_memoryPatcher->EzDetour(PlayerManagerBase__DestroyAllPlayers, &PlayerManagerClient_Detours::DestroyAllPlayers_Detour, &PlayerManagerClient_Detours::DestroyAllPlayers_Trampoline);
 	}
 
 	// Check if EQMain has already been loaded, and hook it if it has.

@@ -528,17 +528,6 @@ public:
 	EQLIB_OBJECT void SendTextRequestMsg();
 };
 
-class EQItemList
-{
-public:
-	static class EQItemList* top;
-
-	EQLIB_OBJECT ~EQItemList();
-	EQLIB_OBJECT EQItemList();
-	EQLIB_OBJECT EQItemList* get_item(long);
-	EQLIB_OBJECT EQItemList* is_item_actor(CActorInterface*);
-};
-
 class EQMissile
 {
 public:

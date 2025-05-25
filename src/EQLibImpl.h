@@ -45,6 +45,11 @@ public:
 	bool HandleChatMessage(ChatMessageParams& params);
 	bool HandleTellWindowMessage(TellWindowMessageParams& params);
 
+	void HandleCreatePlayer(PlayerClient* player);
+	void HandleDestroyPlayer(PlayerClient* player);
+	void HandleCreateGroundItem(EQGroundItem* groundItem);
+	void HandleDestroyGroundItem(EQGroundItem* groundItem);
+
 	void InitializeEQMain(uintptr_t BaseAddress);
 	void ShutdownEQMain();
 	void InitializeEQGraphics(uintptr_t BaseAddress);
@@ -58,7 +63,7 @@ private:
 	std::unique_ptr<MemoryPatcherImpl> m_memoryPatcher;
 	EventInterface* m_eventReceiver = nullptr;
 
-	bool m_enableActorEvents = false;
+	bool m_enableSpawnEvents = false;
 	bool m_enableChatFilter = false;
 	bool m_enableNetworkEvents = false;
 	int m_lastGameState = -1;
@@ -67,6 +72,8 @@ private:
 	bool m_inLoginFrontend = false;
 	bool m_loginDetoursInstalled = false;
 	void* m_loaderNotificationCookie = nullptr;
+
+	std::vector<EQGroundItem*> m_pendingGroundItems;
 };
 
 } // namespace eqlib

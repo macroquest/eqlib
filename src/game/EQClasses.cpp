@@ -178,11 +178,11 @@ CAltAbilityData* AltAdvManager::GetOwnedAbilityFromGroupID(PcZoneClient* pc, int
 }
 
 //============================================================================
-// EQItemList
+// EQGroundItem__EQGroundItem
 //============================================================================
 
-#ifdef EQItemList__EQItemList_x
-CONSTRUCTOR_AT_ADDRESS(EQItemList::EQItemList(), EQItemList__EQItemList);
+#ifdef EQGroundItem__EQGroundItem_x
+CONSTRUCTOR_AT_ADDRESS(EQGroundItem::EQGroundItem(), EQGroundItem__EQGroundItem);
 #endif
 
 //============================================================================

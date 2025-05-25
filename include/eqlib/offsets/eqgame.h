@@ -747,12 +747,13 @@
 #define PcZoneClient__RemoveMyAffect_x                             0x57FA50
 
 // EQGroundItemListManager
-#define EQItemList__EQItemList_x                                   0x4DBBD0
-#define EQItemList__add_item_x                                     0x4DBB10
-#define EQItemList__delete_item_x                                  0x4DBFD0
-#define EQItemList__FreeItemList_x                                 0x4DBED0
+#define EQGroundItem__EQGroundItem_x                               0x4DBBD0  // was: EQItemList__EQItemList
+#define EQGroundItemListManager__Add_x                             0x4DBB10  // was: EQItemList__add_item
+#define EQGroundItemListManager__Delete_x                          0x4DBFD0  // was: EQItemList__delete_item
+#define EQGroundItemListManager__Clear_x                           0x4DBED0  // was: EQItemList__FreeItemList
 
-#define EQItemList__add_object_x                                   0x506030
+// EQPlacedItemManager
+#define EQPlacedItemManager__Add_x                                 0x506030  // was:  EQItemList__add_object
 
 // CTribute
 #define CTribute__GetActiveFavorCost_x                             0x485970
