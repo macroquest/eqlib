@@ -640,7 +640,7 @@ void EQLibImpl::ShutdownHooks()
 	pLdrUnregisterDllNotification(m_loaderNotificationCookie);
 	m_loaderNotificationCookie = nullptr;
 
-	m_memoryPatcher->RemoveAllDetours();
+	m_memoryPatcher->RemoveAllPatches();
 }
 
 void EQLibImpl::InitializeEQMain(uintptr_t BaseAddress)

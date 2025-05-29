@@ -17,14 +17,16 @@
 
 #include <detours/detours.h>
 
+#pragma comment(lib, "detours.lib")
+
 namespace eqlib {
 
 //============================================================================
 
 #if defined(_M_AMD64)
-constexpr uint32_t DETOUR_BYTES_COUNT = 20;
+const size_t DETOUR_BYTES_COUNT = 20;
 #else
-constexpr uint32_t DETOUR_BYTES_COUNT = 12;
+const size_t DETOUR_BYTES_COUNT = 12;
 #endif
 
 
@@ -65,8 +67,32 @@ static bool PatchMemory(void* dest, const void* src, size_t length)
 	return success;
 }
 
+static bool ValidateReadableMemory(uintptr_t address, size_t count)
+{
+	// Validate that the entire range [address, address + count) is readable
+	uintptr_t current = address;
+	uintptr_t end = address + count;
+
+	// It is highly unlikely that this will ever need to iterate more than once,
+	// but it will handle a case where we have a range that spans a region boundary somehow.
+	while (current < end)
+	{
+		MEMORY_BASIC_INFORMATION mbi = {};
+		if (VirtualQuery((const void*)current, &mbi, sizeof(mbi)) == 0
+			|| mbi.State != MEM_COMMIT
+			|| (mbi.Protect & (PAGE_NOACCESS | PAGE_GUARD)))
+		{
+			return false;
+		}
+
+		current = reinterpret_cast<uintptr_t>(mbi.BaseAddress) + mbi.RegionSize;
+	}
+
+	return true;
+}
+
 // Detour constructor
-MemoryPatch::MemoryPatch(uintptr_t address, void** target, void* detour, std::string_view name)
+MemoryPatch::MemoryPatch(constructor_key, uintptr_t address, void** target, void* detour, std::string_view name)
 	: m_address(address)
 	, m_type(Type::Detour)
 	, m_name(CheckName(name))
@@ -80,38 +106,36 @@ MemoryPatch::MemoryPatch(uintptr_t address, void** target, void* detour, std::st
 }
 
 // Patch with no expected bytes and no new bytes
-MemoryPatch::MemoryPatch(uintptr_t address, size_t numBytes, std::string_view name)
+MemoryPatch::MemoryPatch(constructor_key, uintptr_t address, size_t numBytes, std::string_view name)
 	: m_address(address)
 	, m_type(Type::Patch)
 	, m_name(CheckName(name))
 {
 	m_bytes.resize(numBytes);
 	memcpy(m_bytes.data(), reinterpret_cast<uint8_t*>(address), numBytes);
-}
-
-// Patch with new bytes
-MemoryPatch::MemoryPatch(uintptr_t address, const uint8_t* newBytes, size_t numBytes, std::string_view name)
-	: m_address(address)
-	, m_type(Type::Patch)
-	, m_name(CheckName(name))
-{
-	m_bytes.resize(numBytes);
-	memcpy(m_bytes.data(), reinterpret_cast<uint8_t*>(address), numBytes);
-
-	m_newBytes.resize(numBytes);
-	memcpy(m_newBytes.data(), newBytes, numBytes);
 }
 
 // Patch with new bytes and expected bytes
-MemoryPatch::MemoryPatch(uintptr_t address, const uint8_t* expectedBytes, const uint8_t* newBytes, size_t numBytes, std::string_view name)
+MemoryPatch::MemoryPatch(constructor_key, uintptr_t address,const uint8_t* newBytes, size_t numBytes,
+	const uint8_t* expectedBytes, std::string_view name)
 	: m_address(address)
 	, m_type(Type::Patch)
-	, m_validate(true)
 	, m_name(CheckName(name))
 {
-	// We can substitute expected bytes for actual bytes, because we expect them to match.
-	m_bytes.resize(numBytes);
-	memcpy(m_bytes.data(), expectedBytes, numBytes);
+	if (expectedBytes != nullptr)
+	{
+		m_validate = true;
+
+		// We can substitute expected bytes for actual bytes, because we expect them to match.
+		m_bytes.resize(numBytes);
+		memcpy(m_bytes.data(), expectedBytes, numBytes);
+	}
+	else
+	{
+		m_bytes.resize(numBytes);
+		memcpy(m_bytes.data(), reinterpret_cast<uint8_t*>(address), numBytes);
+	}
+	
 
 	m_newBytes.resize(numBytes);
 	memcpy(m_newBytes.data(), newBytes, numBytes);
@@ -145,7 +169,7 @@ bool MemoryPatch::Apply()
 		LONG result = DetourTransactionCommit();
 		if (result != NO_ERROR)
 		{
-			SPDLOG_ERROR("Failed to commit detour: name={} result={}", m_name, result);
+			SPDLOG_ERROR("Failed to commit detour with name \"{}\": At address 0x{:X}, result={}", m_name, m_address, result);
 			return false;
 		}
 
@@ -160,7 +184,8 @@ bool MemoryPatch::Apply()
 
 			if (memcmp(originalBytes, m_bytes.data(), m_bytes.size()) != 0)
 			{
-				SPDLOG_ERROR("Bytes at memory address do not match expected: name={}", m_name);
+				SPDLOG_ERROR("Failed to apply patch with name \"{}\": The memory at address 0x{:X} does not match the expected values",
+					m_name, m_address);
 				return false;
 			}
 		}
@@ -222,30 +247,184 @@ MemoryPatcherImpl::MemoryPatcherImpl()
 
 MemoryPatcherImpl::~MemoryPatcherImpl()
 {
+	RemoveAllPatches();
 }
 
-MemoryPatch* MemoryPatcherImpl::CreateDetour(uintptr_t address, void** target, void* detour, std::string_view name) override
+MemoryPatch* MemoryPatcherImpl::CreatePatch(uintptr_t address, void** target, void* detour, std::string_view name)
 {
+	if (!ValidateReadableMemory(address, DETOUR_BYTES_COUNT))
+	{
+		SPDLOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
+			name, address);
+
+		return nullptr;
+	}
+
+	std::unique_ptr<MemoryPatch> patch = std::make_unique<MemoryPatch>(
+		MemoryPatch::constructor_key{}, address, target, detour, name);
+
+	MemoryPatch* patchPtr = AddPatchToList(std::move(patch));
+
+	return patchPtr;
+}
+
+MemoryPatch* MemoryPatcherImpl::CreatePatch(uintptr_t address, size_t numBytes, std::string_view name)
+{
+	if (!ValidateReadableMemory(address, numBytes))
+	{
+		SPDLOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
+			name, address);
+
+		return nullptr;
+	}
+
+	std::unique_ptr<MemoryPatch> patch = std::make_unique<MemoryPatch>(
+		MemoryPatch::constructor_key{}, address, numBytes, name);
+
+	MemoryPatch* patchPtr = AddPatchToList(std::move(patch));
+
+	return patchPtr;
+}
+
+MemoryPatch* MemoryPatcherImpl::CreatePatch(uintptr_t address, const uint8_t* newBytes, size_t numBytes,
+	const uint8_t* expectedBytes, std::string_view name)
+{
+	if (!ValidateReadableMemory(address, numBytes))
+	{
+		SPDLOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
+			name, address);
+
+		return nullptr;
+	}
+
+	std::unique_ptr<MemoryPatch> patch = std::make_unique<MemoryPatch>(
+		MemoryPatch::constructor_key{}, address, newBytes, numBytes, expectedBytes, name);
+
+	MemoryPatch* patchPtr = AddPatchToList(std::move(patch));
+
+	return patchPtr;
+}
+
+bool MemoryPatcherImpl::RemovePatch(uintptr_t address)
+{
+	auto it = std::lower_bound(m_patches.begin(), m_patches.end(), address,
+		[](const std::unique_ptr<MemoryPatch>& patch, uintptr_t addr)
+		{ return patch->GetAddress() < addr; });
+
+	if (it != m_patches.end() && (*it)->GetAddress() == address)
+	{
+		std::unique_ptr<MemoryPatch> patch = std::move(*it);
+		m_patches.erase(it);
+
+		return patch->Unapply();
+	}
+
+	return false;
+}
+
+void MemoryPatcherImpl::RemoveAllPatches()
+{
+	for (auto& patch : m_patches)
+	{
+		patch->Unapply();
+	}
+
+	m_patches.clear();
+}
+
+bool MemoryPatcherImpl::IsAddressPatched(uintptr_t address, size_t width)
+{
+	auto it = std::lower_bound(m_patches.begin(), m_patches.end(), address,
+		[](const std::unique_ptr<MemoryPatch>& patch, uintptr_t addr)
+		{ return patch->GetAddress() < addr; });
+
+	return it != m_patches.end() && (*it)->IsAddressInRange(address, width);
+}
+
+uint32_t MemoryPatcherImpl::FindPatches(uintptr_t address, size_t width, MemoryPatch** outList, uint32_t numItems)
+{
+	uint32_t count = 0;
+	uintptr_t endAddress = address + width;
+
+	// Find the first patch that could overlap
+	auto it = std::lower_bound(m_patches.begin(), m_patches.end(), address,
+		[](const std::unique_ptr<MemoryPatch>& patch, uintptr_t addr)
+		{ return patch->GetAddress() + patch->GetBytesSize() <= addr; });
+
+	for (; it != m_patches.end(); ++it)
+	{
+		uintptr_t patchAddr = (*it)->GetAddress();
+
+		// If the patch starts at or after the end of the search range, we can break early.
+		if (patchAddr >= endAddress)
+			break;
+
+		if (count < numItems)
+		{
+			outList[count] = it->get();
+		}
+		count++;
+	}
+
+	return count;
+}
+
+MemoryPatch* MemoryPatcherImpl::GetPatch(uintptr_t address)
+{
+	auto it = std::lower_bound(m_patches.begin(), m_patches.end(), address,
+		[](const std::unique_ptr<MemoryPatch>& patch, uintptr_t addr)
+		{ return patch->GetAddress() < addr; });
+
+	if (it != m_patches.end() && (*it)->GetAddress() == address)
+	{
+		return it->get();
+	}
+
 	return nullptr;
 }
 
-MemoryPatch* MemoryPatcherImpl::CreateDetour(uintptr_t address, size_t width, std::string_view name) override
+void MemoryPatcherImpl::SetUserData(MemoryPatch* patch, uint64_t userData)
 {
-	return nullptr;
+	patch->m_userData = userData;
 }
 
-void MemoryPatcherImpl::RemoveDetour(uintptr_t address) override
+MemoryPatch* MemoryPatcherImpl::AddPatchToList(std::unique_ptr<MemoryPatch> patch)
 {
+	// Insert patch into the list. Keeps the list sorted by address.
+	// Check that the address does not overlap another patch with the same range.
 
+	auto it = std::lower_bound(m_patches.begin(), m_patches.end(), patch,
+		[](const std::unique_ptr<MemoryPatch>& a, const std::unique_ptr<MemoryPatch>& b)
+		{ return a->GetAddress() < b->GetAddress(); });
+
+	// Check that the address does not overlap with an existing patch
+	if (it != m_patches.end() && (*it)->IsAddressInRange(patch->GetAddress(), patch->GetBytesSize()))
+	{
+		SPDLOG_ERROR("Failed to add patch with name \"{}\": Address 0x{:X} overlaps with existing patch at 0x{:X}",
+			patch->GetName(), patch->GetAddress(), (*it)->GetAddress());
+		return nullptr;
+	}
+
+	// If this isn't at the beginning of the list, check if the previous item overlaps.
+	if (it != m_patches.begin())
+	{
+		auto prevIt = std::prev(it);
+		if ((*prevIt)->IsAddressInRange(patch->GetAddress(), patch->GetBytesSize()))
+		{
+			SPDLOG_ERROR("Failed to add patch with name \"{}\": Address 0x{:X} overlaps with existing patch at 0x{:X}",
+				patch->GetName(), patch->GetAddress(), (*prevIt)->GetAddress());
+			return nullptr;
+		}
+	}
+
+	// Try to apply thet patch.
+	if (!patch->Apply())
+	{
+		return nullptr;
+	}
+
+	it = m_patches.insert(it, std::move(patch));
+	return it->get();
 }
-
-void MemoryPatcherImpl::RemoveAllDetours() override
-{
-}
-
-void MemoryPatcherImpl::SetExtraData(MemoryPatch* patch, uint64_t extraData) override
-{
-}
-
 
 } // namespace eqlib

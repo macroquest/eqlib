@@ -124,28 +124,46 @@ namespace detail
  * The max number of bytes that a detour is assumed to modify. This is used
  * to approximate the number of bytes to store for memory checks.
  */
-extern const uint32_t DETOUR_BYTES_COUNT;
+EQLIB_VAR const size_t DETOUR_BYTES_COUNT;
 
 class MemoryPatcher;
+class MemoryPatcherImpl;
 
 /**
- * @brief A class that represents a memory patch.
+ * @brief A class that represents a patch to process memory.
  *
- * This class is used to create and manage memory patches in the game. It
+ * This class is used to create and manage patches in the game. It
  * provides methods for creating detours and modifying memory at runtime.
+ *
+ * Note: MemoryPatch constructors are private and should be constructed only
+ * through the MemoryPatcher interface
  */
 class MemoryPatch
 {
-	friend class MemoryPatcher;
+	friend class MemoryPatcherImpl;
 
-	MemoryPatch(uintptr_t address, void** target, void* detour, std::string_view name = "");
-	MemoryPatch(uintptr_t address, size_t numBytes, std::string_view name = "");
-	MemoryPatch(uintptr_t address, const uint8_t* newBytes, size_t numBytes, std::string_view name = "");
-	MemoryPatch(uintptr_t address, const uint8_t* expectedBytes, const uint8_t* newBytes, size_t numBytes, std::string_view name = "");
+	struct constructor_key {};
+
+public:
+	/**
+	 * Create a function detour.
+	 */
+	MemoryPatch(constructor_key, uintptr_t address, void** target, void* detour, std::string_view name = "");
+
+	/**
+	 * Create an opaque patch. The patch will not validate the original bytes nor modify the memory.
+	 */
+	MemoryPatch(constructor_key, uintptr_t address, size_t numBytes, std::string_view name = "");
+
+	/**
+	 * Create a patch that modifies the memory at the specified address. If expectedBytes is provided,
+	 * the original bytes at the address will be validated against the expected bytes before applying the patch.
+	 */
+	MemoryPatch(constructor_key, uintptr_t address,const uint8_t* newBytes, size_t numBytes,
+		const uint8_t* expectedBytes = nullptr, std::string_view name = "");
 
 	~MemoryPatch();
 
-public:
 	uintptr_t GetAddress() const { return m_address; }
 	const std::string& GetName() const { return m_name; }
 
@@ -165,7 +183,17 @@ public:
 	const uint8_t* GetNewBytes() const { return m_newBytes.data(); }
 	size_t GetNewBytesSize() const { return m_newBytes.size(); }
 
-	uint64_t GetExtratData() const { return m_extraData; }
+	uint64_t GetUserData() const { return m_userData; }
+
+	uint8_t ReadOriginalByte(uintptr_t address) const
+	{
+		size_t offset = address - m_address;
+
+		if (offset < m_bytes.size())
+			return m_bytes[offset];
+
+		return 0;
+	}
 
 	enum class Type
 	{
@@ -181,23 +209,23 @@ protected:
 	bool Unapply();
 	std::string CheckName(std::string_view inName) const;
 
-	const uintptr_t      m_address;            // Address of the memory patch
-	Type                 m_type;               // Type of the memory patch (detour or patch)
+	const uintptr_t      m_address;            // Address of the patch
+	Type                 m_type;               // Type of the patch (detour or patch)
 	bool                 m_applied = false;    // True if the patch is currently applied
 	bool                 m_validate = false;   // True if original bytes should be validated
-	const std::string    m_name;               // Name of the memory patch assigned at creation
+	const std::string    m_name;               // Name of the patch assigned at creation
 	std::vector<uint8_t> m_bytes;              // The original bytes at the patched memory location.
 
 	void**               m_target = nullptr;   // For detours: The address of the target function
 	void*                m_detour = nullptr;   // For detours: The address of the detour function
 
 	std::vector<uint8_t> m_newBytes;           // The patched bytes
-	uint64_t             m_extraData = 0;      // Extra data stored with the patch for client use.
+	uint64_t             m_userData = 0;       // User data stored with the patch for client use.
 };
 
 /**
  * Interface for patching memory at runtime. Provides methods for managing detours
- * and memory patches.
+ * and patches.
  */
 class MemoryPatcher
 {
@@ -205,60 +233,132 @@ public:
 	virtual ~MemoryPatcher() {}
 
 	/**
-	 * Add a detour
+	 * Create a function detour from typed arguments.
 	 *
 	 * @param address Address to be detoured
-	 * @param target The function that is to be detoured.
-	 * @param detour The detour function.
-	 * @param name Name of thhe detour
-	 * @return Pointer to a MemoryPatch object representing the detour if the address was detoured
+	 * @param target The function that is to be detoured
+	 * @param detour The detour
+	 * @param name Name of the detour
+	 * @return Pointer to a MemoryPatch object representing the patch at the address, if successful
 	 */
 	template <typename T, typename U>
-	MemoryPatch* AddDetour(uintptr_t address, T&& target, U&& detour, std::string_view name)
+	MemoryPatch* CreateDetour(uintptr_t address, T&& target, U&& detour, std::string_view name = "")
 	{
-		return AddDetourInternal(address, std::forward<T>(target), std::forward<U>(detour), name);
+		return CreateDetourInternal(address, std::forward<T>(target), std::forward<U>(detour), name);
 	}
 
 	/**
-	 * Mark an address as patched
-	 *
-	 * @param address Address that was patched.
-	 * @param name Name of the address that was patched.
-	 * @return True if the address was successfully marked.
+	 * Remove a detour. Alias of RemovePatch.
 	 */
-	MemoryPatch* AddDetourBytes(uintptr_t address, std::string_view name)
+	bool RemoveDetour(uintptr_t address)
 	{
-		return CreateDetour(address, DETOUR_BYTES_COUNT, name);
+		return RemovePatch(address);
 	}
 
-	virtual void RemoveDetour(uintptr_t address) = 0;
+	/**
+	 * Create a function detour patch from raw pointers.
+	 * 
+	 * @param address Address to be detoured
+	 * @param target The function that is to be detoured
+	 * @param detour The detour
+	 * @param name Name of the detour.
+	 * @return Pointer to a MemoryPatch object representing the patch at the address, if successful
+	 */
+	virtual MemoryPatch* CreatePatch(uintptr_t address, void** target, void* detour, std::string_view name = "") = 0;
 
-	virtual void RemoveAllDetours() = 0;
+	/**
+	 * Mark a region of memory as patched.
+	 *
+	 * The original bytes at this location will be recorded but the memory will not be modified. Use this
+	 * function if you intend to modify the memory yourself.
+	 *
+	 * @param address Address that was patched
+	 * @param numBytes The number of bytes that were patched
+	 * @param name Name of the address that was patched
+	 * @return Pointer to a MemoryPatch object representing the patch at the address
+	 */
+	virtual MemoryPatch* CreatePatch(uintptr_t address, size_t numBytes, std::string_view name = "") = 0;
 
-	virtual void SetExtraData(MemoryPatch* patch, uint64_t extraData) = 0;
+	/**
+	 * Patch a region of memory.
+	 *
+	 * The original bytes at this location will be saved, and will be restored when the patch is removed. The
+	 * bytes in `newBytes` will be written to the memory at the specified address. If `expectedBytes` is provided,
+	 * the original bytes will be validated against the expected bytes before applying the patch. If the original bytes do not match
+	 * then the patch will not be applied.
+	 * 
+	 * @param address Address to apply the patch
+	 * @param newBytes Pointer to array of `numBytes` bytes to write to the memory at the specified address.
+	 * @param numBytes Length of `newBytes` and `expectedBytes`
+	 * @param expectedBytes Optional. The expected bytes at the address. If this is provided and the original bytes
+	 * do not match `expectedBytes`, then the patch will not be applied
+	 * @param name Name of the patch
+	 * @return Pointer to a MemoryPatch object representing the patch at the address
+	 */
+	virtual MemoryPatch* CreatePatch(uintptr_t address, const uint8_t* newBytes, size_t numBytes,
+		const uint8_t* expectedBytes = nullptr, std::string_view name = "") = 0;
+
+	/**
+	 * Remove a previously applied patch at the given address. If a patch was previously
+	 * applied at this location, the patch will be removed and the original bytes will be restored.
+	 * 
+	 * @param address The address belonging to a previously applied patch.
+	 */
+	virtual bool RemovePatch(uintptr_t address) = 0;
+
+	/**
+	 * Removes all currently applied patches and restores the original bytes.
+	 */
+	virtual void RemoveAllPatches() = 0;
+
+	/**
+	 * Check if the given address range is actively patched.
+	 * 
+	 * @param address Memory address to check for patches
+	 * @param width If non-zero, the search will span [address, address + width).
+	 * @return True if the address is patched, false otherwise.
+	 */
+	virtual bool IsAddressPatched(uintptr_t address, size_t width = 0) = 0;
+
+	/**
+	 * Get list of patches that span the given range.
+	 *
+	 * If the return value exceeds the numItems parameter, then the caller will need to call this function again
+	 * with a modified range to get the remaining items.
+	 * 
+	 * @param address Starting address to search
+	 * @param width Number of bytes in the address range to search
+	 * @param outList pointer to a MemoryPatch array that will be filled with the patches found in the range.
+	 * @param numItems size of the MemoryPatch array in outList.
+	 * @return The number of items that were found in the range.
+	 */
+	virtual uint32_t FindPatches(uintptr_t address, size_t width, MemoryPatch** outList, uint32_t numItems) = 0;
+
+	/**
+	 * Get a patch at the given memory address
+	 *
+	 * Will only return a patch that starts on the given address. use FindPatches to perform a range search.
+	 *
+	 * @param address The address of the patch
+	 * @return The found patch
+	 */
+	virtual MemoryPatch* GetPatch(uintptr_t address) = 0;
+
+	/**
+	 * Set an opaque userdata value on a MemoryPatch.
+	 */
+	virtual void SetUserData(MemoryPatch* patch, uint64_t userData) = 0;
 
 protected:
-	/**
-	 * This is an internal function used to create the raw function detour. It should not be
-	 * called directly.
-	 */
-	virtual MemoryPatch* CreateDetour(uintptr_t address, void** target, void* detour, std::string_view name) = 0;
-
-	/**
-	 * This is an internal function used to create the raw function detour. It should not be
-	 * called directly.
-	 */
-	virtual MemoryPatch* CreateDetour(uintptr_t address, size_t width, std::string_view name) = 0;
-
 	/**
 	 * This is an internal helper function to properly format the function arguments for a detour.
 	 * It should not be called directly.
 	 */
 	template <typename T>
 	std::enable_if_t<!std::is_member_pointer_v<T>, MemoryPatch*>
-		AddDetourInternal(uintptr_t address, T& detour, T*& target, std::string_view name)
+		CreateDetourInternal(uintptr_t address, T& detour, T*& target, std::string_view name)
 	{
-		return CreateDetour(address, &(void*&)target, detour, name);
+		return CreatePatch(address, &(void*&)target, detour, name);
 	}
 
 	/**
@@ -267,9 +367,9 @@ protected:
 	 */
 	template <typename T>
 	std::enable_if_t<std::is_member_pointer_v<T>, MemoryPatch*>
-		AddDetourInternal(uintptr_t address, T& detour, T* target, std::string_view name)
+		CreateDetourInternal(uintptr_t address, T& detour, T* target, std::string_view name)
 	{
-		return CreateDetour(address, (void**)target, detour, name);
+		return CreatePatch(address, (void**)target, detour, name);
 	}
 
 	/**
@@ -278,9 +378,9 @@ protected:
 	 */
 	template <typename T>
 	std::enable_if_t<std::is_member_pointer_v<T>, MemoryPatch*>
-		AddDetourInternal(uintptr_t address, T&& detour, T* target, std::string_view name)
+		CreateDetourInternal(uintptr_t address, T&& detour, T* target, std::string_view name)
 	{
-		return CreateDetour(address, (void**)target, *(void**)&detour, name);
+		return CreatePatch(address, (void**)target, *(void**)&detour, name);
 	}
 
 	/**
@@ -289,9 +389,9 @@ protected:
 	 */
 	template <typename T>
 	std::enable_if_t<std::is_pointer_v<T>, MemoryPatch*>
-		AddDetourInternal(uintptr_t address, T&& detour, T* target, std::string_view name)
+		CreateDetourInternal(uintptr_t address, T&& detour, T* target, std::string_view name)
 	{
-		return CreateDetour(address, &(void*&)*target, detour, name);
+		return CreatePatch(address, &(void*&)*target, detour, name);
 	}
 
 	/**
@@ -302,7 +402,7 @@ protected:
 	 */
 	template <typename T, typename U>
 	std::enable_if_t<!std::is_same_v<T, U>, MemoryPatch*>
-		AddDetourInternal(uintptr_t address, T&& detour, U* target, std::string_view name)
+		CreateDetourInternal(uintptr_t address, T&& detour, U* target, std::string_view name)
 	{
 		static_assert(eqlib::detail::always_false<T>::value,
 			"Detour and Trampoline types differ in their signatures!");
