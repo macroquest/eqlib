@@ -67,8 +67,8 @@ void EQLibImpl::Initialize()
 {
 	InitializeLogging();
 
-	InitializeGlobals();
 	InitializeEQGameOffsets();
+	InitializeGlobals();
 
 	InitializeUI();
 	InitializeCXWnd();

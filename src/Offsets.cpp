@@ -30,13 +30,18 @@ const wchar_t* EQGraphicsModuleName = L"EQGraphics.dll";
 
 // These don't change during the execution of the program. They can be loaded
 // at static initialization time because of this.
-uintptr_t EQGameBaseAddress = (uintptr_t)::GetModuleHandleW(nullptr);
+uintptr_t EQGameBaseAddress = 0;
 
 uintptr_t EQGraphicsBaseAddress = (uintptr_t)::GetModuleHandleW(EQGraphicsModuleName);
 
 uintptr_t EQMainBaseAddress = (uintptr_t)::GetModuleHandleW(EQMainModuleName);
 
 uintptr_t Kernel32BaseAddress = (uintptr_t)::GetModuleHandleW(L"kernel32.dll");
+
+void InitBaseAddress()
+{
+	EQGameBaseAddress = (uintptr_t)::GetModuleHandleW(nullptr);
+}
 
 #pragma warning(push)
 #pragma warning(disable: 4312) // remove the warnings for the reinterpret cast from pointer to byte

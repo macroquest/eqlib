@@ -56,6 +56,9 @@ EQLIB_VAR const wchar_t* EQMainModuleName;
 // The name of eqgraphics.dll
 EQLIB_VAR const wchar_t* EQGraphicsModuleName;
 
+// For initializing base address at startup
+void InitBaseAddress();
+
 // These macros are used for statically building offsets. If using dynamic offset generation
 // with the pattern matching, don't use the macro.
 
@@ -64,6 +67,9 @@ EQLIB_VAR const wchar_t* EQGraphicsModuleName;
 template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
 uintptr_t FixEQGameOffset(T nOffset)
 {
+	if (EQGameBaseAddress == 0)
+		InitBaseAddress();
+
 	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQGamePreferredAddress) + EQGameBaseAddress;
 }
 

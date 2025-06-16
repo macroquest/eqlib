@@ -1417,9 +1417,9 @@ void InitializeEQGameOffsets()
 	EQMappableCommandList           = (char**)__BindList;
 	ghEQMainInstance                = (HINSTANCE*)__heqmain;
 	gpbCommandEvent                 = (DWORD*)__gpbCommandEvent;
-	gbCommandEvent                  = __gpbCommandEvent;
+	gbCommandEvent                  = ForeignReference<DWORD>(__gpbCommandEvent);
 	gpMouseEventTime                = (DWORD*)__MouseEventTime;
-	gMouseEventTime                 = __MouseEventTime;
+	gMouseEventTime                 = ForeignReference<DWORD>(__MouseEventTime);
 	pDynamicZone                    = (CDynamicZone*)instDynamicZone;
 	pEQLogin                        = (EQLogin*)pinstEqLogin;
 	pTribute                        = (CTribute*)instTribute;
@@ -1427,13 +1427,13 @@ void InitializeEQGameOffsets()
 	pEQMisc                         = (CTribute*)instTribute;
 	pEQSuiteTextureLoader           = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
 	pgCurrentSocial                 = (int*)__CurrentSocial;
-	gCurrentSocial                  = __CurrentSocial;
+	gCurrentSocial                  = ForeignReference<int>(__CurrentSocial);
 	pGuild                          = (CGuild*)__Guilds;
 #pragma warning(suppress: 4996)
 	pGuildList                      = (CGuild*)__Guilds;
 	pRaid                           = (CRaid*)instCRaid;
 	pScreenMode                     = (DWORD*)__ScreenMode;
-	ScreenMode                      = __ScreenMode;
+	ScreenMode                      = ForeignReference<DWORD>(__ScreenMode);;
 	pTaskManager                    = (CTaskManager*)pinstCTaskManager;
 	pTributeActive                  = (BYTE*)instTributeActive;
 	pZoneInfo                       = (ZONEINFO*)instEQZoneInfo;
