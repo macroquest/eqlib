@@ -57,7 +57,7 @@ EQLIB_VAR const wchar_t* EQMainModuleName;
 EQLIB_VAR const wchar_t* EQGraphicsModuleName;
 
 // For initializing base address at startup
-void InitBaseAddress();
+EQLIB_OBJECT void InitBaseAddress();
 
 // These macros are used for statically building offsets. If using dynamic offset generation
 // with the pattern matching, don't use the macro.
