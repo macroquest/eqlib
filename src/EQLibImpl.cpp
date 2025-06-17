@@ -81,7 +81,9 @@ void EQLibImpl::Shutdown()
 {
 	ShutdownHooks();
 
+#ifndef EQLIB_STATIC
 	spdlog::shutdown();
+#endif
 }
 
 MemoryPatcher* EQLibImpl::GetMemoryPatcher()
@@ -771,6 +773,8 @@ EQLibInterface* Initialize(LibraryConfig* config)
 void Shutdown(EQLibInterface* eqInterface)
 {
 	assert(s_eqlibInstance == eqInterface);
+
+	s_eqlibInstance->Shutdown();
 
 	delete s_eqlibInstance;
 	s_eqlibInstance = nullptr;
