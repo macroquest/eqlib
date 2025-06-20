@@ -83,7 +83,7 @@
 #define __CommandList_x                                            0xACD5A8
 #define __ScreenMode_x                                             0xD1F3B8
 #define __gWorld_x                                                 0xDD25AC
-#define __gpbCommandEvent_x                                        0xDD2670
+#define __gpbCommandEvent_x                                        0xDD25C0
 #define __ServerHost_x                                             0xDD003C
 #define __Guilds_x                                                 0xDD5CF8
 #define __MouseEventTime_x                                         0xE639CC

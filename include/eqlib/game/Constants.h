@@ -398,17 +398,6 @@ enum KeybindCommand
 	CMD_RUN_WALK = 284,
 };
 
-constexpr int CHAT_SAY                         = 0x0001;
-constexpr int CHAT_TELL                        = 0x0002;
-constexpr int CHAT_OOC                         = 0x0004;
-constexpr int CHAT_SHOUT                       = 0x0008;
-constexpr int CHAT_AUC                         = 0x0010;
-constexpr int CHAT_GUILD                       = 0x0020;
-constexpr int CHAT_GROUP                       = 0x0040;
-constexpr int CHAT_RAID                        = 0x0080;
-constexpr int CHAT_CHAT                        = 0x0100;
-#define CHATEVENT(x)                             (gEventChat & x)
-
 constexpr int EQ_MAX_NAME                      = 64;
 constexpr int EQ_MAX_LASTNAME                  = 32;
 constexpr int EQ_MAX_STATION_ID                = 32;
