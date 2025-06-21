@@ -20,6 +20,7 @@
 #include "eqlib/Events.h"
 #include "eqlib/game/Constants.h"
 #include "eqlib/game/EverQuest.h"
+#include "eqlib/game/EQClasses.h"
 #include "eqlib/game/Globals.h"
 #include "eqlib/game/Objects.h"
 #include "eqlib/game/UI.h"
@@ -578,6 +579,109 @@ using PLDR_UNREGISTER_DLL_NOTIFICATION = uint32_t(__stdcall*)(
 	void* Cookie
 );
 
+class UdpConnection_Detours : public UdpLibrary::UdpConnection
+{
+public:
+#if defined(UdpConnection__Send_x)
+	inline static bool s_inUdpConnection_Send = false;
+
+	DETOUR_TRAMPOLINE_DEF(bool, Send_Trampoline, (int, uint8_t*, uint32_t));
+	bool Send_Detour(int channel, uint8_t* data, uint32_t dataLength)
+	{
+		if (this == pConnection && data != nullptr && dataLength >= 2
+			&& !s_inUdpConnection_Send)
+		{
+			s_inUdpConnection_Send = true;
+
+			WorldMessageParams params;
+			params.connection = this;
+			params.messageId = *(uint16_t*)data;
+			params.data = data + 2;
+			params.dataLength = dataLength - 2;
+
+			bool send = s_eqlibInstance->HandleOutgoingWorldMessage(params);
+
+			s_inUdpConnection_Send = false;
+
+			if (!send)
+			{
+				return true;
+			}
+		}
+
+		return Send_Trampoline(channel, data, dataLength);
+	}
+#endif // defined(UdpConnection__Send_x)
+
+#if defined(UdpConnection__OnRoutePacket_x)
+	inline static bool s_inUdpConnection_OnRoutePacket = false;
+
+	DETOUR_TRAMPOLINE_DEF(void, OnRoutePacket_Trampoline, (uint8_t*, uint32_t))
+	void OnRoutePacket_Detour(uint8_t* data, uint32_t dataLength)
+	{
+		if (this == pConnection && data != nullptr && dataLength >= 2
+			&& !s_inUdpConnection_OnRoutePacket)
+		{
+			s_inUdpConnection_OnRoutePacket = true;
+
+			WorldMessageParams params;
+			params.connection = this;
+			params.messageId = *(uint16_t*)data;
+			params.data = data + 2;
+			params.dataLength = dataLength - 2;
+
+			bool send = s_eqlibInstance->HandleIncomingWorldMessage(params);
+
+			s_inUdpConnection_OnRoutePacket = false;
+
+			if (!send)
+			{
+				return;
+			}
+		}
+
+		OnRoutePacket_Trampoline(data, dataLength);
+	}
+#endif // defined(UdpConnection__OnRoutePacket_x)
+};
+
+#if defined(WorldAuthenticationHandler__OnRoutePacket_x)
+class WorldAuthenticationHandler_Detours : public UdpLibrary::UdpConnectionHandler
+{
+public:
+	inline static bool s_inWorldAuthenticationHandler_OnRoutePacket = false;
+
+	DETOUR_TRAMPOLINE_DEF(void, OnRoutePacket_Trampoline, (UdpLibrary::UdpConnection*, uint8_t*, uint32_t))
+	void OnRoutePacket_Detour(UdpLibrary::UdpConnection* connection, uint8_t* data, uint32_t dataLength)
+	{
+		if (data != nullptr && dataLength >= 2 && !s_inWorldAuthenticationHandler_OnRoutePacket)
+		{
+			s_inWorldAuthenticationHandler_OnRoutePacket = true;
+
+			WorldMessageParams params;
+			params.connection = theConnection;
+			params.messageId = *(uint16_t*)data;
+			params.data = data + 2;
+			params.dataLength = dataLength - 2;
+
+			bool send = s_eqlibInstance->HandleWorldAuthenticationMessage(params);
+
+			s_inWorldAuthenticationHandler_OnRoutePacket = false;
+
+			if (!send)
+			{
+				return;
+			}
+		}
+
+		OnRoutePacket_Trampoline(connection, data, dataLength);
+	}
+
+private:
+	UdpLibrary::UdpConnection*& theConnection;
+};
+#endif // defined(WorldAuthenticationHandler__OnRoutePacket_x)
+
 void EQLibImpl::InitializeHooks()
 {
 	m_memoryPatcher->EzDetour(__ProcessGameEvents, ProcessGameEvents_Detour, ProcessGameEvents_Trampoline);
@@ -608,6 +712,19 @@ void EQLibImpl::InitializeHooks()
 		m_memoryPatcher->EzDetour(PlayerManagerClient__CreatePlayer, &PlayerManagerClient_Detours::CreatePlayer_Detour, &PlayerManagerClient_Detours::CreatePlayer_Trampoline);
 		m_memoryPatcher->EzDetour(PlayerManagerBase__PrepForDestroyPlayer, &PlayerManagerClient_Detours::PrepForDestroyPlayer_Detour, &PlayerManagerClient_Detours::PrepForDestroyPlayer_Trampoline);
 		m_memoryPatcher->EzDetour(PlayerManagerBase__DestroyAllPlayers, &PlayerManagerClient_Detours::DestroyAllPlayers_Detour, &PlayerManagerClient_Detours::DestroyAllPlayers_Trampoline);
+	}
+
+	if (m_enableNetworkEvents && m_eventReceiver != nullptr)
+	{
+#ifdef UdpConnection__Send_x
+		m_memoryPatcher->EzDetour(UdpConnection__Send, &UdpConnection_Detours::Send_Detour, &UdpConnection_Detours::Send_Trampoline);
+#endif
+#ifdef UdpConnection__OnRoutePacket_x
+		m_memoryPatcher->EzDetour(UdpConnection__OnRoutePacket, &UdpConnection_Detours::OnRoutePacket_Detour, &UdpConnection_Detours::OnRoutePacket_Trampoline);
+#endif
+#ifdef WorldAuthenticationHandler__OnRoutePacket_x
+		m_memoryPatcher->EzDetour(WorldAuthenticationHandler__OnRoutePacket, &WorldAuthenticationHandler_Detours::OnRoutePacket_Detour, &WorldAuthenticationHandler_Detours::OnRoutePacket_Trampoline);
+#endif
 	}
 
 	// Check if EQMain has already been loaded, and hook it if it has.
@@ -710,7 +827,7 @@ static void HandleMessage_DisplayChatText(const ChatMessageParams& params)
 
 bool EQLibImpl::HandleChatMessage(ChatMessageParams& params)
 {
-	params.handleMessage = HandleMessage_DisplayChatText;
+	params.messageHandler = HandleMessage_DisplayChatText;
 
 	s_handlingDisplayChatText = true;
 
@@ -743,7 +860,7 @@ static void HandleMessage_DisplayTellText(const TellWindowMessageParams& params)
 
 bool EQLibImpl::HandleTellWindowMessage(TellWindowMessageParams& params)
 {
-	params.handleMessage = HandleMessage_DisplayTellText;
+	params.messageHandler = HandleMessage_DisplayTellText;
 
 	s_handlingDisplayTellText = true;
 
@@ -755,6 +872,21 @@ bool EQLibImpl::HandleTellWindowMessage(TellWindowMessageParams& params)
 	s_handlingDisplayTellText = false;
 
 	return result;
+}
+
+bool EQLibImpl::HandleIncomingWorldMessage(WorldMessageParams& params)
+{
+	return m_eventReceiver->OnIncomingWorldMessage(params);
+}
+
+bool EQLibImpl::HandleWorldAuthenticationMessage(WorldMessageParams& params)
+{
+	return m_eventReceiver->OnIncomingWorldMessage(params);
+}
+
+bool EQLibImpl::HandleOutgoingWorldMessage(WorldMessageParams& params)
+{
+	return m_eventReceiver->OnOutgoingWorldMessage(params);
 }
 
 //=================================================================================================

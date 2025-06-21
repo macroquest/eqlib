@@ -1498,10 +1498,25 @@ protected:
 /*0x2ac*/
 };
 
+enum UdpChannel
+{
+	cUdpChannelUnreliable,
+	cUdpChannelUnreliableUnbuffered,
+	cUdpChannelOrdered,
+	cUdpChannelOrderedUnbuffered,
+	cUdpChannelReliable1,
+	cUdpChannelReliable2,
+	cUdpChannelReliable3,
+	cUdpChannelReliable4,
+	cUdpChannelCount
+};
+
 class [[offsetcomments]] UdpConnection : public UdpGuardedRefCount
 {
 public:
 	EQLIB_OBJECT void GetStats(UdpConnectionStatistics* stats);
+
+	EQLIB_OBJECT bool Send(UdpChannel, const void* data, int dataLength);
 
 	UdpClockStamp CachedClock() const
 	{
@@ -1556,6 +1571,18 @@ public:
 	// compatibility shim
 	__declspec(property(get = GetAveragePing)) int Last;
 };
+
+class UdpConnectionHandler
+{
+public:
+	virtual ~UdpConnectionHandler() {}
+	virtual void OnRoutePacket(UdpConnection* connection, uint8_t* data, uint32_t dataLength) {}
+	virtual void OnConnectionComplete(UdpConnection* connection) {}
+	virtual void OnTerminated(UdpConnection* connection) {}
+	virtual void OnCrcReject(UdpConnection* connection, uint8_t* data, uint32_t dataLength) {}
+	virtual void OnPacketCorrupt(UdpConnection* connection, uint8_t* data, uint32_t dataLength, int reason) {}
+};
+
 
 } // namespace UdpLibrary
 

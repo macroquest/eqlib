@@ -6566,8 +6566,11 @@ FUNCTION_AT_ADDRESS(bool, CXMLSOMDocumentBase::XMLRead(const CXStr&, const CXStr
 //----------------------------------------------------------------------------
 // Misc
 //----------------------------------------------------------------------------
-
+#ifdef UdpConnection__GetStats_x
 FUNCTION_AT_ADDRESS(void, UdpLibrary::UdpConnection::GetStats(UdpLibrary::UdpConnectionStatistics* stats), UdpConnection__GetStats);
-
+#endif
+#ifdef UdpConnection__Send_x
+FUNCTION_AT_ADDRESS(bool, UdpLibrary::UdpConnection::Send(UdpLibrary::UdpChannel, const void*, int), UdpConnection__Send);
+#endif
 
 }

@@ -740,10 +740,13 @@ EQLIB_VAR uintptr_t StringTable__getString;
 EQLIB_VAR uintptr_t Teleport_Table_Size;
 EQLIB_VAR uintptr_t Teleport_Table;
 EQLIB_VAR uintptr_t UdpConnection__GetStats;
+EQLIB_VAR uintptr_t UdpConnection__OnRoutePacket;
+EQLIB_VAR uintptr_t UdpConnection__Send;
 EQLIB_VAR uintptr_t Util__FastTime;
 EQLIB_VAR uintptr_t Window__getProgress;
 EQLIB_VAR uintptr_t Window__getStatus;
 EQLIB_VAR uintptr_t Window__getURI;
+EQLIB_VAR uintptr_t WorldAuthenticationHandler__OnRoutePacket;
 EQLIB_VAR uintptr_t ZoneGuideManagerClient__Instance;
 
 //----------------------------------------------------------------------------

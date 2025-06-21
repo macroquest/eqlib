@@ -75,6 +75,7 @@ class EQLibInterface
 public:
 	virtual ~EQLibInterface() {}
 
+	/** Retrieve the MemoryPatcher instance for EQLib */
 	virtual MemoryPatcher* GetMemoryPatcher() = 0;
 };
 

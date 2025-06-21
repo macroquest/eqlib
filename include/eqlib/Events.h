@@ -21,6 +21,15 @@ namespace eqlib {
 class EQGroundItem;
 class PlayerClient;
 
+namespace UdpLibrary
+{
+	class UdpConnection;
+}
+
+struct ChatMessageParams;
+struct TellWindowMessageParams;
+struct WorldMessageParams;
+
 /**
  * Event parameters for OnReloadGameUI
  */
@@ -38,6 +47,10 @@ struct ReloadUIParams
 	 */
 	bool fastReload;
 };
+
+
+/** Handler type for re-sending ChatMessageParams */
+using ChatMessageHandler = void(*)(const ChatMessageParams&);
 
 /**
  * Event parameters for OnChatMessage.
@@ -66,14 +79,14 @@ struct ChatMessageParams
 	 */
 	bool makeStmlSafe;
 
-
-	using Handler = void(*)(const ChatMessageParams&);
-
 	/**
 	 * Function that can be called to handle the chat message.
 	 */
-	Handler handleMessage = nullptr;
+	ChatMessageHandler messageHandler = nullptr;
 };
+
+/** Handler type for re-sending the event */
+using TellWindowMessageHandler = void(*)(const TellWindowMessageParams&);
 
 /**
  * Event parameters for OnTellWindowMessage.
@@ -104,21 +117,28 @@ struct TellWindowMessageParams
 	/** If true, the message will be logged to the eq log file. */
 	bool allowLog;
 
-
-	using Handler = void(*)(const TellWindowMessageParams&);
-
 	/**
 	 * Function that can be called to handle the chat message.
 	 */
-	Handler handleMessage;
+	TellWindowMessageHandler messageHandler;
 };
 
 /**
- * Event parameters for OnIncomingNetworkMessage
+ * Event parameters for OnIncomingWorldMessage and OnOutgoingWorldMessage
  */
-struct IncomingWorldMessageParams
+struct WorldMessageParams
 {
-	// NYI
+	/** ID of the message */
+	uint32_t messageId;
+
+	/** pointer to message data */
+	uint8_t* data;
+
+	/** Length of the message data */
+	uint32_t dataLength;
+
+	/** Connection that is handling the message */
+	UdpLibrary::UdpConnection* connection;
 };
 
 /**
@@ -224,14 +244,27 @@ public:
 	}
 
 	/**
-	 * Event that occurs when a world message is received on an udp connection.
+	 * Event that occurs when a world message is received on a world connection.
 	 *
-	 * Requires that world message events are enabled in configuration.
+	 * Requires that world message events are enabled in configuration. Return false to
+	 * cancel the message.
 	 */
-	virtual bool OnIncomingWorldMessage(IncomingWorldMessageParams& params)
+	virtual bool OnIncomingWorldMessage(WorldMessageParams& params)
 	{
 		UNUSED(params);
-		return false;
+		return true;
+	}
+
+	/**
+	 * Event that occurs when a world message is sent on a world connection.
+	 *
+	 * Requires that world message events are enabled in configuration. Return false
+	 * to cancel the message.
+	 */
+	virtual bool OnOutgoingWorldMessage(WorldMessageParams& params)
+	{
+		UNUSED(params);
+		return true;
 	}
 
 	/**

@@ -402,7 +402,6 @@
 #define CEverQuest__SetGameState_x                                 0x519750
 #define CEverQuest__UPCNotificationFlush_x                         0x520C70
 #define CEverQuest__IssuePetCommand_x                              0x5209B0
-//#define CEverQuest__ReportSuccessfulHeal_x                         0x0
 #define CEverQuest__ReportSuccessfulHit_x                          0x52EE40
 
 // CGaugeWnd
@@ -995,6 +994,12 @@
 
 // UdpConnection
 #define UdpConnection__GetStats_x                                  0x8C2FD0
+#define UdpConnection__OnRoutePacket_x                             0x8C5070
+#define UdpConnection__Send_x                                      0x8C51F0
+
+// WorldAuthenticationHandler
+#define WorldAuthenticationHandler__OnRoutePacket_x                0x5629C0
+
 
 #if __has_include("../private/eqgame-private.h")
 #include "../private/eqgame-private.h"

@@ -1012,7 +1012,10 @@ INITIALIZE_EQGAME_OFFSET(StringTable__getString);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table_Size);
 INITIALIZE_EQGAME_OFFSET(Teleport_Table);
 INITIALIZE_EQGAME_OFFSET(UdpConnection__GetStats);
+INITIALIZE_EQGAME_OFFSET(UdpConnection__OnRoutePacket);
+INITIALIZE_EQGAME_OFFSET(UdpConnection__Send);
 INITIALIZE_EQGAME_OFFSET(Util__FastTime);
+INITIALIZE_EQGAME_OFFSET(WorldAuthenticationHandler__OnRoutePacket);
 INITIALIZE_EQGAME_OFFSET(ZoneGuideManagerClient__Instance);
 
 //----------------------------------------------------------------------------

@@ -50,6 +50,10 @@ public:
 	void HandleCreateGroundItem(EQGroundItem* groundItem);
 	void HandleDestroyGroundItem(EQGroundItem* groundItem);
 
+	bool HandleWorldAuthenticationMessage(WorldMessageParams& params);
+	bool HandleIncomingWorldMessage(WorldMessageParams& params);
+	bool HandleOutgoingWorldMessage(WorldMessageParams& params);
+
 	void InitializeEQMain(uintptr_t BaseAddress);
 	void ShutdownEQMain();
 	void InitializeEQGraphics(uintptr_t BaseAddress);
