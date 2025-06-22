@@ -22,8 +22,8 @@
 #include "eqlib/BuildType.h"
 
 #ifdef EQLIB_STATIC
-#define EQLIB_API
-#define EQLIB_VAR extern
+#define EQLIB_API extern "C"
+#define EQLIB_VAR extern "C"
 #define EQLIB_OBJECT
 #else
 #ifdef EQLIB_EXPORTS
