@@ -143,7 +143,8 @@
 ; param 1: Name of the override class
 ; param 2: Name of the class we are overriding
 ; param 3: Name of the parent class (CXWnd, CSidlScreenWnd, or CGFScreenWnd)
-%macro create_window_override_funcs 3
+; param 4: Name of the vtable
+%macro create_window_override_funcs_impl 3
 
 	section .text
 
@@ -186,6 +187,23 @@
 
 %endmacro
 
+; Expand the window override assembly functions for the window
+; param 1: Name of the override class
+; param 2: Name of the class we are overriding
+; param 3: Name of the parent class (CXWnd, CSidlScreenWnd, or CGFScreenWnd)
+
+%macro createwindow_override_funcs 3
+	create_window_override_funcs_impl %1, %2, %3, ??_7%1@@6B@
+%endmacro
+
+; Expand the window override assembly functions for the window, for classes with multiple inheritance
+; param 1: Name of the override class
+; param 2: Name of the class we are overriding
+; param 3: Name of the parent class (CXWnd, CSidlScreenWnd, or CGFScreenWnd)
+%macro create_window_override_funcs_2 3
+	create_window_override_funcs_impl %1, %2, CSidlScreenWnd, ??_7%1@@6B%3@eqlib@@@
+%endmacro
+
 %else ; !ARCH_X64
 
 ; Expand the window override assembly functions for the window
@@ -194,13 +212,30 @@
 ; param 3: Name of the parent class (CXWnd, CSidlScreenWnd, or CGFScreenWnd)
 %macro create_window_override_funcs 3
 	%ifidn %3,CGFScreenWnd
-		create_window_override_funcs_impl %1, %2, CSidlScreenWnd
+		create_window_override_funcs_impl %1, %2, CSidlScreenWnd, ??_7%1@@6B@
 	%else
-		create_window_override_funcs_impl %1, %2, %3
+		create_window_override_funcs_impl %1, %2, %3, ??_7%1@@6B@
 	%endif
 %endmacro ; create_window_override_funcs
 
-%macro create_window_override_funcs_impl 3
+; Expand the window override assembly functions for the window, for classes with multiple inheritance
+; param 1: Name of the override class
+; param 2: Name of the class we are overriding
+; param 3: Name of the parent class (CXWnd, CSidlScreenWnd, or CGFScreenWnd)
+%macro create_window_override_funcs_2 3
+	%ifidn %3,CGFScreenWnd
+		create_window_override_funcs_impl %1, %2, CSidlScreenWnd, ??_7%1@@6B%3@eqlib@@@
+	%else
+		create_window_override_funcs_impl %1, %2, %3, ??_7%1@@6B%3@eqlib@@@
+	%endif
+%endmacro
+
+; Expand the window override assembly functions for the window
+; param 1: Name of the override class
+; param 2: Name of the class we are overriding
+; param 3: Name of the parent class (CXWnd, CSidlScreenWnd, or CGFScreenWnd)
+; param 4: Name of the vtable
+%macro create_window_override_funcs_impl 4
 
 	section .text
 
@@ -208,12 +243,12 @@
 	%define CGFScreenWnd CSidlScreenWnd
 
 	; const CItemDisplayWndOverride::`vftable'
-	extern ??_7%1@@6B@
+	extern %4
 
 	; eqlib::WindowOverride<CItemDisplayWndOverride,eqlib::CItemDisplayWnd>::GetVTableForDerivedClass()
 	global ?GetVTableForDerivedClassASM@?$WindowOverride@V%1@@V%2@eqlib@@UVirtualFunctionTable@CSidlScreenWnd@3@@eqlib@@CAPAUVirtualFunctionTable@%3@2@XZ
 	?GetVTableForDerivedClassASM@?$WindowOverride@V%1@@V%2@eqlib@@UVirtualFunctionTable@CSidlScreenWnd@3@@eqlib@@CAPAUVirtualFunctionTable@%3@2@XZ:
-		lea eax, [??_7%1@@6B@]
+		lea eax, [%4]
 		ret	
 
 	; public: __thiscall eqlib::WindowOverride<class CItemDisplayWndOverride,class eqlib::CItemDisplayWnd,struct eqlib::CSidlScreenWnd::VirtualFunctionTable>::WindowOverride<class CItemDisplayWndOverride,class eqlib::CItemDisplayWnd,struct eqlib::CSidlScreenWnd::VirtualFunctionTable>(void)

@@ -59,7 +59,7 @@ inline errno_t eq_localtime(tm* Tm, const eqtime_t* Time)
 class PopDialogHandler
 {
 public:
-	virtual void DialogResponse(int, int, void*);
+	virtual void DialogResponse(int, int, void*) {}
 };
 
 
