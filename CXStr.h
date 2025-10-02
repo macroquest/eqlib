@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "Config.h"
+#include "eqlib/Config.h"
 #include "Allocator.h"
 
 #include <fmt/format.h>

@@ -405,7 +405,7 @@ class ArrayClass : public CDynamicArrayBase
 {
 /*0x08*/ T* m_array = nullptr;
 /*0x10*/ int m_alloc = 0;
-/*0x04*/ bool m_isValid = true;
+/*0x14*/ bool m_isValid = true;
 /*0x18*/
 
 public:
@@ -1705,6 +1705,7 @@ public:
 	private:
 		friend class Iterator;
 
+		// Node size: 0x20 + sizeof(Key) + sizeof(T)
 		KeyType   Key;
 		T         Value;
 		Node*     pNext;
@@ -2201,16 +2202,6 @@ private:
 public:
 	uint32_t Bits[ElementCount];
 };
-
-//----------------------------------------------------------------------------
-
-// this needs to go somewhere
-class CharacterPropertyHash : public HashTable<int>
-{
-public:
-
-};
-
 
 //----------------------------------------------------------------------------
 

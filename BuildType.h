@@ -20,7 +20,7 @@
 
 // Do not change this value. This value identifies the version of the client
 // that this branch of code is designed to work with.
-#define TEST
+#define LIVE
 
 
 //----------------------------------------------------------------------------
@@ -65,7 +65,7 @@
 //----------------------------------------------------------------------------
 
 // Activated Item Keyring added in The Outer Brood
-#define HAS_ACTIVATED_KEYRING IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOB)
+#define HAS_ACTIVATED_ITEM_KEYRING IS_EXPANSION_LEVEL(EXPANSION_LEVEL_TOB)
 
 // AdvancedLoot was released on March 25, 2015
 #define HAS_ADVANCED_LOOT IS_CLIENT_DATE(20150325)

@@ -14,72 +14,18 @@
 
 #pragma once
 
-#include "Common.h"
+#include "eqlib/Common.h"
+#include "eqlib/Offsets.h"
+
 #include "eqgame.h"
 #include "eqgraphics.h"
 #include "eqmain.h"
 #include "ForwardDecls.h"
 
-#if !defined(DIRECTINPUT_VERSION)
-#define DIRECTINPUT_VERSION    0x800
-#endif
-
+#include <string_view>
 #include <dinput.h>
 
 namespace eqlib {
-
-// the preferred base of eqgame.exe
-#if defined(_M_AMD64)
-constexpr uintptr_t EQGamePreferredAddress = 0x140000000;
-#else
-constexpr uintptr_t EQGamePreferredAddress = 0x400000;
-#endif // defined(_M_AMD64)
-
-#if defined(_M_AMD64)
-constexpr uintptr_t EQLibraryPreferredAddress = 0x180000000;
-#else
-constexpr uintptr_t EQLibraryPreferredAddress = 0x10000000;
-#endif
-
-// the base address of eqgame.exe
-EQLIB_VAR uintptr_t EQGameBaseAddress;
-
-// the base address of eqgraphics.dll
-EQLIB_VAR uintptr_t EQGraphicsBaseAddress;
-
-// the base address of eqmain.dll
-EQLIB_VAR uintptr_t EQMainBaseAddress;
-
-// the base address of kernel32.dll
-EQLIB_VAR uintptr_t Kernel32BaseAddress;
-
-// These macros are used for statically building offsets. If using dynamic offset generation
-// with the pattern matching, don't use the macro.
-
-// These functions are used for dynamically building offsets.
-
-template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
-inline uintptr_t FixEQGameOffset(T nOffset)
-{
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQGamePreferredAddress) + EQGameBaseAddress;
-}
-
-template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
-inline uintptr_t FixEQGraphicsOffset(T nOffset)
-{
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQLibraryPreferredAddress) + EQGraphicsBaseAddress;
-}
-
-template <typename T, typename = std::enable_if_t<std::is_integral_v<T>, void>>
-inline uintptr_t FixEQMainOffset(T nOffset)
-{
-	return static_cast<uintptr_t>(nOffset) - static_cast<uintptr_t>(EQLibraryPreferredAddress) + EQMainBaseAddress;
-}
-
-#define INITIALIZE_EQGAME_OFFSET(var) uintptr_t var = FixEQGameOffset(var##_x)
-#define INITIALIZE_EQGRAPHICS_OFFSET(var) uintptr_t var = FixEQGraphicsOffset(var##_x)
-#define INITIALIZE_EQMAIN_OFFSET(var) uintptr_t var = FixEQMainOffset(var##_x)
-
 
 //============================================================================
 // Data
@@ -204,7 +150,6 @@ EQLIB_VAR uintptr_t pinstSwitchManager;
 EQLIB_VAR uintptr_t pinstTarget;
 EQLIB_VAR uintptr_t pinstTargetIndicator;
 EQLIB_VAR uintptr_t pinstTaskMember;
-EQLIB_VAR uintptr_t pinstTrackTarget;
 EQLIB_VAR uintptr_t pinstTradeTarget;
 EQLIB_VAR uintptr_t pinstViewActor;
 EQLIB_VAR uintptr_t pinstWorldData;
@@ -936,7 +881,7 @@ EQLIB_VAR ForeignPointer<CBuffWindow>                pSongWnd;
 EQLIB_VAR ForeignPointer<CBugReportWnd>              pBugReportWnd;
 EQLIB_VAR ForeignPointer<CCastingWnd>                pCastingWnd;
 EQLIB_VAR ForeignPointer<CCastSpellWnd>              pCastSpellWnd;
-EQLIB_VAR ForeignPointer<CSidlScreenWnd>             pCharacterCreation;
+EQLIB_VAR ForeignPointer<CCharacterCreation>         pCharacterCreation;
 EQLIB_VAR ForeignPointer<CCharacterListWnd>          pCharacterListWnd;
 EQLIB_VAR ForeignPointer<ClaimWindow>                pClaimWnd;
 EQLIB_VAR ForeignPointer<CColorPickerWnd>            pColorPickerWnd;
@@ -1161,20 +1106,12 @@ EQLIB_API uint32_t GetBufferCRC(const char* szBuffer, size_t bufferLength, int b
 EQLIB_API uint32_t GetStringCRC(std::string_view);
 
 //----------------------------------------------------------------------------
-// FIXME: Remove these macros
-//#define indoor (((*EQADDR_ZONETYPE) == 0) || ((*EQADDR_ZONETYPE) == 3) || ((*EQADDR_ZONETYPE) == 4))
-//#define outdoor (((*EQADDR_ZONETYPE) == 1) || ((*EQADDR_ZONETYPE) == 2) || ((*EQADDR_ZONETYPE) == 5))
-//#define bindable (((*EQADDR_ZONETYPE) == 2) || ((*EQADDR_ZONETYPE) == 3) || ((*EQADDR_ZONETYPE) == 4))
 
-//----------------------------------------------------------------------------
-
-void InitializeGlobals();
-
-EQLIB_API bool InitializeEQMainOffsets();
+EQLIB_API void InitializeEQMainOffsets(uintptr_t BaseAddress);
 EQLIB_API void CleanupEQMainOffsets();
 
-EQLIB_API void InitializeEQLib();
-EQLIB_API void ShutdownEQLib();
+EQLIB_API void InitializeEQGraphicsOffsets(uintptr_t BaseAddress);
+EQLIB_API void CleanupEQGraphicsOffsets();
 
 //----------------------------------------------------------------------------
 

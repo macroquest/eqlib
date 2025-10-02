@@ -191,7 +191,7 @@ constexpr size_t vtableBytesCopySize = 4096;
 
 } // namespace detail
 
-// This class will work for overriding both CXWnd and CSidlScreenWnd.
+// This class will work for overriding classes derived from CXWnd, CSidlScreenWnd, or CGFScreenWnd
 //
 // This patcher works by creating a new virtual function table and replacing the
 // class instance's virtual function table with a new one that we create here.
@@ -199,14 +199,19 @@ constexpr size_t vtableBytesCopySize = 4096;
 // a window at a time. We cannot store any data as members, so they should all be static.
 //
 // Target is the type of the class that we are overriding. We never actually instantiate this
-// class, but we have a pointer to it (because its created by EQ)
+// class, but we have a pointer to it that we acquire from EQ.
 //
 // Derived is the type of the class that is doing the override.
 //
-template <typename Derived, typename Target>
+template <typename Derived, typename Target, typename VirtualFunctionTable = typename Target::VirtualFunctionTable>
 class WindowOverride : public detail::TrampolineSelectorT<Target>
 {
 public:
+	// Default constructor is implemented in ASM, this allows us to default construct
+	// without the compiler trying to chain it to the base class.
+	WindowOverride();
+	virtual ~WindowOverride();
+
 	static void InstallHooks(Target* pWnd)
 	{
 		HookVFTable(pWnd);
@@ -235,33 +240,40 @@ public:
 	}
 
 private:
-	using VirtualFunctionTable = typename Target::VirtualFunctionTable;
 	using Trampoline = detail::TrampolineSelectorT<Target>;
 
-	inline static typename VirtualFunctionTable* s_virtualTablePatched = nullptr;
+	inline static VirtualFunctionTable* s_virtualTablePatched = nullptr;
 	inline static bool s_patchingVFTable = false;
 	inline static bool s_hooked = false;
 
-	static VirtualFunctionTable* GetVTableForDerivedClass()
+	// This implemented in ASM so that we can get the address of the vtable
+	static VirtualFunctionTable* GetVTableForDerivedClassASM();
+
+	static VirtualFunctionTable* GetVTableForDerivedClass(void* p)
 	{
+		if (VirtualFunctionTable* data = GetVTableForDerivedClassASM())
+		{
+			return data;
+		}
+
+		// This is never hit, but it forces a vtable
 		Derived d;
-		VirtualFunctionTable* derivedTable = d.GetVFTable();
+		VirtualFunctionTable* derivedTable = reinterpret_cast<VirtualFunctionTable*>(d.GetVFTable());
 
 		return derivedTable;
 	}
 
-	// We need to get the vftable for Derived type. How do we do this?!
 	static VirtualFunctionTable* GetPatchedVFTable(Target* pThis)
 	{
 		static std::unique_ptr<uint8_t[]> tableBytes = nullptr;
 
-		// Acquire the unpatched vtable or the derived class
 		if (!tableBytes)
 		{
+			// Acquire the unpatched vtable for the derived class to call back into
 			tableBytes = std::make_unique<uint8_t[]>(detail::vtableBytesCopySize);
 
-			VirtualFunctionTable* derivedTable = GetVTableForDerivedClass();
-			VirtualFunctionTable* origTable = pThis->GetVFTable();
+			VirtualFunctionTable* derivedTable = GetVTableForDerivedClass(pThis);
+			VirtualFunctionTable* origTable = reinterpret_cast<VirtualFunctionTable*>(pThis->GetVFTable());
 
 			// Initialize the vtable with the original bytes.
 			std::memcpy(tableBytes.get(), origTable, detail::vtableBytesCopySize);
@@ -281,22 +293,7 @@ private:
 		return reinterpret_cast<VirtualFunctionTable*>(tableBytes.get());
 	}
 
-	static void HookVFTableExisting(Target* pThis)
-	{
-		if (!s_hooked || !pThis || s_patchingVFTable)
-			return;
-		if (pThis->GetVFTable() == s_virtualTablePatched)
-			return;
-
-		s_patchingVFTable = true;
-
-		pThis->ReplaceVFTable(s_virtualTablePatched);
-
-		s_patchingVFTable = false;
-
-		Derived::OnHooked(static_cast<Derived*>(pThis));
-	}
-
+	// Primary hook function.
 	static void HookVFTable(Target* pThis)
 	{
 		if (s_patchingVFTable || s_hooked || !pThis)
@@ -319,6 +316,7 @@ private:
 		Derived::OnHooked(static_cast<Derived*>(pThis));
 	}
 
+	// Primary unhook function
 	static void UnhookVFTable(Target* pThis, bool hooked = false)
 	{
 		if (!s_hooked || !pThis) return;
@@ -329,6 +327,23 @@ private:
 		pThis->ReplaceVFTable(Trampoline::s_originalVTable);
 
 		s_hooked = hooked;
+	}
+
+	// Secondary hook function used for window with multiple instances.
+	static void HookVFTableExisting(Target* pThis)
+	{
+		if (!s_hooked || !pThis || s_patchingVFTable)
+			return;
+		if (pThis->GetVFTable() == s_virtualTablePatched)
+			return;
+
+		s_patchingVFTable = true;
+
+		pThis->ReplaceVFTable(s_virtualTablePatched);
+
+		s_patchingVFTable = false;
+
+		Derived::OnHooked(static_cast<Derived*>(pThis));
 	}
 };
 

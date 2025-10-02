@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "Config.h"
+#include "eqlib/Config.h"
 #include "mq/base/Color.h"
 
 namespace eqlib {
@@ -181,8 +181,9 @@ namespace eqlib {
 #define USERCOLOR_HEALS_YOURS_CRITICAL           403 // 148 - Heals (Your Critical Heals)
 #define USERCOLOR_HEALS_OTHERS_CRITICAL          404 // 149 - Heals (Other Critical Heals)
 #define USERCOLOR_MELEE_OTHERS_CRITICAL          405 // 150 - Others Hits (Critical)
+#define USERCOLOR_SPELL_FAILURES_OTHER           406 // 151 - Spell Failures (Others)
 
-constexpr int NUM_USER_COLORS = 150;
+constexpr int NUM_USER_COLORS = 151;
 
 // s_aDefaultUserDefinedColor
 EQLIB_VAR mq::MQColor gDefaultUserDefinedColors[NUM_USER_COLORS];
@@ -275,10 +276,11 @@ enum eChatFilters
 	FILTER_OTHER_DIRECT_DAMAGE_CRITS,
 	FILTER_DOT_YOURS_CRITICAL,
 	FILTER_DOT_OTHERS_CRITICAL,
-	FILTER_DOT_DAMAGE_TAKEN,
 	FILTER_HEALS_RECEIVED,
 	FILTER_HEALS_YOURS_CRITICAL,
 	FILTER_HEALS_OTHERS_CRITICAL,
+	FILTER_MELEE_OTHERS_CRITICAL,
+	FILTER_SPELL_FAILURES_OTHER,
 
 	NUM_CHAT_FILTERS,
 };

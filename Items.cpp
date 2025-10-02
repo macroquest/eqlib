@@ -103,9 +103,9 @@ const char* szContainerInstanceNames[] = {
 	"Personal Tradeskill Depot",
 
 	// Some extra in case of expansion in the future
-	"Unknown(40)",
-	"Unknown(41)",
 	"Unknown(42)",
+	"Unknown(43)",
+	"Unknown(44)",
 };
 
 const char* GetNameForContainerInstance(ItemContainerInstance container)

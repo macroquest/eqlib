@@ -843,7 +843,7 @@ export ??1CGFScreenWnd@eqlib@@UEAA@XZ
 
 
 ;---------------------------------------------------------------------------------------
-; CSidlScreenWnd Virtual Functions
+; CGFScreenWnd Virtual Functions
 
 %macro call_cgfscreenwnd_vtable 1
 	mov  rax, [rel ?sm_vftable@CGFScreenWnd@eqlib@@2PEAUVirtualFunctionTable@12@EA]

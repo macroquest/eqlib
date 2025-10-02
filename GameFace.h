@@ -73,6 +73,9 @@ class [[offsetcomments]] UIButtonComponent : public BaseComponent<CButtonWnd>
 {
 public:
 	virtual eqstd::string GetTypeName() const override { return "UIButton"; }
+
+/*0xa0*/ uint32_t      u32_a0;
+/*0xa4*/
 };
 
 class [[offsetcomments]] UIListComponent : public BaseComponent<CListWnd>
@@ -121,16 +124,16 @@ public:
 	virtual void Unknown0x388();
 	virtual void Unknown0x390(const CXRect& rect);
 
-/*0x2c0*/ UIScreenComponent                                 WindowComponent;
-/*0x368*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
-/*0x3a8*/
+/*0x2c8*/ UIScreenComponent                                 WindowComponent;
+/*0x370*/ eqstd::unordered_map<eqstd::string, UIComponent*> ChildComponents;
+/*0x3b0*/
 
 	struct [[offsetcomments]] VirtualFunctionTable : public CSidlScreenWnd::VirtualFunctionTable
 	{
 	/*0x380*/ void* HandleJsEvent;  // Probably something like HandleJSEvent
 	/*0x388*/ void* Unknown0x388;
 	/*0x390*/ void* Unknown0x390;   // Probably Center()
-	};
+	/*0x398*/ };
 
 	// Returns the current instance of this class's vftable. Might represent some other
 	// inherited class (and not CSidlScreenWnd's)

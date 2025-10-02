@@ -13,11 +13,10 @@
  */
 
 #include "pch.h"
+#include "eqlib/Globals.h"
 #include "EQLib.h"
-#include "Logging.h"
 
 #include "mq/base/Color.h"
-#include "Common/StringUtils.h"
 
 #include <spdlog/spdlog.h>
 #include <spdlog/logger.h>
@@ -26,18 +25,6 @@
 using mq::MQColor;
 
 namespace eqlib {
-
-// These don't change during the execution of the program. They can be loaded
-// at static initialization time because of this.
-uintptr_t EQGameBaseAddress = (uintptr_t)GetModuleHandle(nullptr);
-
-#define GRAPHICS_DLL_NAME "EQGraphics.dll"
-
-uintptr_t EQGraphicsBaseAddress = (uintptr_t)GetModuleHandle(GRAPHICS_DLL_NAME);
-
-uintptr_t EQMainBaseAddress = (uintptr_t)GetModuleHandle("eqmain.dll");
-
-uintptr_t Kernel32BaseAddress = (uintptr_t)GetModuleHandle("kernel32.dll");
 
 //============================================================================
 // Data
@@ -258,14 +245,14 @@ MQColor gDefaultUserDefinedColors[NUM_USER_COLORS] = {
 	MQColor(255, 255, 255), // 25 Other miss other
 	MQColor(128, 0,   128), // 26 Who slash command results
 	MQColor(255, 255, 255), // 27 Yell for help
-	MQColor(0,   114, 255), // 28 Spell Damage
+	MQColor(0,   0,   225), // 28 Spell Damage
 	MQColor(240, 240, 0),   // 29 Spell worn off
 	MQColor(0,   140, 0),   // 30 Money Splits
 	MQColor(90,  90,  255), // 31 Loot Messages
 	MQColor(255, 0,   0),   // 32 Dice Roll (/random) - Mine
 	MQColor(90,  90,  255), // 33 Others spells
-	MQColor(255, 0,   0),   // 34 Spell Failures
-	MQColor(215, 154, 66),  // 35 Chat Channel
+	MQColor(255, 0,   0),   // 34 Spell Failures (Yours)
+	MQColor(215, 154, 66),  // 35 Chat Channel Info
 	MQColor(110, 143, 176), // 36 Chat Channel 1
 	MQColor(110, 143, 176), // 37 Chat Channel 2
 	MQColor(110, 143, 176), // 38 Chat Channel 3
@@ -276,9 +263,9 @@ MQColor gDefaultUserDefinedColors[NUM_USER_COLORS] = {
 	MQColor(110, 143, 176), // 43 Chat Channel 8
 	MQColor(110, 143, 176), // 44 Chat Channel 9
 	MQColor(110, 143, 176), // 45 Chat Channel 10
-	MQColor(255, 255, 255), // 46 Melee Crits
-	MQColor(255, 255, 255), // 47 Spell Crits
-	MQColor(255, 0,   0),   // 48 Too far away (melee)
+	MQColor(255, 255, 255), // 46 Your Hits (Critical)
+	MQColor(240, 240, 120), // 47 Direct Damage (Your Critical Hits)
+	MQColor(255, 0,   0),   // 48 Melee Warnings
 	MQColor(255, 0,   0),   // 49 NPC Rampage
 	MQColor(255, 0,   0),   // 50 NPC Flurry
 	MQColor(255, 0,   0),   // 51 NPC Enrage
@@ -323,13 +310,13 @@ MQColor gDefaultUserDefinedColors[NUM_USER_COLORS] = {
 	MQColor(255, 255, 255), // 90 Guild messages
 	MQColor(255, 255, 255), // 91 Mercenary Messages
 	MQColor(255, 127, 0),   // 92 Achievement Links
-	MQColor(255, 255, 255), // 93 Emote achievement messages
-	MQColor(255, 255, 255), // 94 Guild achievement messages
+	MQColor(255, 255, 255), // 93 Achievements (You)
+	MQColor(255, 255, 255), // 94 Achievements (Others)
 	MQColor(255, 255, 255), // 95 PvP Messages
 	MQColor(192, 0,   0),   // 96 Hotbutton Cooldown Overlay
-	MQColor(0,   255, 0),   // 97 Aggro Labels - Low
-	MQColor(255, 255, 0),   // 98 Aggro Labels - Warning
-	MQColor(255, 0,   0),   // 99 Aggro Labels - Most
+	MQColor(0,   255, 0),   // 97 Aggro Meter Labels - Low
+	MQColor(255, 255, 0),   // 98 Aggro Meter Labels - Warning
+	MQColor(255, 0,   0),   // 99 Aggro Meter Labels - Most
 	MQColor(24,  224, 255), // 100 Dialog [Response] Links
 	MQColor(255, 255, 255), // 101 Your Flurry
 	MQColor(255, 255, 255), // 102 Debug Output
@@ -349,12 +336,12 @@ MQColor gDefaultUserDefinedColors[NUM_USER_COLORS] = {
 	MQColor(255, 100, 25),  // 116 Destroyed Items
 	MQColor(66,  78,  244), // 117 Auras (You)
 	MQColor(66,  78,  244), // 118 Auras (Others)
-	MQColor(0,   114, 255), // 119 Heals (You)
-	MQColor(0,   67,  255), // 120 Heals (Others)
-	MQColor(0,   114, 255), // 121 DoTs (Yours)
+	MQColor(0,   255, 100), // 119 Heals (Yours)
+	MQColor(70,  150, 70),  // 120 Heals (Others)
+	MQColor(100, 50,  255), // 121 DoTs (Yours)
 	MQColor(0,   67,  255), // 122 DoTs (Others)
 	MQColor(70,  70,  255), // 123 Bard Songs on Pets
-	MQColor(0,   67,  255), // 124 Direct Damage (Others)
+	MQColor(180, 150, 125), // 124 Direct Damage (Others)
 	MQColor(90,  90,  255), // 125 Spell Emotes
 	MQColor(255, 127, 0),   // 126 Faction Links
 	MQColor(90,  90,  255), // 127 Taunt Messages
@@ -363,8 +350,25 @@ MQColor gDefaultUserDefinedColors[NUM_USER_COLORS] = {
 	MQColor(255, 0,   0),   // 130 Item Stat Negative
 	MQColor(100, 255, 37),  // 131 Encounter Lock Attackable
 	MQColor(128, 128, 128), // 132 Encounter Lock Unattackable
-	MQColor(255, 255, 255), // 133 Food And Drink
-	MQColor(255, 255, 0),   // 134 Raid Victory
+	MQColor(255, 255, 255), // 133 Food and Drink Messages
+	MQColor(255, 255, 0),   // 134 Raid Victory Messages
+	MQColor(255, 0,   0),   // 135 Unknown (135)
+	MQColor(255, 255, 0),   // 136 Unknown (136)
+	MQColor(255, 255, 255), // 137 Unknown (137)
+	MQColor(0,   64,  255), // 138 Unknown (138)
+	MQColor(0,   255, 255), // 139 Unknown (139)
+	MQColor(0,   128, 0),   // 140 Unknown (140)
+	MQColor(128, 128, 128), // 141 Unknown (141)
+	MQColor(255, 150, 50),  // 142 Direct Damage (Yours)
+	MQColor(255, 200, 200), // 143 Direct Damage (Other Critical Hits)
+	MQColor(150, 115, 255), // 144 DoTs (Your Critical Hits)
+	MQColor(0,   255, 160), // 145 DoTs (Other Critical Hits)
+	MQColor(170, 50,  255), // 146 DoTs (You Being Hit)
+	MQColor(0,   255, 200), // 147 Heals Received
+	MQColor(200, 255, 100), // 148 Heals (Your Critical Heals)
+	MQColor(100, 220, 100), // 149 Heals (Other Critical Heals)
+	MQColor(255, 255, 255), // 150 Others Hits (Critical)
+	MQColor(175, 0,   0),   // 151 Spell Failures (Others)
 };
 
 
@@ -456,7 +460,6 @@ INITIALIZE_EQGAME_OFFSET(pinstSwitchManager);
 INITIALIZE_EQGAME_OFFSET(pinstTarget);
 INITIALIZE_EQGAME_OFFSET(pinstTargetIndicator);
 INITIALIZE_EQGAME_OFFSET(pinstTaskMember);
-INITIALIZE_EQGAME_OFFSET(pinstTrackTarget);
 INITIALIZE_EQGAME_OFFSET(pinstTradeTarget);
 INITIALIZE_EQGAME_OFFSET(pinstViewActor);
 INITIALIZE_EQGAME_OFFSET(pinstWorldData);
@@ -1163,7 +1166,7 @@ ForeignPointer<CBuffWindow>                      pSongWnd;
 ForeignPointer<CBugReportWnd>                    pBugReportWnd;
 ForeignPointer<CCastingWnd>                      pCastingWnd;
 ForeignPointer<CCastSpellWnd>                    pCastSpellWnd;
-ForeignPointer<CSidlScreenWnd>                   pCharacterCreation;
+ForeignPointer<CCharacterCreation>               pCharacterCreation;
 ForeignPointer<CCharacterListWnd>                pCharacterListWnd;
 ForeignPointer<ClaimWindow>                      pClaimWnd;
 ForeignPointer<CColorPickerWnd>                  pColorPickerWnd;
@@ -1301,10 +1304,61 @@ fGetLabelFromEQ        GetLabelFromEQ            = nullptr;
 uintptr_t              __ModuleList              = 0;
 uintptr_t              __ProcessList             = 0;
 
+// allocate memory as if by using eq's malloc.
+using eqAllocFn = void* (*)(std::size_t amount);
+eqAllocFn eqAlloc_ = nullptr;
+
+void* eqAlloc(std::size_t sz)
+{
+	return eqAlloc_(sz);
+}
+
+// free memory as if by using eq's free.
+using eqFreeFn = void (*)(void*);
+eqFreeFn eqFree_ = nullptr;
+
+void eqFree(void* ptr)
+{
+	eqFree_(ptr);
+}
+
+namespace SoeUtil
+{
+	void* Alloc(size_t bytes, int align) {
+		return eqAlloc(bytes);
+	}
+	void Free(void* p, int align) {
+		return eqFree(p);
+	}
+}
+
+FUNCTION_AT_ADDRESS(void*, eqAllocImpl(size_t), __eq_new);// Exception to Separate Function Addresses
+FUNCTION_AT_ADDRESS(void, eqFreeImpl(void*), __eq_delete);// Exception to Separate Function Addresses
+
 void InitializeGlobalOffsets()
 {
 	__ModuleList = (uintptr_t)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcessModules");
 	__ProcessList = (uintptr_t)GetProcAddress((HMODULE)Kernel32BaseAddress, "K32EnumProcesses");
+
+	eqAlloc_ = eqAllocImpl;
+	eqFree_ = eqFreeImpl;
+}
+
+void InitializeEQLibForTesting()
+{
+	eqAlloc_ = malloc;
+	eqFree_ = free;
+}
+
+void InitializeGlobals()
+{
+	ZeroMemory(gDiKeyName, sizeof(gDiKeyName));
+	for (int i = 0; gDiKeyID[i].Id; i++)
+	{
+		gDiKeyName[gDiKeyID[i].Id] = gDiKeyID[i].szName;
+	}
+
+	InitializeGlobalOffsets();
 }
 
 void InitializeEQGameOffsets()
@@ -1470,28 +1524,40 @@ INITIALIZE_EQGRAPHICS_OFFSET(EQGraphics_DebugAPI_Ptr);
 INITIALIZE_EQGRAPHICS_OFFSET(__bRenderSceneCalled);
 BOOL* g_bRenderSceneCalled = (BOOL*)__bRenderSceneCalled;
 
-void InitializeEQGraphicsOffsets()
+void InitializeEQGraphicsOffsets(uintptr_t BaseAddress)
 {
-	if (!EQGraphicsBaseAddress)
-	{
-		// no EQGraphics.dll loaded yet
-		HMODULE hLibrary = LoadLibrary(GRAPHICS_DLL_NAME);
-		EQGraphicsBaseAddress = (uintptr_t)hLibrary;
+	EQGraphicsBaseAddress = BaseAddress;
 
-		__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);
-		CEQGBitmap__GetFirstBitmap = FixEQGraphicsOffset(CEQGBitmap__GetFirstBitmap_x);
-		CParticleSystem__Render = FixEQGraphicsOffset(CParticleSystem__Render_x);
-		CParticleSystem__CreateSpellEmitter = FixEQGraphicsOffset(CParticleSystem__CreateSpellEmitter_x);
-		CRender__RenderScene = FixEQGraphicsOffset(CRender__RenderScene_x);
-		CRender__RenderBlind = FixEQGraphicsOffset(CRender__RenderBlind_x);
-		CRender__UpdateDisplay = FixEQGraphicsOffset(CRender__UpdateDisplay_x);
-		CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
-		g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
-		C2DPrimitiveManager__AddCachedText = FixEQGraphicsOffset(C2DPrimitiveManager__AddCachedText_x);
-		C2DPrimitiveManager__Render = FixEQGraphicsOffset(C2DPrimitiveManager__Render_x);
-		ObjectPreviewView__Render = FixEQGraphicsOffset(ObjectPreviewView__Render_x);
-		EQGraphics_DebugAPI_Ptr = FixEQGraphicsOffset(EQGraphics_DebugAPI_Ptr_x);
-	}
+	__eqgraphics_fopen = FixEQGraphicsOffset(__eqgraphics_fopen_x);
+	CEQGBitmap__GetFirstBitmap = FixEQGraphicsOffset(CEQGBitmap__GetFirstBitmap_x);
+	CParticleSystem__Render = FixEQGraphicsOffset(CParticleSystem__Render_x);
+	CParticleSystem__CreateSpellEmitter = FixEQGraphicsOffset(CParticleSystem__CreateSpellEmitter_x);
+	CRender__RenderScene = FixEQGraphicsOffset(CRender__RenderScene_x);
+	CRender__RenderBlind = FixEQGraphicsOffset(CRender__RenderBlind_x);
+	CRender__UpdateDisplay = FixEQGraphicsOffset(CRender__UpdateDisplay_x);
+	CRender__ResetDevice = FixEQGraphicsOffset(CRender__ResetDevice_x);
+	g_bRenderSceneCalled = (BOOL*)FixEQGraphicsOffset(__bRenderSceneCalled_x);
+	C2DPrimitiveManager__AddCachedText = FixEQGraphicsOffset(C2DPrimitiveManager__AddCachedText_x);
+	C2DPrimitiveManager__Render = FixEQGraphicsOffset(C2DPrimitiveManager__Render_x);
+	ObjectPreviewView__Render = FixEQGraphicsOffset(ObjectPreviewView__Render_x);
+	EQGraphics_DebugAPI_Ptr = FixEQGraphicsOffset(EQGraphics_DebugAPI_Ptr_x);
+}
+
+void CleanupEQGraphicsOffsets()
+{
+	__eqgraphics_fopen = 0;
+	CEQGBitmap__GetFirstBitmap = 0;
+	CParticleSystem__Render = 0;
+	CParticleSystem__CreateSpellEmitter = 0;
+	CRender__RenderScene = 0;
+	CRender__RenderBlind = 0;
+	CRender__UpdateDisplay = 0;
+	CRender__ResetDevice = 0;
+	g_bRenderSceneCalled = nullptr;
+	C2DPrimitiveManager__AddCachedText = 0;
+	C2DPrimitiveManager__Render = 0;
+	ObjectPreviewView__Render = 0;
+	EQGraphics_DebugAPI_Ptr = 0;
 }
 
 #pragma endregion
@@ -1528,70 +1594,65 @@ ForeignPointer<LoginClient> g_pLoginClient;
 ForeignPointer<LoginController> g_pLoginController;
 ForeignPointer<LoginServerAPI> g_pLoginServerAPI;
 
-bool InitializeEQMainOffsets()
+void InitializeEQMainOffsets(uintptr_t BaseAddress)
 {
-	if (*ghEQMainInstance)
-	{
-		EQMainBaseAddress = (uintptr_t)*ghEQMainInstance;
+	EQMainBaseAddress = BaseAddress;
 
-		EQMain__CEQSuiteTextureLoader__GetTexture = FixEQMainOffset(EQMain__CEQSuiteTextureLoader__GetTexture_x);
-		EQMain__CLoginViewManager__HandleLButtonUp = FixEQMainOffset(EQMain__CLoginViewManager__HandleLButtonUp_x);
+	EQMain__CEQSuiteTextureLoader__GetTexture = FixEQMainOffset(EQMain__CEQSuiteTextureLoader__GetTexture_x);
+	EQMain__CLoginViewManager__HandleLButtonUp = FixEQMainOffset(EQMain__CLoginViewManager__HandleLButtonUp_x);
 #if defined(EQMain__CXWndManager__GetCursorToDisplay_x)
-		EQMain__CXWndManager__GetCursorToDisplay = FixEQMainOffset(EQMain__CXWndManager__GetCursorToDisplay_x);
+	EQMain__CXWndManager__GetCursorToDisplay = FixEQMainOffset(EQMain__CXWndManager__GetCursorToDisplay_x);
 #endif
-		EQMain__LoginController__GiveTime = FixEQMainOffset(EQMain__LoginController__GiveTime_x);
-		EQMain__LoginServerAPI__JoinServer = FixEQMainOffset(EQMain__LoginServerAPI__JoinServer_x);
-		EQMain__LoginController__Shutdown = FixEQMainOffset(EQMain__LoginController__Shutdown_x);
-		EQMain__WndProc = FixEQMainOffset(EQMain__WndProc_x);
+	EQMain__LoginController__GiveTime = FixEQMainOffset(EQMain__LoginController__GiveTime_x);
+	EQMain__LoginServerAPI__JoinServer = FixEQMainOffset(EQMain__LoginServerAPI__JoinServer_x);
+	EQMain__LoginController__Shutdown = FixEQMainOffset(EQMain__LoginController__Shutdown_x);
+	EQMain__WndProc = FixEQMainOffset(EQMain__WndProc_x);
 
-		EQMain__pinstCEQSuiteTextureLoader = FixEQMainOffset(EQMain__pinstCEQSuiteTextureLoader_x);
-		EQMain__pinstCLoginViewManager = FixEQMainOffset(EQMain__pinstCLoginViewManager_x);
-		EQMain__pinstCSidlManager = FixEQMainOffset(EQMain__pinstCSidlManager_x);
-		EQMain__pinstCXWndManager = FixEQMainOffset(EQMain__pinstCXWndManager_x);
-		EQMain__pinstLoginController = FixEQMainOffset(EQMain__pinstLoginController_x);
-		EQMain__pinstLoginServerAPI = FixEQMainOffset(EQMain__pinstLoginServerAPI_x);
-		EQMain__pinstLoginClient = EQMain__pinstCLoginViewManager - 8;
+	EQMain__pinstCEQSuiteTextureLoader = FixEQMainOffset(EQMain__pinstCEQSuiteTextureLoader_x);
+	EQMain__pinstCLoginViewManager = FixEQMainOffset(EQMain__pinstCLoginViewManager_x);
+	EQMain__pinstCSidlManager = FixEQMainOffset(EQMain__pinstCSidlManager_x);
+	EQMain__pinstCXWndManager = FixEQMainOffset(EQMain__pinstCXWndManager_x);
+	EQMain__pinstLoginController = FixEQMainOffset(EQMain__pinstLoginController_x);
+	EQMain__pinstLoginServerAPI = FixEQMainOffset(EQMain__pinstLoginServerAPI_x);
+	EQMain__pinstLoginClient = EQMain__pinstCLoginViewManager - 8;
 
-		if (EQMain__LoginController__GiveTime)
-		{
+	if (EQMain__LoginController__GiveTime)
+	{
 #if defined(_M_AMD64)
-			//.text:18001BAC0                     public: void __thiscall LoginController::GiveTime(void) proc near
-			//.text:18001BAC0 40 53                               push    rbx
-			//.text:18001BAC2 48 83 EC 20                         sub     rsp, 20h
-			//.text:18001BAC6 48 8B D9                            mov     rbx, rcx
-			//.text:18001BAC9 E8 02 02 00 00                      call    LoginController::PollAndProcessDXKeyboard(void)
-			EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 9, 1, 4);
-			//.text:18001BACE 48 8B CB                            mov     rcx, rbx
-			//.text:18001BAD1 48 83 C4 20                         add     rsp, 20h
-			//.text:18001BAD5 5B                                  pop     rbx
-			//.text:18001BAD6 E9 25 06 00 00                      jmp     LoginController::PollAndProcessDXMouse(void)
-			EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 22, 1, 4);
+		//.text:18001BAC0                     public: void __thiscall LoginController::GiveTime(void) proc near
+		//.text:18001BAC0 40 53                               push    rbx
+		//.text:18001BAC2 48 83 EC 20                         sub     rsp, 20h
+		//.text:18001BAC6 48 8B D9                            mov     rbx, rcx
+		//.text:18001BAC9 E8 02 02 00 00                      call    LoginController::PollAndProcessDXKeyboard(void)
+		EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 9, 1, 4);
+		//.text:18001BACE 48 8B CB                            mov     rcx, rbx
+		//.text:18001BAD1 48 83 C4 20                         add     rsp, 20h
+		//.text:18001BAD5 5B                                  pop     rbx
+		//.text:18001BAD6 E9 25 06 00 00                      jmp     LoginController::PollAndProcessDXMouse(void)
+		EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 22, 1, 4);
 #else
-			//.text:10014B00                      public: void __thiscall LoginController::GiveTime(void) proc near
-			//.text:10014B00 56                                   push    esi
-			//.text:10014B01 8B F1                                mov     esi, this
-			//.text:10014B03 E8 D8 06 00 00                       call    LoginController::ProcessKeyboardEvents(void)
-			EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 3, 1, 4);
-			//.text:10014B08 8B CE                                mov     this, esi       ; this
-			//.text:10014B0A 5E                                   pop     esi
-			//.text:10014B0B E9 A0 08 00 00                       jmp     LoginController::ProcessMouseEvents(void)
-			EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 11, 1, 4);
+		//.text:10014B00                      public: void __thiscall LoginController::GiveTime(void) proc near
+		//.text:10014B00 56                                   push    esi
+		//.text:10014B01 8B F1                                mov     esi, this
+		//.text:10014B03 E8 D8 06 00 00                       call    LoginController::ProcessKeyboardEvents(void)
+		EQMain__LoginController__ProcessKeyboardEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 3, 1, 4);
+		//.text:10014B08 8B CE                                mov     this, esi       ; this
+		//.text:10014B0A 5E                                   pop     esi
+		//.text:10014B0B E9 A0 08 00 00                       jmp     LoginController::ProcessMouseEvents(void)
+		EQMain__LoginController__ProcessMouseEvents = GetFunctionAddressAt(EQMain__LoginController__GiveTime + 11, 1, 4);
 #endif
-		}
-
-		g_pLoginViewManager = EQMain__pinstCLoginViewManager;
-		g_pLoginController = EQMain__pinstLoginController;
-		g_pLoginServerAPI = EQMain__pinstLoginServerAPI;
-		g_pLoginClient = EQMain__pinstLoginClient;
-
-		// Update addresses shared with eqgame.exe
-		CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
-		pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)EQMain__pinstCEQSuiteTextureLoader;
-
-		return true;
 	}
 
-	return false;
+	g_pLoginViewManager = EQMain__pinstCLoginViewManager;
+	g_pLoginController = EQMain__pinstLoginController;
+	g_pLoginServerAPI = EQMain__pinstLoginServerAPI;
+	g_pLoginClient = EQMain__pinstLoginClient;
+
+	// Update addresses shared with eqgame.exe
+	CEQSuiteTextureLoader__GetTexture = EQMain__CEQSuiteTextureLoader__GetTexture;
+	pEQSuiteTextureLoader             = (CEQSuiteTextureLoader*)EQMain__pinstCEQSuiteTextureLoader;
+	pWndMgr                           = EQMain__pinstCXWndManager;
+	pSidlMgr                          = EQMain__pinstCSidlManager;
 }
 
 void CleanupEQMainOffsets()
@@ -1624,47 +1685,58 @@ void CleanupEQMainOffsets()
 	// re-initialize offsets that were overwritten by eqmain
 	pEQSuiteTextureLoader = (CEQSuiteTextureLoader*)pinstEQSuiteTextureLoader;
 	CEQSuiteTextureLoader__GetTexture = FixEQGameOffset(CEQSuiteTextureLoader__GetTexture_x);
+	pWndMgr = pinstCXWndManager;
+	pSidlMgr = pinstCSidlManager;
 }
 
 #pragma endregion
 
+uint32_t GetStringCRC(std::string_view sv)
+{
+	return GetBufferCRC(sv.data(), sv.length());
+}
+
+void GetFactionName(int FactionID, char* szBuffer, size_t bufferSize)
+{
+	if (const char* ptr = pCDBStr->GetString(FactionID, eFactionName, nullptr))
+	{
+		strcpy_s(szBuffer, bufferSize, ptr);
+	}
+	else
+	{
+		sprintf_s(szBuffer, bufferSize, "Unknown Faction[%d]", FactionID);
+	}
+}
+
+CCachedFont* CCachedFont::Get(int fontStyle)
+{
+	if (!pGraphicsEngine) return nullptr;
+	auto resourceMgr = pGraphicsEngine->pResourceManager;
+	if (!resourceMgr) return nullptr;
+
+	CCachedFont* pCachedFont = nullptr;
+	EStatus status;
+
+	// GetCachedFont may crash here if the font manager hasn't been created yet, but we're
+	// using this routine to get access to the font manager. If it throws an access violation,
+	// the application state is fine, we can just bail on this attempt.
+	__try {
+		status = resourceMgr->GetCachedFont(fontStyle, reinterpret_cast<CCachedFontInterface**>(&pCachedFont));
+	}
+	__except (EXCEPTION_EXECUTE_HANDLER) {
+		status = eStatusFailure;
+	}
+
+	if (status == eStatusFailure)
+		return nullptr;
+
+	return pCachedFont;
+}
+
+
 //============================================================================
 //
 
-static const std::string logger_name = "eqlib";
-
-void InitializeLogging(const std::shared_ptr<spdlog::logger>& in_logger)
-{
-	auto logger = spdlog::get(logger_name);
-	if (!logger)
-	{
-		auto& sinks = in_logger->sinks();
-
-		logger = std::make_shared<spdlog::logger>(logger_name, std::begin(sinks), std::end(sinks));
-		spdlog::set_pattern("%L %Y-%m-%d %T.%f [%n] %v (%@)");
-		spdlog::set_default_logger(logger);
-	}
-
-	SPDLOG_DEBUG("Logging initialized");
-}
-
-void ShutdownLogging()
-{
-	spdlog::shutdown();
-}
-
-void InitializeGlobals()
-{
-	ZeroMemory(gDiKeyName, sizeof(gDiKeyName));
-	for (int i = 0; gDiKeyID[i].Id; i++)
-	{
-		gDiKeyName[gDiKeyID[i].Id] = gDiKeyID[i].szName;
-	}
-
-	InitializeGlobalOffsets();
-	InitializeEQGameOffsets();
-	InitializeEQGraphicsOffsets();
-}
 
 } // namespace eqlib
 

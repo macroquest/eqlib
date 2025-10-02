@@ -39,61 +39,65 @@ class CSidlManagerBase;
 class CTextureFont;
 
 // Message types for WndNotifications
-#define XWM_LCLICK                       1
-#define XWM_LMOUSEUP                     2
-#define XWM_RCLICK                       3
-#define XWM_LDBLCLICK                    4
-#define XWM_RDBLCLICK                    5
-#define XWM_HITENTER                     6
-#define XWM_TAB                          7
-#define XWM_SHIFTTAB                     8
-#define XWM_QMARKBOX                     9
-#define XWM_CLOSE                        10
-#define XWM_CHILDCLOSED                  11
-#define XWM_TOOLTIP                      12
-#define XWM_REQUESTINFO                  13
-#define XWM_NEWVALUE                     14
-#define XWM_COLUMNCLICK                  15
-#define XWM_SORTREQUEST                  16
-#define XWM_LISTBOX_EDIT_UPDATE          17
-#define XWM_CLICKSTICKSTART              18
-#define XWM_IS_LINK_ACTIVE               19
-#define XWM_MENUSELECT                   20
-#define XWM_MOUSEOVER                    21
-#define XWM_HISTORY                      22
-#define XWM_LCLICKHOLD                   23
-#define XWM_RCLICKHOLD                   24
-#define XWM_LBUTTONUPAFTERHELD           25
-#define XWM_RBUTTONUPAFTERHELD           26
-#define XWM_LINK                         27
-#define XWM_FINDERITEMOPEN               28
-#define XWM_MAXIMIZEBOX                  29
-#define XWM_TITLEBAR                     30
-#define XWM_ACHIEVEMENTLINK              31
-#define XWM_NOTSURE32                    32
-#define XWM_DIALOGRESPONSELINK           33
-#define XWM_SPELL_LINK                   34
-#define XWM_FOCUS                        35
-#define XWM_LOSTFOCUS                    36
-#define XWM_RELOAD_FROM_SIDL             37
-#define XWM_ACTIVATE                     38
-#define XWM_SLIDER_COMPLETE              39
-#define XWM_SLIDER_COMPLEX_EX            40
-#define XWM_COLORPICKER_COMPLETE         41
-#define XWM_TEXTENTRY_COMPLETE           42
-#define XWM_FILESELECTION_COMPLETE       43
-#define XWM_ICONSELECTION_COMPLETE       44
-#define XWM_RELOAD_INI                   45
-#define XWM_THUMBTRACK                   46
-#define XWM_SELITEM_DOWN                 47
-#define XWM_FIRST_USER                   48
-#define XWM_RSELITEM_DOWN                49
-#define XWM_OUTPUT_TEXT                  50
-#define XWM_COMMANDLINK                  51
-#define XWM_RAIDINVITE_LINK              52
-#define XWM_FACTION_LINK                 53
+enum eWndNotification
+{
+	XWM_LCLICK                       = 1,
+	XWM_LMOUSEUP                     = 2,
+	XWM_RCLICK                       = 3,
+	XWM_LDBLCLICK                    = 4,
+	XWM_RDBLCLICK                    = 5,
+	XWM_HITENTER                     = 6,
+	XWM_TAB                          = 7,
+	XWM_SHIFTTAB                     = 8,
+	XWM_QMARKBOX                     = 9,
+	XWM_CLOSE                        = 10,
+	XWM_CHILDCLOSED                  = 11,
+	XWM_TOOLTIP                      = 12,
+	XWM_REQUESTINFO                  = 13,
+	XWM_NEWVALUE                     = 14,
+	XWM_COLUMNCLICK                  = 15,
+	XWM_SORTREQUEST                  = 16,
+	XWM_LISTBOX_EDIT_UPDATE          = 17,
+	XWM_CLICKSTICKSTART              = 18,
+	XWM_IS_LINK_ACTIVE               = 19,
+	XWM_MENUSELECT                   = 20,
+	XWM_MOUSEOVER                    = 21,
+	XWM_HISTORY                      = 22,
+	XWM_LCLICKHOLD                   = 23,
+	XWM_RCLICKHOLD                   = 24,
+	XWM_LBUTTONUPAFTERHELD           = 25,
+	XWM_RBUTTONUPAFTERHELD           = 26,
+	XWM_LINK                         = 27,
+	XWM_FINDERITEMOPEN               = 28,
+	XWM_MAXIMIZEBOX                  = 29,
+	XWM_TITLEBAR                     = 30,
+	XWM_ACHIEVEMENTLINK              = 31,
+	XWM_NOTSURE32                    = 32,
+	XWM_DIALOGRESPONSELINK           = 33,
+	XWM_SPELL_LINK                   = 34,
+	XWM_FOCUS                        = 35,
+	XWM_LOSTFOCUS                    = 36,
+	XWM_RELOAD_FROM_SIDL             = 37,
+	XWM_ACTIVATE                     = 38,
+	XWM_SLIDER_COMPLETE              = 39,
+	XWM_SLIDER_COMPLEX_EX            = 40,
+	XWM_COLORPICKER_COMPLETE         = 41,
+	XWM_TEXTENTRY_COMPLETE           = 42,
+	XWM_FILESELECTION_COMPLETE       = 43,
+	XWM_ICONSELECTION_COMPLETE       = 44,
+	XWM_RELOAD_INI                   = 45,
+	XWM_THUMBTRACK                   = 46,
+	XWM_SELITEM_DOWN                 = 47,
+	XWM_FIRST_USER                   = 48,
+	XWM_RSELITEM_DOWN                = 49,
+	XWM_OUTPUT_TEXT                  = 50,
+	XWM_COMMANDLINK                  = 51,
+	XWM_RAIDINVITE_LINK              = 52,
+	XWM_FACTION_LINK                 = 53,
 
-#define XWM_USER_DEFINED                 1000
+	XWM_USER_DEFINED                 = 1000,
+};
+
 
 // Defines for CXWnd WindowStyle
 #define CWS_VSCROLL                              0x00000001
@@ -250,7 +254,7 @@ public:
 // CXWnd
 //============================================================================
 
-constexpr size_t CXWnd_size = 0x258; // @sizeof(CXWnd) :: 2024-12-02 (beta) @ 0x1405C4471
+constexpr size_t CXWnd_size = 0x260; // @sizeof(CXWnd) :: 2025-09-11 (live) @ 0x1405DDEC1
 constexpr size_t CXWnd_vftable_size = 0x348;
 
 class [[offsetcomments]] CXWnd
@@ -728,116 +732,116 @@ public:
 	EQLIB_OBJECT static void operator delete[](void* ptr);
 
 // @start: CXWnd Members
-/*0x030*/ CTextObjectInterface* pTipTextObject;
-/*0x038*/ uint32_t           FadeDuration;
-/*0x03c*/ bool               bMarkedForDelete;
-/*0x040*/ int                BlinkStartTimer;
-/*0x044*/ int                RightOffset;
-/*0x048*/ bool               bEnableShowBorder;
-/*0x049*/ bool               bClickThroughMenuItemStatus;
-/*0x04c*/ CXRect             ClipRectScreen;
-/*0x05c*/ uint32_t           LastTimeMouseOver;
-/*0x060*/ int                VScrollMax;
-/*0x064*/ int                TopOffset;
-/*0x068*/ int                ParentAndContextMenuArrayIndex;
-/*0x06c*/ bool               bEscapableLocked;
-/*0x070*/ COLORREF           DisabledBackground;
-/*0x074*/ uint32_t           BlinkFadeFreq;
-/*0x078*/ CXStr              WindowText;
-/*0x080*/ CXRect             IconRect;
-/*0x090*/ uint32_t           WindowStyle;
-/*0x094*/ uint8_t            TargetAlpha;
-/*0x095*/ bool               bNeedsSaving;
-/*0x098*/ CStaticTintedBlendAnimationTemplate* TitlePiece;
-/*0x0a0*/ bool               bScreenClipRectChanged;
-/*0x0a8*/ CXWnd*             FocusProxy;
-/*0x0b0*/ int                ZLayer;
-/*0x0b4*/ CXRect             OldLocation;
-/*0x0c8*/ ArrayClass2<uint32_t> RuntimeTypes;
-/*0x0e8*/ uint32_t           LastBlinkFadeRefreshTime;
-/*0x0ec*/ bool               Enabled;
-/*0x0ed*/ bool               bTopAnchoredToTop;
-/*0x0ee*/ bool               bClickThrough;
-/*0x0f0*/ CXStr              Tooltip;
-/*0x0f8*/ bool               bIsParentOrContextMenuWindow;
-/*0x0f9*/ bool               bBringToTopWhenClicked;
-/*0x0fc*/ uint32_t           TransitionStartTick;
-/*0x100*/ uint32_t           BlinkFadeDuration;
-/*0x108*/ ControllerBase*    pController;
-/*0x110*/ CTextureFont*      pFont;
-/*0x118*/ bool               bAction;
-/*0x120*/ CXWnd*             ParentWindow;
-/*0x128*/ bool               Faded;
-/*0x12c*/ COLORREF           CRNormal;
-/*0x130*/ bool               bMaximized;
-/*0x134*/ int                VScrollPos;
-/*0x138*/ CStaticTintedBlendAnimationTemplate* TitlePiece2;
-/*0x140*/ CXRect             ClientRect;
-/*0x150*/ bool               bTiled;
-/*0x154*/ COLORREF           BGColor;
-/*0x158*/ int64_t            Data;
-/*0x160*/ CXRect             TransitionRect;
-/*0x170*/ int                managerArrayIndex;
-/*0x174*/ bool               Locked;
-/*0x178*/ int                HScrollMax;
-/*0x17c*/ bool               MouseOver;
-/*0x180*/ CLayoutStrategy*   pLayoutStrategy;
-/*0x188*/ int                BlinkState;
-/*0x18c*/ uint32_t           BlinkFadeStartTime;
-/*0x190*/ uint32_t           XMLIndex;
-/*0x194*/ bool               bShowBorder;
-/*0x198*/ int                BottomOffset;
-/*0x1a0*/ CXWndDrawTemplate* DrawTemplate;
-/*0x1a8*/ CXStr              DataStr;
-/*0x1b0*/ bool               ValidCXWnd;
-/*0x1b1*/ bool               Fades;
-/*0x1b2*/ bool               bKeepOnScreen;
-/*0x1b8*/ CTextObjectInterface* pTextObject;
-/*0x1c0*/ bool               bIsTransitioning;
-/*0x1c1*/ bool               bMaximizable;
-/*0x1c2*/ bool               bBottomAnchoredToTop;
-/*0x1c3*/ bool               Minimized;
-/*0x1c4*/ bool               bClientClipRectChanged;
-/*0x1c8*/ CXSize             MinClientSize;
-/*0x1d0*/ CXRect             Location;
-/*0x1e0*/ int                LeftOffset;
-/*0x1e4*/ uint8_t            bResizableMask;
-/*0x1e8*/ int                Transition;
-/*0x1ec*/ uint32_t           BGType;
-/*0x1f0*/ CXRect             ClipRectClient;
-/*0x200*/ CXSize             MaxClientSize;
-/*0x208*/ CTextureAnimation* IconTextureAnim;
-/*0x210*/ bool               bClientRectChanged;
-/*0x211*/ bool               bFullyScreenClipped;
-/*0x212*/ bool               bLeftAnchoredToLeft;
-/*0x214*/ uint32_t           BackgroundDrawType;
-/*0x218*/ bool               Unlockable;
-/*0x21c*/ int                DeleteCount;
-/*0x220*/ bool               bActive;
-/*0x221*/ uint8_t            StartAlpha;
-/*0x222*/ bool               bShowClickThroughMenuItem;
-/*0x223*/ uint8_t            FadeToAlpha;
-/*0x224*/ int                HScrollPos;
-/*0x228*/ bool               bUseInLayoutHorizontal;
-/*0x229*/ uint8_t            Alpha;
-/*0x22a*/ bool               bUseInLayoutVertical;
-/*0x22b*/ bool               bRightAnchoredToLeft;
-/*0x22c*/ bool               bHCenterTooltip;
-/*0x230*/ uint32_t           TransitionDuration;
-/*0x238*/ CXStr              XMLToolTip;
-/*0x240*/ bool               dShow;
-/*0x244*/ int                BlinkDuration;
-/*0x248*/ bool               bClipToParent;
-/*0x24c*/ uint32_t           FadeDelay;
-/*0x250*/ bool               bClickThroughToBackground;
-/*0x251*/ bool               bEscapable;
-/*0x252*/ uint8_t            FadeAlpha;
-/*0x253*/ bool               bCaptureTitle;
+/*0x030*/ CXRect             IconRect;
+/*0x040*/ bool               bMaximizable;
+/*0x044*/ uint32_t           BlinkFadeStartTime;
+/*0x048*/ bool               MouseOver;
+/*0x04c*/ uint32_t           BGType;
+/*0x050*/ CStaticTintedBlendAnimationTemplate* TitlePiece2;
+/*0x058*/ bool               bLeftAnchoredToLeft;
+/*0x05c*/ CXRect             ClipRectClient;
+/*0x06c*/ int                ParentAndContextMenuArrayIndex;
+/*0x070*/ bool               Enabled;
+/*0x071*/ bool               bActive;
+/*0x074*/ uint32_t           TransitionDuration;
+/*0x078*/ int                managerArrayIndex;
+/*0x07c*/ bool               bIsParentOrContextMenuWindow;
+/*0x080*/ uint32_t           FadeDuration;
+/*0x088*/ CXStr              XMLToolTip;
+/*0x090*/ CLayoutStrategy*   pLayoutStrategy;
+/*0x098*/ int                DeleteCount;
+/*0x09c*/ int                HScrollMax;
+/*0x0a0*/ CTextureAnimation* IconTextureAnim;
+/*0x0a8*/ uint32_t           WindowStyle;
+/*0x0ac*/ uint8_t            FadeAlpha;
+/*0x0b0*/ uint32_t           FadeDelay;
+/*0x0b4*/ int                Transition;
+/*0x0b8*/ uint32_t           TransitionStartTick;
+/*0x0bc*/ COLORREF           BGColor;
+/*0x0c0*/ bool               Locked;
+/*0x0c1*/ bool               bMarkedForDelete;
+/*0x0c2*/ bool               Faded;
+/*0x0c4*/ CXSize             MinClientSize;
+/*0x0cc*/ CXRect             ClipRectScreen;
+/*0x0dc*/ bool               bBottomAnchoredToTop;
+/*0x0e0*/ uint32_t           LastBlinkFadeRefreshTime;
+/*0x0e4*/ bool               bClientRectChanged;
+/*0x0e5*/ bool               bClickThrough;
+/*0x0e6*/ bool               bEscapableLocked;
+/*0x0e7*/ bool               bUseInLayoutHorizontal;
+/*0x0e8*/ CTextureFont*      pFont;
+/*0x0f0*/ bool               bTopAnchoredToTop;
+/*0x0f4*/ CXRect             Location;
+/*0x104*/ bool               bClipToParent;
+/*0x105*/ bool               bCaptureTitle;
+/*0x108*/ uint32_t           XMLIndex;
+/*0x10c*/ bool               bBringToTopWhenClicked;
+/*0x110*/ uint32_t           BackgroundDrawType;
+/*0x114*/ bool               bClickThroughToBackground;
+/*0x115*/ bool               bAction;
+/*0x116*/ bool               bUseInLayoutVertical;
+/*0x118*/ int                BottomOffset;
+/*0x11c*/ CXRect             OldLocation;
+/*0x12c*/ int                ZLayer;
+/*0x130*/ bool               ValidCXWnd;
+/*0x138*/ CXStr              WindowText;
+/*0x140*/ ArrayClass2<uint32_t> RuntimeTypes;
+/*0x160*/ uint8_t            FadeToAlpha;
+/*0x161*/ bool               bShowClickThroughMenuItem;
+/*0x164*/ uint32_t           LastTimeMouseOver;
+/*0x168*/ ControllerBase*    pController;
+/*0x170*/ int                HScrollPos;
+/*0x174*/ uint32_t           BlinkFadeDuration;
+/*0x178*/ CXWndDrawTemplate* DrawTemplate;
+/*0x180*/ bool               bTiled;
+/*0x184*/ int                BlinkDuration;
+/*0x188*/ CTextObjectInterface* pTipTextObject;
+/*0x190*/ uint32_t           BlinkFadeFreq;
+/*0x198*/ CXWnd*             ParentWindow;
+/*0x1a0*/ CXStr              Tooltip;
+/*0x1a8*/ int                VScrollPos;
+/*0x1ac*/ bool               Minimized;
+/*0x1b0*/ COLORREF           CRNormal;
+/*0x1b4*/ CXRect             TransitionRect;
+/*0x1c4*/ bool               bEscapable;
+/*0x1c5*/ uint8_t            Alpha;
+/*0x1c6*/ uint8_t            StartAlpha;
+/*0x1c7*/ bool               bMaximized;
+/*0x1c8*/ bool               bScreenClipRectChanged;
+/*0x1d0*/ CTextObjectInterface* pTextObject;
+/*0x1d8*/ int                VScrollMax;
+/*0x1e0*/ int64_t            Data;
+/*0x1e8*/ CXRect             ClientRect;
+/*0x1f8*/ bool               bEnableShowBorder;
+/*0x1f9*/ bool               bIsTransitioning;
+/*0x200*/ CStaticTintedBlendAnimationTemplate* TitlePiece;
+/*0x208*/ bool               bClickThroughMenuItemStatus;
+/*0x209*/ bool               bRightAnchoredToLeft;
+/*0x20a*/ bool               bFullyScreenClipped;
+/*0x20c*/ int                RightOffset;
+/*0x210*/ bool               bHCenterTooltip;
+/*0x211*/ bool               dShow;
+/*0x218*/ CXStr              DataStr;
+/*0x220*/ bool               Fades;
+/*0x224*/ int                BlinkState;
+/*0x228*/ bool               bClientClipRectChanged;
+/*0x22c*/ CXSize             MaxClientSize;
+/*0x234*/ int                TopOffset;
+/*0x238*/ COLORREF           DisabledBackground;
+/*0x23c*/ bool               bNeedsSaving;
+/*0x23d*/ uint8_t            bResizableMask;
+/*0x23e*/ bool               bKeepOnScreen;
+/*0x23f*/ uint8_t            TargetAlpha;
+/*0x240*/ CXWnd*             FocusProxy;
+/*0x248*/ bool               Unlockable;
+/*0x24c*/ int                BlinkStartTimer;
+/*0x250*/ bool               bShowBorder;
+/*0x254*/ int                LeftOffset;
 
 // @end: CXWnd Members
-/*0x254*/ bool               bUsesClassicUI;
-/*0x255*/ bool               bMouseOverEvent;
-/*0x258*/
+/*0x258*/ bool               bUsesClassicUI;
+/*0x259*/ bool               bMouseOverEvent;
+/*0x25c*/
 
 	ALT_MEMBER_ALIAS(bool, bEscapable, CloseOnESC);
 	ALT_MEMBER_ALIAS_DEPRECATED(bool, bEnableShowBorder, bBorder, "Use bEnableShowBorder instead of bBorder");
@@ -871,7 +875,7 @@ enum eIniFlags
 	eIniFlag_All                     = 0xffffffff
 };
 
-constexpr size_t CSidlScreenWnd_size = 0x2C0; // @sizeof(CSidlScreenWnd) :: 2024-12-02 (beta) @ 0x1405BEED1
+constexpr size_t CSidlScreenWnd_size = 0x2C8; // @sizeof(CSidlScreenWnd) :: 2025-09-11 (live) @ 0x1405D8911
 constexpr size_t CSidlScreenWnd_vftable_size = 0x380;
 
 class [[offsetcomments]] CSidlScreenWnd : public CXWnd
@@ -907,23 +911,23 @@ public:
 
 	//----------------------------------------------------------------------------
 	// data members
-/*0x258*/ bool                         bControlsCreated;
-/*0x260*/ CXStr                        SidlText;
-/*0x268*/ CScreenTemplate*             SidlPiece;
-/*0x270*/ ArrayClass<CRadioGroup*>     RadioGroup;
-/*0x288*/ bool                         bInitVisibility;
-/*0x289*/ bool                         bVisibleBeforeResize;
-/*0x28c*/ int                          IniFlags;
-/*0x290*/ CXStr                        IniStorageName;
-/*0x298*/ int                          IniVersion;
-/*0x29c*/ int                          LastResX;
-/*0x2a0*/ int                          LastResY;
-/*0x2a4*/ bool                         bLastResFullscreen;
-/*0x2a8*/ int                          ContextMenuID;
-/*0x2b0*/ CXWnd*                       pFirstVScrollChild;
-/*0x2b8*/ int                          ContextMenuTipID;
-/*0x2bc*/ bool                         bHasActivatedFirstTimeAlert;
-/*0x2c0*/
+/*0x260*/ bool                         bControlsCreated;
+/*0x268*/ CXStr                        SidlText;
+/*0x270*/ CScreenTemplate*             SidlPiece;
+/*0x278*/ ArrayClass<CRadioGroup*>     RadioGroup;
+/*0x290*/ bool                         bInitVisibility;
+/*0x291*/ bool                         bVisibleBeforeResize;
+/*0x294*/ int                          IniFlags;
+/*0x298*/ CXStr                        IniStorageName;
+/*0x2a0*/ int                          IniVersion;
+/*0x2a4*/ int                          LastResX;
+/*0x2a8*/ int                          LastResY;
+/*0x2ac*/ bool                         bLastResFullscreen;
+/*0x2b0*/ int                          ContextMenuID;
+/*0x2b8*/ CXWnd*                       pFirstVScrollChild;
+/*0x2c0*/ int                          ContextMenuTipID;
+/*0x2c4*/ bool                         bHasActivatedFirstTimeAlert;
+/*0x2c8*/
 
 	//----------------------------------------------------------------------------
 	// functions that we provide offsets for
@@ -1176,7 +1180,7 @@ public:
 // CEQXWndManager
 //============================================================================
 
-constexpr size_t CEQXWndManager_size = 0x298; // @sizeof(CEQXWndManager) :: 2024-12-02 (beta) @ 0x1401911E5
+constexpr size_t CEQXWndManager_size = 0x298; // @sizeof(CEQXWndManager) :: 2025-09-11 (live) @ 0x140197BC5
 
 class [[offsetcomments]] CEQXWndManager : public CXWndManager
 {

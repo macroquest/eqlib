@@ -374,4 +374,23 @@
 			</LinkedListItems>
 		</Expand>
 	</Type>
+
+	<Type Name="eqlib::EQ_Spell">
+		<DisplayString>[Spell: {Name,na}]</DisplayString>
+	</Type>
+
+	<Type Name="eqlib::SoeUtil::Map&lt;*,*,*&gt;">
+		<DisplayString>{{size={m_count}}}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_count</Item>
+			<TreeItems>
+				<Size>m_count</Size>
+				<HeadPointer>m_root</HeadPointer>
+				<LeftPointer>left</LeftPointer>
+				<RightPointer>right</RightPointer>
+				<ValueNode Name="[{key}]">value,view(MapHelper)</ValueNode>
+			</TreeItems>
+		</Expand>
+		
+	</Type>
 </AutoVisualizer>

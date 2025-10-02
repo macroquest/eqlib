@@ -14,57 +14,13 @@
 
 #pragma once
 
-#include <cstdint>
+#include "eqlib/Common.h"
 
 namespace eqlib {
 
-#pragma warning( push )
-#pragma warning( disable : 4312 ) // remove the warnings for the reinterpret cast from pointer to byte
-
-inline bool DataCompare(const uint8_t* pData, const uint8_t* bMask, const char* szMask)
-{
-	for (; *szMask; ++szMask, ++pData, ++bMask)
-	{
-		if (*szMask == 'x' && *pData != *bMask)
-			return false;
-	}
-	return (*szMask) == 0;
-}
-
-inline uintptr_t FindPattern(uintptr_t dwAddress, uintptr_t dwLen, const uint8_t* bPattern, const char* szMask)
-{
-	for (uintptr_t i = 0; i < dwLen; i++)
-	{
-		if (DataCompare(reinterpret_cast<uint8_t*>(dwAddress + i), bPattern, szMask))
-			return dwAddress + i;
-	}
-
-	return 0;
-}
-
-inline uintptr_t GetDWordAt(uintptr_t address, uintptr_t numBytes)
-{
-	if (address)
-	{
-		address += numBytes;
-		return *reinterpret_cast<uintptr_t*>(address);
-	}
-
-	return 0;
-}
-
-inline uintptr_t GetFunctionAddressAt(uintptr_t address, uintptr_t addressOffset, uintptr_t numBytes)
-{
-	if (address)
-	{
-		uintptr_t displacement = *reinterpret_cast<uintptr_t*>(address + addressOffset);
-		return address + numBytes + displacement;
-	}
-
-	return 0;
-}
-
-#pragma warning( pop )
+//
+// ForeignPointer
+//
 
 // Variadic expansion of bases for ForeignPointer allow us to specify multiple allowable types for
 // conversion. For example:
@@ -145,7 +101,14 @@ struct ForeignPointer_StorageBase<T, U, Rest...> : public ForeignPointer_Storage
 	}
 };
 
-// a Utility helper class to replace those pesky pointer defines
+/**
+ * A fancy pointer that points to the object pointed at from another address. This is
+ * effectively a wrapper to give a double pointer to create the behavior of a standard
+ * single pointer.
+ *
+ * @tparam T Type of the pointee
+ * @tparam Conversions Additional types that are allowed implicit conversions
+ */
 template <typename T, typename... Conversions>
 class ForeignPointer : public ForeignPointer_StorageBase<T, Conversions...>
 {
@@ -154,23 +117,16 @@ public:
 	~ForeignPointer() noexcept = default;
 
 	ForeignPointer(uintptr_t addr) noexcept
-	{ this->m_ptr = reinterpret_cast<T**>(addr); }
-	ForeignPointer(const ForeignPointer& other) noexcept
-	{ this->m_ptr = other.m_ptr; }
-	ForeignPointer(ForeignPointer&& other) noexcept
-	{ this->m_ptr = other.m_ptr; }
-
-	ForeignPointer& operator=(const ForeignPointer& other) noexcept
 	{
-		this->m_ptr = other.m_ptr;
-		return *this;
+		this->m_ptr = reinterpret_cast<T**>(addr);
 	}
 
-	ForeignPointer& operator=(ForeignPointer&& other) noexcept
-	{
-		this->m_ptr = other.m_ptr;
-		return *this;
-	}
+	// To avoid accidental reassignment, ForeignPointer is non-copyable. To copy a ForeignPointer,
+	// use .clone() or .reset()
+	ForeignPointer(const ForeignPointer& other) noexcept = delete;
+	ForeignPointer(ForeignPointer&& other) noexcept = delete;
+	ForeignPointer& operator=(const ForeignPointer& other) noexcept = delete;
+	ForeignPointer& operator=(ForeignPointer&& other) noexcept = delete;
 
 	ForeignPointer& operator=(uintptr_t other) noexcept
 	{
@@ -250,57 +206,131 @@ public:
 	void set_offset(T** offset) noexcept { this->m_ptr = offset; }
 
 	void reset() { this->m_ptr = nullptr; }
+	void reset(const ForeignPointer& other) { this->m_ptr = other.m_ptr; }
+
+	ForeignPointer clone() const { return ForeignPointer<T, Conversions...>(get_offset()); }
 
 	// If the pointer is convertible, then this object is convertible
-	template <typename U, typename = std::enable_if<std::is_convertible_v<T, U>, void>>
-	inline operator ForeignPointer<U>& ()
+	template <typename U>
+	ForeignPointer<U>& ref()
 	{
 		return reinterpret_cast<ForeignPointer<U>&>(*this);
 	}
 };
 
-// A pointer-like type that gets its value by derive the computing from some expression.
-// This pointer is non-copyable and non-reassignable.
 template <typename T>
-class ComputedPointer
+class ForeignReference
 {
+	using ValueType = std::remove_cv_t<std::remove_reference_t<T>>;
+
 public:
-	using ComputedFn = T* (*)();
-
-	ComputedPointer(ComputedFn fn) : m_fn(fn) {}
-	~ComputedPointer() = default;
-
-	ComputedPointer(const ComputedPointer&) = delete;
-	ComputedPointer& operator= (const ComputedPointer&) = delete;
-
-	operator T* () const noexcept
+	constexpr ForeignReference(nullptr_t) noexcept
+		: m_ptr(nullptr)
 	{
-		return get();
+	}
+	constexpr explicit ForeignReference(ValueType* ptr) noexcept
+		: m_ptr(ptr)
+	{}
+
+	constexpr explicit ForeignReference(uintptr_t address) noexcept
+		: m_ptr(reinterpret_cast<ValueType*>(address))
+	{}
+
+	constexpr ForeignReference(const ForeignReference& other) noexcept
+	{
+		m_ptr = other.m_ptr;
 	}
 
-	T& operator* () const noexcept
+	// assignment
+	constexpr ForeignReference& operator=(const ForeignReference& other) noexcept
 	{
-		T* value = get();
-		assert(value != nullptr);
-
-		return *value;
+		m_ptr = other.m_ptr;
+		return *this;
 	}
 
-	T* operator-> () const noexcept
+	constexpr ForeignReference& operator=(ForeignReference&& other) noexcept
 	{
-		return get();
+		m_ptr = other.m_ptr;
+		return *this;
 	}
 
-	explicit operator bool() const noexcept { return get() != nullptr; }
-
-	T* get() const noexcept
+	constexpr ForeignReference& operator=(T value) noexcept
 	{
-		return m_fn();
+		*m_ptr = value;
+		return *this;
+	}
+
+	// getters
+	constexpr const ValueType& get() const noexcept
+	{
+		return *m_ptr;
+	}
+
+	constexpr ValueType& get() noexcept
+	{
+		return *m_ptr;
+	}
+
+	constexpr operator const ValueType& () const& noexcept // const-ref context converts to const-ref
+	{
+		return *m_ptr;
+	}
+
+	// setters
+	constexpr void set(ValueType& value) noexcept
+	{
+		*m_ptr = value;
+	}
+
+	constexpr operator ValueType&() & noexcept // ref context converts to ref
+	{
+		return *m_ptr;
+	}
+
+	constexpr operator ValueType() && noexcept // r-value ref context converts to value
+	{
+		return *m_ptr;
+	}
+
+	// comparison operators
+	template <typename U>
+	constexpr bool operator==(const U& other) const noexcept
+	{
+		return *m_ptr == other;
+	}
+
+	template <typename U>
+	constexpr bool operator!=(const U& other) const noexcept
+	{
+		return *m_ptr != other;
+	}
+
+	template <typename U>
+	constexpr bool operator<(const U& other) const noexcept
+	{
+		return *m_ptr < other;
+	}
+
+	template <typename U>
+	constexpr bool operator>(const U& other) const noexcept
+	{
+		return *m_ptr > other;
+	}
+
+	template <typename U>
+	constexpr bool operator<=(const U& other) const noexcept
+	{
+		return *m_ptr <= other;
+	}
+
+	template <typename U>
+	constexpr bool operator>=(const U& other) const noexcept
+	{
+		return *m_ptr >= other;
 	}
 
 private:
-	ComputedFn m_fn;
+	ValueType* m_ptr;
 };
-
 
 } // namespace eqlib

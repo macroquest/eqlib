@@ -12,17 +12,19 @@
  * GNU General Public License for more details.
  */
 
-
 #pragma once
-
-#include "Common.h"
 
 #include <spdlog/spdlog.h>
 
 namespace eqlib {
 
-EQLIB_OBJECT void InitializeLogging(const std::shared_ptr<spdlog::logger>& logger);
-
-EQLIB_OBJECT void ShutdownLogging();
+extern std::shared_ptr<spdlog::logger> logger;
 
 } // namespace eqlib
+
+#define LOG_TRACE(...) SPDLOG_LOGGER_TRACE(eqlib::logger, __VA_ARGS__)
+#define LOG_DEBUG(...) SPDLOG_LOGGER_DEBUG(eqlib::logger, __VA_ARGS__)
+#define LOG_INFO(...) SPDLOG_LOGGER_INFO(eqlib::logger, __VA_ARGS__)
+#define LOG_WARN(...) SPDLOG_LOGGER_WARN(eqlib::logger, __VA_ARGS__)
+#define LOG_ERROR(...) SPDLOG_LOGGER_ERROR(eqlib::logger, __VA_ARGS__)
+#define LOG_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(eqlib::logger, __VA_ARGS__)

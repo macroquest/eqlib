@@ -42,10 +42,6 @@ void InitializeCXStr()
 	gCXStrMutex = (CMutexSync*)CXStr__gCXStrAccess;
 }
 
-void ShutdownCXStr()
-{
-}
-
 CXFreeList* internal::GetCXFreeList()
 {
 	return gFreeLists;

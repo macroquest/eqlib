@@ -20,6 +20,9 @@
 #include "Items.h"
 #include "Requirements.h"
 
+#include "eqlib/eqstd/map.h"
+#include "eqlib/eqstd/vector.h"
+
 namespace eqlib {
 
 class PlayerZoneClient;
@@ -906,7 +909,7 @@ using PSPELLCALCINFO = SPELLCALCINFO*;
 #pragma pack(push)
 #pragma pack(1)
 
-constexpr size_t EQ_Spell_size = 0x210; // @sizeof(EQ_Spell) :: 2024-12-02 (beta) @ 0x1401D3067
+constexpr size_t EQ_Spell_size = 0x214; // @sizeof(EQ_Spell) :: 2025-09-11 (live) @ 0x1401D9FD7
 
 class [[offsetcomments]] EQ_Spell
 {
@@ -1044,81 +1047,82 @@ public:
 /*0x0ec*/ int                  SpellGroup = 0;
 /*0x0f0*/ int                  SpellSubGroup = 0;
 /*0x0f4*/ int                  SpellRank = 0;
-/*0x0f8*/ int                  SpellClass = 0;
-/*0x0fc*/ int                  SpellSubClass = 0;
-/*0x100*/ int                  SpellReqAssociationID = 0;
-/*0x104*/ int                  CasterRequirementID = 0;
-/*0x108*/ int                  MaxResist = 0;
+/*0x0f8*/ int                  SpellLineID;                   // DB Str Type 27
+/*0x0fc*/ int                  SpellClass = 0;
+/*0x100*/ int                  SpellSubClass = 0;
+/*0x104*/ int                  SpellReqAssociationID = 0;
+/*0x108*/ int                  CasterRequirementID = 0;
 /*0x10c*/ int                  MinResist = 0;
-/*0x110*/ int                  MinSpreadTime = 0;
-/*0x114*/ int                  MaxSpreadTime = 0;
-/*0x118*/ int                  SpreadRadius = 0;
-/*0x11c*/ int                  BaseEffectsFocusCap = 0;       // song cap, maybe other things?
-/*0x120*/ int                  CritChanceOverride = 0;
-/*0x124*/ int                  MaxTargets = 0;                // how many targets a spell will affect
-/*0x128*/ uint32_t             AIValidTargets = 0;
-/*0x12c*/ int                  BaseEffectsFocusOffset = 0;
-/*0x130*/ float                BaseEffectsFocusSlope = 1.0f;
-/*0x134*/ CVector2             DistanceModStart = { 0, 0 };
-/*0x13c*/ CVector2             DistanceModEnd = { 0, 0 };
-/*0x144*/ int                  Unknown1 = -1;
-/*0x148*/ float                MinRange = 0.0f;
-/*0x14c*/ int                  Scribable = 1;
-/*0x150*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
-/*0x154*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
-/*0x158*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
-/*0x17c*/ uint8_t              LightType = 0;
-/*0x17d*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
-/*0x17e*/ uint8_t              Resist = 0;                    // enum eResistType
-/*0x17f*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
-/*0x180*/ uint8_t              CastDifficulty = 0;
-/*0x181*/ uint8_t              Skill = 0;
-/*0x182*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
-/*0x183*/ uint8_t              Environment = 0;
-/*0x184*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
-/*0x185*/ uint8_t              CastingAnim = 0;
-/*0x186*/ uint8_t              AnimVariation = 0;
-/*0x187*/ uint8_t              TargetAnim = 0;
-/*0x188*/ uint8_t              TravelType = 0;
-/*0x189*/ uint8_t              CancelOnSit = 0;
-/*0x18a*/ bool                 CountdownHeld = false;
-/*0x18b*/ char                 Name[64];
-/*0x1cb*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
-/*0x1eb*/ bool                 ShowWearOffMessage = false;
-/*0x1ec*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
-/*0x1ed*/ bool                 SneakAttack = false;
-/*0x1ee*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
-/*0x1ef*/ bool                 NoHate = false;
-/*0x1f0*/ bool                 StacksWithSelf = false;
-/*0x1f1*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
-/*0x1f2*/ bool                 NoBuffBlock = false;
-/*0x1f3*/ bool                 NoStripOnDeath = false;
-/*0x1f4*/ bool                 NoRemove = false;              // spell can't be clicked off? -> 1f4
-/*0x1f5*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
-/*0x1f6*/ bool                 Feedbackable = false;
-/*0x1f7*/ bool                 Reflectable = false;
-/*0x1f8*/ bool                 NoPartialSave = false;
-/*0x1f9*/ bool                 NoResist = false;
-/*0x1fa*/ bool                 UsesPersistentParticles = false;
-/*0x1fb*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
-/*0x1fc*/ bool                 Uninterruptable = false;
-/*0x1fd*/ bool                 NotStackableDot = false;
-/*0x1fe*/ bool                 Deletable = false;
-/*0x1ff*/ bool                 BypassRegenCheck = false;
-/*0x200*/ bool                 CanCastInCombat = false;
-/*0x201*/ bool                 CanCastOutOfCombat = false;
-/*0x202*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
-/*0x203*/ bool                 OnlyDuringFastRegen = false;
-/*0x204*/ bool                 CastNotStanding = false;
-/*0x205*/ bool                 CanMGB = false;
-/*0x206*/ bool                 NoDispell = false;
-/*0x207*/ bool                 AffectInanimate = false;       // ldon trap spells etc
-/*0x208*/ bool                 IsSkill = false;
-/*0x209*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
-/*0x20a*/ bool                 bShowDoTMessage = false;
-/*0x20b*/ uint8_t              CRC32Marker = 0;
-/*0x20c*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
-/*0x210*/
+/*0x110*/ int                  MaxResist = 0;
+/*0x114*/ int                  MinSpreadTime = 0;
+/*0x118*/ int                  MaxSpreadTime = 0;
+/*0x11c*/ int                  SpreadRadius = 0;
+/*0x120*/ int                  BaseEffectsFocusCap = 0;       // song cap, maybe other things?
+/*0x124*/ int                  CritChanceOverride = 0;
+/*0x128*/ int                  MaxTargets = 0;                // how many targets a spell will affect
+/*0x12c*/ uint32_t             AIValidTargets = 0;
+/*0x130*/ int                  BaseEffectsFocusOffset = 0;
+/*0x134*/ float                BaseEffectsFocusSlope = 1.0f;
+/*0x138*/ CVector2             DistanceModStart = { 0, 0 };
+/*0x140*/ CVector2             DistanceModEnd = { 0, 0 };
+/*0x148*/ int                  Unknown1 = -1;
+/*0x14c*/ float                MinRange = 0.0f;
+/*0x150*/ int                  Scribable = 1;
+/*0x154*/ eSpellNoOverwrite    NoOverwrite = NoOverwrite_Default;
+/*0x158*/ eSpellRecourseType   SpellRecourseType = SpellRecourseType_AlwaysHit;
+/*0x15c*/ uint8_t              ClassLevel[MAX_CLASSES + 1];
+/*0x180*/ uint8_t              LightType = 0;
+/*0x181*/ eSpellType           SpellType = SpellType_Detrimental; // 0=detrimental, 1=Beneficial, 2=Beneficial, Group Only
+/*0x182*/ uint8_t              Resist = 0;                    // enum eResistType
+/*0x183*/ uint8_t              TargetType = 0;                // enum eSpellTargetType
+/*0x184*/ uint8_t              CastDifficulty = 0;
+/*0x185*/ uint8_t              Skill = 0;
+/*0x186*/ uint8_t              ZoneType = 0;                  // 01=Outdoors, 02=dungeons, ff=Any
+/*0x187*/ uint8_t              Environment = 0;
+/*0x188*/ uint8_t              TimeOfDay = 0;                 // 0=any, 1=day only, 2=night only
+/*0x189*/ uint8_t              CastingAnim = 0;
+/*0x18a*/ uint8_t              AnimVariation = 0;
+/*0x18b*/ uint8_t              TargetAnim = 0;
+/*0x18c*/ uint8_t              TravelType = 0;
+/*0x18d*/ uint8_t              CancelOnSit = 0;
+/*0x18e*/ bool                 CountdownHeld = false;
+/*0x18f*/ char                 Name[64];
+/*0x1cf*/ char                 Extra[32];                     // This is 'Extra' from Lucy (portal shortnames etc) official = NPC_FILENAME
+/*0x1ef*/ bool                 ShowWearOffMessage = false;
+/*0x1f0*/ uint8_t              NPCChanceofKnowingSpell = 0;   // if this is 0 there is no way an npc can cast this spell...
+/*0x1f1*/ bool                 SneakAttack = false;
+/*0x1f2*/ bool                 NotFocusable = false;          // ignores all(?) focus effects
+/*0x1f3*/ bool                 NoHate = false;
+/*0x1f4*/ bool                 StacksWithSelf = false;
+/*0x1f5*/ bool                 CannotBeScribed = false;       // this is used by /outputfile missingspells
+/*0x1f6*/ bool                 NoBuffBlock = false;
+/*0x1f7*/ bool                 NoStripOnDeath = false;
+/*0x1f8*/ bool                 NoRemove = false;              // spell can't be clicked off? -> 1f4
+/*0x1f9*/ bool                 NoNPCLOS = false;              // NPC skips LOS checks
+/*0x1fa*/ bool                 Feedbackable = false;
+/*0x1fb*/ bool                 Reflectable = false;
+/*0x1fc*/ bool                 NoPartialSave = false;
+/*0x1fd*/ bool                 NoResist = false;
+/*0x1fe*/ bool                 UsesPersistentParticles = false;
+/*0x1ff*/ bool                 DurationWindow = false;        // 0=Long, 1=Short
+/*0x200*/ bool                 Uninterruptable = false;
+/*0x201*/ bool                 NotStackableDot = false;
+/*0x202*/ bool                 Deletable = false;
+/*0x203*/ bool                 BypassRegenCheck = false;
+/*0x204*/ bool                 CanCastInCombat = false;
+/*0x205*/ bool                 CanCastOutOfCombat = false;
+/*0x206*/ bool                 NoHealDamageItemMod = false;   // disable worn focus bonuses
+/*0x207*/ bool                 OnlyDuringFastRegen = false;
+/*0x208*/ bool                 CastNotStanding = false;
+/*0x209*/ bool                 CanMGB = false;
+/*0x20a*/ bool                 NoDispell = false;
+/*0x20b*/ bool                 AffectInanimate = false;       // ldon trap spells etc
+/*0x20c*/ bool                 IsSkill = false;
+/*0x20d*/ bool                 bStacksWithDiscs = false;      // this was first seen in may 8 2017 test client, its checked if it's false at 0x451790. Ex: The Monk ability 'Drunken Monkey Style' or 'Breather'. see patch notes for that patch...
+/*0x20e*/ bool                 bShowDoTMessage = false;
+/*0x20f*/ uint8_t              CRC32Marker = 0;
+/*0x210*/ float                DistanceMod = 0.0f;            // set to (DistanceModEnd.Y- DistanceModEnd.X) / (DistanceModStart.Y - DistanceModStart.X).
+/*0x214*/
 
 	ALT_MEMBER_ALIAS_DEPRECATED(int, Deity, Diety, "Diety is misspelled, use Deity instead.")
 	ALT_MEMBER_ALIAS_DEPRECATED(int, EnduranceUpkeep, EndurUpkeep, "EndurUpkeep has been replaced with EnduranceUpkeep.")
@@ -1199,7 +1203,7 @@ struct [[offsetcomments]] SpellEffectStage
 /*0x44*/
 };
 
-struct [[offsetcomments]] NewSpellEffect
+struct [[offsetcomments]] SpellEffectNew
 {
 /*0x000*/ char               szSpellEffectName[0x40];
 /*0x040*/ SpellEffectStage   Stages[3];
@@ -1208,11 +1212,11 @@ struct [[offsetcomments]] NewSpellEffect
 
 struct [[offsetcomments]] StageType
 {
-/*0x000*/ char               BlitSprite[3][0x20];
-/*0x060*/ char               AttachTag[0x20];
+/*0x000*/ char               BlitSprite[3][32];
+/*0x060*/ char               AttachTag[32];
 /*0x080*/ int                DAGnum[3];
 /*0x08c*/ int                pcloud[3];
-/*0x098*/ char               SpriteTAG[0xc][0x20];
+/*0x098*/ char               SpriteTAG[12][32];
 /*0x218*/ int                SpritEffect;
 /*0x21c*/ int                SoundNum;
 /*0x220*/ ARGBCOLOR          Tint[3];
@@ -1232,29 +1236,29 @@ struct [[offsetcomments]] StageType
 /*0x280*/ float              Velocity[3];
 /*0x28c*/ ULONG              Rate[3];
 /*0x298*/ float              Scale[3];
-/*0x2a4*/ EQRGB              SpriteRGB[0xc];
-/*0x2c8*/ float              RollRate[0xc];
-/*0x2f8*/ short              HdgOffset[0xc];
-/*0x310*/ short              PitchOffset[0xc];
-/*0x328*/ float              Distance[0xc];
+/*0x2a4*/ EQRGB              SpriteRGB[12];
+/*0x2c8*/ float              RollRate[12];
+/*0x2f8*/ short              HdgOffset[12];
+/*0x310*/ short              PitchOffset[12];
+/*0x328*/ float              Distance[12];
 /*0x358*/ short              EffectType[12];
 /*0x370*/ float              ScaleFactor[12];
 /*0x3a0*/
 };
 
-struct [[offsetcomments]] OldSpellEffect
+struct [[offsetcomments]] SpellEffect
 {
-/*0x000*/ int                Tgts;
-/*0x004*/ int                Perm;
+/*0x000*/ int                tgts;
+/*0x004*/ int                permanent;
 /*0x008*/ StageType          stages[3];
 /*0xae8*/
 };
 
-class [[offsetcomments]] EQSpellExtra
+class [[offsetcomments]] EQ_SpellExtra
 {
 public:
-/*0x00*/ OldSpellEffect*    OldSpellEff;
-/*0x08*/ NewSpellEffect*    NewSpellEff;
+/*0x00*/ SpellEffect*       OldSpellEff;
+/*0x08*/ SpellEffectNew*    NewSpellEff;
 /*0x10*/
 };
 
@@ -1281,23 +1285,36 @@ struct [[offsetcomments]] StackingGroupData
 /*0x0c*/
 };
 
-constexpr int TOTAL_SPELL_COUNT = 72000;           // # of spells allocated in memory - SpellManager::FreeSpells
-constexpr int TOTAL_SPELL_AFFECT_COUNT = 290000;   // # of spell affects allocated in mem - SpellManager::FreeSpellAffects
+// These values no longer match the client implementation, and as such they are deprecated.
+constexpr const char* TOTAL_SPELL_COUNT = "Spells no longer have a fixed size array and thus this constant is no longer usable";
+constexpr const char* TOTAL_SPELL_AFFECT_COUNT = "Spells no longer have a fixed size array and thus this constant is no longer usable";
+// To get the number of spells, use pSpellMgr->GetSpellCount();
+// To get the max spell ID, use pSpellMgr->GetMaxSpellID();
+// To iterate over all spells, use pSpellMgr->Spells in a range-based for loop.
+// Direct access to the spells array is no longer supported.
 
 class [[offsetcomments]] SpellManager : public FileStatMgr
 {
 public:
-/*0x00020*/ int              SpellsCrc32[TOTAL_SPELL_COUNT];
-/*0x46520*/ EQ_Spell*        MissingSpell;
-/*0x46528*/ SpellAffectData* MissingSpellAffect;
-/*0x46530*/ SpellAffectData* MissingSpellAffectAC;
-/*0x46538*/ int              MissingSpellCrc32;
-/*0x4653c*/ int              SpellFileCRC;
-/*0x46540*/ int              SpellAssocFileCRC;
-/*0x46544*/ int              SpellStackingFileCRC;
-/*0x46548*/ SpellRequirementAssociationManager ReqAssocManager;
-/*0x486f0*/ HashTable<int, int> SpellGroups;
-/*0x48708*/
+	// Mapping of Spell Line IDs to list of spells with that spell line.
+	using SpellLineMap = eqstd::map<int, eqstd::vector<int>>;
+
+/*0x0020*/ SoeUtil::Map<int, int> SpellsCrc32;
+/*0x0038*/ EQ_Spell*              MissingSpell;
+/*0x0040*/ SpellAffectData*       MissingSpellAffect;
+/*0x0048*/ SpellAffectData*       MissingSpellAffectAC;
+/*0x0050*/ int                    MissingSpellCrc32;
+/*0x0054*/ int                    SpellFileCRC;
+/*0x0058*/ int                    SpellAssocFileCRC;
+/*0x005c*/ int                    SpellStackingFileCRC;
+/*0x0060*/ uint32_t               SpellCount;
+/*0x0064*/ int                    MaxSpellID;
+/*0x0068*/ uint32_t               SpellAffectsCount;
+/*0x006c*/ bool                   InitRequired;
+/*0x0070*/ SpellRequirementAssociationManager ReqAssocManager;
+/*0x2218*/ HashTable<int, int>    SpellGroups;
+/*0x2230*/ SpellLineMap           SpellLines;
+/*0x2240*/
 
 	SpellManager(char*);
 	virtual ~SpellManager() {}
@@ -1305,7 +1322,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-constexpr size_t ClientSpellManager_size = 0x424BA0; // @sizeof(ClientSpellManager) :: 2024-12-02 (beta) @ 0x140262EEB
+constexpr size_t ClientSpellManager_size = 0x22A0; // @sizeof(ClientSpellManager) :: 2025-09-11 (live) @ 0x14026E510
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
@@ -1323,13 +1340,21 @@ public:
 /*0x48*/ EQLIB_OBJECT virtual SpellAffectData* GetSpellAffect(int index);
 /*0x50*/ EQLIB_OBJECT virtual SpellAffectData* GetSpellAffectEmpty(bool);
 
-	bool AllSpellsLoaded() const { return SpellStackingFileCRC != 0 && Spells[TOTAL_SPELL_COUNT - 1] != nullptr; }
+	bool AllSpellsLoaded() const { return !InitRequired; }
 
-/*0x048708*/ EQ_Spell*                    Spells[TOTAL_SPELL_COUNT];
-/*0x0d5108*/ SpellAffectData*             CalcInfo[TOTAL_SPELL_AFFECT_COUNT];
-/*0x30b788*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];
-/*0x424b88*/ HashTable<StackingGroupData> StackingData;
-/*0x424ba0*/
+	int GetMaxSpellID() const { return MaxSpellID; }
+	uint32_t GetSpellCount() const { return SpellCount; }
+	uint32_t GetSpellAffectsCount() const { return SpellAffectsCount; }
+
+	SoeUtil::Map<int, EQ_Spell>::ValueRange __getSpellRange() const { return m_spells.values(); }
+	__declspec(property(get = __getSpellRange)) SoeUtil::Map<int, EQ_Spell>::ValueRange Spells;
+
+private:
+/*0x2240*/ SoeUtil::Map<int, EQ_Spell>        m_spells;
+/*0x2258*/ SoeUtil::Map<int, SpellAffectData> m_spellAffects;
+/*0x2270*/ SoeUtil::Map<int, EQ_SpellExtra>   m_spellExtraData;
+/*0x2288*/ HashTable<StackingGroupData>       m_stackingData;
+/*0x22a0*/
 };
 
 SIZE_CHECK(ClientSpellManager, ClientSpellManager_size);

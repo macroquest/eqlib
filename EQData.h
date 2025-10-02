@@ -581,7 +581,7 @@ inline namespace deprecated {
 	using PDZTIMERINFO DEPRECATE("Use DynamicZoneClientTimerData* instead of PDZTIMERINFO") = DynamicZoneClientTimerData*;
 }
 
-enum eDyanicZonePlayerStatus
+enum DynamicZonePlayerStatus
 {
 	eStatusUnknown = 0,
 	eStatusOnline,
@@ -593,7 +593,7 @@ enum eDyanicZonePlayerStatus
 struct [[offsetcomments]] DynamicZonePlayerInfo
 {
 /*0x00*/ char                     Name[EQ_MAX_NAME];
-/*0x40*/ eDyanicZonePlayerStatus  Status;
+/*0x40*/ DynamicZonePlayerStatus  Status;
 /*0x48*/ DynamicZonePlayerInfo*   pNext;
 /*0x50*/ bool                     bFlagged;                  // Do we meet the requirements?
 /*0x51*/ bool                     bCheckedZoneReqs;          // Zone reqs serverside checked?

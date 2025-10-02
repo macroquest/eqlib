@@ -14,22 +14,40 @@
 
 #pragma once
 
-#include "eqstd/list.h"
-#include "eqstd/map.h"
-#include "eqstd/memory.h"
-#include "eqstd/string.h"
-#include "eqstd/type_traits.h"
-#include "eqstd/unordered_map.h"
-#include "eqstd/unordered_set.h"
-#include "eqstd/utility.h"
-#include "eqstd/vector.h"
+#if !defined(NOMINMAX)
+#define NOMINMAX
+#endif
 
-#include <algorithm>
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <string_view>
-#include <vector>
+#if !defined(WIN32_LEAN_AND_MEAN)
+#define WIN32_LEAN_AND_MEAN
+#endif
 
-#include <spdlog/spdlog.h>
+#include <Windows.h>
+
+#ifdef GetWindowText
+#undef GetWindowText
+#endif
+
+#ifdef SetWindowText
+#undef SetWindowText
+#endif
+
+#ifdef FindWindow
+#undef FindWindow
+#endif
+
+#ifdef GetClassName
+#undef GetClassName
+#endif
+
+#ifdef IsMinimized
+#undef IsMinimized
+#endif
+
+#ifdef IsMaximized
+#undef IsMaximized
+#endif
+
+#ifdef InsertMenuItem
+#undef InsertMenuItem
+#endif

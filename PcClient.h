@@ -82,9 +82,9 @@ constexpr int EQSKILL_HIDE = 29;
 // Structs
 //============================================================================
 
-struct [[offsetcomments]] ALCHEMYBONUSSKILLDATA
+struct [[offsetcomments]] AlchemyBonusSkillData
 {
-	FORCE_SYMBOLS;
+	FORCE_SYMBOLS
 
 /*0x00*/ int SkillID;
 /*0x04*/ int BonusPoints;
@@ -120,10 +120,11 @@ public:
 /*0x20*/ int                   Level;
 /*0x24*/ bool                  bIsOffline;
 /*0x28*/ uint32_t              UniquePlayerID;
-/*0x2c*/ bool                  bRoleStates[MaxGroupRoles];
-/*0x34*/ uint32_t              CurrentRoleBits;                      // (Roles & 0x1) = MainTank, 0x2 = MainAssist, 0x4 = Puller 0x8 = Mark NPC 0x10 = Master Looter
-/*0x38*/ eqtime_t              OnlineTimestamp;
-/*0x40*/
+/*0x30*/ uint64_t              Unknown0x30;
+/*0x38*/ bool                  bRoleStates[MaxGroupRoles];
+/*0x40*/ uint32_t              CurrentRoleBits;                      // (Roles & 0x1) = MainTank, 0x2 = MainAssist, 0x4 = Puller 0x8 = Mark NPC 0x10 = Master Looter
+/*0x48*/ eqtime_t              OnlineTimestamp;
+/*0x50*/
 
 	CGroupMemberBase();
 	virtual ~CGroupMemberBase();
@@ -134,32 +135,32 @@ public:
 	virtual CGroupMember* AsMemberClient() { return nullptr; }
 	virtual void RemovedFromGroup(uint32_t id) = 0;
 
-	inline bool IsOffline() const { return bIsOffline; }
-	inline eqtime_t GetOnlineTimestamp() const { return OnlineTimestamp; }
-	inline bool GetRole(eGroupRoles role) const { return bRoleStates[role]; }
-	inline const char* GetName() const { return Name.c_str(); }
-	inline const char* GetOwnerName() const { return OwnerName.c_str(); }
-	inline int GetLevel() const { return Level; }
+	bool IsOffline() const { return bIsOffline; }
+	eqtime_t GetOnlineTimestamp() const { return OnlineTimestamp; }
+	bool GetRole(eGroupRoles role) const { return bRoleStates[role]; }
+	const char* GetName() const { return Name.c_str(); }
+	const char* GetOwnerName() const { return OwnerName.c_str(); }
+	int GetLevel() const { return Level; }
 
-	inline bool IsMainTank() const { return GetRole(GroupRoleTank); }
-	inline bool IsMainAssist() const { return GetRole(GroupRoleAssist); }
-	inline bool IsPuller() const { return GetRole(GroupRolePuller); }
-	inline bool IsMarkNPC() const { return GetRole(GroupRoleMarkNPC); }
-	inline bool IsMasterLooter() const { return GetRole(GroupRoleMasterLooter); }
+	bool IsMainTank() const { return GetRole(GroupRoleTank); }
+	bool IsMainAssist() const { return GetRole(GroupRoleAssist); }
+	bool IsPuller() const { return GetRole(GroupRolePuller); }
+	bool IsMarkNPC() const { return GetRole(GroupRoleMarkNPC); }
+	bool IsMasterLooter() const { return GetRole(GroupRoleMasterLooter); }
 
 	// Compat wrappers for old member types/names
 	__declspec(property(get = getPName)) CXStr* pName;
 	DEPRECATE("CGroupMemberBase: Use Name instead of pName")
-	inline CXStr* getPName() { return &Name; }
+	CXStr* getPName() { return &Name; }
 
 	__declspec(property(get = getPOwner)) CXStr* pOwner;
 	DEPRECATE("CGroupMemberBase: Use OwnerName instead of pOwner")
-	inline CXStr* getPOwner() { return &OwnerName; }
+	CXStr* getPOwner() { return &OwnerName; }
 
 	// Compat wrapper for Mercenary
 	__declspec(property(get = getMercenary)) uint8_t Mercenary;
 	DEPRECATE("CGroupMemberBase: Use Type instead of Mercenary")
-	inline uint8_t getMercenary() { return (uint8_t)Type; }
+	uint8_t getMercenary() { return (uint8_t)Type; }
 
 	ALT_MEMBER_GETTER(bool, bIsOffline, Offline);
 	ALT_MEMBER_GETTER(uint32_t, CurrentRoleBits, Roles);
@@ -174,13 +175,15 @@ private:
 	void ClearRoles();
 };
 
+constexpr size_t CGroupMember_size = 0x68; // @sizeof(CGroupMember) :: 2025-09-11 (live) @ 0x1402DAB73
+
 class [[offsetcomments]] CGroupMember : public CGroupMemberBase
 {
 public:
-/*0x40*/ CharacterZoneClient*  pCharacter;
-/*0x48*/ PlayerClient*         pPlayer;
-/*0x50*/ int                   GroupIndex;
-/*0x54*/
+/*0x50*/ CharacterZoneClient*  pCharacter;
+/*0x58*/ PlayerClient*         pPlayer;
+/*0x60*/ int                   GroupIndex;
+/*0x64*/
 
 	CGroupMember();
 	virtual ~CGroupMember();
@@ -189,9 +192,10 @@ public:
 	virtual CGroupMember* AsMemberClient() override { return this; }
 	PlayerClient* GetPlayer() { return pPlayer; }
 
-	ALT_MEMBER_GETTER(PlayerClient*, pPlayer, pSpawn);
+	ALT_MEMBER_GETTER(PlayerClient*, pPlayer, pSpawn)
 };
 
+SIZE_CHECK(CGroupMember, CGroupMember_size);
 
 inline namespace deprecated {
 	using GROUPMEMBER DEPRECATE("Use CGroupMember instead of GROUPMEMBER") = CGroupMember;
@@ -217,15 +221,16 @@ public:
 	CGroupMember* GetGroupLeader() const { return m_groupLeader; }
 	EQLIB_OBJECT CGroupMember* GetGroupMember(int index) const;
 
-	inline uint32_t GetID() const { return m_id; }
+	uint32_t GetID() const { return m_id; }
+	uint32_t GetMaxGroupSize() const { return MAX_GROUP_SIZE; }
 
 	// iterator support for stl containers and algorithms
-	inline auto begin() { return std::begin(m_groupMembers); }
-	inline auto begin() const { return std::cbegin(m_groupMembers); }
-	inline auto cbegin() const { return std::cbegin(m_groupMembers); }
-	inline auto end() { return std::end(m_groupMembers); }
-	inline auto end() const { return std::cend(m_groupMembers); }
-	inline auto cend() { return std::cend(m_groupMembers); }
+	auto begin() { return std::begin(m_groupMembers); }
+	auto begin() const { return std::cbegin(m_groupMembers); }
+	auto cbegin() const { return std::cbegin(m_groupMembers); }
+	auto end() { return std::end(m_groupMembers); }
+	auto end() const { return std::cend(m_groupMembers); }
+	auto cend() { return std::cend(m_groupMembers); }
 
 	ALT_MEMBER_GETTER_ARRAY_DEPRECATED(CGroupMember*, MAX_GROUP_SIZE, m_groupMembers, pMember,
 		"CGroupBase: Use Group->GetGroupMember instead of accessing pMembers");
@@ -403,8 +408,8 @@ struct [[offsetcomments]] PCSharedTaskData
 {
 /*0x00*/ int          ActiveSharedTaskID;
 /*0x04*/ bool         bIsMonsterMission;
-/*0x08*/ PCTaskStatus Status;                              // size 0x70
-/*0x78*/ ArrayClass<MonsterMissionTemplate> Templates;  // size is 0x10
+/*0x08*/ PCTaskStatus Status;
+/*0x78*/ ArrayClass<MonsterMissionTemplate> Templates;
 /*0x90*/ float        RewardAdjustment;
 /*0x94*/
 };
@@ -638,10 +643,10 @@ public:
 /*0x050*/ uint32_t     LastMemberUpdateTime;
 /*0x058*/ CXStr        StationID;
 /*0x060*/ int64_t      PlayerGuild;
-/*0x068*/ int          BuffIDs[NUM_LONG_BUFFS]; // -> 62
-/*0x160*/ StatCounter  Statistics[S_LastStat];  // 160
+/*0x068*/ int          BuffIDs[NUM_LONG_BUFFS];
+/*0x160*/ StatCounter  Statistics[S_LastStat];
 /*0x1f8*/
-}; // 1f8
+};
 
 class [[offsetcomments]] MercenaryAbilityInfo
 {
@@ -912,6 +917,15 @@ public:
 /*0x10*/ int count = 0;
 };
 
+// size: 0x28
+struct UnknownCharacterStruct1
+{
+/*0x00*/ uint64_t data00;
+/*0x08*/ uint64_t timestamp;
+/*0x10*/ SoeUtil::List<uint64_t> list;
+/*0x28*/
+};
+
 class [[offsetcomments(0x2e40)]] CharacterBase : public IFreeToPlayInfo
 {
 	// +0: vftable
@@ -1086,79 +1100,79 @@ public:
 };
 
 // The starting offset is the size of PcBase
-class [[offsetcomments(0x27B8)]] CharacterZoneClient : virtual public CharacterBase
+class [[offsetcomments(0x2788)]] CharacterZoneClient : virtual public CharacterBase
 {
-	virtual void vftableph() {};
+	virtual void vftableph() {}
 
 	// +0x00: const PcClient::`vftable'{for `CharacterZoneClient'}
 	// +0x08: const PcClient::`vbtable'{for `CharacterZoneClient'}
 
 public:
-/*0x27c8*/ PlayerClient*                         me;
-/*0x27d0*/ bool                                  statDirtyFlag;
-/*0x27d1*/ bool                                  zoningStatProcessing;
-/*0x27d4*/ int                                   ArmorClassBonus;
-/*0x27d8*/ int                                   CurrWeight;
-/*0x27dc*/ int                                   LastHitPointSendPercent;
-/*0x27e0*/ int                                   LastManaPointSendPercent;
-/*0x27e4*/ int                                   LastEndurancePointSendPercent;
-/*0x27e8*/ int                                   HPBonus;
-/*0x27ec*/ int                                   ManaBonus;
-/*0x27f0*/ int                                   EnduranceBonus;
-/*0x27f4*/ int                                   EnduranceCostPerSecond;
-/*0x27f8*/ int                                   CombatEffectsBonus;
-/*0x27fc*/ int                                   ShieldingBonus;
-/*0x2800*/ int                                   SpellShieldBonus;
-/*0x2804*/ int                                   AvoidanceBonus;
-/*0x2808*/ int                                   AccuracyBonus;
-/*0x280c*/ int                                   StunResistBonus;
-/*0x2810*/ int                                   StrikeThroughBonus;
-/*0x2814*/ int                                   DoTShieldBonus;
-/*0x2818*/ int                                   DamageShieldMitigationBonus;
-/*0x281c*/ int                                   DamageShieldBonus;
-/*0x2820*/ int                                   ItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
-/*0x2844*/ int                                   SkillMinDamageModBonus[NUM_ITEM_SKILL_DMG_MOD];
-/*0x2868*/ int                                   HeroicSTRBonus;
-/*0x286c*/ int                                   HeroicINTBonus;
-/*0x2870*/ int                                   HeroicWISBonus;
-/*0x2874*/ int                                   HeroicAGIBonus;
-/*0x2878*/ int                                   HeroicDEXBonus;
-/*0x287c*/ int                                   HeroicSTABonus;
-/*0x2880*/ int                                   HeroicCHABonus;
-/*0x2884*/ int                                   HealAmountBonus;
-/*0x2888*/ int                                   SpellDamageBonus;
-/*0x288c*/ int                                   ClairvoyanceBonus;
-/*0x2890*/ int                                   AttackBonus;
-/*0x2894*/ int                                   HPRegenBonus;
-/*0x2898*/ int                                   ManaRegenBonus;
-/*0x289c*/ int                                   EnduranceRegenBonus;
-/*0x28a0*/ int                                   AttackSpeed;
-/*0x28a4*/ int                                   NoBuffItemHitpointAdjustment;
-/*0x28a8*/ int                                   NoBuffItemManaAdjustment;
-/*0x28ac*/ int                                   NoBuffItemEnduranceAdjustment;
-/*0x28b0*/ int                                   NoBuffItemBaseChanceProc;
-/*0x28b4*/ int                                   NoBuffItemMinDamageMod;
-/*0x28b8*/ int                                   NoBuffItemInnateSpellRune;
-/*0x28bc*/ int                                   NoBuffItemAvoidance;
-/*0x28c0*/ int                                   NoBuffItemToHit;
-/*0x28c4*/ int                                   NoBuffItemResistStunChance;
-/*0x28c8*/ int                                   NoBuffItemDotShieldingEffect;
-/*0x28cc*/ int                                   NoBuffItemStrikeThroughChance;
-/*0x28d0*/ int                                   NoBuffItemAttack;
-/*0x28d4*/ int                                   NoBuffItemHitPointRegen;
-/*0x28d8*/ int                                   NoBuffItemManaRegen;
-/*0x28dc*/ int                                   NoBuffItemEnduranceRegen;
-/*0x28e0*/ int                                   NoBuffItemDamageShield;
-/*0x28e4*/ int                                   NoBuffItemDamageShieldMitigation;
-/*0x28e8*/ int                                   NoBuffItemHaste;
-/*0x28ec*/ int                                   NoBuffItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
-/*0x2910*/ bool                                  bOutputHpRegen;
-/*0x2911*/ bool                                  bInvulnerable;
-/*0x2912*/ bool                                  bOnAVehicle;
-/*0x2918*/ SpellCache                            spellCache;
-/*0x29a8*/ HashListSet<int, 128>                 DoomEffectsBySlot;
-/*0x2dc8*/ uint32_t                              LastHitEval;
-/*0x2dcc*/
+/*0x2798*/ PlayerClient*                         me;
+/*0x27a0*/ bool                                  statDirtyFlag;
+/*0x27a1*/ bool                                  zoningStatProcessing;
+/*0x27a4*/ int                                   ArmorClassBonus;
+/*0x27a8*/ int                                   CurrWeight;
+/*0x27ac*/ int                                   LastHitPointSendPercent;
+/*0x27b0*/ int                                   LastManaPointSendPercent;
+/*0x27b4*/ int                                   LastEndurancePointSendPercent;
+/*0x27b8*/ int                                   HPBonus;
+/*0x27bc*/ int                                   ManaBonus;
+/*0x27c0*/ int                                   EnduranceBonus;
+/*0x27c4*/ int                                   EnduranceCostPerSecond;
+/*0x27c8*/ int                                   CombatEffectsBonus;
+/*0x27cc*/ int                                   ShieldingBonus;
+/*0x27d0*/ int                                   SpellShieldBonus;
+/*0x27d4*/ int                                   AvoidanceBonus;
+/*0x27d8*/ int                                   AccuracyBonus;
+/*0x27dc*/ int                                   StunResistBonus;
+/*0x27e0*/ int                                   StrikeThroughBonus;
+/*0x27e4*/ int                                   DoTShieldBonus;
+/*0x27e8*/ int                                   DamageShieldMitigationBonus;
+/*0x27ec*/ int                                   DamageShieldBonus;
+/*0x27f0*/ int                                   ItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
+/*0x2814*/ int                                   SkillMinDamageModBonus[NUM_ITEM_SKILL_DMG_MOD];
+/*0x2838*/ int                                   HeroicSTRBonus;
+/*0x283c*/ int                                   HeroicINTBonus;
+/*0x2840*/ int                                   HeroicWISBonus;
+/*0x2844*/ int                                   HeroicAGIBonus;
+/*0x2848*/ int                                   HeroicDEXBonus;
+/*0x284c*/ int                                   HeroicSTABonus;
+/*0x2850*/ int                                   HeroicCHABonus;
+/*0x2854*/ int                                   HealAmountBonus;
+/*0x2858*/ int                                   SpellDamageBonus;
+/*0x285c*/ int                                   ClairvoyanceBonus;
+/*0x2860*/ int                                   AttackBonus;
+/*0x2864*/ int                                   HPRegenBonus;
+/*0x2868*/ int                                   ManaRegenBonus;
+/*0x286c*/ int                                   EnduranceRegenBonus;
+/*0x2870*/ int                                   AttackSpeed;
+/*0x2874*/ int                                   NoBuffItemHitpointAdjustment;
+/*0x2878*/ int                                   NoBuffItemManaAdjustment;
+/*0x287c*/ int                                   NoBuffItemEnduranceAdjustment;
+/*0x2880*/ int                                   NoBuffItemBaseChanceProc;
+/*0x2884*/ int                                   NoBuffItemMinDamageMod;
+/*0x2888*/ int                                   NoBuffItemInnateSpellRune;
+/*0x288c*/ int                                   NoBuffItemAvoidance;
+/*0x2890*/ int                                   NoBuffItemToHit;
+/*0x2894*/ int                                   NoBuffItemResistStunChance;
+/*0x2898*/ int                                   NoBuffItemDotShieldingEffect;
+/*0x289c*/ int                                   NoBuffItemStrikeThroughChance;
+/*0x28a0*/ int                                   NoBuffItemAttack;
+/*0x28a4*/ int                                   NoBuffItemHitPointRegen;
+/*0x28a8*/ int                                   NoBuffItemManaRegen;
+/*0x28ac*/ int                                   NoBuffItemEnduranceRegen;
+/*0x28b0*/ int                                   NoBuffItemDamageShield;
+/*0x28b4*/ int                                   NoBuffItemDamageShieldMitigation;
+/*0x28b8*/ int                                   NoBuffItemHaste;
+/*0x28bc*/ int                                   NoBuffItemSkillMinDamageMod[NUM_ITEM_SKILL_DMG_MOD];
+/*0x28e0*/ bool                                  bOutputHpRegen;
+/*0x28e1*/ bool                                  bInvulnerable;
+/*0x28e2*/ bool                                  bOnAVehicle;
+/*0x28e8*/ SpellCache                            spellCache;
+/*0x2978*/ HashListSet<int, 128>                 DoomEffectsBySlot;
+/*0x2d98*/ uint32_t                              LastHitEval;
+/*0x2d9c*/
 
 	//EQLIB_OBJECT CharacterZoneClient();
 
@@ -1365,7 +1379,7 @@ public:
 };
 
 using MailItemsHash = HashTable<MailItemData, EqItemGuid, ResizePolicyNoShrink>;
-using AchievementTable = HashTable<CompletedAchievementData, int, ResizePolicyNoShrink>;
+using AchievementTable = HashTable<CompletedAchievementData, int>;
 using AchievementSubComponentCountTable = HashTable<AchievementSubComponentCountData, int, ResizePolicyNoShrink>;
 
 class [[offsetcomments]] PcBase : virtual public CharacterBase
@@ -1566,7 +1580,7 @@ public:
 /*0x26a8*/ int                                   MercAAPoints;                 // number of unspent merc AA points
 /*0x26ac*/ int                                   MercAAPointsSpent;            // number of spent merc AA points
 /*0x26b0*/ ArrayClass<MercenaryAbilityInfo*>     MercenaryAbilities;
-/*0x26c8*/ void*                                 Unknown26c8;
+/*0x26c8*/ UnknownCharacterStruct1*              Unknown26c8;
 /*0x26d0*/ AchievementTable                      CompletedAchievements;
 /*0x26e8*/ AchievementSubComponentCountTable     CompletedEventBasedSubComponents;
 /*0x2700*/ AchievementSubComponentCountTable     OpenEventBasedSubComponents;
@@ -1576,7 +1590,7 @@ public:
 /*0x2730*/ int                                   FreeToPlayUnlocks[33];
 /*0x27b4*/ // end PcBase / start CharacterZoneClient
 
-	// basis: 0x27C0
+	// basis: 0x2788 +30 = 0x27B8
 
 	PcProfile* GetCurrentPcProfile() { return (PcProfile*)&GetCurrentBaseProfile(); }
 	PcProfile* GetCurrentPcProfile() const { return (PcProfile*)&GetCurrentBaseProfile(); }
@@ -1640,13 +1654,13 @@ public:
 
 class [[offsetcomments]] PcZoneClient : public PcBase, public CharacterZoneClient, public DebugText
 {
-/*0x2d98*/ // vftable
+/*0x2dd0*/ // vftable
 public:
-/*0x2dd8*/ uint32_t                              Flags[3]; // 2da0
+/*0x2dd8*/ uint32_t                              Flags[3];
 /*0x2de4*/ uint32_t                              TransfersReceived;
 /*0x2de8*/ int                                   LastLanguageSpoken;
 /*0x2dec*/ int                                   CurPowerSourceDrain;
-/*0x2df0*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
+/*0x2df0*/ EQList<AlchemyBonusSkillData*>        AlchemyBaseSkillBonusList;  // Actually a SoeUtil::List
 /*0x2e10*/ uint32_t                              MomentumBalance;
 /*0x2e14*/ uint32_t                              LoyaltyRewardBalance;
 /*0x2e18*/
@@ -1678,7 +1692,7 @@ public:
 	int GetDeityBitmask() const { return 1 << (GetDeityReal() - 1); }
 };
 
-constexpr size_t PcClient_size = 0x3218; // @sizeof(PcClient) :: 2024-12-02 (beta) @ 0x14027530B
+constexpr size_t PcClient_size = 0x3218; // @sizeof(PcClient) :: 2025-09-11 (live) @ 0x14028230B
 
 class [[offsetcomments]] PcClient : public PcZoneClient
 {
@@ -1686,11 +1700,11 @@ class [[offsetcomments]] PcClient : public PcZoneClient
 public:
 	EQLIB_OBJECT PcClient();
 
-/*0x2e18*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null
-/*0x2e20*/ bool                                  InCombat;
-/*0x2e24*/ uint32_t                              Downtime;
-/*0x2e28*/ uint32_t                              DowntimeStart;
-/*0x2e2c*/ bool                                  bOverrideAvatarProximity;
+/*0x2e18*/ ExtendedTargetList*                   pExtendedTargetList;          // cannot be null // 2e18
+/*0x2e20*/ int64_t                               DowntimeStart;
+/*0x2e28*/ int32_t                               Downtime;
+/*0x2e2c*/ bool                                  InCombat;
+/*0x2e2d*/ bool                                  bOverrideAvatarProximity;
 /*0x2e30*/ CGroup*                               Group;
 /*0x2e38*/ bool                                  bIAmCreatingGroup;
 /*0x2e40*/ ItemArray                             ItemsPendingID;

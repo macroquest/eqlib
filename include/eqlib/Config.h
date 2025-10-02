@@ -19,8 +19,13 @@
 // warning C5030: attribute [[offsetcomments]] is not recognized
 #pragma warning(disable: 5030)
 
-#include "BuildType.h"
+#include "eqlib/BuildType.h"
 
+#ifdef EQLIB_STATIC
+#define EQLIB_API extern "C"
+#define EQLIB_VAR extern "C"
+#define EQLIB_OBJECT
+#else
 #ifdef EQLIB_EXPORTS
 #define EQLIB_API extern "C" __declspec(dllexport)
 #define EQLIB_VAR extern "C" __declspec(dllexport)
@@ -29,6 +34,9 @@
 #define EQLIB_API extern "C" __declspec(dllimport)
 #define EQLIB_VAR extern "C" __declspec(dllimport)
 #define EQLIB_OBJECT __declspec(dllimport)
-#endif
+#endif // !EQLIB_EXPORTS
+#endif // !EQLIB_STATIC
 
-#include <cstdint>
+#ifndef IMGUI_CONVERSION_FUNCTIONS
+#define IMGUI_CONVERSION_FUNCTIONS 1
+#endif

@@ -171,12 +171,21 @@
     <ClInclude Include="eqstd\xtree.h" />
     <ClInclude Include="eqstd\xutility.h" />
     <ClInclude Include="Expansions.h" />
-    <ClInclude Include="Config.h" />
     <ClInclude Include="GameFace.h" />
     <ClInclude Include="GraphicsResources.h" />
-    <ClInclude Include="Logging.h" />
+    <ClInclude Include="include\eqlib\ComputedPointer.h" />
+    <ClInclude Include="include\eqlib\Config.h" />
+    <ClInclude Include="include\eqlib\ForeignPointer.h" />
+    <ClInclude Include="include\eqlib\Init.h" />
+    <ClInclude Include="include\eqlib\MemoryPatcher.h" />
+    <ClInclude Include="include\eqlib\Offsets.h" />
+    <ClInclude Include="include\eqlib\SizeChecks.h" />
+    <ClInclude Include="include\eqlib\WindowsUndefs.h" />
     <ClInclude Include="RealEstate.h" />
     <ClInclude Include="Requirements.h" />
+    <ClInclude Include="src\EQLibImpl.h" />
+    <ClInclude Include="src\Logging.h" />
+    <ClInclude Include="src\MemoryPatcherImpl.h" />
     <ClInclude Include="WindowOverride.h" />
     <ClInclude Include="EQClasses.h" />
     <ClInclude Include="EQData.h" />
@@ -194,7 +203,6 @@
     <ClInclude Include="KeyCombo.h" />
     <ClInclude Include="LoginFrontend.h" />
     <ClInclude Include="Mutex.h" />
-    <ClInclude Include="OffsetUtils.h" />
     <ClInclude Include="PcClient.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="PcProfile.h" />
@@ -216,7 +224,6 @@
     <ClCompile Include="CXStr.cpp" />
     <ClCompile Include="CXWnd.cpp" />
     <ClCompile Include="EQClasses.cpp" />
-    <ClCompile Include="EQLib.cpp" />
     <ClCompile Include="EverQuest.cpp" />
     <ClCompile Include="ExceptionsDisabled.cpp">
       <ExceptionHandling Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExceptionHandling>
@@ -243,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="PcProfile.cpp" />
     <ClCompile Include="PlayerClient.cpp" />
+    <ClCompile Include="src\EQLibImpl.cpp" />
+    <ClCompile Include="src\MemoryPatcherImpl.cpp" />
+    <ClCompile Include="src\Offsets.cpp" />
     <ClCompile Include="UITextures.cpp" />
     <ClCompile Include="XMLData.cpp" />
     <ClCompile Include="UITemplates.cpp" />
@@ -258,6 +268,12 @@
     <NASM Include="AssemblyFunctions64.asm">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </NASM>
+    <NASM Include="AssemblyMacros.asm">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </NASM>
   </ItemGroup>
   <ItemGroup>

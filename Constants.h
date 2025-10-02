@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include "Config.h"
+#include "eqlib/Config.h"
 
 namespace eqlib {
 
@@ -108,45 +108,48 @@ enum CharacterProperty
 {
 	CharacterProperty_None = 0,
 	CharacterProperty_Humanoid = 1,
-	CharacterProperty_Lycanthrope = 2, // Deprecated
+	CharacterProperty_Lycanthrope = 2,
 	CharacterProperty_Undead = 3,
 	CharacterProperty_Giant = 4,
 	CharacterProperty_Construct = 5,
 	CharacterProperty_Extraplanar = 6,
 	CharacterProperty_Magical = 7,
 	CharacterProperty_SummonedUndead = 8,  // now: Summoned Pet
-	CharacterProperty_BaneGiant = 9, // Deprecated
-	CharacterProperty_BaneColdain = 10, // Deprecated
+	CharacterProperty_BaneGiant = 9,
+	CharacterProperty_BaneColdain = 10,
 	CharacterProperty_Untargetable = 11,
-	CharacterProperty_Vampire = 12, // Deprecated
-	CharacterProperty_AtenhaRa = 13, // Deprecated
+	CharacterProperty_Vampire = 12,
+	CharacterProperty_AtenhaRa = 13,
 	CharacterProperty_GreaterAkheva = 14,
-	CharacterProperty_KhatiSha = 15, // Deprecated
-	CharacterProperty_Seru = 16, // Deprecated
-	CharacterProperty_Greig = 17, // Deprecated
+	CharacterProperty_KhatiSha = 15,
+	CharacterProperty_Seru = 16,
+	CharacterProperty_Greig = 17,
 	CharacterProperty_DrazNurakk = 18,
 	CharacterProperty_Zek = 19,
-	CharacterProperty_Luggald = 20, // Deprecated
+	CharacterProperty_Luggald = 20,
 	CharacterProperty_Animal = 21,
-	CharacterProperty_Insect = 22, // Deprecated
-	CharacterProperty_Monster = 23, // Deprecated
-	CharacterProperty_Elemental = 24, // Deprecated
+	CharacterProperty_Insect = 22,
+	CharacterProperty_Monster = 23,
+	CharacterProperty_Elemental = 24,
 	CharacterProperty_Plant = 25,
 	CharacterProperty_Dragon = 26,
-	CharacterProperty_SummonedElemental = 27, // Deprecated
-	CharacterProperty_SummonedCreature = 28, // Deprecated
+	CharacterProperty_SummonedElemental = 27,
+	CharacterProperty_SummonedCreature = 28,
 	CharacterProperty_PuffDragon = 29,
-	CharacterProperty_BaneDragon = 30, // Deprecated
+	CharacterProperty_BaneDragon = 30,
 	CharacterProperty_Familiar = 31,
 	CharacterProperty_NoCorpse = 32,
 	CharacterProperty_Cursed = 33,
-	CharacterProperty_Muramite = 34, // Deprecated
+	CharacterProperty_Muramite = 34,
 	CharacterProperty_MonsterSummoning = 64,
+
+	CharacterProperty_Unknown99,
 
 	CharacterProperty_Utility = 100,
 	CharacterProperty_Trap,
 	CharacterProperty_Companion,
 	CharacterProperty_Suicide,
+	CharacterProperty_Unknown104,
 
 	CharacterProperty_Last,
 };
@@ -376,6 +379,7 @@ enum MoneySlotType
 
 enum KeyRingType
 {
+	eKeyRingTypeInvalid = -1,
 	eMount = 0,
 	eIllusion = 1,
 	eFamiliar = 2,
@@ -456,7 +460,7 @@ constexpr int NUM_GROUP_ROLE_SETS = 10;
 constexpr int NUM_XTARGET_SETS = 30;
 
 constexpr int NUM_RACES = 17;
-constexpr int NUM_BLOCKED_BUFFS = 40;
+constexpr int NUM_BLOCKED_BUFFS = 60;
 
 // The number of lbuffs that are displayable in the buffs window. Also used to
 // hold these buffs in the profile.
@@ -513,6 +517,8 @@ constexpr int NUM_INNATE = 25;
 constexpr int CONCURRENT_SKILLS = 2;
 constexpr int NUM_ITEM_SKILL_DMG_MOD = 9;  // the number of skill weapon mods
 
+constexpr float MAX_INTERACT_DISTANCE = 20.0f;
+constexpr float MAX_INTERACT_DISTANCE_SQUARED = MAX_INTERACT_DISTANCE * MAX_INTERACT_DISTANCE;
 
 enum EQExpansion
 {
@@ -1058,7 +1064,7 @@ enum class ServerID : int {
 
 
 // zones
-constexpr int ZONE_COUNT = 879;
+constexpr int ZONE_COUNT = 888;
 
 // Math
 

@@ -2408,9 +2408,6 @@ namespace eqstd
 		using reverse_iterator = _STD reverse_iterator<iterator>;
 		using const_reverse_iterator = _STD reverse_iterator<const_iterator>;
 
-		static const int _VBITS = _STD _VBITS;
-		enum { _EEN_VBITS = _VBITS }; // helper for expression evaluator
-
 		_CONSTEXPR20 vector() noexcept(is_nothrow_default_constructible_v<_Mybase>) // strengthened
 			: _Mybase() {}
 

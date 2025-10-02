@@ -13,7 +13,6 @@
 namespace eqstd
 {
 	using std::bidirectional_iterator_tag;
-	using std::_Move_allocator_tag;
 	using std::initializer_list;
 
 	template <class _Mylist, class _Base = _Iterator_base0>
@@ -621,6 +620,10 @@ namespace eqstd
 	template <class _Traits>
 	class _Hash;
 
+	struct _Move_allocator_tag {
+		explicit _Move_allocator_tag() = default;
+	};
+
 	template <class _Ty, class _Alloc = allocator<_Ty>>
 	class list { // bidirectional linked list
 	private:
@@ -672,8 +675,8 @@ namespace eqstd
 		}
 
 	private:
-		template <class _Any_alloc>
-		explicit list(_Move_allocator_tag, _Any_alloc& _Al) : _Mypair(_One_then_variadic_args_t{}, _STD move(_Al)) {
+		template <class _Tag, class _Any_alloc, enable_if_t<is_same_v<_Tag, _Move_allocator_tag>, int> = 0>
+		explicit list(_Tag, _Any_alloc& _Al) : _Mypair(_One_then_variadic_args_t{}, _STD move(_Al)) {
 			_Alloc_sentinel_and_proxy();
 		}
 
