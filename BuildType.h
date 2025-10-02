@@ -20,7 +20,7 @@
 
 // Do not change this value. This value identifies the version of the client
 // that this branch of code is designed to work with.
-#define LIVE
+#define BETA
 
 
 //----------------------------------------------------------------------------
@@ -40,25 +40,24 @@
 #define IS_EXPANSION_LEVEL(x) (MQ_EXPANSION_LEVEL >= x)
 #define IS_CLIENT_DATE(x) (__ClientDate >= x)
 
+#define IS_LIVE_CLIENT 0
+#define IS_TEST_CLIENT 0
+#define IS_BETA_CLIENT 0
+#define IS_EMU_CLIENT 0
 
 #if defined(LIVE)
+	#undef IS_LIVE_CLIENT
 	#define IS_LIVE_CLIENT 1
-	#define IS_TEST_CLIENT 0
-	#define IS_EMU_CLIENT 0
 #elif defined (TEST)
-	#define IS_LIVE_CLIENT 0
+	#undef IS_TEST_CLIENT
 	#define IS_TEST_CLIENT 1
-	#define IS_EMU_CLIENT 0
-#elif defined (EMULATOR)
-	#define IS_LIVE_CLIENT 0
-	#define IS_TEST_CLIENT 0
+#elif defined(BETA)
+	#undef IS_BETA_CLIENT
+	#define IS_BETA_CLIENT 1
+#elif defined(EMULATOR)
+	#undef IS_EMU_CLIENT
 	#define IS_EMU_CLIENT 1
-#else
-	#define IS_LIVE_CLIENT 0
-	#define IS_TEST_CLIENT 0
-	#define IS_EMU_CLIENT 0
 #endif
-
 
 //----------------------------------------------------------------------------
 // EverQuest Feature Flags
