@@ -14,6 +14,7 @@
 
 #include "pch.h"
 #include "MemoryPatcherImpl.h"
+#include "Logging.h"
 
 #include <detours/detours.h>
 
@@ -37,7 +38,7 @@ static bool PatchMemory(void* dest, const void* src, size_t length)
 
 	if (!FlushInstructionCache(hProcess, dest, length))
 	{
-		SPDLOG_ERROR("Failed to flush instruction cache for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
+		LOG_ERROR("Failed to flush instruction cache for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
 			GetLastError());
 
 		return false;
@@ -45,7 +46,7 @@ static bool PatchMemory(void* dest, const void* src, size_t length)
 
 	if (!VirtualProtectEx(hProcess, dest, length, PAGE_EXECUTE_READWRITE, &oldPerms))
 	{
-		SPDLOG_ERROR("Failed to change memory protection for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
+		LOG_ERROR("Failed to change memory protection for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
 			GetLastError());
 	
 		return false;
@@ -54,13 +55,13 @@ static bool PatchMemory(void* dest, const void* src, size_t length)
 	bool success = WriteProcessMemory(hProcess, dest, src, length, nullptr);
 	if (!success)
 	{
-		SPDLOG_ERROR("Failed to write process memory for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
+		LOG_ERROR("Failed to write process memory for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
 			GetLastError());
 	}
 
 	if (!VirtualProtectEx(hProcess, dest, length, oldPerms, &oldPerms))
 	{
-		SPDLOG_WARN("Failed to restore memory protection for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
+		LOG_WARN("Failed to restore memory protection for address: 0x{:X}, error={}", reinterpret_cast<uintptr_t>(dest),
 			GetLastError());
 	}
 
@@ -169,7 +170,7 @@ bool MemoryPatch::Apply()
 		LONG result = DetourTransactionCommit();
 		if (result != NO_ERROR)
 		{
-			SPDLOG_ERROR("Failed to commit detour with name \"{}\": At address 0x{:X}, result={}", m_name, m_address, result);
+			LOG_ERROR("Failed to commit detour with name \"{}\": At address 0x{:X}, result={}", m_name, m_address, result);
 			return false;
 		}
 
@@ -184,7 +185,7 @@ bool MemoryPatch::Apply()
 
 			if (memcmp(originalBytes, m_bytes.data(), m_bytes.size()) != 0)
 			{
-				SPDLOG_ERROR("Failed to apply patch with name \"{}\": The memory at address 0x{:X} does not match the expected values",
+				LOG_ERROR("Failed to apply patch with name \"{}\": The memory at address 0x{:X} does not match the expected values",
 					m_name, m_address);
 				return false;
 			}
@@ -254,7 +255,7 @@ MemoryPatch* MemoryPatcherImpl::CreatePatch(uintptr_t address, void** target, vo
 {
 	if (!ValidateReadableMemory(address, DETOUR_BYTES_COUNT))
 	{
-		SPDLOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
+		LOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
 			name, address);
 
 		return nullptr;
@@ -272,7 +273,7 @@ MemoryPatch* MemoryPatcherImpl::CreatePatch(uintptr_t address, size_t numBytes, 
 {
 	if (!ValidateReadableMemory(address, numBytes))
 	{
-		SPDLOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
+		LOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
 			name, address);
 
 		return nullptr;
@@ -291,7 +292,7 @@ MemoryPatch* MemoryPatcherImpl::CreatePatch(uintptr_t address, const uint8_t* ne
 {
 	if (!ValidateReadableMemory(address, numBytes))
 	{
-		SPDLOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
+		LOG_ERROR("Failed to create patch with name \"{}\": Address 0x{:X} is not a valid memory address",
 			name, address);
 
 		return nullptr;
@@ -400,7 +401,7 @@ MemoryPatch* MemoryPatcherImpl::AddPatchToList(std::unique_ptr<MemoryPatch> patc
 	// Check that the address does not overlap with an existing patch
 	if (it != m_patches.end() && (*it)->IsAddressInRange(patch->GetAddress(), patch->GetBytesSize()))
 	{
-		SPDLOG_ERROR("Failed to add patch with name \"{}\": Address 0x{:X} overlaps with existing patch at 0x{:X}",
+		LOG_ERROR("Failed to add patch with name \"{}\": Address 0x{:X} overlaps with existing patch at 0x{:X}",
 			patch->GetName(), patch->GetAddress(), (*it)->GetAddress());
 		return nullptr;
 	}
@@ -411,7 +412,7 @@ MemoryPatch* MemoryPatcherImpl::AddPatchToList(std::unique_ptr<MemoryPatch> patc
 		auto prevIt = std::prev(it);
 		if ((*prevIt)->IsAddressInRange(patch->GetAddress(), patch->GetBytesSize()))
 		{
-			SPDLOG_ERROR("Failed to add patch with name \"{}\": Address 0x{:X} overlaps with existing patch at 0x{:X}",
+			LOG_ERROR("Failed to add patch with name \"{}\": Address 0x{:X} overlaps with existing patch at 0x{:X}",
 				patch->GetName(), patch->GetAddress(), (*prevIt)->GetAddress());
 			return nullptr;
 		}

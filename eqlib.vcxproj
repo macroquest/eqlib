@@ -264,6 +264,7 @@
     <ClInclude Include="include\eqlib\game\Containers.h" />
     <ClInclude Include="include\eqlib\game\CXStr.h" />
     <ClInclude Include="include\eqlib\game\CXWnd.h" />
+    <ClInclude Include="include\eqlib\game\Display.h" />
     <ClInclude Include="include\eqlib\game\EQClasses.h" />
     <ClInclude Include="include\eqlib\game\EQData.h" />
     <ClInclude Include="include\eqlib\game\EQDX9.h" />
@@ -273,8 +274,6 @@
     <ClInclude Include="include\eqlib\game\Expansions.h" />
     <ClInclude Include="include\eqlib\game\ForwardDecls.h" />
     <ClInclude Include="include\eqlib\game\Globals.h" />
-    <ClInclude Include="include\eqlib\game\GraphicsEngine.h" />
-    <ClInclude Include="include\eqlib\game\GraphicsResources.h" />
     <ClInclude Include="include\eqlib\game\ItemLinks.h" />
     <ClInclude Include="include\eqlib\game\Items.h" />
     <ClInclude Include="include\eqlib\game\KeyCombo.h" />
@@ -297,6 +296,21 @@
     <ClInclude Include="include\eqlib\game\UITextures.h" />
     <ClInclude Include="include\eqlib\game\UITypes.h" />
     <ClInclude Include="include\eqlib\game\XMLData.h" />
+    <ClInclude Include="include\eqlib\graphics\CameraInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\LightInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\MathInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\ParticleSystemInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\ResourceManagerInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\RGB.h" />
+    <ClInclude Include="include\eqlib\graphics\FastFileInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\GraphicsEngine.h" />
+    <ClInclude Include="include\eqlib\graphics\GraphicsResources.h" />
+    <ClInclude Include="include\eqlib\graphics\NodePool.h" />
+    <ClInclude Include="include\eqlib\graphics\Render.h" />
+    <ClInclude Include="include\eqlib\graphics\RenderInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\SceneGraphInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\SkyInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\TerrainSystemInterface.h" />
     <ClInclude Include="include\eqlib\MemoryPatcher.h" />
     <ClInclude Include="include\eqlib\Offsets.h" />
     <ClInclude Include="include\eqlib\offsets\eqgame.h" />
@@ -338,7 +352,7 @@
     <ClCompile Include="src\game\EverQuest.cpp" />
     <ClCompile Include="src\game\FunctionDefs.cpp" />
     <ClCompile Include="src\game\Globals.cpp" />
-    <ClCompile Include="src\game\GraphicsEngine.cpp" />
+    <ClCompile Include="src\game\Display.cpp" />
     <ClCompile Include="src\game\ItemLinks.cpp" />
     <ClCompile Include="src\game\Items.cpp" />
     <ClCompile Include="src\game\PcClient.cpp" />
@@ -349,6 +363,7 @@
     <ClCompile Include="src\game\UITemplates.cpp" />
     <ClCompile Include="src\game\UITextures.cpp" />
     <ClCompile Include="src\game\XMLData.cpp" />
+    <ClCompile Include="src\graphics\GraphicsEngine.cpp" />
     <ClCompile Include="src\MemoryPatcherImpl.cpp" />
     <ClCompile Include="src\Offsets.cpp" />
     <ClCompile Include="src\pch.cpp">

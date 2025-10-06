@@ -14,17 +14,29 @@
 
 #pragma once
 
-#include <spdlog/spdlog.h>
+#include "eqlib/game/Containers.h"
 
 namespace eqlib {
 
-extern std::shared_ptr<spdlog::logger> logger;
+//----------------------------------------------------------------------------
+template <typename T>
+class TNodePool
+{
+public:
+/*0x00*/ TList<T> freeList;
+/*0x08*/ uint32_t allocCount;
+/*0x0c*/ uint32_t freeNodeCount;
+/*0x10*/ uint32_t totalAllocCount;
+};
+
+//----------------------------------------------------------------------------
+template <typename NodeType, typename T>
+class TDataNode : public TListNode<NodeType>
+{
+public:
+	/*0x00*/ T* pData = nullptr;
+};
+
+//============================================================================
 
 } // namespace eqlib
-
-#define LOG_TRACE(...) SPDLOG_LOGGER_TRACE(eqlib::logger, __VA_ARGS__)
-#define LOG_DEBUG(...) SPDLOG_LOGGER_DEBUG(eqlib::logger, __VA_ARGS__)
-#define LOG_INFO(...) SPDLOG_LOGGER_INFO(eqlib::logger, __VA_ARGS__)
-#define LOG_WARN(...) SPDLOG_LOGGER_WARN(eqlib::logger, __VA_ARGS__)
-#define LOG_ERROR(...) SPDLOG_LOGGER_ERROR(eqlib::logger, __VA_ARGS__)
-#define LOG_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(eqlib::logger, __VA_ARGS__)

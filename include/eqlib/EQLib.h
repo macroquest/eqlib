@@ -72,11 +72,14 @@
 #include "eqlib/game/TaskSystem.h"
 
 // misc components
-#include "eqlib/game/GraphicsEngine.h"
-#include "eqlib/game/GraphicsResources.h"
+#include "eqlib/game/Display.h"
 #include "eqlib/game/ItemLinks.h"
 #include "eqlib/game/KeyCombo.h"
 #include "eqlib/game/LoginFrontend.h"
+
+// graphics components
+#include "eqlib/graphics/GraphicsEngine.h"
+#include "eqlib/graphics/GraphicsResources.h"
 
 // add private include
 #if __has_include("../private/EQLib-private.h")

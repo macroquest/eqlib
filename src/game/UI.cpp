@@ -14,6 +14,7 @@
 
 #include "pch.h"
 
+#include "eqlib/game/Display.h"
 #include "eqlib/game/EQClasses.h"
 #include "eqlib/game/EverQuest.h"
 #include "eqlib/game/Globals.h"
@@ -21,6 +22,8 @@
 #include "eqlib/game/Spells.h"
 #include "eqlib/game/PcClient.h"
 #include "eqlib/game/UI.h"
+
+#include "../Logging.h"
 
 #include <spdlog/spdlog.h>
 
@@ -1088,7 +1091,7 @@ static void InitializeWindowsFromScreenManager(ScreenWndManager& mgr)
 			if (range.first == range.second)
 			{
 				// was not found.
-				SPDLOG_WARN("A window was created that is not being tracked: '{}' at {}",
+				LOG_WARN("A window was created that is not being tracked: '{}' at {}",
 					windowName, (void*)ppWindow);
 			}
 			else

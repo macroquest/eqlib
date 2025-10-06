@@ -14,6 +14,7 @@
 
 #include "pch.h"
 
+#include "eqlib/game/Display.h"
 #include "eqlib/game/EQClasses.h"
 #include "eqlib/game/EQData.h"
 #include "eqlib/game/EverQuest.h"
@@ -26,6 +27,7 @@
 #include "eqlib/offsets/eqgame.h"
 #include "eqlib/offsets/eqgraphics.h"
 #include "eqlib/offsets/eqmain.h"
+#include "eqlib/graphics/ResourceManagerInterface.h"
 
 #include "mq/base/Color.h"
 

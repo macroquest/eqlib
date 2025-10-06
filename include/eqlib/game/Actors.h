@@ -15,6 +15,8 @@
 #pragma once
 
 #include "eqlib/Common.h"
+#include "eqlib/graphics/GraphicsEngine.h"
+#include "eqlib/graphics/NodePool.h"
 
 #include "eqlib/game/Color.h"
 #include "eqlib/game/Containers.h"
@@ -92,13 +94,6 @@ public:
 };
 
 class CActor;
-
-template <typename NodeType, typename T>
-class TDataNode : public TListNode<NodeType>
-{
-public:
-	/*0x00*/ T* pData = nullptr;;
-};
 
 struct CActorNode : TDataNode<CActorNode, CActor> {};
 using CActorList = TList<CActorNode>;

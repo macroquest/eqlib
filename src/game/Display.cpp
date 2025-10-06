@@ -12,19 +12,28 @@
  * GNU General Public License for more details.
  */
 
-#pragma once
+#include "pch.h"
 
-#include <spdlog/spdlog.h>
+#include "eqlib/game/Display.h"
 
 namespace eqlib {
 
-extern std::shared_ptr<spdlog::logger> logger;
+
+//============================================================================
+// CDisplay
+//============================================================================
+
+int* CDisplay::cameraType = nullptr;
+
+const ScreenWndManager::ScreenRecord* ScreenWndManager::FindScreenRecordByScreenName(const CXStr& name)
+{
+	int* value = screensHash.FindFirst(name);
+	if (value)
+	{
+		return &screens[*value];
+	}
+
+	return nullptr;
+}
 
 } // namespace eqlib
-
-#define LOG_TRACE(...) SPDLOG_LOGGER_TRACE(eqlib::logger, __VA_ARGS__)
-#define LOG_DEBUG(...) SPDLOG_LOGGER_DEBUG(eqlib::logger, __VA_ARGS__)
-#define LOG_INFO(...) SPDLOG_LOGGER_INFO(eqlib::logger, __VA_ARGS__)
-#define LOG_WARN(...) SPDLOG_LOGGER_WARN(eqlib::logger, __VA_ARGS__)
-#define LOG_ERROR(...) SPDLOG_LOGGER_ERROR(eqlib::logger, __VA_ARGS__)
-#define LOG_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(eqlib::logger, __VA_ARGS__)

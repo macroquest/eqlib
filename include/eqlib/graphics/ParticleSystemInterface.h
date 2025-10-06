@@ -14,17 +14,21 @@
 
 #pragma once
 
-#include <spdlog/spdlog.h>
-
 namespace eqlib {
 
-extern std::shared_ptr<spdlog::logger> logger;
+//============================================================================
+
+//----------------------------------------------------------------------------
+class CActorInterface;
+
+//----------------------------------------------------------------------------
+class CParticleSystemInterface
+{
+public:
+	virtual void UpdateAllEmittersScalingRadius(CActorInterface*) = 0;
+	virtual int LoadEmitterDefinitions() = 0;
+};
+
+//============================================================================
 
 } // namespace eqlib
-
-#define LOG_TRACE(...) SPDLOG_LOGGER_TRACE(eqlib::logger, __VA_ARGS__)
-#define LOG_DEBUG(...) SPDLOG_LOGGER_DEBUG(eqlib::logger, __VA_ARGS__)
-#define LOG_INFO(...) SPDLOG_LOGGER_INFO(eqlib::logger, __VA_ARGS__)
-#define LOG_WARN(...) SPDLOG_LOGGER_WARN(eqlib::logger, __VA_ARGS__)
-#define LOG_ERROR(...) SPDLOG_LOGGER_ERROR(eqlib::logger, __VA_ARGS__)
-#define LOG_CRITICAL(...) SPDLOG_LOGGER_CRITICAL(eqlib::logger, __VA_ARGS__)

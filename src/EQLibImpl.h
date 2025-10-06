@@ -54,9 +54,12 @@ public:
 	bool HandleIncomingWorldMessage(WorldMessageParams& params);
 	bool HandleOutgoingWorldMessage(WorldMessageParams& params);
 
+	void InitializeEQGame();
+	void ShutdownEQGame();
 	void InitializeEQMain(uintptr_t BaseAddress);
 	void ShutdownEQMain();
 	void InitializeEQGraphics(uintptr_t BaseAddress);
+	void ShutdownEQGraphics();
 
 private:
 	void InitializeLogging();

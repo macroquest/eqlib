@@ -124,13 +124,4 @@ struct EQRGB
 	uint8_t blue;
 };
 
-enum EMemoryPoolManagerType
-{
-	eMemoryPoolManagerTypePersistent,
-	eMemoryPoolManagerTypeOnDemand,
-	eMemoryPoolManagerTypeZone,
-	eNumMemoryPoolManagerTypes
-};
-
-
 } // namespace eqlib

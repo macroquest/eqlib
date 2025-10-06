@@ -8,37 +8,24 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  */
 
-#pragma once
+#include "pch.h"
 
-#include "eqlib/Common.h"
-#include "eqlib/graphics/RGB.h"
-
-#include "eqlib/Deprecate.h"
+#include "eqlib/graphics/GraphicsEngine.h"
+#include "eqlib/graphics/FastFileInterface.h"
+#include "eqlib/graphics/GraphicsResources.h"
+#include "eqlib/graphics/NodePool.h"
+#include "eqlib/graphics/Render.h"
+#include "eqlib/graphics/RenderInterface.h"
+#include "eqlib/graphics/ResourceManagerInterface.h"
+#include "eqlib/graphics/SceneGraphinterface.h"
+#include "eqlib/graphics/TerrainSystemInterface.h"
 
 namespace eqlib {
 
-struct ARGBCOLOR
-{
-	union
-	{
-		struct
-		{
-			uint8_t B;
-			uint8_t G;
-			uint8_t R;
-			uint8_t A;
-		};
 
-		uint32_t ARGB;
-	};
-};
-using PARGBCOLOR DEPRECATE("Use ARGBCOLOR* instead of PARGBCOLOR") = ARGBCOLOR *;
 
 } // namespace eqlib
-
-// Actually a windef.h type, but we use it nontheless. Needs to match the windows definition.
-typedef unsigned long COLORREF;

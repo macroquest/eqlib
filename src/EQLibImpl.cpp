@@ -684,6 +684,70 @@ private:
 
 void EQLibImpl::InitializeHooks()
 {
+	LOG_DEBUG("Initializing hooks");
+
+	// Check if the process is named eqgame.exe. If it is, initialize the EQGame hooks.
+	char szFileName[MAX_PATH] = {};
+	if (GetModuleFileNameA(nullptr, szFileName, MAX_PATH))
+	{
+		std::string_view fullPath = szFileName;
+
+		// Extract just the filename from the full path
+		size_t pos = fullPath.find_last_of("\\/");
+		if (pos != std::string::npos)
+		{
+			std::string_view fileName = fullPath.substr(pos + 1);
+
+			if (mq::ci_equals(fileName, "eqgame.exe"))
+			{
+				InitializeEQGame();
+			}
+		}
+	}
+
+	// Check if EQMain has already been loaded, and hook it if it has.
+	HMODULE hEQMainModule = ::GetModuleHandleW(EQMainModuleName);
+	if (hEQMainModule != nullptr)
+	{
+		InitializeEQMain(reinterpret_cast<uintptr_t>(hEQMainModule));
+	}
+
+	// Check if EQGraphics has already been loaded, and hook it if it has.
+	HMODULE hEQGraphicsModule = ::GetModuleHandleW(EQGraphicsModuleName);
+	if (hEQGraphicsModule != nullptr)
+	{
+		InitializeEQGraphics(reinterpret_cast<uintptr_t>(hEQGraphicsModule));
+	}
+
+	// Otherwise we wait for any of the modules we need to be loaded.
+	PLDR_REGISTER_DLL_NOTIFICATION pLdrRegisterDllNotification =
+		reinterpret_cast<PLDR_REGISTER_DLL_NOTIFICATION>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"),
+			"LdrRegisterDllNotification"));
+	pLdrRegisterDllNotification(0, &LdrDllNotificationCallback, nullptr, &m_loaderNotificationCookie);
+}
+
+void EQLibImpl::ShutdownHooks()
+{
+	LOG_DEBUG("Shutting down hooks");
+
+	ShutdownEQMain();
+	ShutdownEQGraphics();
+	ShutdownEQGame();
+
+	// Unregister the loader notification callback
+	PLDR_UNREGISTER_DLL_NOTIFICATION pLdrUnregisterDllNotification =
+		reinterpret_cast<PLDR_UNREGISTER_DLL_NOTIFICATION>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"),
+			"LdrUnregisterDllNotification"));
+	pLdrUnregisterDllNotification(m_loaderNotificationCookie);
+	m_loaderNotificationCookie = nullptr;
+
+	m_memoryPatcher->RemoveAllPatches();
+}
+
+void EQLibImpl::InitializeEQGame()
+{
+	LOG_DEBUG("Initializing EQGame");
+
 	m_memoryPatcher->EzDetour(__ProcessGameEvents, ProcessGameEvents_Detour, ProcessGameEvents_Trampoline);
 	m_memoryPatcher->EzDetour(CEverQuest__SetGameState, &CEverQuest_Detours::SetGameState_Detour, &CEverQuest_Detours::SetGameState_Trampoline);
 
@@ -726,45 +790,59 @@ void EQLibImpl::InitializeHooks()
 		m_memoryPatcher->EzDetour(WorldAuthenticationHandler__OnRoutePacket, &WorldAuthenticationHandler_Detours::OnRoutePacket_Detour, &WorldAuthenticationHandler_Detours::OnRoutePacket_Trampoline);
 #endif
 	}
-
-	// Check if EQMain has already been loaded, and hook it if it has.
-	HMODULE hEQMainModule = ::GetModuleHandleW(EQMainModuleName);
-	if (hEQMainModule != nullptr)
-	{
-		InitializeEQMain(reinterpret_cast<uintptr_t>(hEQMainModule));
-	}
-
-	// Check if EQGraphics has already been loaded, and hook it if it has.
-	HMODULE hEQGraphicsModule = ::GetModuleHandleW(EQGraphicsModuleName);
-	if (hEQGraphicsModule != nullptr)
-	{
-		InitializeEQGraphics(reinterpret_cast<uintptr_t>(hEQGraphicsModule));
-	}
-
-	// Otherwise we wait for any of the modules we need to be loaded.
-	PLDR_REGISTER_DLL_NOTIFICATION pLdrRegisterDllNotification =
-		reinterpret_cast<PLDR_REGISTER_DLL_NOTIFICATION>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"),
-			"LdrRegisterDllNotification"));
-	pLdrRegisterDllNotification(0, &LdrDllNotificationCallback, nullptr, &m_loaderNotificationCookie);
 }
 
-void EQLibImpl::ShutdownHooks()
+void EQLibImpl::ShutdownEQGame()
 {
-	ShutdownEQMain();
+	LOG_DEBUG("Shutting down EQGame");
 
-	// Unregister the loader notification callback
-	PLDR_UNREGISTER_DLL_NOTIFICATION pLdrUnregisterDllNotification =
-		reinterpret_cast<PLDR_UNREGISTER_DLL_NOTIFICATION>(GetProcAddress(GetModuleHandleW(L"ntdll.dll"),
-			"LdrUnregisterDllNotification"));
-	pLdrUnregisterDllNotification(m_loaderNotificationCookie);
-	m_loaderNotificationCookie = nullptr;
+	m_memoryPatcher->RemoveDetour(__ProcessGameEvents);
+	m_memoryPatcher->RemoveDetour(CEverQuest__SetGameState);
 
-	m_memoryPatcher->RemoveAllPatches();
+	// TODO: Need to check some of these for overlaps
+	m_memoryPatcher->RemoveDetour(CDisplay__CleanGameUI);
+	m_memoryPatcher->RemoveDetour(CDisplay__ReloadUI);
+	m_memoryPatcher->RemoveDetour(CDisplay__InitCharSelectUI);
+	m_memoryPatcher->RemoveDetour(CDisplay__ZoneMainUI);
+	m_memoryPatcher->RemoveDetour(CDisplay__PreZoneMainUI);
+#ifdef CDisplay__RestartUI_x
+	m_memoryPatcher->EzDetour(CDisplay__RestartUI, &CDisplay_Detours::FastReloadUI_Detour, &CDisplay_Detours::FastReloadUI_Trampoline);
+#endif
+
+	if (m_enableChatFilter && m_eventReceiver != nullptr)
+	{
+		m_memoryPatcher->RemoveDetour(CEverQuest__dsp_chat);
+		m_memoryPatcher->RemoveDetour(CEverQuest__DoTellWindow);
+		m_memoryPatcher->RemoveDetour(CEverQuest__UPCNotificationFlush);
+	}
+
+	if (m_enableSpawnEvents && m_eventReceiver != nullptr)
+	{
+		m_memoryPatcher->RemoveDetour(EQGroundItemListManager__Add);
+		m_memoryPatcher->RemoveDetour(EQGroundItemListManager__Clear);
+		m_memoryPatcher->RemoveDetour(EQGroundItemListManager__Delete);
+		m_memoryPatcher->RemoveDetour(PlayerManagerClient__CreatePlayer);
+		m_memoryPatcher->RemoveDetour(PlayerManagerBase__PrepForDestroyPlayer);
+		m_memoryPatcher->RemoveDetour(PlayerManagerBase__DestroyAllPlayers);
+	}
+
+	if (m_enableNetworkEvents && m_eventReceiver != nullptr)
+	{
+#ifdef UdpConnection__Send_x
+		m_memoryPatcher->RemoveDetour(UdpConnection__Send);
+#endif
+#ifdef UdpConnection__OnRoutePacket_x
+		m_memoryPatcher->RemoveDetour(UdpConnection__OnRoutePacket);
+#endif
+#ifdef WorldAuthenticationHandler__OnRoutePacket_x
+		m_memoryPatcher->RemoveDetour(WorldAuthenticationHandler__OnRoutePacket);
+#endif
+	}
 }
 
 void EQLibImpl::InitializeEQMain(uintptr_t BaseAddress)
 {
-	SPDLOG_INFO("Initializing EQMain");
+	LOG_INFO("Initializing EQMain");
 
 	assert(m_loginDetoursInstalled == false);
 	m_loginDetoursInstalled = true;
@@ -778,7 +856,10 @@ void EQLibImpl::InitializeEQMain(uintptr_t BaseAddress)
 
 void EQLibImpl::ShutdownEQMain()
 {
-	SPDLOG_DEBUG("Cleaning up EQMain");
+	if (EQMainBaseAddress == 0)
+		return;
+
+	LOG_DEBUG("Cleaning up EQMain");
 
 	// If we already entered login at this point we should notify that we are no longer there.
 	if (m_inLoginFrontend)
@@ -803,9 +884,19 @@ void EQLibImpl::ShutdownEQMain()
 
 void EQLibImpl::InitializeEQGraphics(uintptr_t BaseAddress)
 {
-	SPDLOG_INFO("Initializing EQGraphics");
+	LOG_INFO("Initializing EQGraphics");
 
 	InitializeEQGraphicsOffsets(BaseAddress);
+}
+
+void EQLibImpl::ShutdownEQGraphics()
+{
+	if (EQGraphicsBaseAddress == 0)
+		return;
+
+	LOG_DEBUG("Shutting down EQGraphics");
+
+	CleanupEQGraphicsOffsets();
 }
 
 //=================================================================================================

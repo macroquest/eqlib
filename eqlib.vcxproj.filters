@@ -35,6 +35,12 @@
     <Filter Include="Source Files\game">
       <UniqueIdentifier>{2f3dd3d3-625b-4eac-8225-3d31bd9bd9c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\eqlib\graphics">
+      <UniqueIdentifier>{d46f1f19-dadb-46d7-af12-9dc82b16f59e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphics">
+      <UniqueIdentifier>{99a63ea4-d78d-42d2-aed6-158799c54f39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\eqdata\actordef.h">
@@ -152,12 +158,6 @@
       <Filter>Header Files\eqlib\game</Filter>
     </ClInclude>
     <ClInclude Include="include\eqlib\game\Globals.h">
-      <Filter>Header Files\eqlib\game</Filter>
-    </ClInclude>
-    <ClInclude Include="include\eqlib\game\GraphicsEngine.h">
-      <Filter>Header Files\eqlib\game</Filter>
-    </ClInclude>
-    <ClInclude Include="include\eqlib\game\GraphicsResources.h">
       <Filter>Header Files\eqlib\game</Filter>
     </ClInclude>
     <ClInclude Include="include\eqlib\game\ItemLinks.h">
@@ -298,6 +298,54 @@
     <ClInclude Include="src\EQLibImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\GraphicsEngine.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\GraphicsResources.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\FastFileInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\RenderInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\Render.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\NodePool.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\RGB.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\ResourceManagerInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Display.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\TerrainSystemInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\SceneGraphInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\CameraInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\SkyInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\ParticleSystemInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\LightInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\MathInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\pch.cpp">
@@ -330,7 +378,7 @@
     <ClCompile Include="src\game\Globals.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
-    <ClCompile Include="src\game\GraphicsEngine.cpp">
+    <ClCompile Include="src\game\Display.cpp">
       <Filter>Source Files\game</Filter>
     </ClCompile>
     <ClCompile Include="src\game\ItemLinks.cpp">
@@ -362,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="src\EQLibImpl.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\GraphicsEngine.cpp">
+      <Filter>Source Files\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

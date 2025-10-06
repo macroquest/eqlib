@@ -12,28 +12,20 @@
  * GNU General Public License for more details.
  */
 
-#include "pch.h"
-
-#include "eqlib/game/GraphicsEngine.h"
+#pragma once
 
 namespace eqlib {
 
-
-//============================================================================
-// CDisplay
-//============================================================================
-
-int* CDisplay::cameraType = nullptr;
-
-const ScreenWndManager::ScreenRecord* ScreenWndManager::FindScreenRecordByScreenName(const CXStr& name)
+union RGB
 {
-	int* value = screensHash.FindFirst(name);
-	if (value)
+	struct
 	{
-		return &screens[*value];
-	}
-
-	return nullptr;
-}
+		uint8_t Blue;
+		uint8_t Green;
+		uint8_t Red;
+		uint8_t Alpha;
+	};
+	uint32_t ARGB;
+};
 
 } // namespace eqlib

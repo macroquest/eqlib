@@ -24,11 +24,11 @@
 #include "eqlib/game/CXStr.h"
 #include "eqlib/game/CXWnd.h"
 #include "eqlib/game/Containers.h"
-#include "eqlib/game/GraphicsResources.h"
 #include "eqlib/game/Items.h"
 #include "eqlib/game/XMLData.h"
 #include "eqlib/game/UITemplates.h"
 #include "eqlib/game/EQData.h"
+#include "eqlib/graphics/GraphicsResources.h"
 
 #include "mq/base/Iterator.h"
 
