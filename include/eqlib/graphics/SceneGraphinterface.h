@@ -45,6 +45,24 @@ public:
 };
 
 //----------------------------------------------------------------------------
+class CCollisionGroup
+{
+public:
+	enum Type
+	{
+		eStatic = 0,
+		eDynamic = 1,
+	};
+
+	CCollisionGroup(Type type) : m_type(type)
+	{
+	}
+
+private:
+	Type m_type;
+};
+
+//----------------------------------------------------------------------------
 class CSceneGraphInterfaceBase
 {
 public:
@@ -67,7 +85,7 @@ public:
 	virtual uint32_t GetAreaEnvironment(uint32_t) = 0;
 	virtual void GetAreaRegionCenters(uint32_t, CVector3*, int*) = 0;
 	virtual void SetDrawAreaWireframes(bool) = 0;
-	virtual void ShouldDrawAreaWireframes() const = 0;
+	virtual bool ShouldDrawAreaWireframes() const = 0;
 	virtual uint32_t GetRegionNumber(const CVector3* pos) const = 0;
 	virtual bool IsLocationValid(const CVector3*) const = 0;
 	virtual EStatus GetWorldExtents(CVector3* min, CVector3* max) = 0;
@@ -109,12 +127,12 @@ public:
 	virtual void RemoveDirectionalLightFromScene() = 0;
 	virtual void SetDynamicLod(bool) = 0;
 	virtual void EnableRadialFlora(bool) = 0;
-	virtual RGB* GetGlobalAmbient() = 0;
-	virtual RGB* GetVisionAmbient() = 0;
-	virtual RGB* GetConstantAmbient() = 0;
-	virtual void SetGloobalAmbient(RGB*) = 0;
-	virtual void SetVisionAmbient(RGB*) = 0;
-	virtual void SetConstantAmbient(RGB*) = 0;
+	virtual const RGB& GetGlobalAmbient() = 0;
+	virtual const RGB& GetVisionAmbient() = 0;
+	virtual const RGB& GetConstantAmbient() = 0;
+	virtual void SetGlobalAmbient(const RGB&) = 0;
+	virtual void SetVisionAmbient(const RGB&) = 0;
+	virtual void SetConstantAmbient(const RGB&) = 0;
 	virtual void SetGlobalBounce(const CColor32Bit&) = 0;
 	virtual void SetPrecalcLighting(bool) = 0;
 	virtual void SetRainColor(int) = 0;

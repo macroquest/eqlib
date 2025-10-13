@@ -4102,11 +4102,6 @@ FUNCTION_AT_ADDRESS(void, CLabel::SetAlignCenter(bool), CLabel__SetAlignCenter);
 // CListWnd
 //----------------------------------------------------------------------------
 
-#ifdef CListWnd__AddColumn1_x
-FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width,
-	uint32_t Flags, CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver,
-	bool bResizeable, CXSize TextureSize, CXPoint TextureOffset) noexcept, CListWnd__AddColumn1);
-#endif
 #ifdef CListWnd__GetCurSel_x
 FUNCTION_AT_ADDRESS(int, CListWnd::GetCurSel() const, CListWnd__GetCurSel);
 #endif
@@ -4219,7 +4214,9 @@ FUNCTION_AT_ADDRESS(void, CListWnd::EnableLine(int, bool), CListWnd__EnableLine)
 FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr&, int, uint32_t, uint32_t), CListWnd__AddColumn);
 #endif
 #ifdef CListWnd__AddColumn1_x
-// CListWnd::AddColumn implemented in ExceptionsDisabled.cpp
+FUNCTION_AT_ADDRESS(int, CListWnd::AddColumn(const CXStr& Label, CTextureAnimation* pTA, int Width,
+	uint32_t Flags, CXStr Tooltip, uint32_t Type, CTextureAnimation* pTASelected, CTextureAnimation* pTAMouseOver,
+	bool bResizeable, CXSize TextureSize, CXPoint TextureOffset) noexcept, CListWnd__AddColumn1);
 #endif
 #ifdef CListWnd__SetColumnLabel_x
 FUNCTION_AT_ADDRESS(void, CListWnd::SetColumnLabel(int, const CXStr&), CListWnd__SetColumnLabel);

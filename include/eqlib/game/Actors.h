@@ -86,8 +86,8 @@ public:
 	virtual const EQObject* AsObject() const = 0;
 	virtual EQObject* AsObject() = 0;
 
-	virtual const EQSwitch *AsSwitch() const = 0;
-	virtual EQSwitch *AsSwitch() = 0;
+	virtual const EQSwitch* AsSwitch() const = 0;
+	virtual EQSwitch* AsSwitch() = 0;
 
 	virtual const EQPlacedItem* AsPlacedItem() const = 0;
 	virtual EQPlacedItem* AsPlacedItem() = 0;
@@ -159,7 +159,7 @@ public:
 /*0x03c*/ virtual int GetCollisionVolumeType() const = 0;
 /*0x040*/ virtual CSphere GetCollisionVolumeSphere() const = 0;
 /*0x044*/ virtual float GetCollisionVolumeRadius() const = 0;
-/*0x048*/ virtual void SetCllisionVolumeRadius(float) = 0;
+/*0x048*/ virtual void SetCollisionVolumeRadius(float) = 0;
 /*0x04c*/ virtual CAABox GetCollisionBox(bool, bool) const = 0;
 /*0x050*/ virtual void SetCollisionRestrictionMask(uint32_t) = 0;
 /*0x054*/ virtual uint32_t GetCollisionRestrictionMask() const = 0;
@@ -196,7 +196,7 @@ public:
 /*0x0cc*/ virtual float GetCollisionSphereScaleFactor() const = 0;
 /*0x0d0*/ virtual CTerrainObjectInterface* GetTerrainObjectInterface() const = 0;
 /*0x0d4*/ virtual EActorClass GetActorClass() const = 0;
-/*0x0d8*/ virtual bool FindIntersection(CCollisionInfoSphere&) const = 0; // d8
+/*0x0d8*/ virtual bool FindIntersection(CCollisionInfoSphere&) const = 0;
 /*0x0dc*/ virtual bool FindIntersection(CCollisionInfoRay&) const = 0;
 /*0x0e0*/ virtual bool FindIntersection(CCollisionInfoLineSegment&) const = 0;
 };
@@ -230,7 +230,7 @@ public:
 /*0x140*/ virtual bool ReplaceSpecialCloakMaterials(const char*) = 0;
 /*0x144*/ virtual bool SwapBody(int, const char*) = 0;
 /*0x148*/ virtual void SetActorSpriteTint(const RGB*) = 0;
-/*0x14c*/ virtual bool SwapHead(const char* uint32, bool, bool, bool, uint32_t) = 0; // 14c
+/*0x14c*/ virtual bool SwapHead(const char* uint32, bool, bool, bool, uint32_t) = 0;
 /*0x150*/ virtual void GetDefaultEyeMaterialIndices(int*, int*, bool, bool) = 0;
 /*0x154*/ virtual bool SetNgeFaceMaterial(const char*) = 0;
 /*0x158*/ virtual bool SetNgeEyeMaterial(int, const char*) = 0;
@@ -409,9 +409,6 @@ public:
 	/*0x18*/
 };
 
-
-// Size: 0x1b4
-
 class [[offsetcomments]] ActorClient : public ActorBase
 {
 	FORCE_SYMBOLS;
@@ -441,6 +438,5 @@ public:
 
 	ALT_MEMBER_GETTER_DEPRECATED(CActorInterface*, pActor, pcactorex, "Use pActor instead of pcactorex");
 };
-
 
 } // namespace eqlib

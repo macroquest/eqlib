@@ -201,15 +201,15 @@ public:
 	DEPRECATE("Use GetSlot(0) instead of Slot1")
 	int getSlot1() const { return m_slots[0]; }
 	DEPRECATE("Use SetSlot(0) instead of Slot1")
-	void setSlot1(int v) { m_slots[0] = (short)v; }
+	void setSlot1(int v) { m_slots[0] = static_cast<short>(v); }
 	DEPRECATE("Use GetSlot(1) instead of Slot2")
 	int getSlot2() const { return m_slots[1]; }
 	DEPRECATE("Use SetSlot(1) instead of Slot2")
-	void setSlot2(int v) { m_slots[1] = (short)v; }
+	void setSlot2(int v) { m_slots[1] = static_cast<short>(v); }
 	DEPRECATE("Use GetSlot(2) instead of Slot3")
 	int getSlot3() const { return m_slots[2]; }
 	DEPRECATE("Use SetSlot(2) instead of Slot3")
-	void setSlot3(int v) { m_slots[2] = (short)v; }
+	void setSlot3(int v) { m_slots[2] = static_cast<short>(v); }
 };
 
 
@@ -246,7 +246,7 @@ public:
 
 	ItemGlobalIndex(ItemContainerInstance location, int slot1, int slot2 = -1, int slot3 = -1)
 		: Location(location)
-		, Index(slot1, slot2, slot3)
+		, Index(static_cast<short>(slot1), static_cast<short>(slot2), static_cast<short>(slot3))
 	{}
 
 	void SetLocation(ItemContainerInstance location) { Location = location; }
@@ -575,7 +575,7 @@ public:
 	// deprecated accessors
 	ALT_MEMBER_GETTER_DEPRECATED(uint32_t, m_size, ContentSize, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(int, m_type, ItemLocation, "Use GetContainerType() instead");
-	ALT_MEMBER_GETTER_DEPRECATED(deprecated::ITEMARRAY, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
+	ALT_MEMBER_GETTER_DEPRECATED(eqlib::deprecated::ITEMARRAY, m_items, ContainedItems, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[0], ItemSlot, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 	ALT_MEMBER_GETTER_DEPRECATED(short, m_slots[1], ItemSlot2, "Use the helpers in ItemContainer instead of directly accessing the item storage");
 };
@@ -649,7 +649,7 @@ enum eItemEffectType : uint8_t
 	ItemEffectFamiliar
 };
 
-enum ItemSpellTypes
+enum ItemSpellTypes : uint8_t
 {
 	ItemSpellType_Clicky = 0,
 	ItemSpellType_Proc,
@@ -668,16 +668,16 @@ enum ItemSpellTypes
 	// Renamed to Blessing.
 	ItemSpellType_Keyring DEPRECATE("Use ItemSpellType_Blessing instead of ItemSpellType_Keyring") = ItemSpellType_Blessing,
 
-	// Two names for the same thing...
-	eActivatableSpell = ItemSpellType_Clicky,
-	eProcSpell = ItemSpellType_Proc,
-	eWornSpell = ItemSpellType_Worn,
-	eFocusSpell = ItemSpellType_Focus,
-	eScrollSpell = ItemSpellType_Scroll,
-	eFocus2Spell = ItemSpellType_Focus2,
-	eMountSpell = ItemSpellType_Mount,
-	eIllusionSpell = ItemSpellType_Illusion,
-	eFamiliarSpell = ItemSpellType_Familiar,
+	// Two names for the same thing... don't use these.
+	eActivatableSpell DEPRECATE("Use ItemSpellType_Clicky instead of eActivatableSpell") = ItemSpellType_Clicky,
+	eProcSpell DEPRECATE("Use ItemSpellType_Proc instead of eProcSpell") = ItemSpellType_Proc,
+	eWornSpell DEPRECATE("Use ItemSpellType_Worn instead of eWornSpell") = ItemSpellType_Worn,
+	eFocusSpell DEPRECATE("Use ItemSpellType_Focus instead of eFocusSpell") = ItemSpellType_Focus,
+	eScrollSpell DEPRECATE("Use ItemSpellType_Scroll instead of eScrollSpell") = ItemSpellType_Scroll,
+	eFocus2Spell DEPRECATE("Use ItemSpellType_Focus2 instead of eFocus2Spell") = ItemSpellType_Focus2,
+	eMountSpell DEPRECATE("Use ItemSpellType_Mount instead of eMountSpell") = ItemSpellType_Mount,
+	eIllusionSpell DEPRECATE("Use ItemSpellType_Illusion instead of eIllusionSpell") = ItemSpellType_Illusion,
+	eFamiliarSpell DEPRECATE("Use ItemSpellType_Familiar instead of eFamiliarSpell") = ItemSpellType_Familiar,
 };
 using eItemSpellType = ItemSpellTypes;
 

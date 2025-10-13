@@ -306,9 +306,14 @@ public:
 	{
 		UNUSED(groundItem);
 	}
+
+	/*
+	 * Event that occurs when eqmain.dll is loaded or unload
+	 */
+	virtual void OnEQMainDllLoadedStateChanged(bool loaded)
+	{
+		UNUSED(loaded);
+	}
 };
-
-
-
 
 } // namespace eqlib

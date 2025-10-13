@@ -80,6 +80,8 @@
 // graphics components
 #include "eqlib/graphics/GraphicsEngine.h"
 #include "eqlib/graphics/GraphicsResources.h"
+#include "eqlib/graphics/ResourceManagerInterface.h"
+#include "eqlib/graphics/Render.h"
 
 // add private include
 #if __has_include("../private/EQLib-private.h")

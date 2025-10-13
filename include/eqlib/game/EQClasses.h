@@ -22,6 +22,8 @@
 #include "eqlib/game/MathTypes.h"
 #include "eqlib/game/Types.h"
 
+#include "eqlib/graphics/RenderInterface.h"
+
 #include <limits>
 
 namespace eqlib {
@@ -385,11 +387,6 @@ struct ResolutionUpdateData
 	}
 };
 
-struct SDeviceInfo
-{
-	char Name[0x80];
-};
-
 class CResolutionHandlerBase
 {
 public:
@@ -737,12 +734,6 @@ public:
 /*0x1d4*/ int                Unknown0x1D4[9];
 /*0x1f8*/
 };
-
-inline namespace deprecated {
-	using ZONELIST DEPRECATE("Use EQZoneInfo instead of ZONELIST") = EQZoneInfo;
-	using PZONELIST DEPRECATE("Use EQZoneInfo* instead of PZONELIST") = EQZoneInfo*;
-}
-
 
 // @sizeof(EQWorldData) == 0xfc0 :: 2013-05-10 (emu) @ 0x535FB6
 constexpr size_t EQWorldData_size = 0xfc0;
@@ -1549,9 +1540,8 @@ public:
 
 	float GetConnectionStrength() const
 	{
-		int t = GetLastReceiveTime() - 500;
-		if (t < 0) t = 0;
-		return 1.0f - static_cast<float>(t) / 180000;
+		int f = std::max<int>(GetLastReceiveTime() - 500, 0);
+		return 1.0f - static_cast<float>(f) / 180000;
 	}
 
 /*0x0000*/ // vftable

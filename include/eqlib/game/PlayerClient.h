@@ -945,7 +945,7 @@ SIZE_CHECK(PlayerClient, PlayerClient_size);
 // The local player
 EQLIB_VAR ForeignPointer<PlayerClient> pLocalPlayer;
 
-// The player that thte user is currently controlling (mount, eye of zomm, etc).
+// The player that the user is currently controlling (mount, eye of zomm, etc).
 EQLIB_VAR ForeignPointer<PlayerClient> pControlledPlayer;
 
 // The current target

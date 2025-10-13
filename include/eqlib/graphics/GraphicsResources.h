@@ -174,8 +174,6 @@ class CParticleCloudDefinitionInterface;
 class CSkyInterface;
 class CCachedFontInterface;
 
-
-
 struct FONT_D3DTLVERTEX
 {
 	float    x, y, z, w;

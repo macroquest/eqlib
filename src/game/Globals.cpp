@@ -27,6 +27,7 @@
 #include "eqlib/offsets/eqgame.h"
 #include "eqlib/offsets/eqgraphics.h"
 #include "eqlib/offsets/eqmain.h"
+#include "eqlib/graphics/RenderInterface.h"
 #include "eqlib/graphics/ResourceManagerInterface.h"
 
 #include "mq/base/Color.h"

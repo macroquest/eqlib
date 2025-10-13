@@ -61,11 +61,11 @@ class [[offsetcomments]] ProfileList
 {
 public:
 /*0x00*/ eProfileListType ListType;
-/*0x04*/ BaseProfile* pFirst;
-/*0x08*/ BaseProfile* pLast;
-/*0x0c*/ ProfileList* pNext;
-/*0x10*/ ProfileList* pPrev;
-/*0x14*/
+/*0x08*/ PcProfile*       pFirst;
+/*0x10*/ PcProfile*       pLast;
+/*0x18*/ ProfileList*     pNext;
+/*0x20*/ ProfileList*     pPrev;
+/*0x28*/
 };
 
 // Manages the list of profiles. Primarily used for accessing the
@@ -88,7 +88,7 @@ public:
 		return nullptr;
 	}
 
-	BaseProfile* GetCurrentProfile()
+	PcProfile* GetCurrentProfile()
 	{
 		const ProfileList* pList = GetCurrentProfileList();
 		if (pList != nullptr)
@@ -98,7 +98,7 @@ public:
 		return nullptr;
 	}
 
-	const BaseProfile* GetCurrentProfile() const
+	const PcProfile* GetCurrentProfile() const
 	{
 		const ProfileList* pList = GetCurrentProfileList();
 		if (pList != nullptr)
@@ -126,8 +126,8 @@ public:
 
 /*0x0000*/ // vftable
 /*0x0004*/ uint32_t                              padding;
-/*0x0008*/ BaseProfile*                          nextProfile;
-/*0x000c*/ BaseProfile*                          prevProfile;
+/*0x0008*/ PcProfile*                            nextProfile;
+/*0x000c*/ PcProfile*                            prevProfile;
 /*0x0010*/ eProfileListType                      profileListType;
 /*0x0014*/ int                                   Unknown0x14;
 /*0x0018*/ ItemContainer                         InventoryContainer;

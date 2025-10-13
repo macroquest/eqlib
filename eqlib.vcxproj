@@ -297,11 +297,11 @@
     <ClInclude Include="include\eqlib\game\UITypes.h" />
     <ClInclude Include="include\eqlib\game\XMLData.h" />
     <ClInclude Include="include\eqlib\graphics\CameraInterface.h" />
+    <ClInclude Include="include\eqlib\graphics\LightDefinitionInterface.h" />
     <ClInclude Include="include\eqlib\graphics\LightInterface.h" />
     <ClInclude Include="include\eqlib\graphics\MathInterface.h" />
     <ClInclude Include="include\eqlib\graphics\ParticleSystemInterface.h" />
     <ClInclude Include="include\eqlib\graphics\ResourceManagerInterface.h" />
-    <ClInclude Include="include\eqlib\graphics\RGB.h" />
     <ClInclude Include="include\eqlib\graphics\FastFileInterface.h" />
     <ClInclude Include="include\eqlib\graphics\GraphicsEngine.h" />
     <ClInclude Include="include\eqlib\graphics\GraphicsResources.h" />
@@ -402,8 +402,8 @@
     </NASM>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="include\eqstd\eqstd.natvis" />
     <Natvis Include="src\eqlib.natvis" />
+    <Natvis Include="src\eqstd.natvis" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -34,6 +34,7 @@ public:
 	virtual bool Seek(SFastFile*, int, int) = 0;
 	virtual int Tell(SFastFile*) = 0;
 	virtual int GetSize(SFastFile*) = 0;
+	virtual ~CFastFileInterface() {}
 };
 
 //============================================================================

@@ -30,6 +30,8 @@
 #include "eqlib/game/Spells.h"
 #include "eqlib/game/TaskSystem.h"
 
+#include <type_traits>
+
 // This is the home of all things related to what used to be called CHARINFO 
 // plus a few extra things until they find a home of their own.
 //
@@ -87,9 +89,9 @@ constexpr int EQSKILL_HIDE = 29;
 // Structs
 //============================================================================
 
-struct [[offsetcomments]] ALCHEMYBONUSSKILLDATA
+struct [[offsetcomments]] AlchemyBonusSkillData
 {
-	FORCE_SYMBOLS;
+	FORCE_SYMBOLS
 
 /*0x00*/ int SkillID;
 /*0x04*/ int BonusPoints;
@@ -139,32 +141,32 @@ public:
 	virtual CGroupMember* AsMemberClient() { return nullptr; }
 	virtual void RemovedFromGroup(uint32_t id) = 0;
 
-	inline bool IsOffline() const { return bIsOffline; }
-	inline eqtime_t GetOnlineTimestamp() const { return OnlineTimestamp; }
-	inline bool GetRole(eGroupRoles role) const { return bRoleStates[role]; }
-	inline const char* GetName() const { return Name.c_str(); }
-	inline const char* GetOwnerName() const { return OwnerName.c_str(); }
-	inline int GetLevel() const { return Level; }
+	bool IsOffline() const { return bIsOffline; }
+	eqtime_t GetOnlineTimestamp() const { return OnlineTimestamp; }
+	bool GetRole(eGroupRoles role) const { return bRoleStates[role]; }
+	const char* GetName() const { return Name.c_str(); }
+	const char* GetOwnerName() const { return OwnerName.c_str(); }
+	int GetLevel() const { return Level; }
 
-	inline bool IsMainTank() const { return GetRole(GroupRoleTank); }
-	inline bool IsMainAssist() const { return GetRole(GroupRoleAssist); }
-	inline bool IsPuller() const { return GetRole(GroupRolePuller); }
-	inline bool IsMarkNPC() const { return GetRole(GroupRoleMarkNPC); }
-	inline bool IsMasterLooter() const { return GetRole(GroupRoleMasterLooter); }
+	bool IsMainTank() const { return GetRole(GroupRoleTank); }
+	bool IsMainAssist() const { return GetRole(GroupRoleAssist); }
+	bool IsPuller() const { return GetRole(GroupRolePuller); }
+	bool IsMarkNPC() const { return GetRole(GroupRoleMarkNPC); }
+	bool IsMasterLooter() const { return GetRole(GroupRoleMasterLooter); }
 
 	// Compat wrappers for old member types/names
 	__declspec(property(get = getPName)) CXStr* pName;
 	DEPRECATE("CGroupMemberBase: Use Name instead of pName")
-	inline CXStr* getPName() { return &Name; }
+	CXStr* getPName() { return &Name; }
 
 	__declspec(property(get = getPOwner)) CXStr* pOwner;
 	DEPRECATE("CGroupMemberBase: Use OwnerName instead of pOwner")
-	inline CXStr* getPOwner() { return &OwnerName; }
+	CXStr* getPOwner() { return &OwnerName; }
 
 	// Compat wrapper for Mercenary
 	__declspec(property(get = getMercenary)) uint8_t Mercenary;
 	DEPRECATE("CGroupMemberBase: Use Type instead of Mercenary")
-	inline uint8_t getMercenary() { return (uint8_t)Type; }
+	uint8_t getMercenary() { return (uint8_t)Type; }
 
 	ALT_MEMBER_GETTER(bool, bIsOffline, Offline);
 	ALT_MEMBER_GETTER(uint32_t, CurrentRoleBits, Roles);
@@ -194,7 +196,7 @@ public:
 	virtual CGroupMember* AsMemberClient() override { return this; }
 	PlayerClient* GetPlayer() { return pPlayer; }
 
-	ALT_MEMBER_GETTER(PlayerClient*, pPlayer, pSpawn);
+	ALT_MEMBER_GETTER(PlayerClient*, pPlayer, pSpawn)
 };
 
 
@@ -222,15 +224,16 @@ public:
 	CGroupMember* GetGroupLeader() const { return m_groupLeader; }
 	EQLIB_OBJECT CGroupMember* GetGroupMember(int index) const;
 
-	inline uint32_t GetID() const { return m_id; }
+	uint32_t GetID() const { return m_id; }
+	uint32_t GetMaxGroupSize() const { return MAX_GROUP_SIZE; }
 
 	// iterator support for stl containers and algorithms
-	inline auto begin() { return std::begin(m_groupMembers); }
-	inline auto begin() const { return std::cbegin(m_groupMembers); }
-	inline auto cbegin() const { return std::cbegin(m_groupMembers); }
-	inline auto end() { return std::end(m_groupMembers); }
-	inline auto end() const { return std::cend(m_groupMembers); }
-	inline auto cend() { return std::cend(m_groupMembers); }
+	auto begin() { return std::begin(m_groupMembers); }
+	auto begin() const { return std::cbegin(m_groupMembers); }
+	auto cbegin() const { return std::cbegin(m_groupMembers); }
+	auto end() { return std::end(m_groupMembers); }
+	auto end() const { return std::cend(m_groupMembers); }
+	auto cend() { return std::cend(m_groupMembers); }
 
 	ALT_MEMBER_GETTER_ARRAY_DEPRECATED(CGroupMember*, MAX_GROUP_SIZE, m_groupMembers, pMember,
 		"CGroupBase: Use Group->GetGroupMember instead of accessing pMembers");
@@ -763,11 +766,11 @@ public:
 
 	EQLIB_OBJECT static FreeToPlayClient& Instance();
 
-	/*0x00*/ MembershipLevel MembershipLevel;
-	/*0x04*/ BitField<NUM_RACES> Races;
-	/*0x08*/ BitField<MAX_PLAYER_CLASSES> Classes;
-	/*0x0c*/ int LimitData[(int)GameFeature::Max];
-	/*0x64*/
+/*0x00*/ MembershipLevel MembershipLevel;
+/*0x04*/ BitField<NUM_RACES> Races;
+/*0x08*/ BitField<MAX_PLAYER_CLASSES> Classes;
+/*0x0c*/ int LimitData[(int)GameFeature::Max];
+/*0x64*/
 };
 
 class IFreeToPlayInfo
@@ -1589,7 +1592,7 @@ public:
 /*0x3194*/ uint32_t                              TransfersReceived;
 /*0x3198*/ int                                   LastLanguageSpoken;
 /*0x319c*/ int                                   CurPowerSourceDrain;
-/*0x31a0*/ EQList<ALCHEMYBONUSSKILLDATA*>        AlchemyBaseSkillBonusList;
+/*0x31a0*/ EQList<AlchemyBonusSkillData*>        AlchemyBaseSkillBonusList;
 /*0x31b0*/ uint32_t                              MomentumBalance;
 /*0x31b4*/ uint32_t                              LoyaltyRewardBalance; // 31b4
 /*0x31b8*/

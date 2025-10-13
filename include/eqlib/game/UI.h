@@ -18,16 +18,15 @@
 #include "eqlib/Offsets.h"
 
 #include "eqlib/game/ChatFilters.h"
-#include "eqlib/game/ForwardDecls.h"
 #include "eqlib/game/Constants.h"
 #include "eqlib/game/Containers.h"
 #include "eqlib/game/CXStr.h"
 #include "eqlib/game/CXWnd.h"
-#include "eqlib/game/Containers.h"
-#include "eqlib/game/Items.h"
-#include "eqlib/game/XMLData.h"
-#include "eqlib/game/UITemplates.h"
 #include "eqlib/game/EQData.h"
+#include "eqlib/game/ForwardDecls.h"
+#include "eqlib/game/Items.h"
+#include "eqlib/game/UITemplates.h"
+#include "eqlib/game/XMLData.h"
 #include "eqlib/graphics/GraphicsResources.h"
 
 #include "mq/base/Iterator.h"
@@ -458,7 +457,7 @@ public:
 	// methods
 
 	EQLIB_OBJECT CXRect GetListRect() const;
-	inline CXRect GetListRect(bool) { return GetListRect(); }
+	CXRect GetListRect(bool) { return GetListRect(); }
 
 	EQLIB_OBJECT void SetColors(COLORREF norm, COLORREF highlight, COLORREF selected);
 	void SetColors(mq::MQColor norm, mq::MQColor highlight, mq::MQColor selected) { SetColors(norm.ToARGB(), highlight.ToARGB(), selected.ToARGB()); }
@@ -849,7 +848,7 @@ struct [[offsetcomments]] SListWndCell
 {
 /*0x00*/ const CTextureAnimation* pTA = nullptr;
 /*0x04*/ CXStr                    Text;
-/*0x08*/ COLORREF                 Color = RGB(255, 255, 255);
+/*0x08*/ COLORREF                 Color = 0x00FFFFFF;
 /*0x0c*/ bool                     bOnlyDrawTexture = false;
 /*0x10*/ CXWnd*                   pWnd = nullptr;
 /*0x14*/
@@ -1058,14 +1057,14 @@ public:
 	EQLIB_OBJECT void CalculateCustomWindowPositions();
 
 	EQLIB_OBJECT void SetColors(COLORREF crNormal, COLORREF crHighlight, COLORREF crSelected);
-	inline void SetColors(mq::MQColor normal, mq::MQColor highlight, mq::MQColor selected) { SetColors(normal.ToARGB(), highlight.ToARGB(), selected.ToARGB()); }
+	void SetColors(mq::MQColor normal, mq::MQColor highlight, mq::MQColor selected) { SetColors(normal.ToARGB(), highlight.ToARGB(), selected.ToARGB()); }
 
 
 	EQLIB_OBJECT int GetItemAtPoint(const CXPoint& pt) const;
 	EQLIB_OBJECT void GetItemAtPoint(const CXPoint& pt, int* ID, int* SubItem) const;
 
 
-	inline int GetColumnCount() const { return Columns.GetLength(); }
+	int GetColumnCount() const { return Columns.GetLength(); }
 
 	// Index of the first row in the list where the text in column matches predicate, or -1 if no row matches
 	EQLIB_OBJECT int IndexOf(int column, const std::function<bool(const CXStr)>& predicate);
@@ -1090,7 +1089,7 @@ public:
 	//----------------------------------------------------------------------------
 
 	// Sets the sorting column. If this is the current column it will flip its order.
-	inline void SetSortColumn(int column)
+	void SetSortColumn(int column)
 	{
 		if (column < 0 || column >= Columns.GetCount())
 			return;
@@ -1106,7 +1105,7 @@ public:
 		Sort(false);
 	}
 
-	inline int GetItemCount() const { return ItemsArray.GetLength(); }
+	int GetItemCount() const { return ItemsArray.GetLength(); }
 
 	//----------------------------------------------------------------------------
 	// data members
@@ -1477,7 +1476,7 @@ public:
 	EQLIB_OBJECT void InsertPage(CPageWnd* pPageWnd, int position = -1); // defaults to the last tab
 	EQLIB_OBJECT void RemovePage(CPageWnd* pPageWnd);
 
-	inline bool IsValidIndex(int index) const
+	bool IsValidIndex(int index) const
 	{
 		return index >= 0 && index < GetNumTabs();
 	}
@@ -1697,6 +1696,16 @@ enum eAdvLootState
 	eAdvLootRemoved
 };
 
+enum eAdvLootStatus
+{
+	eAdvLootStatusWaiting,
+	eAdvLootStatusAsking,
+	eAdvLootStatusRolling,
+	eAdvLootStatusStopped,
+	eAdvLootStatusClickRoll,
+	eAdvLootStatusFreeGrab,
+};
+
 struct [[offsetcomments]] AdvancedLootItem
 {
 /*0x00*/ int64_t       ItemID;                   // EqGuid?
@@ -1708,7 +1717,7 @@ struct [[offsetcomments]] AdvancedLootItem
 /*0x58*/ int           ComboID;
 /*0x5c*/ unsigned int  LootID;
 /*0x60*/ eAdvLootState State;
-/*0x64*/ int           Unknown0x64;
+/*0x64*/ eAdvLootStatus       Status;
 /*0x68*/ bool          bAutoRoll;
 /*0x69*/ bool          ActivelyManaged;          // User has the manage Window up
 /*0x6a*/ bool          ContextMenu;              // item has a context menu
@@ -1831,11 +1840,6 @@ public:
 /*0x2e8*/ bool                      bUnknown3;
 /*0x2ec*/
 };
-
-inline namespace deprecated {
-	using EQADVLOOTWND DEPRECATE("Use CAdvancedLootWnd instead of EQADVLOOTWND") = CAdvancedLootWnd;
-	using PEQADVLOOTWND DEPRECATE("Use CAdvancedLootWnd* instead of PEQADVLOOTWND") = CAdvancedLootWnd*;
-}
 
 #endif // HAS_ADVANCED_LOOT
 
@@ -2198,7 +2202,7 @@ class [[offsetcomments]] CBazaarWnd : public CSidlScreenWnd, public WndEventHand
 	FORCE_SYMBOLS
 
 public:
-	inline ItemContainer& GetBazaarItems() { return bazaarItems; }
+	ItemContainer& GetBazaarItems() { return bazaarItems; }
 
 /*0x224*/ int                selectedSlot;
 /*0x228*/ int                curBazaarIndex;
@@ -2675,11 +2679,6 @@ public:
 /*0x248*/
 };
 
-inline namespace deprecated {
-	using EQCHATMGR DEPRECATE("Use CChatWindowManager instead of EQCHATMGR") = CChatWindowManager;
-	using PEQCHATMGR DEPRECATE("Use CChatWindowManager* instead of PEQCHATMGR") = CChatWindowManager*;
-}
-
 //============================================================================
 // CChatWindow
 //============================================================================
@@ -2738,11 +2737,6 @@ public:
 /*0x340*/ int          ContextMenuSubID[0xa];    // this is not correct but ill fix it later.
 /*0x368*/
 };
-
-inline namespace deprecated {
-	using EQCHATWINDOW DEPRECATE("Use CChatWindow instead of EQCHATWINDOW") = CChatWindow;
-	using PEQCHATWINDOW DEPRECATE("Use CChatWindow* instead of PEQCHATWINDOW") = CChatWindow*;
-}
 
 //============================================================================
 // CColorPickerWnd
@@ -2964,7 +2958,7 @@ public:
 /*0x288*/
 
 	DEPRECATE("CContainerWnd: Use Container instead of pContents")
-	inline ItemClient* get_pContents() { return Container.get(); }
+	ItemClient* get_pContents() { return Container.get(); }
 	__declspec(property(get = get_pContents)) ItemClient* pContents;
 };
 
@@ -2983,7 +2977,7 @@ public:
 	CContainerMgr();
 	virtual ~CContainerMgr();
 
-	inline ItemPtr GetWorldContainerItem() const { return WorldContainer; };
+	ItemPtr GetWorldContainerItem() const { return WorldContainer; };
 
 	// Retrieves a window for the given item container, if it is active.
 	EQLIB_OBJECT CContainerWnd* GetWindowForItem(const ItemPtr& pContainer) const;
@@ -3080,7 +3074,6 @@ public:
 // CContextMenu
 //============================================================================
 
-// Size is 0x290 in eagame 2016 Nov 14
 class [[offsetcomments]] CContextMenu : public CListWnd
 {
 	FORCE_SYMBOLS
@@ -3689,7 +3682,6 @@ public:
 // CGroupWnd
 //============================================================================
 
-// Size: 0x3c8
 class [[offsetcomments]] CGroupWnd : public CSidlScreenWnd
 {
 	FORCE_SYMBOLS
@@ -4080,7 +4072,6 @@ public:
 // CHotButtonWnd
 //============================================================================
 
-// size: 0x300
 class [[offsetcomments]] CHotButtonWnd : public CSidlScreenWnd, public PopDialogHandler
 {
 public:
@@ -4137,7 +4128,8 @@ public:
 /*0x2fc*/ int             HotWindowIndex;
 /*0x300*/ int             ConfirmId;
 /*0x304*/ bool            KeepCurrentSize;
-/*0x308*/ };
+/*0x308*/
+};
 
 //============================================================================
 // CInspectWnd
@@ -4149,7 +4141,7 @@ class CInspectWnd : public CSidlScreenWnd, public WndEventHandler
 	FORCE_SYMBOLS
 
 public:
-	inline ItemContainer& GetInspectItems() { return inspectItems; }
+	ItemContainer& GetInspectItems() { return inspectItems; }
 
 /*0x234*/ uint32_t           nextRefreshTime;
 /*0x238*/ uint32_t           lastInspectTextSaveTime;
@@ -4253,7 +4245,7 @@ public:
 	EQLIB_OBJECT CInvSlot* FindInvSlot(int TopSlot, int SubSlot = -1,
 		ItemContainerInstance location = eItemContainerPossessions, bool includeLinks = true);
 
-	inline CInvSlot* FindInvSlot(const ItemGlobalIndex& index, bool includeLinks = true)
+	CInvSlot* FindInvSlot(const ItemGlobalIndex& index, bool includeLinks = true)
 	{
 		return FindInvSlot(index.GetTopSlot(), index.GetIndex().GetSlot(1), index.GetLocation(), includeLinks);
 	}
@@ -4332,7 +4324,7 @@ public:
 /*0x2a8*/ int                LastTime;
 /*0x2ac*/
 
-	inline bool IsHotButton() const { return bHotButton; }
+	bool IsHotButton() const { return bHotButton; }
 
 	// Backwards Compat Macros
 	ALT_MEMBER_GETTER_COPY(ItemContainerInstance, ItemLocation.GetLocation(), WindowType);
@@ -4474,11 +4466,6 @@ public:
 /*0x5f0*/ uint32_t          ItemWndIndex;
 /*0x5f4*/
 };
-
-inline namespace deprecated {
-	using EQITEMWINDOW DEPRECATE("Use CItemDisplayWnd instead of EQITEMWINDOW") = CItemDisplayWnd;
-	using PEQITEMWINDOW DEPRECATE("Use CItemDisplayWnd* instead of PEQITEMWINDOW") = CItemDisplayWnd*;
-}
 
 SIZE_CHECK(CItemDisplayWnd, CItemDisplayWnd_size);
 
@@ -4716,8 +4703,8 @@ public:
 /*0x3a4*/ uint32_t          lastLootAllMsgSent; // 3a4
 /*0x3a8*/
 
-	inline ItemContainer& GetLootItems() { return LootItems; }
-	inline ItemPtr GetLootItem(int slot) { return LootItems.GetItem(slot); }
+	ItemContainer& GetLootItems() { return LootItems; }
+	ItemPtr GetLootItem(int slot) { return LootItems.GetItem(slot); }
 
 	INVENTORYARRAY* get_pInventoryArray() { return reinterpret_cast<INVENTORYARRAY*>(&LootItems.Items[0]); }
 	__declspec(property(get = get_pInventoryArray)) INVENTORYARRAY* pInventoryArray;
@@ -5179,8 +5166,8 @@ public:
 struct [[offsetcomments]] KeyboardAssignmentData
 {
 /*0x00*/ CXStr Description;
-/*0x08*/ int nAssignmentNumber;
-/*0x0c*/
+/*0x04*/ int nAssignmentNumber;
+/*0x08*/
 };
 
 inline namespace deprecated {
@@ -5232,8 +5219,8 @@ public:
 	// data members
 
 	// this is incorrect and needs to be updated
-/*0x2e0*/ KeyboardAssignmentData   Binds[0xA1];
-/*0xcf0*/
+/*0x228*/ KeyboardAssignmentData   Binds[0xA1];
+/*0x730*/
 /*0x904*/
 };
 
@@ -6254,16 +6241,10 @@ public:
 /*0x4b4*/
 };
 
-inline namespace deprecated {
-	using EQTRADESKILLWINDOW DEPRECATE("Use CTradeSkillWnd instead of EQTRADESKILLWINDOW") = CTradeSkillWnd;
-	using PEQTRADESKILLWINDOW DEPRECATE("Use CTradeSkillWnd* instead of PEQTRADESKILLWINDOW") = CTradeSkillWnd*;
-}
-
 //============================================================================
 // CTradeWnd
 //============================================================================
 
-// size: 0x300
 class [[offsetcomments]] CTradeWnd : public CSidlScreenWnd, public WndEventHandler
 {
 	FORCE_SYMBOLS
@@ -6307,17 +6288,12 @@ public:
 /*0x2fa*/ bool               bIsTrading;               // was TradeWndOpen
 /*0x2fc*/
 
-	inline ItemContainer& GetTradeItems() { return TradeItems; }
+	ItemContainer& GetTradeItems() { return TradeItems; }
 	// TODO: Add aliases
 
 	ALT_MEMBER_GETTER(bool, bHisReadyTrade, HisTradeReady);
 	ALT_MEMBER_GETTER(bool, bMyReadyTrade, MyTradeReady);
 };
-
-inline namespace deprecated {
-	using EQTRADEWINDOW DEPRECATE("Use CTradeWnd instead of EQTRADEWINDOW") = CTradeWnd;
-	using PEQTRADEWINDOW DEPRECATE("Use CTradeWnd* instead of PEQTRADEWINDOW") = CTradeWnd*;
-}
 
 //============================================================================
 // CTrainWnd
@@ -6490,7 +6466,6 @@ public:
 
 using ZonePathArray = ArrayClass<ZonePathData>;
 
-// size: 0x8464
 class [[offsetcomments]] ZoneGuideManagerClient : public ZoneGuideManagerBase
 {
 	FORCE_SYMBOLS;
@@ -6625,7 +6600,7 @@ public:
 	// CreateXWndFromTemplate recursively... not sure where it is used yet. A couple non-xml source set it to 1.
 	EQLIB_OBJECT CXWnd* CreateXWndFromTemplate(CXWnd* pParent, CControlTemplate* pTemplate);
 
-	inline CXWnd* CreateXWndFromTemplate(CXWnd* pParent, CControlTemplate* pTemplate, bool bUnknown)
+	CXWnd* CreateXWndFromTemplate(CXWnd* pParent, CControlTemplate* pTemplate, bool bUnknown)
 	{
 		UNUSED(bUnknown);
 		return CreateXWndFromTemplate(pParent, pTemplate);
@@ -6922,11 +6897,11 @@ class [[offsetcomments]] IconCache
 {
 public:
 /*0x00*/ HashTable<CTextureAnimation*> IconTextures;
-/*0x18*/ CXStr              pAnimationName;
-/*0x20*/ int                Offset;
-/*0x24*/ int                MinValue;
-/*0x28*/ int                MaxValue;
-/*0x2c*/
+/*0x10*/ CXStr              pAnimationName;
+/*0x14*/ int                Offset;
+/*0x18*/ int                MinValue;
+/*0x1c*/ int                MaxValue;
+/*0x20*/
 
 	EQLIB_OBJECT CTextureAnimation* GetIcon(int);
 };
@@ -6948,22 +6923,22 @@ public:
 	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<CXWnd*>, m_windows, pWindows, "CWndDisplayManager: pWindows is deprecated. Use GetWindow instead.");
 	ALT_MEMBER_GETTER_DEPRECATED(ArrayClass2<int>, m_times, pTimes, "CWndDisplayManager: pTimes is deprecated. Use GetLastUpdateTime instead.");
 
-	inline CXWnd* GetWindow(int index) const
+	CXWnd* GetWindow(int index) const
 	{
 		if (index >= 0 && index < m_windows.GetLength())
 			return m_windows[index];
 		return nullptr;
 	}
 
-	inline int GetLastUpdateTime(int index) const
+	int GetLastUpdateTime(int index) const
 	{
 		if (index >= 0 && index < m_times.GetLength())
 			return m_times[index];
 		return 0;
 	}
 
-	inline int GetCount() const { return m_windows.GetLength(); }
-	inline int GetMaxWindows() const { return MaxWindows; }
+	int GetCount() const { return m_windows.GetLength(); }
+	int GetMaxWindows() const { return MaxWindows; }
 
 protected:
 	ArrayClass2<CXWnd*>      m_windows;

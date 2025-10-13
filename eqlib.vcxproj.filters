@@ -121,12 +121,6 @@
     <ClInclude Include="include\eqlib\MemoryPatcher.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
-    <ClInclude Include="src\pch.h">
-      <Filter>Header Files\eqlib</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resource.h">
-      <Filter>Header Files\eqlib</Filter>
-    </ClInclude>
     <ClInclude Include="include\eqlib\WindowOverride.h">
       <Filter>Header Files\eqlib</Filter>
     </ClInclude>
@@ -316,9 +310,6 @@
     <ClInclude Include="include\eqlib\graphics\NodePool.h">
       <Filter>Header Files\eqlib\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\eqlib\graphics\RGB.h">
-      <Filter>Header Files\eqlib\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="include\eqlib\graphics\ResourceManagerInterface.h">
       <Filter>Header Files\eqlib\graphics</Filter>
     </ClInclude>
@@ -345,6 +336,15 @@
     </ClInclude>
     <ClInclude Include="include\eqlib\graphics\MathInterface.h">
       <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\LightDefinitionInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -435,7 +435,7 @@
     <Natvis Include="src\eqlib.natvis">
       <Filter>Natvis Files</Filter>
     </Natvis>
-    <Natvis Include="include\eqstd\eqstd.natvis">
+    <Natvis Include="src\eqstd.natvis">
       <Filter>Natvis Files</Filter>
     </Natvis>
   </ItemGroup>

@@ -14,29 +14,28 @@
 
 #pragma once
 
-#include "eqlib/game/Containers.h"
-
 namespace eqlib {
 
-//----------------------------------------------------------------------------
-template <typename T>
-class TNodePool
-{
-public:
-/*0x00*/ TList<T> freeList;
-/*0x08*/ uint32_t allocCount;
-/*0x0c*/ uint32_t freeNodeCount;
-/*0x10*/ uint32_t totalAllocCount;
-/*0x14*/
-};
+//============================================================================
 
 //----------------------------------------------------------------------------
-template <typename NodeType, typename T>
-class TDataNode : public TListNode<NodeType>
+struct COLOR;
+
+//----------------------------------------------------------------------------
+class CLightDefinitionInterface
 {
 public:
-/*0x0c*/ T* pData = nullptr;
-/*0x10*/
+	virtual char* GetTag() = 0;
+	virtual int GetUpdateInterval() = 0;
+	virtual void SetUpdateInterval(int) = 0;
+	virtual bool GetSkipFrames() = 0;
+	virtual void SetSkipFrames(bool) = 0;
+	virtual COLOR* GetColorList() = 0;
+	virtual void SetColorList(COLOR*) = 0;
+	virtual float* GetIntensityList() const = 0;
+	virtual void SetIntensityList(float*) = 0;
+	virtual int GetNumFrames() = 0;
+	virtual void SetNumFrames(int) = 0;
 };
 
 //============================================================================

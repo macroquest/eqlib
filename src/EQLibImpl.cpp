@@ -25,6 +25,10 @@
 #include "eqlib/game/Objects.h"
 #include "eqlib/game/UI.h"
 
+#if defined(COMMENT_UPDATER)
+#include "eqlib/EQLib.h"
+#endif
+
 #include "mq/base/Enum.h"
 #include "mq/base/WString.h"
 

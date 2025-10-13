@@ -146,33 +146,83 @@ public:
 
 //============================================================================
 
-struct SEQGraphicsDisplayMode;
-struct SDeviceInfo;
-
-struct COLOR
-{
-	float red;
-	float green;
-	float blue;
-};
-
-class CColor32Bit
+class CDebugDrawInterface
 {
 public:
-	union
-	{
-		struct
-		{
-			uint8_t blue;
-			uint8_t green;
-			uint8_t red;
-			uint8_t alpha;
-		};
-
-		uint32_t ARGB;
-	};
+	virtual ~CDebugDrawInterface() {}
 };
 
+class CCollisionInfoAABox;
+class CCollisionInfoActor;
+class CCollisionInfoLineSegment;
+class CCollisionInfoRay;
+class CCollisionInfoSphere;
+class CVector3;
+class CLineSegment;
+class CRay;
+class CSphere;
+
+class CCollisionInterface
+{
+public:
+	enum EDebugDrawMode
+	{
+		eDebugDrawEnable,
+		eDebugDrawTerrain,
+		eDebugDrawActors,
+		eDebugDrawActorTests,
+		eDebugDrawSphereTests,
+		eDebugDrawRayTests,
+		eDebugDrawLineSegmentTests,
+		eDebugDrawTerrainNodes,
+		eDebugDrawActorNormals,
+		eDebugDrawTerrainNormals,
+		eDebugDrawCount
+	};
+
+	enum EDebugActorNode
+	{
+		eHide,
+		eShowMoving,
+		eShowAll
+	};
+
+/*0x00*/ virtual bool Collide(CCollisionInfoAABox&) = 0;
+/*0x08*/ virtual bool Collide(CCollisionInfoActor&) = 0;
+/*0x10*/ virtual bool Collide(CCollisionInfoSphere&) = 0;
+/*0x18*/ virtual bool Collide(CCollisionInfoRay&) = 0;
+/*0x20*/ virtual bool Collide(CCollisionInfoLineSegment&) = 0;
+/*0x28*/ virtual bool CollideWithTerrain(const CLineSegment&, CVector3&) = 0;
+/*0x30*/ virtual bool CollideWithTerrain(const CRay&, CVector3&) = 0;
+/*0x38*/ virtual bool CollideWithTerrain(const CSphere&) = 0;
+/*0x40*/ virtual void SetDebugDraw(EDebugDrawMode, bool) = 0;
+/*0x48*/ virtual bool GetDebugDraw(EDebugDrawMode) = 0;
+/*0x50*/ virtual void DebugSetActorModelDisplay(EDebugActorNode) = 0;
+/*0x58*/ virtual EDebugActorNode DebugGetActorModelDisplay() = 0;
+/*0x60*/ virtual void Unknown0x60() = 0;
+/*0x68*/ virtual void Unknown0x68() = 0;
+/*0x70*/ virtual void Unknown0x70() = 0;
+/*0x78*/ virtual void Unknown0x78() = 0;
+/*0x80*/ virtual void Unknown0x80() = 0;
+/*0x88*/ virtual void Unknown0x88() = 0;
+/*0x90*/ virtual void Unknown0x90() = 0;
+/*0x98*/ virtual void Unknown0x98() = 0;
+/*0xa0*/ virtual void Unknown0xa0() = 0;
+/*0xa8*/ virtual void Unknown0xa8() = 0;
+/*0xb0*/ virtual uint32_t GetStatistic(int) = 0;
+/*0xb8*/ virtual const char* GetStatisticName(int) = 0;
+/*0xc0*/ virtual ~CCollisionInterface() {}
+};
+
+//============================================================================
+
+struct SEQGraphicsDisplayMode;
+struct SDeviceInfo;
+class CBufferSet;
+class CEffect;
+class CRenderEffect;
+
+//----------------------------------------------------------------------------
 struct [[offsetcomments]] SDeviceInputProxy
 {
 	struct [[offsetcomments]] MouseData
@@ -234,8 +284,6 @@ class CLightNode;
 struct BMI;
 
 class CMemoryPoolManager;
-
-
 
 //----------------------------------------------------------------------------
 
@@ -302,9 +350,6 @@ private:
 /*0x48*/ int                      m_offset;
 /*0x4c*/
 };
-
-//============================================================================
-
 
 //============================================================================
 // ActorAnimation

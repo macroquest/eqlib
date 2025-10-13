@@ -2066,9 +2066,10 @@ template <typename T>
 class TListNode
 {
 	// pointers to previous and next node
-	T* m_pPrev = nullptr;
-	T* m_pNext = nullptr;
-	TList<T>* m_pList = nullptr;  // pointer to the list this node belongs to
+/*0x00*/ T* m_pPrev = nullptr;
+/*0x04*/ T* m_pNext = nullptr;
+/*0x08*/ TList<T>* m_pList = nullptr;  // pointer to the list this node belongs to
+/*0x0c*/
 
 public:
 	TListNode() {}

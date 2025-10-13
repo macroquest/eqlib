@@ -788,11 +788,6 @@ struct MQMouseInfo
 	int Scroll = 0;
 };
 
-inline namespace deprecated {
-	using MOUSEINFO DEPRECATE("Use MQMouseInfo instead of MOUSEINFO") = MQMouseInfo;
-	using PMOUSEINFO DEPRECATE("Use MQMouseInfo* instead PMOUSEINFO") = MQMouseInfo*;
-}
-
 class [[offsetcomments]] PickZoneTimerHandler
 {
 public:
@@ -1121,7 +1116,7 @@ public:
 /*0x38e6c*/ ArrayClass<CharSelectInfo> charSelectPlayerArray;
 /*0x38e7c*/ char                  Filler[0x830]; // more data
 /*0x396ac*/
-	
+
 	ALT_MEMBER_GETTER(UniversalChatProxy*, chatService, ChatService);
 };
 

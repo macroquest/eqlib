@@ -192,6 +192,7 @@ constexpr int EQR_BANNER4                              = 557;
 
 constexpr int EQR_CAMPSITE                             = 567;
 constexpr int EQR_TCGBANNER                            = 586;
+constexpr int EQR_BANNER_10TH_ANNIV                    = 628;
 constexpr int EQR_OEQ_SKELETON                         = 802;
 constexpr int EQR_SOL_SKELETON                         = 803;
 
@@ -367,6 +368,7 @@ enum EQDeity
 
 enum KeyRingType
 {
+	eKeyRingTypeInvalid = -1,
 	eMount = 0,
 	eIllusion = 1,
 	eFamiliar = 2,
@@ -892,9 +894,16 @@ enum eParcelStatus
 enum EnvironmentalLiquidType
 {
 	LiquidType_None = 0,
+	LiquidType_InWater = 1,
+	LiquidType_InSlime = 2,
+	LiquidType_InLava = 3,
+	LiquidType_InVWater = 4,
 	LiquidType_Water = 5,
 	LiquidType_Slime = 6,
 	LiquidType_Lava = 7,
+	LiquidType_VWater = 8,
+	LiquidType_Water2 = 9,
+	LiquidType_Water3 = 10,
 };
 
 enum class ServerID : int {

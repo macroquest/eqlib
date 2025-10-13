@@ -26,6 +26,7 @@ class CActorInterface;
 class CTextObjectInterface;
 
 struct BMI;
+struct COLOR;
 struct SEQGraphicsDisplayMode;
 struct SItemPlacementStatsDisplay;
 
@@ -69,16 +70,16 @@ public:
 /*0x060*/ virtual void ReleaseDevice() = 0;
 /*0x064*/ virtual bool ResetDevice(bool) = 0;
 /*0x068*/ virtual void SetResolutionBasedOnDesktop() = 0;
-/*0x070*/ virtual void SetResolution(int width, int height, int depth, int refreshRate) = 0;
-/*0x074*/ virtual void SetResolution(int) = 0;
-/*0x078*/ virtual void SetFullscreen(bool fullscreen) = 0;
-/*0x07c*/ virtual void SetFog(bool enable, int zmin, int zmax, float density, RGB color) = 0;
-/*0x080*/ virtual void SetGammaLevel(float gamma) = 0;
+/*0x06c*/ virtual void SetResolution(int width, int height, int depth, int refreshRate) = 0;
+/*0x070*/ virtual void SetResolutionIndex(int) = 0;
+/*0x074*/ virtual void SetFullscreen(bool fullscreen) = 0;
+/*0x078*/ virtual void SetFog(bool enable, int zmin, int zmax, float density, RGB color) = 0;
+/*0x07c*/ virtual void SetGammaLevel(float gamma) = 0;
 ///*0x048*/ virtual void RestoreDesktopGammaRamp() = 0;
-/*0x084*/ virtual void SetDesktopGammaRampForWindowedMode() = 0;
-/*0x088*/ virtual void DrawLine2D(const CVector3& point1, const CVector3& point2, RGB color) = 0;
-/*0x08c*/ virtual void DrawLine3D(const CVector3& point1, const CVector3& point2, RGB color) = 0;
-/*0x090*/ virtual int DrawWrappedText(int font, const char* text, const CXRect& rect, const CXRect& clip,
+/*0x080*/ virtual void SetDesktopGammaRampForWindowedMode() = 0;
+/*0x084*/ virtual void DrawLine2D(const CVector3& point1, const CVector3& point2, RGB color) = 0;
+/*0x088*/ virtual void DrawLine3D(const CVector3& point1, const CVector3& point2, RGB color) = 0;
+/*0x08c*/ virtual int DrawWrappedText(int font, const char* text, const CXRect& rect, const CXRect& clip,
 	COLORREF color, uint16_t flags, int offset) = 0;
 /*0x094*/ virtual int DrawWrappedText(CTextObjectInterface* textObj) = 0;
 /*0x098*/ virtual int DrawTexturedQuad(CVector3* points, CVector2* texCoords, RGB color, BMI* bmi) = 0;

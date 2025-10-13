@@ -78,11 +78,6 @@ struct [[offsetcomments]] ArmorProperties
 	__declspec(property(get = get_ID)) uint32_t ID;
 };
 
-inline namespace deprecated {
-	using ARMOR DEPRECATE("Use ArmorPropertites instead of ARMOR") = ArmorProperties;
-	using PARMOR DEPRECATE("Use ArmorProperties* instead of PARMOR") = ArmorProperties*;
-}
-
 struct [[offsetcomments]] EQUIPMENT
 {
 	EQUIPMENT()
@@ -111,17 +106,6 @@ struct [[offsetcomments]] EQUIPMENT
 		};
 	};
 /*0xb4*/
-};
-
-inline namespace deprecated {
-	using PEQUIPMENT DEPRECATE("Use EQUIPMENT* instead of PEQUIPMENT") = EQUIPMENT*;
-}
-
-struct EQRGB
-{
-	uint8_t red;
-	uint8_t green;
-	uint8_t blue;
 };
 
 } // namespace eqlib

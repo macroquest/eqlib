@@ -904,7 +904,6 @@ struct [[offsetcomments]] SpellAffectData
 /*0x24*/ int     Attrib = SPA_NOSPELL;
 /*0x28*/
 };
-
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
 
@@ -1190,8 +1189,8 @@ SIZE_CHECK(EQ_Spell, EQ_Spell_size);
 class [[offsetcomments]] SpellRequirementAssociationManager : public RequirementAssociationManager
 {
 public:
-/*0x230*/ HashList<HashList<HashList<int, 10>, 10>, 200> ReqAssocData;
-/*0x560*/
+/*0x228*/ HashList<HashList<HashList<int, 10>, 10>, 200> ReqAssocData;
+/*0x558*/
 };
 
 enum EEffectActor
@@ -1378,11 +1377,6 @@ public:
 /*0x580a4*/ EQSpellExtra                 SpellExtraData[TOTAL_SPELL_COUNT];               // 0x16e5e0       0x580a4
 /*0xafeec*/
 };
-
-inline namespace deprecated {
-	using SPELLMGR DEPRECATE("Use ClientSpellManager instead of SPELLMGR") = ClientSpellManager;
-	using PSPELLMGR DEPRECATE("Use ClientSpellManager* instead of PSPELLMGR") = ClientSpellManager*;
-}
 
 SIZE_CHECK(ClientSpellManager, ClientSpellManager_size);
 

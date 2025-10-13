@@ -117,23 +117,16 @@ public:
 	~ForeignPointer() noexcept = default;
 
 	ForeignPointer(uintptr_t addr) noexcept
-	{ this->m_ptr = reinterpret_cast<T**>(addr); }
-	ForeignPointer(const ForeignPointer& other) noexcept
-	{ this->m_ptr = other.m_ptr; }
-	ForeignPointer(ForeignPointer&& other) noexcept
-	{ this->m_ptr = other.m_ptr; }
-
-	ForeignPointer& operator=(const ForeignPointer& other) noexcept
 	{
-		this->m_ptr = other.m_ptr;
-		return *this;
+		this->m_ptr = reinterpret_cast<T**>(addr);
 	}
 
-	ForeignPointer& operator=(ForeignPointer&& other) noexcept
-	{
-		this->m_ptr = other.m_ptr;
-		return *this;
-	}
+	// To avoid accidental reassignment, ForeignPointer is non-copyable. To copy a ForeignPointer,
+	// use .clone() or .reset()
+	ForeignPointer(const ForeignPointer& other) noexcept = delete;
+	ForeignPointer(ForeignPointer&& other) noexcept = delete;
+	ForeignPointer& operator=(const ForeignPointer& other) noexcept = delete;
+	ForeignPointer& operator=(ForeignPointer&& other) noexcept = delete;
 
 	ForeignPointer& operator=(uintptr_t other) noexcept
 	{
@@ -213,10 +206,13 @@ public:
 	void set_offset(T** offset) noexcept { this->m_ptr = offset; }
 
 	void reset() { this->m_ptr = nullptr; }
+	void reset(const ForeignPointer& other) { this->m_ptr = other.m_ptr; }
+
+	ForeignPointer clone() const { return ForeignPointer<T, Conversions...>(get_offset()); }
 
 	// If the pointer is convertible, then this object is convertible
-	template <typename U, typename = std::enable_if<std::is_convertible_v<T, U>, void>>
-	operator ForeignPointer<U>& ()
+	template <typename U>
+	ForeignPointer<U>& ref()
 	{
 		return reinterpret_cast<ForeignPointer<U>&>(*this);
 	}
