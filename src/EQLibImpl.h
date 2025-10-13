@@ -70,12 +70,14 @@ private:
 	std::unique_ptr<MemoryPatcherImpl> m_memoryPatcher;
 	EventInterface* m_eventReceiver = nullptr;
 
+	bool m_enableMainHooks = true;
 	bool m_enableSpawnEvents = false;
 	bool m_enableChatFilter = false;
 	bool m_enableNetworkEvents = false;
 	int m_lastGameState = -1;
 	bool m_zoning = false;
-
+	bool m_eqGameHooked = false;
+	bool m_eqMainLoaded = false;
 	bool m_inLoginFrontend = false;
 	bool m_loginDetoursInstalled = false;
 	void* m_loaderNotificationCookie = nullptr;

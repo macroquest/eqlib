@@ -57,6 +57,8 @@ EQLibImpl::EQLibImpl(LibraryConfig* config)
 	if (config)
 	{
 		logger = config->logger;
+
+		m_enableMainHooks = !(config->flags & ConfigFlags::NoMainHooks);
 		m_enableSpawnEvents = !!(config->flags & ConfigFlags::EnableSpawnEvents);
 		m_enableChatFilter = !!(config->flags & ConfigFlags::EnableChatEvents);
 		m_enableNetworkEvents = !!(config->flags & ConfigFlags::EnableNetworkEvents);
@@ -85,6 +87,8 @@ void EQLibImpl::Initialize()
 void EQLibImpl::Shutdown()
 {
 	ShutdownHooks();
+
+	logger.reset();
 
 #ifndef EQLIB_STATIC
 	spdlog::shutdown();
@@ -690,21 +694,24 @@ void EQLibImpl::InitializeHooks()
 {
 	LOG_DEBUG("Initializing hooks");
 
-	// Check if the process is named eqgame.exe. If it is, initialize the EQGame hooks.
-	char szFileName[MAX_PATH] = {};
-	if (GetModuleFileNameA(nullptr, szFileName, MAX_PATH))
+	if (m_enableMainHooks)
 	{
-		std::string_view fullPath = szFileName;
-
-		// Extract just the filename from the full path
-		size_t pos = fullPath.find_last_of("\\/");
-		if (pos != std::string::npos)
+		// Check if the process is named eqgame.exe. If it is, initialize the EQGame hooks.
+		char szFileName[MAX_PATH] = {};
+		if (GetModuleFileNameA(nullptr, szFileName, MAX_PATH))
 		{
-			std::string_view fileName = fullPath.substr(pos + 1);
+			std::string_view fullPath = szFileName;
 
-			if (mq::ci_equals(fileName, "eqgame.exe"))
+			// Extract just the filename from the full path
+			size_t pos = fullPath.find_last_of("\\/");
+			if (pos != std::string::npos)
 			{
-				InitializeEQGame();
+				std::string_view fileName = fullPath.substr(pos + 1);
+
+				if (mq::ci_equals(fileName, "eqgame.exe"))
+				{
+					InitializeEQGame();
+				}
 			}
 		}
 	}
@@ -750,6 +757,9 @@ void EQLibImpl::ShutdownHooks()
 
 void EQLibImpl::InitializeEQGame()
 {
+	if (m_eqGameHooked)
+		return;
+
 	LOG_DEBUG("Initializing EQGame");
 
 	m_memoryPatcher->EzDetour(__ProcessGameEvents, ProcessGameEvents_Detour, ProcessGameEvents_Trampoline);
@@ -794,10 +804,15 @@ void EQLibImpl::InitializeEQGame()
 		m_memoryPatcher->EzDetour(WorldAuthenticationHandler__OnRoutePacket, &WorldAuthenticationHandler_Detours::OnRoutePacket_Detour, &WorldAuthenticationHandler_Detours::OnRoutePacket_Trampoline);
 #endif
 	}
+
+	m_eqGameHooked = true;
 }
 
 void EQLibImpl::ShutdownEQGame()
 {
+	if (!m_eqGameHooked)
+		return;
+
 	LOG_DEBUG("Shutting down EQGame");
 
 	m_memoryPatcher->RemoveDetour(__ProcessGameEvents);
@@ -810,7 +825,7 @@ void EQLibImpl::ShutdownEQGame()
 	m_memoryPatcher->RemoveDetour(CDisplay__ZoneMainUI);
 	m_memoryPatcher->RemoveDetour(CDisplay__PreZoneMainUI);
 #ifdef CDisplay__RestartUI_x
-	m_memoryPatcher->EzDetour(CDisplay__RestartUI, &CDisplay_Detours::FastReloadUI_Detour, &CDisplay_Detours::FastReloadUI_Trampoline);
+	m_memoryPatcher->RemoveDetour(CDisplay__RestartUI);
 #endif
 
 	if (m_enableChatFilter && m_eventReceiver != nullptr)
@@ -842,25 +857,40 @@ void EQLibImpl::ShutdownEQGame()
 		m_memoryPatcher->RemoveDetour(WorldAuthenticationHandler__OnRoutePacket);
 #endif
 	}
+
+	m_eqGameHooked = false;
 }
 
 void EQLibImpl::InitializeEQMain(uintptr_t BaseAddress)
 {
+	if (m_loginDetoursInstalled)
+		return;
+
 	LOG_INFO("Initializing EQMain");
 
-	assert(m_loginDetoursInstalled == false);
-	m_loginDetoursInstalled = true;
 	m_inLoginFrontend = false;
 
 	InitializeEQMainOffsets(BaseAddress);
 
-	// Once we hook GiveTime, we wait for it to be called to finalize our hooks.
-	m_memoryPatcher->EzDetour(EQMain__LoginController__GiveTime, &LoginController_Detours::GiveTime_Detour, &LoginController_Detours::GiveTime_Trampoline);
+	if (m_eventReceiver)
+	{
+		m_eventReceiver->OnEQMainDllLoadedStateChanged(true);
+	}
+
+	m_eqMainLoaded = true;
+
+	if (m_enableMainHooks)
+	{
+		// Once we hook GiveTime, we wait for it to be called to finalize our hooks.
+		m_memoryPatcher->EzDetour(EQMain__LoginController__GiveTime, &LoginController_Detours::GiveTime_Detour, &LoginController_Detours::GiveTime_Trampoline);
+	}
+
+	m_loginDetoursInstalled = true;
 }
 
 void EQLibImpl::ShutdownEQMain()
 {
-	if (EQMainBaseAddress == 0)
+	if (!m_eqMainLoaded)
 		return;
 
 	LOG_DEBUG("Cleaning up EQMain");
@@ -870,20 +900,30 @@ void EQLibImpl::ShutdownEQMain()
 	{
 		m_inLoginFrontend = false;
 
-		if (m_eventReceiver)
+		if (m_eventReceiver && m_enableMainHooks)
 		{
 			m_eventReceiver->OnLoginFrontendExited();
 		}
 	}
 
+	if (m_eventReceiver)
+	{
+		m_eventReceiver->OnEQMainDllLoadedStateChanged(false);
+	}
+
 	if (m_loginDetoursInstalled)
 	{
-		m_memoryPatcher->RemoveDetour(EQMain__LoginController__GiveTime);
+		if (m_enableMainHooks)
+		{
+			m_memoryPatcher->RemoveDetour(EQMain__LoginController__GiveTime);
+		}
 
 		m_loginDetoursInstalled = false;
 	}
 
 	CleanupEQMainOffsets();
+
+	m_eqMainLoaded = false;
 }
 
 void EQLibImpl::InitializeEQGraphics(uintptr_t BaseAddress)
