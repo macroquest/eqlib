@@ -13,285 +13,430 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\base">
-      <UniqueIdentifier>{fe5fc331-9102-44f3-85a0-a9b3993d6a86}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\eqstd">
       <UniqueIdentifier>{07e78fd2-2adc-450b-8432-d639c46d1e04}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\eqdata">
       <UniqueIdentifier>{ade88f9f-9650-49b4-ae51-5b53100a8f06}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Natvis Files">
+      <UniqueIdentifier>{08ac3404-db3b-47de-a43d-3bc23b2bbb55}</UniqueIdentifier>
+      <Extensions>natvis</Extensions>
+    </Filter>
+    <Filter Include="Header Files\eqlib">
+      <UniqueIdentifier>{8b522328-134c-4088-90f2-44a6dcec0f74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\eqlib\game">
+      <UniqueIdentifier>{2b329c50-2c85-4338-99eb-a32982fd8de2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\eqlib\offsets">
+      <UniqueIdentifier>{3370b604-9bed-40d1-974c-d0f87f7d85ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\game">
+      <UniqueIdentifier>{2f3dd3d3-625b-4eac-8225-3d31bd9bd9c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\eqlib\graphics">
+      <UniqueIdentifier>{d46f1f19-dadb-46d7-af12-9dc82b16f59e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphics">
+      <UniqueIdentifier>{99a63ea4-d78d-42d2-aed6-158799c54f39}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqdata\actordef.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="Allocator.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqdata\combines.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="Common.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqdata\dikeys.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="Containers.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqdata\factionnames.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="CXStr.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqdata\itemclasses.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="CXWnd.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqdata\skills.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="EQClasses.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\eqdata\spelleffects.h">
+      <Filter>Header Files\eqdata</Filter>
     </ClInclude>
-    <ClInclude Include="EQData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="eqgame.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EQLib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EQUIStructs.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Items.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mutex.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PcClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerClient.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ForwardDecls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OffsetUtils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginFrontend.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GraphicsEngine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyCombo.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SerializeBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Constants.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="eqgraphics.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="eqmain.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EverQuest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemLinks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="base\Color.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SoeUtil.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Spells.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UIHelpers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UITemplates.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UITextures.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XMLData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PcProfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowOverride.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Achievements.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AltAbilities.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Requirements.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RealEstate.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="eqstd\map.h">
+    <ClInclude Include="include\eqstd\list.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
-    <ClInclude Include="eqstd\xtree.h">
+    <ClInclude Include="include\eqstd\map.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
-    <ClInclude Include="eqstd\xmemory.h">
+    <ClInclude Include="include\eqstd\memory.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
-    <ClInclude Include="Expansions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Logging.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BuildType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\eqdata\actordef.h">
-      <Filter>Header Files\eqdata</Filter>
-    </ClInclude>
-    <ClInclude Include="..\eqdata\combines.h">
-      <Filter>Header Files\eqdata</Filter>
-    </ClInclude>
-    <ClInclude Include="..\eqdata\dikeys.h">
-      <Filter>Header Files\eqdata</Filter>
-    </ClInclude>
-    <ClInclude Include="..\eqdata\factionnames.h">
-      <Filter>Header Files\eqdata</Filter>
-    </ClInclude>
-    <ClInclude Include="..\eqdata\itemclasses.h">
-      <Filter>Header Files\eqdata</Filter>
-    </ClInclude>
-    <ClInclude Include="..\eqdata\skills.h">
-      <Filter>Header Files\eqdata</Filter>
-    </ClInclude>
-    <ClInclude Include="..\eqdata\spelleffects.h">
-      <Filter>Header Files\eqdata</Filter>
-    </ClInclude>
-    <ClInclude Include="eqstd\memory.h">
+    <ClInclude Include="include\eqstd\string.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
-    <ClInclude Include="eqstd\type_traits.h">
+    <ClInclude Include="include\eqstd\type_traits.h">
       <Filter>Header Files\eqstd</Filter>
     </ClInclude>
-    <ClInclude Include="EQDX9.h">
+    <ClInclude Include="include\eqstd\unordered_map.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\unordered_set.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\utility.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\vector.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xhash.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xmemory.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xnode_handle.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xtree.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqstd\xutility.h">
+      <Filter>Header Files\eqstd</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\BuildType.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\Common.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\Config.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\EQLib.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\MemoryPatcher.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\WindowOverride.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Containers.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\CXStr.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\CXWnd.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\EQClasses.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\EQData.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\EQDX9.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\EverQuest.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Expansions.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\ForwardDecls.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Globals.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\ItemLinks.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Items.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\KeyCombo.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\LoginFrontend.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Mutex.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\PcClient.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\PcProfile.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\PlayerClient.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\RealEstate.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Requirements.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\SerializeBuffer.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\SoeUtil.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Spells.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\UI.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\UIHelpers.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\UITemplates.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\UITextures.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\XMLData.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Achievements.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Allocator.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\AltAbilities.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\ChatFilters.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Constants.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\offsets\eqgraphics.h">
+      <Filter>Header Files\eqlib\offsets</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\offsets\eqmain.h">
+      <Filter>Header Files\eqlib\offsets</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\offsets\eqgame.h">
+      <Filter>Header Files\eqlib\offsets</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\UITypes.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\EQGuid.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Color.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Types.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\MathTypes.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Objects.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\TaskSystem.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Actors.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\SizeChecks.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\Offsets.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\ForeignPointer.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\WindowsUndefs.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\Deprecate.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\ComputedPointer.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\Events.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\Init.h">
+      <Filter>Header Files\eqlib</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MemoryPatcherImpl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsResources.h">
+    <ClInclude Include="src\eqlibVersionInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="base\Primitives.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="Config.h">
+    <ClInclude Include="src\Logging.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ChatFilters.h">
+    <ClInclude Include="src\EQLibImpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\GraphicsEngine.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\GraphicsResources.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\FastFileInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\RenderInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\Render.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\NodePool.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\ResourceManagerInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\game\Display.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\TerrainSystemInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\SceneGraphInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\CameraInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\SkyInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\ParticleSystemInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\LightInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\MathInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\LightDefinitionInterface.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CXStr.cpp">
+    <ClCompile Include="src\pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CXWnd.cpp">
+    <ClCompile Include="src\game\UITemplates.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\UITextures.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\XMLData.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\CXStr.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\CXWnd.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\EQClasses.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\EverQuest.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\FunctionDefs.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Globals.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Display.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\ItemLinks.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Items.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\PcClient.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\PcProfile.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\PlayerClient.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\Spells.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\UI.cpp">
+      <Filter>Source Files\game</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Offsets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EQClasses.cpp">
+    <ClCompile Include="src\MemoryPatcherImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EQLib.cpp">
+    <ClCompile Include="src\EQLibImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Globals.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Items.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ExceptionsDisabled.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GraphicsEngine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EverQuest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ItemLinks.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PcClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerClient.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Spells.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UITemplates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="XMLData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UITextures.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PcProfile.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="FunctionDefs.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\graphics\GraphicsEngine.cpp">
+      <Filter>Source Files\graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="eqlib.rc">
+    <ResourceCompile Include="src\eqlib.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <NASM Include="AssemblyFunctions64.asm">
+    <NASM Include="src\AssemblyFunctions.asm">
       <Filter>Source Files</Filter>
     </NASM>
-    <NASM Include="AssemblyFunctions.asm">
+    <NASM Include="src\AssemblyFunctions64.asm">
       <Filter>Source Files</Filter>
     </NASM>
-    <NASM Include="AssemblyMacros.asm">
+    <NASM Include="include\eqlib\AssemblyMacros.asm">
       <Filter>Source Files</Filter>
     </NASM>
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="EQLib.natvis">
-      <Filter>Source Files</Filter>
+    <Natvis Include="src\eqlib.natvis">
+      <Filter>Natvis Files</Filter>
+    </Natvis>
+    <Natvis Include="src\eqstd.natvis">
+      <Filter>Natvis Files</Filter>
     </Natvis>
   </ItemGroup>
 </Project>
