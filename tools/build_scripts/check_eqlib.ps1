@@ -12,7 +12,7 @@ if (-Not (Test-Path $eqlibDir -PathType Container)) {
     exit 1
 }
 
-$functionDefs = "src/FunctionDefs.cpp", "src/ExceptionsDisabled.cpp"
+$functionDefs = "src/game/FunctionDefs.cpp"
 
 $functionDefs | ForEach-Object {
     if (-Not (Test-Path $eqlibDir/$_ -PathType Leaf)) {
