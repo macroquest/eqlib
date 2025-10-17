@@ -750,6 +750,7 @@
 #define EQGroundItemListManager__Add_x                             0x4DBB10  // was: EQItemList__add_item
 #define EQGroundItemListManager__Delete_x                          0x4DBFD0  // was: EQItemList__delete_item
 #define EQGroundItemListManager__Clear_x                           0x4DBED0  // was: EQItemList__FreeItemList
+#define EQGroundItemListManager__Instance_x                        0x4DC1B0
 
 // EQPlacedItemManager
 #define EQPlacedItemManager__Add_x                                 0x506030  // was:  EQItemList__add_object
@@ -972,9 +973,6 @@
 
 // RealEstateManagerClient
 #define RealEstateManagerClient__Instance_x                        0x5B3540
-
-// EQGroundItemListManager
-#define EQGroundItemListManager__Instance_x                        0x4DC1B0
 
 // KeyCombo
 #define KeyCombo__GetTextDescription_x                             0x88B690
