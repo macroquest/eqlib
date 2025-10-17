@@ -72,7 +72,7 @@ struct SGraphicsEngine
 	CFastFileInterface* pFastFile;
 	CResourceManagerInterface* pResourceManager;
 	CSceneGraphInterface* pSceneGraph;
-	CRenderInterface* pRender;
+	CRender* pRender;
 	CParticleSystemInterface* pParticleSystem;
 	CCollisionInterface* pCollision;
 	CMathInterface* pMath;
