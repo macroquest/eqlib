@@ -84,6 +84,6 @@
 #include "eqlib/graphics/Render.h"
 
 // add private include
-#if __has_include("../private/EQLib-private.h")
-#include "../private/EQLib-private.h"
+#if __has_include("../../../private/EQLib-private.h")
+#include "../../../private/EQLib-private.h"
 #endif

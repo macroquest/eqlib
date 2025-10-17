@@ -1049,6 +1049,6 @@ void Shutdown(EQLibInterface* eqInterface)
 
 } // namespace eqlib
 
-#if __has_include("../private/EQLib-private.cpp")
-#include "../private/EQLib-private.cpp"
+#if __has_include("../../private/EQLib-private.cpp")
+#include "../../private/EQLib-private.cpp"
 #endif

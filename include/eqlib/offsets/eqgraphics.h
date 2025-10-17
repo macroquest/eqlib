@@ -36,6 +36,6 @@
 
 #define ObjectPreviewView__Render_x                                0x10017A80
 
-#if __has_include("../private/eqgraphics-private.h")
-#include "../private/eqgraphics-private.h"
+#if __has_include("../../../../private/eqgraphics-private.h")
+#include "../../../../private/eqgraphics-private.h"
 #endif

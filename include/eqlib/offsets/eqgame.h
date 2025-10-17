@@ -1001,6 +1001,6 @@
 #define WorldAuthenticationHandler__OnRoutePacket_x                0x5629C0
 
 
-#if __has_include("../private/eqgame-private.h")
-#include "../private/eqgame-private.h"
+#if __has_include("../../../../private/eqgame-private.h")
+#include "../../../../private/eqgame-private.h"
 #endif
