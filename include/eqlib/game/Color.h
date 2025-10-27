@@ -134,12 +134,13 @@ public:
 	{
 	}
 
-	constexpr RGB(float R, float G, float B, float A = 1.0f)
-		: Blue(color_util::FromFloat(B))
-		, Green(color_util::FromFloat(G))
-		, Red(color_util::FromFloat(R))
-		, Alpha(color_util::FromFloat(A))
+	static constexpr RGB FromFloat(float R, float G, float B, float A = 1.0f)
 	{
+		return RGB(
+			color_util::FromFloat(R),
+			color_util::FromFloat(G),
+			color_util::FromFloat(B),
+			color_util::FromFloat(A));
 	}
 
 	constexpr RGB(const COLOR& color)

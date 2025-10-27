@@ -93,7 +93,7 @@ using GENERICCOLLISIONPTR = bool(*)(float, float, float, float, float, float, fl
 enum EStatus
 {
 	eStatusSuccess,
-	eStatusFailure,
+	eStatusFailure = -1,
 };
 
 enum EMemoryPoolManagerType
