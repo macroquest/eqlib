@@ -2101,7 +2101,7 @@ FUNCTION_AT_ADDRESS(void, CEverQuest::CreateTargetIndicator(int Slot, PSPELL pSp
 FUNCTION_AT_ADDRESS(void, CEverQuest::GetSndDriver(), CEverQuest__GetSndDriver);
 #endif
 #ifdef CEverQuest__InterpretCmd_x
-FUNCTION_AT_ADDRESS(void, CEverQuest::InterpretCmd(PlayerClient*, char*), CEverQuest__InterpretCmd);
+FUNCTION_AT_ADDRESS(void, CEverQuest::InterpretCmd(PlayerClient*, const char*), CEverQuest__InterpretCmd);
 #endif
 #ifdef CEverQuest__GrabFirstWord_x
 FUNCTION_AT_ADDRESS(char*, CEverQuest::GrabFirstWord(char*, char*), CEverQuest__GrabFirstWord);

@@ -72,7 +72,7 @@ public:
 		return Data[3];
 	}
 
-	EQLIB_OBJECT int operator==(const KeyCombo& Combo)
+	EQLIB_OBJECT int operator==(const KeyCombo& Combo) const
 	{
 		return *(uint32_t*)&Data == *(uint32_t*)&Combo.Data;
 	}

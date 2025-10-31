@@ -4684,23 +4684,23 @@ public:
 /*0x228*/ bool              bServerClose;
 /*0x229*/ bool              bLootingActive;
 /*0x22c*/ int               LootIndex[InvSlot_Max];
-/*0x2b4*/ uint32_t          nNextRefreshTime; // 2b4
+/*0x2b4*/ uint32_t          nNextRefreshTime;
 /*0x2b8*/ bool              bInventoryWasActive;
 /*0x2bc*/ uint32_t          Unknown0x2bc;
-/*0x2c0*/ ItemContainer     LootItems; // 2c0
+/*0x2c0*/ ItemContainer     LootItems;
 /*0x2f8*/ bool              bCloseOnComplete;
 /*0x2f9*/ bool              bRightClickLoot;
 /*0x2fa*/ bool              bLootAllReady;
-/*0x2fc*/ CXWnd*            LootInvWnd;                       // LootInvWnd 2fc
-/*0x300*/ CInvSlotWnd*      LootSlotWnd[InvSlot_Max];         // LW_LootSlot%d 300
-/*0x388*/ CLabel*           CorpseNameLabel;                  // LW_CorpseName 388
-/*0x38c*/ CButtonWnd*       DoneButton;                       // DoneButton 38c
-/*0x390*/ CButtonWnd*       BroadcastButton;                  // BroadcastButton 390
-/*0x394*/ CButtonWnd*       LootAllButton;                    // LootAllButton 394
+/*0x2fc*/ CXWnd*            LootInvWnd;                       // LootInvWnd
+/*0x300*/ CInvSlotWnd*      LootSlotWnd[InvSlot_Max];         // LW_LootSlot%d
+/*0x388*/ CLabel*           CorpseNameLabel;                  // LW_CorpseName
+/*0x38c*/ CButtonWnd*       DoneButton;                       // DoneButton
+/*0x390*/ CButtonWnd*       BroadcastButton;                  // BroadcastButton
+/*0x394*/ CButtonWnd*       LootAllButton;                    // LootAllButton
 /*0x398*/ bool              bPopupPending;
 /*0x39c*/ void*             msgData;
-/*0x3a0*/ void*             lootAllMsgs; // 3a0
-/*0x3a4*/ uint32_t          lastLootAllMsgSent; // 3a4
+/*0x3a0*/ void*             lootAllMsgs;
+/*0x3a4*/ uint32_t          lastLootAllMsgSent;
 /*0x3a8*/
 
 	ItemContainer& GetLootItems() { return LootItems; }
@@ -4736,7 +4736,7 @@ struct [[offsetcomments]] MapViewLabel
 /*0x0c*/ CVector3      Location;
 /*0x18*/ ARGBCOLOR     Color;
 /*0x1c*/ int           Size;                     // 1-3;
-/*0x20*/ char*         Label;
+/*0x20*/ const char*   Label;
 /*0x24*/ int           Layer;                    // 0-3;
 /*0x28*/ int           Width;
 /*0x2c*/ int           Height;

@@ -982,7 +982,7 @@ public:
 	EQLIB_OBJECT void GuildWar(char*, int);
 	EQLIB_OBJECT void InitCommands();
 	EQLIB_OBJECT void initCustom();
-	EQLIB_OBJECT void InterpretCmd(PlayerClient*, char*);
+	EQLIB_OBJECT void InterpretCmd(PlayerClient*, const char*);
 	EQLIB_OBJECT void Invite(int);
 	EQLIB_OBJECT void InviteOk(char*);
 	EQLIB_OBJECT void IssueLfgGroupQuery(LfgGroupQuery*);

@@ -569,20 +569,6 @@ namespace eqstd
 		pointer _Ptr; // pointer to element in string
 	};
 
-	#if _HAS_CXX20
-	template <class _Mystr>
-	struct pointer_traits<_String_const_iterator<_Mystr>> {
-		using pointer         = _String_const_iterator<_Mystr>;
-		using element_type    = const typename pointer::value_type;
-		using difference_type = typename pointer::difference_type;
-
-		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
-			const auto _Rawptr = _STD to_address(_Iter._Ptr);
-			return _Rawptr;
-		}
-	};
-	#endif // _HAS_CXX20
-
 	template <class _Mystr>
 	class _String_iterator : public _String_const_iterator<_Mystr> {
 	public:
@@ -669,20 +655,6 @@ namespace eqstd
 			return const_cast<value_type*>(_Unfancy(this->_Ptr));
 		}
 	};
-
-	#if _HAS_CXX20
-	template <class _Mystr>
-	struct pointer_traits<_String_iterator<_Mystr>> {
-		using pointer         = _String_iterator<_Mystr>;
-		using element_type    = typename pointer::value_type;
-		using difference_type = typename pointer::difference_type;
-
-		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
-			const auto _Rawptr = _STD to_address(_Iter._Ptr);
-			return const_cast<element_type*>(_Rawptr);
-		}
-	};
-	#endif // _HAS_CXX20
 
 	template <class _Value_type, class _Size_type, class _Difference_type, class _Pointer, class _Const_pointer,
 		class _Reference, class _Const_reference>

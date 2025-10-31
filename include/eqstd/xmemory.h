@@ -31,6 +31,26 @@ namespace eqstd
 	template <class _Ptr, class _Ty>
 	using _Rebind_pointer_t = typename pointer_traits<_Ptr>::template rebind<_Ty>;
 
+	template <class _Pointer, enable_if_t<!is_pointer_v<_Pointer>, int> = 0>
+	_CONSTEXPR20 _Pointer _Refancy(typename pointer_traits<_Pointer>::element_type* _Ptr) noexcept {
+		return pointer_traits<_Pointer>::pointer_to(*_Ptr);
+	}
+
+	template <class _Pointer, enable_if_t<is_pointer_v<_Pointer>, int> = 0>
+	_CONSTEXPR20 _Pointer _Refancy(_Pointer _Ptr) noexcept {
+		return _Ptr;
+	}
+
+	template <class _Pointer, enable_if_t<!is_pointer_v<_Pointer>, int> = 0>
+	_CONSTEXPR20 _Pointer _Refancy_maybe_null(typename pointer_traits<_Pointer>::element_type* _Ptr) noexcept {
+		return _Ptr == nullptr ? _Pointer() : pointer_traits<_Pointer>::pointer_to(*_Ptr);
+	}
+
+	template <class _Pointer, enable_if_t<is_pointer_v<_Pointer>, int> = 0>
+	_CONSTEXPR20 _Pointer _Refancy_maybe_null(_Pointer _Ptr) noexcept {
+		return _Ptr;
+	}
+
 	template <class _Value_type>
 	struct _Simple_types { // wraps types from allocators with simple addressing for use in iterators
 		// and other SCARY machinery

@@ -8,6 +8,7 @@
 #pragma once
 
 #include "eqlib/game/Allocator.h"
+#include "mq/base/Traits.h"
 
 #include "eqstd/type_traits.h"
 #include "eqstd/xmemory.h"
@@ -29,7 +30,7 @@ struct has_implicit_shared_pointer_cast : std::false_type {};
 template <typename T>
 struct can_adopt_shared_ptr_control_block : std::false_type {};
 
-inline void* adopt_existing_shared_ptr_control_block(...) {}
+inline void* adopt_existing_shared_ptr_control_block(...) { return nullptr; }
 
 } // namespace eqlib
 

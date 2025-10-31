@@ -159,19 +159,6 @@ namespace eqstd
 		_Tptr _Ptr; // pointer to element in vector
 	};
 
-#if _HAS_CXX20
-	template <class _Myvec>
-	struct pointer_traits<_Vector_const_iterator<_Myvec>> {
-		using pointer = _Vector_const_iterator<_Myvec>;
-		using element_type = const typename pointer::value_type;
-		using difference_type = typename pointer::difference_type;
-
-		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
-			return _STD to_address(_Iter._Ptr);
-		}
-	};
-#endif // _HAS_CXX20
-
 	template <class _Myvec>
 	class _Vector_iterator : public _Vector_const_iterator<_Myvec> {
 	public:
@@ -258,19 +245,6 @@ namespace eqstd
 			return _Unfancy(this->_Ptr);
 		}
 	};
-
-#if _HAS_CXX20
-	template <class _Myvec>
-	struct pointer_traits<_Vector_iterator<_Myvec>> {
-		using pointer = _Vector_iterator<_Myvec>;
-		using element_type = typename pointer::value_type;
-		using difference_type = typename pointer::difference_type;
-
-		[[nodiscard]] static constexpr element_type* to_address(const pointer _Iter) noexcept {
-			return _STD to_address(_Iter._Ptr);
-		}
-	};
-#endif // _HAS_CXX20
 
 	template <class _Value_type, class _Size_type, class _Difference_type, class _Pointer, class _Const_pointer,
 		class _Reference, class _Const_reference>
@@ -3062,6 +3036,7 @@ namespace eqstd {
 		return _Last;
 	}
 
+#if 0
 	template <class _VbIt>
 	[[nodiscard]] _CONSTEXPR20 _Iter_diff_t<_VbIt> _Count_vbool(_VbIt _First, const _VbIt _Last, const bool _Val) noexcept {
 		if (_First == _Last) {
@@ -3101,5 +3076,6 @@ namespace eqstd {
 				return _Count;
 			});
 	}
+#endif
 
 } // namespace eqstd

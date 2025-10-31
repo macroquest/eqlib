@@ -1894,9 +1894,9 @@ EQLIB_VAR size_t gStrRepLiveObjects;
 template <>
 struct fmt::formatter<eqlib::CXStr> : fmt::formatter<std::string_view>
 {
-	template <typename FormatContext>
-	auto format(const eqlib::CXStr& s, FormatContext& ctx)
+	auto format(const eqlib::CXStr& value, format_context& ctx) const
+		-> format_context::iterator
 	{
-		return fmt::formatter<std::string_view>::format(std::string_view{ s }, ctx);
+		return fmt::formatter<std::string_view>::format(std::string_view(value), ctx);
 	}
 };
