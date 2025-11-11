@@ -823,7 +823,7 @@ inline namespace deprecated {
 struct [[offsetcomments]] CharSelectInfo
 {
 /*0x000*/ char         Name[0x40];
-/*0x040*/ int          Class;
+/*0x040*/ uint8_t      Class;
 /*0x044*/ int          Race;
 /*0x048*/ uint8_t      Level;
 /*0x049*/ uint8_t      Class2;
