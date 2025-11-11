@@ -14,6 +14,8 @@
 
 #pragma once
 
+#include <cstdint>
+
 namespace eqlib {
 
 #define EXPANSION_LEVEL_CLASSIC         0   // No Expansion
@@ -48,41 +50,43 @@ namespace eqlib {
 #define EXPANSION_LEVEL_NOS             29  // Night of Shadows
 #define EXPANSION_LEVEL_LS              30  // Laurion's Song
 #define EXPANSION_LEVEL_TOB             31  // The Outer Brood
+#define EXPANSION_LEVEL_SOR             32  // The Shattering of Ro
 
 enum EQExpansion
 {
-	EQExpansionNone = EXPANSION_LEVEL_CLASSIC,
-	EQExpansionKunark = EXPANSION_LEVEL_ROK,
-	EQExpansionVelious = EXPANSION_LEVEL_SOV,
-	EQExpansionLuclin = EXPANSION_LEVEL_SOL,
-	EQExpansionPOP = EXPANSION_LEVEL_POP,
-	EQExpansionYkesha = EXPANSION_LEVEL_LOY,
-	EQExpansionLDON = EXPANSION_LEVEL_LDON,
-	EQExpansionGates = EXPANSION_LEVEL_GOD,
-	EQExpansionOOW = EXPANSION_LEVEL_OOW,
-	EQExpansionDON = EXPANSION_LEVEL_DON,
-	EQExpansionDODH = EXPANSION_LEVEL_DODH,
-	EQExpansionPOR = EXPANSION_LEVEL_POR,
-	EQExpansionTSS = EXPANSION_LEVEL_TSS,
-	EQExpansionTBS = EXPANSION_LEVEL_TBS,
-	EQExpansionSOF = EXPANSION_LEVEL_SOF,
-	EQExpansionSOD = EXPANSION_LEVEL_SOD,
-	EQExpansionUF = EXPANSION_LEVEL_UF,
-	EQExpansionHOT = EXPANSION_LEVEL_HOT,
-	EQExpansionVOA = EXPANSION_LEVEL_VOA,
-	EQExpansionROF = EXPANSION_LEVEL_ROF,
-	EQExpansionCOTF = EXPANSION_LEVEL_COTF,
-	EQExpansionTDS = EXPANSION_LEVEL_TDS,
-	EQExpansionTBM = EXPANSION_LEVEL_TBM,
-	EQExpansionEOK = EXPANSION_LEVEL_EOK,
-	EQExpansionROS = EXPANSION_LEVEL_ROS,
-	EQExpansionTBL = EXPANSION_LEVEL_TBL,
-	EQExpansionTOV = EXPANSION_LEVEL_TOV,
-	EQExpansionCOV = EXPANSION_LEVEL_COV,
-	EQExpansionTOL = EXPANSION_LEVEL_TOL,
-	EQExpansionNOS = EXPANSION_LEVEL_NOS,
-	EQExpansionLS = EXPANSION_LEVEL_LS,
-	EQExpansionTOB = EXPANSION_LEVEL_TOB,
+	EQExpansionNone                 = EXPANSION_LEVEL_CLASSIC,
+	EQExpansionKunark               = EXPANSION_LEVEL_ROK,
+	EQExpansionVelious              = EXPANSION_LEVEL_SOV,
+	EQExpansionLuclin               = EXPANSION_LEVEL_SOL,
+	EQExpansionPOP                  = EXPANSION_LEVEL_POP,
+	EQExpansionYkesha               = EXPANSION_LEVEL_LOY,
+	EQExpansionLDON                 = EXPANSION_LEVEL_LDON,
+	EQExpansionGates                = EXPANSION_LEVEL_GOD,
+	EQExpansionOOW                  = EXPANSION_LEVEL_OOW,
+	EQExpansionDON                  = EXPANSION_LEVEL_DON,
+	EQExpansionDODH                 = EXPANSION_LEVEL_DODH,
+	EQExpansionPOR                  = EXPANSION_LEVEL_POR,
+	EQExpansionTSS                  = EXPANSION_LEVEL_TSS,
+	EQExpansionTBS                  = EXPANSION_LEVEL_TBS,
+	EQExpansionSOF                  = EXPANSION_LEVEL_SOF,
+	EQExpansionSOD                  = EXPANSION_LEVEL_SOD,
+	EQExpansionUF                   = EXPANSION_LEVEL_UF,
+	EQExpansionHOT                  = EXPANSION_LEVEL_HOT,
+	EQExpansionVOA                  = EXPANSION_LEVEL_VOA,
+	EQExpansionROF                  = EXPANSION_LEVEL_ROF,
+	EQExpansionCOTF                 = EXPANSION_LEVEL_COTF,
+	EQExpansionTDS                  = EXPANSION_LEVEL_TDS,
+	EQExpansionTBM                  = EXPANSION_LEVEL_TBM,
+	EQExpansionEOK                  = EXPANSION_LEVEL_EOK,
+	EQExpansionROS                  = EXPANSION_LEVEL_ROS,
+	EQExpansionTBL                  = EXPANSION_LEVEL_TBL,
+	EQExpansionTOV                  = EXPANSION_LEVEL_TOV,
+	EQExpansionCOV                  = EXPANSION_LEVEL_COV,
+	EQExpansionTOL                  = EXPANSION_LEVEL_TOL,
+	EQExpansionNOS                  = EXPANSION_LEVEL_NOS,
+	EQExpansionLS                   = EXPANSION_LEVEL_LS,
+	EQExpansionTOB                  = EXPANSION_LEVEL_TOB,
+	EQExpansionSOR                  = EXPANSION_LEVEL_SOR,
 };
 
 #define EQ_EXPANSION(x)             (1ll << (x - 1))
@@ -120,10 +124,11 @@ enum EQExpansion
 #define EXPANSION_NOS               EQ_EXPANSION(EXPANSION_LEVEL_NOS)
 #define EXPANSION_LS                EQ_EXPANSION(EXPANSION_LEVEL_LS)
 #define EXPANSION_TOB               EQ_EXPANSION(EXPANSION_LEVEL_TOB)
+#define EXPANSION_SOR               EQ_EXPANSION(EXPANSION_LEVEL_SOR)
 
 // Enumeration defining expansion bit mask representing expansion flags. Often used to
 // determine expansion ownership or requirements.
-enum EQExpansionOwned
+enum EQExpansionOwned : uint64_t
 {
 	EQExpansionNoneOwned            = 0,
 	EQExpansionKunarkOwned          = EXPANSION_RoK,
@@ -157,6 +162,7 @@ enum EQExpansionOwned
 	EQExpansionNOSOwned             = EXPANSION_NOS,
 	EQExpansionLSOwned              = EXPANSION_LS,
 	EQExpansionTOBOwned             = EXPANSION_TOB,
+	EQExpansionSOROwned             = EXPANSION_SOR,
 
 	// Mask representing all expansions
 	EQExpansionHighestOwnedPlusOne_,
