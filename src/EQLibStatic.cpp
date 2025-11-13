@@ -30,6 +30,7 @@
 #include "game/PcClient.cpp"
 #include "game/PcProfile.cpp"
 #include "game/PlayerClient.cpp"
+#include "game/PropertySet.cpp"
 #include "game/Spells.cpp"
 #include "game/UI.cpp"
 #include "game/UITemplates.cpp"

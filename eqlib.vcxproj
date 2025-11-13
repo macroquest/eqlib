@@ -283,6 +283,7 @@
     <ClInclude Include="include\eqlib\game\PcClient.h" />
     <ClInclude Include="include\eqlib\game\PcProfile.h" />
     <ClInclude Include="include\eqlib\game\PlayerClient.h" />
+    <ClInclude Include="include\eqlib\game\PropertySet.h" />
     <ClInclude Include="include\eqlib\game\RealEstate.h" />
     <ClInclude Include="include\eqlib\game\Requirements.h" />
     <ClInclude Include="include\eqlib\game\SerializeBuffer.h" />
@@ -358,6 +359,7 @@
     <ClCompile Include="src\game\PcClient.cpp" />
     <ClCompile Include="src\game\PcProfile.cpp" />
     <ClCompile Include="src\game\PlayerClient.cpp" />
+    <ClCompile Include="src\game\PropertySet.cpp" />
     <ClCompile Include="src\game\Spells.cpp" />
     <ClCompile Include="src\game\UI.cpp" />
     <ClCompile Include="src\game\UITemplates.cpp" />

@@ -346,6 +346,9 @@
     <ClInclude Include="src\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\eqlib\game\PropertySet.h">
+      <Filter>Header Files\eqlib\game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\pch.cpp">
@@ -413,6 +416,9 @@
     </ClCompile>
     <ClCompile Include="src\graphics\GraphicsEngine.cpp">
       <Filter>Source Files\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\game\PropertySet.cpp">
+      <Filter>Source Files\game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
