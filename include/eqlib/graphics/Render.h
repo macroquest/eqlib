@@ -170,7 +170,7 @@ enum ERenderMaterial
 };
 
 //----------------------------------------------------------------------------
-struct [[offsetcomments]] SModeInfo
+struct SModeInfo
 {
 /*0x00*/ bool bDisplay;
 /*0x01*/ bool bDepth16;

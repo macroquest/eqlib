@@ -725,7 +725,7 @@ public:
 /*0x1d8*/
 };
 
-constexpr size_t EQWorldData_size = 0x1F88; // @sizeof(EQWorldData) :: 2025-11-13 (live) @ 0x140265600
+constexpr size_t EQWorldData_size = 0x1F88; // @sizeof(EQWorldData) :: 2025-11-15 (beta) @ 0x140266590
 
 class [[offsetcomments]] EQWorldData
 {
@@ -1213,7 +1213,7 @@ using SKILL = EQ_Skill;
 using PSKILL = EQ_Skill*;
 
 
-constexpr size_t SkillManager_size = 0x376A00; // @sizeof(SkillManager) :: 2025-11-13 (live) @ 0x140265740
+constexpr size_t SkillManager_size = 0x399C80; // @sizeof(SkillManager) :: 2025-11-15 (beta) @ 0x1402666D0
 
 class [[offsetcomments]] SkillManager
 {
@@ -1233,7 +1233,7 @@ public:
 /*0x000320*/ int       SkillCaps[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
 /*0x1bb2a0*/ float     SkillMods[MAX_CLASSES + 1][NUM_SKILLS][MAX_PC_LEVEL + 1];
 /*0x376220*/ char      SkillCapsFilename[MAX_PATH];
-/*0x376328*/ HashListSet<EQ_Skill, NUM_SKILLS> SkillHash;
+/*0x376328*/ HashListSet<EQ_Skill, NUM_SKILLS> SkillHash; // 3995a8
 /*0x376668*/ UINT      SkillLastUsed[NUM_SKILLS];
 /*0x3767f8*/ UINT      SkillTimerDuration[NUM_SKILLS];
 /*0x376988*/ UINT      CombatSkillLastUsed[CONCURRENT_SKILLS];

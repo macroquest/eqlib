@@ -453,7 +453,7 @@ constexpr int XKF_RALT               = 8;
 // left, right, mid, aux1-5
 constexpr int NUM_MOUSE_BUTTONS = 8;
 
-constexpr int MAX_PC_LEVEL = 125;
+constexpr int MAX_PC_LEVEL = 130;
 constexpr int MAX_NPC_LEVEL = 200;
 constexpr int MAX_SPELL_LEVEL = 255;
 constexpr int NUM_SPELL_GEMS = 14;
