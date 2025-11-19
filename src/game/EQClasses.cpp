@@ -53,12 +53,10 @@ int AchievementManager::GetAchievementIndexByName(std::string_view name) const
 	if (name.empty())
 		return -1;
 
-	for (int index = 0; index < achievements.GetLength(); ++index)
+	for (const auto& [id, achievement] : achievements)
 	{
-		const Achievement& achievement = achievements[index];
-
 		if (mq::ci_equals(achievement.name, name))
-			return index;
+			return id;
 	}
 
 	return -1;
