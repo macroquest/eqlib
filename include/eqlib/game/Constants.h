@@ -927,6 +927,7 @@ enum EnvironmentalLiquidType
 
 enum class ServerID : int {
 	Test = 1,
+	Beta = 2,
 	Antonius = 100,
 	Bertox = 102,
 	Bristle = 104,
@@ -952,7 +953,7 @@ enum class ServerID : int {
 	Yelinak = 175,
 	Oakwynd = 177,
 
-	NumServers = 25,
+	NumServers = 26,
 	Invalid = -1,
 };
 

@@ -83,6 +83,7 @@ const char* szEQMappableCommands[nEQMappableCommands];
 
 ServerID ServerIDArray[static_cast<int>(ServerID::NumServers)] = {
 	ServerID::Test,
+	ServerID::Beta,
 	ServerID::Antonius,
 	ServerID::Aradune,
 	ServerID::Bertox,
@@ -114,6 +115,7 @@ const char* GetServerNameFromServerID(ServerID id)
 	switch (id)
 	{
 	case ServerID::Test: return "test";
+	case ServerID::Beta: return "beta";
 	case ServerID::Antonius: return "antonius";
 	case ServerID::Aradune: return "aradune";
 	case ServerID::Bertox: return "bertox";
@@ -148,6 +150,8 @@ ServerID GetServerIDFromServerName(const char* serverName)
 	static const mq::ci_unordered::map<std::string_view, ServerID> serverMapping{
 #if defined(TEST)
 		{ "test", ServerID::Test },
+#elif defined(BETA)
+		{ "beta", ServerID::Beta },
 #elif defined(LIVE)
 		{ "antonius", ServerID::Antonius },
 		{ "aradune", ServerID::Aradune },
