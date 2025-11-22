@@ -907,7 +907,7 @@ struct [[offsetcomments]] SpellAffectData
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
 
-constexpr size_t EQ_Spell_size = 0x218; // @sizeof(EQ_Spell) :: 2025-11-18 (beta) @ 0x1401DDCD7
+constexpr size_t EQ_Spell_size = 0x218; // @sizeof(EQ_Spell) :: 2025-11-19 (beta) @ 0x1401DDBD7
 
 class [[offsetcomments]] EQ_Spell
 {
@@ -1318,7 +1318,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-constexpr size_t ClientSpellManager_size = 0x22A0; // @sizeof(ClientSpellManager) :: 2025-11-18 (beta) @ 0x140272C80
+constexpr size_t ClientSpellManager_size = 0x24A8; // @sizeof(ClientSpellManager) :: 2025-11-19 (beta) @ 0x140272C40
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
@@ -1347,7 +1347,7 @@ public:
 
 private:
 /*0x2240*/ SoeUtil::Map<int, EQ_Spell>        m_spells;
-/*0x2258*/ SoeUtil::Map<int, SpellAffectData> m_spellAffects;
+/*0x2258*/ SoeUtil::Map<int, SpellAffectData> m_spellAffects;    // 2460
 /*0x2270*/ SoeUtil::Map<int, EQ_SpellExtra>   m_spellExtraData;
 /*0x2288*/ HashTable<StackingGroupData>       m_stackingData;
 /*0x22a0*/
