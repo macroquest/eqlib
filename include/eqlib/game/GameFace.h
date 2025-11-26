@@ -78,6 +78,14 @@ public:
 /*0xa4*/
 };
 
+class [[offsetcomments]] UILabelComponent : public BaseComponent<CLabel>
+{
+public:
+	virtual eqstd::string GetTypeName() const override { return "UILabel"; }
+
+/*0xa0*/
+};
+
 class [[offsetcomments]] UIListComponent : public BaseComponent<CListWnd>
 {
 public:

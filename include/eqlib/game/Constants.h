@@ -612,7 +612,7 @@ constexpr int NUM_WORN_ITEMS = InvSlot_LastWornItem - InvSlot_FirstWornItem + 1;
 static_assert(InvSlot_LastWornItem < 32,
               "InvSlot_LastWornItem is >= 32. This is problematic for EquipSlots on ItemDefinition!");
 
-constexpr int NUM_SHAREDBANK_SLOTS = 6;
+constexpr int NUM_SHAREDBANK_SLOTS = 8;
 
 constexpr int NUM_BANK_SLOTS = 24;
 constexpr int MAX_GIVE_SLOTS = 4;

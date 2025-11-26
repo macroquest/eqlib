@@ -237,7 +237,7 @@
 
 
 // CBankWnd
-#define CBankWnd__WndNotification_x                                0x0
+#define CBankWnd__WndNotification_x                                0x14037B860
 
 // CBarterWnd
 #define CBarterWnd__WndNotification_x                              0x140386460

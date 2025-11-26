@@ -1908,27 +1908,96 @@ public:
 // CBankWnd
 //============================================================================
 
-class [[offsetcomments]] CBankWnd : public CSidlScreenWnd, public WndEventHandler
+constexpr size_t CBankWnd_size = 0x2370; // @sizeof(CBankWnd) :: 2025-11-26 (beta) @ 0x140198B87
+
+constexpr int NUM_MONEY_BUTTONS = 5;
+
+class [[offsetcomments]] CBankWnd : public CGFScreenWnd, public WndEventHandler
 {
 public:
-/*0x2e4*/ int          MoneyButtonIndex;
-/*0x2e8*/ unsigned int NextRefreshTime;
-/*0x2ec*/ bool         bInventoryWasActive;
-/*0x2ed*/ bool         bRealEstateManagementWasActive;
-/*0x2f0*/ CButtonWnd*  MoneyButtons[5];           // including shared plat
-/*0x318*/ CLabel*      BankerNameLabel;
-/*0x320*/ CInvSlotWnd* InvSlotWindows[NUM_BANK_SLOTS];
-/*0x3e0*/ CLabel*      SharedBankLabel;
-/*0x3e8*/ CInvSlotWnd* SharedSlotWindows[NUM_SHAREDBANK_SLOTS];
-/*0x418*/ CButtonWnd*  DoneButton;                // DoneButton
-/*0x420*/ CButtonWnd*  ChangeButton;              // ChangeButton
-/*0x428*/ CButtonWnd*  AutoButton;                // AutoButton
-/*0x430*/ CButtonWnd*  AltStorageButton;          // AltStorageButton
-/*0x438*/ CButtonWnd*  FindItemButton;            // FindItemButton
-/*0x440*/ CButtonWnd*  DragonHoardButton;         // DragonHoard
-/*0x448*/ CButtonWnd*  TradeskillDepotButton;     // TradeskillDepot
-/*0x450*/ int          BankSize;
-/*0x454*/
+/*0x03cc*/ int               MoneyButtonIndex;
+/*0x03d0*/ uint32_t          NextRefreshTime;
+/*0x03d4*/ bool              bInventoryWasActive;
+/*0x03d5*/ bool              bRealEstateManagementWasActive;
+
+private:
+/*0x03d8*/ CButtonWnd*       m_moneyButtons[NUM_MONEY_BUTTONS];           // including shared plat
+/*0x0400*/ CLabel*           m_bankerNameLabel;
+/*0x0408*/ CInvSlotWnd*      m_invSlotWindows[NUM_BANK_SLOTS];
+/*0x04c8*/ CLabel*           m_sharedBankLabel;
+/*0x04d0*/ CInvSlotWnd*      m_sharedSlotWindows[NUM_SHAREDBANK_SLOTS];
+/*0x0510*/ CButtonWnd*       m_doneButton;                                  // BNK_DoneButton
+/*0x0518*/ CButtonWnd*       m_changeButton;                                // BNK_ChangeButton
+/*0x0520*/ CButtonWnd*       m_autoButton;                                  // BNK_AutoButton
+/*0x0528*/ CButtonWnd*       m_altStorageButton;                            // BNK_AltStorageButton
+/*0x0530*/ CButtonWnd*       m_findItemButton;                              // BNK_FindItemButton
+/*0x0538*/ CButtonWnd*       m_dragonHoardButton;                           // BNK_DragonHoard
+/*0x0540*/ CButtonWnd*       m_tradeskillDepotButton;                       // BNK_TradeskillDepot
+
+public:
+	// CButtonWnd* MoneyButtons[NUM_MONEY_BUTTONS];
+	CButtonWnd* _get_moneyButtons(size_t idx) { return idx < NUM_MONEY_BUTTONS ? GetNewUIEngineWindow(m_moneyButtons[idx], moneyButtonComponents[idx]) : nullptr; }
+	__declspec(property(get = _get_moneyButtons)) CButtonWnd* MoneyButtons[];
+
+	// CLabel* BankerNameLabel;
+	CLabel* _get_bankerNameLabel() { return GetNewUIEngineWindow(m_bankerNameLabel, bankerNameComponent); }
+	__declspec(property(get = _get_bankerNameLabel)) CLabel* BankerNameLabel;
+
+	// CInvSlotWnd* InvSlotWindows[NUM_BANK_SLOTS];
+	CInvSlotWnd* _get_invSlotWindows(size_t idx) { return idx < NUM_BANK_SLOTS ? GetNewUIEngineWindow(m_invSlotWindows[idx], invSlotComponents[idx]) : nullptr; }
+	__declspec(property(get = _get_invSlotWindows)) CInvSlotWnd* InvSlotWindows[];
+
+	// CLabel* SharedBankLabel;
+	CLabel* _get_sharedBankLabel() { return GetNewUIEngineWindow(m_sharedBankLabel, sharedBankLabelComponent); }
+	__declspec(property(get = _get_sharedBankLabel)) CLabel* SharedBankLabel;
+
+	// CInvSlotWnd* SharedSlotWindows[NUM_SHAREDBANK_SLOTS];
+	CInvSlotWnd* _get_sharedSlotWindows(size_t idx) { return idx < NUM_SHAREDBANK_SLOTS ? GetNewUIEngineWindow(m_sharedSlotWindows[idx], sharedSlotComponents[idx]) : nullptr; }
+	__declspec(property(get = _get_sharedSlotWindows)) CInvSlotWnd* SharedSlotWindows[];
+
+	// CButtonWnd* DoneButton;
+	CButtonWnd* _get_doneButton() { return GetNewUIEngineWindow(m_doneButton, doneButtonComponent); }
+	__declspec(property(get = _get_doneButton)) CButtonWnd* DoneButton;
+
+	// CButtonWnd* ChangeButton;
+	CButtonWnd* _get_changeButton() { return GetNewUIEngineWindow(m_changeButton, changeButtonComponent); }
+	__declspec(property(get = _get_changeButton)) CButtonWnd* ChangeButton;
+
+	// CButtonWnd* AutoButton;
+	CButtonWnd* _get_autoButton() { return GetNewUIEngineWindow(m_autoButton, autoButtonComponent); }
+	__declspec(property(get = _get_autoButton)) CButtonWnd* AutoButton;
+
+	// CButtonWnd* AltStorageButton;
+	CButtonWnd* _get_altStorageButton() { return GetNewUIEngineWindow(m_altStorageButton, altStorageButtonComponent); }
+	__declspec(property(get = _get_altStorageButton)) CButtonWnd* AltStorageButton;
+
+	// CButtonWnd* FindItemButton;
+	CButtonWnd* _get_findItemButton() { return GetNewUIEngineWindow(m_findItemButton, findItemButtonComponent); }
+	__declspec(property(get = _get_findItemButton)) CButtonWnd* FindItemButton;
+
+	// CButtonWnd* DragonHoardButton;
+	CButtonWnd* _get_dragonHoardButton() { return GetNewUIEngineWindow(m_dragonHoardButton, dragonHoardButtonComponent); }
+	__declspec(property(get = _get_dragonHoardButton)) CButtonWnd* DragonHoardButton;
+
+	// CButtonWnd* TradeskillDepotButton;
+	CButtonWnd* _get_tradeskillDepotButton() { return GetNewUIEngineWindow(m_tradeskillDepotButton, tradeskillDepotButtonComponent); }
+	__declspec(property(get = _get_tradeskillDepotButton)) CButtonWnd* TradeskillDepotButton;
+
+/*0x0548*/ UIButtonComponent  doneButtonComponent;                        // BNK_DoneButton
+/*0x05f0*/ UIButtonComponent  changeButtonComponent;                      // BNK_ChangeButton
+/*0x0698*/ UIButtonComponent  autoButtonComponent;                        // BNK_AutoButton
+/*0x0740*/ UIButtonComponent  altStorageButtonComponent;                  // BNK_AltStorageButton
+/*0x07e8*/ UIButtonComponent  findItemButtonComponent;                    // BNK_FindItemButton
+/*0x0890*/ UIButtonComponent  dragonHoardButtonComponent;                 // BNK_DragonHoard
+/*0x0938*/ UIButtonComponent  tradeskillDepotButtonComponent;             // BNK_TradeskillDepot
+/*0x09e0*/ UIButtonComponent  moneyButtonComponents[NUM_MONEY_BUTTONS];   // BNK_Money%d, BNK_SharedMoney%d
+/*0x0d28*/ UIInvSlotComponent invSlotComponents[NUM_BANK_SLOTS];          // BNK_BankSlot%d
+/*0x1ce8*/ UIInvSlotComponent sharedSlotComponents[NUM_SHAREDBANK_SLOTS]; // BNK_SharedBankSlot%d
+/*0x2228*/ UILabelComponent   sharedBankLabelComponent;                   // BNK_SharedBankLabel
+/*0x22c8*/ UILabelComponent   bankerNameComponent;                        // BNK_BankerName
+/*0x2368*/ int                BankSize;
+/*0x236c*/ int                SharedBankSize;
+/*0x2370*/
 
 	CBankWnd(CXWnd*, CXStr);
 	virtual ~CBankWnd();
@@ -1938,12 +2007,15 @@ public:
 	virtual int WndNotification(CXWnd* pWnd, unsigned int uiMessage, void* pData) override;
 
 	int GetNumBankSlots() const { return BankSize; }
+	int GetNumSharedBankSlots() const { return SharedBankSize; }
 
 	// private
 	EQLIB_OBJECT long GetBankQtyFromCoinType(int);
 	EQLIB_OBJECT void ClickedMoneyButton(int, int);
 	EQLIB_OBJECT void UpdateMoneyDisplay();
 };
+
+SIZE_CHECK(CBankWnd, CBankWnd_size);
 
 //============================================================================
 // CBarterWnd
