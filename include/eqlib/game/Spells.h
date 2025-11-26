@@ -907,7 +907,7 @@ struct [[offsetcomments]] SpellAffectData
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
 
-constexpr size_t EQ_Spell_size = 0x218; // @sizeof(EQ_Spell) :: 2025-11-23 (beta) @ 0x1401DE037
+constexpr size_t EQ_Spell_size = 0x218; // @sizeof(EQ_Spell) :: 2025-11-25 (beta) @ 0x1401DE217
 
 class [[offsetcomments]] EQ_Spell
 {
@@ -1318,7 +1318,7 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
-constexpr size_t ClientSpellManager_size = 0x24A8; // @sizeof(ClientSpellManager) :: 2025-11-23 (beta) @ 0x140272EE0
+constexpr size_t ClientSpellManager_size = 0x22C0; // @sizeof(ClientSpellManager) :: 2025-11-25 (beta) @ 0x140272CD0
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {
