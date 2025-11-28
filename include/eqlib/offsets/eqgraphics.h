@@ -27,7 +27,7 @@
 
 #define CRender__RenderScene_x                                     0x1800D9960
 #define CRender__RenderBlind_x                                     0x1800D9820
-#define CRender__ResetDevice_x                                     0x0
+#define CRender__ResetDevice_x                                     0x1800DA4D0
 #define CRender__UpdateDisplay_x                                   0x1800DB680
 #define __bRenderSceneCalled_x                                     0x18035E3D0
 
