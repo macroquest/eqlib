@@ -35,6 +35,78 @@ T* Align(U* p, int align)
 	return (T*)( ((uintptr_t)p + align - 1) & ((uintptr_t)(align - 1)) );
 }
 
+template <typename IterType>
+struct IterRange
+{
+	IterType first;
+	IterType second;
+
+	IterRange(IterType first_, IterType second_) : first(first_), second(second_) {}
+
+	IterType begin() const { return first; }
+	IterType end() const { return second; }
+};
+
+template <typename IterType>
+class ValueIterator : public IterType
+{
+public:
+	using value_type = typename IterType::value_type::second_type;
+
+	using IterType::IterType;
+	
+	template <typename... Args>
+	ValueIterator(Args... args)
+		: IterType(std::forward<Args>(args)...)
+	{
+	}
+
+	using pointer = value_type*;
+	using reference = value_type&;
+
+	[[nodiscard]] reference operator*() { return IterType::operator*().second; }
+	[[nodiscard]] pointer operator->() { return &IterType::operator->()->second; }
+
+	[[nodiscard]] bool operator==(const ValueIterator& other) const
+	{
+		return IterType::operator==(other);
+	}
+
+	[[nodiscard]] bool operator!=(const ValueIterator& other) const
+	{
+		return !(*this == other);
+	}
+};
+
+template <typename IterType>
+class PointerAdapterIterator : public IterType
+{
+public:
+	using value_type = typename IterType::value_type;
+
+	template <typename... Args>
+	PointerAdapterIterator(Args... args)
+		: IterType(std::forward<Args>(args)...)
+	{
+	}
+
+	using pointer = typename IterType::pointer;
+	using reference = typename IterType::pointer;
+
+	[[nodiscard]] pointer operator*() { return IterType::operator->(); }
+	[[nodiscard]] pointer operator->() { return IterType::operator->(); }
+
+	[[nodiscard]] bool operator==(const PointerAdapterIterator& other) const
+	{
+		return IterType::operator==(other);
+	}
+
+	[[nodiscard]] bool operator!=(const PointerAdapterIterator& other) const
+	{
+		return !(*this == other);
+	}
+};
+
 #pragma region Array<T>
 
 // class SoeUtil::Array<unsigned char, 0, 1> `RTTI Type Descriptor'
@@ -944,12 +1016,7 @@ public:
 	using key_type = Key;
 	using mapped_type = Value;
 
-	struct ValuePair
-	{
-		key_type    key;
-		mapped_type value;
-	};
-	using value_type = ValuePair;
+	using value_type = std::pair<const key_type, mapped_type>;
 
 	Map() = default;
 	virtual ~Map() = default;
@@ -976,9 +1043,9 @@ private:
 	// Node size: 1c + sizeof(Key)+sizeof(Value)
 	struct Node : value_type
 	{
-	/*+0x00*/ Node* parent;
-	/*+0x08*/ Node* left;
-	/*+0x10*/ Node* right;
+	/*+0x00*/ Node*    parent;
+	/*+0x08*/ Node*    left;
+	/*+0x10*/ Node*    right;
 	/*+0x18*/ uint32_t red : 1;
 	/*+0x18*/ uint32_t position : 31;
 	/*+0x1c*/
@@ -989,7 +1056,7 @@ private:
 	static Node* GetPrevNode(const Node* pNode);
 
 public:
-#pragma region SoeUtil::Map::ConstIterator
+#pragma region Iterators
 	template <int direction = 0>
 	class ConstIterator
 	{
@@ -1023,33 +1090,45 @@ public:
 	protected:
 		const Node* m_value = nullptr;
 	};
-#pragma endregion
 
-#pragma region SoeUtil::Map::ValueIterator
-	class ValueIterator : public ConstIterator<0>
+	template <int direction = 0>
+	class Iterator
 	{
 	public:
-		using ConstIterator<0>::ConstIterator;
+		using iterator_category = std::bidirectional_iterator_tag;
 
-		using value_type = Map::mapped_type*;
+		using value_type = Map::value_type;
 		using difference_type = std::ptrdiff_t;
-		using pointer = value_type;
-		using reference = value_type;
+		using pointer = value_type*;
+		using reference = value_type&;
 
-		[[nodiscard]] reference operator*() const
+		Iterator() = default;
+		Iterator(Node* value) : m_value(value) {}
+
+		[[nodiscard]] reference operator*()
 		{
-			return (Map::mapped_type*)&this->m_value->value;
+			return static_cast<reference>(*m_value);
 		}
-		[[nodiscard]] pointer operator->() const
+
+		[[nodiscard]] pointer operator->()
 		{
-			return (Map::mapped_type*)&this->m_value->value;
+			return static_cast<pointer>(m_value);
 		}
+
+		Iterator& operator++();
+		Iterator& operator--();
+
+		bool operator==(const Iterator& other) const { return m_value == other.m_value; }
+		bool operator!=(const Iterator& other) const { return m_value != other.m_value; }
+
+	protected:
+		Node* m_value = nullptr;
 	};
 #pragma endregion
 
-	using iterator = ConstIterator<0>;
+	using iterator = Iterator<0>;
 	using const_iterator = ConstIterator<0>;
-	using reverse_iterator = ConstIterator<1>;
+	using reverse_iterator = Iterator<1>;
 	using const_reverse_iterator = ConstIterator<1>;
 
 	iterator begin() { return iterator(GetNode(GetFirst())); }
@@ -1068,25 +1147,10 @@ public:
 	const_reverse_iterator rend() const { return const_reverse_iterator(nullptr); }
 	const_reverse_iterator crend() const { return const_reverse_iterator(nullptr); }
 
-	template <typename IteratorType>
-	struct IterRange
-	{
-		IteratorType first;
-		IteratorType second;
-
-		IterRange(IteratorType first_, IteratorType second_) : first(first_), second(second_) {}
-
-		auto begin() { return first; }
-		auto end() { return second; }
-	};
-
-	using value_iterator = ValueIterator;
-
 	using ItemRange = IterRange<const_iterator>;
-	using ValueRange = IterRange<value_iterator>;
 
 	auto items() const { return IterRange(cbegin(), cend()); }
-	ValueRange values() const { return ValueRange(value_iterator(GetNode(GetFirst())), value_iterator(nullptr)); }
+	auto items() { return IterRange(begin(), end()); }
 
 /*0x08*/ Node* m_root = nullptr;
 /*0x10*/ int   m_count = 0;
@@ -1118,9 +1182,33 @@ typename Map<Key, Value>::template ConstIterator<direction>& Map<Key, Value>::Co
 }
 
 template <typename Key, typename Value>
+template <int direction>
+typename Map<Key, Value>::template Iterator<direction>& Map<Key, Value>::Iterator<direction>::operator++()
+{
+	if constexpr (direction == 0)
+		m_value = GetNextNode(m_value);
+	else
+		m_value = GetPrevNode(m_value);
+
+	return *this;
+}
+
+template <typename Key, typename Value>
+template <int direction>
+typename Map<Key, Value>::template Iterator<direction>& Map<Key, Value>::Iterator<direction>::operator--()
+{
+	if constexpr (direction == 0)
+		m_value = GetPrevNode(m_value);
+	else
+		m_value = GetNextNode(m_value);
+
+	return *this;
+}
+
+template <typename Key, typename Value>
 typename Map<Key, Value>::Node* Map<Key, Value>::GetNode(const Value* pValue)
 {
-	return pValue ? (Node*)((uint8_t*)pValue - offsetof(Node, value)) : nullptr;
+	return pValue ? (Node*)((uint8_t*)pValue - offsetof(Node, second)) : nullptr;
 }
 
 template <typename Key, typename Value>
@@ -1204,7 +1292,7 @@ Value* Map<Key, Value>::GetFirst() const
 		node = node->left;
 	}
 
-	return value ? &value->value : nullptr;
+	return value ? &value->second : nullptr;
 }
 
 template <typename Key, typename Value>
@@ -1218,28 +1306,28 @@ Value* Map<Key, Value>::GetLast() const
 		value = node;
 		node = node->right;
 	}
-	return value ? &value->value : nullptr;
+	return value ? &value->second : nullptr;
 }
 
 template <typename Key, typename Value>
 const Key& Map<Key, Value>::GetKeyOf(const Value* pValue) const
 {
 	Node* node = GetNode(pValue);
-	return node->key;
+	return node->first;
 }
 
 template <typename Key, typename Value>
 Value* Map<Key, Value>::GetNext(const Value* pValue) const
 {
 	Node* node = GetNextNode(GetNode(pValue));
-	return node ? &node->value : nullptr;
+	return node ? &node->second : nullptr;
 }
 
 template <typename Key, typename Value>
 Value* Map<Key, Value>::GetPrev(const Value* pValue) const
 {
 	Node* node = GetPrevNode(GetNode(pValue));
-	return node ? &node->value : nullptr;
+	return node ? &node->second : nullptr;
 }
 
 #pragma endregion SoeUtil::Map
@@ -1307,6 +1395,304 @@ public:
 };
 
 //----------------------------------------------------------------------------
+
+#pragma endregion
+
+#pragma region UnorderedMap<K, V>
+
+
+template <typename Key, typename Value>
+class UnorderedMap
+{
+public:
+	using key_type = Key;
+	using mapped_type = Value;
+	using value_type = std::pair<const key_type, mapped_type>;
+	using size_type = size_t;
+	using difference_type = std::ptrdiff_t;
+
+	using pointer = value_type*;
+	using const_pointer = const value_type*;
+	using reference = value_type&;
+	using const_reference = const value_type&;
+
+	UnorderedMap();
+	virtual ~UnorderedMap();
+
+
+	mapped_type& operator[](key_type&& keyVal);
+	mapped_type& operator[](const key_type& keyVal);
+
+	[[nodiscard]] mapped_type& at(const key_type& keyVal);
+	[[nodiscard]] const mapped_type& at(const key_type& keyVal) const;
+
+private:
+	struct Node
+	{
+		UnorderedMap::value_type value;
+
+		Node* nextHash;
+		Node* nextNode;
+		Node* prevNode;
+	};
+
+public:
+
+#pragma region Iterators
+
+	class ConstIterator
+	{
+	public:
+		friend class UnorderedMap<Key, Value>;
+
+		using value_type = UnorderedMap::value_type;
+		using iterator_category = std::bidirectional_iterator_tag;
+		using difference_type = UnorderedMap::difference_type;
+		using pointer = UnorderedMap::pointer;
+		using const_pointer = UnorderedMap::const_pointer;
+		using reference = UnorderedMap::reference;
+		using const_reference = UnorderedMap::const_reference;
+
+		ConstIterator()
+			: m_node()
+		{
+		}
+
+		ConstIterator(const Node* node)
+			: m_node(node)
+		{
+		}
+
+		[[nodiscard]] const_reference operator*() const
+		{
+			return m_node->value;
+		}
+
+		[[nodiscard]] const_pointer operator->() const
+		{
+			return &m_node->value;
+		}
+
+		ConstIterator& operator++() { m_node = m_node->nextNode; return *this; }
+		ConstIterator operator++(int) const { auto tmp = *this; ++(*this); return tmp; }
+
+		ConstIterator& operator--() { m_node = m_node->prevNode; return *this; }
+		ConstIterator operator--(int) const { auto tmp = *this; --(*this); return tmp; }
+
+		[[nodiscard]] bool operator==(const ConstIterator& other) const { return m_node == other.m_node; }
+		[[nodiscard]] bool operator!=(const ConstIterator& other) const { return m_node != other.m_node; }
+
+	private:
+		const Node* m_node;
+	};
+
+	class Iterator
+	{
+	public:
+		friend class UnorderedMap<Key, Value>;
+
+		using value_type = UnorderedMap::value_type;
+		using iterator_category = std::bidirectional_iterator_tag;
+		using difference_type = UnorderedMap::difference_type;
+		using pointer = UnorderedMap::pointer;
+		using const_pointer = UnorderedMap::const_pointer;
+		using reference = UnorderedMap::reference;
+		using const_reference = UnorderedMap::const_reference;
+
+		Iterator()
+			: m_node()
+		{
+		}
+
+		Iterator(Node* node)
+			: m_node(node)
+		{
+		}
+
+		[[nodiscard]] reference operator*()
+		{
+			return m_node->value;
+		}
+
+		[[nodiscard]] pointer operator->()
+		{
+			return &m_node->value;
+		}
+
+		Iterator& operator++() { m_node = m_node->nextNode; return *this; }
+		Iterator operator++(int) const { auto tmp = *this; ++(*this); return tmp; }
+
+		Iterator& operator--() { m_node = m_node->prevNode; return *this; }
+		Iterator operator--(int) const { auto tmp = *this; --(*this); return tmp; }
+
+		[[nodiscard]] bool operator==(const Iterator& other) const { return m_node == other.m_node; }
+		[[nodiscard]] bool operator!=(const Iterator& other) const { return m_node != other.m_node; }
+
+	private:
+		Node* m_node;
+	};
+
+	using iterator = Iterator;
+	using const_iterator = ConstIterator;
+
+	iterator begin() { return iterator(m_firstNode); }
+	const_iterator begin() const { return const_iterator(m_firstNode); }
+	const_iterator cbegin() const { return const_iterator(m_firstNode); }
+
+	iterator end() { return iterator(); }
+	const_iterator end() const { return const_iterator(); }
+	const_iterator cend() const { return const_iterator(); }
+
+	auto items() const { return IterRange(cbegin(), cend()); }
+	auto items() { return IterRange(begin(), end()); }
+
+#pragma endregion
+
+	size_type size() const { return m_count; };
+	[[nodiscard]] bool empty() const { return m_count == 0; }
+
+	void clear();
+	// reserve(size_type amount);
+	// insert
+	// emplace
+	// try_emplace
+	// erase
+
+	iterator find(const key_type& key) { return iterator(FindFirst(key)); }
+	const_iterator find(const key_type& key) const { return const_iterator(FindFirst(key)); }
+
+	size_type count(const key_type& key) const;
+
+	bool contains(const key_type& key) const;
+
+private:
+	virtual Node* Allocate()
+	{
+		return eqNew<Node>();
+	}
+
+	virtual void Free(Node* node)
+	{
+		eqDelete(node);
+	}
+
+	virtual bool IsSwapAllowed() const { return true; }
+
+	// TODO: de-duplicate with HashTable
+
+	// Primary template definition
+	template <typename U, typename = void>
+	struct HashValue {
+	};
+
+	// Specialization for types convertible to std::string_view but not to const char*
+	template <typename U>
+	struct HashValue<U, std::enable_if_t<
+		std::conjunction_v<
+		std::is_convertible<const U&, std::string_view>,
+		std::negation<std::is_convertible<const U&, const char*>>>>> {
+		static uint32_t get(const U& key) {
+			return GetStringCRC(key);
+		}
+	};
+
+	// Specialization for integral types
+	template <typename U>
+	struct HashValue<U, std::enable_if_t<std::is_integral_v<U>>> {
+		static uint32_t get(const U& key) {
+			return static_cast<uint32_t>(key);
+		}
+	};
+
+	template <typename T>
+	static uint32_t hash_value(const T& key) {
+		return HashValue<T>::get(key);
+	}
+
+	Node* FindFirst(const key_type& key) const
+	{
+		int slot = hash_value<key_type>(key) % m_tableSize - 1;
+
+		Node* node = m_table[slot];
+		while (node != nullptr)
+		{
+			if (node->value.first == key)
+			{
+				return node;
+			}
+
+			node = node->nextHash;
+		}
+
+		return nullptr;
+	}
+
+/*0x08*/ size_t m_count;          // number of elements in container
+/*0x10*/ Node*  m_firstNode;      // pointer to first node in doubly-linked list
+/*0x18*/ Node*  m_lastNode;       // pointer to last node in doubly-linked list
+/*0x20*/ Node** m_table;          // hash table
+/*0x28*/ size_t m_tableSize;      // number of buckets in hash table.
+/*0x30*/ size_t m_dynamicSize;    // only seen to be set to limits<size_t>::max()
+};
+
+template <typename Key, typename Value>
+UnorderedMap<Key, Value>::UnorderedMap()
+	: m_count(0)
+	, m_firstNode(nullptr)
+	, m_lastNode(nullptr)
+	, m_table(nullptr)
+	, m_tableSize(0)
+	, m_dynamicSize(std::numeric_limits<size_t>::max())
+{
+}
+
+template <typename Key, typename Value>
+UnorderedMap<Key, Value>::~UnorderedMap()
+{
+	clear();
+}
+
+template <typename Key, typename Value>
+void UnorderedMap<Key, Value>::clear()
+{
+	if (m_count > 0)
+	{
+		memset(m_table, 0, sizeof(Node*) * m_tableSize);
+
+		Node* nextNode = m_firstNode;
+		while (nextNode)
+		{
+			Node* node = nextNode;
+			Free(node);
+			nextNode = node->nextNode;
+		}
+
+		m_count = 0;
+		m_firstNode = nullptr;
+		m_lastNode = nullptr;
+	}
+}
+
+template <typename Key, typename Value>
+typename UnorderedMap<Key, Value>::size_type UnorderedMap<Key, Value>::count(const key_type& key) const
+{
+	Node* node = FindFirst(key);
+	size_t count = 0;
+
+	while (node)
+	{
+		++count;
+		node = node->nextHash;
+	}
+
+	return count;
+}
+
+template <typename Key, typename VAlue>
+bool UnorderedMap<Key, VAlue>::contains(const key_type& key) const
+{
+	return FindFirst(key) != nullptr;
+}
 
 #pragma endregion
 

@@ -1318,6 +1318,9 @@ public:
 	EQLIB_OBJECT const EQ_Spell* GetSpellByGroupAndRank(int Group, int SubGroup, int Rank = -1, bool bLesserRanksOk = false);
 };
 
+// Discrete type helps IDA by avoiding template params in type names
+class SpellHashTable : public SoeUtil::UnorderedMap<int, EQ_Spell> {};
+
 constexpr size_t ClientSpellManager_size = 0x22C0; // @sizeof(ClientSpellManager) :: 2025-11-26 (beta) @ 0x140273390
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
@@ -1342,15 +1345,22 @@ public:
 	uint32_t GetSpellCount() const { return SpellCount; }
 	uint32_t GetSpellAffectsCount() const { return SpellAffectsCount; }
 
-	SoeUtil::Map<int, EQ_Spell>::ValueRange __getSpellRange() const { return m_spells.values(); }
-	__declspec(property(get = __getSpellRange)) SoeUtil::Map<int, EQ_Spell>::ValueRange Spells;
+	using SpellsContainerType = SpellHashTable;
+	using SpellsIteratorType = SoeUtil::PointerAdapterIterator<SoeUtil::ValueIterator<SpellsContainerType::iterator>>;
+	using SpellsRangeType = SoeUtil::IterRange<SpellsIteratorType>;
 
-private:
-/*0x2240*/ SoeUtil::Map<int, EQ_Spell>        m_spells;
-/*0x2258*/ SoeUtil::Map<int, SpellAffectData> m_spellAffects;    // 2460
-/*0x2270*/ SoeUtil::Map<int, EQ_SpellExtra>   m_spellExtraData;
-/*0x2288*/ HashTable<StackingGroupData>       m_stackingData;
-/*0x22a0*/
+	SpellsRangeType __getSpellRange()
+	{
+		return SpellsRangeType(SpellsIteratorType(m_spells.begin()), SpellsIteratorType(m_spells.end()));
+	}
+	__declspec(property(get = __getSpellRange)) SpellsRangeType Spells;
+
+public:
+/*0x2240*/ SpellsContainerType                m_spells;
+/*0x2278*/ SoeUtil::Map<int, SpellAffectData> m_spellAffects;
+/*0x2290*/ SoeUtil::Map<int, EQ_SpellExtra>   m_spellExtraData;
+/*0x22a8*/ HashTable<StackingGroupData>       m_stackingData;
+/*0x22c0*/
 };
 
 SIZE_CHECK(ClientSpellManager, ClientSpellManager_size);
