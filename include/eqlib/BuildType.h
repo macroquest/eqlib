@@ -29,11 +29,11 @@
 // Grab eqgame offset which is used for build identification
 #include "eqlib/offsets/eqgame.h"
 
-// Grab expansion list whic is used for feature checks
+// Grab expansion list which is used for feature checks
 #include "eqlib/game/Expansions.h"
 
 // Defines the expansion level of this build.
-#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_TOB
+#define MQ_EXPANSION_LEVEL EXPANSION_LEVEL_SOR
 
 
 //----------------------------------------------------------------------------
@@ -95,8 +95,7 @@
 // Ring of Scale expansion.
 #define HAS_FIND_ITEM_WINDOW IS_CLIENT_DATE(20170920)
 
-// GameFace integration (the new UI system) was first released on test as of march 21, 2023.
-// At this time, it is only found in the test client.
+// GameFace integration (the new UI system) was first released on test as of March 21, 2023.
 #define HAS_GAMEFACE_UI IS_CLIENT_DATE(20230321)
 
 // Hero Forge went live August 15, 2012
