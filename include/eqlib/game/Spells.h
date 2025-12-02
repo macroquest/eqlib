@@ -907,7 +907,7 @@ struct [[offsetcomments]] SpellAffectData
 using SPELLCALCINFO = SpellAffectData;
 using PSPELLCALCINFO = SPELLCALCINFO*;
 
-constexpr size_t EQ_Spell_size = 0x218; // @sizeof(EQ_Spell) :: 2025-11-30 (beta) @ 0x1401DE397
+constexpr size_t EQ_Spell_size = 0x218; // @sizeof(EQ_Spell) :: 2025-12-01 (beta) @ 0x1401DE287
 
 class [[offsetcomments]] EQ_Spell
 {
@@ -1321,7 +1321,7 @@ public:
 // Discrete type helps IDA by avoiding template params in type names
 class SpellHashTable : public SoeUtil::UnorderedMap<int, EQ_Spell> {};
 
-constexpr size_t ClientSpellManager_size = 0x22C0; // @sizeof(ClientSpellManager) :: 2025-11-30 (beta) @ 0x140272ED0
+constexpr size_t ClientSpellManager_size = 0x22C0; // @sizeof(ClientSpellManager) :: 2025-12-01 (beta) @ 0x140272A80
 
 class [[offsetcomments]] ClientSpellManager : public SpellManager
 {

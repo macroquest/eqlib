@@ -25,7 +25,7 @@ namespace eqlib {
 class PlayerClient;
 class CParticleCloudInterface;
 
-constexpr size_t EQGroundItem_size = 0xA0; // @sizeof(EQGroundItem) :: 2025-11-30 (beta) @ 0x1401FACA9
+constexpr size_t EQGroundItem_size = 0xA0; // @sizeof(EQGroundItem) :: 2025-12-01 (beta) @ 0x1401FAA2B
 
 class [[offsetcomments]] EQGroundItem
 {
