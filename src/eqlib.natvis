@@ -119,7 +119,7 @@
 				<Loop>
 					<Break Condition="iBucket == m_tableSize" />
 					<If Condition="m_table != nullptr &amp;&amp; m_table[iBucket] != nullptr">
-						<Item>*($T1*)(m_table[iBucket])</Item>
+						<Item>*m_table[iBucket]</Item>
 					</If>
 					<Exec>iBucket = iBucket + 1</Exec>
 				</Loop>

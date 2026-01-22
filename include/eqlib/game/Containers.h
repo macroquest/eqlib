@@ -60,7 +60,7 @@ public:
 	bool IsEmpty() const { return m_length == 0; }
 
 	[[nodiscard]] bool empty() const { return IsEmpty(); }
-	size_t size() const { return static_cast<size_t>(m_length);  }
+	size_t size() const { return static_cast<size_t>(m_length); }
 
 	__declspec(property(get = GetLength)) int Count;
 
@@ -653,32 +653,107 @@ struct ResizePolicyNoResize
 };
 
 template <typename T, typename Key = int, typename ResizePolicy = ResizePolicyNoResize>
+class HashTable;
+
+template <typename Key, typename Value>
+class HashTableNode
+{
+	template <typename T, typename K, typename R> friend class HashTable;
+
+public:
+	using key_type = Key;
+	using value_type = Value;
+
+	HashTableNode()
+		: m_key()
+		, m_value()
+	{
+	}
+
+	HashTableNode(const Key& key, const Value& value)
+		: m_key(key)
+		, m_value(value)
+	{
+	}
+
+	HashTableNode(const Key& key)
+		: m_key(key)
+		, m_value()
+	{
+	}
+
+	const Key& key() const { return m_key; }
+	Value& value() { return m_value; }
+	const Value& value() const { return m_value; }
+
+	template <std::size_t Index>
+	std::tuple_element_t<Index, HashTableNode>& get()
+	{
+		if constexpr (Index == 0) return m_key;
+		if constexpr (Index == 1) return m_value;
+	}
+
+	template <std::size_t Index>
+	const std::tuple_element_t<Index, HashTableNode>& get() const
+	{
+		if constexpr (Index == 0) return m_key;
+		if constexpr (Index == 1) return m_value;
+	}
+
+private:
+	Value m_value;
+	const Key m_key;
+};
+
+} // namespace eqlib
+
+
+// Structured binding support for HashTable node to enforce key-value ordering.
+namespace std
+{
+	template <typename T, typename Key>
+	struct tuple_size<eqlib::HashTableNode<Key, T>>
+	{
+		static constexpr size_t value = 2;
+	};
+
+	template <size_t Index, typename T, typename Key>
+	struct tuple_element<Index, eqlib::HashTableNode<Key, T>>
+		: tuple_element<Index, tuple<const Key, T>>
+	{
+	};
+}
+
+namespace eqlib {
+
+template <typename T, typename Key, typename ResizePolicy>
 class HashTable
 {
+	struct HashNode : HashTableNode<Key, T>
+	{
+		using Parent = HashTableNode<Key, T>;
+		using HashTableNode<Key, T>::HashTableNode;
+
+		HashNode* next = nullptr;
+
+		static const HashNode* GetEntry(const T* value)
+		{
+			return value ? (const HashNode*)((const uint8_t*)value - offsetof(Parent, m_value)) : nullptr;
+		}
+
+		static HashNode* GetEntry(T* value)
+		{
+			return value ? (HashNode*)((uint8_t*)value - offsetof(Parent, m_value)) : nullptr;
+		}
+	};
+
 public:
 	HashTable(int size = 100);
 	~HashTable();
 
-	template <typename T, typename Key>
-	struct HashTableEntry : std::pair<T, const Key>
-	{
-		using std::pair<T, const Key>::pair;
-
-		const Key& key() const { return this->second; }
-		T& value() { return this->first; }
-		const T& value() const { return this->first; }
-
-		static const HashTableEntry* GetEntry(const T* value) { return reinterpret_cast<const HashTableEntry*>(value); }
-		static HashTableEntry* GetEntry(T* value) { return reinterpret_cast<HashTableEntry*>(value); }
-
-		HashTableEntry* next = nullptr;
-	};
-	static_assert(sizeof(HashTableEntry<int, int>) == 8 + sizeof(uintptr_t));
-	using HashEntry = HashTableEntry<T, Key>;
-
 	void Insert(const Key& key, const T& obj);
 	T& Insert(const Key& key);
-	void Insert(HashEntry* entry);
+	void Insert(HashNode* entry);
 
 	// Value access
 	T* FindFirst(const Key& key) const;
@@ -687,16 +762,16 @@ public:
 	T* WalkFirst() const;
 	T* WalkNext(const T* previousResult) const;
 
-	// HashEntry access (useful for iterators)
-	HashEntry* FindFirstEntry(const Key& key) const;
-	HashEntry* FindNextEntry(HashEntry* previousResult) const;
+	// HashNode access (useful for iterators)
+	HashNode* FindFirstEntry(const Key& key) const;
+	HashNode* FindNextEntry(HashNode* previousResult) const;
 
-	HashEntry* WalkFirstEntry() const;
-	HashEntry* WalkNextEntry(HashEntry* previousResult) const;
+	HashNode* WalkFirstEntry() const;
+	HashNode* WalkNextEntry(HashNode* previousResult) const;
 
 	bool Remove(const Key& key);
 	bool Remove(const Key& key, const T& value);
-	bool Remove(const HashEntry* entry);
+	bool Remove(const HashNode* entry);
 
 	int GetTotalEntries() const { return m_entryCount; }
 	void GetStatistics(HashTableStatistics* stats) const;
@@ -734,15 +809,11 @@ private:
 		return HashValue<T>::get(key);
 	}
 
-
-	//template <>
-	//uint32_t hash_value<EqItemGuid>(const EqItemGuid& guid) { return GetStringCRC(guid.guid); }
-
 public:
 #pragma region STL Interface
 	using key_type = Key;
 	using mapped_type = T;
-	using value_type = std::pair<T, const Key>;
+	using value_type = HashTableNode<Key, T>;
 	using size_type = size_t;
 	using difference_type = std::ptrdiff_t;
 
@@ -765,7 +836,7 @@ public:
 		using reference = HashTable::reference;
 		using const_reference = HashTable::const_reference;
 
-		ConstIterator(const HashTable* container, HashEntry* entry)
+		ConstIterator(const HashTable* container, HashNode* entry)
 			: m_container(container)
 			, m_entry(entry) {}
 
@@ -791,7 +862,7 @@ public:
 
 	protected:
 		const HashTable* m_container;
-		HashEntry* m_entry;
+		HashNode* m_entry;
 	};
 
 	class Iterator : public ConstIterator
@@ -799,7 +870,7 @@ public:
 	public:
 		using iterator_category = std::forward_iterator_tag;
 
-		Iterator(HashTable* container, HashEntry* entry) : ConstIterator(container, entry) {}
+		Iterator(HashTable* container, HashNode* entry) : ConstIterator(container, entry) {}
 
 		[[nodiscard]] reference operator*() const
 		{
@@ -849,7 +920,7 @@ public:
 	template <class... Args>
 	iterator emplace(Args&&... args)
 	{
-		HashEntry* entry = eqNew<HashEntry>(std::forward<Args>(args)...);
+		HashNode* entry = eqNew<HashNode>(std::forward<Args>(args)...);
 
 		Insert(entry);
 
@@ -858,7 +929,7 @@ public:
 
 	iterator erase(const_iterator pos)
 	{
-		HashEntry* entry = pos.m_entry;
+		HashNode* entry = pos.m_entry;
 		iterator itr(this, entry->next);
 		Remove(entry);
 		return itr;
@@ -889,7 +960,7 @@ public:
 	size_type count(const key_type& key) const
 	{
 		size_type cnt = 0;
-		HashEntry* elem = FindFirstEntry(key);
+		HashNode* elem = FindFirstEntry(key);
 		while (elem) {
 			++cnt;
 			elem = FindNextEntry(elem);
@@ -909,12 +980,13 @@ public:
 #pragma endregion
 
 private:
-/*0x00*/ HashEntry** m_table = nullptr;
+/*0x00*/ HashNode** m_table = nullptr;
 /*0x08*/ int         m_tableSize = 0;
 /*0x0c*/ int         m_entryCount = 0;
 /*0x10*/ int         m_statUsedSlots = 0;
 /*0x14*/
 };
+
 
 template <typename T, typename Key, typename ResizePolicy>
 HashTable<T, Key, ResizePolicy>::HashTable(int size)
@@ -932,7 +1004,7 @@ HashTable<T, Key, ResizePolicy>::~HashTable()
 template <typename T, typename Key, typename ResizePolicy>
 void HashTable<T, Key, ResizePolicy>::Insert(const Key& key, const T& value)
 {
-	HashEntry* entry = eqNew<HashEntry>(value, key);
+	HashNode* entry = eqNew<HashNode>(key, value);
 
 	Insert(entry);
 }
@@ -940,8 +1012,7 @@ void HashTable<T, Key, ResizePolicy>::Insert(const Key& key, const T& value)
 template <typename T, typename Key, typename ResizePolicy>
 T& HashTable<T, Key, ResizePolicy>::Insert(const Key& key)
 {
-	HashEntry* entry = eqNew<HashEntry>();
-	*((Key*)&entry->second) = key;
+	HashNode* entry = eqNew<HashNode>(key);
 
 	Insert(entry);
 
@@ -949,7 +1020,7 @@ T& HashTable<T, Key, ResizePolicy>::Insert(const Key& key)
 }
 
 template <typename T, typename Key, typename ResizePolicy>
-void HashTable<T, Key, ResizePolicy>::Insert(HashTable<T, Key, ResizePolicy>::HashEntry* entry)
+void HashTable<T, Key, ResizePolicy>::Insert(HashTable<T, Key, ResizePolicy>::HashNode* entry)
 {
 	int slot = hash_value<Key>(entry->key()) % m_tableSize;
 	if (m_table[slot])
@@ -969,36 +1040,36 @@ void HashTable<T, Key, ResizePolicy>::Insert(HashTable<T, Key, ResizePolicy>::Ha
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::FindFirst(const Key& key) const
 {
-	HashEntry* entry = FindFirstEntry(key);
+	HashNode* entry = FindFirstEntry(key);
 	return entry ? &entry->value() : nullptr;
 }
 
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::FindNext(const T* previousResult) const
 {
-HashEntry* entry = FindNextEntry(HashEntry::GetEntry((T*)previousResult));
+HashNode* entry = FindNextEntry(HashNode::GetEntry((T*)previousResult));
 return entry ? &entry->value() : nullptr;
 }
 
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::WalkFirst() const
 {
-	HashEntry* entry = WalkFirstEntry();
+	HashNode* entry = WalkFirstEntry();
 	return entry ? &entry->value() : nullptr;
 }
 
 template <typename T, typename Key, typename ResizePolicy>
 T* HashTable<T, Key, ResizePolicy>::WalkNext(const T* previousResult) const
 {
-	HashEntry* entry = WalkNextEntry(HashEntry::GetEntry((T*)previousResult));
+	HashNode* entry = WalkNextEntry(HashNode::GetEntry((T*)previousResult));
 	return entry ? &entry->value() : nullptr;
 }
 
 template <typename T, typename Key, typename ResizePolicy>
-typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePolicy>::FindFirstEntry(const Key& key) const
+typename HashTable<T, Key, ResizePolicy>::HashNode* HashTable<T, Key, ResizePolicy>::FindFirstEntry(const Key& key) const
 {
 	int slot = hash_value<Key>(key) % m_tableSize;
-	HashEntry* entry = m_table[slot];
+	HashNode* entry = m_table[slot];
 	while (entry != nullptr)
 	{
 		if (entry->key() == key)
@@ -1011,11 +1082,11 @@ typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePol
 }
 
 template <typename T, typename Key, typename ResizePolicy>
-typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePolicy>::FindNextEntry(
-	typename HashTable<T, Key, ResizePolicy>::HashEntry* previousResult) const
+typename HashTable<T, Key, ResizePolicy>::HashNode* HashTable<T, Key, ResizePolicy>::FindNextEntry(
+	typename HashTable<T, Key, ResizePolicy>::HashNode* previousResult) const
 {
-	HashEntry* entry = previousResult;
-	HashEntry* nextEntry = entry->next;
+	HashNode* entry = previousResult;
+	HashNode* nextEntry = entry->next;
 	while (nextEntry != nullptr)
 	{
 		if (nextEntry->key() == entry->key())
@@ -1028,11 +1099,11 @@ typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePol
 }
 
 template <typename T, typename Key, typename ResizePolicy>
-typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePolicy>::WalkFirstEntry() const
+typename HashTable<T, Key, ResizePolicy>::HashNode* HashTable<T, Key, ResizePolicy>::WalkFirstEntry() const
 {
 	for (int i = 0; i < m_tableSize; ++i)
 	{
-		HashEntry* entry = m_table[i];
+		HashNode* entry = m_table[i];
 		if (entry)
 			return entry;
 	}
@@ -1041,10 +1112,10 @@ typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePol
 }
 
 template <typename T, typename Key, typename ResizePolicy>
-typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePolicy>::WalkNextEntry(
-	typename HashTable<T, Key, ResizePolicy>::HashEntry* previousResult) const
+typename HashTable<T, Key, ResizePolicy>::HashNode* HashTable<T, Key, ResizePolicy>::WalkNextEntry(
+	typename HashTable<T, Key, ResizePolicy>::HashNode* previousResult) const
 {
-	HashEntry* entry = previousResult;
+	HashNode* entry = previousResult;
 	int slot = hash_value<Key>(entry->key()) % m_tableSize;
 
 	// if there is a link just return it.
@@ -1055,7 +1126,7 @@ typename HashTable<T, Key, ResizePolicy>::HashEntry* HashTable<T, Key, ResizePol
 	// start looking in next bucket.
 	for (int i = slot + 1; i < m_tableSize; ++i)
 	{
-		HashEntry* entry = m_table[i];
+		HashNode* entry = m_table[i];
 		if (entry)
 			return entry;
 	}
@@ -1068,8 +1139,8 @@ bool HashTable<T, Key, ResizePolicy>::Remove(const Key& key)
 {
 	int slot = hash_value<Key>(key) % m_tableSize;
 
-	HashEntry* entry = m_table[slot];
-	HashEntry** link = &m_table[slot];
+	HashNode* entry = m_table[slot];
+	HashNode** link = &m_table[slot];
 
 	while (entry != nullptr)
 	{
@@ -1098,8 +1169,8 @@ bool HashTable<T, Key, ResizePolicy>::Remove(const Key& key, const T& value)
 {
 	int slot = hash_value<Key>(key) % m_tableSize;
 
-	HashEntry* entry = m_table[slot];
-	HashEntry** link = &m_table[slot];
+	HashNode* entry = m_table[slot];
+	HashNode** link = &m_table[slot];
 
 	while (entry != nullptr)
 	{
@@ -1124,7 +1195,7 @@ bool HashTable<T, Key, ResizePolicy>::Remove(const Key& key, const T& value)
 }
 
 template <typename T, typename Key, typename ResizePolicy>
-bool HashTable<T, Key, ResizePolicy>::Remove(const HashTable<T, Key, ResizePolicy>::HashEntry* entry)
+bool HashTable<T, Key, ResizePolicy>::Remove(const HashTable<T, Key, ResizePolicy>::HashNode* entry)
 {
 	return Remove(entry->key(), entry->value());
 }
@@ -1158,14 +1229,14 @@ inline int NextPrime(int value)
 template <typename T, typename Key, typename ResizePolicy>
 void HashTable<T, Key, ResizePolicy>::Resize(int hashSize)
 {
-	HashEntry** oldTable = m_table;
+	HashNode** oldTable = m_table;
 	int oldSize = m_tableSize;
 
 	m_tableSize = NextPrime(hashSize);
 	if (m_tableSize != oldSize)
 	{
-		m_table = eqVecNew<HashEntry*>(m_tableSize);
-		memset(m_table, 0, sizeof(HashEntry*) * m_tableSize);
+		m_table = eqVecNew<HashNode*>(m_tableSize);
+		memset(m_table, 0, sizeof(HashNode*) * m_tableSize);
 		m_statUsedSlots = 0;
 
 		// rehash items into new table
@@ -1173,10 +1244,10 @@ void HashTable<T, Key, ResizePolicy>::Resize(int hashSize)
 		{
 			for (int i = 0; i < oldSize; i++)
 			{
-				HashEntry* next = oldTable[i];
+				HashNode* next = oldTable[i];
 				while (next != nullptr)
 				{
-					HashEntry* entry = next;
+					HashNode* entry = next;
 					next = next->next;
 					entry->next = nullptr;
 
@@ -1194,14 +1265,14 @@ void HashTable<T, Key, ResizePolicy>::Reset()
 {
 	for (int slot = 0; slot < m_tableSize; ++slot)
 	{
-		HashEntry* entry = m_table[slot];
+		HashNode* entry = m_table[slot];
 		if (entry)
 		{
 			--m_statUsedSlots;
 			while (entry != nullptr)
 			{
 				--m_entryCount;
-				HashEntry* next = entry->next;
+				HashNode* next = entry->next;
 				eqDelete(entry);
 				entry = next;
 			}
@@ -2223,3 +2294,4 @@ public:
 //----------------------------------------------------------------------------
 
 } // namespace eqlib
+
