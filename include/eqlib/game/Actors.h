@@ -189,8 +189,8 @@ public:
 /*0x0b4*/ virtual CActor* AsActor() = 0;
 /*0x0b8*/ virtual const CActor* AsActor() const = 0;
 /*0x0bc*/ virtual bool HasNewStyleHierarchicalModel() const = 0;
-/*0x0c0*/ virtual int GetActorIndex() const = 0;
-///*0x0c4*/ virtual const char* GetTag() const = 0;
+///*0x0c0*/ virtual int GetActorIndex() const = 0;
+/*0x0c0*/ virtual const char* GetTag() const = 0;
 /*0x0c4*/ virtual const char* GetActorName() const = 0;
 /*0x0c8*/ virtual void SetCollisionSphereScaleFactor(float) = 0;
 /*0x0cc*/ virtual float GetCollisionSphereScaleFactor() const = 0;
@@ -298,6 +298,39 @@ public:
 /*0x250*/ virtual void LoadMaterials(uint32_t, const CVector3&, bool) = 0;
 };
 
+class CActorTree;
+class CActorDataBase;
+
+class CActorDataBaseNode
+{
+};
+
+class [[offsetcomments]] CActorDataBase
+{
+public:
+	virtual ~CActorDataBase();
+	virtual void InitVariables();
+	virtual const char* GetActorName();
+
+/*0x04*/ CMatrix44        m_position;
+/*0x24*/ CVector3         m_orientation;
+/*0x50*/ const char*      m_szTag;
+/*0x54*/ const char*      m_szActorName;
+/*0x58*/ int              m_pitchType;
+/*0x5c*/ uint32_t         m_flags;
+/*0x60*/ float            m_scaleFactor;
+/*0x64*/ float            m_boundingRadius;
+/*0x68*/ uint32_t         m_collisionRestrictionMask;
+/*0x6c*/ uint32_t         m_collisionGroup;
+
+/*0x70*/ CActorTree*      m_actorTree;
+/*0x74*/ TNodePool<CActorDataBase> m_actorTreeNode;
+/*0x78*/ ECollisionVolumeType m_collisionVolumeType;
+/*0x7c*/ float            m_collisionVolumeRadius;
+/*0x80*/ float            m_collisionScaleFactor;
+/*0x84*/ CActorInterface* m_actorInterface;
+};
+
 class [[offsetcomments]] CActor : public CActorInterface
 {
 public:
@@ -335,20 +368,9 @@ public:
 /*0x0d1*/ bool                   bDisableDesignOverride;
 
 // everything after this point is technically part of subclasses via CActorDataBase
-/*0x0d8*/ uint64_t               pad[2];
-/*0x0e8*/ CMatrix44              positionMtx;
-/*0x128*/ CVector3               orientation;
-/*0x134*/ int                    actorIndex;
-/*0x138*/ const char*            szActorTag;
-/*0x13c*/ const char*            szActorName;
-/*0x140*/ int                    pitchType;
-/*0x144*/ uint32_t               flags;
-/*0x148*/ float                  scaleFactor;
-/*0x14c*/ float                  boundingRadius;
-/*0x150*/ uint32_t               collisionRestrictionMask;
-/*0x154*/ int                    collisionGroup;
-/*0x158*/
-// additional stuff
+/*0x0d8*/ uint64_t               pad[1];
+
+/*0x0e0*/ CActorDataBase         actorData;
 };
 
 using EQSWITCH DEPRECATE("Use CActor instead of EQSWITCH") = CActor;

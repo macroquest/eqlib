@@ -150,6 +150,15 @@ class CDebugDrawInterface
 {
 public:
 	virtual ~CDebugDrawInterface() {}
+
+	virtual void SetCachingState(bool enable, void* state) = 0;
+	virtual void SetCachingOptions(void* options) = 0;
+	virtual const void* GetCachingOptions() const = 0;
+	virtual void UpdateCachedData(int type, void* data, uint32_t len) = 0;
+	virtual bool IsUsingCaching() const = 0;
+
+	virtual void TransformWorldToCamera(const CVector3& world, CVector3& camera) = 0;
+	virtual void DrawBox(const CAABox& aaBox, const CMatrix44& worldTransform, uint32_t color, uint32_t time) = 0;
 };
 
 class CCollisionInfoAABox;

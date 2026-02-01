@@ -102,7 +102,7 @@ public:
 		float, float, float, bool, bool, bool, bool, CActorInterface**, const CCollisionGroup&) = 0;
 	virtual EStatus CreateDuplicateActorInstance(CActorInterface*, CActorInterface**, bool) = 0;
 	virtual EStatus DestroyActor(CActorInterface*) = 0;
-	virtual CActorInterface* GetACtorInstance(const char*) = 0;
+	virtual CActorInterface* GetActorInstance(const char*) = 0;
 	virtual EStatus CreatePointLightInstance(CLightDefinitionInterface*, CVector3*, float, CLightInterface**) = 0;
 	virtual EStatus CreateDirectionalLightInstance(CLightDefinitionInterface*, CVector3*, CLightInterface**) = 0;
 	virtual EStatus CreateParticleCloudInstance(CParticleCloudDefinitionInterface*, CVector3*, CParticleCloudInterface**,
