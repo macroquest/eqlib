@@ -26,7 +26,7 @@ macro(target_eqlib_props TARGET_NAME)
     # ---------------------------------------------------------------------
     # PropertyGroup settings
     # ---------------------------------------------------------------------
-    set(eqlibClientTarget "Live")
+    set(eqlibClientTarget "Emu")
     
     if("${eqlibClientTarget}" STREQUAL "Live")
         set(eqlibClientDefine "LIVE")
