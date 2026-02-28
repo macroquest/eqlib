@@ -1134,25 +1134,41 @@ enum eDatabaseStringType
 	eSpellCategory = 5,
 	eSpellDescription = 6,
 	eItemLoreGroup = 7,
-
+	eRaceDescription = 8,
+	eClassDescription = 9,
+	eStatDescription = 10,
+	eRaceName = 11,
+	eRaceNamePlural = 12,
+	eClassnamePlural = 13,
+	eDeityText = 14,
+	eStartingCityDescription = 15,
+	eAugmentSlot = 16,
 	eAltCurrencyName = 17,
 	eAltCurrencyNamePlural = 18,
-
 	eAltAbilityCategory = 19,
 	eExpansionName = 20,
 	eMercenaryCategory = 21,
 	eMercenarySubCategory = 22,
 	eMercenarySubCategoryDescription = 23,
 	eMercenaryStanceName = 24,
-
+	eMercenaryStanceDescriptionLong = 25,
+	eMercenaryStanceDescriptionShort = 26,
 	eSpellLineName = 27,
 
+	// 29 does not exist
+	eCalendarEventName = 30,
+	eCalendarEventText = 31,
+
+	eZoneBonusDescription = 34,
+	// 35 does not exist
 	eMercenaryAbilityType = 36,
 	eMercenaryAbilityName = 37,
 	eMercenaryAbilityDescription = 38,
-
+	eSpellRestrictions = 39,
 	eSpellStackingGroup = 40,
 	eClaimFeatureDescription = 41,
+	eDecal = 42,
+	eClickDescription = 43,
 
 	eFactionName = 45,
 };
