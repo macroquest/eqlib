@@ -1140,7 +1140,7 @@ enum eDatabaseStringType
 	eRaceName = 11,
 	eRaceNamePlural = 12,
 	eClassnamePlural = 13,
-	eDeityText = 14,
+	eDeityDescription = 14,
 	eStartingCityDescription = 15,
 	eAugmentSlot = 16,
 	eAltCurrencyName = 17,
@@ -1154,10 +1154,10 @@ enum eDatabaseStringType
 	eMercenaryStanceDescriptionLong = 25,
 	eMercenaryStanceDescriptionShort = 26,
 	eSpellLineName = 27,
-
+	eContextMenu = 28,
 	// 29 does not exist
-	eCalendarEventName = 30,
-	eCalendarEventText = 31,
+	eAlertName = 30,
+	eAlertDescription = 31,
 
 	eZoneBonusDescription = 34,
 	// 35 does not exist
