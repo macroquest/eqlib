@@ -5895,9 +5895,9 @@ public:
 	PlayerBuffInfoWrapper GetBuffInfo(int buffIndex) const
 	{
 		if (buffIndex >= 0 && buffIndex < MAX_TOTAL_BUFFS)
-			return PlayerBuffInfoWrapper(buffIndex, PlayerBuffInfoWrapper::BuffWindow::Pet);
+			return PlayerBuffInfoWrapper(buffIndex, PlayerBuffInfoWrapper::BuffWindow::Target);
 
-		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Pet);
+		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Target);
 	}
 
 	PlayerBuffInfoWrapper GetBuffInfoBySpellID(int spellID) const
@@ -5905,10 +5905,10 @@ public:
 		for (int buffIndex = 0; buffIndex < MAX_TOTAL_BUFFS; ++buffIndex)
 		{
 			if (BuffSpellID[buffIndex] == spellID)
-				return PlayerBuffInfoWrapper(buffIndex, PlayerBuffInfoWrapper::BuffWindow::Pet);
+				return PlayerBuffInfoWrapper(buffIndex, PlayerBuffInfoWrapper::BuffWindow::Target);
 		}
 
-		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Pet);
+		return PlayerBuffInfoWrapper(-1, PlayerBuffInfoWrapper::BuffWindow::Target);
 	}
 
 	int GetTotalBuffCount() const
