@@ -1144,10 +1144,17 @@ enum eDatabaseStringType
 	eSpellCategory = 5,
 	eSpellDescription = 6,
 	eItemLoreGroup = 7,
-
+	eRaceDescription = 8,
+	eClassDescription = 9,
+	eStatDescription = 10,
+	eRaceName = 11,
+	eRaceNamePlural = 12,
+	eClassnamePlural = 13,
+	eDeityDescription = 14,
+	eStartingCityDescription = 15,
+	eAugmentSlot = 16,
 	eAltCurrencyName = 17,
 	eAltCurrencyNamePlural = 18,
-
 	eAltAbilityCategory = 19,
 	eExpansionName = 20,
 	eMercenaryCategory = 21,
@@ -1155,6 +1162,8 @@ enum eDatabaseStringType
 	eMercenarySubCategoryDescription = 23,
 	eMercenaryStanceName = 24,
 
+	eSocialShareText = 34,
+	eSocialShareTextLong = 35,
 	eMercenaryAbilityType = 36,
 	eMercenaryAbilityName = 37,
 	eMercenaryAbilityDescription = 38,
