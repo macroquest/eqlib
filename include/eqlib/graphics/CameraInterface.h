@@ -24,7 +24,6 @@ namespace eqlib {
 
 //============================================================================
 
-//----------------------------------------------------------------------------
 class CCamera;
 
 //----------------------------------------------------------------------------
@@ -67,5 +66,42 @@ public:
 	virtual void TransformWorldCoordinatesToCameraCoordinates(const CVector3&, CVector3&) const = 0;
 };
 
+//----------------------------------------------------------------------------
+
+class CCamera : public CCameraInterface
+{
+public:
+	float halfViewAngle;
+	float aspectRatio;
+	float nearClip;
+	float nearClipRangeConst;
+	float farClip;
+	float actorFarClip;
+	float actorFarClipSquared;
+	float shadowFarClip;
+	float shadowFarClipSquared;
+	float zoneObjectFarClip;
+	float zoneObjectFarClipSquared;
+	float left;
+	float top;
+	float halfRenderWidth;
+	float halfRenderHeight;
+	glm::vec3 worldToEyeCoef[3];
+	float cotangent;
+	float cotAspectRatio;
+	glm::vec3 worldToEyeXAxisCot;
+	glm::vec3 worldToEyeYAxisCotAspect;
+	glm::vec3 worldToImageXAxisCot;
+	glm::vec3 worldToImageYAxisCotAspect;
+	glm::vec3 normMultiplier;
+	glm::vec2 eyeInvMultiplier;
+	glm::vec3 orientation;
+	glm::vec3 position;
+	uint32_t renderWidth;
+	uint32_t renderHeight;
+	uint32_t associatedActor;
+};
+
 //============================================================================
+
 }

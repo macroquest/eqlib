@@ -297,6 +297,9 @@
     <ClInclude Include="include\eqlib\game\UITextures.h" />
     <ClInclude Include="include\eqlib\game\UITypes.h" />
     <ClInclude Include="include\eqlib\game\XMLData.h" />
+    <ClInclude Include="include\eqlib\graphics\Actors.h" />
+    <ClInclude Include="include\eqlib\graphics\Animation.h" />
+    <ClInclude Include="include\eqlib\graphics\Bones.h" />
     <ClInclude Include="include\eqlib\graphics\CameraInterface.h" />
     <ClInclude Include="include\eqlib\graphics\FastFileInterface.h" />
     <ClInclude Include="include\eqlib\graphics\GraphicsEngine.h" />

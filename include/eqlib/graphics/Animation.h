@@ -14,11 +14,17 @@
 
 #pragma once
 
-#include "eqlib/graphics/Actors.h"
-
 namespace eqlib {
 
-using EQSWITCH DEPRECATE("Use CActor instead of EQSWITCH") = CActor;
-using PEQSWITCH DEPRECATE("Use CActor* instead of PEQSWITCH") = CActor*;
+class CAnimationInterface;
 
-} // namespace eqlib
+enum EAnimationMode
+{
+	eAnimModeManual,
+	eAnimModeOnce,
+	eAnimModeBounce,
+	eAnimModeRepeat
+};
+
+} // namespace
+

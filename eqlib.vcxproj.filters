@@ -349,6 +349,15 @@
     <ClInclude Include="include\eqlib\game\PropertySet.h">
       <Filter>Header Files\eqlib\game</Filter>
     </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\Bones.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\Animation.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="include\eqlib\graphics\Actors.h">
+      <Filter>Header Files\eqlib\graphics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\pch.cpp">

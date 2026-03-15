@@ -171,6 +171,42 @@ class CLineSegment;
 class CRay;
 class CSphere;
 
+class CCollisionGroupMask
+{
+public:
+	uint32_t collisionGroupMask = 0xffffffff;
+};
+
+class CCollisionInfoBase
+{
+public:
+	CVector3 start;
+	CVector3 end;
+	CVector3 direction;
+	CVector3 normalized;
+	float lengthInverse;
+	float collisionTime;
+	CVector3 surfaceNormal;
+	CVector3 skitterDirection;
+	float skitterDist;
+	bool collided;
+	bool abortTesting;
+	CActorInterfaceBase* currentActor;
+	CXStr currentActorName;
+	bool transparentIgnored;
+	bool passableBlocking;
+	bool terrainCollisionsEnabled;
+	CCollisionGroupMask enabledCollisionGroups;
+	bool backfaceCollisionsIgnored;
+	uint32_t terrainFaceIndex;
+	uint32_t terrainVertexOffset;
+};
+
+class CCollisionInfoLineSegment : public CCollisionInfoBase
+{
+public:
+};
+
 class CCollisionInterface
 {
 public:
