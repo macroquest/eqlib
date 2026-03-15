@@ -18,6 +18,9 @@
 #include "eqlib/game/PlayerClient.h"
 #include "eqlib/graphics/GraphicsEngine.h"
 
+#include "glm/vec2.hpp"
+#include "glm/vec3.hpp"
+
 struct ID3DXBuffer;
 
 namespace eqlib {
