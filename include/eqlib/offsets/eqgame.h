@@ -19,8 +19,8 @@
 //
 
 #define __ClientDate                                               20260316u
-#define __ExpectedVersionDate                                     "UPDATE ME"  // Mar 16 2026
-#define __ExpectedVersionTime                                     "UPDATE ME"  // 09:51:23
+#define __ExpectedVersionDate                                     "Mar 16 2026"
+#define __ExpectedVersionTime                                     "09:51:23"
 #define __ActualVersionDate_x                                      0x140988148
 #define __ActualVersionTime_x                                      0x140988138
 #define __ActualVersionBuild_x                                     0x14091D300
