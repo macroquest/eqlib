@@ -604,11 +604,12 @@ public:
 		FORCE_SYMBOLS;
 
 	// Mar 16 2026 vtable ordering (reordered from Mar 3)
+	// Note: DrawNC and Draw swapped positions in this build
 	/*0x000*/ void* GetWndClassName;
 	/*0x008*/ void* Destructor;
-	/*0x010*/ void* DrawNC;
-	/*0x018*/ void* Draw;
-	/*0x020*/ void* Draw2;
+	/*0x010*/ void* DrawNC;                                    // was slot 3 in Mar 3
+	/*0x018*/ void* Draw;                                      // was slot 4 in Mar 3 (custom draw override)
+	/*0x020*/ void* Draw_Default;                              // default no-op, same impl as Draw
 	/*0x028*/ void* PostDraw;
 	/*0x030*/ void* DrawCursor;
 	/*0x038*/ void* DrawChildItem;
@@ -661,11 +662,11 @@ public:
 	/*0x1b0*/ void* OnBroughtToTop;
 	/*0x1b8*/ void* OnActivate;
 	/*0x1c0*/ void* Show;
-	/*0x1c8*/ void* AboutToShow2;
-	/*0x1d0*/ void* AboutToHide2;
+	/*0x1c8*/ void* AboutToShow_Delegate;                     // delegates via this+0x1e0
+	/*0x1d0*/ void* AboutToHide_Delegate;                     // delegates via this+0x1e0
 	/*0x1d8*/ void* RequestDockInfo;
 	/*0x1e0*/ void* GetTooltip;
-	/*0x1e8*/ void* ClickThroughMenuItemTriggered;
+	/*0x1e8*/ void* ClickThroughMenuItemTriggered;  // called from CContextMenuManagerBase::HandleWindowMenuCommands
 	/*0x1f0*/ void* SetLocked;
 	/*0x1f8*/ void* HitTest;
 	/*0x200*/ void* GetHitTestRect;
@@ -943,17 +944,17 @@ public:
 /*0x280*/ ArrayClass<CRadioGroup*>     RadioGroup;
 /*0x298*/ bool                         bInitVisibility;
 /*0x299*/ bool                         bVisibleBeforeResize;
-/*0x29C*/ int                          IniFlags;
-/*0x2A0*/ CXStr                        IniStorageName;
-/*0x2A8*/ int                          IniVersion;
-/*0x2AC*/ int                          LastResX;
-/*0x2B0*/ int                          LastResY;
-/*0x2B4*/ bool                         bLastResFullscreen;
-/*0x2B8*/ int                          ContextMenuID;
-/*0x2C0*/ CXWnd*                       pFirstVScrollChild;
-/*0x2C8*/ int                          ContextMenuTipID;
-/*0x2CC*/ bool                         bHasActivatedFirstTimeAlert;
-/*0x2D0*/
+/*0x29c*/ int                          IniFlags;
+/*0x2a0*/ CXStr                        IniStorageName;
+/*0x2a8*/ int                          IniVersion;
+/*0x2ac*/ int                          LastResX;
+/*0x2b0*/ int                          LastResY;
+/*0x2b4*/ bool                         bLastResFullscreen;
+/*0x2b8*/ int                          ContextMenuID;
+/*0x2c0*/ CXWnd*                       pFirstVScrollChild;
+/*0x2c8*/ int                          ContextMenuTipID;
+/*0x2cc*/ bool                         bHasActivatedFirstTimeAlert;
+/*0x2d0*/
 
 	//----------------------------------------------------------------------------
 	// functions that we provide offsets for
@@ -1231,7 +1232,7 @@ public:
 
 /*0x268*/ ControllerFactory DefaultControllerFactory;
 /*0x288*/ ControllerManager ControllerMgr;
-/*0x2B0*/
+/*0x2b0*/
 };
 
 SIZE_CHECK(CEQXWndManager, CEQXWndManager_size);
