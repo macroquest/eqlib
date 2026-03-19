@@ -774,7 +774,8 @@ public:
 /*0x254*/ int                BlinkState;
 /*0x258*/ bool               bFullyScreenClipped;
 /*0x25c*/ int                RightOffset;
-/*0x260*/
+/*0x260*/ uint8_t            UNKNOWN_0x260[8];
+/*0x268*/
 // @end: CXWnd Members
 };
 
