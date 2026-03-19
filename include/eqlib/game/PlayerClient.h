@@ -446,7 +446,7 @@ public:
 /*0x170*/ PlayerClient*     Vehicle;                      // NULL until you collide with a vehicle (boat,airship etc)
 /*0x178*/ PlayerClient*     Mount;                        // NULL if no mount present
 /*0x180*/ PlayerClient*     Rider;                        // the mount's rider
-/*0x188*/ unsigned int      MasterID;
+/*0x188*/ unsigned int      Unknown0x0164;
 /*0x18c*/ bool              Targetable;                   // true if mob is targetable
 /*0x18d*/ bool              bTargetCyclable;
 /*0x18e*/ bool              bClickThrough;
@@ -581,7 +581,7 @@ public:
 /*0x04b8*/ unsigned int             LastRefresh;
 /*0x04bc*/ int                      Unknown3;
 /*0x04c0*/ int                      RealEstateItemId;
-/*0x04c4*/ unsigned int             Unknown0x4c4;
+/*0x04c4*/ unsigned int             MasterID;
 /*0x04c8*/ int                      ManaMax;
 /*0x04cc*/ int                      Deity;
 /*0x04d0*/ bool                     PvPFlag;
