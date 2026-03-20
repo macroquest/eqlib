@@ -603,12 +603,12 @@ public:
 /*0x0574*/ float                    ViewHeight;
 /*0x0578*/ unsigned int             LastMealTime;
 /*0x057c*/ unsigned int             LastSecondaryUseTime;
-/*0x0580*/ uint8_t                  Unknown0x580[0x30];
+/*0x0580*/ uint8_t                  UnknownPadding0x0580[0x38];
 /*0x05b8*/ bool                     bTempPet;
 /*0x05b9*/ char                     DragNames[2][0x40];
-/*0x0639*/ uint8_t                  Unknown0x639[0x3];
+/*0x0639*/ uint8_t                  UnknownPadding0x0639[0x3];
 /*0x063c*/ int                      PrimaryTintIndex;
-/*0x0640*/ uint8_t                  Unknown0x640[0x14];
+/*0x0640*/ uint8_t                  UnknownPadding0x0640[0x14];
 
 // @end: PlayerZoneClient Members
 
