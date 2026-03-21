@@ -50,7 +50,7 @@ enum EPlace
 	CanPlaceAndGoto,
 };
 
-constexpr size_t zoneHeader_size = 0x2A4; // @sizeof(zoneHeader) :: 2026-03-03 (test) @ 0x140E93CD4
+constexpr size_t zoneHeader_size = 0x2A4; // @sizeof(zoneHeader) :: 2026-03-16 (test) @ 0x140E93CD4
 
 struct [[offsetcomments]] zoneHeader
 {
@@ -314,7 +314,7 @@ struct [[offsetcomments]] EQGameOptions
 
 
 // size of EverQuestinfo is the distance from this byte to the end of the struct
-constexpr size_t EverQuestinfo_size = 0x75278; // @sizeof(EverQuestinfo) :: 2026-03-03 (test) @ 0x140E93AE0
+constexpr size_t EverQuestinfo_size = 0x75278; // @sizeof(EverQuestinfo) :: 2026-03-16 (test) @ 0x140E93AE0
 
 struct [[offsetcomments]] EverQuestinfo
 {
@@ -460,34 +460,35 @@ struct [[offsetcomments]] EverQuestinfo
 /*0x00528*/ int               Heroic50Slots;
 /*0x0052c*/ int               Heroic85Slots;
 /*0x00530*/ int               Heroic100Slots;
-/*0x00534*/ bool              bAutoIdentify;
-/*0x00535*/ bool              bNameGen;
-/*0x00536*/ bool              bGibberish;
-/*0x00538*/ int               Locale;
-/*0x0053c*/ uint8_t           UpdateControlled;
-/*0x0053d*/ uint8_t           UpdateLocal;
-/*0x0053e*/ uint8_t           EnterZone;
-/*0x0053f*/ uint8_t           ExitGame;
-/*0x00540*/ int               EnterZoneReason;
-/*0x00544*/ bool              UseVoiceMacros;
-/*0x00548*/ float             StrafeRate;
-/*0x0054c*/ float             MoveDownSpeed;
-/*0x00550*/ char              Motd[1024];
-/*0x00950*/ EQZoneIndex       ZoneID;
-/*0x00954*/ bool              PrimaryAttackReady;
-/*0x00955*/ bool              SecondaryAttackReady;
-/*0x00958*/ uint32_t          AutosaveCounter;
-/*0x0095c*/ uint32_t          StartAFK;
-/*0x00960*/ uint8_t           MyVehicleFound;
-/*0x00961*/ uint8_t           ZoneFindingVehicle;
-/*0x00962*/ uint8_t           ForceSendVehicleUpdate;
-/*0x00964*/ ZONE_REQ_STATUS   GotSafeCoords;
-/*0x00968*/ int               ZoningTo;
-/*0x0096c*/ char              AFKMessage[256];
-/*0x00a6c*/ bool              bLogging;
-/*0x00a6d*/ char              LogFile[50];
-/*0x00aa0*/ uint16_t          LogInterval;
-/*0x00aa2*/ uint8_t           Controlled;
+/*0x00534*/ int               Heroic115Slots;
+/*0x00538*/ bool              bAutoIdentify;
+/*0x00539*/ bool              bNameGen;
+/*0x0053a*/ bool              bGibberish;
+/*0x0053c*/ int               Locale;
+/*0x00540*/ uint8_t           UpdateControlled;
+/*0x00541*/ uint8_t           UpdateLocal;
+/*0x00542*/ uint8_t           EnterZone;
+/*0x00543*/ uint8_t           ExitGame;
+/*0x00544*/ int               EnterZoneReason;
+/*0x00548*/ bool              UseVoiceMacros;
+/*0x0054c*/ float             StrafeRate;
+/*0x00550*/ float             MoveDownSpeed;
+/*0x00554*/ char              Motd[1024];
+/*0x00954*/ EQZoneIndex       ZoneID;
+/*0x00958*/ bool              PrimaryAttackReady;
+/*0x00959*/ bool              SecondaryAttackReady;
+/*0x0095c*/ uint32_t          AutosaveCounter;
+/*0x00960*/ uint32_t          StartAFK;
+/*0x00964*/ uint8_t           MyVehicleFound;
+/*0x00965*/ uint8_t           ZoneFindingVehicle;
+/*0x00966*/ uint8_t           ForceSendVehicleUpdate;
+/*0x00968*/ ZONE_REQ_STATUS   GotSafeCoords;
+/*0x0096c*/ int               ZoningTo;
+/*0x00970*/ char              AFKMessage[256];
+/*0x00a70*/ bool              bLogging;
+/*0x00a71*/ char              LogFile[50];
+/*0x00aa4*/ uint16_t          LogInterval;
+/*0x00aa6*/ uint8_t           Controlled;
 /*0x00aa8*/ uint64_t          ExpansionsFlagBitmask;                 // EQExpansionOwned
 /*0x00ab0*/ bool              NoNameApprove;
 /*0x00ab1*/ bool              AttackOnAssist;
@@ -715,7 +716,7 @@ public:
 };
 
 
-constexpr size_t CEverQuest_size = 0x19708; // @sizeof(CEverQuest) :: 2026-03-03 (test) @ 0x14034FAC3
+constexpr size_t CEverQuest_size = 0x19708; // @sizeof(CEverQuest) :: 2026-03-16 (test) @ 0x14034FFA3
 
 class [[offsetcomments]] CEverQuest : public CEverQuestBase, public UniversalChatProxyHandler, public PopDialogHandler
 {

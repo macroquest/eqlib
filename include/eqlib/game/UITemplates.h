@@ -308,6 +308,7 @@ public:
 /*0xa0*/ uint32_t                 uStyleBits = 0;
 /*0xa4*/ uint8_t                  bSizableMask = 0;
 /*0xa5*/ bool                     bEscapable = true;
+/*0xa6*/ bool                     bBorder = false;
 /*0xa8*/ CXStr                    strTooltip;
 /*0xb0*/ CXWndDrawTemplate*       pDrawTemplate = nullptr;
 /*0xb8*/ CXStr                    strController;

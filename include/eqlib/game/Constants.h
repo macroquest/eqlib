@@ -953,10 +953,12 @@ enum class ServerID : int {
 	Thornblade = 172,
 	Vaniki = 173,
 	Yelinak = 175,
+	Tormax = 176,
 	Oakwynd = 177,
+	Teek = 178,
 	Fangbreaker = 179,
 
-	NumServers = 26,
+	NumServers = 28,
 	Invalid = -1,
 };
 

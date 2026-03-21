@@ -803,7 +803,7 @@ public:
 	}
 };
 
-constexpr size_t ItemDefinition_size = 0x640; // @sizeof(ItemDefinition) :: 2026-03-03 (test) @ 0x140222BD4
+constexpr size_t ItemDefinition_size = 0x640; // @sizeof(ItemDefinition) :: 2026-03-16 (test) @ 0x140222F54
 
 class [[offsetcomments]] ItemDefinition
 {
