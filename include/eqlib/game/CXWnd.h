@@ -872,7 +872,7 @@ enum eIniFlags
 	eIniFlag_All                     = 0xffffffff
 };
 
-constexpr size_t CSidlScreenWnd_size = 0x2D0; // @sizeof(CSidlScreenWnd) :: 2026-03-03 (test) @ 0x1405F4931
+constexpr size_t CSidlScreenWnd_size = 0x2D0; // @sizeof(CSidlScreenWnd) :: 2026-03-16 (test) @ 0x1405F51E1
 constexpr size_t CSidlScreenWnd_vftable_size = 0x380;
 
 class [[offsetcomments]] CSidlScreenWnd : public CXWnd
@@ -1177,7 +1177,7 @@ public:
 // CEQXWndManager
 //============================================================================
 
-constexpr size_t CEQXWndManager_size = 0x2B0; // @sizeof(CEQXWndManager) :: 2026-03-03 (test) @ 0x14019F4C5
+constexpr size_t CEQXWndManager_size = 0x2B0; // @sizeof(CEQXWndManager) :: 2026-03-16 (test) @ 0x14019F595
 
 class [[offsetcomments]] CEQXWndManager : public CXWndManager
 {

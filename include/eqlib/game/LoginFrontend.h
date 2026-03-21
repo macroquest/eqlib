@@ -785,39 +785,39 @@ SIZE_CHECK2(CXWnd_vftable, CXWnd::VirtualFunctionTable, CXWnd_vftable_size);
 class CStmlWnd : public CXWnd
 {
 public:
-/*0x248*/ CXStr              STMLText;
+/*0x268*/ CXStr              STMLText;
 };
 
 class [[offsetcomments]] CEditBaseWnd : public CXWnd
 {
 public:
-/*0x250*/ eTextAlign   eAlign = eta_Left;
-/*0x254*/ int          StartPos = 0;
-/*0x258*/ int          EndPos = 0;
-/*0x25c*/ int          MaxChars = -1;
-/*0x260*/ int          MaxBytesUTF8 = -1;
-/*0x268*/ CXStr        InputText;
-/*0x270*/ int          TagPrintableStarts[EDITWND_MAX_TAGS];
-/*0x298*/ int          TagPrintableEnds[EDITWND_MAX_TAGS];
-/*0x2c0*/ int          TagOriginalStarts[EDITWND_MAX_TAGS];
-/*0x2e8*/ int          TagOriginalEnds[EDITWND_MAX_TAGS];
-/*0x310*/ int          TagDynamicSize[EDITWND_MAX_TAGS];
-/*0x338*/ int          TagCodes[EDITWND_MAX_TAGS];
-/*0x360*/ CXStr        TagStrings[EDITWND_MAX_TAGS];
-/*0x3b0*/ int          TagCount;
-/*0x3b4*/ uint32_t     EditStyle;
-/*0x3b8*/
+/*0x268*/ eTextAlign   eAlign = eta_Left;
+/*0x26c*/ int          StartPos = 0;
+/*0x270*/ int          EndPos = 0;
+/*0x274*/ int          MaxChars = -1;
+/*0x278*/ int          MaxBytesUTF8 = -1;
+/*0x280*/ CXStr        InputText;
+/*0x288*/ int          TagPrintableStarts[EDITWND_MAX_TAGS];
+/*0x2b0*/ int          TagPrintableEnds[EDITWND_MAX_TAGS];
+/*0x2d8*/ int          TagOriginalStarts[EDITWND_MAX_TAGS];
+/*0x300*/ int          TagOriginalEnds[EDITWND_MAX_TAGS];
+/*0x328*/ int          TagDynamicSize[EDITWND_MAX_TAGS];
+/*0x350*/ int          TagCodes[EDITWND_MAX_TAGS];
+/*0x378*/ CXStr        TagStrings[EDITWND_MAX_TAGS];
+/*0x3c8*/ int          TagCount;
+/*0x3cc*/ uint32_t     EditStyle;
+/*0x3d0*/
 };
 
 class [[offsetcomments]] CListWnd : public CXWnd
 {
 public:
-/*0x250*/ int                 Unknown0x1f0;
-/*0x258*/ ArrayClass<SListWndLine> ItemsArray;
-/*0x270*/ ArrayClass<SListWndColumn> Columns;
-/*0x288*/ int                 CurSel;
-/*0x28c*/ int                 CurCol;
-/*0x290*/
+/*0x268*/ int                 Unknown0x1f0;
+/*0x270*/ ArrayClass<SListWndLine> ItemsArray;
+/*0x288*/ ArrayClass<SListWndColumn> Columns;
+/*0x2a0*/ int                 CurSel;
+/*0x2a4*/ int                 CurCol;
+/*0x2a8*/
 	CXStr GetItemText(int row, int col)
 	{
 		if (row < 0 || row >= ItemsArray.Count)
