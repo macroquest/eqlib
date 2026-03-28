@@ -104,7 +104,15 @@ uintptr_t FixEQMainOffset(T nOffset)
 // FUNCTION_AT_ADDRESS macros
 //
 
-#if defined(_M_AMD64)
+#if defined(__clang__)
+
+#define FUNCTION_AT_ADDRESS(rettype, func, variable)
+#define FUNCTION_AT_VIRTUAL_ADDRESS(rettype, func, offset)
+#define FORWARD_FUNCTION_TO_VTABLE(rettype, function, Class, member)
+#define FORWARD_FUNCTION_TO_VTABLE2(a, b, c, d, e)
+#define FUNCTION_AT_VIRTUAL_TABLE_ADDRESS(rettype, function, address, offset)
+
+#elif defined(_M_AMD64)
 
 #define FUNCTION_AT_ADDRESS(rettype, func, variable)                                               \
 	FUNCTION_CHECKS_OFF()                                                                          \

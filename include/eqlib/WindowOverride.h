@@ -134,6 +134,9 @@ public:
 	virtual void UpdateLayout(bool finish = false) override;
 };
 
+#ifdef __clang__
+#define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature)
+#else
 #define IMPLEMENT_VTABLE_TRAMPOLINE(Orig, Class, RetType, Name, Signature) \
 	template <typename Target>                                             \
 	__declspec(naked) RetType Class<Target>::Name Signature {              \
@@ -142,6 +145,7 @@ public:
 		__asm mov eax, [TargetT::s_originalVTable]                         \
 		__asm jmp dword ptr [eax]VFT.Name                                  \
 	}
+#endif
 
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, bool, IsValid, () const);
 IMPLEMENT_VTABLE_TRAMPOLINE(CXWnd, CXWndTrampoline, int, DrawNC, () const);

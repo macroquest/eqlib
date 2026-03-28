@@ -20,11 +20,11 @@
 
 #include "game/CXStr.cpp"
 #include "game/CXWnd.cpp"
+#include "game/Display.cpp"
 #include "game/EQClasses.cpp"
 #include "game/EverQuest.cpp"
 #include "game/FunctionDefs.cpp"
 #include "game/Globals.cpp"
-#include "game/GraphicsEngine.cpp"
 #include "game/ItemLinks.cpp"
 #include "game/Items.cpp"
 #include "game/PcClient.cpp"
@@ -36,3 +36,4 @@
 #include "game/UITemplates.cpp"
 #include "game/UITextures.cpp"
 #include "game/XMLData.cpp"
+#include "graphics/GraphicsEngine.cpp"
