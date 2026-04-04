@@ -32,9 +32,34 @@ public:
 
 	virtual MemoryPatcher* GetMemoryPatcher() override;
 
+	void HandleProcessGameEvents();
+	void HandleSetGameState(int gameState);
+	void HandleLoginPulse();
+
+	void HandleCleanGameUI();
+	void HandleReloadUI(const ReloadUIParams& params);
+	void HandleCreateCharSelectUI();
+	void HandlePreZoneMainUI();
+	void HandleZoneMainUI();
+
+	bool HandleChatMessage(ChatMessageParams& params);
+	bool HandleTellWindowMessage(TellWindowMessageParams& params);
+
+	void HandleCreatePlayer(PlayerClient* player);
+	void HandleDestroyPlayer(PlayerClient* player);
+	void HandleCreateGroundItem(EQGroundItem* groundItem);
+	void HandleDestroyGroundItem(EQGroundItem* groundItem);
+
+	bool HandleWorldAuthenticationMessage(WorldMessageParams& params);
+	bool HandleIncomingWorldMessage(WorldMessageParams& params);
+	bool HandleOutgoingWorldMessage(WorldMessageParams& params);
+
+	void InitializeEQGame();
+	void ShutdownEQGame();
 	void InitializeEQMain(uintptr_t BaseAddress);
 	void ShutdownEQMain();
 	void InitializeEQGraphics(uintptr_t BaseAddress);
+	void ShutdownEQGraphics();
 
 private:
 	void InitializeLogging();
@@ -45,8 +70,19 @@ private:
 	std::unique_ptr<MemoryPatcherImpl> m_memoryPatcher;
 	EventInterface* m_eventReceiver = nullptr;
 
-	void* m_loaderNotificationCookie = nullptr;
+	bool m_enableMainHooks = true;
+	bool m_enableSpawnEvents = false;
+	bool m_enableChatFilter = false;
+	bool m_enableNetworkEvents = false;
+	int m_lastGameState = -1;
+	bool m_zoning = false;
+	bool m_eqGameHooked = false;
 	bool m_eqMainLoaded = false;
+	bool m_inLoginFrontend = false;
+	bool m_loginDetoursInstalled = false;
+	void* m_loaderNotificationCookie = nullptr;
+
+	std::vector<EQGroundItem*> m_pendingGroundItems;
 };
 
 } // namespace eqlib

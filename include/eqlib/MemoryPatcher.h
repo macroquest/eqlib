@@ -43,8 +43,9 @@ namespace eqlib {
  *
  * Note: The choice of name for the trampoline is stylistic only.
  */
+#if !defined COMMENT_UPDATER
 #define DETOUR_TRAMPOLINE_DEF(ret, name, argtypes)                              \
-	ret name##_Placeholder##argtypes;                                           \
+	ret name##_Placeholder argtypes;                                            \
 	using name##_Type = decltype(&name##_Placeholder);                          \
 	inline static decltype(&name##_Placeholder) name##_Ptr = nullptr;           \
 	template <typename... Args>                                                 \
@@ -54,6 +55,9 @@ namespace eqlib {
 		else                                                                    \
 			return (name##_Ptr)(std::forward<Args>(args)...);                   \
 	}
+#else
+#define DETOUR_TRAMPOLINE_DEF(ret, name, argtypes)
+#endif
 
 
 /**

@@ -40,6 +40,8 @@ enum class ConfigFlags
 	EnableChatEvents              = 1 << 1, /** Enable chat events in the EventInterface */
 	EnableNetworkEvents           = 1 << 2, /** Enable network events in the EventInterface */
 
+	NoMainHooks                   = 1 << 10, /** Disable the main set of hooks for control flow */
+
 	EnableAllEvents = EnableSpawnEvents | EnableChatEvents | EnableNetworkEvents,
 };
 constexpr bool has_bitwise_operations(ConfigFlags) { return true; }

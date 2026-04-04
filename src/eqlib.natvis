@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+	<Type Name="eqlib::CXStr">
+		<DisplayString Condition="m_data == 0 || (*m_data).length == 0">empty</DisplayString>
+		<DisplayString Condition="m_data != 0 &amp;&amp; (*m_data).encoding == 0">{(char*)(*m_data).utf8,s8}</DisplayString>
+		<DisplayString Condition="m_data != 0 &amp;&amp; (*m_data).encoding == 1">{(wchar_t*)(*m_data).unicode,su}</DisplayString>
+		<StringView Condition="m_data != 0 &amp;&amp; (*m_data).encoding == 0">(char*)(*m_data).utf8,s8</StringView>
+		<StringView Condition="m_data != 0 &amp;&amp; (*m_data).encoding == 1">(wchar_t*)(*m_data).unicode,su</StringView>
+		<Expand>
+			<Item Condition="m_data != 0" Name="[size]" ExcludeView="simple">(*m_data).length</Item>
+			<Item Condition="m_data != 0" Name="[capacity]" ExcludeView="simple">(*m_data).alloc</Item>
+			<Item Condition="m_data != 0" Name="[encoding]" ExcludeView="simple">(*m_data).encoding</Item>
+			<Item Condition="m_data != 0" Name="[refCount]" ExcludeView="simple">*(int*)&amp;(*m_data).refCount</Item>
+			<ArrayItems Condition="m_data != 0" >
+				<Size>(*m_data).length</Size>
+				<ValuePointer Condition="m_data != 0 &amp;&amp; (*m_data).encoding == 0">(char*)(*m_data).utf8</ValuePointer>
+				<ValuePointer Condition="m_data != 0 &amp;&amp; (*m_data).encoding == 1">(wchar_t*)(*m_data).unicode</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::CStrRep">
+		<DisplayString Condition="length == 0">empty</DisplayString>
+		<DisplayString Condition="encoding == 0">{(char*)utf8,s8}</DisplayString>
+		<DisplayString Condition="encoding == 1">{(wchar_t*)unicode,su}</DisplayString>
+		<StringView Condition="encoding == 0">(char*)utf8,s8</StringView>
+		<StringView Condition="encoding == 1">(wchar_t*)unicode,su</StringView>
+		<Expand>
+			<Item Name="[size]" Condition="(*(int*)&amp;refCount) != 0" ExcludeView="simple">length</Item>
+			<Item Name="[capacity]" ExcludeView="simple">alloc</Item>
+			<Item Name="[encoding]" Condition="(*(int*)&amp;refCount) != 0" ExcludeView="simple">encoding</Item>
+			<Item Name="[refCount]" ExcludeView="simple">*(int*)&amp;refCount</Item>
+			<ArrayItems Condition="(*(int*)&amp;refCount) != 0">
+				<Size>length</Size>
+				<ValuePointer Condition="encoding == 0">(char*)utf8</ValuePointer>
+				<ValuePointer Condition="encoding == 1">(wchar_t*)unicode</ValuePointer>
+			</ArrayItems>
+			<Item Name="[next]" Condition="(*(int*)&amp;refCount) == 0">next </Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::SoeUtil::IString&lt;*&gt;">
+		<DisplayString Condition="m_length == 0">empty</DisplayString>
+		<DisplayString Condition="m_length != 0">{m_data}</DisplayString>
+		<StringView Condition="m_length != 0">m_data</StringView>
+		<Expand>
+			<Item Name="[size]">m_length</Item>
+			<Item Name="[capacity]">m_space</Item>
+			<Item Name="[refCount]">*(int*)(((char*)m_data) - 4)</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::SoeUtil::SharedPtr&lt;*&gt;">
+		<DisplayString Condition="m_ptr == 0">empty</DisplayString>
+		<DisplayString Condition="m_ptr != 0">{*m_ptr,na}</DisplayString>
+		<Expand>
+			<Item Name="[ptr]" Condition="m_ptr != 0">*m_ptr</Item>
+			<Item Name="[rep]">m_rep</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::TSafeString&lt;*&gt;">
+		<DisplayString>{Data,s}</DisplayString>
+	</Type>
+
+	<Type Name="eqlib::ForeignPointer&lt;*&gt;">
+		<DisplayString Condition="m_ptr == 0">empty</DisplayString>
+		<DisplayString Condition="m_ptr != 0">{*m_ptr,na}</DisplayString>
+		<Expand>
+			<Item Name="[ptr]" Condition="m_ptr != 0">*m_ptr</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::ArrayClass&lt;*&gt;">
+		<DisplayString>{{size={m_length}}}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_length</Item>
+			<Item Name="[capacity]">m_alloc</Item>
+			<ArrayItems>
+				<Size>m_length</Size>
+				<ValuePointer>m_array</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::ArrayClass2&lt;*&gt;">
+		<DisplayString>{{size={m_length}}}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_length</Item>
+			<IndexListItems>
+				<Size>m_length</Size>
+				<ValueNode>m_array[($i &gt;&gt; m_binShift)][$i &amp; m_slotMask]</ValueNode>
+			</IndexListItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::SoeUtil::Array&lt;*&gt;">
+		<DisplayString>{{size={m_size}}}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_size</Item>
+			<Item Name="[capacity]">m_alloc</Item>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_array</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::CTextureAnimation">
+		<DisplayString>Texture Name={Name} Cell={CurCell}</DisplayString>
+	</Type>
+
+	<Type Name="eqlib::HashTable&lt;*&gt;">
+		<DisplayString>{{Size={m_entryCount}}}</DisplayString>
+		<Expand>
+			<CustomListItems MaxItemsPerView="100">
+				<Variable Name="iBucket" InitialValue="0" />
+				<Size>m_entryCount</Size>
+				<Loop>
+					<Break Condition="iBucket == m_tableSize" />
+					<If Condition="m_table != nullptr &amp;&amp; m_table[iBucket] != nullptr">
+						<Item>*m_table[iBucket]</Item>
+					</If>
+					<Exec>iBucket = iBucket + 1</Exec>
+				</Loop>
+			</CustomListItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::DoublyLinkedList&lt;*&gt;">
+		<DisplayString>{{Size={m_numObjects}}}</DisplayString>
+		<Expand>
+			<LinkedListItems>
+				<HeadPointer>m_pHead</HeadPointer>
+				<NextPointer>m_pNext</NextPointer>
+				<ValueNode>m_object</ValueNode>
+			</LinkedListItems>
+		</Expand>
+	</Type>
+
+	<!--<Type Name="eqlib::VePointer&lt;*&gt;">
+		<SmartPointer Usage="Minimal">m_pObject</SmartPointer>
+		<DisplayString Condition="m_pObject == 0">empty</DisplayString>
+	</Type>-->
+
+	<Type Name="eqlib::VeArray&lt;*&gt;">
+		<DisplayString>{{ size={m_size} }}</DisplayString>
+		<Expand>
+			<Item Name="[capacity]" ExcludeView="simple">m_capacity</Item>
+			<ArrayItems>
+				<Size>m_size</Size>
+				<ValuePointer>m_data</ValuePointer>
+			</ArrayItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::ItemIndex">
+		<DisplayString>[{m_slots[0]}, {m_slots[1]}, {m_slots[2]}]</DisplayString>
+	</Type>
+
+	<Type Name="eqlib::ItemClient">
+		<DisplayString Condition="SharedItemDef.m_ptr != 0">[Item #{ID,d} {SharedItemDef.m_ptr->Name,s}]</DisplayString>
+	</Type>
+
+	<!--
+	<Type Name="eqlib::WindowOverride&lt;*, *&gt;">
+		<DisplayString>{ WindowText }</DisplayString>
+		<Expand>
+			<Item Name="[obj]">($T2*)this,nd</Item>
+		</Expand>
+	</Type>-->
+
+	<!-- eqstd::map -->
+	<Type Name="eqstd::map&lt;*&gt;" ExcludeView="ShowElementsByIndex" Priority="MediumHigh">
+		<AlternativeType Name="std::multimap&lt;*&gt;" />
+		<DisplayString>{{ size={_Mypair._Myval2._Myval2._Mysize} }}</DisplayString>
+		<Expand>
+			<Item Name="[comparator]" ExcludeView="simple">_Mypair</Item>
+			<Item Name="[allocator]" ExcludeView="simple">_Mypair._Myval2</Item>
+			<TreeItems>
+				<Size>_Mypair._Myval2._Myval2._Mysize</Size>
+				<HeadPointer>_Mypair._Myval2._Myval2._Myhead-&gt;_Parent</HeadPointer>
+				<LeftPointer>_Left</LeftPointer>
+				<RightPointer>_Right</RightPointer>
+				<ValueNode Condition="_Isnil == 0" Name="[{_Myval.first}]">_Myval,view(MapHelper)</ValueNode>
+			</TreeItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::_Compressed_pair&lt;*,*,1&gt;">
+		<DisplayString>{*($T1 *)this}</DisplayString>
+		<Expand>
+			<ExpandedItem>*($T1 *)this</ExpandedItem>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::_Compressed_pair&lt;*,*,0&gt;">
+		<DisplayString>{_Myval1}</DisplayString>
+		<Expand>
+			<ExpandedItem>_Myval1</ExpandedItem>
+		</Expand>
+	</Type>
+
+	<!-- VC 2013 -->
+	<Type Name="eqstd::unique_ptr&lt;*&gt;" Priority="MediumLow">
+		<SmartPointer Usage="Minimal">_Myptr</SmartPointer>
+		<DisplayString Condition="_Myptr == 0">empty</DisplayString>
+		<DisplayString Condition="_Myptr != 0">unique_ptr {*_Myptr}</DisplayString>
+		<Expand>
+			<Item Condition="_Myptr != 0" Name="[ptr]">_Myptr</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::unique_ptr&lt;*&gt;">
+		<SmartPointer Usage="Minimal">_Mypair._Myval2</SmartPointer>
+		<DisplayString Condition="_Mypair._Myval2 == 0">empty</DisplayString>
+		<DisplayString Condition="_Mypair._Myval2 != 0">unique_ptr {*_Mypair._Myval2}</DisplayString>
+		<Expand>
+			<Item Condition="_Mypair._Myval2 != 0" Name="[ptr]">_Mypair._Myval2</Item>
+			<Item Condition="_Mypair._Myval2 != 0" Name="[deleter]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+
+	<Type Name="eqstd::_Ref_count&lt;*&gt;">
+		<DisplayString>default</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Ptr</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2013 -->
+	<Type Name="eqstd::_Ref_count_del&lt;*&gt;" Priority="MediumLow">
+		<DisplayString>custom deleter</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Ptr</Item>
+			<Item Name="[deleter]">_Dtor</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::_Ref_count_del&lt;*&gt;">
+		<DisplayString>custom deleter</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2013 -->
+	<Type Name="eqstd::_Ref_count_del_alloc&lt;*&gt;" Priority="MediumLow">
+		<DisplayString>custom deleter, custom allocator</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Ptr</Item>
+			<Item Name="[deleter]">_Dtor</Item>
+			<Item Name="[allocator]">_Myal</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::_Ref_count_del_alloc&lt;*&gt;">
+		<DisplayString>custom deleter, custom allocator</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+			<Item Name="[allocator]">_Mypair._Myval2</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::_Ref_count_obj&lt;*&gt;">
+		<DisplayString>make_shared</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">($T1 *) &amp;_Storage</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2013 -->
+	<Type Name="eqstd::_Ref_count_obj_alloc&lt;*&gt;" Priority="MediumLow">
+		<DisplayString>allocate_shared</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">($T1 *) &amp;_Storage</Item>
+			<Item Name="[allocator]">_Myal</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2015 -->
+	<Type Name="eqstd::_Ref_count_obj_alloc&lt;*&gt;">
+		<DisplayString>allocate_shared</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">($T1 *) &amp;_Mypair._Myval2</Item>
+			<Item Name="[allocator]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2017, second toolset update -->
+	<Type Name="eqstd::_Ref_count_resource&lt;*&gt;">
+		<DisplayString>custom deleter</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+		</Expand>
+	</Type>
+
+	<!-- VC 2017, second toolset update -->
+	<Type Name="eqstd::_Ref_count_resource_alloc&lt;*&gt;">
+		<DisplayString>custom deleter, custom allocator</DisplayString>
+		<Expand>
+			<Item Condition="_Uses != 0" Name="[original ptr]">_Mypair._Myval2._Myval2</Item>
+			<Item Name="[deleter]">_Mypair</Item>
+			<Item Name="[allocator]">_Mypair._Myval2</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::shared_ptr&lt;*&gt;">
+		<SmartPointer Usage="Minimal">_Ptr</SmartPointer>
+		<DisplayString Condition="_Rep == 0">empty</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr == 0">nullptr</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr != 0">{*_Ptr}</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks == 1)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks == 1)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">shared_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<Expand>
+			<Item Condition="_Rep != 0" Name="[ptr]">_Ptr</Item>
+			<Item Condition="_Rep != 0" Name="[control block]">*_Rep</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqstd::weak_ptr&lt;*&gt;">
+		<DisplayString Condition="_Rep == 0">empty</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr == 0">nullptr</DisplayString>
+		<DisplayString IncludeView="ptr" Condition="_Ptr != 0">{*_Ptr}</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 0)   &amp;&amp; (_Rep-&gt;_Weaks == 1)"  >expired [{_Rep-&gt;_Weaks} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 0)   &amp;&amp; (_Rep-&gt;_Weaks &gt; 1)">expired [{_Rep-&gt;_Weaks} weak refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses == 1)   &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong ref, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks == 2)"  >weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak ref] [{*_Rep}]</DisplayString>
+		<DisplayString Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 1) &amp;&amp; (_Rep-&gt;_Weaks &gt; 2)">weak_ptr {*this,view(ptr)} [{_Rep-&gt;_Uses} strong refs, {_Rep-&gt;_Weaks - 1} weak refs] [{*_Rep}]</DisplayString>
+		<Expand>
+			<Item Condition="(_Rep != 0) &amp;&amp; (_Rep-&gt;_Uses &gt; 0)" Name="[ptr]">_Ptr</Item>
+			<Item Condition="_Rep != 0" Name="[control block]">*_Rep</Item>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::CXWnd">
+		<Intrinsic Name="getSidlMgr" Expression="*eqlib!pSidlMgr.m_ptr" />
+		<Intrinsic Name="getParamManager" Expression="&amp;(getSidlMgr()->XMLDataMgr)" />
+		<Intrinsic Name="getXmlClassIndex" Expression="XMLIndex &gt;&gt; 16" />
+		<Intrinsic Name="getXmlItemIndex" Expression="XMLIndex &amp; 0xffff" />
+		<Intrinsic Name="getXmlData" Expression="getParamManager()->dataArray[getXmlClassIndex()].items[getXmlItemIndex()].m_xmlData" />
+		<DisplayString>{getXmlData()->sClassName,sb} {getXmlData()->sItemName}</DisplayString>
+		<!--<Expand>
+			<Item Name="XMLIndex">XMLIndex</Item>
+			<Item Name="Class Index">getXmlClassIndex()</Item>
+			<Item Name="Item Index">getXmlItemIndex()</Item>
+			<Item Name="test">getXmlData()</Item>
+		</Expand>-->
+	</Type>
+
+	<Type Name="eqlib::PlayerClient">
+		<DisplayString>[PlayerClient #{SpawnID,d}, {Name,s}]</DisplayString>
+	</Type>
+
+	<Type Name="eqlib::PlayerHashTable">
+		<DisplayString>{{Size={m_count}}}</DisplayString>
+		<Expand>
+			<LinkedListItems>
+				<HeadPointer>m_head</HeadPointer>
+				<NextPointer>m_prev</NextPointer>
+				<ValueNode>m_value</ValueNode>
+			</LinkedListItems>
+		</Expand>
+	</Type>
+
+	<Type Name="eqlib::EQ_Spell">
+		<DisplayString>[Spell: {Name,na}]</DisplayString>
+	</Type>
+
+	<Type Name="eqlib::SoeUtil::Map&lt;*,*,*&gt;">
+		<DisplayString>{{size={m_count}}}</DisplayString>
+		<Expand>
+			<Item Name="[size]">m_count</Item>
+			<TreeItems>
+				<Size>m_count</Size>
+				<HeadPointer>m_root</HeadPointer>
+				<LeftPointer>left</LeftPointer>
+				<RightPointer>right</RightPointer>
+				<ValueNode Name="[{key}]">value,view(MapHelper)</ValueNode>
+			</TreeItems>
+		</Expand>
+		
+	</Type>
+</AutoVisualizer>

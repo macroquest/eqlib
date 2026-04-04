@@ -2,11 +2,38 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
     <eqlibClientTarget>Live</eqlibClientTarget>
+
+    <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Live'">LIVE</eqlibClientDefine>
+    <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Test'">TEST</eqlibClientDefine>
+    <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Emu'">EMULATOR</eqlibClientDefine>
+    <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Beta'">BETA</eqlibClientDefine>
+    <eqlibClientDefine Condition="'$(eqlibClientTarget)' == ''"></eqlibClientDefine>
+
+    <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Live'">EQLIB_TARGET=\"Live\"</eqlibResourceDefine>
+    <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Test'">EQLIB_TARGET=\"Test\"</eqlibResourceDefine>
+    <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Emu'">EQLIB_TARGET=\"Emu\"</eqlibResourceDefine>
+    <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Beta'">EQLIB_TARGET=\"Beta\"</eqlibResourceDefine>
+    <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == ''">EQLIB_TARGET=\"Unknown\"</eqlibResourceDefine>
+
     <eqlibRoot>$(MSBuildThisFileDirectory)</eqlibRoot>
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <AdditionalIncludeDirectories>$(eqlibRoot)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <NASM>
+      <IncludePaths>$(eqlibRoot)include</IncludePaths>
+      <AdditionalDependencies>$(eqlibRoot)include\eqlib\AssemblyMacros.asm;%(AdditionalDependencies)</AdditionalDependencies>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <PreprocessorDefinitions Condition="'$(Platform)'=='x64'">ARCH_X64;$(eqlibClientDefine);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions Condition="'$(Platform)'=='Win32'">ARCH_X86;$(eqlibClientDefine);%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </NASM>
   </ItemDefinitionGroup>
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(eqlibRoot)tools\build_scripts\nasm\nasm.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(eqlibRoot)tools\build_scripts\nasm\nasm.props" />
+  </ImportGroup>
 </Project>
