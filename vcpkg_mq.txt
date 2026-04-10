@@ -2,3 +2,4 @@ fmt
 glm
 spdlog
 wil
+detours
