@@ -56,7 +56,7 @@ public:
 	virtual EStatus GetActorDefinition(const char* szTag, CActorDefinitionInterface** pActorDefinition) = 0;
 	virtual int ParseReadWorld(const char* szFile, SWadFile* wadFile, EMemoryPoolManagerType memoryPoolManagerType,
 		bool doItemAnims, bool luclinAnims) = 0;
-	virtual int ParseReaadWorldForNPC(const char* szFile, SWadFile* wadFile, EMemoryPoolManagerType memoryPoolManagerType,
+	virtual int ParseReadWorldForNPC(const char* szFile, SWadFile* wadFile, EMemoryPoolManagerType memoryPoolManagerType,
 		const char* szNPCCode) = 0;
 	virtual void WorldLoadOptimization(uint32_t flags) = 0;
 	virtual void PreGlobalLoad() = 0;
