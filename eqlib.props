@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup Label="UserMacros">
-    <eqlibClientTarget>Live</eqlibClientTarget>
+    <eqlibClientTarget>Emu-TOB</eqlibClientTarget>
 
     <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Live'">LIVE</eqlibClientDefine>
     <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Test'">TEST</eqlibClientDefine>
     <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Emu'">EMULATOR</eqlibClientDefine>
+    <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Emu-TOB'">EMULATOR</eqlibClientDefine>
+    <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Emu-RoF2'">EMULATOR</eqlibClientDefine>
     <eqlibClientDefine Condition="'$(eqlibClientTarget)' == 'Beta'">BETA</eqlibClientDefine>
     <eqlibClientDefine Condition="'$(eqlibClientTarget)' == ''"></eqlibClientDefine>
 
     <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Live'">EQLIB_TARGET=\"Live\"</eqlibResourceDefine>
     <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Test'">EQLIB_TARGET=\"Test\"</eqlibResourceDefine>
     <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Emu'">EQLIB_TARGET=\"Emu\"</eqlibResourceDefine>
+    <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Emu-TOB'">EQLIB_TARGET=\"Emu-TOB\"</eqlibResourceDefine>
+    <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Emu-RoF2'">EQLIB_TARGET=\"Emu-RoF2\"</eqlibResourceDefine>
     <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == 'Beta'">EQLIB_TARGET=\"Beta\"</eqlibResourceDefine>
     <eqlibResourceDefine Condition="'$(eqlibClientTarget)' == ''">EQLIB_TARGET=\"Unknown\"</eqlibResourceDefine>
 
