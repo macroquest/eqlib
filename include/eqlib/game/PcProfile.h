@@ -61,11 +61,11 @@ class [[offsetcomments]] ProfileList
 {
 public:
 /*0x00*/ eProfileListType ListType;
-/*0x08*/ PcProfile*       pFirst;
-/*0x10*/ PcProfile*       pLast;
-/*0x18*/ ProfileList*     pNext;
-/*0x20*/ ProfileList*     pPrev;
-/*0x28*/
+/*0x04*/ PcProfile*       pFirst;
+/*0x08*/ PcProfile*       pLast;
+/*0x0c*/ ProfileList*     pNext;
+/*0x10*/ ProfileList*     pPrev;
+/*0x14*/
 };
 
 // Manages the list of profiles. Primarily used for accessing the

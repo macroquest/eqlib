@@ -377,7 +377,7 @@ public:
 	virtual const char* GetActorName();
 
 /*0x04*/ CMatrix44        m_position;
-/*0x24*/ CVector3         m_orientation;
+/*0x44*/ CVector3         m_orientation;
 /*0x50*/ const char*      m_szTag;
 /*0x54*/ const char*      m_szActorName;
 /*0x58*/ int              m_pitchType;
@@ -389,10 +389,11 @@ public:
 
 /*0x70*/ CActorTree*      m_actorTree;
 /*0x74*/ TNodePool<CActorDataBase> m_actorTreeNode;
-/*0x78*/ ECollisionVolumeType m_collisionVolumeType;
-/*0x7c*/ float            m_collisionVolumeRadius;
-/*0x80*/ float            m_collisionScaleFactor;
-/*0x84*/ CActorInterface* m_actorInterface;
+/*0x88*/ ECollisionVolumeType m_collisionVolumeType;
+/*0x8c*/ float            m_collisionVolumeRadius;
+/*0x90*/ float            m_collisionScaleFactor;
+/*0x94*/ CActorInterface* m_actorInterface;
+/*0x98*/
 };
 
 class [[offsetcomments]] CActor : public CActorInterface
@@ -435,6 +436,7 @@ public:
 /*0x0d8*/ uint64_t               pad[1];
 
 /*0x0e0*/ CActorDataBase         actorData;
+/*0x178*/
 };
 
 //============================================================================

@@ -25,6 +25,8 @@
 #include "eqlib/game/Objects.h"
 #include "eqlib/game/UI.h"
 
+#include "eqlib/graphics/Render.h"
+
 #if defined(COMMENT_UPDATER)
 #include "eqlib/EQLib.h"
 #endif
@@ -1045,6 +1047,11 @@ void Shutdown(EQLibInterface* eqInterface)
 
 	delete s_eqlibInstance;
 	s_eqlibInstance = nullptr;
+}
+
+void CRender::Test()
+{
+	OutputDebugStringA("Test\n");
 }
 
 } // namespace eqlib

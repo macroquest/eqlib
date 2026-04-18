@@ -44,8 +44,8 @@ struct STextureSet;
 //----------------------------------------------------------------------------
 constexpr int NUM_BLEND_MATRICES = 8;
 constexpr int MAX_BUFFER_SET = 34;
-constexpr int MAX_EFFECTS = 148;
-constexpr int MAX_RENDER_EFFECTS = 217;
+constexpr int MAX_EFFECTS = 145;
+constexpr int MAX_RENDER_EFFECTS = 207;
 constexpr int MAX_VERTEX_DECLARATIONS = 20;
 constexpr int MAX_EFFECT_PASS_COUNT = 6;
 
@@ -392,7 +392,8 @@ public:
 class [[offsetcomments]] CRender : public CRenderInterface
 {
 public:
-/*0x0000*/ //vftable
+	EQLIB_OBJECT void Test();
+/*0x0000*/ virtual void RenderScene();
 /*0x0004*/ SDevice                   aDevices[16];
 /*0x0e84*/ int                       nDeviceCount;
 /*0x0e88*/ SDevice*                  pCurrentDevice;
@@ -431,61 +432,93 @@ public:
 /*0x0f10*/ D3DVIEWPORT9              D3DViewPort;
 /*0x0f28*/ D3DCAPS9                  D3DDeviceCaps;
 /*0x1058*/ float                     GammaLevel;
-/*0x105c*/ IDirect3DSwapChain9*      pD3DSwapChain;
-/*0x1060*/ bool                      bWindowedGamma;
-/*0x1061*/ bool                      bWindowedGammaEverToggled;
-/*0x1062*/ bool                      bLinearGammaContent;
-/*0x1064*/ ID3DXBuffer*              screenCapFileData;
-/*0x1070*/ __declspec(align(16)) CMatrix44 matrixIdentity;
-/*0x10b0*/ __declspec(align(16)) CMatrix44 aMatrixWorldCurrent[NUM_BLEND_MATRICES];
-/*0x12b0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverse[NUM_BLEND_MATRICES];
-/*0x14b0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverseTransposed[NUM_BLEND_MATRICES];
-/*0x16b0*/ CMatrix44*                apMatrixWorld[NUM_BLEND_MATRICES];
-/*0x16d0*/ CMatrix44                 matrixViewProj;
-/*0x1710*/ CMatrix44                 matrixView;
-/*0x1750*/ IDirect3DIndexBuffer9*    pIndexBufferLitData;
-/*0x1754*/ CBufferSet*               apBufferSets[MAX_BUFFER_SET];
-/*0x17dc*/ CEffect*                  apEffects[MAX_EFFECTS];
-/*0x1a2c*/ CRenderEffect*            apRenderEffects[MAX_RENDER_EFFECTS];
-/*0x1d90*/ IDirect3DVertexDeclaration9* apVertexDeclarations[MAX_VERTEX_DECLARATIONS];
-/*0x1de0*/ IDirect3DTexture9*        pAttenuationLookupTexture;
-/*0x1de4*/ IDirect3DTexture9*        pSpecularPower68LookupTexture;
-/*0x1de8*/ IDirect3DCubeTexture9*    pNormalizationLookupCubeTexture;
-/*0x1dec*/ TNodePool<CBatchNode>*    pBatchNodePool;
-/*0x1df0*/ TNodePool<CSubsetNode>*   pSubsetNodePool;
-/*0x1df4*/ TNodePool<CLitBatchNode>* pLitBatchNodePool;
-/*0x1df8*/ TNodePool<CTerrainBatchNode>* pTerrainBatchNodePool;
-/*0x1dfc*/ TList<CRenderNode>        renderNodeListSinglePass[MAX_EFFECT_PASS_COUNT];
-/*0x1e2c*/ TList<CRenderNode>        renderNodeListZPass[MAX_EFFECT_PASS_COUNT];
-/*0x1e5c*/ TList<CRenderNode>        renderNodeListTexturePass[MAX_EFFECT_PASS_COUNT];
-/*0x1e8c*/ TNodePool<CRenderNode>*   pRenderNodePool;
-/*0x1e90*/ TList<CLightNode>         activeLightList;
-/*0x1e98*/ TNodePool<CLightNode>*    pLightNodePool;
-/*0x1e9c*/ int                       renderedTextureCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x2c7c*/ int                       renderedTerrainBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x3a5c*/ int                       renderedTerrainBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x483c*/ int                       renderedBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x561c*/ int                       renderedBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x63fc*/ int                       renderedSubsetCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x71dc*/ int                       renderedSubsetTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
-/*0x7fbc*/ int                       nStatsType;
-/*0x7fc0*/ bool                      bShowItemPlacementStats;
-/*0x7fc1*/ SItemPlacementStatsDisplay itemPlacementStats;
-/*0x87dc*/ float                     fColorIntensityLookup[256];
-/*0x8bdc*/ float                     fLookup[2048];
-/*0xabdc*/ CVector3                  eyeOffset;
-/*0xabe8*/ uint32_t                  uRegionCount;
-/*0xabec*/ bool                      bFogEnabled;
-/*0xabf0*/ RGB                       rgbFogColor;
-/*0xabf4*/ float                     fFogStart;
-/*0xabf8*/ float                     fFogEnd;
-/*0xabfc*/ float                     fFogDensity;
-/*0xac00*/ RenderCallbackPtr         pfnRenderCallback;
-/*0xac04*/ bool                      bCensorship;
-/*0xac08*/ CMemoryPoolManager*       pLitTriangleMemoryPoolManager;
-/*0xac0c*/ CMemoryPoolManager*       pLitBatchMemoryPoolManager;
-/*0xac10*/ // ... much more
+///*0x105c*/ IDirect3DSwapChain9*      pD3DSwapChain;
+///*0x1060*/ bool                      bWindowedGamma;
+///*0x1061*/ bool                      bWindowedGammaEverToggled;
+///*0x1062*/ bool                      bLinearGammaContent;
+/*0x105c*/ ID3DXBuffer*              screenCapFileData;
+/*0x1060*/ __declspec(align(16)) CMatrix44 matrixIdentity;
+/*0x10a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldCurrent[NUM_BLEND_MATRICES];
+/*0x12a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverse[NUM_BLEND_MATRICES];
+/*0x14a0*/ __declspec(align(16)) CMatrix44 aMatrixWorldInverseTransposed[NUM_BLEND_MATRICES];
+/*0x16a0*/ CMatrix44*                apMatrixWorld[NUM_BLEND_MATRICES];
+/*0x16c0*/ CMatrix44                 matrixViewProj;
+/*0x1700*/ CMatrix44                 matrixView;
+/*0x1740*/ IDirect3DIndexBuffer9*    pIndexBufferLitData;
+/*0x1744*/ CBufferSet*               apBufferSets[MAX_BUFFER_SET];
+/*0x17cc*/ CEffect*                  apEffects[MAX_EFFECTS];
+/*0x1a10*/ CRenderEffect*            apRenderEffects[MAX_RENDER_EFFECTS];
+/*0x1d74*/ IDirect3DVertexDeclaration9* apVertexDeclarations[MAX_VERTEX_DECLARATIONS];
+/*0x1dc4*/ IDirect3DTexture9*        pAttenuationLookupTexture;
+/*0x1dc8*/ IDirect3DTexture9*        pSpecularPower68LookupTexture;
+/*0x1dcc*/ IDirect3DCubeTexture9*    pNormalizationLookupCubeTexture;
+/*0x1dd0*/ TNodePool<CBatchNode>*    pBatchNodePool;
+/*0x1dd4*/ TNodePool<CSubsetNode>*   pSubsetNodePool;
+/*0x1dd8*/ TNodePool<CLitBatchNode>* pLitBatchNodePool;
+/*0x1ddc*/ TNodePool<CTerrainBatchNode>* pTerrainBatchNodePool;
+/*0x1de0*/ TList<CRenderNode>        renderNodeListSinglePass[MAX_EFFECT_PASS_COUNT];
+/*0x1e10*/ TList<CRenderNode>        renderNodeListZPass[MAX_EFFECT_PASS_COUNT];
+/*0x1e40*/ TList<CRenderNode>        renderNodeListTexturePass[MAX_EFFECT_PASS_COUNT];
+/*0x1e70*/ TNodePool<CRenderNode>*   pRenderNodePool;
+/*0x1e74*/ TList<CLightNode>         activeLightList;
+/*0x1e7c*/ TNodePool<CLightNode>*    pLightNodePool;
+/*0x1e80*/ int                       renderedTextureCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x2c18*/ int                       renderedTerrainBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x39b0*/ int                       renderedTerrainBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x4748*/ int                       renderedBatchCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x54e0*/ int                       renderedBatchTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x6278*/ int                       renderedSubsetCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x7010*/ int                       renderedSubsetTriCount[MAX_EFFECT_PASS_COUNT][MAX_EFFECTS];
+/*0x7da8*/ int                       nStatsType;
+/*0x7dac*/ bool                      bShowItemPlacementStats;
+/*0x7dad*/ SItemPlacementStatsDisplay itemPlacementStats;
+/*0x85c8*/ float                     fColorIntensityLookup[256];
+/*0x89c8*/ float                     fLookup[2048];
+/*0xa9c8*/ CVector3                  eyeOffset;
+/*0xa9d4*/ uint32_t                  uRegionCount;
+/*0xa9d8*/ bool                      bFogEnabled;
+/*0xa9dc*/ RGB                       rgbFogColor;
+/*0xa9e0*/ float                     fFogStart;
+/*0xa9e4*/ float                     fFogEnd;
+/*0xa9e8*/ float                     fFogDensity;
+/*0xa9ec*/ RenderCallbackPtr         pfnRenderCallback;
+/*0xa9f0*/ bool                      bCensorship;
+/*0xa9f4*/ CMemoryPoolManager*       pLitTriangleMemoryPoolManager;
+/*0xa9f8*/ CMemoryPoolManager*       pLitBatchMemoryPoolManager;
+/*0xa9fc*/ // ... much more
 };
+
+//============================================================================
+// CEffect
+//============================================================================
+
+class CEffect
+{
+public:
+	CEffect(const char* filename, uint32_t index);
+	virtual ~CEffect();
+
+	virtual bool Init();
+	virtual bool Load();
+	virtual void GetHandles();
+	virtual void GetTechniques();
+	virtual void ReleaseDevice() const;
+	virtual void Reset() const;
+
+/*0x004*/ bool         bObjectIsValid;
+/*0x005*/ bool         bDisabled;
+/*0x006*/ bool         bFixedFunctio;
+/*0x007*/ bool         bTintWithTFactor;
+/*0x008*/ bool         bTintWithMaterial;
+/*0x009*/ bool         bMixedUsesSoftware;
+/*0x00a*/ bool         bUsesAttenuationTexture;
+/*0x00b*/ bool         bUsesSpecularPowerTexture;
+/*0x00c*/ bool         bUsesNormalizationCubeTexture;
+/*0x010*/ ID3DXEffect* pD3DXEffect;
+/*0x---*/ // more stuff...
+/*0x444*/
+};
+
 
 //============================================================================
 
