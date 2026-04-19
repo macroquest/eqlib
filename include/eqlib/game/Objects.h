@@ -134,7 +134,7 @@ public:
 	static EQObject* top;
 };
 
-constexpr size_t EQSwitch_size = 0x108; // @sizeof(EQSwitch) :: 2026-03-10 (live) @ 0x1401F6C10
+constexpr size_t EQSwitch_size = 0x0F8; // @sizeof(EQSwitch) :: 2025-09-11 (live) @ 0x1401ED52F
 
 class [[offsetcomments]] EQSwitch : public CActorApplicationData
 {
@@ -152,60 +152,59 @@ public:
 	EQLIB_OBJECT void PreInit();
 	EQLIB_OBJECT void RepopSwitch();
 	EQLIB_OBJECT void ResetSwitchState(unsigned char);
-	EQLIB_OBJECT void UseSwitch(UINT SpawnID, int KeyID, int PickSkill, const CVector3* hitloc = nullptr);
+	EQLIB_OBJECT void UseSwitch(UINT SpawnID, int KeyID, int PickSkill, const CVector3* hitloc = 0);
 
-/*0x008*/ uint32_t                 ID;
-/*0x00c*/ char                     Name[0x20];
-/*0x02c*/ uint8_t                  Type;
-/*0x02d*/ uint8_t                  State;                    // 0 = closed, 1 = open, 2 = opening, 3 = closing
-/*0x030*/ float                    DefaultY;
-/*0x034*/ float                    DefaultX;
-/*0x038*/ float                    DefaultZ;
-/*0x03c*/ float                    DefaultHeading;
-/*0x040*/ float                    DefaultDoorAngle;
-/*0x044*/ float                    TopSpeed1;
-/*0x048*/ float                    TopSpeed2;
-/*0x04c*/ float                    Y;
-/*0x050*/ float                    X;
-/*0x054*/ float                    Z;
-/*0x058*/ float                    Heading;
-/*0x05c*/ float                    DoorAngle;
-/*0x060*/ uint8_t                  DefaultState;
-/*0x061*/ uint8_t                  SelfActivated;
-/*0x062*/ uint8_t                  Dependent;
-/*0x063*/ bool                     bTemplate;
-/*0x064*/ uint8_t                  Difficulty;               // pick/disarm...
-/*0x065*/ uint8_t                  AffectSlots[5];
-/*0x06a*/ uint8_t                  CurrentCombination[5];
-/*0x06f*/ uint8_t                  ReqCombination[5];
-/*0x074*/ uint8_t                  RandomCombo;
-/*0x078*/ int                      Key;
-/*0x07c*/ SHORT                    ScaleFactor;              // divide by 100 to get scale multiplier
-/*0x080*/ int                      SpellID;
-/*0x084*/ BYTE                     TargetID[0xf];
-/*0x093*/ char                     Script[0x20];
-/*0x0b8*/ CActorInterface*         pActor;
-/*0x0c0*/ CParticleCloudInterface* particle;
-/*0x0c8*/ uint32_t                 TimeStamp;                // last time UseSwitch
-/*0x0cc*/ float                    Accel;
-/*0x0d0*/ uint8_t                  AlwaysActive;
-/*0x0d4*/ int                      AdventureDoorID;
-/*0x0d8*/ float                    ReturnY;
-/*0x0dc*/ float                    ReturnX;
-/*0x0e0*/ float                    ReturnZ;
-/*0x0e4*/ int                      DynDoorID;
-/*0x0e8*/ bool                     bHasScript;
-/*0x0ec*/ int                      SomeID;
-/*0x0f0*/ bool                     bUsable;
-/*0x0f1*/ bool                     bRemainOpen;
-/*0x0f2*/ bool                     bVisible;
-/*0x0f3*/ bool                     bHeadingChanged;
-/*0x0f4*/ bool                     bAllowCorpseDrag;
-/*0x0f8*/ int                      RealEstateDoorID;
-/*0x0fc*/ float                    unknownFloat1;
-/*0x100*/ float                    unknownFloat2;
-/*0x104*/ bool                     unknownBool1;
-/*0x108*/
+/*0x08*/ uint8_t                  ID;
+/*0x09*/ char                     Name[0x20];
+/*0x29*/ uint8_t                  Type;
+/*0x2a*/ uint8_t                  State;                    // 0 = closed, 1 = open, 2 = opening, 3 = closing
+/*0x2c*/ float                    DefaultY;
+/*0x30*/ float                    DefaultX;
+/*0x34*/ float                    DefaultZ;
+/*0x38*/ float                    DefaultHeading;
+/*0x3c*/ float                    DefaultDoorAngle;
+/*0x40*/ float                    TopSpeed1;
+/*0x44*/ float                    TopSpeed2;
+/*0x48*/ float                    Y;
+/*0x4c*/ float                    X;
+/*0x50*/ float                    Z;
+/*0x54*/ float                    Heading;
+/*0x58*/ float                    DoorAngle;
+/*0x5c*/ uint8_t                  DefaultState;
+/*0x5d*/ uint8_t                  SelfActivated;
+/*0x5e*/ uint8_t                  Dependent;
+/*0x5f*/ bool                     bTemplate;
+/*0x60*/ uint8_t                  Difficulty;               // pick/disarm...
+/*0x61*/ uint8_t                  AffectSlots[5];
+/*0x66*/ uint8_t                  CurrentCombination[5];
+/*0x6b*/ uint8_t                  ReqCombination[5];
+/*0x70*/ uint8_t                  RandomCombo;
+/*0x74*/ int                      Key;
+/*0x78*/ SHORT                    ScaleFactor;              // divide by 100 to get scale multiplier
+/*0x7c*/ int                      SpellID;
+/*0x80*/ uint8_t                  TargetID[0x5];
+/*0x85*/ char                     Script[0x20];
+/*0xa8*/ CActorInterface*         pActor;
+/*0xb0*/ CParticleCloudInterface* particle;
+/*0xb8*/ uint32_t                 TimeStamp;                // last time UseSwitch
+/*0xbc*/ float                    Accel;
+/*0xc0*/ uint8_t                  AlwaysActive;
+/*0xc4*/ int                      AdventureDoorID;
+/*0xc8*/ float                    ReturnY;
+/*0xcc*/ float                    ReturnX;
+/*0xd0*/ float                    ReturnZ;
+/*0xd4*/ int                      DynDoorID;
+/*0xd8*/ bool                     bHasScript;
+/*0xdc*/ int                      SomeID;
+/*0xe0*/ bool                     bUsable;
+/*0xe1*/ bool                     bRemainOpen;
+/*0xe2*/ bool                     bVisible;
+/*0xe3*/ bool                     bHeadingChanged;
+/*0xe4*/ bool                     bAllowCorpseDrag;
+/*0xe8*/ int                      RealEstateDoorID;
+/*0xec*/ float                    unknownFloat1;
+/*0xf0*/ float                    unknownFloat2;
+/*0xf4*/
 	ALT_MEMBER_GETTER_DEPRECATED(CActorInterface*, pActor, pSwitch, "Use pActor instead of pSwitch");
 };
 
