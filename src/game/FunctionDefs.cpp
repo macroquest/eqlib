@@ -204,7 +204,7 @@ FUNCTION_AT_ADDRESS(uint32_t, AltAdvManager::GetCalculatedTimer(PcClient*, CAltA
 FUNCTION_AT_ADDRESS(bool, AltAdvManager::CanTrainAbility(PcClient*, CAltAbilityData*, bool, bool, bool), AltAdvManager__CanTrainAbility);
 #endif
 #ifdef AltAdvManager__CanSeeAbility_x
-FUNCTION_AT_ADDRESS(bool, AltAdvManager::CanSeeAbility(PcClient*, CAltAbilityData*, bool), AltAdvManager__CanSeeAbility);
+FUNCTION_AT_ADDRESS(bool, AltAdvManager::CanSeeAbility(PcClient*, CAltAbilityData*), AltAdvManager__CanSeeAbility);
 #endif
 
 //----------------------------------------------------------------------------

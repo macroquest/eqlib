@@ -107,7 +107,7 @@ public:
 
 	EQLIB_OBJECT bool IsAbilityReady(PcClient*, CAltAbilityData*, int* Refresh/*out*/ = nullptr, int* Timer/*out*/ = nullptr);
 	EQLIB_OBJECT uint32_t GetCalculatedTimer(PcClient*, CAltAbilityData*);
-	EQLIB_OBJECT bool CanSeeAbility(PcClient*, CAltAbilityData*, bool = true);
+	EQLIB_OBJECT bool CanSeeAbility(PcClient*, CAltAbilityData*);
 	EQLIB_OBJECT bool CanTrainAbility(PcClient* pWho, CAltAbilityData* pAbility, bool = false, bool = false, bool = false);
 
 	EQLIB_OBJECT CAltAbilityData* GetOwnedAbilityFromGroupID(PcZoneClient* pc, int groupId);
