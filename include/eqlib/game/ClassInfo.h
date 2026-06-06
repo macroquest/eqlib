@@ -29,9 +29,9 @@ struct SClassInfo
 	bool ShamanType;
 	bool MercType;
 	char RaidColorOrder;
-	DEPRECATE("Use DisplayName (or GetClassDesc(classId) in-game) for the class long name; ClassInfo[].Name is a deprecated legacy alias")
+	DEPRECATE("Use GetClassDesc(classId) or LongName for the class long name. ClassInfo[].Name is a deprecated legacy alias. Be aware of the name change for Mage and Shadowknight in case functionality needs to adapt.")
 	const char* Name;
-	const char* DisplayName;
+	const char* LongName;
 	const char* ShortName;
 	const char* UCShortName;
 };
