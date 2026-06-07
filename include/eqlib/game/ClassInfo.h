@@ -41,7 +41,7 @@ inline namespace deprecated {
 	using PCLASSINFO DEPRECATE("Use SClassInfo instead of CLASSINFO") = SClassInfo*;
 }
 
-static const SClassInfo ClassInfo[] =
+inline constexpr SClassInfo ClassInfo[] =
 {
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 0,  "",             "",              "",    ""    }, // unk
 	{ 0, 0, 0, 0, 0, 0, 0, 0, 13, "Warrior",      "Warrior",       "war", "WAR" }, // war
