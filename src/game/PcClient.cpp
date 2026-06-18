@@ -351,9 +351,10 @@ ItemPtr PcZoneClient::GetItemByItemClass(int itemClass, ItemIndex* index)
 {
 	ItemIndex itemIndex = GetItemPossessions().FindItem(
 		[&](const ItemPtr& item, const ItemIndex& index) { return item->GetItemClass() == itemClass; });
-	if (itemIndex.IsValid() && index)
+	if (itemIndex.IsValid())
 	{
-		*index = itemIndex;
+		if (index)
+			*index = itemIndex;
 		return GetItemPossession(itemIndex);
 	}
 	return ItemPtr();
