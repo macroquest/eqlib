@@ -80,6 +80,7 @@
 // graphics components
 #include "eqlib/graphics/GraphicsEngine.h"
 #include "eqlib/graphics/GraphicsResources.h"
+#include "eqlib/graphics/ParticleSystemInterface.h"
 #include "eqlib/graphics/ResourceManagerInterface.h"
 #include "eqlib/graphics/Render.h"
 
