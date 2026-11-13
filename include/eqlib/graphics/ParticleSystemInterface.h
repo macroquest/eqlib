@@ -24,6 +24,7 @@ namespace eqlib {
 //----------------------------------------------------------------------------
 class CActorInterface;
 class CBoneInterface;
+class CEQBone;
 
 //----------------------------------------------------------------------------
 class CParticleSystemInterface
@@ -59,6 +60,11 @@ public:
 /*0x08*/ virtual CVector3& GetPositionOffset() = 0;     // the definition's Translation
 };
 
+// The graphics engine's particle point, behind CParticlePointInterface. Its fields aren't mapped yet.
+class CParticlePoint : public CParticlePointInterface
+{
+};
+
 //============================================================================
 // Emitter
 //============================================================================
@@ -91,8 +97,8 @@ public:
 /*0x38*/ CVector3                 Position;
 /*0x44*/ CMatrix33                Orientation;
 /*0x68*/ CActorInterface*         pActor;
-/*0x6c*/ CBoneInterface*          pBone;              // when set, the emitter follows it every frame (ahead of pActor)
-/*0x70*/ CParticlePointInterface* pAttachPoint;       // when set, the emitter follows it every frame
+/*0x6c*/ CEQBone*                 pAttachBone;        // the bone this emitter follows every frame (ahead of pActor)
+/*0x70*/ CParticlePoint*          pAttachPoint;       // the particle point this emitter follows every frame
 /*0x74*/ void*                    pParticles;         // 0x80-byte particle records
 /*0x78*/ void*                    pParticlesEnd;      // pParticles + MaxParticles records
 /*0x7c*/ uint8_t                  Unknown0x007c[0x9c - 0x7c];
